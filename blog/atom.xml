@@ -1,0 +1,44 @@
+---
+layout: null
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Reference Site Blog</title>
+  <subtitle>Your WMT Jekyll News.</subtitle>
+  <link href="http://reference.walmart.com/blog/atom.xml" rel="self" />
+  <link href="http://reference.walmart.com/" />
+  <!-- <id>urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</id> -->
+  <updated>2003-12-13T18:30:02Z</updated><!-- TBD insert liquid current date in that format -->
+
+
+{% for post in site.posts limit: 5%}
+<entry>
+  <title>{{ post.title }}</title>
+  <link href="{{ post.url }}" />
+  <!-- 
+  <link rel="alternate" type="text/html" href="http://example.org/2003/12/13/atom03.html"/>
+  <link rel="edit" href="http://example.org/2003/12/13/atom03/edit"/>
+  <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+  -->
+  <updated>{{ post.date }}</updated> <!-- TBD - format should be like 2003-12-13T18:30:02Z -->
+  <!-- 
+  <summary>Some text.</summary>
+  <content type="xhtml">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <p>This is the entry content.</p>
+    </div>
+  </content>
+  -->
+
+{% for author in post.authors %}{% assign current = site.authors[author] %}
+    <author>
+      <name>{{ current.name }}</name>
+      <url>{{ current.web }}</url>
+    </author>
+{% endfor %}
+
+</entry>
+{% endfor %}
+
+</feed>

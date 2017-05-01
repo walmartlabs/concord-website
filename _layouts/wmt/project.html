@@ -1,0 +1,26 @@
+---
+layout: wmt/default
+---
+<div class="row margin-bottom-50">
+  <div class="col-md-3">
+    <div class="margin-bottom-5">&nbsp;</div>
+    <div class="project-btn-container">
+      <div class="btn-group-vertical projects-menu" role="group" aria-label="...">
+        {% for project in site.projects %}
+        {% assign current = nil %}
+        {% if page.url contains project.url %}
+        {% assign current = 'active' %}
+        {% endif %}
+        <a href="{{ project.url }}" role="button" class="btn btn-projects {{current}}">{{project.title}}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div id="project-content">
+    <div class="col-md-9">
+      <h1>{{page.title}}</h1>
+      {{content}}
+    </div>
+  </div>
+</div>

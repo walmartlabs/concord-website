@@ -1,0 +1,80 @@
+# ----------------------------------------------------------------------------------------------------------------------
+# Site customization
+# ----------------------------------------------------------------------------------------------------------------------
+# Any variable here is referenced in layouts/pages as {{site.XXX}} so something like {{site.googleId}}
+# ----------------------------------------------------------------------------------------------------------------------
+
+id: walmart
+name: Concord
+domain: concord.walmart.com
+url: http://concord.walmart.com
+logo: /assets/img/logo.png
+description: "Concord is a workflow server."
+twitterId: #
+googleId: #
+source_url: https://gecgithub01.walmart.com/devtools/reference-site/tree/master/
+
+navigation:
+ - title: DOCS
+   url: /docs/getting-started/index.html
+   context: /docs/
+ - title: CONTACT US
+   url: /contact-us.html
+   context: /contact-us
+
+projects:
+ - title: Overview
+   url: /projects/index.html
+ - title: Project 1
+   url: /projects/project1.html
+ - title: Project 2
+   url: /projects/project2.html
+ - title: Project 3
+   url: /projects/project3.html
+
+
+defaults:
+  -   
+   scope:
+     type: pages
+   values:
+     permalink: /:path/:basename:output_ext
+  -   
+   scope:
+     type: posts
+   values:
+     permalink: /blog/:year-:month-:day-:title.html
+
+excerpt_separator: <!--more-->
+
+
+authors:
+  team:
+    name: The Team
+    web: /about
+  aloney:
+    name: Alison Loney
+    web: http://devtools.walmart.com/about-us.html#aloney
+  mmoser:
+    name: Manfred Moser
+    web: http://devtools.walmart.com/about-us.html#mmoser
+  jvanzyl:
+    name: Jason van Zyl
+    web: http://devtools.walmart.com/about-us.html#jvanzyl
+
+   
+# -------
+# Jekyll 
+# -------
+markdown: kramdown
+kramdown: 
+  input: GFM
+  syntax_highlighter: rouge
+  hard_wrap: false
+
+exclude: 
+  - "*.sh"
+  - "wmt-release*"
+
+
+

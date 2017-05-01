@@ -1,0 +1,42 @@
+      <div class="header">
+        <div class="navbar navbar-default" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/index.html">
+                <img id="logo-header" src="{{site.logo}}" alt="{{site.description}}" width="200" height="80" />
+              </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
+              <ul class="nav navbar-nav navbar-right">
+              {% for link in site.navigation %}
+                  {% assign current = nil %}
+                  {% if page.url contains link.context %}
+                      {% assign current = 'active' %}
+                  {% endif %}
+                  <li class="{{current}}">
+                      {% if link.subnavigation != null %}
+                      <a href="{{ link.url }}" id="{{ link.id }}" data-toggle="dropdown">{{ link.title }}</a>
+                      <ul class="dropdown-menu" aria-labelledby="{{ link.id }}">
+                      {% for sublink in link.subnavigation %}
+                        <li><a href="{{ sublink.url }}">{{ sublink.title }}</a></li>
+                      {% endfor %}
+                      </ul>
+                      {% else %}
+                      <a href="{{ link.url }}"">{{ link.title }}</a>
+                      {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div><!-- END header -->

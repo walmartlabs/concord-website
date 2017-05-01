@@ -1,0 +1,8 @@
+.settings
+.project
+.DS_Store
+_site
+linkcheck-results.log
+wmt-release-*
+.idea
+

@@ -1,0 +1,41 @@
+/* ------------------------------ CUSTOM PROJECT STYLES ------------------------------ */
+
+/* All custom styles must be placed in this css file or they will risk being overwritten by updates with the base wmt.css file. */
+
+/* ------------------------------ HOMEPAGE STYLES ------------------------------ */
+
+.homeBanner {
+    background: #007dc6;
+    margin-top: -20px;
+    margin-bottom: 50px;
+    padding: 0px; }
+
+/* ------------------------------ PRODUCT SEARCH STYLES ------------------------------ */
+
+#custom-search-input {
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+    margin-top: 10px; }
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none; }
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc; }
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc; }
+
+#custom-search-input .fa-search{
+    font-size: 23px; }

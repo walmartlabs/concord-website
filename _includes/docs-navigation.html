@@ -1,0 +1,17 @@
+  <!----- Docs Navigation ----->
+  <div class="col-md-3">
+  
+    <div class="docs-navigation">
+      <h2><a onclick="toggleMenu(this, '#getting-started');"><i class="fa fa-caret-down"></i> Getting Started</a></h2>
+      <ul id="getting-started" {% unless page.url contains '/docs/getting-started' %}class="hidden"{% endunless %}>
+        <li {% if page.url contains '/docs/getting-started/index' %}class="active"{% endif %}>
+          <a href="/docs/getting-started/index.html">Introduction</a></li>
+        <li {% if page.url contains '/docs/getting-started/configuration' %}class="active"{% endif %}>
+          <a href="/docs/getting-started/configuration.html">Configuration</a></li>
+        <li {% if page.url contains'/docs/getting-started/development' %}class="active"{% endif %}>
+          <a href="/docs/getting-started/development.html">Development</a></li>
+        <li {% if page.url contains'/docs/getting-started/extensions' %}class="active"{% endif %}>
+          <a href="/docs/getting-started/extensions.html">Extensions</a></li>
+      </ul>
+    </div>
+  </div><!-- END col-md-3 docs-navigation -->
