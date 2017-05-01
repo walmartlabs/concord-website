@@ -17,33 +17,29 @@ title:  Home
 <div class="row margin-bottom-50">
   <div class="col-md-4 col-sm-6">
     <div class="icons">
-    <a href="/about.html"><img src="/assets/wmt/img/icons/internal/icon-about.png" class="img-responsive center"/></a>
+    <a href=""><img src="/assets/img/icon-server.png" class="img-responsive center"/></a>
     <div class="headline">
-      <h2><a href="/about.html">About</a></h2>
+      <h2><a href="">Concord Server</a></h2>
     </div>
-    <p>This WMT Reference Site is the documentation and example site to roll your own slick Jekyll-powered web site supported by the 
-       <a href="http://devtools.walmart.com">devtools team</a>.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum pretium risus non dapibus.</p>
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
     <div class="icons">
-    <a href="/docs/getting-started/index.html"><img src="/assets/wmt/img/icons/internal/icon-gettingStarted.png" class="img-responsive center" /></a>
+    <a href=""><img src="/assets/img/icon-agent.png" class="img-responsive center" /></a>
     <div class="headline">
-      <h2><a href="/docs/getting-started/index.html">Getting Started</a></h2>
+      <h2><a href="">Concord Agent</a></h2>
     </div>
-    <p>You are ready to go? Great - refer to this section in order to get a new site up and running and learn more about 
-    expanding and maintaining it.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum pretium risus non dapibus.</p>
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
     <div class="icons">
-    <a href="/contact-us.html"><img src="/assets/wmt/img/icons/internal/icon-contact.png" class="img-responsive center"/></a>
+    <a href=""><img src="/assets/img/icon-console.png" class="img-responsive center"/></a>
     <div class="headline">
-      <h2><a href="/contact-us.html">Contact Us</a></h2>
+      <h2><a href="">Concord Console</a></h2>
     </div>
-    <p>Got stuck with something? Feel lost with an little chance? We are here to support and help you. Just contact us 
-    via your preferred method.
-    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum pretium risus non dapibus.</p>
     </div>
   </div>
 </div>
