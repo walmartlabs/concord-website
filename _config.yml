@@ -18,9 +18,6 @@ navigation:
  - title: DOCS
    url: /docs/getting-started/index.html
    context: /docs/
- - title: CONTACT US
-   url: /contact-us.html
-   context: /contact-us
 
 projects:
  - title: Overview
