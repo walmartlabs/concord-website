@@ -15,7 +15,10 @@ googleId: #
 source_url: https://gecgithub01.walmart.com/devtools/concord-website
 
 navigation:
- - title: DOCS
+ - title: ABOUT
+   url: /about.html
+   context: /about
+- title: DOCS
    url: /docs/getting-started/index.html
    context: /docs/
 
