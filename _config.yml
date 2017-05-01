@@ -18,7 +18,7 @@ navigation:
  - title: ABOUT
    url: /about.html
    context: /about
-- title: DOCS
+ - title: DOCS
    url: /docs/getting-started/index.html
    context: /docs/
 
