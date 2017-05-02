@@ -10,8 +10,6 @@ domain: concord.prod.walmart.com
 url: http://concord.prod.walmart.com
 logo: /assets/img/logo.png
 description: "Concord is a workflow server."
-twitterId: #
-googleId: #
 source_url: https://gecgithub01.walmart.com/devtools/concord-website
 
 navigation:
@@ -21,17 +19,6 @@ navigation:
  - title: DOCS
    url: /docs/getting-started/index.html
    context: /docs/
-
-projects:
- - title: Overview
-   url: /projects/index.html
- - title: Project 1
-   url: /projects/project1.html
- - title: Project 2
-   url: /projects/project2.html
- - title: Project 3
-   url: /projects/project3.html
-
 
 defaults:
   -   
@@ -52,15 +39,15 @@ authors:
   team:
     name: The Team
     web: /about
-  aloney:
-    name: Alison Loney
-    web: http://devtools.walmart.com/about-us.html#aloney
-  mmoser:
-    name: Manfred Moser
-    web: http://devtools.walmart.com/about-us.html#mmoser
+  ibodrov:
+    name: Ivan Bodrov
+    web: http://devtools.walmart.com/about-us.html#ibodrov
   jvanzyl:
     name: Jason van Zyl
     web: http://devtools.walmart.com/about-us.html#jvanzyl
+  mmoser:
+    name: Manfred Moser
+    web: http://devtools.walmart.com/about-us.html#mmoser
 
    
 # -------

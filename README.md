@@ -1,3 +1,4 @@
-# Concord Site
+# Concord Website
 
-This is the website for Concord. More info to come soon.
+This is the source code of the website for the workflow and integration server
+Concord.
