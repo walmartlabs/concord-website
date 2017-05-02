@@ -1,0 +1,7 @@
+{
+  "playbook": "playbook/hello.yml",
+  "extraVars": {
+    "greeting": "Hello, world"
+  }
+}
+
