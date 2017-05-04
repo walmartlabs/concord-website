@@ -1,10 +1,13 @@
+---
+layout: wmt/docs
+title:  Concord Docs
+---
+
 # Introduction
 
-Concord is a workflow server. It is the "glue" that connects different
-systems together using scenarios and plugins created by users.
+Concord is a workflow server. It is the "glue" that connects different systems together using scenarios and plugins created by users.
 
-Concord can be customized to execute any workflow, but here are a few
-specific examples of how Concord is used:
+Concord can be customized to execute any workflow, but here are a few specific examples of how Concord is used:
 
 * To provision infrastructure in a public or private cloud
 
@@ -14,17 +17,12 @@ specific examples of how Concord is used:
 
 Concord consists of three components:
 
-1. [Concord Server](#server) provides a REST API for managing
-   projects, templates and repositories. It receives and processes
-   user requests to call workflow scenarios.
+1. [Concord Server](#server) provides a REST API for managing projects, templates and repositories. It receives and processes user requests to call workflow scenarios.
 
-2. [Concord Agent](#agent) is a (remote) workflow executor. Receives
-   scenarios from the server and executes them in an isolated
-   environment.
+2. [Concord Agent](#agent) is a (remote) workflow executor. Receives scenarios from the server and executes them in an isolated environment.
 
-3. [Concord Console](#console) is a web UI for managing and monitoring
-   the server and its processes.
-   
+3. [Concord Console](#console) is a web UI for managing and monitoring the server and its processes.
+
 ### Concord Server
 
 The server provides several REST API endpoints for managing it's data,
