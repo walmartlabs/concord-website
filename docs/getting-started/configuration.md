@@ -1,3 +1,9 @@
+---
+layout: wmt/docs
+title:  Configuration
+---
+
+
 # Configuration
 
 Most of the configuration done via environment variables (e.g. passed with a `docker run` command).

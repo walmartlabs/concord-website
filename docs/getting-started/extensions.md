@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  Extensions
+---
+
 # Extending Concord
 
 Concord provides several extension points.

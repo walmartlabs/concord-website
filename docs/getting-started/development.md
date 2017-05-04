@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  Development
+---
+
 # Development
 
 ## Running from an IDE

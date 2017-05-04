@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  Quick Start
+---
+
 # Quick start
 
 The fastest way to get a Concord instance up and running is to use the
