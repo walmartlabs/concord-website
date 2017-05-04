@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  API Key
+---
+
 # API key
 
 ## Create a new API key

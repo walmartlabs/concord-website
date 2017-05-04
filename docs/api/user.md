@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  User
+---
+
 # User
 
 ## Create a new user or update an existing one

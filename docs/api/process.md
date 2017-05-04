@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  Process
+---
+
 # Process
 
 ## Starting a process

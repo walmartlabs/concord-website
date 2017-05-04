@@ -15,5 +15,26 @@
         <li {% if page.url contains'/docs/getting-started/quickstart' %}class="active"{% endif %}>
             <a href="/docs/getting-started/quickstart.html">Quickstart</a></li>
       </ul>
+      <h2><a onclick="toggleMenu(this, '#api');"><i class="fa fa-caret-down"></i> API</a></h2>
+      <ul id="api" {% unless page.url contains '/docs/api' %}class="hidden"{% endunless %}>
+          <li {% if page.url contains '/docs/api/project' %}class="active"{% endif %}>
+              <a href="/docs/api/project.html">Project</a></li>
+          <li {% if page.url contains '/docs/api/process' %}class="active"{% endif %}>
+              <a href="/docs/api/process.html">Process</a></li>
+          <li {% if page.url contains '/docs/api/user' %}class="active"{% endif %}>
+              <a href="/docs/api/user.html">User</a></li>
+          <li {% if page.url contains '/docs/api/role' %}class="active"{% endif %}>
+              <a href="/docs/api/role.html">Role</a></li>
+          <li {% if page.url contains '/docs/api/ldap' %}class="active"{% endif %}>
+              <a href="/docs/api/ldap.html">LDAP</a></li>
+          <li {% if page.url contains '/docs/api/secret' %}class="active"{% endif %}>
+              <a href="/docs/api/secret.html">Secret</a></li>
+          <li {% if page.url contains '/docs/api/template' %}class="active"{% endif %}>
+              <a href="/docs/api/template.html">Template</a></li>
+          <li {% if page.url contains '/docs/api/apikey' %}class="active"{% endif %}>
+              <a href="/docs/api/apikey.html">API Key</a></li>
+          <li {% if page.url contains '/docs/api/log' %}class="active"{% endif %}>
+              <a href="/docs/api/log.html">Log</a></li>
+       </ul>
     </div>
   </div><!-- END col-md-3 docs-navigation -->

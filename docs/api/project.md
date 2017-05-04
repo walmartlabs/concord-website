@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  Project
+---
+
 # Project
 
 ## Create a new project or update an existing one

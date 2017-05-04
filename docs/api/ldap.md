@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  LDAP
+---
+
 # LDAP group mapping
 
 ## Create a new mapping or update an existing one

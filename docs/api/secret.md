@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  Secret
+---
+
 # Secret
 
 ## Generate a new SSH key pair

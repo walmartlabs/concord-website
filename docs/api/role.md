@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  Role
+---
+
 # Role
 
 ## Create a new role or update an existing one
