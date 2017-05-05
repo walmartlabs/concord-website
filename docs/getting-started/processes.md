@@ -1,3 +1,9 @@
+---
+layout: wmt/docs
+title:  Processes
+---
+
+
 # Processes
 
 ## Payload format

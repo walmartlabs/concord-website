@@ -1,3 +1,9 @@
+---
+layout: wmt/docs
+title:  Process Templates
+---
+
+
 # Process templates
 
 Process templates are archives of configuration, process definitions,

@@ -1,3 +1,8 @@
+---
+layout: wmt/docs
+title:  YAML Support
+---
+
 # YAML support
 
 Concord supports YAML as one of the formats for defining processes.

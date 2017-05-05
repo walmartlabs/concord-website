@@ -1,3 +1,9 @@
+---
+layout: wmt/docs
+title:  PostgreSQL Support
+---
+
+
 # PostgreSQL Support
 
 ## Using the official docker images

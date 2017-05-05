@@ -1,3 +1,9 @@
+---
+layout: wmt/docs
+title:  Security and Permissions
+---
+
+
 # Security
 
 - [Managing credentials](#managing-credentials)
