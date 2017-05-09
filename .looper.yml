@@ -17,6 +17,10 @@ tools:
   npm:
     - 4.1.2
 
+triggers:
+  push: enabled
+  pr: enabled
+  
 flows:
    master:
      - ./publish.sh
