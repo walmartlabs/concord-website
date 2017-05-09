@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>Walmart DevTools Website</name>
+    <groupId>com.walmartlabs.strati.devtools</groupId>
+    <artifactId>concord-web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <repositories>
+      <repository>
+        <id>walmart-gec</id>
+        <url>http://gec-nexus.prod.glb.prod.walmart.com/nexus/content/repositories/labs_snapshots</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </repository>
+  </repositories>
+
+    <properties>
+      <!-- Release/Distribution related -->
+      <public.serverId>walmart-gec</public.serverId>
+      <public.nexusUrl>http://gec-nexus.prod.glb.prod.walmart.com/nexus</public.nexusUrl>
+
+      <public-release.serverId>${public.serverId}</public-release.serverId>
+      <public-release.url>${public.nexusUrl}/content/repositories/labs_releases</public-release.url>
+
+      <public-snapshot.serverId>${public.serverId}</public-snapshot.serverId>
+      <public-snapshot.url>${public.nexusUrl}/content/repositories/labs_snapshots</public-snapshot.url>
+    </properties>
+</project>
