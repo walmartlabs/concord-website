@@ -22,9 +22,8 @@ triggers:
   pr: enabled
   
 flows:
-   master:
+   default:
      - ./publish.sh
      - oneops.environmentVariableUpdate(platform = 'webserver', component = 'artifact', variables = { SITE_VERSION = '0.0.1-SNAPSHOT' })
      - oneops.environmentCommitAndDeploy(platform = 'webserver')
-   default:
-     - call: master
+
