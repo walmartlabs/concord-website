@@ -15,6 +15,9 @@ tools:
   npm:
     - 4.1.2
 
+triggers:
+  pr: disabled
+  
 flows:
    default:
      - ./publish.sh
