@@ -5,9 +5,11 @@ title:  Concord Docs
 
 # Introduction
 
-Concord is a workflow server. It is the "glue" that connects different systems together using scenarios and plugins created by users.
+Concord is a workflow server. It is the "glue" that connects different systems
+together using scenarios and plugins created by users.
 
-Concord can be customized to execute any workflow, but here are a few specific examples of how Concord is used:
+Concord can be customized to execute any workflow, but here are a few specific
+examples of how Concord is used:
 
 * To provision infrastructure in a public or private cloud
 
@@ -17,11 +19,15 @@ Concord can be customized to execute any workflow, but here are a few specific e
 
 Concord consists of three components:
 
-1. [Concord Server](#server) provides a REST API for managing projects, templates and repositories. It receives and processes user requests to call workflow scenarios.
+1. [Concord Server](#server) provides a REST API for managing projects,
+   templates and repositories. It receives and processes user requests to call
+   workflow scenarios.
 
-2. [Concord Agent](#agent) is a (remote) workflow executor. Receives scenarios from the server and executes them in an isolated environment.
+2. [Concord Agent](#agent) is a (remote) workflow executor. Receives scenarios
+   from the server and executes them in an isolated environment.
 
-3. [Concord Console](#console) is a web UI for managing and monitoring the server and its processes.
+3. [Concord Console](#console) is a web UI for managing and monitoring the
+   server and its processes.
 
 ### Concord Server
 
@@ -39,7 +45,7 @@ There are several ways to start a process:
 
 - send a complete, self-contained ZIP archive to the server. Its
 format is described in a
-[separate document](./processes.md#payload-format);
+[separate document](./processes.html#payload-format);
 - send a JSON request, containing only request parameters and a
 reference to a [project](#project) or a [template](#template);
 - same as **2**, but sending additional files with the request.
@@ -89,7 +95,7 @@ more processes, a collection of forms that can be used to configure
 processes, and an arbitrary collection of files that contain
 references to properties.
 
-[See also](./templates.md).
+[See also](./templates.html).
 
 *TBD*
 
@@ -104,7 +110,7 @@ An example of a process can be the provisioning of cloud
 infrastructure from a Boo template or the execution of an Ansible
 playbook.  A far simpler example of a process can be the execution of
 a simple logging task to print "Hello World" as shown in the [Concord
-Quickstart](quickstart.md).
+Quickstart](./quickstart.html).
 
 ### Credentials
 
@@ -115,7 +121,7 @@ resources.
 
 ## How it all works together
 
-![Overview](images/runtime-overview.png)
+![Overview](/images/runtime-overview.png)
 
 Here is the simplified version of how Concord and its processes work:
 
