@@ -17,7 +17,7 @@ navigation:
    url: /about.html
    context: /about
  - title: DOCS
-   url: /docs/getting-started/index.html
+   url: /docs/index.html
    context: /docs/
 
 defaults:
@@ -41,13 +41,13 @@ authors:
     web: /about
   ibodrov:
     name: Ivan Bodrov
-    web: http://devtools.walmart.com/about-us.html#ibodrov
+    web: http://sde.walmart.com/about-us.html#ibodrov
   jvanzyl:
     name: Jason van Zyl
-    web: http://devtools.walmart.com/about-us.html#jvanzyl
+    web: http://sde.walmart.com/about-us.html#jvanzyl
   mmoser:
     name: Manfred Moser
-    web: http://devtools.walmart.com/about-us.html#mmoser
+    web: http://sde.walmart.com/about-us.html#mmoser
 
    
 # -------
