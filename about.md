@@ -5,20 +5,16 @@ title:  About Us
 
 <img src="/assets/wmt/img/icons/internal/icon-about.png" width="150" height="150" align="right"/>
 
-# About the WMT Reference Site
+# About Concord
 
-This Walmart Technology WMT reference site is a template web site that can be used as a base to start your own project or
-team website. The content of the site serves as documentation for the usage of the WMT theme in your own Jekyll site.
+Concord is a workflow server. It is the _glue_ that connects
+different systems together using scenarios and plugins created by
+users.
 
-[Read our documentation](/docs/getting-started/index.html) to get started and learn more.
+Concord can be customized to execute any workflow, but here are a
+few specific examples of how Concord is used:
 
-The following sites are using the reference site template and can be used for inspiration:
+* To provision infrastructure in a public or private cloud
+* To execute Ansible playbooks and deploy applications
 
-* [DevTools](http://devtools.walmart.com)
-* [Looper](http://looper.walmart.com) - update pending
-* [Strati](http://strati.walmart.com)
-* [Sherpa](http://sherpa.walmart.com) - update pending
-* [OneOps](http://oneops.com) - update pending
-
-Feel free to [contact us with your questions and requests](/contact-us.html).
-
+Find out more details in the [Concord documentation](./docs/).
