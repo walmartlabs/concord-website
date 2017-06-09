@@ -50,7 +50,7 @@ Profiles can override default variables, flows and forms. For example, if the
 process above will be executed using `myProfile` profile, then the default
 value of `myForm.name` will be `world`.
 
-See also [the YAML format for describing flows and forms](./yaml.md).
+See also [the YAML format for describing flows and forms](./yaml.html).
 
 ## Request data
 
@@ -87,7 +87,7 @@ payload archive;
 - `dependencies` - array of URLs, list of external JAR dependencies;
 - `arguments` - a JSON object, will be used as process arguments.
 
-Values of `arguments` can contain [expressions](./yaml.md#expressions).
+Values of `arguments` can contain [expressions](./yaml.html#expressions).
 Expressions can use all regular "tasks" plus external `dependencies`:
 
 ```yaml
@@ -117,16 +117,16 @@ execution;
   - `initiator.groups` - list of user's groups;
   - `initiator.attributes` - other LDAP attributes.
 
-LDAP attributes must be whitelisted in [the configuration](./configuration.md#ldap).
+LDAP attributes must be whitelisted in [the configuration](./configuration.html#ldap).
 
 Availability of other variables and "beans" depends on installed
 Concord's plugins and arguments passed on a process' start.
 See also the document on
-[how to create custom tasks](./extensions.md#tasks).
+[how to create custom tasks](./extensions.html#tasks).
 
 
 ## Starting a new process instance
 
 *TBD*
 
-See also: the [process](./api/process.md) API endpoint.
+See also: the [process](../api/process.html) API endpoint.

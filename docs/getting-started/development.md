@@ -16,9 +16,9 @@ To use predefined project templates, the server must be started with `DEPS_STORE
 environment variable pointing to the `server/impl/target/deps` directory.
 
 To use LDAP authentication set `LDAP_CFG` environment variable pointing to a [LDAP
-configuration file](./configuration.md#ldap).
+configuration file](./configuration.html#ldap).
 
-To start the UI, please refer to the console's [readme file](../console/README.md).
+To start the UI, please refer to the console's readme file.
 
 ## Debugging
 

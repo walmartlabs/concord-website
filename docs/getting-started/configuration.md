@@ -71,7 +71,7 @@ exposeAttributes=mail,company
 Set `LDAP_CFG` enviroment variable to the path of the created file.
 
 The `exposeAttributes` property defines a list of LDAP attributes that will be
-[exposed to processes](./processes.md#provided-variables). Remove this property
+[exposed to processes](./processes.html#provided-variables). Remove this property
 to make all LDAP attributes available.
 
 ## Agent

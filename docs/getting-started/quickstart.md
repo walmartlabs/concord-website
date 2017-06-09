@@ -10,7 +10,7 @@ pre-built Docker images to run all three components of Concord: the
 Concord Agent, the Concord Server, and the Concord Console.
 
 After finishing these steps you can read the [Introduction to
-Concord](intro.md) to understand the basic concepts of Concord.
+Concord](./index.html) to understand the basic concepts of Concord.
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Concord](intro.md) to understand the basic concepts of Concord.
 
 ### Step 1. Create a LDAP configuration file
 
-  Use the example in [LDAP](./configuration.md#ldap) section of
+  Use the example in [LDAP](./configuration.html#ldap) section of
   Configuration document. You'll need the parameters suitable for
   your environment.
 
@@ -71,7 +71,7 @@ Concord](intro.md) to understand the basic concepts of Concord.
   
   This will start the server with an in-memory database and temporary
   storage for its working files. Please see the
-  [Configuration](./configuration.md) description to configure a more
+  [Configuration](./configuration.html) description to configure a more
   permanent storage.
   
 ### Step 3. Check the Concord Server Logs
@@ -116,7 +116,7 @@ Concord](intro.md) to understand the basic concepts of Concord.
       name: "world"
   ```
   
-  The format is described in [Project file](./processes.md#project-file)
+  The format is described in [Project file](./processes.html#project-file)
   document.
 
 ### Step 7. Start a New Concord Process

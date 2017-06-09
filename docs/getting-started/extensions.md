@@ -34,7 +34,7 @@ main:
 - expr: ${myTask.sayHello("world")}
 ```
 
-See also [the description of expressions](yaml/README.md#expressions).
+See also [the description of expressions](./yaml.html#expressions).
 
 If a task implements the `JavaDelegate` interface, it can be called using full form of a YAML "task":
 ```java

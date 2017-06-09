@@ -25,7 +25,7 @@ using the specified name.
       ]
     }
     ```
-    See also [the list of available permissions](../security.md#permissions).
+    See also [the list of available permissions](../getting-started/security.html#permissions).
 * **Success response**
     ```
     Content-Type: application/json

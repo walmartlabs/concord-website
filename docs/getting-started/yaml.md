@@ -96,7 +96,7 @@ the expression will be stored;
 - `error` block - to handle any exceptions thrown by the evaluation.
 Exceptions are wrapped in `BpmnError` type.
 
-See [the list of automatically provided variables](./processes.md#provided-variables).
+See [the list of automatically provided variables](./processes.html#provided-variables).
 
 Literal values (e.g. arguments or [form](#forms) field values) can
 contain expressions:
