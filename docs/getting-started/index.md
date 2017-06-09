@@ -1,21 +1,9 @@
 ---
 layout: wmt/docs
-title:  Introduction
+title:  Overview
 ---
 
-# Introduction
-
-Concord is a workflow server. It is the "glue" that connects
-different systems together using scenarios and plugins created by
-users.
-
-Concord can be customized to execute any workflow, but here are a
-few specific examples of how Concord is used:
-
-* To provision infrastructure in a public or private cloud
-* To execute Ansible playbooks and deploy applications
-
-## Overview
+# Overview
 
 Concord consists of three components:
 
@@ -30,7 +18,7 @@ environment.
 3. [Concord Console](#console) is a web UI for managing and
 monitoring the server and its processes.
 
-### Concord Server
+## Concord Server
 
 The server provides several REST API endpoints for managing it's
 data, they are described in a [separate document](./api).
@@ -56,14 +44,14 @@ itself.
 
 *TBD*
 
-### Concord Agent
+## Concord Agent
 
 The agent is a standalone Java application that receives and executes
 a [payload](#payload) sent by the server.
 
 *TBD*
 
-### Concord Console 
+## Concord Console 
 
 The console is a web application for managing and monitoring the
 server.
