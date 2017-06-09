@@ -1,7 +1,8 @@
 ---
 layout: wmt/docs
-title:  YAML Support
+title:  Configuration
 ---
+
 
 # YAML support
 
@@ -18,12 +19,12 @@ main:
     out:
       result: operationResult
     error:
-      - log: email sending error
+      - log: "email sending error"
   - if: ${result.ok}                              # (2)
     then:
       - reportSuccess                             # (3)
     else:
-      - log: failure :-(
+      - log: "failure :-( ${lastError.message}"
     
 reportSuccess:
   - ${dbBean.updateStatus(result.id, "SUCCESS")}; # (4)
@@ -62,11 +63,7 @@ An entry point must be followed by one or more execution steps.
 #### Expressions
 
 Expressions are used to invoke some 3rd-party code. All expressions
-must be valid
-[JUEL](https://en.wikipedia.org/wiki/Unified_Expression_Language)
-(JSR 245) expressions. Currently,
-[de.odysseus.juel/juel-impl](https://github.com/beckchr/juel/) is used
-as an implementation.
+must be valid [EL 3.0](https://github.com/javaee/el-spec).
 
 Short form:
 ```yaml
@@ -79,9 +76,10 @@ main:
   
   # literal values
   - ${1 + 2}
+  
+  # EL 3.0 extensions:
+  - ${[1, 2, 3].stream().map(x -> x + 1).toList()}
 ```
-
-Short form is simply a JUEL expression.
 
 Full form:
 ```yaml
@@ -92,11 +90,11 @@ main:
       - ${log.error("something bad happened")}
 ```
 
-Full form optionally contains additional declarations:
+Full form can optionally contain additional declarations:
 - `out` field - contains the name of a variable, in which a result of
 the expression will be stored;
-- `error` block - to handle any `BPMNError` exceptions thrown by the
-evaluation.
+- `error` block - to handle any exceptions thrown by the evaluation.
+Exceptions are wrapped in `BpmnError` type.
 
 See [the list of automatically provided variables](./processes.md#provided-variables).
 
@@ -234,6 +232,14 @@ main:
       execution.setVariable("output", doSomething(x));
 ```
 
+External scripts can also be used:
+```yaml
+main:
+  - script: my_scripts/test.js
+```
+
+Path to a script must be relative to the root directory of a workspace.
+
 See [the expressions](#expressions) section for the list of provided
 global variables.
 
@@ -368,13 +374,14 @@ taskFull := FIELD_NAME "task" VALUE_STRING taskOptions
 taskShort := FIELD_NAME literal
 ifExpr := FIELD_NAME "if" expression FIELD_NAME "then" steps (FIELD_NAME "else" steps)?
 returnExpr := VALUE_STRING "return"
+returnErrorExpr := FIELD_NAME "return" VALUE_STRING
 group := FIELD_NAME ":" steps groupOptions
 callProc := VALUE_STRING
-inlineScript := FIELD_NAME "script" VALUE_STRING FIELD_NAME "body" VALUE_STRING
+script := FIELD_NAME "script" VALUE_STRING (FIELD_NAME "body" VALUE_STRING)?
 formCall := FIELD_NAME "form" VALUE_STRING formCallOptions
 
 stepObject := START_OBJECT group | ifExpr | exprFull | formCall | taskFull | inlineScript | taskShort END_OBJECT
-step := returnExpr | exprShort | callProc | stepObject
+step := returnExpr | returnErrorExpr | exprShort | callProc | stepObject
 steps := START_ARRAY step+ END_ARRAY
 
 formField := START_OBJECT FIELD_NAME object END_OBJECT

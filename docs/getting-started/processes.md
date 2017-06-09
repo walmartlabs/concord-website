@@ -1,8 +1,7 @@
 ---
 layout: wmt/docs
-title:  Processes
+title:  Extensions
 ---
-
 
 # Processes
 
@@ -56,7 +55,7 @@ See also [the YAML format for describing flows and forms](./yaml.md).
 ## Request data
 
 A payload's `_main.json` file is either supplied by users or created by the
-server from an user's request data.
+server from a user's request data.
 
 The request's JSON format:
 ```json
@@ -110,6 +109,8 @@ Concord automatically provides a few built-in variables:
 - `execution` - a reference to a context variables map of a current
 execution;
 - `txId` - unique identifier of a current execution;
+- `tasks` - allows access to available tasks (for example:
+  `${tasks.get('oneops')}`);
 - `initiator` - information about user who started a process:
   - `initiator.username` - login, string;
   - `initiator.displayName` - printable name, string;
