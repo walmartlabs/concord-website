@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Project
+title:  Log
 ---
 
 # Project
@@ -17,6 +17,7 @@ Creates a new project with specified parameters or updates an existing one.
     ```json
     {
       "name": "myProject",
+      "description": "my project",
       "templates": ["..."],
 
       "repositories": {
@@ -73,6 +74,7 @@ Updates parameters of an existing project.
 * **Body**
     ```json
     {
+      "description": "my updated project",
       "templates": ["..."],
 
       "repositories": {
@@ -145,7 +147,7 @@ Lists existing projects.
     ```json
     [
       { "name": "...", "templates": ["..."] },
-      { "name": "..." }
+      { "name": "...", "description": "my project", ... }
     ]
     ```
 

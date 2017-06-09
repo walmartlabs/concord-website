@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Quick Start
+title:  Extensions
 ---
 
 # Quick start
@@ -32,16 +32,14 @@ Concord](intro.md) to understand the basic concepts of Concord.
   registry is running on docker.prod.walmart.com this command:
  
   ```
-  docker run -d -p 8002:8002 --name agent walmartlabs/concord-agent
+  docker run ... walmartlabs/concord-agent
   ```
 
   would be run as:
 
   ```
-  docker run -d -p 8002:8002 --name agent \
-       docker.prod.walmart.com/walmartlabs/concord-agent
+  docker run ... docker.prod.walmart.com/walmartlabs/concord-agent
   ```
-
 
 ## Starting Concord Docker Images
 
@@ -49,71 +47,95 @@ Concord](intro.md) to understand the basic concepts of Concord.
   the Console.  Follow these steps to start all three components and
   run a simple process to test your Concord instance.
 
-### Step 1. Start the Concord Agent
+### Step 1. Create a LDAP configuration file
 
-  ```
-  docker run -d -p 8002:8002 --name agent walmartlabs/concord-agent
-  ```
-  
+  Use the example in [LDAP](./configuration.md#ldap) section of
+  Configuration document. You'll need the parameters suitable for
+  your environment.
+
 ### Step 2. Start the Concord Server
 
   ```
-  docker run -d -p 8001:8001 --name server --link agent \
-  	 walmartlabs/concord-server
+  docker run -d \
+  -p 8001:8001 \
+  -p 8101:8101 \
+  --name server \
+  -v /path/to/ldap.properties:/opt/concord/conf/ldap.properties:ro \
+  -e 'LDAP_CFG=/opt/concord/conf/ldap.properties' \
+  --network=host \
+  walmartlabs/concord-server
   ```
-
+  
+  Replace `/path/to/ldap.properties` with the path to the file
+  created on the previous step.
+  
   This will start the server with an in-memory database and temporary
   storage for its working files. Please see the
   [Configuration](./configuration.md) description to configure a more
   permanent storage.
-
+  
 ### Step 3. Check the Concord Server Logs
   
   ```
   docker logs server
   ```
 
-### Step 4. Start the Concord Console
+### Step 4. Start the Concord Agent
 
   ```
-  docker run -d -p 8080:8080 --name console --link server \
-  	 walmartlabs/concord-console
+  docker run -d \
+  --name agent \
+  --network=host \
+  walmartlabs/concord-agent
+  ```
+  
+### Step 5. Start the Concord Console
+
+  ```
+  docker run -d -p 8080:8080 \
+  --name console \
+  -e 'SERVER_PORT_8001_TCP_ADDR=localhost' \
+  -e 'SERVER_PORT_8001_TCP_PORT=8001' \
+  --network=host \
+  walmartlabs/concord-console
   ```
 
-### Step 5. Create a Sample Concord Process
+### Step 6. Create a simple Concord project
 
-Create a zip archive of the following structure:
+  Create a zip archive containing a single `.concord.yml` file (starting with
+  a dot):
 
-  - `_main.json`
-  - `processes/main.yml`
-  
-  JSON file example:
-  
-  ```json
-  {
-    "entryPoint": "main",
-    "arguments": {
-      "name": "world"
-    }
-    }
-    ```
-    
-  YAML file:
-  
   ```yaml
-  main:
-  - expr: ${log.info("test", "Hello, ".concat(name))}
+  flows:
+    main:
+      - log: "Hello, ${name}"
+      
+  variables:
+    entryPoint: "main"
+    arguments:
+      name: "world"
   ```
+  
+  The format is described in [Project file](./processes.md#project-file)
+  document.
 
-### Step 6. Start a New Concord Process
+### Step 7. Start a New Concord Process
 
   ```
-  curl -v -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+  curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
        -H "Content-Type: application/octet-stream" \
        --data-binary @archive.zip http://localhost:8001/api/v1/process
   ```
+  
+  The response should look like:
+  ```json
+  {
+    "instanceId" : "a5bcd5ae-c064-4e5e-ac0c-3c3d061e1f97",
+    "ok" : true
+  }
+  ```
 
-### Step 7. Check the Concord Server Logs
+### Step 8. Check the Concord Server Logs
 
   ```
   docker logs server
@@ -122,7 +144,7 @@ Create a zip archive of the following structure:
   If everything went okay, you should see something like this:
 
   ```
-  00:03:24.916 [INFO ] ...ProcessHistoryDao - update ['9d84dbac-9a22-4885-abe3-dd79df40cad5', FINISHED] -> done
+  15:14:26.009 ... - updateStatus ['1b3dedb2-7336-4f96-9dc1-e18408d6b48e', 'ed097181-44fd-4235-973a-6a9c1d7e4b77', FINISHED] -> done
   ```
 
   You can also check the log by opening it in
@@ -131,5 +153,5 @@ Create a zip archive of the following structure:
 ### (Optional) Stop and remove the containers
 
   ```
-  docker rm -f {console,agent,server}
+  docker rm -f console agent server
   ```

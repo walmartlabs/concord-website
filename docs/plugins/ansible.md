@@ -1,26 +1,74 @@
-# Ansible
+---
+layout: wmt/docs
+title:  Configuration
+---
+
+# Ansible task
+
+## Limitations
+
+Ansible's `strategy: debug` is not supported. It requires an interactive terminal and
+user input and shouldn't be used in Concord's environment.
+Playbooks with `strategy: debug` will hang indefinitely, but can be killed using the
+REST API or the Console.
+
 
 ## Configuring Ansible
 
-Ansible's [[defaults]](http://docs.ansible.com/ansible/intro_configuration.html#general-defaults)
-can be specified under `defaults` key in `request.json`:
+Ansible's [[configuration]](http://docs.ansible.com/ansible/intro_configuration.html)
+can be specified under `config` key in `request.json`:
 
 ```json
 {
   "playbook": "playbook/hello.yml",
   ...
-  "defaults": {
-    "forks": 50
+  "config": {
+    "defaults": {
+      "forks": 50
+    },
+    "ssh_connection": {
+      "pipelining": "True"
+    }
   }
 }
+```
+
+which is equivalent to:
+
+```
+[defaults]
+forks = 50
+
+[ssh_connection]
+pipelining = True
 ```
 
 ## Raw payload
 
 ### Vault password files
 
-A file named `_vaultPassword` must be added the root directory of a
-payload.
+When using the raw payload format, set
+`arguments.ansibleCfg.vaultPassword` variable in a request JSON object:
+```json
+{
+  "arguments": {
+    "ansibleCfg": {
+      "vaultPassword": "..."
+    }
+  }
+}
+```
+
+For the projects using "ansible" template, set `vaultPassword` variable
+in a top-level request JSON object:
+```json
+{
+  "vaultPassword": "..."
+}
+```
+
+Alternatively, a file named `_vaultPassword` can be added to the root
+directory of a payload.
 
 ## Ansible projects
 
@@ -51,8 +99,8 @@ An inventory file can be inlined with the request JSON. For example:
   "inventory": {
     "local": {
       "hosts": ["127.0.0.1"],
-        "vars": {
-          "ansible_connection": "local"
+      "vars": {
+        "ansible_connection": "local"
       }
     }
   }

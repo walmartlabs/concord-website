@@ -3,7 +3,6 @@ layout: wmt/docs
 title:  Configuration
 ---
 
-
 # Configuration
 
 Most of the configuration done via environment variables (e.g. passed with a `docker run` command).
@@ -13,12 +12,6 @@ Most of the configuration done via environment variables (e.g. passed with a `do
 ### Environment variables
 
 All parameters are optional.
-
-**Agent**
-
-| Variable               | Description                                                     | Default value           |
-|------------------------|-----------------------------------------------------------------|-------------------------|
-| AGENT_URL              | URL of an agent instance                                        | `http://localhost:8002` |
 
 **Database**
 
@@ -54,7 +47,7 @@ All parameters are optional.
 |----------|----------------------------------|------------------------|
 | LDAP_CFG | Path to LDAP configuration file. | _empty_                |
 
-** Repositories **
+**Repositories**
 
 | Variable       | Description                                    | Default value               |
 |----------------|------------------------------------------------|-----------------------------|
@@ -78,7 +71,8 @@ exposeAttributes=mail,company
 Set `LDAP_CFG` enviroment variable to the path of the created file.
 
 The `exposeAttributes` property defines a list of LDAP attributes that will be
-[exposed to processes](./processes.md#provided-variables).
+[exposed to processes](./processes.md#provided-variables). Remove this property
+to make all LDAP attributes available.
 
 ## Agent
 
@@ -88,6 +82,9 @@ All parameters are optional.
 
 | Variable          | Description                                     | Default value               |
 |-------------------|-------------------------------------------------|-----------------------------|
+| SERVER_HOST       | Hostname of the server.                         | `localhost`                 |
+| SERVER_PORT       | Port of the server's API for agents.            | `8101`                      |
 | AGENT_LOG_DIR     | Directory to store payload execution log files. | _a new temporary directory_ |
-| AGENT_PAYLOAD_DIR | Directory to store unpacked payload files.      | _a new temporart directory_ |
+| AGENT_PAYLOAD_DIR | Directory to store unpacked payload files.      | _a new temporary directory_ |
 | AGENT_JAVA_CMD    | Path to `java` executable.                      | `java`                      |
+| DEPS_CACHE_DIR    | Path to a directory for the dependency cache.   | _a new temporary directory_ |

@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Development
+title:  Configuration
 ---
 
 # Development
@@ -27,3 +27,44 @@ started in debug mode as usual.
 
 However, as the agent processes its payload in a separate JVM, it must be configured to
 start those processes with the remove debugging enabled: *TBD*
+
+## Building
+
+To skip NPM-related tasks when building the project:
+```
+./mvnw clean install -DskipTests -DskipNpmInstall -DskipNpmBuild
+```
+
+## Making a release
+
+All JAR files are signed using a GPG key. Pass phase for a key must be configured in
+`~/.m2/settings.xml`:
+```xml
+<profiles>
+  <profile>
+    <id>development</id>
+    <properties>
+      <gpg.passphrase>MY_PASS_PHASE</gpg.passphrase>
+    </properties>
+  </profile>
+</profiles>
+```
+
+1. use `maven-release-plugin` as usual:
+   ```
+   ./mvnw release:prepare release:perform
+   ```
+2. push docker images:
+   ```
+   git checkout NEW_TAG
+   export DOCKER_REGISTRY=docker.prod.walmart.com
+   ```
+3. don't forget to push new tags and the release commit:
+   ```
+   git push origin master --tags
+   ```
+
+## Pull requests
+
+- squash and rebase your commits;
+- wait for CI checks to pass.

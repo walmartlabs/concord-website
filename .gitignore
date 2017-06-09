@@ -5,3 +5,7 @@ _site
 linkcheck-results.log
 .idea
 
+.bundle
+Gemfile.lock
+*.iml
+vendor
