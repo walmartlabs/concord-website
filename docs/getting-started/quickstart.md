@@ -21,7 +21,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
   through various methods that are outside the scope of this document.
 
   Once you have installed Docker see Walmart's [Nexus and
-  Docker](https://confluence.walmart.com/display/PGPTOOLS/Docker+and+Nexus)
+  Docker](http://sde.walmart.com/docs/warm/docker.html)
   instructions to find the location of the private Docker registry
   containing Concord's pre-built images - docker.prod.walmart.com.
 
