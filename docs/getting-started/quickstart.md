@@ -57,6 +57,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
 
   ```
   docker run -d \
+  -p 5432:5432 \
   --name db \
   -e 'POSTGRES_PASSWORD=q1' \
   hub.docker.prod.walmart.com/library/postgres:latest
@@ -98,7 +99,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
   walmartlabs/concord-agent
   ```
   
-### Step 6. Start the Concord Console
+### Step 6. Start the Concord Console (optional)
 
   ```
   docker run -d -p 8080:8080 \
@@ -108,6 +109,9 @@ Concord](./index.html) to understand the basic concepts of Concord.
   --network=host \
   walmartlabs/concord-console
   ```
+  
+  The console will be available on
+  [http://localhost:8080](http://localhost:8080).
 
 ### Step 7. Create a simple Concord project
 

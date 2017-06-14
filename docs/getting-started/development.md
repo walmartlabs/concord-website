@@ -14,7 +14,7 @@ will try to connect to `localhost:5432` using username `postgres`, password
 The easiest way to get the database up and running is to use an official
 Docker image:
 ```
-docker run -d --name db -e 'POSTGRES_PASSWORD=q1' hub.docker.prod.walmart.com/library/postgres:latest
+docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' hub.docker.prod.walmart.com/library/postgres:latest
 ```
 
 ## Running from an IDE
