@@ -56,7 +56,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
 ### Step 2. Start the Database
 
   ```
-  docker run -d \  
+  docker run -d \
   --name db \
   -e 'POSTGRES_PASSWORD=q1' \
   hub.docker.prod.walmart.com/library/postgres:latest
