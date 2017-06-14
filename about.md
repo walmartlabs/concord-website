@@ -1,9 +1,8 @@
 ---
-layout: wmt/default
+layout: wmt/icon
 title:  About Us
+icon: /assets/wmt/img/icons/light/icon-info.png
 ---
-
-<img src="/assets/wmt/img/icons/internal/icon-about.png" width="150" height="150" align="right"/>
 
 # About Concord
 

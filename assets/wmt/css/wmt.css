@@ -77,7 +77,7 @@ p, li {
     line-height: 1.6; }
 
 a,a:focus,a:hover,a:active {
-    color: #66c4d0;
+    color: #007dc6;
     font-weight: 400;
     line-height:1.6;
     outline: 0 !important; }
@@ -96,10 +96,10 @@ a:active,
 .copyright a:hover,
 .info-blocks:hover i.icon-info-blocks,
 .blog li a:hover {
-    color: #13b0bc; }
+    color: #0b4e90; }
 
 h1,h2,h3,h4,h5 {
-    color: #ffc220;
+    color: #454545;
     margin-top: 20px;
     text-shadow: none;
     font-weight: 400 !important;
@@ -109,7 +109,7 @@ h1 a,h2 a,h3 a,h4 a,h5 a,
 h1 a:focus,h2 a:focus,h3 a:focus,h4 a:focus,h5 a:focus,
 h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,
 h1 a:active,h2 a:active,h3 a:active,h4 a:active,h5 a:active {
-    color: #ffc220;
+    color: #454545;
     text-decoration: none; }
 
 h1, .h1 {
@@ -360,7 +360,7 @@ ul.dropdown-menu li {
 /* ------------------------------ HOMEPAGE STYLES ------------------------------ */
 
 .homeBanner {
-    background: #007dc6;
+    background: #1c3664;
     margin-top: -20px;
     margin-bottom: 50px;
     padding: 0px; }
@@ -386,38 +386,41 @@ ul.dropdown-menu li {
     margin: 10px 0 25px;
     border-bottom: 0px; }
 
+.icons .headline h2 {
+    border-bottom: 0px; }
+
 .icons .headline h2 a {
-    color: #ffc220;
+    color: #454545;
     font-size: 24px;
     line-height: 32px;
     margin: 0 0 -1px;
     padding-bottom: 0px;
     display: inline-block;
-    border-bottom: 0px solid #ffc220; }
+    border-bottom: 0px solid #fff; }
 
 /* ------------------------------ FONT HEADLINE STYLES ------------------------------ */
 
 .headline {
     display: block;
     margin: 10px 0 25px;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
     border-bottom: 2px dotted #eaeaea; }
 
 .headline h2 {
-    color: #ffc220;
+    color: #454545;
     font-size: 24px;
-    margin: 0 0 -1px;
-    padding-bottom: 0px;
+    margin: 0 0 -2px;
+    padding-bottom: 5px;
     display: inline-block;
-    border-bottom: 0px solid #ffc220; }
+    border-bottom: 2px solid #d2eaf6; }
 
 .headline h3 {
-    color: #ffc220;
+    color: #454545;
     font-size: 20px;
-    margin: 0 0 -1px;
-    padding-bottom: 0px;
+    margin: 0 0 -2px;
+    padding-bottom: 5px;
     display: inline-block;
-    border-bottom: 0px solid #ffc220; }
+    border-bottom: 2px solid #d2eaf6; }
 
 p.heading {
     font-size: 17px; }
@@ -458,7 +461,37 @@ ul.pagination li a:hover {
     padding: 20px;
     width: 100%; }
 
-/* ------------------------------ WALMART (EXTERNAL FACING) COLORS ------------------------------ */
+/* ------------------------------ DEFAULT COLORS ------------------------------ */
+
+.grey {
+    color: #454545 !important; }
+
+.grey-bg {
+    background-color: #454545 !important;
+    color: #ffffff; }
+
+.grey-bg:hover {
+    background-color: #333333 !important; }
+
+.dark-blue {
+    color: #1c3664 !important; }
+
+.dark-blue-bg {
+    background-color: #1c3664 !important;
+    color: #ffffff; }
+
+.dark-blue-bg:hover {
+    background-color: #0c1e3a !important; }
+
+.medium-blue {
+    color: #0b4e90 !important; }
+
+.medium-blue-bg {
+    background-color: #0b4e90 !important;
+    color: #ffffff; }
+
+.medium-blue-bg:hover {
+    background-color: #083f6d !important; }
 
 .blue {
     color: #007dc6 !important; }
@@ -468,37 +501,27 @@ ul.pagination li a:hover {
     color: #ffffff; }
 
 .blue-bg:hover {
-    background-color: #006ba0 !important; }
+    background-color: #0268a0 !important; }
 
-.dark-blue {
-    color: #004c91 !important; }
+.pale-blue {
+    color: #d2eaf6 !important; }
 
-.dark-blue-bg {
-    background-color: #004c91 !important;
+.pale-blue-bg {
+    background-color: #d2eaf6 !important;
     color: #ffffff; }
 
-.dark-blue-bg:hover {
-    background-color: #013b66 !important; }
+.pale-blue-bg:hover {
+    background-color: #bad8e5 !important; }
 
-.light-blue {
-    color: #78b9e7 !important; }
+.light-grey {
+    color: #d1d1d1 !important; }
 
-.light-blue-bg {
-    background-color: #78b9e7 !important;
+.light-grey-bg {
+    background-color: #d1d1d1 !important;
     color: #ffffff; }
 
-.light-blue-bg:hover {
-    background-color: #51b6f4 !important; }
-
-.orange {
-    color: #f47321 !important; }
-
-.orange-bg {
-    background-color: #f47321 !important;
-    color: #ffffff; }
-
-.orange-bg:hover {
-    background-color: #e95e05 !important; }
+.light-grey-bg:hover {
+    background-color: #b3b3b3 !important; }
 
 .yellow {
     color: #ffc220 !important; }
@@ -508,86 +531,156 @@ ul.pagination li a:hover {
     color: #ffffff; }
 
 .yellow-bg:hover {
+    background-color: #efac03 !important; }
+
+/* ------------------------------ WALMART (EXTERNAL FACING) COLORS ------------------------------ */
+
+.walmart-blue {
+    color: #007dc6 !important; }
+
+.walmart-blue-bg {
+    background-color: #007dc6 !important;
+    color: #ffffff; }
+
+.walmart-blue-bg:hover {
+    background-color: #006ba0 !important; }
+
+.walmart-dark-blue {
+    color: #004c91 !important; }
+
+.walmart-dark-blue-bg {
+    background-color: #004c91 !important;
+    color: #ffffff; }
+
+.walmart-dark-blue-bg:hover {
+    background-color: #013b66 !important; }
+
+.walmart-light-blue {
+    color: #78b9e7 !important; }
+
+.walmart-light-blue-bg {
+    background-color: #78b9e7 !important;
+    color: #ffffff; }
+
+.walmart-light-blue-bg:hover {
+    background-color: #51b6f4 !important; }
+
+.walmart-orange {
+    color: #f47321 !important; }
+
+.walmart-orange-bg {
+    background-color: #f47321 !important;
+    color: #ffffff; }
+
+.walmart-orange-bg:hover {
+    background-color: #e95e05 !important; }
+
+.walmart-yellow {
+    color: #ffc220 !important; }
+
+.walmart-yellow-bg {
+    background-color: #ffc220 !important;
+    color: #ffffff; }
+
+.walmart-yellow-bg:hover {
     background-color: #f8b502 !important; }
 
-.dark-green {
+.walmart-dark-green {
     color: #367c2b !important; }
 
-.dark-green-bg {
+.walmart-dark-green-bg {
     background-color: #367c2b !important;
     color: #ffffff; }
 
-.dark-green-bg:hover {
+.walmart-dark-green-bg:hover {
     background-color: #246819 !important; }
 
-.light-green {
+.walmart-light-green {
     color: #76c043 !important; }
 
-.light-green-bg {
+.walmart-light-green-bg {
     background-color: #76c043 !important;
     color: #ffffff; }
 
-.light-green-bg:hover {
+.walmart-light-green-bg:hover {
     background-color: #58a622 !important; }
 
 /* ------------------------------ CUSTOM (INTERNAL FACING) COLORS ------------------------------ */
 
-.grey {
-    color: #333333 !important; }
+.custom-grey {
+    color: #666666 !important; }
 
-.grey-bg {
-    background-color: #333333 !important;
+.custom-grey-bg {
+    background-color: #666666 !important;
     color: #ffffff; }
 
-.grey-bg:hover {
-    background-color: #333333 !important; }
+.custom-grey-bg:hover {
+    background-color: #555555 !important; }
 
-.blue-internal-bg {
-    background-color: #003366 !important;
+.custom-dark-blue {
+    color: #1c3664 !important; }
+
+.custom-dark-blue-bg {
+    background-color: #1c3664 !important;
     color: #ffffff; }
 
-.blue-internal-bg:hover {
-    background-color: #0b203f !important; }
+.custom-dark-blue-bg:hover {
+    background-color: #0c1e3a !important; }
 
-.light-blue-internal-bg {
-    background-color: #65c4d0 !important;
+.custom-medium-blue {
+    color: #0c4d8e !important; }
+
+.custom-medium-blue-bg {
+    background-color: #0c4d8e !important;
     color: #ffffff; }
 
-.light-blue-internal-bg:hover {
-    background-color: #38a0a8 !important; }
+.custom-medium-blue-bg:hover {
+    background-color: #083f6d !important; }
 
-.green-bg {
-    background-color: #5e812d !important;
+.custom-pale-blue {
+    color: #d2eaf6 !important; }
+
+.custom-pale-blue-bg {
+    background-color: #d2eaf6 !important;
     color: #ffffff; }
 
-.green-bg:hover {
-    background-color: #476821 !important; }
+.custom-pale-blue-bg:hover {
+    background-color: #bad8e5 !important; }
 
-.yellow-internal-bg {
+.custom-light-grey {
+    color: #b3b3b3 !important; }
+
+.custom-light-grey-bg {
+    background-color: #b3b3b3 !important;
+    color: #ffffff; }
+
+.custom-light-grey-bg:hover {
+    background-color: #999999 !important; }
+
+.custom-yellow {
+    color: #fdb94c !important; }
+
+.custom-yellow-bg {
     background-color: #fdb94c !important;
     color: #ffffff; }
 
-.yellow-internal-bg:hover {
+.custom-yellow-bg:hover {
     background-color: #ed9d29 !important; }
 
-.red-bg {
+.custom-red {
+    color: #c80014 !important; }
+
+.custom-red-bg {
     background-color: #c80014 !important;
     color: #ffffff; }
 
-.red-bg:hover {
+.custom-red-bg:hover {
     background-color: #ad0411 !important; }
-
-.pink-bg {
-    background-color: #da005e !important;
-    color: #ffffff; }
-
-.pink-bg:hover {
-    background-color: #b5044d !important; }
 
 /* ------------------------------ BUTTONS ------------------------------ */
 
 .btn-u {
-    background: #f47321;
+    background: #ffc220;
     border: 0px solid #f47321;
     border-radius: 25px !important;
     color: #fff !important;
@@ -599,10 +692,11 @@ ul.pagination li a:hover {
     margin: 0px 0px 20px;
     padding: 10px 25px 9px;
     position: relative;
+    text-align: center;
     text-decoration: none !important; }
 
 .btn-u:hover {
-    background: #f25600;
+    background: #efac03;
     color: #fff;
     text-decoration: none;
     -webkit-transition: all .4s ease-in-out;
@@ -630,8 +724,8 @@ ul.pagination li a:hover {
 .list-group-item.active:focus {
     z-index: 2;
     color: #fff;
-    background-color: #ffb900;
-    border-color: #ffb900; }
+    background-color: #ffc220;
+    border-color: #ffc220; }
 
 .list-group-item.active .list-group-item-heading,
 .list-group-item.active:hover .list-group-item-heading,
@@ -664,7 +758,7 @@ a.list-group-item-success .list-group-item-heading {
 a.list-group-item-success:hover,
 a.list-group-item-success:focus {
     color: #ffffff;
-    background-color: #ffb900; }
+    background-color: #ffc220; }
 
 a.list-group-item-success.active,
 a.list-group-item-success.active:hover,
@@ -827,7 +921,7 @@ tbody > tr:nth-child(even) > th {
     width: 100%; }
 
 .blog h2 a {
-    color: #ffc220;
+    color: #454545;
     text-decoration: none; }
 
 .blog h2 a:hover {
@@ -876,21 +970,22 @@ tbody > tr:nth-child(even) > th {
     color: #fff; }
 
 ul.blog-tags li {
-    display: inline-block; }
+    display: inline-block;
+    font-size:13px; }
 
 ul.blog-tags a {
-    background: #007dc6;
-    border-radius: 20px !important;
-    color: #ffffff;
+    background: none;
+    border-radius: none;
+    color: #127dc6;
     font-size: 13px;
-    padding: 4px 15px;
-    margin: 0px 0px 5px;
+    padding: 0px;
+    margin: 0px 0px 8px;
     display: inline-block; }
 
 ul.blog-tags a:hover,ul.blog-tags a:hover i {
-    background: #007dc6;
-    color: #fff !important;
-    text-decoration: none;
+    background: none;
+    color: #127dc6 !important;
+    text-decoration: underline;
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
@@ -907,6 +1002,12 @@ ul.blog-tags a img {
 
 ul.blog-tags a:hover img {
     background: none; }
+
+.blog-feed a {
+    font-size:14px; }
+
+.blog-feed {
+    font-size:12px; }
 
 #titleShare {
     float: right; }
@@ -932,14 +1033,14 @@ ul.blog-tags a:hover img {
 /* ------------------------------ DOCUMENTATION STYLES ------------------------------ */
 
 .docs-navigation > h2 {
-    font-size: 18px;
+    font-size: 17px;
     margin-top: 10px; }
 
 .docs-navigation > h2 > a {
     cursor: pointer;}
 
 .docs-navigation > h3 {
-    font-size: 16px;
+    font-size: 15px;
     margin-top: 0px;
     margin-bottom: 0px;}
 
@@ -950,6 +1051,7 @@ ul.blog-tags a:hover img {
     margin-bottom: 10px;}
 
 .docs-navigation > ul > li, .docs-navigation > ul > li > ul > li {
+    border-left: 3px solid #fff;
     font-size: 13px;
     list-style: none;
     background: none;
@@ -957,14 +1059,19 @@ ul.blog-tags a:hover img {
     margin: 0px 10px 0px; }
 
 .docs-navigation > ul > li.active, .docs-navigation > ul > li > ul > li.active {
-    border-left: 3px solid #66c4d0;
+    border-left: 3px solid #0e7dc1;
     margin-left: 0px;
-    padding-left: 11px; }
+    padding-left: 10px; }
 
 .docs-navigation > ul > li.active > a {
     font-weight: 700; }
 
+.docs-navigation > ul > li.active a:hover, .docs-navigation > ul > ul > li.active a:hover {
+    font-weight: 700;
+    text-decoration: none; }
+
 .docs-navigation > ul > li a:hover, .docs-navigation > ul > ul > li a:hover {
+    font-weight: 400;
     text-decoration: none; }
 
 .docs-content .left {
@@ -992,4 +1099,3 @@ ul.blog-tags a:hover img {
     -webkit-transition: 1s;
     -moz-transition: 1s;
     transition: 1s; }
-
