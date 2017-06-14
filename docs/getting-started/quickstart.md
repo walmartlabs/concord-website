@@ -43,17 +43,27 @@ Concord](./index.html) to understand the basic concepts of Concord.
 
 ## Starting Concord Docker Images
 
-  There are three components to Concord: the Agent, the Server, and
-  the Console.  Follow these steps to start all three components and
-  run a simple process to test your Concord instance.
+  There are four components to Concord: the Agent, the Server, the
+  Console and the Database. Follow these steps to start all four
+  components and run a simple process to test your Concord instance.
 
 ### Step 1. Create a LDAP configuration file
 
   Use the example in [LDAP](./configuration.html#ldap) section of
   Configuration document. You'll need the parameters suitable for
   your environment.
+  
+### Step 2. Start the Database
 
-### Step 2. Start the Concord Server
+  ```
+  docker run -d \
+  -p 5432:5432 \
+  --name db \
+  -e 'POSTGRES_PASSWORD=q1' \
+  hub.docker.prod.walmart.com/library/postgres:latest
+  ```
+
+### Step 3. Start the Concord Server
 
   ```
   docker run -d \
@@ -74,13 +84,13 @@ Concord](./index.html) to understand the basic concepts of Concord.
   [Configuration](./configuration.html) description to configure a more
   permanent storage.
   
-### Step 3. Check the Concord Server Logs
+### Step 4. Check the Concord Server Logs
   
   ```
   docker logs server
   ```
 
-### Step 4. Start the Concord Agent
+### Step 5. Start the Concord Agent
 
   ```
   docker run -d \
@@ -89,7 +99,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
   walmartlabs/concord-agent
   ```
   
-### Step 5. Start the Concord Console
+### Step 6. Start the Concord Console (optional)
 
   ```
   docker run -d -p 8080:8080 \
@@ -99,8 +109,11 @@ Concord](./index.html) to understand the basic concepts of Concord.
   --network=host \
   walmartlabs/concord-console
   ```
+  
+  The console will be available on
+  [http://localhost:8080](http://localhost:8080).
 
-### Step 6. Create a simple Concord project
+### Step 7. Create a simple Concord project
 
   Create a zip archive containing a single `.concord.yml` file (starting with
   a dot):
@@ -119,7 +132,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
   The format is described in [Project file](./processes.html#project-file)
   document.
 
-### Step 7. Start a New Concord Process
+### Step 8. Start a New Concord Process
 
   ```
   curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
@@ -135,7 +148,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
   }
   ```
 
-### Step 8. Check the Concord Server Logs
+### Step 9. Check the Concord Server Logs
 
   ```
   docker logs server
@@ -153,5 +166,5 @@ Concord](./index.html) to understand the basic concepts of Concord.
 ### (Optional) Stop and remove the containers
 
   ```
-  docker rm -f console agent server
+  docker rm -f console agent server db
   ```
