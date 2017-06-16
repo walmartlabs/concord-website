@@ -247,6 +247,21 @@ JavaScript content is executed using Java's Nashorn engine. All other
 engines require additional dependencies to be included with the process
 definition.
 
+### Variables
+
+The `set` command can be used to set variables into the current
+flow:
+
+```yaml
+main:
+  - ...
+  - set:
+      a: "a-value"
+      b: 3
+  - log: ${a}
+  - log: ${b}
+```
+
 ## Form Syntax
 
 ### Declaring a new form
@@ -379,8 +394,9 @@ group := FIELD_NAME ":" steps groupOptions
 callProc := VALUE_STRING
 script := FIELD_NAME "script" VALUE_STRING (FIELD_NAME "body" VALUE_STRING)?
 formCall := FIELD_NAME "form" VALUE_STRING formCallOptions
+vars :=  FIELD_NAME "vars" START_OBJECT (kv)+ END_OBJECT
 
-stepObject := START_OBJECT group | ifExpr | exprFull | formCall | taskFull | inlineScript | taskShort END_OBJECT
+stepObject := START_OBJECT group | ifExpr | exprFull | formCall | taskFull | inlineScript | taskShort | vars END_OBJECT
 step := returnExpr | returnErrorExpr | exprShort | callProc | stepObject
 steps := START_ARRAY step+ END_ARRAY
 
