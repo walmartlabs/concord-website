@@ -60,6 +60,10 @@
 
 /* ------------------------------ GENERAL STYLES ------------------------------ */
 
+html {
+  overflow: scroll;
+  background: #ffffff; }
+
 html, body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300; }
@@ -252,16 +256,13 @@ blockquote {
 .header .navbar-default .navbar-nav > li > a {
     color: #666666;
     font-size: 13px;
-    font-weight: light;
+    font-weight: 400;
     letter-spacing: 0.09em;
     margin-top: 15px;
-    padding: 8px 15px;
-}
+    padding: 8px 15px; }
 
 .header .navbar-default .navbar-nav > li > a:hover {
-    color: #ffc220;
-    /*border: 0px solid #ffffff;
-     border-radius: 5px !important;*/ }
+    color: #ffc220; }
 
 @media only screen and (min-width : 320px) and (max-width : 768px) {
     .header .navbar-default .navbar-nav > li > a {
