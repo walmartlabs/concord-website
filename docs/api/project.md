@@ -18,7 +18,6 @@ Creates a new project with specified parameters or updates an existing one.
     {
       "name": "myProject",
       "description": "my project",
-      "templates": ["..."],
 
       "repositories": {
         "myRepo": {
@@ -75,7 +74,6 @@ Updates parameters of an existing project.
     ```json
     {
       "description": "my updated project",
-      "templates": ["..."],
 
       "repositories": {
         "myRepo": {
@@ -146,7 +144,7 @@ Lists existing projects.
     
     ```json
     [
-      { "name": "...", "templates": ["..."] },
+      { "name": "..." },
       { "name": "...", "description": "my project", ... }
     ]
     ```
