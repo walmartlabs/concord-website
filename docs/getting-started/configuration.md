@@ -68,11 +68,38 @@ systemPassword=pwd
 exposeAttributes=mail,company
 ```
 
-Set `LDAP_CFG` enviroment variable to the path of the created file.
+Set `LDAP_CFG` environment variable to the path of the created file.
 
 The `exposeAttributes` property defines a list of LDAP attributes that will be
 [exposed to processes](./processes.html#provided-variables). Remove this property
 to make all LDAP attributes available.
+
+### Slack
+
+Create `slack.properties` file, containing the following parameters
+(substitute values with the values for your environment):
+
+```
+authToken=123456
+proxyAddress=proxy.wal-mart.com
+proxyPort=9080
+connectTimeout=10000
+soTimeout=10000
+maxConnections=10
+requestLimit=1
+```
+
+Set `SLACK_CFG` environment variable to the path of the created file.
+
+| Variable       | Description                                                            |
+|----------------| -----------------------------------------------------------------------|
+| authToken      | Slack Bot API Token                                                    |
+| proxyAddress   | Proxy host for slack.com/api access                                    |
+| proxyPort      | Proxy port for slack.com/api access                                    |
+| connectTimeout | The time in ms to establish the connection with the remote host        |
+| soTimeout      | The time in ms waiting for data – after the connection was established |
+| maxConnections | Maximum connections
+| requestLimit   | Notifications per second
 
 ## Agent
 
