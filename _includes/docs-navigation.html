@@ -1,9 +1,9 @@
   <!----- Docs Navigation ----->
   <div class="col-md-3">
-  
+
     <div class="docs-navigation">
-      <h2><a onclick="toggleMenu(this, '#getting-started');"><i class="fa fa-caret-down"></i> Getting Started</a></h2>
-      <ul id="getting-started" {% unless page.url contains '/docs/getting-started' %}class="hidden"{% endunless %}>
+      <h2><!--<a onclick="toggleMenu(this, '#getting-started');">--><i class="fa fa-chevron-right pale-blue"></i> Getting Started<!--</a>--></h2>
+      <ul id="getting-started" {% unless page.url contains '/docs/getting-started' %}class="foo-hidden"{% endunless %}>
         <li {% if page.url contains '/docs/getting-started/index' %}class="active"{% endif %}>
             <a href="/docs/getting-started/index.html">Introduction</a></li>
         <li {% if page.url contains'/docs/getting-started/quickstart' %}class="active"{% endif %}>
@@ -23,8 +23,8 @@
         <li {% if page.url contains'/docs/getting-started/postgresql' %}class="active"{% endif %}>
             <a href="/docs/getting-started/postgresql.html">PostgreSQL Support</a></li>
       </ul>
-      <h2><a onclick="toggleMenu(this, '#api');"><i class="fa fa-caret-down"></i> API</a></h2>
-      <ul id="api" {% unless page.url contains '/docs/api' %}class="hidden"{% endunless %}>
+      <h2><!--<a onclick="toggleMenu(this, '#api');">--><i class="fa fa-chevron-right pale-blue"></i> API<!--</a>--></h2>
+      <ul id="api" {% unless page.url contains '/docs/api' %}class="foo-hidden"{% endunless %}>
           <li {% if page.url contains '/docs/api/project' %}class="active"{% endif %}>
               <a href="/docs/api/project.html">Project</a></li>
           <li {% if page.url contains '/docs/api/process' %}class="active"{% endif %}>
@@ -44,8 +44,8 @@
           <li {% if page.url contains '/docs/api/log' %}class="active"{% endif %}>
               <a href="/docs/api/log.html">Log</a></li>
        </ul>
-      <h2><a onclick="toggleMenu(this, '#plugins');"><i class="fa fa-caret-down"></i> Plugins</a></h2>
-      <ul id="plugins" {% unless page.url contains '/docs/plugins' %}class="hidden"{% endunless %}>
+      <h2><!--<a onclick="toggleMenu(this, '#plugins');">--><i class="fa fa-chevron-right pale-blue"></i> Plugins<!--</a>--></h2>
+      <ul id="plugins" {% unless page.url contains '/docs/plugins' %}class="foo-hidden"{% endunless %}>
           <li {% if page.url contains '/docs/plugins/ansible' %}class="active"{% endif %}>
               <a href="/docs/plugins/ansible.html">Ansible</a></li>
           <li {% if page.url contains '/docs/plugins/crypto' %}class="active"{% endif %}>

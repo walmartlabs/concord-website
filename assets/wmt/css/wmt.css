@@ -1035,34 +1035,24 @@ ul.blog-tags a:hover img {
 
 .docs-navigation > h2 {
     font-size: 17px;
-    margin-top: 10px; }
+    padding: 4px 0 10px 0;
+    margin: 0px 0px 10px 0; }
 
 .docs-navigation > h2 > a {
     cursor: pointer;}
 
-.docs-navigation > h3 {
-    font-size: 15px;
-    margin-top: 0px;
-    margin-bottom: 0px;}
-
-.docs-navigation > h3 > a {
-    cursor: pointer;}
-
-.docs-navigation ul {
-    margin-bottom: 10px;}
-
 .docs-navigation > ul > li, .docs-navigation > ul > li > ul > li {
-    border-left: 3px solid #fff;
+    border-left: 1px solid #eaeaea;
     font-size: 13px;
     list-style: none;
     background: none;
-    padding: 0px;
-    margin: 0px 10px 0px; }
+    padding: 3px 0px 3px 12px;
+    margin: 0px 6px 0px; }
 
 .docs-navigation > ul > li.active, .docs-navigation > ul > li > ul > li.active {
     border-left: 3px solid #0e7dc1;
-    margin-left: 0px;
-    padding-left: 10px; }
+    padding: 3px 0px 3px 12px;
+    margin: 0px 4px 0px; }
 
 .docs-navigation > ul > li.active > a {
     font-weight: 700; }
