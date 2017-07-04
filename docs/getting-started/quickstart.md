@@ -31,15 +31,15 @@ Concord](./index.html) to understand the basic concepts of Concord.
   name in the examples below.  For example, if your private docker
   registry is running on docker.prod.walmart.com this command:
  
-  ```
-  docker run ... walmartlabs/concord-agent
-  ```
+```
+docker run ... walmartlabs/concord-agent
+```
 
   would be run as:
 
-  ```
-  docker run ... docker.prod.walmart.com/walmartlabs/concord-agent
-  ```
+```
+docker run ... docker.prod.walmart.com/walmartlabs/concord-agent
+```
 
 ## Starting Concord Docker Images
 
@@ -55,27 +55,27 @@ Concord](./index.html) to understand the basic concepts of Concord.
   
 ### Step 2. Start the Database
 
-  ```
-  docker run -d \
-  -p 5432:5432 \
-  --name db \
-  -e 'POSTGRES_PASSWORD=q1' \
-  hub.docker.prod.walmart.com/library/postgres:latest
-  ```
+```
+docker run -d \
+-p 5432:5432 \
+--name db \
+-e 'POSTGRES_PASSWORD=q1' \
+hub.docker.prod.walmart.com/library/postgres:latest
+```
 
 ### Step 3. Start the Concord Server
 
-  ```
-  docker run -d \
-  -p 8001:8001 \
-  -p 8101:8101 \
-  --name server \
-  --link db \
-  -v /path/to/ldap.properties:/opt/concord/conf/ldap.properties:ro \
-  -e 'LDAP_CFG=/opt/concord/conf/ldap.properties' \
-  -e 'DB_URL=jdbc:postgresql://db:5432/postgres' \
-  walmartlabs/concord-server
-  ```
+```
+docker run -d \
+-p 8001:8001 \
+-p 8101:8101 \
+--name server \
+--link db \
+-v /path/to/ldap.properties:/opt/concord/conf/ldap.properties:ro \
+-e 'LDAP_CFG=/opt/concord/conf/ldap.properties' \
+-e 'DB_URL=jdbc:postgresql://db:5432/postgres' \
+walmartlabs/concord-server
+```
   
   Replace `/path/to/ldap.properties` with the path to the file
   created on the previous step.
@@ -87,27 +87,27 @@ Concord](./index.html) to understand the basic concepts of Concord.
   
 ### Step 4. Check the Concord Server Logs
   
-  ```
-  docker logs server
-  ```
+```
+docker logs server
+```
 
 ### Step 5. Start the Concord Agent
 
-  ```
-  docker run -d \
-  --name agent \
-  --link server \
-  walmartlabs/concord-agent
-  ```
+```
+docker run -d \
+--name agent \
+--link server \
+walmartlabs/concord-agent
+```
   
 ### Step 6. Start the Concord Console (optional)
 
-  ```
-  docker run -d -p 8080:8080 \
-  --name console \
-  --link server \
-  walmartlabs/concord-console
-  ```
+```
+docker run -d -p 8080:8080 \
+--name console \
+--link server \
+walmartlabs/concord-console
+```
   
   The console will be available on
   [http://localhost:8080](http://localhost:8080).
@@ -117,53 +117,65 @@ Concord](./index.html) to understand the basic concepts of Concord.
   Create a zip archive containing a single `.concord.yml` file (starting with
   a dot):
 
-  ```yaml
-  flows:
-    main:
-      - log: "Hello, ${name}"
+```yaml
+flows:
+  main:
+    - log: "Hello, ${name}"
       
-  variables:
-    entryPoint: "main"
-    arguments:
-      name: "world"
-  ```
+variables:
+  entryPoint: "main"
+  arguments:
+    name: "world"
+```
   
   The format is described in [Project file](./processes.html#project-file)
   document.
+  
+  The resulting archive should look like this:
+  
+```
+$ unzip -l archive.zip 
+Archive:  archive.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+      335  2017-07-04 12:00   .concord.yml
+---------                     -------
+      335                     1 file
+```
 
 ### Step 8. Start a New Concord Process
 
-  ```
-  curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
-       -H "Content-Type: application/octet-stream" \
-       --data-binary @archive.zip http://localhost:8001/api/v1/process
-  ```
+```
+curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+     -H "Content-Type: application/octet-stream" \
+     --data-binary @archive.zip http://localhost:8001/api/v1/process
+```
   
   The response should look like:
-  ```json
-  {
-    "instanceId" : "a5bcd5ae-c064-4e5e-ac0c-3c3d061e1f97",
-    "ok" : true
-  }
-  ```
+```json
+{
+  "instanceId" : "a5bcd5ae-c064-4e5e-ac0c-3c3d061e1f97",
+  "ok" : true
+}
+```
 
 ### Step 9. Check the Concord Server Logs
 
-  ```
-  docker logs server
-  ```
+```
+docker logs server
+```
   
   If everything went okay, you should see something like this:
 
-  ```
-  15:14:26.009 ... - updateStatus ['1b3dedb2-7336-4f96-9dc1-e18408d6b48e', 'ed097181-44fd-4235-973a-6a9c1d7e4b77', FINISHED] -> done
-  ```
+```
+15:14:26.009 ... - updateStatus ['1b3dedb2-7336-4f96-9dc1-e18408d6b48e', 'ed097181-44fd-4235-973a-6a9c1d7e4b77', FINISHED] -> done
+```
 
   You can also check the log by opening it in
   [the Concord console](http://localhost:8080/).
 
 ### (Optional) Stop and remove the containers
 
-  ```
-  docker rm -f console agent server db
-  ```
+```
+docker rm -f console agent server db
+```
