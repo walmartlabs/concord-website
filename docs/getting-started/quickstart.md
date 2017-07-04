@@ -70,9 +70,10 @@ Concord](./index.html) to understand the basic concepts of Concord.
   -p 8001:8001 \
   -p 8101:8101 \
   --name server \
+  --link db \
   -v /path/to/ldap.properties:/opt/concord/conf/ldap.properties:ro \
   -e 'LDAP_CFG=/opt/concord/conf/ldap.properties' \
-  --network=host \
+  -e 'DB_URL=jdbc:postgresql://db:5432/postgres' \
   walmartlabs/concord-server
   ```
   
@@ -95,7 +96,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
   ```
   docker run -d \
   --name agent \
-  --network=host \
+  --link server \
   walmartlabs/concord-agent
   ```
   
@@ -104,9 +105,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
   ```
   docker run -d -p 8080:8080 \
   --name console \
-  -e 'SERVER_PORT_8001_TCP_ADDR=localhost' \
-  -e 'SERVER_PORT_8001_TCP_PORT=8001' \
-  --network=host \
+  --link server \
   walmartlabs/concord-console
   ```
   
