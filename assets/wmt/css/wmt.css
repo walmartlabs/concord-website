@@ -358,6 +358,25 @@ ul.dropdown-menu li {
      z-index: 999;
      position: fixed;*/ }
 
+ul.top-nav {
+    background-color: #333333;
+    color: #ffffff;
+    margin: 0px;
+    padding-left: 10px;
+    border-bottom: 1px solid #eaeaea; }
+
+ul.top-nav li {
+    display:inline-block;
+    font-size: 12px;
+    padding: 0px;
+    margin: 5px 5px 5px 0px;
+    color: #ffffff; }
+
+ul.top-nav li a {
+    color: #d2eaf6;
+    font-weight: 700;
+    padding-right: 5px; }
+
 /* ------------------------------ HOMEPAGE STYLES ------------------------------ */
 
 .homeBanner {

@@ -1,6 +1,18 @@
       <div class="header">
         <div class="navbar navbar-default" role="navigation">
+          <div class="">
+            <ul class="top-nav">
+              <!--<li><i class="fa fa-globe" aria-hidden="true"></i></li>-->
+              {% for link in site.cross-site %}
+              <li class="{{ current }}">
+                <a href="{{ link.url }}">{{ link.title }}</a> /
+              </li>
+              {% endfor %}
+              <li>{{ site.name }}</li>
+            </ul>
+          </div>
           <div class="container">
+
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
