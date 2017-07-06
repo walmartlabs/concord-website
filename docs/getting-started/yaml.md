@@ -245,7 +245,7 @@ global variables.
 
 JavaScript content is executed using Java's Nashorn engine. All other
 engines require additional dependencies to be included with the process
-definition.
+definition. See also the [Scripting](scripting.md) document.
 
 ### Variables
 
