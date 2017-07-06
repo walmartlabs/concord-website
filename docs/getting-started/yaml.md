@@ -350,14 +350,20 @@ The `form` command accepts additional options:
 ```yaml
 main:
   - form: myForm
-    param1: value
-    param2: 123
+    yield: true
+    values:
+      myField: "a different value"
+      additionalData:
+        nestedField:
+          aValue: 123
 ```
 
 Supported options:
 - `yield`: a boolean value. If `true`, the UI wizard will stop after this
 form and the rest of the process will continue in "background". Supported
-only for custom (with branding) forms.
+only for custom (with branding) forms;
+- `values`: additional values, to override default form values or to
+provide additional data.
 
 ## Grammar
 
