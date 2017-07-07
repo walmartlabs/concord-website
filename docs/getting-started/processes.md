@@ -8,9 +8,11 @@ title:  Extensions
 ## Payload format
 
 The server expects a ZIP archive of the following structure:
-- `.concord.yml` - main project file;
+- `.concord.yml` or `concord.yml` - main project file;
 - `_main.json` - request data in JSON format (see [below](#request-data));
-- `processes` - directory containing `.yml` process and form definitions;
+- `processes` and/or `flows` - directories containing `.yml` process and
+form definitions;
+- `profiles` - directory containing profiles;
 - `lib` - directory for additional runtime dependencies.
 
 Anything else will be unpacked as-is and will be available for a process.
