@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Configuration
+title:  Development
 ---
 
 # Development

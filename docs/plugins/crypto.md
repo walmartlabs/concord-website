@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Configuration
+title:  Crypto
 ---
 
 # Crypto task

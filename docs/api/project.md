@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Log
+title:  Project
 ---
 
 # Project

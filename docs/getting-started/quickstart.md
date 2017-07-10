@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Extensions
+title:  Quick start
 ---
 
 # Quick start
