@@ -12,7 +12,7 @@ rm -rf _site || true
 # Install Gems from Gemfile (Jekyll)
 gem sources --remove "http://rubygems.org"
 gem sources --remove "https://rubygems.org"
-gem sources --add "http://sourcerepos.walmart.com/gembox/"
+gem sources --add "https://nexus.prod.walmart.com/nexus/content/repositories/rubygems/"
 bundle clean --force || true
 bundle install
 
