@@ -23,5 +23,5 @@ for the `SDE - Concord (STRDTORC)` project. Use the label `documentation`.
 
 ## Contribute
 
-Feel free to submit pull requests and file issues at
+Feel free to submit pull requests at
 https://gecgithub01.walmart.com/devtools/concord-website/
