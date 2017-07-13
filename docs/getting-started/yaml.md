@@ -264,7 +264,7 @@ main:
 
 ### Docker
 
-To run a docker from a process, use `docker` command:
+To start a docker container from process, use the docker command:
 
 ```yaml
 main:
