@@ -262,6 +262,18 @@ main:
   - log: ${b}
 ```
 
+### Docker
+
+To run a docker from a process, use `docker` command:
+
+```yaml
+main:
+ - docker: 
+    image: docker.prod.walmart.com/walmartlabs/concord-ansible
+    cmd: ansible-playbook -h
+```
+
+
 ## Form Syntax
 
 ### Declaring a new form
@@ -388,6 +400,7 @@ exprOptions := (outField | errorBlock)*
 taskOptions := (inVars | outVars | outField | errorBlock)*
 groupOptions := (errorBlock)*
 formCallOptions := (kv)*
+dockerCallOptions := (kv)*
 
 exprShort := expression
 exprFull := FIELD_NAME "expr" expression exprOptions
@@ -402,7 +415,7 @@ script := FIELD_NAME "script" VALUE_STRING (FIELD_NAME "body" VALUE_STRING)?
 formCall := FIELD_NAME "form" VALUE_STRING formCallOptions
 vars :=  FIELD_NAME "vars" START_OBJECT (kv)+ END_OBJECT
 
-stepObject := START_OBJECT group | ifExpr | exprFull | formCall | taskFull | inlineScript | taskShort | vars END_OBJECT
+stepObject := START_OBJECT group | ifExpr | exprFull | formCall | taskFull | inlineScript | taskShort | dockerCall END_OBJECT
 step := returnExpr | returnErrorExpr | exprShort | callProc | stepObject
 steps := START_ARRAY step+ END_ARRAY
 
