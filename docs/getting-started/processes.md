@@ -117,7 +117,10 @@ execution;
   - `initiator.username` - login, string;
   - `initiator.displayName` - printable name, string;
   - `initiator.groups` - list of user's groups;
-  - `initiator.attributes` - other LDAP attributes.
+  - `initiator.attributes` - other LDAP attributes;
+- `requestInfo` - additional request data:
+  - `requestInfo.query` - query parameters of a request made using
+  user-facing endpoints (e.g. the portal API).
 
 LDAP attributes must be whitelisted in [the configuration](./configuration.html#ldap).
 
