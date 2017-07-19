@@ -268,11 +268,11 @@ To start a docker container from process, use the docker command:
 
 ```yaml
 main:
- - docker: 
-    image: docker.prod.walmart.com/walmartlabs/concord-ansible
-    cmd: ansible-playbook -h
+ - docker: docker.prod.walmart.com/walmartlabs/concord-ansible
+   cmd: ansible-playbook -h
 ```
 
+For more details please refer to the [Docker](docker.html) document.
 
 ## Form Syntax
 
@@ -402,7 +402,7 @@ exprOptions := (outField | errorBlock)*
 taskOptions := (inVars | outVars | outField | errorBlock)*
 groupOptions := (errorBlock)*
 formCallOptions := (kv)*
-dockerCallOptions := (kv)*
+dockerOptions := (kv)*
 
 exprShort := expression
 exprFull := FIELD_NAME "expr" expression exprOptions
@@ -416,8 +416,9 @@ callProc := VALUE_STRING
 script := FIELD_NAME "script" VALUE_STRING (FIELD_NAME "body" VALUE_STRING)?
 formCall := FIELD_NAME "form" VALUE_STRING formCallOptions
 vars :=  FIELD_NAME "vars" START_OBJECT (kv)+ END_OBJECT
+docker := FIELD_NAME "docker" VALUE_STRING dockerOptions
 
-stepObject := START_OBJECT group | ifExpr | exprFull | formCall | taskFull | inlineScript | taskShort | dockerCall END_OBJECT
+stepObject := START_OBJECT docker | group | ifExpr | exprFull | formCall | taskFull | inlineScript | taskShort END_OBJECT
 step := returnExpr | returnErrorExpr | exprShort | callProc | stepObject
 steps := START_ARRAY step+ END_ARRAY
 
