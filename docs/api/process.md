@@ -167,8 +167,8 @@ Returns the current status of a process.
     ```
     
     ```json
-    {                                                                                                                                                                                                                 
-    "instanceId" : "45beb7c7-6aa2-40e4-ba1d-488f78700ab7",                                                                                                                                                          
+    {
+    "instanceId" : "45beb7c7-6aa2-40e4-ba1d-488f78700ab7",
     "projectName" : "myProject2",
     "createdAt" : "2017-07-19T16:31:39.331+0000",
     "initiator" : "admin",
