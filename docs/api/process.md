@@ -7,11 +7,143 @@ title:  Process
 
 ## Starting a process
 
-TBD.
+### By uploading a ZIP archive
+
+Starts a new process using the uploaded ZIP archive containing all
+necessary files.
+
+* **Permissions** none
+* **URI** `/api/v1/process?sync=${sync}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/octet-stream`
+* **Parameters**
+    The `${sync}` (`true/false`, default is `false`) parameter enables
+    synchronous execution of the process. The request will block until
+    the process is complete.
+* **Body**
+    Binary data. 
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+    
+    ```json
+    {
+      "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
+      "ok" : true
+    }
+    ```
+
+### With a JSON request
+
+Starts a new process using the parameters specified in the request body.
+
+* **Permissions** none
+* **URI** `/api/v1/process/${entryPoint}?sync=${sync}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Parameters**
+    The `${entryPoint}` parameter should be one the following formats:
+    - `projectName:repositoryName:flowName`
+    - `projectName:flowName`
+
+    For example:`myProject:default:main`
+    
+    The `flowName` part can be ommitted if the project has the
+    entry flow name set in the main project file or in a project
+    template.
+    
+    The `${sync}` (`true/false`, default is `false`) parameter enables
+    synchronous execution of the process. The request will block until
+    the process is complete.
+* **Body**
+    ```json
+    {
+      "arguments": {
+        "myVar": "..."
+      }
+    }
+    ```
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+    
+    ```json
+    {
+      "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
+      "ok" : true
+    }
+    ```
+    
+### By uploading a JSON file
+
+Starts a new process using the provided JSON file as request data.
+Accepts multiple additional files, which are put into the process'
+working directory.
+
+* **Permissions** none
+* **URI** `/api/v1/process?sync=${sync}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: multipart/form-data`
+* **Parameters**
+    The `${sync}` (`true/false`, default is `false`) parameter enables
+    synchronous execution of the process. The request will block until
+    the process is complete.
+* **Body**
+    Multipart binary data.
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+    
+    ```json
+    {
+      "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
+      "ok" : true
+    }
+    ```
+
+### From a browser
+
+Starts a new process and walks a user through all process' forms and
+intermediate "pages".
+
+* **Permissions** none
+* **URI** `/api/service/process_portal/start?entryPoint=${entryPoint}&myParam=myVal...`
+* **Method** `GET`
+* **Headers** none
+* **Parameters**
+    The `${entryPoint}` parameter should be one the following formats:
+    - `projectName:repositoryName:flowName`
+    - `projectName:flowName`
+
+    For example:`myProject:default:main`
+    
+    The `flowName` part can be ommitted if the project has the
+    entry flow name set in the main project file or in a project
+    template.
+   
+    Rest of the query parameters are used as process arguments.
+* **Body**
+    none
+* **Success response**
+    Redirects a user to a form or an intermediate page.
 
 ## Stopping a process
 
-TBD.
+Forcefully stops the process.
+
+* **Permissions** none
+* **URI** `/api/v1/process/${instanceId}`
+* **Method** `DELETE`
+* **Headers** `Authorization`
+* **Parameters**
+    ID of a process: `${instanceId}`
+* **Body**
+    none
+* **Success response**
+    Empty body.
 
 ## Waiting for completion of a process
 
@@ -20,6 +152,26 @@ TBD.
 ## Getting status of a process
 
 TBD.
+
+## Retrieving a process log
+
+Downloads the log file of a process.
+
+* **Permissions** none
+* **URI** `/api/v1/process/${instanceId}/log`
+* **Method** `GET`
+* **Headers** `Authorization`, `Range`
+* **Parameters**
+    ID of a process: `${instanceId}`
+* **Body**
+    ```
+    Content-Type: text/plain
+    ```
+    
+    The log file.
+* **Success response**
+    Redirects a user to a form or an intermediate page.
+
 
 ## Downloading an attachment
 
