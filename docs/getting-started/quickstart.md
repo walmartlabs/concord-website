@@ -29,7 +29,7 @@ Concord](./index.html) to understand the basic concepts of Concord.
 
   If you are using a private Docker registry, add its name to an image
   name in the examples below.  For example, if your private docker
-  registry is running on docker.prod.walmart.com this command:
+  registry is running on `docker.prod.walmart.com` this command:
  
 ```
 docker run ... walmartlabs/concord-agent
@@ -74,7 +74,7 @@ docker run -d \
 -v /path/to/ldap.properties:/opt/concord/conf/ldap.properties:ro \
 -e 'LDAP_CFG=/opt/concord/conf/ldap.properties' \
 -e 'DB_URL=jdbc:postgresql://db:5432/postgres' \
-walmartlabs/concord-server
+docker.prod.walmart.com/walmartlabs/concord-server
 ```
   
   Replace `/path/to/ldap.properties` with the path to the file
@@ -97,7 +97,7 @@ docker logs server
 docker run -d \
 --name agent \
 --link server \
-walmartlabs/concord-agent
+docker.prod.walmart.com/walmartlabs/concord-agent
 ```
   
 ### Step 6. Start the Concord Console (optional)
@@ -106,7 +106,7 @@ walmartlabs/concord-agent
 docker run -d -p 8080:8080 \
 --name console \
 --link server \
-walmartlabs/concord-console
+docker.prod.walmart.com/walmartlabs/concord-console
 ```
   
   The console will be available on
