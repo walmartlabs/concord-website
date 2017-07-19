@@ -5,7 +5,7 @@ title:  Process
 
 # Process
 
-## Starting a process
+## Start a process
 
 ### By uploading a ZIP archive
 
@@ -18,7 +18,7 @@ necessary files.
 * **Headers** `Authorization`, `Content-Type: application/octet-stream`
 * **Parameters**
     The `${sync}` (`true/false`, default is `false`) parameter enables
-    synchronous execution of the process. The request will block until
+    synchronous execution of a process. The request will block until
     the process is complete.
 * **Body**
     Binary data. 
@@ -54,7 +54,7 @@ Starts a new process using the parameters specified in the request body.
     template.
     
     The `${sync}` (`true/false`, default is `false`) parameter enables
-    synchronous execution of the process. The request will block until
+    synchronous execution of a process. The request will block until
     the process is complete.
 * **Body**
     ```json
@@ -88,7 +88,7 @@ working directory.
 * **Headers** `Authorization`, `Content-Type: multipart/form-data`
 * **Parameters**
     The `${sync}` (`true/false`, default is `false`) parameter enables
-    synchronous execution of the process. The request will block until
+    synchronous execution of a process. The request will block until
     the process is complete.
 * **Body**
     Multipart binary data.
@@ -151,7 +151,31 @@ TBD.
 
 ## Getting status of a process
 
-TBD.
+Returns the current status of a process.
+
+* **Permissions** none
+* **URI** `/api/v1/process/${instanceId}`
+* **Method** `GET`
+* **Headers** `Authorization`
+* **Parameters**
+    ID of a process: `${instanceId}`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+    
+    ```json
+    {                                                                                                                                                                                                                 
+    "instanceId" : "45beb7c7-6aa2-40e4-ba1d-488f78700ab7",                                                                                                                                                          
+    "projectName" : "myProject2",
+    "createdAt" : "2017-07-19T16:31:39.331+0000",
+    "initiator" : "admin",
+    "lastUpdatedAt" : "2017-07-19T16:31:40.493+0000",
+    "status" : "FAILED"
+    }
+    ```
 
 ## Retrieving a process log
 
