@@ -300,6 +300,7 @@ form (myForm):
   - age: { label: "Age", type: "int", min: 21, max: 100 }
   - favouriteColour: { label: "Favourite colour", type: "string", allow: ["gray", "grey"] }
   - languages: { label: "Preferred languages", type: "string+", allow: "${locale.languages()}" }
+  - password: {label: "Password", type: "string", inputType: "password"}
 ```
 
 Field declaration consists of the name (`myField`), the type
@@ -320,6 +321,7 @@ the form is called;
 Supported types of fields and their options:
 - `string`: a string value
   - `pattern`: (optional) a regular expression to check the value.
+  - `inputType`: (optional) specifies the type of html <input> element to display. 
 - `int`: an integer value
   - `min`, `max`: (optional) value bounds.
 - `decimal`: a decimal value
