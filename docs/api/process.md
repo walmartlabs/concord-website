@@ -76,7 +76,7 @@ Starts a new process using the parameters specified in the request body.
     }
     ```
     
-### By uploading a JSON file
+### By uploading file(s)
 
 Starts a new process using the provided JSON file as request data.
 Accepts multiple additional files, which are put into the process'
