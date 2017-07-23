@@ -92,6 +92,16 @@ working directory.
     the process is complete.
 * **Body**
     Multipart binary data.
+    
+    The values will be interpreted depending on their name:
+    - `archive` - ZIP archive, will be extracted into the process'
+    working directory;
+    - `request` - JSON file, will be used as the process' parameters;
+    - any value of `application/octet-stream` type - will be copied
+    as a file into the process' working directory;
+    - any value of `text/plain` type - will be used as a process'
+    parameter. Nested values can be specified using `.` as the
+    delimiter.
 * **Success response**
     ```
     Content-Type: application/json
@@ -102,6 +112,15 @@ working directory.
       "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
       "ok" : true
     }
+    ```
+* **Example**
+    ```
+    curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+    -F archive=@src/payload.zip \
+    -F myFile.txt=@src/myFile.txt \
+    -F entryPoint=main \
+    -F arguments.name=Concord \
+    http://localhost:8001/api/v1/process
     ```
 
 ### From a browser
