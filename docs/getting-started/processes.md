@@ -113,6 +113,7 @@ execution;
 - `txId` - unique identifier of a current execution;
 - `tasks` - allows access to available tasks (for example:
   `${tasks.get('oneops')}`);
+- `workDir` - path to the working directory of a current process;
 - `initiator` - information about user who started a process:
   - `initiator.username` - login, string;
   - `initiator.displayName` - printable name, string;
