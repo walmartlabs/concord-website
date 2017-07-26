@@ -3,10 +3,7 @@ layout: wmt/docs
 title:  YAML
 ---
 
-
-# YAML support
-
-Concord supports YAML as one of the formats for defining processes.
+# YAML DSL
 
 ## Example
 
@@ -140,7 +137,7 @@ main:
       preserved. Here will be a ${result} of EL evaluation.
 ```
 
-Alternatively, `JavaDelegate` instances can be used. While the support
+Alternatively, `JavaDelegate` tasks can be used. While the support
 for `JavaDelegate` tasks is mostly for compatibility reasons, it
 provides additional features like in/out variables mapping.
 
@@ -215,6 +212,24 @@ main:
 mySubFlow:
   - log: a message from the sub flow
 ```
+
+Using input variables (call arguments) and error handling:
+```yaml
+main:
+  - call: mySubFlow
+    in:
+      name: "Concord"
+    error:
+      - log: "Oh, no"
+      
+mySubFlow:
+  - if: "${name != 'Concord'}"
+    then:
+      - return: strangerDanger
+  - log: "Hello, ${name}"
+```
+
+Similar to [tasks](#tasks), the `in` variables can use expressions.
 
 ### Scripting
 
@@ -400,6 +415,7 @@ outVars := FIELD_NAME "out" START_OBJECT (kv)+ END_OBJECT
 
 exprOptions := (outField | errorBlock)*
 taskOptions := (inVars | outVars | outField | errorBlock)*
+callOptions := (inVars | outVars | errorBlock)*
 groupOptions := (errorBlock)*
 formCallOptions := (kv)*
 dockerOptions := (kv)*
@@ -412,13 +428,14 @@ ifExpr := FIELD_NAME "if" expression FIELD_NAME "then" steps (FIELD_NAME "else" 
 returnExpr := VALUE_STRING "return"
 returnErrorExpr := FIELD_NAME "return" VALUE_STRING
 group := FIELD_NAME ":" steps groupOptions
+callFull := FIELD_NAME "call" VALUE_STRING callOptions
 callProc := VALUE_STRING
 script := FIELD_NAME "script" VALUE_STRING (FIELD_NAME "body" VALUE_STRING)?
 formCall := FIELD_NAME "form" VALUE_STRING formCallOptions
 vars :=  FIELD_NAME "vars" START_OBJECT (kv)+ END_OBJECT
 docker := FIELD_NAME "docker" VALUE_STRING dockerOptions
 
-stepObject := START_OBJECT docker | group | ifExpr | exprFull | formCall | taskFull | inlineScript | taskShort END_OBJECT
+stepObject := START_OBJECT docker | group | ifExpr | exprFull | formCall | taskFull | callFull | inlineScript | taskShort END_OBJECT
 step := returnExpr | returnErrorExpr | exprShort | callProc | stepObject
 steps := START_ARRAY step+ END_ARRAY
 
