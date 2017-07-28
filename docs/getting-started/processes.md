@@ -127,8 +127,7 @@ LDAP attributes must be whitelisted in [the configuration](./configuration.html#
 
 Availability of other variables and "beans" depends on installed
 Concord's plugins and arguments passed on a process' start.
-See also the document on
-[how to create custom tasks](./extensions.html#tasks).
+See also the document on [how to create custom tasks](./tasks.html).
 
 
 ## Starting a new process instance
