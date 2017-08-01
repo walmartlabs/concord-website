@@ -5,6 +5,37 @@ title:  Ansible
 
 # Ansible task
 
+## Running existing playbooks
+
+### Without creating a Concord project
+
+1. Create a ZIP archive containing the playbook;
+2. Create a `request.json` file of the following structure:
+   ```json
+   {
+    "template": "ansible",
+    "playbook": "playbook/my.yml"
+   }
+   ```
+   The `playbook` parameter is the path to a playbook inside of the
+   archive. Make sure that they are the same.
+3. Send the archive and `request.json` file to Concord:
+   ```
+   curl -v \
+   -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+   -F request=@request.json \
+   -F archive=@archive.zip \
+   http://localhost:8001/api/v1/process
+   ```
+4. Open the Concord's Console and check the process logs.
+
+See also the full [example](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/ansible_template).
+
+### From a GIT repository.
+
+Please refer to the [ansible_project](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/ansible_project)
+example.
+
 ## Limitations
 
 Ansible's `strategy: debug` is not supported. It requires an interactive terminal and
@@ -47,6 +78,14 @@ pipelining = True
 
 ### Vault password files
 
+For the projects using "ansible" template, set `vaultPassword` variable
+in a top-level JSON object of a `request.json` file:
+```json
+{
+  "vaultPassword": "..."
+}
+```
+
 When using the raw payload format, set
 `arguments.ansibleCfg.vaultPassword` variable in a request JSON object:
 ```json
@@ -56,14 +95,6 @@ When using the raw payload format, set
       "vaultPassword": "..."
     }
   }
-}
-```
-
-For the projects using "ansible" template, set `vaultPassword` variable
-in a top-level request JSON object:
-```json
-{
-  "vaultPassword": "..."
 }
 ```
 
