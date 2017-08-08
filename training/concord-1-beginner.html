@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Example Slides</title>
+<link href="../assets/wmt/reveal/css/reveal.css" rel="stylesheet" />
+<link href="../assets/wmt/reveal/lib/css/zenburn.css" rel="stylesheet" />
+<link href="../assets/wmt/reveal/css/theme/walmart.css" rel="stylesheet" />
+<script>
+  document.write('<link rel="stylesheet" href="../assets/wmt/reveal/css/print/'
+      + (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper')
+      + '.css" type="text/css" media="print">');
+</script>
+</head>
+<body>
+ <div class="reveal">
+  <div class="slides">
+
+    <section data-markdown="./includes/concord-1-beginner-1-intro.md"
+             data-separator="^\n\n\n"
+             data-separator-vertical="^\n\n"
+             data-separator-notes="^Note:"
+             data-charset="iso-8859-15"></section>
+    <section data-markdown="./includes/concord-1-beginner-2-concord.md"
+             data-separator="^\n\n\n"
+             data-separator-vertical="^\n\n"
+             data-separator-notes="^Note:"
+             data-charset="iso-8859-15"></section>
+    <section data-markdown="./includes/concord-1-beginner-8-conclusion.md"
+             data-separator="^\n\n\n"
+             data-separator-vertical="^\n\n"
+             data-separator-notes="^Note:"
+             data-charset="iso-8859-15"></section>
+   </div>
+  </div>
+<script src="../assets/wmt/reveal/lib/js/head.min.js"></script>
+ <script src="../assets/wmt/reveal/js/reveal.js"></script>
+ <script>
+    // See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+    Reveal.initialize({
+      width: '100%',
+      height: '100%',
+      // 720p as used for videos
+      //width : 1280,
+      //height : 720,
+      margin: 0.1,
+      minScale: 0.2,
+      maxScale: 1.5,
+
+      // Optional libraries used to extend on reveal.js
+      dependencies : [ 
+        { src : '../assets/wmt/reveal/lib/js/classList.js',
+          condition : function() { return !document.body.classList; }
+        }, 
+        { src : '../assets/wmt/reveal/plugin/markdown/marked.js',
+          condition : function() { return !!document.querySelector('[data-markdown]'); }
+        }, 
+        { src : '../assets/wmt/reveal/plugin/markdown/markdown.js',
+         condition : function() { return !!document.querySelector('[data-markdown]'); }
+        },
+        { src : '../assets/wmt/reveal/plugin/zoom-js/zoom.js',
+          async : true,
+          condition : function() { return !!document.body.classList; }
+        }, 
+        { src : '../assets/wmt/reveal/plugin/notes/notes.js',
+          async : true,
+          condition : function() { return !!document.body.classList; }
+        } 
+      ]
+    });
+  </script>
+</body>
+</html>
