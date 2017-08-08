@@ -1,0 +1,24 @@
+/* bogle regular */
+@font-face {
+    font-family: 'Bogle';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/BogleWeb-Regular.eot'); /* IE9 Compat Modes */
+    src: local('Bogle'), local('BogleWeb-Regular'),
+    url('../    /BogleWeb-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../lib/font/bogle/BogleWeb-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../lib/font/bogle/BogleWeb-Regular.woff') format('woff'), /* Modern Browsers */
+    url('../lib/font/bogle/BogleWeb-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+/* bogle bold */
+@font-face {
+    font-family: 'Bogle';
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/BogleWeb-Bold.eot'); /* IE9 Compat Modes */
+    src: local('Bogle'), local('BogleWeb-Bold'),
+    url('../    /BogleWeb-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../lib/font/bogle/BogleWeb-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../lib/font/bogle/BogleWeb-Bold.woff') format('woff'), /* Modern Browsers */
+    url('../lib/font/bogle/BogleWeb-Bold.ttf') format('truetype'), /* Safari, Android, iOS */
+}

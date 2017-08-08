@@ -1,0 +1,93 @@
+/**
+ * Walmart theme for presentations. 
+ * By Manfred Moser
+ * 
+ * Based on the White theme for reveal.js. 
+ *
+ * By Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(../../lib/font/source-sans-pro/source-sans-pro.css);
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+
+$mainColor: #007dc6; // mediumBlue
+$headingColor: #004c91; // darkBlue
+
+$mainFontSize: 38px;
+$mainFont: 'Source Sans Pro', Helvetica, sans-serif;
+$headingFont: 'Source Sans Pro', Helvetica, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: 600;
+$linkColor: #f47321; // orange
+$linkColorHover: lighten( $linkColor, 10% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 2.3em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+section.has-dark-background {
+	&, h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+		margin-top: 10px;
+	}
+}
+
+// Walmart brand colors
+$darkBlue: #004c91;
+$mediumBlue: #007dc6;
+$lightBlue: #78b9e7;
+$orange: #f47321;
+$yellow: #ffc220;
+$darkGreen: #367c2b;
+$lightGreen: #76c043;
+
+.darkBlue { color: $darkBlue; }
+.mediumBlue { color: $mediumBlue; }
+.lightBlue { color: $lightBlue; }
+.orange { color: $orange; }
+.yellow { color: $yellow; }
+.darkGreen { color: $darkGreen }
+.lightGreen { color: $lightGreen }
+
+.reveal {
+  background-image: url('../../../img/logos/walmart.jpg');
+  background-size: 250px 87px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: top right; 
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.reveal h1 { color: $yellow; }
+
+.reveal blockquote {
+  background: $lightGreen;
+  border-radius: 10px 10px 10px 10px;
+  padding: 10px;
+  color: white;
+}
+
+.reveal section img {
+    margin: 15px 0px;
+    background: white;
+    border: 0px solid white;
+    box-shadow: 0 0 0 white;
+}
