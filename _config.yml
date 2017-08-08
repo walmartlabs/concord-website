@@ -17,8 +17,8 @@ navigation:
     url: /docs/index.html
     context: /docs/
   - title: TRAINING
-    url: /training/index.html
-    context: /training/
+    url: /training.html
+    context: /training
   - title: ABOUT
     url: /about.html
     context: /about
