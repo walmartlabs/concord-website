@@ -1,37 +1,37 @@
-# Looper User Training
+# Concord Training
 
 > Level 1 - Beginner
 
 
 ## Training Overview
 
-- Learn about CI/CD
-- Introduction to Looper
-- Know how to use Looper
+- Learn about workflow orchestration
+- Introduction to Conconrd
+- Know how to use Concord console 
+- Develop Concord flows
 
 
 ## Exclusions
 
-- Advanced usage of Looper <!-- .element: class="fragment" -->
-- Installing and running Looper <!-- .element: class="fragment" -->
-- Developing for Looper <!-- .element: class="fragment" -->
+- Installing and running Concord <!-- .element: class="fragment" -->
+- Developing Concord itself <!-- .element: class="fragment" -->
 
 
 ## Goals and Objectives
 
 At the end of this class, you should: <!-- .element: class="fragment" -->
 
-- Understand the benefits of CI/CD <!-- .element: class="fragment" -->
-- Be able to create a simple Looper job <!-- .element: class="fragment" -->
-- Customize job to build your project and view results <!-- .element: class="fragment" -->
-- Know the Looper terminology <!-- .element: class="fragment" -->
+- TBD 1 <!-- .element: class="fragment" -->
+- TBD 2 <!-- .element: class="fragment" -->
+- TBD 3 <!-- .element: class="fragment" -->
+- Know the Concord terminology <!-- .element: class="fragment" -->
 
 You will be ready for advanced usage! <!-- .element: class="fragment" -->
 
 Note:
 - Emphasize that this is basic scope.
 - Mention that there's a lot of ground to cover.
-- Class helps even if you already know/use Looper
+- Class helps even if you already know/use Concord
 
 
 ## Instructors

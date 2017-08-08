@@ -3,18 +3,17 @@
 > And what is next ...
 
 
-## Looper
+## Concord
 
-<em class="yellow">Your CI/CD platform of choice.</em>
+<em class="yellow">Your workflow orchestration tool of choice.</em>
 
 
 ## Advantages
 
-- Declarative, version controlled build configuration
-- Powerful workflow support
-- Easy job creation and maintenance
-
-<em class="yellow">Hands off, it just works.</em>
+- Declarative, version controlled workflow configuration
+- TBD 1
+- TBD 2
+- TBD 3
 
 
 ## Next
