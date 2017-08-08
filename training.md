@@ -30,5 +30,5 @@ covered:
 
 __The material is currently in development.__
 
-> Check out the [slides](./concord-1-beginner.html)
+> Check out the [slides](./training/concord-1-beginner.html)
 
