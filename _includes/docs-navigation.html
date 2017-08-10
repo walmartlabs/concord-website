@@ -12,6 +12,8 @@
             <a href="/docs/getting-started/configuration.html">Configuration</a></li>
         <li {% if page.url contains'/docs/getting-started/processes' %}class="active"{% endif %}>
             <a href="/docs/getting-started/processes.html">Processes</a></li>
+        <li {% if page.url contains'/docs/getting-started/templates' %}class="active"{% endif %}>
+            <a href="/docs/getting-started/templates.html">Templates</a></li>
         <li {% if page.url contains'/docs/getting-started/scripting' %}class="active"{% endif %}>
           <a href="/docs/getting-started/scripting.html">Scripting</a></li>
         <li {% if page.url contains'/docs/getting-started/docker' %}class="active"{% endif %}>
@@ -39,6 +41,8 @@
               <a href="/docs/api/secret.html">Secret</a></li>
           <li {% if page.url contains '/docs/api/apikey' %}class="active"{% endif %}>
               <a href="/docs/api/apikey.html">API Key</a></li>
+          <li {% if page.url contains '/docs/api/template' %}class="active"{% endif %}>
+            <a href="/docs/api/template.html">Template</a></li>
        </ul>
       <h2><!--<a onclick="toggleMenu(this, '#plugins');">--><i class="fa fa-chevron-right pale-blue"></i> Plugins<!--</a>--></h2>
       <ul id="plugins" {% unless page.url contains '/docs/plugins' %}class="foo-hidden"{% endunless %}>
