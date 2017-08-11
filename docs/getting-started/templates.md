@@ -12,6 +12,9 @@ Templates can contain the same type of files which are used in a
 regular [process payload](processes.html), plus additional
 instructions on how to modify process' data.
 
+Process files will overwrite any template files with the same name,
+this way a user can "override" any resource provided by a template.
+
 Additionally, using [template aliases](#usage), it is possible to
 create Concord flows which don't require sending a payload archive
 or having a GIT repository with flows and can be called with a
