@@ -5,9 +5,45 @@ title:  Ansible
 
 # Ansible task
 
-## Running existing playbooks
+  * [Limitations](#limitations)
+  * [Using the Ansible template](#using-the-ansible-template)
+    + [With playbooks stored locally](#with-playbooks-stored-locally)
+    + [With a GIT repository](#with-a-git-repository)
+  * [Using the task directly](#using-the-task-directly)
+    + [As an expression](#as-an-expression)
+    + [As a task](#as-a-task)
+    + [Task parameters](#task-parameters)
+  * [Configuring Ansible](#configuring-ansible)
+  * [Using Ansible Vault](#using-ansible-vault)
+  * [Using dynamic inventories](#using-dynamic-inventories)
+  * [Using inline inventories](#using-inline-inventories)
+  * [Using SSH keys](#using-ssh-keys)
+  * [Using custom Docker images](#using-custom-docker-images)
 
-### Without creating a Concord project
+There are several ways of how to use Ansible from Concord:
+
+1. if you only need to run an existing playbook without additional
+steps:
+    - ...and [the playbook is stored locally](#for-playbooks-stored-locally);
+    - ...or [the playbook is stored in a GIT repository](#from-a-git-repository).
+2. if you need to run a playbook as a step in a Concord flow: [use
+the task directly](#using-the-task-directly). This is also the most flexible way
+to run playbooks from Concord.
+
+## Limitations
+
+Ansible's `strategy: debug` is not supported. It requires an interactive terminal and
+expects user input and should not be used in Concord's environment.
+Playbooks with `strategy: debug` will hang indefinitely, but can be killed using the
+REST API or the Console.
+
+## Using the Ansible template
+
+To simplify runnning standalone playbooks we provide a
+[template](../getting-started/templates.html) that contains the
+necessary boilerplate to execute the Ansible task.
+
+### With playbooks stored locally
 
 1. Create a ZIP archive containing the playbook;
 2. Create a `request.json` file of the following structure:
@@ -31,18 +67,70 @@ title:  Ansible
 
 See also the full [example](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/ansible_template).
 
-### From a GIT repository.
+### With a GIT repository
 
 Please refer to the [ansible_project](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/ansible_project)
 example.
 
-## Limitations
+## Using the task directly
 
-Ansible's `strategy: debug` is not supported. It requires an interactive terminal and
-user input and shouldn't be used in Concord's environment.
-Playbooks with `strategy: debug` will hang indefinitely, but can be killed using the
-REST API or the Console.
+To use the task as a step in a Concord flow, it must be added to
+the `dependencies` section of a `.concord.yml` file or as a parameter
+in JSON request data:
 
+```yaml
+# .concord.yml
+variables:
+  dependencies:
+  - "http://nexus.prod.walmart.com/nexus/content/repositories/devtools/com/walmartlabs/concord/plugins/basic/ansible-tasks/0.34.0/ansible-tasks-0.34.0.jar"
+```
+
+### As an expression
+
+```yaml
+- ${ansible2.run(params, workDir)}
+```
+
+This expression will execute an Ansible process using `params`
+parameters in the `workDir` working directory. The parameters are
+described [below](#task-parameters).
+
+### As a task
+
+```yaml
+- task: ansible2
+  in:
+    ...params...
+```
+
+The `in` parameters are the same as in the expression call form and
+described [below](#task-parameters)
+
+### Task parameters
+
+- `playbook` - string, relative path to a playbook;
+- `debug` - boolean, enables additional debug logging;
+- `config` - JSON object, used to create an
+[Ansible configuration](http://docs.ansible.com/ansible/latest/intro_configuration.html)
+file. See also the [Configuring Ansible](#configuring-ansible)
+section;
+- `extraVars` - JSON object, used as `--extra-vars`
+argument of `ansible-playbook` command. Check [the official
+documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
+for more details;
+- `inventory` - JSON object, an inventory data in
+[the standard JSON format](http://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#id1).
+See also [Using inline inventories](#using-inline-inventories) section;
+- `inventoryFile` - string, path to an inventory file;
+- `dynamicInventoryFile` - string, path to a dynamic inventory
+script. See also [Using dynamic inventories] section;
+- `user` - string, username to connect to target servers;
+- `tags` - string, comma-separated list of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
+- `vaultPassword` - string, password to use with [Ansible Vault](http://docs.ansible.com/ansible/latest/playbooks_vault.html).
+See the [Using Ansible Vault](#using-ansible-vault) section for more details.
+
+When [the Ansible template](#using-the-ansible-template) is used, all
+parameters should be on the top-level of request JSON.
 
 ## Configuring Ansible
 
@@ -51,8 +139,6 @@ can be specified under `config` key in `request.json`:
 
 ```json
 {
-  "playbook": "playbook/hello.yml",
-  ...
   "config": {
     "defaults": {
       "forks": 50
@@ -74,9 +160,7 @@ forks = 50
 pipelining = True
 ```
 
-## Raw payload
-
-### Vault password files
+## Using Ansible Vault
 
 For the projects using "ansible" template, set `vaultPassword` variable
 in a top-level JSON object of a `request.json` file:
@@ -86,7 +170,7 @@ in a top-level JSON object of a `request.json` file:
 }
 ```
 
-When using the raw payload format, set
+When using the task format, set
 `arguments.ansibleCfg.vaultPassword` variable in a request JSON object:
 ```json
 {
@@ -101,12 +185,37 @@ When using the raw payload format, set
 Alternatively, a file named `_vaultPassword` can be added to the root
 directory of a payload.
 
-## Ansible projects
+## Using dynamic inventories
 
-### Using dynamic inventories
+Path to a [dynamic inventory script](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html)
+can be specified using `dynamicInventoryFile` parameter in a task
+parameters object:
 
-To use a dynamic inventory script, upload it as a `dynamicInventory`
-value in the process call:
+```yaml
+# .concord.yml
+variables:
+  ansibleParams:
+    playbook: "playbook/hello.yml"
+    dynamicInventoryFile: "inventory.py"
+    
+flows:
+  main:
+  - ${ansible2.run(ansibleParams, workDir)}
+```
+
+Or as an IN-parameter:
+```yaml
+# .concord.yml
+flows:
+  main:
+  - task: ansible2
+    in:
+      playbook: "playbook/hello.yml"
+      dynamicInventoryFile: "inventory.py"
+```
+
+Alternatively, a dynamic inventory script can be uploaded as a
+separate file:
 
 ```
 curl -v \
@@ -116,17 +225,16 @@ curl -v \
 http://localhost:8001/api/v1/process/myProject:myRepo
 ```
 
-It will be marked as executable and passed directly
-to `ansible-playbook` command.
+In any case, it will be marked as executable and passed directly to
+`ansible-playbook` command.
 
-### Using inline inventories
+## Using inline inventories
 
 An inventory file can be inlined with the request JSON. For example:
 
 ```json
 {
   "playbook": "playbook/hello.yml",
-  ...
   "inventory": {
     "local": {
       "hosts": ["127.0.0.1"],
@@ -138,30 +246,108 @@ An inventory file can be inlined with the request JSON. For example:
 }
 ```
 
-Concord creates a "fake" dynamic inventory script that returns the
-content of `inventory` field.
+Or as a task parameter:
+```yaml
+# .concord.yml
+variables:
+  ansibleParams:
+    playbook: "playbook/hello.yml"
+    inventory:
+      local:
+        hosts:
+        - "127.0.0.1"
+        vars:
+          ansible_connection: "local"
+          
+flows:
+  main:
+  - ${ansible2.run(ansibleParams, workDir)}
+```
 
-### Using SSH keys
+Alternatively, an inventory file can be uploaded as a separate file:
 
-The Ansible plugin supports calling a playbook with a specific SSH key.
+```
+curl -v \
+-H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+-F request=@request.json \
+-F inventory=@inventory.ini \
+http://localhost:8001/api/v1/process/myProject:myRepo
+```
 
-1. Upload a SSH key pair. See the [uploading an existing key pair](../getting-started/security.html#uploading-an-existing-key-pair)
-document.
-2. Add a private key section to a project configuration:
+## Using SSH keys
 
-    ```json
-    {
-      "cfg": {
-       "ansible": {
-         "privateKeys": [
-           {
-             "repository": "myRepo",
-             "secret": "mySshKeyPair"
-           }
-         ]
-       }
-     }
-    }
-    ```
-    Where `repository` is the pattern matching the name of a project's
-    repository and `secret` is the name of the uploaded SSH key pair.
+First, upload an [existing SSH key pair](../api/secret.html#upload-an-existing-ssh-key-pair)
+or [create a new one](../api/secret.html#generate-a-new-ssh-key-pair).
+
+Public part of the key pair should be added as a trusted key to the
+target server. The easiest way to check if the key is correct is to
+try to login to the remote server like this:
+```
+ssh -v -i /path/to/the/private/key remote_user@target_host
+```
+
+If you are able to login to the target server without any error
+messages or password prompt, then the key is correct and can be used
+with Ansible and Concord.
+
+The next step will be configuring Concord to use the key with your
+project or a standalone flow/playbook.
+
+This can be done by adding `ansible.privateKeys` section to the
+project's configuration, `.concord.yml` or request JSON:
+
+```json
+{
+  "ansible": {
+    "privateKeys": [
+      {
+        "repository": "myRepo",
+        "secret": "mySshKeyPair"
+      },
+      {
+        "repository": ".*",
+        "secret": "mySshKeyPair"
+      }
+    ]
+  }
+}
+```
+
+Where `repository` is the pattern, matching the name of a project's
+repository and `secret` is the name of the uploaded SSH key pair.
+
+A `.*` pattern can be used when there is no repositories configured
+or you want to use a single key for any repository.
+
+In `.concord.yml` files, the keys can be configured in a similar way:
+```yaml
+variables:
+  ansible:
+    privateKeys:
+      repository: ".*"
+      secret: "mySshKeyPair"
+```
+
+To use SSH keys with [the Ansible template](#using-the-ansible-template),
+the key configuration must be added to a project.
+
+## Using custom Docker images
+
+Sometimes Ansible playbooks require additional modules to be
+installed. In this case, users can provide a custom Docker image:
+
+```yaml
+# as an expression:
+- ${ansible2.run('docker.prod.walmart.com/walmartlabs/concord-ansible', params, workDir)}
+
+# or as a task step:
+- task: ansible2
+  in:
+    dockerImage: "docker.prod.walmart.com/walmartlabs/concord-ansible"
+```
+
+We recommend using `docker.prod.walmart.com/walmartlabs/concord-ansible`
+as a base for your custom Ansible images.
+
+Please refer to [Docker support](../getting-started/docker.html)
+document for more details.
