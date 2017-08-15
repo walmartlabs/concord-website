@@ -1,0 +1,175 @@
+/**
+ * Walmartlabs theme for presentations.
+ * By Alison Loney
+ *
+ * Based on the White theme for reveal.js.
+ * By Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(../../lib/font/bogle/bogle.css);
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+
+$mainColor: #2f2951; // darkBlue
+$headingColor: #2f2951; // darkBlue
+
+$mainFontSize: 30px;
+$mainFont: 'Bogle', Helvetica, sans-serif;
+$headingFont: 'Bogle', Helvetica, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: bold;
+$linkColor: #da52d5; // pink
+$linkColorHover: lighten( $linkColor, 10% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 2.3em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+section.has-dark-background {
+	&, h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+		margin-top: 10px;
+	}
+}
+
+// Walmartlabs brand colors
+$darkBlue: #2f2951;
+$brightBlue: #0cb0f3;
+$pink: #da52d5;
+$yellow: #ffc220;
+$green: #5bc778;
+
+.darkBlue { color: $darkBlue; }
+.brightBlue { color: $brightBlue; }
+.pink { color: $pink; }
+.yellow { color: $yellow; }
+.green { color: $green }
+
+#header-left {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+}
+#header-right {
+	position: absolute;
+	top: 0%;
+	right: 0%;
+}
+#footer {
+	position: absolute;
+	bottom: 0%;
+	left: 0%;
+	background-color: #2f2951; /* Dark Blue */
+	width: 100%;
+	height: 50px;
+}
+#footer-logo {
+	height: 30px;
+	margin-top: 12px;
+	margin-right: 20px;
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.reveal .slides {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  padding: 10px 20px;
+  margin: auto;
+  /*margin-top: 0;*/
+  overflow: visible;
+  z-index: 1;
+  text-align: left;
+  -webkit-perspective: 600px;
+  perspective: 600px;
+  -webkit-perspective-origin: 50% 40%;
+  perspective-origin: 50% 40%; }
+
+/*********************************************
+* SECTION SPECIFIC STYLES
+*********************************************/
+.reveal section.title-slide h1{
+  color: #ffffff;
+  padding-top: 200px; }
+
+.reveal section.slide-first img, .reveal section.title-slide img, .reveal section.slide-final img {
+  margin: auto;
+  display: block;
+  background: none;
+  border: 0px solid white;
+  box-shadow: none; }
+
+.reveal section.slide-first a img {
+  padding-top: 150px;
+  max-width: 70%; }
+
+.reveal section.slide-first a:hover img {
+  background: none;
+  border-color: none;
+  box-shadow: none; }
+
+.reveal section.slide-first img {
+  padding-top: 300px;
+  max-width: 60%; }
+
+.reveal section.title-slide img {
+  float: right;
+  padding-top: 20px;
+  max-width: 60%; }
+
+.reveal section.slide-final img {
+  padding-top: 50px;
+  max-width: 40%; }
+
+/*********************************************
+* NAVIGATION CONTROLS
+*********************************************/
+.reveal .controls {
+  display: none;
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  z-index: 30;
+  right: 10px;
+  bottom: 60px;
+  -webkit-user-select: none; }
+
+/*********************************************
+* SLIDE NUMBER
+*********************************************/
+.reveal .slide-number {
+  left: 0%;
+  width: 40px;
+  height: 20px;
+  background-color: #ffc220;
+  text-align: center;
+  line-height: 20px;
+  font-size: 0.5em;
+  margin-left: 10px;
+  margin-bottom: 8px;
+  color: #2f2951;
+  margin-bottom: 0px; }
+
+.reveal .slide-number-delimiter {
+  margin: 0 3px; }

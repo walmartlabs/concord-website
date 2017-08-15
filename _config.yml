@@ -13,13 +13,16 @@ description: "Concord is a workflow server."
 source_url: https://gecgithub01.walmart.com/devtools/concord-website
 
 navigation:
- - title: ABOUT
-   url: /about.html
-   context: /about
- - title: DOCS
-   url: /docs/index.html
-   context: /docs/
-   
+  - title: DOCS
+    url: /docs/index.html
+    context: /docs/
+  - title: TRAINING
+    url: /training.html
+    context: /training
+  - title: ABOUT
+    url: /about.html
+    context: /about
+
 cross-site:
  - title: Strati
    url: http://strati.walmart.com
