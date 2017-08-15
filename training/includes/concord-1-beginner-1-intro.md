@@ -6,9 +6,10 @@
 ## Training Overview
 
 - Learn about workflow orchestration
-- Introduction to Conconrd
-- Know how to use Concord console 
+- Introduction to Concord
+- Know how to use Concord Console 
 - Develop Concord flows
+- Concord use cases with Ansible, CI/CD and more
 
 
 ## Exclusions
@@ -81,4 +82,3 @@ but pay attention! <!-- .element: class="fragment" -->
 ## Questions?
 
 <em class="yellow">Ask now, before we jump to the next section.</em>
-
