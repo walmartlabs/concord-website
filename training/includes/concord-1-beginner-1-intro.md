@@ -21,9 +21,9 @@
 
 At the end of this class, you should: <!-- .element: class="fragment" -->
 
-- TBD 1 <!-- .element: class="fragment" -->
-- TBD 2 <!-- .element: class="fragment" -->
-- TBD 3 <!-- .element: class="fragment" -->
+- Be able to use the Concord Server and Concord Console, <!-- .element: class="fragment" -->
+- Know how to create a simple Concord projects, <!-- .element: class="fragment" -->
+- Add forms and customizations, and  <!-- .element: class="fragment" -->
 - Know the Concord terminology <!-- .element: class="fragment" -->
 
 You will be ready for advanced usage! <!-- .element: class="fragment" -->
