@@ -23,7 +23,7 @@ $backgroundColor: #fff;
 $mainColor: #2f2951; // darkBlue
 $headingColor: #2f2951; // darkBlue
 
-$mainFontSize: 30px;
+$mainFontSize: 36px;
 $mainFont: 'Bogle', Helvetica, sans-serif;
 $headingFont: 'Bogle', Helvetica, sans-serif;
 $headingTextShadow: none;
@@ -87,6 +87,16 @@ $green: #5bc778;
 @import "../template/theme";
 // ---------------------------------------------
 
+.reveal .slides > section,
+.reveal .slides > section > section {
+  line-height: 1.3;
+  font-weight: inherit;
+  padding: 20px 0px; }
+
+/*********************************************
+* FONT ALIGNMENT STYLES
+*********************************************/
+
 .reveal .slides {
   position: absolute;
   width: 100%;
@@ -143,6 +153,31 @@ $green: #5bc778;
   max-width: 40%; }
 
 /*********************************************
+* BLOCKQUOTE STYLES
+*********************************************/
+.reveal blockquote {
+  display: block;
+  position: absolute;
+  width: 70%;
+  margin: 20px auto;
+  padding: 10px;
+  color: white;
+  font-style: italic;
+  text-align: center;
+  background: #0cb0f3;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: none; }
+
+/*********************************************
+* IMAGES
+*********************************************/
+.reveal section img {
+  margin: 15px 0px;
+  background: none;
+  border: none;
+  box-shadow: none; }
+
+/*********************************************
 * NAVIGATION CONTROLS
 *********************************************/
 .reveal .controls {
@@ -165,7 +200,7 @@ $green: #5bc778;
   background-color: #ffc220;
   text-align: center;
   line-height: 20px;
-  font-size: 0.5em;
+  font-size: 0.4em;
   margin-left: 10px;
   margin-bottom: 8px;
   color: #2f2951;
