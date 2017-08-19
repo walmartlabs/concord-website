@@ -9,11 +9,26 @@ Tasks are used to call 3rd-party code or to perform something that
 is too complex to express it with YAML directly. They are "plugins"
 of Concord.
 
+## Creating a new task
+
+Tasks must implement `com.walmartlabs.concord.sdk.Task` Java
+interface. It is provided by `concord-sdk` module: 
+```xml
+<dependency>
+  <groupId>com.walmartlabs.concord</groupId>
+  <artifactId>concord-sdk</artifactId>
+  <version>${concord.version}</version>
+</dependency>
+```
+
+It is recommended to distribute tasks as "fat" JARs, e.g. to include
+all necessary dependencies in a single archive.
+
 ## Using expressions
 
 Here's an example of a simple task:
 ```java
-import com.walmartlabs.concord.common.Task;
+import com.walmartlabs.concord.sdk.Task;
 import javax.inject.Named;
 
 @Named("myTask")
@@ -49,7 +64,7 @@ See also [the description of expressions](./yaml.html#expressions).
 If a task implements the `JavaDelegate` interface, it can be called
 using `task` command:
 ```java
-import com.walmartlabs.concord.common.Task;
+import com.walmartlabs.concord.sdk.Task;
 import io.takari.bpm.api.JavaDelegate;
 import javax.inject.Named;
 
