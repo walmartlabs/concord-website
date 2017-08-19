@@ -5,24 +5,34 @@ title:  Processes
 
 # Processes
 
-## Payload format
+  * [Structure of a process](#structure-of-a-process)
+  * [Project file](#project-file)
+  * [Request data](#request-data)
+  * [Variables](#variables)
+  * [Provided variables](#provided-variables)
+  * [Dependencies](#dependencies)
 
-The server expects a ZIP archive of the following structure:
+## Structure of a process
+
+The server expects the following structure of a process working
+directory:
 - `.concord.yml` or `concord.yml` - main project file;
-- `_main.json` - request data in JSON format (see [below](#request-data));
-- `processes` and/or `flows` - directories containing `.yml` process and
-form definitions;
+- `_main.json` - request data in JSON format (see
+[below](#request-data));
+- `processes` and/or `flows` - directories containing `.yml` process
+and form definitions;
 - `profiles` - directory containing profiles;
 - `lib` - directory for additional runtime dependencies.
 
-Anything else will be unpacked as-is and will be available for a process.
-The plugins can require other files to be present in a payload.
+Anything else will be copied as-is and will be available for a
+process. The plugins can require other files to be present in a
+payload.
 
 ## Project file
 
 A payload archive can contain a project file: `.concord.yml`.
-This file will be loaded first and can contain process and flow definitions,
-input variables and profiles:
+This file will be loaded first and can contain process and flow
+definitions, input variables and profiles:
 
 ```yaml
 flows:
@@ -48,16 +58,16 @@ profiles:
         myForm: {name: "${myAlias}"}
 ```
 
-Profiles can override default variables, flows and forms. For example, if the
-process above will be executed using `myProfile` profile, then the default
-value of `myForm.name` will be `world`.
+Profiles can override default variables, flows and forms. For
+example, if the process above will be executed using `myProfile`
+profile, then the default value of `myForm.name` will be `world`.
 
 See also [the YAML format for describing flows and forms](./yaml.html).
 
 ## Request data
 
-A payload's `_main.json` file is either supplied by users or created by the
-server from a user's request data.
+A payload's `_main.json` file is either supplied by users or created
+by the server from a user's request data.
 
 The request's JSON format:
 ```json
@@ -73,20 +83,21 @@ The request's JSON format:
 }
 ```
 
-Only `entryPoint` parameter is mandatory. The `activeProfiles` parameter is a
-list of project file's profiles that will be used to start a process. If not
-set, a `default` profile will be used.
+Only `entryPoint` parameter is mandatory. The `activeProfiles`
+parameter is a list of project file's profiles that will be used to
+start a process. If not set, a `default` profile will be used.
 
 ## Variables
 
-Before executing a process, variables from a project file and a request data
-are merged. Project variables override default project variables and then
-user request's variables are applied.
+Before executing a process, variables from a project file and a
+request data are merged. Project variables override default project
+variables and then user request's variables are applied.
 
-There are a few variables that affect execution of a process:
-- `template` - the name of a template, will be used by the server to create a
-payload archive;
-- `dependencies` - array of URLs, list of external JAR dependencies;
+There are a few variables which affect execution of a process:
+- `template` - the name of a [template](./templates.html), will be
+used by the server to create a payload archive;
+- `dependencies` - array of URLs, list of external JAR dependencies.
+See the [Dependencies](#dependencies) section for more details;
 - `arguments` - a JSON object, will be used as process arguments.
 
 Values of `arguments` can contain [expressions](./yaml.html#expressions).
@@ -99,15 +110,19 @@ variables:
     myStaticVar: 123
 ```
 
-The order of evaluation is not guaranteed.
-
-The `dependencies` array allows to pull external dependencies necessary
-for the process' execution. Each element of the array must be a valid URL.
-Dependencies are resolved by the agent, before starting a process.
+The variables are evaluated in the order of definition. For example,
+it is possible to use a variable value in another variable if the
+former is defined earlier than the latter:
+```yaml
+variables:
+  arguments:
+    name: "Concord"
+    message: "Hello, ${name}"
+```
 
 ## Provided variables
 
-Concord automatically provides a few built-in variables:
+Concord automatically provides several built-in variables:
 - `execution` - a reference to a context variables map of a current
 execution;
 - `txId` - unique identifier of a current execution;
@@ -129,9 +144,16 @@ Availability of other variables and "beans" depends on installed
 Concord's plugins and arguments passed on a process' start.
 See also the document on [how to create custom tasks](./tasks.html).
 
+## Dependencies
 
-## Starting a new process instance
+The `variables.dependencies` array allow users to include external
+dependencies - 3rd-party code and Concord plugins. Each element of
+the array must be a valid URL:
+```yaml
+variables:
+  dependencies:
+  - "http://central.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.11/groovy-all-2.4.11.jar"
+```
 
-*TBD*
-
-See also: the [process](../api/process.html) API endpoint.
+Dependencies are automatically downloaded by the Agent and added to
+the classpath of a process.
