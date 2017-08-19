@@ -123,8 +123,8 @@ variables:
 ## Provided variables
 
 Concord automatically provides several built-in variables:
-- `execution` - a reference to a context variables map of a current
-execution;
+- `context` - a reference to a context variables map of a current
+execution, instance of `com.walmartlabs.concord.sdk.Context`;
 - `txId` - unique identifier of a current execution;
 - `tasks` - allows access to available tasks (for example:
   `${tasks.get('oneops')}`);
