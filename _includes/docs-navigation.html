@@ -12,8 +12,6 @@
             <a href="/docs/getting-started/configuration.html">Configuration</a></li>
         <li {% if page.url contains'/docs/getting-started/processes' %}class="active"{% endif %}>
             <a href="/docs/getting-started/processes.html">Processes</a></li>
-        <li {% if page.url contains'/docs/getting-started/templates' %}class="active"{% endif %}>
-            <a href="/docs/getting-started/templates.html">Templates</a></li>
         <li {% if page.url contains'/docs/getting-started/forms' %}class="active"{% endif %}>
             <a href="/docs/getting-started/forms.html">Forms</a></li>
         <li {% if page.url contains'/docs/getting-started/scripting' %}class="active"{% endif %}>
@@ -54,6 +52,13 @@
               <a href="/docs/plugins/crypto.html">Crypto</a></li>
           <li {% if page.url contains '/docs/plugins/kv' %}class="active"{% endif %}>
               <a href="/docs/plugins/kv.html">KV</a></li>
+       </ul>
+       <h2><!--<a onclick="toggleMenu(this, '#plugins');">--><i class="fa fa-chevron-right pale-blue"></i> Templates<!--</a>--></h2>
+       <ul id="templates" {% unless page.url contains '/docs/templates' %}class="foo-hidden"{% endunless %}>
+          <li {% if page.url contains'/docs/templates/index' %}class="active"{% endif %}>
+              <a href="/docs/templates/index.html">Introduction</a></li>
+          <li {% if page.url contains'/docs/templates/bluegreen' %}class="active"{% endif %}>
+              <a href="/docs/templates/bluegreen.html">Blue/green deployment</a></li>
        </ul>
     </div>
   </div><!-- END col-md-3 docs-navigation -->
