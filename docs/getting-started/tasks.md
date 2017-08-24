@@ -17,12 +17,18 @@ interface. It is provided by `concord-sdk` module:
 <dependency>
   <groupId>com.walmartlabs.concord</groupId>
   <artifactId>concord-sdk</artifactId>
-  <version>${concord.version}</version>
+  <version>0.36.0</version>
+  <scope>provided</scope>
 </dependency>
 ```
 
 It is recommended to distribute tasks as "fat" JARs, e.g. to include
-all necessary dependencies in a single archive.
+all necessary dependencies in a single archive. However, some
+dependencies should be excluded from the final JAR or marked as
+`provided` in the POM file:
+- `com.fasterxml.jackson.core/*`
+- `javax.inject/javax.inject`
+- `org.slf4j/slf4j-api`
 
 ## Using expressions
 
@@ -61,18 +67,18 @@ See also [the description of expressions](./yaml.html#expressions).
 
 ## Using full form
 
-If a task implements the `JavaDelegate` interface, it can be called
-using `task` command:
+If a task implements `Task#execute` method, it can be started using
+`task` command:
 ```java
 import com.walmartlabs.concord.sdk.Task;
-import io.takari.bpm.api.JavaDelegate;
+import com.walmartlabs.concord.sdk.Context;
 import javax.inject.Named;
 
 @Named("myTask")
-public class MyDelegateTask implements JavaDelegate, Task {
+public class MyTask implements Task {
    
     @Override
-    public void execute(ExecutionContext ctx) throws Exception {
+    public void execute(Context ctx) throws Exception {
         System.out.println("Hello, " + ctx.getVariable("name"));
         ctx.setVariable("success", true);
     }
