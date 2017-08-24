@@ -22,7 +22,7 @@ interface. It is provided by `concord-sdk` module:
 </dependency>
 ```
 
-It is recommended to distribute tasks as "fat" JARs, e.g. to include
+It is recommended to distribute tasks as "fat" JARs, i.e. to include
 all necessary dependencies in a single archive. However, some
 dependencies should be excluded from the final JAR or marked as
 `provided` in the POM file:
