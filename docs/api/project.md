@@ -109,7 +109,7 @@ Updates parameters of an existing project.
 Removes a project and its resources.
 
 * **Permissions** `project:delete:${projectName}`
-* **URI** `/api/v1/v1/project/${projectName}`
+* **URI** `/api/v1/project/${projectName}`
 * **Method** `DELETE`
 * **Headers** `Authorization`
 * **Body**
