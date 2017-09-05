@@ -56,33 +56,40 @@ Specific software designed for workflow orchestration and BPM
 ## Components
 
 - Concord Server
-- Concord Agent
 - Concord Console
+- Concord Agent
 
 
 ## Concord Server
 
-provides a REST API for managing projects and repositories. It receives and 
-processes user requests to call workflow scenarios.
+- Main engine and storage
+  - user access
+  - projects
+  - repositories
+  - key/value pairs
+- REST API for access
 
-
-## Concord Agent
-
-is a (remote) workflow executor. Receives scenarios from the server and executes
-them in an isolated environment.
+Receives and  processes user requests to call workflow scenarios.
 
 
 ## Concord Console
 
- is a web UI for managing and monitoring the server and its processes.
+Web-based user interface for Concord Server and its processes. 
+
+
+## Concord Agent
+
+- Remote workflow executor
+- Receives scenarios from the server
+- Executes them in isolated environments
 
 
 ## Concord Project
 
-- User created
-- incl plugin implementations
-- in git repo
-- using yaml
+- Created by Users
+- Incl plugin implementations
+- Stored in in git repository
+- YAML for flow description
 
 
 ## Questions?
