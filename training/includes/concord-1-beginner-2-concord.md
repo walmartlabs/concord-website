@@ -1,4 +1,4 @@
-# Workflow Orchestraion, BPM, ...
+# Workflow Orchestration and BPM
 
 > What is it all about?
 
@@ -42,7 +42,7 @@ Specific software designed for workflow orchestration and BPM
 
 - A workflow/BPM server
 - BPM engine inside
-- Java based software
+- Java-based software
 - Developed by SDE team at Walmart Labs
 
 
@@ -50,6 +50,7 @@ Specific software designed for workflow orchestration and BPM
 
 - Provision infrastructure in a public or private cloud
 - Execute Ansible playbooks and deploy applications
+- tbd
 
 
 ## Components
