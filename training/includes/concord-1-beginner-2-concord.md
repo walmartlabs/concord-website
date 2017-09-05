@@ -76,6 +76,10 @@ Receives and  processes user requests to call workflow scenarios.
 
 Web-based user interface for Concord Server and its processes. 
 
+- Processes
+- Projects
+- Secrets
+
 
 ## Concord Agent
 
