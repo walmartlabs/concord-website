@@ -42,26 +42,22 @@ reference to a [project](#project);
 For methods **2** and **3**, the server will build a payload archive
 itself.
 
-*TBD*
 
 ## Concord Agent
 
 The agent is a standalone Java application that receives and executes
 a [payload](#payload) sent by the server.
 
-*TBD*
 
 ## Concord Console 
 
 The console is a web application for managing and monitoring the
 server.
 
-*TBD*
-
 ## Concord Concepts
 
 Concord contains projects that reference repositories that define
-processes.  Concord also can associate credentials with resources
+processes.  Concord can associate credentials with resources
 and repositories referenced by a project.  The following sections
 briefly introduce these concepts.
 
@@ -70,10 +66,8 @@ briefly introduce these concepts.
 Projects allow users to automatically create payloads by pulling
 files from remote GIT repositories and applying templates.
 
-Projects are created using the REST API or (in the near future) the
+Projects are created using the REST API or the
 UI.
-
-*TBD*
 
 ### Processes
 
@@ -83,10 +77,10 @@ of a repository.  These four components result in a specific process
 that is executed and which can be inspected in the Concord Console.
 
 An example of a process can be the provisioning of cloud
-infrastructure from a Boo template or the execution of an Ansible
+infrastructure from a OneOps Boo template or the execution of an Ansible
 playbook.  A far simpler example of a process can be the execution of
-a simple logging task to print "Hello World" as shown in the [Concord
-Quickstart](./quickstart.html).
+a simple logging task to print "Hello World" as shown in the
+[Concord Quickstart](./quickstart.html).
 
 ### Credentials
 
