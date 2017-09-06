@@ -143,7 +143,7 @@ h1,h2,h3,h4,h5 {
     color: #454545;
     margin-top: 20px;
     text-shadow: none;
-    font-weight: bold !important;
+    font-weight: normal !important;
     font-family: 'Bogle', sans-serif; }
 
 h1 a,h2 a,h3 a,h4 a,h5 a,
@@ -151,7 +151,7 @@ h1 a:focus,h2 a:focus,h3 a:focus,h4 a:focus,h5 a:focus,
 h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,
 h1 a:active,h2 a:active,h3 a:active,h4 a:active,h5 a:active {
     color: #454545;
-    font-weight: bold;
+    font-weight: normal;
     text-decoration: none; }
 
 h1, .h1 {
