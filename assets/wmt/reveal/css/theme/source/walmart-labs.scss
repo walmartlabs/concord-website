@@ -20,8 +20,8 @@
 // Override theme settings (see ../template/settings.scss)
 $backgroundColor: #fff;
 
-$mainColor: #2f2951; // darkBlue
-$headingColor: #2f2951; // darkBlue
+$mainColor: #555555; // darkGrey
+$headingColor: #3f3481; // darkBlue
 
 $mainFontSize: 36px;
 $mainFont: 'Bogle', Helvetica, sans-serif;
@@ -121,7 +121,15 @@ $green: #5bc778;
 *********************************************/
 .reveal section.title-slide h1{
   color: #ffffff;
-  padding-top: 200px; }
+  padding-top: 2.5em; }
+
+.reveal section.title-slide p,
+.reveal section.slide-first p,
+.reveal section.title-slide h2,
+.reveal section.slide-first h2,
+.reveal section.title-slide h3,
+.reveal section.slide-first h3 {
+	color: #ffffff; }
 
 .reveal section.slide-first img, .reveal section.title-slide img, .reveal section.slide-final img {
   margin: auto;

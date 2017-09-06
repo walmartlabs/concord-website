@@ -2,6 +2,43 @@
 
 /*@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,400italic);*/
 
+/* bogle - latin */
+@font-face {
+    font-family: 'Bogle';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/BogleWeb-Regular.eot'); /* IE9 Compat Modes */
+    src: local('Bogle'), local('BogleWeb-Regular'),
+    url('../fonts/BogleWeb-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/BogleWeb-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/BogleWeb-Regular.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/BogleWeb-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+/* bogle regular italic - latin */
+@font-face {
+    font-family: 'Bogle';
+    font-style: italic;
+    font-weight: normal;
+    src: url('../fonts/BogleWeb-RegularItalic.eot'); /* IE9 Compat Modes */
+    src: local('Bogle'), local('BogleWeb-RegularItalic'),
+    url('../fonts/BogleWeb-RegularItalic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/BogleWeb-RegularItalic.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/BogleWeb-RegularItalic.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/BogleWeb-RegularItalic.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+/* bogle bold - latin */
+@font-face {
+    font-family: 'Bogle';
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/BogleWeb-Bold.eot'); /* IE9 Compat Modes */
+    src: local('Bogle'), local('BogleWeb-Bold'),
+    url('../fonts/BogleWeb-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/BogleWeb-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/BogleWeb-Bold.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/BogleWeb-Bold.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+
 /* open-sans-300 - latin */
 @font-face {
     font-family: 'Open Sans';
@@ -65,13 +102,13 @@ html {
   background: #ffffff; }
 
 html, body {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300; }
+    font-family: 'Bogle', sans-serif;
+    font-weight: normal; }
 
 body {
-    color: #555;
-    font-size: 16px;
-    line-height: 1.6; }
+    color: #666;
+    font-size: 17px;
+    line-height: 1.5; }
 
 p {
     padding: 0px 0px 5px; }
@@ -82,8 +119,8 @@ p, li {
 
 a,a:focus,a:hover,a:active {
     color: #007dc6;
-    font-weight: 400;
-    line-height:1.6;
+    font-weight: normal;
+    line-height:1.5;
     outline: 0 !important; }
 
 a:hover {
@@ -106,33 +143,34 @@ h1,h2,h3,h4,h5 {
     color: #454545;
     margin-top: 20px;
     text-shadow: none;
-    font-weight: 400 !important;
-    font-family: 'Open Sans', sans-serif; }
+    font-weight: bold !important;
+    font-family: 'Bogle', sans-serif; }
 
 h1 a,h2 a,h3 a,h4 a,h5 a,
 h1 a:focus,h2 a:focus,h3 a:focus,h4 a:focus,h5 a:focus,
 h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,
 h1 a:active,h2 a:active,h3 a:active,h4 a:active,h5 a:active {
     color: #454545;
+    font-weight: bold;
     text-decoration: none; }
 
 h1, .h1 {
-    font-size: 38px; }
+    font-size: 2.8em; }
 
 h2, .h2 {
-    font-size: 32px; }
+    font-size: 2.4em; }
 
 h3, .h3 {
-    font-size: 28px; }
+    font-size: 2.0em; }
 
 h4, .h4 {
-    font-size: 24px; }
+    font-size: 1.6em; }
 
 h5, .h5 {
-    font-size: 20px; }
+    font-size: 1.4em; }
 
 h6, .h6 {
-    font-size: 16px; }
+    font-size: 1em; }
 
 ul {
     list-style-type: none;
@@ -398,7 +436,7 @@ ul.top-nav li a {
 /* ------------------------------ HOMEPAGE STYLES ------------------------------ */
 
 .homeBanner {
-    background: #1c3664;
+    background: #2f2951;
     margin-top: -20px;
     margin-bottom: 50px;
     padding: 0px; }
@@ -512,14 +550,14 @@ ul.pagination li a:hover {
     background-color: #333333 !important; }
 
 .dark-blue {
-    color: #1c3664 !important; }
+    color: #2f2951 !important; }
 
 .dark-blue-bg {
-    background-color: #1c3664 !important;
+    background-color: #2f2951 !important;
     color: #ffffff; }
 
 .dark-blue-bg:hover {
-    background-color: #0c1e3a !important; }
+    background-color: #1d1937 !important; }
 
 .medium-blue {
     color: #0b4e90 !important; }
@@ -1076,7 +1114,7 @@ ul.blog-tags a:hover img {
     margin: 0px 0px 10px 0; }
 
 .docs-navigation > h2 > a {
-    cursor: pointer;}
+    cursor: pointer; }
 
 .docs-navigation > ul > li, .docs-navigation > ul > li > ul > li {
     border-left: 1px solid #eaeaea;
