@@ -23,6 +23,7 @@ Creates a new project with specified parameters or updates an existing one.
         "myRepo": {
           "url": "...",
           "branch": "...",
+          "path": "...",
           "secret": "..."
         }
       },
@@ -163,11 +164,14 @@ Adds a new repository for a project.
       "name": "myRepo",
       "url": "...",
       "branch": "...",
+      "commitId": "...",
+      "path": "...",
       "secret": "..."
     }
     ```
     
     Mandatory parameters: `name` and `url`.
+    Parameters `branch` and `commitId` are mutually exclusive.
     The referenced secret must exist beforehand.
 * **Success response**
     ```
