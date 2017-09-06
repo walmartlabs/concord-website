@@ -37,19 +37,21 @@ main:
     then:
       - reportSuccess                             # (3)
     else:
-      - log: "failure :-( ${lastError.message}"
+      - log: "Failed: ${lastError.message}"
     
 reportSuccess:
   - ${dbBean.updateStatus(result.id, "SUCCESS")}; # (4)
 ```
 
-In this (kind of abstract) example:
-
+In this example:
 - `sendEmail` task (1) is executed using two input parameters: `to` and
 `subject`. The output of the task is stored in `result` variable.
 - `if` expression (2) is used to either call `reportSuccess` sub-flow
 (3) or to log a failure message;
 - `reportSuccess` flow is calling a Java bean using the EL syntax (4).
+
+Note: the actual task names and their required parameters may differ.
+Please refer to the specific task's documentation.
 
 ## Process Syntax
 
@@ -115,7 +117,7 @@ Literal values (e.g. arguments or [form](#forms) field values) can
 contain expressions:
 ```yaml
 main:
-  - log: ["red", "green", "${colors.blue}"]
+  - myTask: ["red", "green", "${colors.blue}"]
   - myTask: { nested: { literals: "${myOtherTask.doSomething()}"} }
 ```
 
@@ -132,30 +134,29 @@ interface and provides a `call(...)` method сan be called this way.
 main:
 
   # calling a method with a single argument
-  # same as $(log.call("hello")}
-  - log: hello
+  # same as ${myTask.call("hello")}
+  - myTask: hello
   
   # calling a method with a single argument
   # the value will be a result of expression evaluation
-  - log: ${myMessage}
+  - myTask: ${myMessage}
   
   # calling a method with two arguments
-  # same as $(log.call("warn", "hello")}
-  - log: ["warn", "hello"]
+  # same as ${myTask.call("warn", "hello")}
+  - myTask: ["warn", "hello"]
   
   # calling a method with a single argument
   # the value will be converted into Map<String, Object>
-  - log: { level: "warn", message: "hello" }
+  - myTask: { "urgency": "high", message: "hello" }
   
   # multiline strings and string interpolation is also supported
-  - log: |
+  - myTask: |
       those line breaks will be
       preserved. Here will be a ${result} of EL evaluation.
 ```
 
-Alternatively, `JavaDelegate` tasks can be used. While the support
-for `JavaDelegate` tasks is mostly for compatibility reasons, it
-provides additional features like in/out variables mapping.
+If a task implements `#execute(Context)` method, some additional
+features like in/out variables mapping can be used:
 
 ```yaml
 main:
@@ -169,6 +170,8 @@ main:
     error:
       - log: something bad happened
 ```
+
+See also the [Tasks](tasks.html) document for more details.
 
 ### Conditional expressions
 
