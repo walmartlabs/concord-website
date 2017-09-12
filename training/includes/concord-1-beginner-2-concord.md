@@ -69,7 +69,7 @@ Specific software designed for workflow orchestration and BPM
   - key/value pairs
 - REST API for access
 
-Receives and  processes user requests to call workflow scenarios.
+Receives and processes user requests to call workflow scenarios on agents.
 
 
 ## Concord Console
