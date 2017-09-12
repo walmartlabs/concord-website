@@ -55,7 +55,7 @@ Please refer to the specific task's documentation.
 
 ## Process Syntax
 
-### Entry points
+### Entry Points
 
 Entry point is a top-level element of a document.
 Concord uses entry points as a starting step of an execution.
@@ -73,7 +73,7 @@ anotherEntry:
 
 An entry point must be followed by one or more execution steps.
 
-### Execution steps
+### Execution Steps
 
 #### Expressions
 
@@ -173,7 +173,7 @@ main:
 
 See also the [Tasks](tasks.html) document for more details.
 
-### Conditional expressions
+### Conditional Expressions
 
 ```yaml
 main:
@@ -189,7 +189,7 @@ main:
 In this example, after `then` (1) or `else` (2) block are completed,
 the execution will continue from the next step in the flow (3).
 
-### Return command
+### Return Command
 
 The `return` command can be used to stop the execution of the current
 (sub) flow:
@@ -203,7 +203,7 @@ main:
       - return
 ```
 
-### Groups of steps
+### Groups of Steps
 
 Several steps can be grouped in one block. This allows `try-catch`-like
 semantic:
@@ -218,7 +218,7 @@ main:
       - log: well, that didn't work
 ```
 
-### Calling other flows
+### Calling Other Flows
 
 Flows, defined in the same YAML document, can be called by their names:
 

@@ -5,9 +5,9 @@ title:  Scripting support
 
 # Scripting support
 
-## Common features
+## Common Features
 
-### Using flow variables
+### Using Flow Variables
 
 For the most of the supported languages, flows variables can be
 accessed directly:
@@ -43,7 +43,7 @@ To set a variable, you need to use `execution#setVariable` method:
     execution.setVariable("myVar", "Hello!");
 ```
 
-### Using tasks
+### Using Tasks
 
 Scripts can use all tasks available for flows:
 
@@ -57,9 +57,9 @@ Scripts can use all tasks available for flows:
 ## JavaScript
 
 JavaScript support is built-in and doesn't require any external
-dependencies. It is based on
+dependencies. It is based on the
 [Nashorn](https://en.wikipedia.org/wiki/Nashorn_(JavaScript_engine)
-engine.
+engine and hence scripts run in the JVM.
 
 Using an inline script:
 

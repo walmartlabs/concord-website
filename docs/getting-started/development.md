@@ -47,7 +47,7 @@ To skip NPM-related tasks when building the project:
 ./mvnw clean install -DskipTests -DskipNpmInstall -DskipNpmBuild
 ```
 
-## Making a release
+## Making a Release
 
 All JAR files are signed using a GPG key. Pass phase for a key must be configured in
 `~/.m2/settings.xml`:

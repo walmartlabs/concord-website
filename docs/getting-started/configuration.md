@@ -9,7 +9,7 @@ Most of the configuration done via environment variables (e.g. passed with a `do
 
 ## Server
 
-### Environment variables
+### Environment Variables
 
 All parameters are optional.
 
@@ -103,7 +103,7 @@ Set `SLACK_CFG` environment variable to the path of the created file.
 
 ## Agent
 
-### Environment variables
+### Environment Variables
 
 All parameters are optional.
 

@@ -20,7 +20,7 @@ curl -v -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" ...
 
 API keys are managed using the [API key](../api/apikey.html) endpoint.
 
-### Using username and password
+### Using Username and Password
 
 For example:
 ```

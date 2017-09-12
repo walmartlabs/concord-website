@@ -1,9 +1,9 @@
 ---
 layout: wmt/docs
-title:  Docker support
+title:  Docker Support
 ---
 
-# Docker support
+# {{ page.title }} 
 
 ## Usage
 
@@ -33,7 +33,7 @@ The current process' working directory is mounted as `/workspace`.
 The container is automatically removed when the called command is
 complete.
 
-## Environment variables
+## Environment Variables
 
 Additional environment variables can be specified using `env` parameter:
 ```yaml
@@ -53,6 +53,6 @@ variables:
 Environment variables can contain expressions: all values will be
 converted to strings.
 
-## Custom images
+## Custom Images
 
 All images must provide a standard POSIX shell as `/bin/sh`.

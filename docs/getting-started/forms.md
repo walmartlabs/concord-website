@@ -12,7 +12,7 @@ contain custom HTML/CSS/JS/etc resources
 
 ## Form Syntax
 
-### Declaring a new form
+### Declaring a New Form
 
 Forms are declared at in the `forms` section of a `.concord.yml`
 document:
@@ -27,7 +27,7 @@ The name of a form (in this example it's `myForm`) can be used to
 [call a form](#calling-a-form) from a process. Also, it will be used
 as a name of an object which will store the values of the fields.
 
-### Form fields
+### Form Fields
 
 Forms must contain one or more fields:
 
@@ -75,7 +75,7 @@ quantifier to the type:
 
 Additional field types will be added in the next versions.
 
-### Calling a form
+### Calling a Form
 
 To call a form from a process, use `form` command:
 
@@ -118,7 +118,7 @@ Supported only for custom (with branding) forms;
 - `values`: additional values, to override default form values or to
 provide additional data.
 
-## Custom forms
+## Custom Forms
 
 Look and feel of a form can be changed by providing form's own HTML,
 CSS, JavaScript and other resources.
@@ -190,7 +190,7 @@ unique URL;
 Forms can use any external JavaScript library or a CSS resource. The
 only mandatory part is to use provided `submitUrl` value.
 
-### Accessing the data
+### Accessing the Data
 
 When a custom form is opened, the server generates a `data.js` file.
 It contains values of the fields, validation error and additional
@@ -229,7 +229,7 @@ field:
 - `values` - current values of the form fields;
 - `errors` - validation error messages.
 
-### Shared resources
+### Shared Resources
 
 Custom forms can have shared resources (e.g. common scripts or CSS
 files). Those resources should be put into `forms/shared` directory
@@ -262,7 +262,7 @@ custom and regular forms:
 - [custom form](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/forms_branding)
 - [custom form with dynamic fields](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/dynamic_forms)
 
-## Accessing forms
+## Accessing Forms
 
 Forms can be accessed by a user in two different ways:
 - though [the "portal" URL](../api/process.html#from-a-browser);

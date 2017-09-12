@@ -12,7 +12,7 @@ title:  Processes
   * [Provided variables](#provided-variables)
   * [Dependencies](#dependencies)
 
-## Structure of a process
+## Structure of a Process
 
 The server expects the following structure of a process working
 directory:
@@ -28,7 +28,7 @@ Anything else will be copied as-is and will be available for a
 process. The plugins can require other files to be present in a
 payload.
 
-## Project file
+## Project File
 
 A payload archive can contain a project file: `.concord.yml`.
 This file will be loaded first and can contain process and flow
@@ -64,7 +64,7 @@ profile, then the default value of `myForm.name` will be `world`.
 
 See also [the YAML format for describing flows and forms](./yaml.html).
 
-## Request data
+## Request Data
 
 A payload's `_main.json` file is either supplied by users or created
 by the server from a user's request data.
@@ -120,7 +120,7 @@ variables:
     message: "Hello, ${name}"
 ```
 
-## Provided variables
+## Provided Variables
 
 Concord automatically provides several built-in variables:
 - `context` - a reference to a context variables map of a current

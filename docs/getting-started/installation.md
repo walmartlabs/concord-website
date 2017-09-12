@@ -26,7 +26,7 @@ or set up your first project with the [quick start tips](./quickstart.html).
   instructions to find the location of the private Docker registry
   containing Concord's pre-built images - docker.prod.walmart.com.
 
-### Referencing a private Docker registry
+### Referencing a Private Docker Registry
 
   If you are using a private Docker registry, add its name to an image
   name in the examples below.  For example, if your private docker
@@ -48,7 +48,7 @@ docker run ... docker.prod.walmart.com/walmartlabs/concord-agent
   Console and the Database. Follow these steps to start all four
   components and run a simple process to test your Concord instance.
 
-### Step 1. Create a LDAP configuration file
+### Step 1. Create a LDAP Configuration File
 
   Use the example in [LDAP](./configuration.html#ldap) section of
   Configuration document. You'll need the parameters suitable for

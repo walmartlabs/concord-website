@@ -9,7 +9,7 @@ Tasks are used to call 3rd-party code or to perform something that
 is too complex to express it with YAML directly. They are "plugins"
 of Concord.
 
-## Creating a new task
+## Creating a New Task
 
 Tasks must implement `com.walmartlabs.concord.sdk.Task` Java
 interface. It is provided by `concord-sdk` module: 
@@ -30,7 +30,7 @@ dependencies should be excluded from the final JAR or marked as
 - `javax.inject/javax.inject`
 - `org.slf4j/slf4j-api`
 
-## Using expressions
+## Using Expressions
 
 Here's an example of a simple task:
 ```java
@@ -65,7 +65,7 @@ flows:
 
 See also [the description of expressions](./yaml.html#expressions).
 
-## Using full form
+## Using Full Form
 
 If a task implements `Task#execute` method, it can be started using
 `task` command:
@@ -100,7 +100,7 @@ flows:
 This form allows use of IN and OUT variables and error-handling
 blocks.
 
-## Using short form
+## Using Short Form
 
 If a task contains method `call` with one or more arguments, it can
 be called using the "short" form:
@@ -127,7 +127,7 @@ flows:
     - "Concord"
 ```
 
-## Injecting variables
+## Injecting Variables
 
 Context variables can be automatically injected into task fields or
 method arguments:
