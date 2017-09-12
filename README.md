@@ -16,6 +16,10 @@ Automatic CI build and deployment of master branch is done via a
 
 [![Build Status](https://ci.walmart.com/buildStatus/icon?job=concord-site)](https://ci.walmart.com/view/SDE-Sites/job/concord-site/)
 
+## Project Quality
+
+[Insights dashboard](http://hygieia.walmart.com/#/dashboard/59a4b22dad53334f88c9989f)
+
 ## Issues
 
 Please file issues in [JIRA](https://jira.walmart.com/)
