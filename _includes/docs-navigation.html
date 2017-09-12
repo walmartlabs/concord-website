@@ -6,6 +6,8 @@
       <ul id="getting-started" {% unless page.url contains '/docs/getting-started' %}class="foo-hidden"{% endunless %}>
         <li {% if page.url contains '/docs/getting-started/index' %}class="active"{% endif %}>
             <a href="/docs/getting-started/index.html">Introduction</a></li>
+        <li {% if page.url contains'/docs/getting-started/installation' %}class="active"{% endif %}>
+            <a href="/docs/getting-started/installation.html">Installation</a></li>
         <li {% if page.url contains'/docs/getting-started/quickstart' %}class="active"{% endif %}>
             <a href="/docs/getting-started/quickstart.html">Quickstart</a></li>
         <li {% if page.url contains '/docs/getting-started/configuration' %}class="active"{% endif %}>
