@@ -54,7 +54,7 @@ profiles:
   myProfile:
     variables:
       arguments:
-        myAlias: "stranger"
+        myAlias: "world"
         myForm: {name: "${myAlias}"}
 ```
 
