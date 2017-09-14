@@ -50,8 +50,8 @@ Specific software designed for workflow orchestration and BPM
 
 - Provision infrastructure in a public or private cloud
 - Execute Ansible playbooks and deploy applications
-- tbd
-
+- Orchestrate CI/CD builds and deployments
+- TBD
 
 ## Components
 
