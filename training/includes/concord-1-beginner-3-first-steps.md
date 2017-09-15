@@ -1,11 +1,13 @@
-# Ansible
+# First Steps
 
-> Playbooks and More
+> tbd
 
 
-## tbd
+## First Concord Process
 
-tbd
+- Create git repository
+- Add deploy key
+Note:
 
 
 ## Questions?
