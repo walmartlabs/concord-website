@@ -5,9 +5,24 @@ title:  Secret
 
 # Secret
 
-## Generate a new SSH key pair
+A secret is either a username/password or name/ssh-key pair that is used to 
+access repositories and other systems.
 
-Generates a new SSH key pair. A public key will be returned in the response.
+The REST API provides support for a number of operations:
+
+- [Create a Secret with New SSH Key Pair](#create-secret-ssh-new)
+- [Create a Secret with Existing SSH Key Pair](#create-secret-ssh-exist)
+- [Get Public SSH Key of Secret](#get-key)
+- [Create a Secret with Username and Password Values](#create-secret-user-pwd)
+- [Delete a Secret](#delete-secret)
+- [List Secrets](#list-secrets)
+
+
+<a name="create-secret-ssh-new"/>
+## Create a Secret with New SSH Key Pair
+
+Generates a new SSH key pair with a name for the secret to access it. The public
+key is returned in the response.
 
 * **Permissions** `secret:create`
 * **URI** `/api/v1/secret/keypair?name=${secretName}`
@@ -27,9 +42,10 @@ Generates a new SSH key pair. A public key will be returned in the response.
     }
     ```
 
-## Upload an existing SSH key pair
+<a name="create-secret-ssh-exist"/>
+## Create a Secret with Existing SSH Key Pair
 
-Upload an existing SSH key pair.
+Upload an existing SSH key pair  .
 
 * **Permissions** `secret:create`
 * **URI** `/api/v1/secret/keypair?name=${secretName}`
@@ -50,9 +66,10 @@ Upload an existing SSH key pair.
     }
     ```
 
-## Get an existing public key
+<a name="get-key"/>
+## Get Public SSH Key of Secret
 
-Returns a public key from an existing key pair.
+Returns a public key from an existing key pair of a secret.
 
 * **Permissions** `secret:read:${secretName}`
 * **URI** `/api/v1/secret/${secretName}/public`
@@ -72,10 +89,11 @@ Returns a public key from an existing key pair.
       "ok": true
     }
     ```
-    
-## Add a username/password secret
 
-Adds a new secret containing username and password.
+<a name="create-secret-user-pwd"/>
+## Create a Secret with Username and Password Values
+
+Creates a new secret containing username and password values.
 
 * **Permissions** `secret:create`
 * **URI** `/api/v1/secret/password?name=${secretName}`
@@ -99,9 +117,10 @@ Adds a new secret containing username and password.
     }
     ```
 
-## Delete an existing secret
+<a name="delete-secret"/>
+## Delete a Secret
 
-Removes an existing secret.
+Delets a secret and associated keys.
 
 * **Permissions** `secret:delete:${secretName}`
 * **URI** `/api/v1/secret/keypair?name=${secretName}`
@@ -120,7 +139,8 @@ Removes an existing secret.
     }
     ```
 
-## List secrets
+<a name="list-secrets"/>
+## List Secrets
 
 Lists existing secrets.
 
