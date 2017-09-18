@@ -148,4 +148,6 @@ You can now learn more about flows and perform tasks such as
 - Work with Ansible, Boo and other tasks
 - Maybe even implement tasks
 
-And much more. Have a look at all the documentation to find out more!
+And much more. Have a look at all the documentation about the
+[Concord DSL](./concord-dsl.html), [forms](./forms.html),
+[scripting](./scripting.html) and other aspects to find out more!
