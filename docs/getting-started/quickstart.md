@@ -76,7 +76,7 @@ usage in Concord.
 <a name="add-concord-file"/>
 ## Add the Concord File
 
-As a next step, add the file Concord file `.concord.yml` in the root of the
+As a next step, add the Concord file `concord.yml` in the root of the
 repository. A minimalistic example file configures the entryPoint value to
 configure the name of the flow to exectue by default:
 

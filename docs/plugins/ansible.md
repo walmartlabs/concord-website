@@ -75,12 +75,11 @@ example.
 
 ## Using the task directly
 
-To use the task as a step in a Concord flow, it must be added to
-the `dependencies` section of a `.concord.yml` file or as a parameter
-in JSON request data:
+To use the task as a step in a Concord flow, it must be added to the
+`dependencies` section of the Concord file or as a parameter in JSON request
+data:
 
 ```yaml
-# .concord.yml
 variables:
   dependencies:
   - "http://nexus.prod.walmart.com/nexus/content/repositories/devtools/com/walmartlabs/concord/plugins/basic/ansible-tasks/0.34.0/ansible-tasks-0.34.0.jar"
@@ -194,7 +193,6 @@ can be specified using `dynamicInventoryFile` parameter in a task
 parameters object:
 
 ```yaml
-# .concord.yml
 variables:
   ansibleParams:
     playbook: "playbook/hello.yml"
@@ -207,7 +205,6 @@ flows:
 
 Or as an IN-parameter:
 ```yaml
-# .concord.yml
 flows:
   main:
   - task: ansible2
@@ -250,7 +247,6 @@ An inventory file can be inlined with the request JSON. For example:
 
 Or as a task parameter:
 ```yaml
-# .concord.yml
 variables:
   ansibleParams:
     playbook: "playbook/hello.yml"
@@ -296,7 +292,7 @@ The next step will be configuring Concord to use the key with your
 project or a standalone flow/playbook.
 
 This can be done by adding `ansible.privateKeys` section to the
-project's configuration, `.concord.yml` or request JSON:
+project's configuration, the Concord file or request JSON:
 
 ```json
 {
@@ -321,7 +317,7 @@ repository and `secret` is the name of the uploaded SSH key pair.
 A `.*` pattern can be used when there is no repositories configured
 or you want to use a single key for any repository.
 
-In `.concord.yml` files, the keys can be configured in a similar way:
+In the Concord file, the keys can be configured in a similar way:
 ```yaml
 variables:
   ansible:

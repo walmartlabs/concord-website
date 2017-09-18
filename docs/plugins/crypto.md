@@ -85,7 +85,7 @@ The result will look like this:
 ```
 
 The value of `data` field must be used as-is as a process variable.
-It can be added to `.concord.yml`, project's configuration or to
+It can be added to the Concord file, project's configuration or to
 request JSON.
 
 A value can be encrypted and decrypted only by the same server.

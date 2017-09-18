@@ -7,9 +7,10 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 
-The Concord DSL defines the syntax used in the `.concord.yml` file. It is based 
-on using the simple, human readable format [YAML](http://www.yaml.org/) and
-defines all your workflow process, forms and other aspects:
+The Concord DSL defines the syntax used in the Concord file - a `concord.yml`
+file in the root of your project. It is based on using the simple, human
+readable format [YAML](http://www.yaml.org/) and defines all your workflow
+process, forms and other aspects:
 
 - [Example](#example)
 - [Process Syntax](#process-syntax)
@@ -30,23 +31,24 @@ defines all your workflow process, forms and other aspects:
 ## Example
 
 ```yaml
-main:
-  - task: sendEmail                               # (1)
-    in:
-      to: me@localhost.local
-      subject: Hello, Concord!
-    out:
-      result: operationResult
-    error:
-      - log: "email sending error"
-  - if: ${result.ok}                              # (2)
-    then:
-      - reportSuccess                             # (3)
-    else:
-      - log: "Failed: ${lastError.message}"
+flows:
+  main:
+    - task: sendEmail                               # (1)
+      in:
+        to: me@localhost.local
+        subject: Hello, Concord!
+      out:
+        result: operationResult
+      error:
+        - log: "email sending error"
+    - if: ${result.ok}                              # (2)
+      then:
+        - reportSuccess                             # (3)
+      else:
+        - log: "Failed: ${lastError.message}"
 
-reportSuccess:
-  - ${dbBean.updateStatus(result.id, "SUCCESS")}; # (4)
+  reportSuccess:
+    - ${dbBean.updateStatus(result.id, "SUCCESS")}; # (4)
 ```
 
 In this example:

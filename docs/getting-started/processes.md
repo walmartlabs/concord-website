@@ -20,13 +20,14 @@ side-navigation: wmt/docs-navigation.html
 
 The server expects the following structure of a process working
 directory:
-- `.concord.yml` or `concord.yml` - main project file;
-- `_main.json` - request data in JSON format (see
+- `concord.yml`: the Concord file containing the main project information and
+  declarations;
+- `_main.json`: request data in JSON format (see
 [below](#request-data));
-- `processes` and/or `flows` - directories containing `.yml` process
+- `processes` and/or `flows`: directories containing `.yml` process
 and form definitions;
-- `profiles` - directory containing profiles;
-- `lib` - directory for additional runtime dependencies.
+- `profiles`: directory containing profiles;
+- `lib`: directory for additional runtime dependencies.
 
 Anything else will be copied as-is and will be available for a
 process. The plugins can require other files to be present in a
@@ -34,7 +35,7 @@ payload.
 
 ## Project File
 
-A payload archive can contain a project file: `.concord.yml`.
+A payload archive can contain the Concord file `concord.yml`.
 This file will be loaded first and can contain process and flow
 definitions, input variables and profiles:
 

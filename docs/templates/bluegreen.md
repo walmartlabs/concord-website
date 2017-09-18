@@ -26,7 +26,7 @@ it can be used for the part removed from rotation.
 
 ## Usage
 
-Reference the template in a `.concord.yml` file using the alias:
+Reference the template in a Concord file using the alias:
 ```yaml
 variables:
   template: "concord/bluegreen"

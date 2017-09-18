@@ -90,9 +90,8 @@ suggested for development processes and testing or one-off process executions.
 
 Follow these steps:
 
-Create a zip archive e.g. named `archive.zip` containing a single `.concord.yml`
-file in the root of the archive. Specifically note that the file name starts
-with a dot - `.concord.yml`:
+Create a zip archive e.g. named `archive.zip` containing the Concord file - 
+a single `concord.yml` file in the root of the archive:
 
 ```yaml
 flows:

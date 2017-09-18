@@ -15,8 +15,7 @@ contain custom HTML/CSS/JS/etc resources
 
 ### Declaring a New Form
 
-Forms are declared at in the `forms` section of a `.concord.yml`
-document:
+Forms are declared at in the `forms` section of the Concord file:
 
 ```yaml
 forms:
@@ -124,7 +123,7 @@ provide additional data.
 Look and feel of a form can be changed by providing form's own HTML,
 CSS, JavaScript and other resources.
 
-For example, if we have a `.concord.yml` file with a single form:
+For example, if we have a Concord file file with a single form:
 ```yaml
 flows:
   main:
@@ -142,8 +141,6 @@ then we can provide a custom HTML for this form by placing it into
 forms/
   myForm/
     index.html
-
-.concord.yml
 ```
 
 When the form is activated, the server will redirect a user to the
