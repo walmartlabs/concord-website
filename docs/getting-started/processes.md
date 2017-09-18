@@ -243,12 +243,12 @@ the original process state and use `onCancel` or `onFailure` as an
 entry point.
 
 **Note**: if a process was never suspended (e.g. had no forms or no
-forms was submitted), then `onCancel`/`onFailures` will receive a
-copy of an original process state, which was created when the
-original process was created initially.
+forms were submitted), then `onCancel`/`onFailures` will receive a
+copy of the initial state of a process, which was created when the
+original process was started by the server.
 
-Meaning, that no changes in the process state before suspension will
-be visible to the "child" processes:
+This means that no changes in the process state before suspension
+will be visible to the "child" processes:
 ```yaml
 flows:
   main:
@@ -273,5 +273,5 @@ variables:
     myVar: "abc"
 ```
 
-In the future, Concord will provide a way to explicitly capture the
-state of a process - a "checkpoint" mechanism.
+In the future, Concord will provide a way to capture the state of a
+process explicitly - some form of "checkpointing".
