@@ -98,7 +98,7 @@ request data are merged. Project variables override default project
 variables and then user request's variables are applied.
 
 There are a few variables which affect execution of a process:
-- `template` - the name of a [template](./templates.html), will be
+- `template` - the name of a [template](../templates/index.html), will be
 used by the server to create a payload archive;
 - `dependencies` - array of URLs, list of external JAR dependencies.
 See the [Dependencies](#dependencies) section for more details;

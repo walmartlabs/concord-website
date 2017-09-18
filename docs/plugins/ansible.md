@@ -41,7 +41,7 @@ REST API or the Console.
 ## Using the Ansible template
 
 To simplify runnning standalone playbooks we provide a
-[template](../getting-started/templates.html) that contains the
+[template](../templates/index.html) that contains the
 necessary boilerplate to execute the Ansible task.
 
 ### With playbooks stored locally

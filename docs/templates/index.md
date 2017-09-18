@@ -10,7 +10,7 @@ Templates allow users to share common elements between different
 projects and processes.
 
 Templates can contain the same type of files which are used in a
-regular [process payload](processes.html), plus additional
+regular [process payload](../getting-started/processes.html), plus additional
 instructions on how to modify process' data.
 
 Process files will overwrite any template files with the same name,
@@ -26,7 +26,8 @@ simple HTTP request.
 Template is a regular JAR or ZIP archive with the structure similar
 to a regular process payload.
 
-For example, the [ansible template](https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins/templates/ansible/src/main/filtered-resources)
+For example, the
+[ansible template](https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins/templates/ansible/src/main/filtered-resources)
 has the following structure:
 ```
 _callbacks/  # (1)
