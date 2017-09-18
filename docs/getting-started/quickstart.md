@@ -48,7 +48,7 @@ curl -X POST -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" 'https://concord.example
 On a typical production installation you can pass your username and be quoted for the password
 
 ```
-curl -u username:password -X POST  'https://concord.example.com/api/v1/secret/keypair?name=exampleSecretKey'
+curl -u username -X POST  'https://concord.example.com/api/v1/secret/keypair?name=exampleSecretKey'
 ```
 
 Or supply the password as well:
@@ -58,7 +58,7 @@ curl -u username:password ...
 
 The server provides a JSON-formatted response similar to:
  
-```
+```json
 {
   "name" : "exampleSecretKey",
   "publicKey" : "ssh-rsa ABCXYZ... concord-server",
