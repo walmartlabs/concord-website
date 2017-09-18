@@ -11,6 +11,9 @@ title:  Processes
   * [Variables](#variables)
   * [Provided variables](#provided-variables)
   * [Dependencies](#dependencies)
+  * [Error handling](#error-handling)
+    - [Capturing errors](#capturing-errors)
+    - [Handling user cancellations and failures](#handling-user-cancellations-and-failures)
 
 ## Structure of a Process
 
@@ -157,3 +160,118 @@ variables:
 
 Dependencies are automatically downloaded by the Agent and added to
 the classpath of a process.
+
+## Error handling
+
+### Capturing errors
+
+Task and expression errors are normal Java exceptions, which can be
+"caught" and handled using a special syntax.
+
+Expressions, tasks, groups of steps and flow calls can have an
+optional `error` block, which will be executed if an exception
+occurred:
+```yaml
+flows:
+  main:
+  # handling errors in an expression
+  - expr: ${myTask.somethingDangerous()}
+    error:
+    - log: "Gotcha! ${lastError}"
+  
+  # handling errors in tasks
+  - task: myTask
+    error:
+    - log: "Fail!"
+    
+  # handling errors in groups of steps
+  - ::
+    - ${myTask.doSomethingSafe()}
+    - ${myTask.doSomethingDangerous()}
+    error:
+    - log: "Here we go again"
+    
+  # handling errors in flow calls
+  - call: myOtherFlow
+    error:
+    - log: "That failed too"
+```
+
+The `${lastError}` variable contains the last caught
+`java.lang.Exception` object.
+
+If an error was caught, the execution will continue from the next
+step:
+```yaml
+flows:
+  main:
+  - expr: ${misc.throwBpmnError('Catch that!')}
+    error:
+    - log: "A"
+    
+  - log: "B"
+```
+will log `A` and then `B`.
+
+### Handling user cancellations and failures
+
+When a process cancelled (killed) by a user, a special flow
+`onCancel` will be executed:
+```yaml
+flows:
+  main:
+  - log: "Doing some work..."
+  - ${sleep.ms(60000)}
+  
+  onCancel:
+  - log: "Pack your bags, boys. Show's cancelled"
+```
+
+Similarly, `onFailre` flow will be executed if a process crashed:
+```yaml
+flows:
+  main:
+  - log: "Brace yourselves, we're going to crash!"
+  - ${misc.throwBpmnError('Handle that!')}
+  
+  onFailure:
+  - log: "Yep, we just did"
+```
+
+In both cases, the server will start a "child" process with a copy of
+the original process state and use `onCancel` or `onFailure` as an
+entry point.
+
+**Note**: if a process was never suspended (e.g. had no forms or no
+forms was submitted), then `onCancel`/`onFailures` will receive a
+copy of an original process state, which was created when the
+original process was created initially.
+
+Meaning, that no changes in the process state before suspension will
+be visible to the "child" processes:
+```yaml
+flows:
+  main:
+  # let's change something in the process state...
+  - set:
+      myVar: "xyz"
+  
+  # will print "The main flow got xyz"
+  - log: "The main flow got ${myVar}"
+  
+  # ...and then crash the process
+  - ${misc.throwBpmnError('Boom!')}
+  
+  onFailure:
+  # will log "I've got abc"
+  - log: "And I've got ${myVar}"
+  
+variables:
+  entryPoint: main
+  arguments:
+    # original value
+    myVar: "abc"
+```
+
+In the future, Concord will provide a way to explicitly capture the
+state of a process - a "checkpoint" mechanism.
