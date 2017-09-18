@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Secret
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Secret
@@ -20,7 +21,7 @@ response.
     - `generatePassword` - optional, if true and there is no
     `storePassword`, the server will encrypt the new secret with a
     random generated password.
-    
+
     Multipart request:
     - `storePassword` - optional, password, which will be used to
     encrypt the new secret and which can be used to retrieve it back.
@@ -29,7 +30,7 @@ response.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "name": "secretName",
@@ -60,7 +61,7 @@ Upload an existing SSH key pair.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -85,7 +86,7 @@ Returns a public key from an existing key pair.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "name": "secretName",
@@ -93,7 +94,7 @@ Returns a public key from an existing key pair.
       "ok": true
     }
     ```
-    
+
 ## Add a username/password secret
 
 Adds a new secret containing username and password.
@@ -108,7 +109,7 @@ Adds a new secret containing username and password.
     - `generatePassword` - optional, if true and there is no
     `storePassword`, the server will encrypt the new secret with a
     random generated password.
-    
+
     Multipart request:
     - `storePassword` - optional, password, which will be used to
     encrypt the new secret and which can be used to retrieve it back;
@@ -120,7 +121,7 @@ Adds a new secret containing username and password.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -130,7 +131,7 @@ Adds a new secret containing username and password.
     ```
 curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F username=myUser -F password=myPassword -F storePassword=12345678 'http://localhost:8001/api/v1/secret/password?name=myCreds'
     ```
-    
+
 ## Add a plain value secret
 
 Adds a new secret containing a simple value.
@@ -145,7 +146,7 @@ Adds a new secret containing a simple value.
     - `generatePassword` - optional, if true and there is no
     `storePassword`, the server will encrypt the new secret with a
     random generated password.
-    
+
     Multipart request:
     - `storePassword` - optional, password, which will be used to
     encrypt the new secret and which can be used to retrieve it back;
@@ -157,7 +158,7 @@ Adds a new secret containing a simple value.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -182,7 +183,7 @@ Removes an existing secret.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -205,7 +206,7 @@ Lists existing secrets.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     [
       { "name": "...", "type": "..." },

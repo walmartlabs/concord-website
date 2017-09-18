@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  YAML
+side-navigation: wmt/docs-navigation.html
 ---
 
 # YAML DSL
@@ -38,7 +39,7 @@ main:
       - reportSuccess                             # (3)
     else:
       - log: "Failed: ${lastError.message}"
-    
+
 reportSuccess:
   - ${dbBean.updateStatus(result.id, "SUCCESS")}; # (4)
 ```
@@ -85,13 +86,13 @@ Short form:
 main:
   # calling a method
   - ${myBean.someMethod()}
-  
+
   # calling a method with an argument
   - ${myBean.someMethod(myContextArg)}
-  
+
   # literal values
   - ${1 + 2}
-  
+
   # EL 3.0 extensions:
   - ${[1, 2, 3].stream().map(x -> x + 1).toList()}
 ```
@@ -136,19 +137,19 @@ main:
   # calling a method with a single argument
   # same as ${myTask.call("hello")}
   - myTask: hello
-  
+
   # calling a method with a single argument
   # the value will be a result of expression evaluation
   - myTask: ${myMessage}
-  
+
   # calling a method with two arguments
   # same as ${myTask.call("warn", "hello")}
   - myTask: ["warn", "hello"]
-  
+
   # calling a method with a single argument
   # the value will be converted into Map<String, Object>
   - myTask: { "urgency": "high", message: "hello" }
-  
+
   # multiline strings and string interpolation is also supported
   - myTask: |
       those line breaks will be
@@ -227,7 +228,7 @@ main:
   - log: hello
   - mySubFlow
   - log: bye
-  
+
 mySubFlow:
   - log: a message from the sub flow
 ```
@@ -240,7 +241,7 @@ main:
       name: "Concord"
     error:
       - log: "Oh, no"
-      
+
 mySubFlow:
   - if: "${name != 'Concord'}"
     then:
@@ -365,4 +366,3 @@ formDef := formName formFields
 
 defs := START_OBJECT (formDef | procDef)+ END_OBJECT
 ```
-

@@ -1,11 +1,12 @@
 ---
 layout: wmt/docs
 title:  Concord Documentation
+side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title }} 
+# {{ page.title }}
 
-Welcome to the Concord documentation. This is the place to 
+Welcome to the Concord documentation. This is the place to
 
 - learn [about Concord](../about.html)
 - [get started](./getting-started/index.html)

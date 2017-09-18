@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Templates
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Templates
@@ -86,7 +87,7 @@ Template can be referenced with a `template` entry in process variables:
 flows:
   main:
     - log: "${message} ${name}"
-    
+
 variables:
   template: "http://host/path/my-template.jar"
 ```

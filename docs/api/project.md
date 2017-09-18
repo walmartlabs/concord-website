@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Project
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Project
@@ -34,7 +35,7 @@ Creates a new project with specified parameters or updates an existing one.
     }
     ```
     All parameters except `name` are optional.
-    
+
     The project configuration is a JSON object of the following structure:
     ```json
     {
@@ -50,13 +51,13 @@ Creates a new project with specified parameters or updates an existing one.
     ```
 
     Most of the parameter groups are defined by used plugins.
-    
+
     See also: [create a new repository](#create-a-new-repository)
 * **Success response**
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -92,13 +93,13 @@ Updates parameters of an existing project.
     All parameters are optional. Omitted parameters will not be updated.
     An empty value must be specified in order to remove a project's value:
     e.g. an empty `repositories` object to remove all repositories from a project.
-    
+
     See also: [create a new repository](#create-a-new-repository), [project configuration](#project-configuration)
 * **Success response**
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -119,7 +120,7 @@ Removes a project and its resources.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -142,7 +143,7 @@ Lists existing projects.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     [
       { "name": "..." },
@@ -169,7 +170,7 @@ Adds a new repository for a project.
       "secret": "..."
     }
     ```
-    
+
     Mandatory parameters: `name` and `url`.
     Parameters `branch` and `commitId` are mutually exclusive.
     The referenced secret must exist beforehand.
@@ -177,7 +178,7 @@ Adds a new repository for a project.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -200,14 +201,14 @@ Updates parameters of an existing repository.
       "secret": "..."
     }
     ```
-    
+
     All parameters except `url` are optional.
     The referenced secret must exist beforehand.
 * **Success response**
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -228,7 +229,7 @@ Removes a repository.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
@@ -252,7 +253,7 @@ Lists existing repositories in a project.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     [
       { "name": "...", "url": "...", "branch": "...", "secret": "..." },
@@ -276,13 +277,13 @@ Returns project's configuration JSON or its part.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       ...
     }
     ```
-    
+
 ## Update an existing project configuration
 
 Updates project's configuration or its part.
@@ -297,7 +298,7 @@ Updates project's configuration or its part.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "group1": {
@@ -309,7 +310,7 @@ Updates project's configuration or its part.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true

@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Configuration
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Configuration

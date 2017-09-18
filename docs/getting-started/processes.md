@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Processes
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Processes
@@ -42,17 +43,17 @@ flows:
   main:
   - form: myForm
   - log: Hello, ${myForm.name}
-  
+
 forms:
   myForm:
   - name: {type: "string"}
-  
+
 variables:
   dependencies: ["..."]
   otherCfgVar: 123
   arguments:
     myForm: {name: "stranger"}
-    
+
 profiles:
   myProfile:
     variables:
@@ -178,19 +179,19 @@ flows:
   - expr: ${myTask.somethingDangerous()}
     error:
     - log: "Gotcha! ${lastError}"
-  
+
   # handling errors in tasks
   - task: myTask
     error:
     - log: "Fail!"
-    
+
   # handling errors in groups of steps
   - ::
     - ${myTask.doSomethingSafe()}
     - ${myTask.doSomethingDangerous()}
     error:
     - log: "Here we go again"
-    
+
   # handling errors in flow calls
   - call: myOtherFlow
     error:
@@ -208,7 +209,7 @@ flows:
   - expr: ${misc.throwBpmnError('Catch that!')}
     error:
     - log: "A"
-    
+
   - log: "B"
 ```
 will log `A` and then `B`.
@@ -222,7 +223,7 @@ flows:
   main:
   - log: "Doing some work..."
   - ${sleep.ms(60000)}
-  
+
   onCancel:
   - log: "Pack your bags, boys. Show's cancelled"
 ```
@@ -233,7 +234,7 @@ flows:
   main:
   - log: "Brace yourselves, we're going to crash!"
   - ${misc.throwBpmnError('Handle that!')}
-  
+
   onFailure:
   - log: "Yep, we just did"
 ```
@@ -255,17 +256,17 @@ flows:
   # let's change something in the process state...
   - set:
       myVar: "xyz"
-  
+
   # will print "The main flow got xyz"
   - log: "The main flow got ${myVar}"
-  
+
   # ...and then crash the process
   - ${misc.throwBpmnError('Boom!')}
-  
+
   onFailure:
   # will log "I've got abc"
   - log: "And I've got ${myVar}"
-  
+
 variables:
   entryPoint: main
   arguments:

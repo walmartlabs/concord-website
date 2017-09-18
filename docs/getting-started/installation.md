@@ -1,12 +1,13 @@
 ---
 layout: wmt/docs
 title:  Installation
+side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title }} 
+# {{ page.title }}
 
 The fastest way to get a Concord server instance up and running is to use the
-pre-built Docker images to run all three components of Concord: 
+pre-built Docker images to run all three components of Concord:
 the Concord Agent, the Concord Server, and the Concord Console.
 
 After finishing these steps you can read the [Introduction to
@@ -31,7 +32,7 @@ or set up your first project with the [quick start tips](./quickstart.html).
   If you are using a private Docker registry, add its name to an image
   name in the examples below.  For example, if your private docker
   registry is running on `docker.prod.walmart.com` this command:
- 
+
 ```
 docker run ... walmartlabs/concord-agent
 ```
@@ -53,7 +54,7 @@ docker run ... docker.prod.walmart.com/walmartlabs/concord-agent
   Use the example in [LDAP](./configuration.html#ldap) section of
   Configuration document. You'll need the parameters suitable for
   your environment.
-  
+
 ### Step 2. Start the Database
 
 ```
@@ -77,17 +78,17 @@ docker run -d \
 -e 'DB_URL=jdbc:postgresql://db:5432/postgres' \
 docker.prod.walmart.com/walmartlabs/concord-server
 ```
-  
+
   Replace `/path/to/ldap.properties` with the path to the file
   created on the previous step.
-  
+
   This will start the server with an in-memory database and temporary
   storage for its working files. Please see the
   [Configuration](./configuration.html) description to configure a more
   permanent storage.
-  
+
 ### Step 4. Check the Concord Server Logs
-  
+
 ```
 docker logs server
 ```
@@ -100,7 +101,7 @@ docker run -d \
 --link server \
 docker.prod.walmart.com/walmartlabs/concord-agent
 ```
-  
+
 ### Step 6. Start the Concord Console (optional)
 
 ```
@@ -109,7 +110,7 @@ docker run -d -p 8080:8080 \
 --link server \
 docker.prod.walmart.com/walmartlabs/concord-console
 ```
-  
+
   The console will be available on
   [http://localhost:8080](http://localhost:8080).
 

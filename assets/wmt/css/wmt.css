@@ -1111,10 +1111,16 @@ ul.blog-tags a:hover img {
 .docs-navigation > h2 {
     font-size: 17px;
     padding: 4px 0 10px 0;
-    margin: 0px 0px 10px 0; }
+    margin: 0px 0px 0px -4px; }
 
 .docs-navigation > h2 > a {
     cursor: pointer; }
+
+.docs-navigation i {
+    width: 15px; }
+
+.docs-navigation i.fa-chevron-right:before {
+  margin-left: 4px; }
 
 .docs-navigation > ul > li, .docs-navigation > ul > li > ul > li {
     border-left: 1px solid #eaeaea;
@@ -1122,7 +1128,7 @@ ul.blog-tags a:hover img {
     list-style: none;
     background: none;
     padding: 3px 0px 3px 12px;
-    margin: 0px 6px 0px; }
+    margin: 0px 6px 0px 4px; }
 
 .docs-navigation > ul > li.active, .docs-navigation > ul > li > ul > li.active {
     border-left: 3px solid #0e7dc1;

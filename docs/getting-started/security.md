@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Security and Permissions
+side-navigation: wmt/docs-navigation.html
 ---
 
 

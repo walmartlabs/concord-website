@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Forms
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Forms
@@ -65,7 +66,7 @@ Supported types of fields and their options:
   - `min`, `max`: (optional) value bounds.
 - `decimal`: a decimal value
   - `min`, `max`: (optional) value bounds.
-  
+
 Cardinality of the field can be specified by adding a cardinality
 quantifier to the type:
 - a single non-optional value: `string`;
@@ -129,7 +130,7 @@ flows:
   main:
   - form: myForm
   - log: "Hello, ${myForm.name}"
-  
+
 forms:
   myForm:
   - name: {type: "string"}
@@ -141,7 +142,7 @@ then we can provide a custom HTML for this form by placing it into
 forms/
   myForm/
     index.html
-    
+
 .concord.yml
 ```
 
@@ -169,7 +170,7 @@ Here's an example of how a `index.html` file could look like:
 <form method="post" onsubmit="handleSubmit(this)">
     <label>Name:</label>
     <input name="name"/>  <!-- (3) -->
-    
+
     <button>Submit</button>
 </form>
 

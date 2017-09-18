@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Tasks
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Tasks
@@ -12,7 +13,7 @@ of Concord.
 ## Creating a New Task
 
 Tasks must implement `com.walmartlabs.concord.sdk.Task` Java
-interface. It is provided by `concord-sdk` module: 
+interface. It is provided by `concord-sdk` module:
 ```xml
 <dependency>
   <groupId>com.walmartlabs.concord</groupId>
@@ -43,7 +44,7 @@ public class MyTask implements Task {
     public void sayHello(String name) {
         System.out.println("Hello, " + name + "!");
     }
-    
+
     public int sum(int a, int b) {
         return a + b;
     }
@@ -76,7 +77,7 @@ import javax.inject.Named;
 
 @Named("myTask")
 public class MyTask implements Task {
-   
+
     @Override
     public void execute(Context ctx) throws Exception {
         System.out.println("Hello, " + ctx.getVariable("name"));
@@ -139,14 +140,14 @@ import javax.inject.Named;
 
 @Named("myTask")
 public class MyTask implements Task {
-    
+
     @InjectVariable("execution")
     private ExecutionContext ctx;
 
     public void sayHello(@InjectVariable("greeting") String greeting, String name) {
         String s = String.format(greeting, name);
         System.out.println(s);
-        
+
         ctx.setVariable("success", true);
     }
 }
@@ -156,7 +157,7 @@ public class MyTask implements Task {
 flows:
   main:
   - ${myTask.sayHello("Concord")}
-  
+
 variables:
   arguments:
     greeting: "Hello, %s!"

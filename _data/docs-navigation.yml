@@ -1,0 +1,65 @@
+nav:
+  - title: Getting Started
+    id: getting-started
+    collapse: /docs/getting-started
+    subfolderitems:
+      - page: Introduction
+        context: /docs/getting-started/index
+      - page: Installation
+        context: /docs/getting-started/installation
+      - page: Quickstart
+        context: /docs/getting-started/quickstart
+      - page: Configuration
+        context: /docs/getting-started/configuration
+      - page: Processes
+        context: /docs/getting-started/processes
+      - page: Forms
+        context: /docs/getting-started/forms
+      - page: Scripting
+        context: /docs/getting-started/scripting
+      - page: Docker
+        context: /docs/getting-started/docker
+      - page: Security
+        context: /docs/getting-started/security
+      - page: Tasks
+        context: /docs/getting-started/tasks
+      - page: YAML DSL
+        context: /docs/getting-started/yaml
+  - title: API
+    id: api
+    collapse: /docs/api
+    subfolderitems:
+      - page: Project
+        context: /docs/api/project
+      - page: Process
+        context: /docs/api/process
+      - page: User
+        context: /docs/api/user
+      - page: Role
+        context: /docs/api/role
+      - page: LDAP
+        context: /docs/api/ldap
+      - page: Secret
+        context: /docs/api/secret
+      - page: API Key
+        context: /docs/api/apikey
+      - page: Template
+        context: /docs/api/template
+  - title: Plugins
+    id: plugins
+    collapse: /docs/plugins
+    subfolderitems:
+      - page: Ansible
+        context: /docs/plugins/ansible
+      - page: Crypto
+        context: /docs/plugins/crypto
+      - page: KV
+        context: /docs/plugins/kv
+  - title: Templates
+    id: templates
+    collapse: /docs/templates
+    subfolderitems:
+      - page: Introduction
+        context: /docs/templates/index
+      - page: Blue/green deployment
+        context: /docs/templates/bluegreen

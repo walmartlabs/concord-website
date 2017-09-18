@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Ansible
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Ansible task

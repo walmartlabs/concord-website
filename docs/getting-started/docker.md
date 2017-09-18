@@ -1,9 +1,10 @@
 ---
 layout: wmt/docs
 title:  Docker Support
+side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title }} 
+# {{ page.title }}
 
 ## Usage
 
@@ -13,7 +14,7 @@ flows:
   main:
   - docker: docker.prod.walmart.com/walmartlabs/concord-base
     cmd: echo '${greeting}'
-    
+
 variables:
   entryPoint: main
   arguments:
@@ -43,7 +44,7 @@ flows:
     cmd: echo $GREETING
     env:
       GREETING: "Hello, ${name}!"
-    
+
 variables:
   entryPoint: main
   arguments:
