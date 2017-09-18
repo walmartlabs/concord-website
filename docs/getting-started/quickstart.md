@@ -7,67 +7,145 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 If you have [installed your own Concord server](./installation.html) or have
-access to a server already, you can set up your first simple project.
+access to a server already, you can set up your first simple Concord process
+execution with a few simple steps:
 
-## Create a Simple Concord Project
+- [Create Git Repository](#create-repository)
+- [Add a Deploy Key](#add-deploy-key)
+- [Add the Concord File](#add-concord-file)
+- [Create Project in Concord](#create-project)
+- [Execute Process](#execute-process)
+- [Next Steps](#next-steps)
 
-Create a zip archive containing a single `.concord.yml` file (starting with a
-dot):
+<a name="create-repository"/>
+## Create Git Repository
 
-```yaml
-flows:
-  main:
-    - log: "Hello, ${name}"
+Concord process definitions and their resources are best managed and source
+controlled in a Git repository. Concord can automatically retrieve the contents
+of the repository and create necessary resources and executions as defined in
+the content.
 
-variables:
-  entryPoint: "main"
-  arguments:
-    name: "world"
+Start with the following steps:
+
+- Create the repository in your Git management sytem such as GitHub using the
+  user interface
+- Clone the repository to your local workstation
+
+<a name="add-deploy-key"/>
+## Add a Deploy Key
+
+In order to grant Concord access to the Git repository, you need to request a new
+key from the Concord server using the
+[REST API for secrets](../api/secret.html).
+
+On a default installation you can perform this step with the default `admin`
+user and it's authorization token:
+
+```
+curl -X POST -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" 'https://concord.example.com/api/v1/secret/keypair?name=exampleSecretKey'
 ```
 
-The format is described in [Project file](./processes.html#project-file) document.
-
-The resulting archive should look like this:
+On a typical production installation you can pass your username and be quoted for the password
 
 ```
-$ unzip -l archive.zip
-Archive:  archive.zip
-  Length      Date    Time    Name
----------  ---------- -----   ----
-      335  2017-07-04 12:00   .concord.yml
----------                     -------
-      335                     1 file
+curl -u username:password -X POST  'https://concord.example.com/api/v1/secret/keypair?name=exampleSecretKey'
 ```
 
-### Step 8. Start a New Concord Process
+Or supply the password as well:
 
 ```
-curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
-     -H "Content-Type: application/octet-stream" \
-     --data-binary @archive.zip http://localhost:8001/api/v1/process
-```
+curl -u username:password ...
 
-  The response should look like:
-```json
+The server provides a JSON-formatted response similar to:
+ 
+```
 {
-  "instanceId" : "a5bcd5ae-c064-4e5e-ac0c-3c3d061e1f97",
+  "name" : "exampleSecretKey",
+  "publicKey" : "ssh-rsa ABCXYZ... concord-server",
   "ok" : true
 }
 ```
 
-### Step 9. Check the Concord Server Logs
+The value of the `publicKey` attribute has to be added as an authorized deploy
+key for the git repository. In GitHub, for example, this can be done in the 
+_Settings - Deploy keys_ section of the repository.
 
-If you have started the server with docker you can see the project output with:
+The value of the `name` attribute e.g. `exampleSecretKey` identifies the key for
+usage in Concord.
+
+<a name="add-concord-file"/>
+## Add the Concord File
+
+As a next step, add the file Concord file `.concord.yml` in the root of the
+repository. A minimalistic example file configures the entryPoint value to
+configure the name of the flow to exectue by default:
+
+```yaml
+flows:
+  main:
+    - log: "Hello Concord User"
+variables:
+  entryPoint: "main"
+```
+
+The `main` flow in the example simply outputs a message to the process log.
+
+<a name="create-project"/>
+## Create Project in Concord
+
+Now you can create a new project in the Concord Console.
+
+- Log into the Concord Console user interface
+- Select _Create new_ under _Projects_ in the navigation panel
+- Provide a _Name_ for the project e.g. 'myproject'
+- Press _Add repository_
+- Provide a _Name_ for the repository e.g. 'default'
+- Use the SSH URL for the repository in the _URL_ field
+- Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
+
+Alternatively you can
+[create a project with the REST API](../api/project.html#createproject).
+
+<a name="execute-process"/>
+## Execute a Process
+
+Everything is ready to kick off an execution of a flow - a process. This is done
+via the [Process REST API](../api/process.html) e.g. with
 
 ```
-docker logs server
+curl -H "Content-Type: application/json" -d '{}' \
+     http://concord.example.com/api/v1/process/myproject:default:main
 ```
 
-If everything went okay, you should see something like this:
+The `instanceId` for the process is returned:
 
-```
-15:14:26.009 ... - updateStatus ['1b3dedb2-7336-4f96-9dc1-e18408d6b48e', 'ed097181-44fd-4235-973a-6a9c1d7e4b77', FINISHED] -> done
+```json
+{
+  "instanceId" : "5b38d33a-463e-4598-97ca-913924343150",
+  "ok" : true
+}
 ```
 
-You can also check the log by opening it in
-[the Concord console](http://localhost:8080/).
+The process can be inspected in the user interface:
+
+- Click on _Queue_ under _Processess_ in the navigation
+- Click on the _Instance ID_ value to see further details
+- Press on the _View Log_ button to inspect the log
+- Note how the log message `Hello Concord User` is visible
+
+<a name="next-steps"/>
+## Next Steps
+
+Congratulations, your first process flow execution completed successfully!
+
+You can now learn more about flows and perform tasks such as
+
+- Add a forms to capture user input
+- Use variables
+- Group steps
+- Add conditional expressions
+- Call others flow
+- Work with Ansible, Boo and other tasks
+- Maybe even implement tasks
+
+And much more. Have a look at all the documentation to find out more!

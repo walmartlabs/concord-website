@@ -6,10 +6,25 @@ side-navigation: wmt/docs-navigation.html
 
 # Secret
 
-## Generate a new SSH key pair
+A secret is either a username/password or name/ssh-key pair that is used to 
+access repositories and other systems.
 
-Generates a new SSH key pair. A public key will be returned in the
-response.
+The REST API provides support for a number of operations:
+
+- [Create a Secret with New SSH Key Pair](#create-secret-ssh-new)
+- [Create a Secret with Existing SSH Key Pair](#create-secret-ssh-exist)
+- [Get Public SSH Key of Secret](#get-key)
+- [Create a Secret with Username and Password Values](#create-secret-user-pwd)
+- [Delete a Secret](#delete-secret)
+- [List Secrets](#list-secrets)
+
+
+<a name="create-secret-ssh-new"/>
+## Create a Secret with New SSH Key Pair
+
+Generates a new SSH key pair with a name for the secret to access it. The public
+key is returned in the response.
+
 
 * **Permissions** `secret:create`
 * **URI** `/api/v1/secret/keypair?name=${secretName}&generatePassword=${generatePassword}`
@@ -43,9 +58,10 @@ response.
 curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword=12345678 'http://localhost:8001/api/v1/secret/keypair?name=myKey'
     ```
 
-## Upload an existing SSH key pair
+<a name="create-secret-ssh-exist"/>
+## Create a Secret with Existing SSH Key Pair
 
-Upload an existing SSH key pair.
+Upload an existing SSH key pair  .
 
 * **Permissions** `secret:create`
 * **URI** `/api/v1/secret/keypair?name=${secretName}`
@@ -72,9 +88,10 @@ Upload an existing SSH key pair.
 curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F private=@/path/to/mykey -F public=@/path/to/mykey.pub 'http://localhost:8001/api/v1/secret/keypair?name=myKey'
     ```
 
-## Get an existing public key
+<a name="get-key"/>
+## Get Public SSH Key of Secret
 
-Returns a public key from an existing key pair.
+Returns a public key from an existing key pair of a secret.
 
 * **Permissions** `secret:read:${secretName}`
 * **URI** `/api/v1/secret/${secretName}/public`
@@ -94,10 +111,11 @@ Returns a public key from an existing key pair.
       "ok": true
     }
     ```
+    
+<a name="create-secret-user-pwd"/>
+## Create a Secret with Username and Password Values
 
-## Add a username/password secret
-
-Adds a new secret containing username and password.
+Creates a new secret containing username and password values.
 
 * **Permissions** `secret:create`
 * **URI** `/api/v1/secret/password?name=${secretName}&generatePassword=${generatePassword}`
@@ -169,9 +187,10 @@ Adds a new secret containing a simple value.
 curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F secret='my horrible secret' -F storePassword=12345678 'http://localhost:8001/api/v1/secret/plain?name=myValue'
     ```
 
-## Delete an existing secret
+<a name="delete-secret"/>
+## Delete a Secret
 
-Removes an existing secret.
+Delets a secret and associated keys.
 
 * **Permissions** `secret:delete:${secretName}`
 * **URI** `/api/v1/secret/keypair?name=${secretName}`
@@ -190,7 +209,8 @@ Removes an existing secret.
     }
     ```
 
-## List secrets
+<a name="list-secrets"/>
+## List Secrets
 
 Lists existing secrets.
 

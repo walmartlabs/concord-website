@@ -6,7 +6,24 @@ side-navigation: wmt/docs-navigation.html
 
 # Project
 
-## Create a new project or update an existing one
+A project is a container for one or more repositories, a [secret](./secret.html)
+for accessing the repositories and further configuration.
+
+The REST API provides support for a number of operations:
+
+- [Create a Project](#create-project)
+- [Update a Project](#update-project)
+- [Delete a Project](#delete-project)
+- [List Projects](#list-projects)
+- [Create a Repository](#create-repository)
+- [Update a Repository](#update-repository)
+- [Delete a Repository](#delete-repository)
+- [List Repositories](#list-repositories)
+- [Get Project Configuration](#get-project-configuration)
+- [Update Project Configuration](#update-project-configuration)
+
+<a name="create-project"/>
+## Create a Project
 
 Creates a new project with specified parameters or updates an existing one.
 
@@ -64,7 +81,8 @@ Creates a new project with specified parameters or updates an existing one.
     }
     ```
 
-## Update an existing project
+<a name="update-project"/>
+## Update a Project
 
 Updates parameters of an existing project.
 
@@ -106,7 +124,8 @@ Updates parameters of an existing project.
     }
     ```
 
-## Delete an existing project
+<a name="delete-project"/>
+## Delete a Project
 
 Removes a project and its resources.
 
@@ -127,9 +146,10 @@ Removes a project and its resources.
     }
     ```
 
-## List projects
+<a name="list-projects">
+## List Projects
 
-Lists existing projects.
+Lists all existing projects.
 
 * **Permissions**
 * **URI** `/api/v1/project?sortBy=${sortBy}&asc=${asc}`
@@ -151,7 +171,8 @@ Lists existing projects.
     ]
     ```
 
-## Create a new repository
+<a name="create-repository"/>
+## Create a Repository
 
 Adds a new repository for a project.
 
@@ -185,7 +206,8 @@ Adds a new repository for a project.
     }
     ```
 
-## Update an existing repository
+<a name="update-repository"/>
+## Update a Repository
 
 Updates parameters of an existing repository.
 
@@ -215,7 +237,8 @@ Updates parameters of an existing repository.
     }
     ```
 
-## Delete an existing repository
+<a name="delete-repository"/>
+## Delete a Repository
 
 Removes a repository.
 
@@ -236,7 +259,8 @@ Removes a repository.
     }
     ```
 
-## List repositories
+<a name="list-repositories"/>
+## List Repositories
 
 Lists existing repositories in a project.
 
@@ -261,7 +285,8 @@ Lists existing repositories in a project.
     ]
     ```
 
-## Get project configuration
+<a name="get-project-configuration"/>
+## Get Project Configuration
 
 Returns project's configuration JSON or its part.
 
@@ -284,7 +309,8 @@ Returns project's configuration JSON or its part.
     }
     ```
 
-## Update an existing project configuration
+a name="update-project-configuration"/>
+## Update Project Configuration
 
 Updates project's configuration or its part.
 
