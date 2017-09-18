@@ -4,13 +4,31 @@ title:  Configuration
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Configuration
+# {{ page.title}}
 
-Most of the configuration done via environment variables (e.g. passed with a `docker run` command).
+The Concord server and agents can be configured via a number of environment
+variables. Typically this is done by the administrator responsible for the
+Concord installation.
 
-## Server
+The environment variables can be set in a startup script or similar
+location. When using docker they can be passed as parameters with a `docker run`
+command.
 
-### Environment Variables
+A Concord user does not need to be concerned about these settings and instead
+needs to define their processes and further details. Check out
+[our quickstart guide](./quickstart.html).
+
+The following configuration details are available:
+
+- [Server Environment Variables](#server-environment-variables)
+- [Server LDAP Authentication](#server-ldap-authentication)
+- [Server Slack Connection](#server-ldap-connection)
+- [Agent Environment Variables](#agent-environment-variables)
+
+
+
+<a name="server-environment-variables"/>
+## Server Environment Variables
 
 All parameters are optional.
 
@@ -54,7 +72,8 @@ All parameters are optional.
 |----------------|------------------------------------------------|-----------------------------|
 | REPO_CACHE_DIR | Directory to store project (git) repositories. | _a new temporary directory_ |
 
-### LDAP
+<a name="server-ldap-authentication"/>
+## Server LDAP Authentication
 
 Create `ldap.properties` file, containing the following parameters
 (substitute values with the values for your environment):
@@ -75,7 +94,11 @@ The `exposeAttributes` property defines a list of LDAP attributes that will be
 [exposed to processes](./processes.html#provided-variables). Remove this property
 to make all LDAP attributes available.
 
-### Slack
+<a name="server-slack-conneti9
+## Server Slack Connection
+
+The Concord server can be configured to connect to Slack and post messages on
+the chat channels.
 
 Create `slack.properties` file, containing the following parameters
 (substitute values with the values for your environment):
@@ -102,9 +125,7 @@ Set `SLACK_CFG` environment variable to the path of the created file.
 | maxConnections | Maximum connections
 | requestLimit   | Notifications per second
 
-## Agent
-
-### Environment Variables
+## Agent Environment Variables
 
 All parameters are optional.
 
