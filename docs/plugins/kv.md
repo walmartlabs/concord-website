@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  KV
+side-navigation: wmt/docs-navigation.html
 ---
 
 # KV task
@@ -24,7 +25,7 @@ Using the OUT syntax of expressions:
 ```yaml
 - expr: ${kv.getString("myKey")}
   out: myVar
-  
+
 - log: "I've got ${myVar}"
 ```
 
@@ -41,7 +42,7 @@ In scripts:
 - script: groovy
   body: |
     def kv = tasks.get("kv");
-    
+
     def id = kv.inc("idSeq");
     println("I've got {id}");
 ```

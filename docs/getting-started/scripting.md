@@ -1,9 +1,10 @@
 ---
 layout: wmt/docs
 title:  Scripting Support
+side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title }} 
+# {{ page.title }}
 
 Concord flows can include scripting language snippets for execution. The
 scripts run within the same JVM that is running Concord, and hence need to be
@@ -11,7 +12,7 @@ JSR-232 compliant scripting languages with a compliant runtime such as
 [JavaScript](#javascript), [Groovy](#groovy) or [Python](#python).
 
 Scripts have to be identified by language. They can be stored as external files
-and invoked from the Concord YAML file or they can be inline in the file. 
+and invoked from the Concord YAML file or they can be inline in the file.
 [Flow variables](#variables) and [Concord tasks](#tasks) can be accessed
 from the scripts.
 
@@ -67,7 +68,7 @@ Scripts can retrieve and invoke all tasks available for flows by name:
 ## JavaScript
 
 JavaScript support is built-in and doesn't require any external
-dependencies. It is based on the 
+dependencies. It is based on the
 [Nashorn](https://en.wikipedia.org/wiki/Nashorn_(JavaScript_engine))
 engine and requires the identifier `js`.
 
@@ -81,9 +82,9 @@ flows:
       function doSomething(i) {
         return i * 2;
       }
-        
+
       execution.setVariable("result", doSomething(2));
-        
+
   - log: ${result} # will output "4"
 ```
 
@@ -101,7 +102,7 @@ flows:
 function doSomething(i) {
   return i * 2;
 }
-        
+
 execution.setVariable("result", doSomething(2));
 ```
 
@@ -148,6 +149,6 @@ flows:
     body: |
       x = 2 * 3;
       execution.setVariable("result", x)
-      
+
   - log: ${result}
 ```

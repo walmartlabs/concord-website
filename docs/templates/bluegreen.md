@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Blue/green deployment
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Blue/green deployment
@@ -61,10 +62,10 @@ Define the environment-specific flows:
 flows:
   deployApp:
   - log: "Using ${target}/${version}"
-  
+
   updateLB:
   - log: "Using ${target}"
-  
+
   smokeTest:
   - log: "Testing ${target}"
 ```

@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Development
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Development

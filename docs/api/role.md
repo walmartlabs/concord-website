@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Role
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Role
@@ -30,15 +31,14 @@ using the specified name.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true,
       "created" : false
     }
     ```
-    
-    The `created` paratemer indicates whether the role was created or updated.
-    
-TBD.
 
+    The `created` paratemer indicates whether the role was created or updated.
+
+TBD.

@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Overview
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Overview
@@ -49,7 +50,7 @@ The agent is a standalone Java application that receives and executes
 a [payload](#payload) sent by the server.
 
 
-## Concord Console 
+## Concord Console
 
 The console is a web application for managing and monitoring the
 server.

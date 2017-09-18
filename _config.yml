@@ -11,6 +11,7 @@ url: http://concord.prod.walmart.com
 logo: /assets/img/logo.png
 description: "Concord is a workflow server."
 source_url: https://gecgithub01.walmart.com/devtools/concord-website
+collapseNavDocs: false
 
 navigation:
   - title: DOCS

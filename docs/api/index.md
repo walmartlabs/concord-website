@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  API
+side-navigation: wmt/docs-navigation.html
 ---
 
 # API

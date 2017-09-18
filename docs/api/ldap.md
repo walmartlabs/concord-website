@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  LDAP
+side-navigation: wmt/docs-navigation.html
 ---
 
 # LDAP group mapping
@@ -25,13 +26,13 @@ using the specified LDAP DN.
       ]
     }
     ```
-    
+
     Roles must exist prior to the creation of the mapping.
 * **Success response**
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true,
@@ -39,11 +40,11 @@ using the specified LDAP DN.
       "created" : false
     }
     ```
-    
+
     The `created` paratemer indicates whether the mapping was created or updated.
-    
+
 ## List LDAP mappings
-    
+
 Lists existing LDAP mappings.
 
 * **Permissions** none
@@ -56,7 +57,7 @@ Lists existing LDAP mappings.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     [
       {
@@ -84,13 +85,13 @@ Removed an existing LDAP mapping.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
     }
     ```
-    
+
 ## List user's LDAP groups
 
 Retrieves a list of user's LDAP groups.
@@ -105,7 +106,7 @@ Retrieves a list of user's LDAP groups.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     ["groupA", "groupB", "..."]
     ```

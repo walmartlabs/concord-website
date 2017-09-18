@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  User
+side-navigation: wmt/docs-navigation.html
 ---
 
 # User
@@ -26,13 +27,13 @@ using the specified username.
     }
     ```
     Permissions are optional.
-    
+
     See also [the list of available permissions](../getting-started/security.html#permissions).
 * **Success response**
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true,
@@ -40,7 +41,7 @@ using the specified username.
       "created" : false
     }
     ```
-    
+
     The `created` paratemer indicates whether the user was created or updated.
 
 ## Find a user
@@ -57,16 +58,16 @@ Find an existing user by name.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "id" : "...",
       "name" : "myUser",
       "permissions" : [ "*:*:*" ]
-    
+
     }
     ```
-    
+
     The `created` paratemer indicates whether the user was created or updated.
-    
+
 TBD.

@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  API Key
+side-navigation: wmt/docs-navigation.html
 ---
 
 # API key
@@ -23,7 +24,7 @@ Creates a new API key for a user.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true,
@@ -31,7 +32,7 @@ Creates a new API key for a user.
       "key": "..."
     }
     ```
-    
+
 ## Delete an existing API key
 
 Removes an existing API key.
@@ -46,7 +47,7 @@ Removes an existing API key.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true

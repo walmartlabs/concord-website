@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Process
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Process
@@ -29,7 +30,7 @@ Starts a new process using an existing project.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
@@ -59,12 +60,12 @@ necessary files.
     synchronous execution of a process. The request will block until
     the process is complete.
 * **Body**
-    Binary data. 
+    Binary data.
 * **Success response**
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
@@ -86,11 +87,11 @@ Starts a new process using the parameters specified in the request body.
     - `projectName:repositoryName:flowName`
 
     For example:`myProject:default:main`
-    
+
     The `flowName` part can be ommitted if the project has the
     entry flow name set in the main project file or in a project
     template.
-    
+
     The `${sync}` (`true/false`, default is `false`) parameter enables
     synchronous execution of a process. The request will block until
     the process is complete.
@@ -106,14 +107,14 @@ Starts a new process using the parameters specified in the request body.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
       "ok" : true
     }
     ```
-    
+
 ### By uploading file(s)
 
 Starts a new process using the provided JSON file as request data.
@@ -128,13 +129,13 @@ working directory.
     The `${entryPoint}` parameter should be one the following formats:
     - `projectName:repositoryName`
     - `projectName:repositoryName:flowName`
-    
+
     The `${sync}` (`true/false`, default is `false`) parameter enables
     synchronous execution of a process. The request will block until
     the process is complete.
 * **Body**
     Multipart binary data.
-    
+
     The values will be interpreted depending on their name:
     - `archive` - ZIP archive, will be extracted into the process'
     working directory;
@@ -148,7 +149,7 @@ working directory.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
@@ -180,11 +181,11 @@ intermediate "pages".
     - `projectName:repositoryName:flowName`
 
     For example:`myProject:default:main`
-    
+
     The `flowName` part can be ommitted if the project has the
     entry flow name set in the main project file or in a project
     template.
-   
+
     Rest of the query parameters are used as process arguments.
 * **Body**
     none
@@ -226,7 +227,7 @@ Returns the current status of a process.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
     "instanceId" : "45beb7c7-6aa2-40e4-ba1d-488f78700ab7",
@@ -252,7 +253,7 @@ Downloads the log file of a process.
     ```
     Content-Type: text/plain
     ```
-    
+
     The log file.
 * **Success response**
     Redirects a user to a form or an intermediate page.
@@ -272,7 +273,7 @@ Downloads a process' attachment.
     ```
     Content-Type: application/octet-stream
     ```
-    
+
     ```
     ...data...
     ```

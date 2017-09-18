@@ -1,9 +1,10 @@
 ---
 layout: wmt/docs
 title:  Quickstart
+side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title }} 
+# {{ page.title }}
 
 If you have [installed your own Concord server](./installation.html) or have
 access to a server already, you can set up your first simple project.
@@ -17,7 +18,7 @@ dot):
 flows:
   main:
     - log: "Hello, ${name}"
-      
+
 variables:
   entryPoint: "main"
   arguments:
@@ -29,7 +30,7 @@ The format is described in [Project file](./processes.html#project-file) documen
 The resulting archive should look like this:
 
 ```
-$ unzip -l archive.zip 
+$ unzip -l archive.zip
 Archive:  archive.zip
   Length      Date    Time    Name
 ---------  ---------- -----   ----
@@ -45,7 +46,7 @@ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
      -H "Content-Type: application/octet-stream" \
      --data-binary @archive.zip http://localhost:8001/api/v1/process
 ```
-  
+
   The response should look like:
 ```json
 {
@@ -56,17 +57,17 @@ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
 
 ### Step 9. Check the Concord Server Logs
 
-If you have started the server with docker you can see the project output with: 
+If you have started the server with docker you can see the project output with:
 
 ```
 docker logs server
 ```
-  
+
 If everything went okay, you should see something like this:
 
 ```
 15:14:26.009 ... - updateStatus ['1b3dedb2-7336-4f96-9dc1-e18408d6b48e', 'ed097181-44fd-4235-973a-6a9c1d7e4b77', FINISHED] -> done
 ```
 
-You can also check the log by opening it in 
+You can also check the log by opening it in
 [the Concord console](http://localhost:8080/).

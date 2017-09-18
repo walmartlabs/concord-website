@@ -1,0 +1,20 @@
+  <!----- Docs Navigation ----->
+  <div class="col-md-3">
+
+    <div class="docs-navigation">
+      {% for item in site.data.docs-navigation.nav %}
+      {% if site.collapseNavDocs == true %}
+      <h2><a onclick="toggleMenu(this, '#{{ item.id }}');"><i class="fa fa-chevron-right pale-blue"></i> {{ item.title }}</a></h2>
+      <ul id="{{ item.id }}" {% unless page.url contains item.collapse %}class="hidden"{% endunless %}>
+      {% else %}
+      <h2><i class="fa fa-chevron-right pale-blue"></i> {{ item.title }}</h2>
+      <ul id="{{ item.id }}">
+      {% endif %}
+        {% for entry in item.subfolderitems %}
+        <li {% if page.url contains entry.context %}class="active"{% endif %}>
+          <a href="{{entry.context}}.html">{{ entry.page }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </div>
+  </div><!-- END col-md-3 docs-navigation -->

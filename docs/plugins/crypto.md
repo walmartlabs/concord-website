@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Crypto
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Crypto task
@@ -121,7 +122,7 @@ http://localhost:8001/api/v1/project/myProject/encrypt
 flows:
   main:
   - log: "Hello, ${name}"
-   
+
 variables:
   entryPoint: main
   arguments:

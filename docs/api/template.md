@@ -1,6 +1,7 @@
 ---
 layout: wmt/docs
 title:  Template
+side-navigation: wmt/docs-navigation.html
 ---
 
 # Template
@@ -24,13 +25,13 @@ Creates a new or updates existing template alias.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
     }
     ```
-    
+
 ## List template aliases
 
 Lists existing template aliases.
@@ -44,14 +45,14 @@ Lists existing template aliases.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     [
       { "alias": "my-template", "url": "http://host/port/my-template.jar"},
       { "alias": "...", "url": "..."}
     ]
     ```
-    
+
 ## Delete an existing template alias
 
 Removes an existing template alias.
@@ -66,7 +67,7 @@ Removes an existing template alias.
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     {
       "ok": true
