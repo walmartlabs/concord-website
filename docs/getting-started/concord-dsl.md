@@ -4,7 +4,7 @@ title:  Concord DSL
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ #page.title }}
+# {{ page.title }}
 
 
 The Concord DSL defines the syntax used in the `.concord.yml` file. It is based 
