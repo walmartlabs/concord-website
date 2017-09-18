@@ -7,16 +7,54 @@ title:  Process
 
 ## Start a process
 
+### From a project
+
+Starts a new process using an existing project.
+
+* **Permissions** none
+* **URI** `/api/v1/process/${entryPoint}?sync=${sync}`
+* **Method** `POST`
+* **Headers** `Authorization`
+* **Parameters**
+    The `${entryPoint}` parameter should be one the following formats:
+    - `projectName:repositoryName`
+    - `projectName:repositoryName:flowName`
+
+    The `${sync}` (`true/false`, default is `false`) parameter enables
+    synchronous execution of a process. The request will block until
+    the process is complete.
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+    
+    ```json
+    {
+      "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
+      "ok" : true
+    }
+    ```
+* **Example**
+    ```
+curl -X POST -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" http://localhost:8001/api/v1/process/myProject:myRepo
+    ```
+
 ### By uploading a ZIP archive
 
 Starts a new process using the uploaded ZIP archive containing all
 necessary files.
 
 * **Permissions** none
-* **URI** `/api/v1/process?sync=${sync}`
+* **URI** `/api/v1/process/${entryPoint}?sync=${sync}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/octet-stream`
 * **Parameters**
+    The `${entryPoint}` parameter should be one the following formats:
+    - `projectName:repositoryName`
+    - `projectName:repositoryName:flowName`
+
     The `${sync}` (`true/false`, default is `false`) parameter enables
     synchronous execution of a process. The request will block until
     the process is complete.
@@ -44,8 +82,8 @@ Starts a new process using the parameters specified in the request body.
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Parameters**
     The `${entryPoint}` parameter should be one the following formats:
+    - `projectName:repositoryName`
     - `projectName:repositoryName:flowName`
-    - `projectName:flowName`
 
     For example:`myProject:default:main`
     
@@ -83,10 +121,14 @@ Accepts multiple additional files, which are put into the process'
 working directory.
 
 * **Permissions** none
-* **URI** `/api/v1/process?sync=${sync}`
+* **URI** `/api/v1/process/${entryPoint}?sync=${sync}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: multipart/form-data`
 * **Parameters**
+    The `${entryPoint}` parameter should be one the following formats:
+    - `projectName:repositoryName`
+    - `projectName:repositoryName:flowName`
+    
     The `${sync}` (`true/false`, default is `false`) parameter enables
     synchronous execution of a process. The request will block until
     the process is complete.
@@ -134,8 +176,8 @@ intermediate "pages".
 * **Headers** none
 * **Parameters**
     The `${entryPoint}` parameter should be one the following formats:
+    - `projectName:repositoryName`
     - `projectName:repositoryName:flowName`
-    - `projectName:flowName`
 
     For example:`myProject:default:main`
     
