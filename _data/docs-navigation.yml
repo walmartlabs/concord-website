@@ -7,10 +7,12 @@ nav:
         context: /docs/getting-started/index
       - page: Installation
         context: /docs/getting-started/installation
-      - page: Quickstart
-        context: /docs/getting-started/quickstart
       - page: Configuration
         context: /docs/getting-started/configuration
+      - page: Quickstart
+        context: /docs/getting-started/quickstart
+      - page: Concord DSL
+        context: /docs/getting-started/yaml
       - page: Processes
         context: /docs/getting-started/processes
       - page: Forms
@@ -23,8 +25,6 @@ nav:
         context: /docs/getting-started/security
       - page: Tasks
         context: /docs/getting-started/tasks
-      - page: YAML DSL
-        context: /docs/getting-started/yaml
   - title: API
     id: api
     collapse: /docs/api
