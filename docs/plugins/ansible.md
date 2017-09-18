@@ -128,6 +128,7 @@ script. See also [Using dynamic inventories] section;
 - `tags` - string, comma-separated list of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
 - `vaultPassword` - string, password to use with [Ansible Vault](http://docs.ansible.com/ansible/latest/playbooks_vault.html).
 See the [Using Ansible Vault](#using-ansible-vault) section for more details.
+- `verbose` - integer, increase log [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4 correlate to -v through -vvvv.
 
 When [the Ansible template](#using-the-ansible-template) is used, all
 parameters should be on the top-level of request JSON.
@@ -197,7 +198,7 @@ variables:
   ansibleParams:
     playbook: "playbook/hello.yml"
     dynamicInventoryFile: "inventory.py"
-    
+
 flows:
   main:
   - ${ansible2.run(ansibleParams, workDir)}
@@ -258,7 +259,7 @@ variables:
         - "127.0.0.1"
         vars:
           ansible_connection: "local"
-          
+
 flows:
   main:
   - ${ansible2.run(ansibleParams, workDir)}
