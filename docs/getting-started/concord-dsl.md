@@ -1,26 +1,31 @@
 ---
 layout: wmt/docs
-title:  YAML
+title:  Concord DSL
 side-navigation: wmt/docs-navigation.html
 ---
 
-# YAML DSL
+# {{ #page.title }}
 
-  * [Example](#example)
-  * [Process Syntax](#process-syntax)
-    + [Entry points](#entry-points)
-    + [Execution steps](#execution-steps)
-      - [Expressions](#expressions)
-      - [Tasks](#tasks)
-    + [Conditional expressions](#conditional-expressions)
-    + [Return command](#return-command)
-    + [Groups of steps](#groups-of-steps)
-    + [Calling other flows](#calling-other-flows)
-    + [Scripting](#scripting)
-    + [Variables](#variables)
-    + [Docker](#docker)
-  * [Forms](#forms)
-  * [Grammar](#grammar)
+
+The Concord DSL defines the syntax used in the `.concord.yml` file. It is based 
+on using the simple, human readable format [YAML](http://www.yaml.org/) and
+defines all your workflow process, forms and other aspects:
+
+- [Example](#example)
+- [Process Syntax](#process-syntax)
+  - [Entry points](#entry-points)
+  - [Execution steps](#execution-steps)
+  - [Expressions](#expressions)
+  - [Tasks](#tasks)
+  - [Conditional expressions](#conditional-expressions)
+  - [Return command](#return-command)
+  - [Groups of steps](#groups-of-steps)
+  - [Calling other flows](#calling-other-flows)
+  - [Scripting](#scripting)
+  - [Variables](#variables)
+  - [Docker](#docker)
+- [Forms](#forms)
+- [Grammar](#grammar)
 
 ## Example
 

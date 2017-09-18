@@ -104,7 +104,7 @@ used by the server to create a payload archive;
 See the [Dependencies](#dependencies) section for more details;
 - `arguments` - a JSON object, will be used as process arguments.
 
-Values of `arguments` can contain [expressions](./yaml.html#expressions).
+Values of `arguments` can contain [expressions](./concord-dsl.html#expressions).
 Expressions can use all regular "tasks" plus external `dependencies`:
 
 ```yaml

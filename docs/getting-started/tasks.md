@@ -64,7 +64,7 @@ flows:
     - log: "Wham! ${lastError.message}"
 ```
 
-See also [the description of expressions](./yaml.html#expressions).
+See also [the description of expressions](./concord-dsl.html#expressions).
 
 ## Using Full Form
 

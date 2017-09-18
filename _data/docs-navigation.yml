@@ -12,7 +12,7 @@ nav:
       - page: Quickstart
         context: /docs/getting-started/quickstart
       - page: Concord DSL
-        context: /docs/getting-started/yaml
+        context: /docs/getting-started/concord-dsl
       - page: Processes
         context: /docs/getting-started/processes
       - page: Forms
