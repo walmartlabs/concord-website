@@ -8,7 +8,8 @@ side-navigation: wmt/docs-navigation.html
 
 ## Usage
 
-Concord supports running 3rd-party docker images:
+Concord supports running docker images within a process flow.
+
 ```yaml
 flows:
   main:
@@ -31,12 +32,12 @@ echo 'Hello, world!'
 
 The current process' working directory is mounted as `/workspace`.
 
-The container is automatically removed when the called command is
-complete.
+The container is automatically removed when the called command is complete.
 
 ## Environment Variables
 
 Additional environment variables can be specified using `env` parameter:
+
 ```yaml
 flows:
   main:

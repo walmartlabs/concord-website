@@ -7,7 +7,7 @@ side-navigation: wmt/docs-navigation.html
 # Forms
 
 Concord flows can provide simple UIs using forms. Forms are described
-declaratively in [project files](processes.html) and (optionally) can
+declaratively in [project files](./processes.html) and (optionally) can
 contain custom HTML/CSS/JS/etc resources
 (["custom forms"](#custom-forms)).
 

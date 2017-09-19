@@ -4,16 +4,25 @@ title:  Tasks
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Tasks
+# {{ page.title }}
 
-Tasks are used to call 3rd-party code or to perform something that is too
-complex to express with the Concord DSL and EL in YAML directly. They are
+Tasks are used to call external Java code that implments functionality that is
+too complex to express with the Concord DSL and EL in YAML directly. They are
 _plugins_ of Concord.
 
-## Creating a New Task
+- [Creating a New Task](#create-task)
+- [Adding a Task](#add-task)
+- [Using Expressions](#expressions)
+- [Using Full Form](#full-form)
+- [Using Short Form](#short-form)
+- [Injecting Variables](#injecting-variables)
+
+<a name="create-task"/>
+## Creating a Task
 
 Tasks must implement `com.walmartlabs.concord.sdk.Task` Java
-interface. It is provided by `concord-sdk` module:
+interface. It is provided by the `concord-sdk` module:
+
 ```xml
 <dependency>
   <groupId>com.walmartlabs.concord</groupId>
@@ -23,7 +32,7 @@ interface. It is provided by `concord-sdk` module:
 </dependency>
 ```
 
-It is recommended to distribute tasks as "fat" JARs, i.e. to include
+It is recommended to distribute tasks as _fat_ JARs, i.e. to include
 all necessary dependencies in a single archive. However, some
 dependencies should be excluded from the final JAR or marked as
 `provided` in the POM file:
@@ -31,6 +40,14 @@ dependencies should be excluded from the final JAR or marked as
 - `javax.inject/javax.inject`
 - `org.slf4j/slf4j-api`
 
+<a name="add-task"/>
+## Adding a Task
+
+In order to be able to use a task a URL to the JAR containing the implementation
+has to be added as a [dependency](./processes.html#dependencies). Typically the
+JAR is published to a repository manager.
+
+<a name="expressions"/>
 ## Using Expressions
 
 Here's an example of a simple task:
@@ -66,6 +83,7 @@ flows:
 
 See also [the description of expressions](./concord-dsl.html#expressions).
 
+<a name="full-form"/>
 ## Using Full Form
 
 If a task implements `Task#execute` method, it can be started using
@@ -101,6 +119,7 @@ flows:
 This form allows use of IN and OUT variables and error-handling
 blocks.
 
+<a name="short-form"/>
 ## Using Short Form
 
 If a task contains method `call` with one or more arguments, it can
@@ -128,10 +147,12 @@ flows:
     - "Concord"
 ```
 
+<a name="injecting-variables"/>
 ## Injecting Variables
 
 Context variables can be automatically injected into task fields or
 method arguments:
+
 ```java
 import com.walmartlabs.concord.common.Task;
 import com.walmartlabs.concord.common.InjectVariable;

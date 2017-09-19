@@ -67,7 +67,8 @@ Profiles can override default variables, flows and forms. For
 example, if the process above will be executed using `myProfile`
 profile, then the default value of `myForm.name` will be `world`.
 
-See also [the YAML format for describing flows and forms](./yaml.html).
+See also
+[the Concord DSL documentation for describing flows and forms](./yaml.html).
 
 ## Request Data
 
