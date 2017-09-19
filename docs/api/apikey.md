@@ -4,9 +4,18 @@ title:  API Key
 side-navigation: wmt/docs-navigation.html
 ---
 
-# API key
+# {{ page.title }}
 
-## Create a new API key
+An API Key is specific to a user and allows access to the API with the key
+replacing the usage of user credentials for authentication.
+
+The REST API provides support for a number of operations:
+
+- [Create a New API Key](#create-key)
+- [Delete an Existing API Key](#delete-key)
+
+<a name="create-key"/>
+## Create a New API Key
 
 Creates a new API key for a user.
 
@@ -33,6 +42,7 @@ Creates a new API key for a user.
     }
     ```
 
+<a name="delete-key"/>
 ## Delete an existing API key
 
 Removes an existing API key.
