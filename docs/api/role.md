@@ -6,8 +6,8 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-Roles group permissions to projects and other aspects and can be assigned to
-users via LDAP mappings.
+Roles group [permissions](../getting-started/security.html#permissions) and can
+be assigned to users via LDAP mappings.
 
 The REST API provides support for a number of operations:
 
