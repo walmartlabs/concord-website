@@ -1,12 +1,22 @@
 ---
 layout: wmt/docs
-title:  LDAP
+title:  LDAP Mapping
 side-navigation: wmt/docs-navigation.html
 ---
 
-# LDAP group mapping
+# {{ page.title }} 
 
-## Create a new mapping or update an existing one
+An LDAP mapping associates LDAP groups with Concord [roles](./role.html).
+
+The REST API provides support for a number of operations:
+
+- [Create or Update a LDAP Mapping](#create-mapping)
+- [List LDAP Mappings](#list-mappings)
+- [Delete a LDAP mapping](#delete-mapping)
+- [List LDAP Groups of a User](#list-user-groups)
+
+<a name="create-mapping"/>
+## Create or Update a LDAP Mapping
 
 Creates a new mapping with specified parameters or updates an existing one
 using the specified LDAP DN.
@@ -43,7 +53,8 @@ using the specified LDAP DN.
 
     The `created` paratemer indicates whether the mapping was created or updated.
 
-## List LDAP mappings
+<a name="list-mappings"/>
+## List LDAP Mappings
 
 Lists existing LDAP mappings.
 
@@ -71,9 +82,10 @@ Lists existing LDAP mappings.
     ]
     ```
 
+<a name="delete-mapping"/>
 ## Delete a LDAP mapping
 
-Removed an existing LDAP mapping.
+Removes an existing LDAP mapping.
 
 * **Permissions** `ldapMapping:delete`
 * **URI** `/api/v1/ldap/mapping/${id}`
@@ -92,9 +104,10 @@ Removed an existing LDAP mapping.
     }
     ```
 
-## List user's LDAP groups
+<a name="list-user-groups"/>
+## List LDAP Groups of a User
 
-Retrieves a list of user's LDAP groups.
+Retrieves a list of LDAP groups for a specific user.
 
 * **Permissions** `ldap:query`
 * **URI** `/api/v1/ldap/query/${username}/group`
