@@ -4,7 +4,7 @@ title:  Secret
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Secret
+# {{ page.title }}
 
 A secret is either a username/password or name/ssh-key pair that is used to 
 access repositories and other systems.

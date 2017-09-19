@@ -4,9 +4,19 @@ title:  Template
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Template
+# {{ page.title }} 
 
-## Create a new template alias
+[Templates](../templates/index.html) allows sharing of common elements and
+process.
+
+The REST API provides support for a number of operations:
+
+- [Create a New Template Alias](#create-template-alias)
+- [List Template Aliases](#list-template-aliases)
+- [Delete a Template Alias](#delete-template-alias)
+
+<a name="create-template-alias"/>
+## Create a New Template Alias
 
 Creates a new or updates existing template alias.
 
@@ -32,7 +42,8 @@ Creates a new or updates existing template alias.
     }
     ```
 
-## List template aliases
+<a name="list-template-aliases"/>
+## List Template Aliases
 
 Lists existing template aliases.
 
@@ -53,7 +64,8 @@ Lists existing template aliases.
     ]
     ```
 
-## Delete an existing template alias
+<a name="delete-template-alias"
+## Delete a Template Alias
 
 Removes an existing template alias.
 

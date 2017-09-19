@@ -4,9 +4,17 @@ title:  Role
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Role
+# {{ page.title }}
 
-## Create a new role or update an existing one
+Roles group permissions to projects and other aspects and can be assigned to
+users via LDAP mappings.
+
+The REST API provides support for a number of operations:
+
+- [Create or Update a Role](#create-role)
+
+<a name="create-role"/>
+## Create or Update a Role
 
 Creates a new role with specified parameters or updates an existing one
 using the specified name.
@@ -41,4 +49,3 @@ using the specified name.
 
     The `created` paratemer indicates whether the role was created or updated.
 
-TBD.

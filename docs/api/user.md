@@ -4,7 +4,7 @@ title:  User
 side-navigation: wmt/docs-navigation.html
 ---
 
-# User
+# {{ page.title }}
 
 ## Create a new user or update an existing one
 
@@ -70,4 +70,3 @@ Find an existing user by name.
 
     The `created` paratemer indicates whether the user was created or updated.
 
-TBD.

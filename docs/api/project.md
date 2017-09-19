@@ -4,7 +4,7 @@ title:  Project
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Project
+# {{ page.title }}
 
 A project is a container for one or more repositories, a [secret](./secret.html)
 for accessing the repositories and further configuration.

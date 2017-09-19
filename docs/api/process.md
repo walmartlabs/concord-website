@@ -4,7 +4,7 @@ title:  Process
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Process
+# {{ page.title }}
 
 A process is an execution of a flow in repository of a project.
 
