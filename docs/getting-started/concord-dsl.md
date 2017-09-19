@@ -197,6 +197,37 @@ main:
 In this example, after `then` (1) or `else` (2) block are completed,
 the execution will continue from the next step in the flow (3).
 
+To compare a value (or a result of an expression) with multiple
+values, use the `switch` block:
+
+```yaml
+main:
+  - switch: ${myVar}
+    red:
+      - log: "It's red!"
+    green:
+      - log: "It's definitely green"
+    default:
+      - log: "I don't know what it is"
+      
+  - log: "Moving along..."
+```
+
+In this example, branch labels `red` and `green` are the compared
+values and `default` is the block which will be executed if no other
+value fits.
+
+Expressions can be used as branch values:
+
+```yaml
+main:
+  - switch: ${myVar}
+    ${aKnownValue}:
+      - log: "Yes, I recognize this"
+    default:
+      - log: "Nope"          
+```
+
 ### Return Command
 
 The `return` command can be used to stop the execution of the current
