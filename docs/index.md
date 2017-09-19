@@ -8,8 +8,10 @@ side-navigation: wmt/docs-navigation.html
 
 Welcome to the Concord documentation. This is the place to
 
-- learn [about Concord](../about.html)
-- [get started](./getting-started/index.html)
+- learn [about Concord](../about.html),
+- [get started](./getting-started/index.html),
+- [install Concord](./getting-started/installation.html),
+- create your first project with the [quickstart guide](./getting-started/quickstart.html)
 - find out about [plugins](./plugins/index.html) and
 - reference the [API](./api/index.html).
 
