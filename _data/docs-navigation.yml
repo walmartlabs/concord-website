@@ -29,22 +29,22 @@ nav:
     id: api
     collapse: /docs/api
     subfolderitems:
-      - page: Project
-        context: /docs/api/project
-      - page: Process
-        context: /docs/api/process
-      - page: User
-        context: /docs/api/user
-      - page: Role
-        context: /docs/api/role
-      - page: LDAP
-        context: /docs/api/ldap
-      - page: Secret
-        context: /docs/api/secret
       - page: API Key
         context: /docs/api/apikey
+      - page: LDAP Mapping
+        context: /docs/api/ldap
+      - page: Process
+        context: /docs/api/process
+      - page: Project
+        context: /docs/api/project
+      - page: Role
+        context: /docs/api/role
+      - page: Secret
+        context: /docs/api/secret
       - page: Template
         context: /docs/api/template
+      - page: User
+        context: /docs/api/user
   - title: Plugins
     id: plugins
     collapse: /docs/plugins
