@@ -6,9 +6,9 @@ side-navigation: wmt/docs-navigation.html
 
 # Tasks
 
-Tasks are used to call 3rd-party code or to perform something that
-is too complex to express it with YAML directly. They are "plugins"
-of Concord.
+Tasks are used to call 3rd-party code or to perform something that is too
+complex to express with the Concord DSL and EL in YAML directly. They are
+_plugins_ of Concord.
 
 ## Creating a New Task
 
