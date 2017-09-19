@@ -6,7 +6,17 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-## Create a new user or update an existing one
+A user represents an actual person using Concord to execute processes or
+adminstrate the server.
+
+The REST API provides support for a number of operations:
+
+- [Create or Update a User](#create-user)
+- [Find a User](#find-user)
+
+
+<a name="create-user"/>
+## Create or Update a User
 
 Creates a new user with specified parameters or updates an existing one
 using the specified username.
@@ -44,7 +54,8 @@ using the specified username.
 
     The `created` paratemer indicates whether the user was created or updated.
 
-## Find a user
+<a name="find-user"/>
+## Find a User
 
 Find an existing user by name.
 
