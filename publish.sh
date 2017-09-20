@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# fail if anything errors
+set -e
+# fail if a function call is missing an argument
+set -u
+
 # Setup environment
 . ${HOME}/.bashrc
 export PATH=/mnt/jenkinspan/bin/:$PATH

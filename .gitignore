@@ -6,7 +6,6 @@ linkcheck-results.log
 .idea
 
 .bundle
-Gemfile.lock
 *.iml
 vendor
 .jekyll-metadata

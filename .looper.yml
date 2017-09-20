@@ -15,12 +15,14 @@ tools:
   npm:
     - 4.1.2
 
-triggers:
-  pr: disabled
-  
 flows:
-   default:
-     - ./publish.sh
-     - oneops.environmentVariableUpdate(platform = 'webserver', component = 'artifact', variables = { SITE_VERSION = '0.0.1-SNAPSHOT' })
-     - oneops.environmentCommitAndDeploy(platform = 'webserver')
+  default:
+    - call: checkVersions
+    - ./publish.sh
+    - oneops.environmentVariableUpdate(platform = 'webserver', component = 'artifact', variables = { SITE_VERSION = '0.0.1-SNAPSHOT' })
+    - oneops.environmentCommitAndDeploy(platform = 'webserver')
 
+  checkVersions:
+    - (name JDK/Maven version) mvn -v
+    - (name Ruby/Gem version) ruby -v; gem -v
+    - (name Gem dependencies) gem dependency
