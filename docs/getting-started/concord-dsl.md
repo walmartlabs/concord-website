@@ -12,7 +12,7 @@ readable format [YAML](http://www.yaml.org/) and defines all your workflow
 process, forms and other aspects:
 
 - [Example](#example)
-- [Process Syntax](#process-syntax)
+- [Process Flows Syntax](#process-syntax)
   - [Entry points](#entry-points)
   - [Execution steps](#execution-steps)
   - [Expressions](#expressions)
@@ -22,11 +22,14 @@ process, forms and other aspects:
   - [Groups of steps](#groups-of-steps)
   - [Calling other flows](#calling-other-flows)
   - [Scripting](#scripting)
-  - [Variables](#variables)
-  - [Docker](#docker)
-- [Forms](#forms)
+- [Variables](#variables)
 - [Grammar](#grammar)
 
+Some features are more complex and you can find details in separate documents:
+
+- [Docker](./docker.html)
+- [Forms](./forms.html)
+ 
 ## Example
 
 ```yaml
@@ -61,7 +64,7 @@ In this example:
 Note: the actual task names and their required parameters may differ.
 Please refer to the specific task's documentation.
 
-## Process Syntax
+## Process Flows
 
 ### Entry Points
 
@@ -294,15 +297,6 @@ flows:
     - log: ${a}
     - log: ${b}
 ```
-
-### Docker
-
-Concord can start a docker container as documented in the 
-[Docker usage documentation](./docker.html).
-
-## Forms
-
-Form support is described in a [separate](./forms.html) document.
 
 ## Grammar
 
