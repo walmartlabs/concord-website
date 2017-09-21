@@ -6,14 +6,8 @@ envs:
       oneops.environment: prod-concord
       
 tools:
-  jdk:
-    - 8
-  maven:
-    - 3.5.0
-  nodejs:
-    - 7.7.2
-  npm:
-    - 4.1.2
+  jdk:8
+  maven: 3.5.0
 
 flows:
   default:
