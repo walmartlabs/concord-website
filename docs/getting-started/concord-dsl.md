@@ -26,7 +26,6 @@ process, forms and other aspects:
   - [Groups of steps](#groups-of-steps)
   - [Calling flows](#calling-other-flows)
 - [Profiles](#profiles)
-- [Grammar](#grammar)
 
 Some features are more complex and you can find details in separate documents:
 
@@ -463,12 +462,12 @@ flows:
     - log: ${b}
 ```
 
-
-
 ## Profiles
 
 Profiles are named collections of configuration, forms and flows and be 
 be used to override defaults set in the top-level content of the Concord file.
+They are created by inserting a name section in the `profiles` top-level
+element.
 
 Profile selection is configured when a process is
 [executed](./processes.html#execution).
@@ -495,56 +494,4 @@ profiles:
 The `activeProfiles` parameter is a list of project file's profiles that is
 used to start a process. If not set, a `default` profile will be used.
 
-## Grammar
 
-Formal definition (PEG-like).
-
-```
-expression := VALUE_STRING ${.*}
-value := VALUE_STRING | VALUE_NUMBER_INT | VALUE_NUMBER_FLOAT | VALUE_TRUE | VALUE_FALSE | VALUE_NULL | arrayOfValues | object
-arrayOfValues := START_ARRAY value* END_ARRAY
-object := START_OBJECT (FIELD_NAME value)* END_OBJECT
-identifier := VALUE_STRING
-formName := VALUE_STRING ^form \((.*)\)$
-
-outField := FIELD_NAME "out" identifier
-errorBlock := FIELD_NAME "error" steps
-
-kv := FIELD_NAME value
-inVars := FIELD_NAME "in" START_OBJECT (kv)+ END_OBJECT
-outVars := FIELD_NAME "out" START_OBJECT (kv)+ END_OBJECT
-
-exprOptions := (outField | errorBlock)*
-taskOptions := (inVars | outVars | outField | errorBlock)*
-callOptions := (inVars | outVars | errorBlock)*
-groupOptions := (errorBlock)*
-formCallOptions := (kv)*
-dockerOptions := (kv)*
-
-exprShort := expression
-exprFull := FIELD_NAME "expr" expression exprOptions
-taskFull := FIELD_NAME "task" VALUE_STRING taskOptions
-taskShort := FIELD_NAME literal
-ifExpr := FIELD_NAME "if" expression FIELD_NAME "then" steps (FIELD_NAME "else" steps)?
-returnExpr := VALUE_STRING "return"
-returnErrorExpr := FIELD_NAME "return" VALUE_STRING
-group := FIELD_NAME ":" steps groupOptions
-callFull := FIELD_NAME "call" VALUE_STRING callOptions
-callProc := VALUE_STRING
-script := FIELD_NAME "script" VALUE_STRING (FIELD_NAME "body" VALUE_STRING)?
-formCall := FIELD_NAME "form" VALUE_STRING formCallOptions
-vars :=  FIELD_NAME "vars" START_OBJECT (kv)+ END_OBJECT
-docker := FIELD_NAME "docker" VALUE_STRING dockerOptions
-
-stepObject := START_OBJECT docker | group | ifExpr | exprFull | formCall | taskFull | callFull | inlineScript | taskShort END_OBJECT
-step := returnExpr | returnErrorExpr | exprShort | callProc | stepObject
-steps := START_ARRAY step+ END_ARRAY
-
-formField := START_OBJECT FIELD_NAME object END_OBJECT
-formFields := START_ARRAY formField+ END_ARRAY
-
-procDef := FIELD_NAME steps
-formDef := formName formFields
-
-defs := START_OBJECT (formDef | procDef)+ END_OBJECT
-```
