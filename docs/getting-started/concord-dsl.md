@@ -9,7 +9,7 @@ side-navigation: wmt/docs-navigation.html
 The Concord DSL defines the syntax used in the Concord file - a `concord.yml`
 file in the root of your project. It is based on using the simple, human
 readable format [YAML](http://www.yaml.org/) and defines all your workflow
-process, forms and other aspects:
+process flows, configuration, forms and other aspects:
 
 - [Example](#example)
 - [Project Configuration in `configuration`](#configuration)
@@ -25,7 +25,7 @@ process, forms and other aspects:
   - [Return command](#return-command)
   - [Groups of steps](#groups-of-steps)
   - [Calling flows](#calling-other-flows)
-- [Profiles](#profiles)
+- [Named Profiles in `profiles`](#profiles)
 
 Some features are more complex and you can find details in separate documents:
 
@@ -62,6 +62,7 @@ flows:
 
 In this example:
 - the `main` flow is configured as the process starting point with `entryPoint`
+- a simple log message is created to start
 - the `sendEmail` [task](./tasks.html) (1) is executed using two input
   parameters: `to` and `subject`. The output of the task is stored in `result`
   variable.
@@ -72,6 +73,7 @@ In this example:
 The actual task names and their required parameters may differ. Please refer to
 the [task documentation](./tasks.html) and the specific task used for details.
 
+<a name="configuration"/>
 ## Project Configuration in `configuration`
 
 Overall configuration for the project and process executions is contained in the
@@ -101,8 +103,8 @@ The `dependencies` array allows users to specify the URLs of dependencies such
 as 
 
 - Concord plugins and their dependencies 
-- Dependencies needed for specific scripting language support
-- Other dependencies required for process execution
+- dependencies needed for specific scripting language support
+- other dependencies required for process execution
 
 ```yaml
 configuration:
@@ -120,9 +122,10 @@ A template can be used to allow inheritance of all the configuration of another
 project. The value for the `template` field has to be a valid URL pointing to
 a JAR-archive of the project to use as template. 
 
-The template is downloaded at process execution time and exploded in the
-workspace. More detailed documentation, including information about available 
-templates, is available in the [templates section](../templates/index.html).
+The template is downloaded for [process execution](./processes.html#execution)
+and exploded in the workspace. More detailed documentation, including
+information about available templates, is available in the
+[templates section](../templates/index.html).
 
 ## Arguments
 
@@ -143,13 +146,8 @@ flows:
     log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
 
-
-
-See the [Dependencies](#dependencies) section for more details;
-- `arguments` - a JSON object, will be used as process arguments.
-
-Values of `arguments` can contain [expressions](./concord-dsl.html#expressions).
-Expressions can use all regular "tasks" plus external `dependencies`:
+Values of `arguments` can contain [expressions](#expressions). Expressions can
+use all regular tasks as well as external dependencies.
 
 ```yaml
 configuration:
@@ -158,19 +156,16 @@ configuration:
     myStaticVar: 123
 ```
 
-The variables are evaluated in the order of definition. For example,
-it is possible to use a variable value in another variable if the
-former is defined earlier than the latter:
+The variables are evaluated in the order of definition. For example, it is
+possible to use a variable value in another variable if the former is defined
+earlier than the latter:
+
 ```yaml
 configuration:
   arguments:
     name: "Concord"
     message: "Hello, ${name}"
 ```
-
-
-
-
 
 <a name="flows"/>
 ## Process Definitions in `flows:`
@@ -462,18 +457,19 @@ flows:
     - log: ${b}
 ```
 
-## Profiles
+<a name="profiles"/>
+## Named Profiles in `profiles`
 
-Profiles are named collections of configuration, forms and flows and be 
-be used to override defaults set in the top-level content of the Concord file.
-They are created by inserting a name section in the `profiles` top-level
-element.
+Profiles are named collections of configuration, forms and flows and can be used
+to override defaults set in the top-level content of the Concord file. They are
+created by inserting a name section in the `profiles` top-level element.
 
 Profile selection is configured when a process is
 [executed](./processes.html#execution).
 
-For example, if the process below is executed using `myProfile` profile, then 
-the default value of `foo` is `bazz` instead of the default `bar`.
+For example, if the process below is executed using the `myProfile` profile, 
+the value of `foo` is `bazz` and appears in the log instead of the default
+`bar`.
 
 ```yaml
 flows:
