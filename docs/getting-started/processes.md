@@ -106,5 +106,6 @@ A process is executed using the following steps:
 - Project configuration overrides default project configuration
 - User request's configuration is applied
 - Templates are downloaded and applied
+- The payload is created and send to the Concord Agent for execution
 - Dependencies are downloaded and put on the classpath
 - The flow configured as entry point is invoked
