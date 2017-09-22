@@ -22,10 +22,7 @@ Console expects the following structure of a process working directory:
 
 - `concord.yml`: the [project file](#project-file) containing the main project
 information and declarations;
-- `_main.json`: the [data](#request-data) supplied in the request to execute
-the process;
-- `processes` and/or `flows`: directories containing `.yml` process and form
-definitions;
+- `flows`: directories containing `.yml` process and form definitions;
 - `profiles`: directory containing profiles;
 - `lib`: directory for additional runtime dependencies.
 
@@ -102,9 +99,10 @@ A process is executed using the following steps:
 
 - Project repository data is cloned or updated
 - Binary payload from the process invocation is added to the workspace
-- Configuration from the project file and the request data are merged
-- Project configuration overrides default project configuration
-- User request's configuration is applied
+- Configuartion from he project is used
+- Configuration from project.yml is merged
+- Configuration from an uploaded JSON file is merged
+- Configuration from request parameters is applied
 - Templates are downloaded and applied
 - The payload is created and send to the Concord Agent for execution
 - Dependencies are downloaded and put on the classpath
