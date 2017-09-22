@@ -3,6 +3,14 @@
 > tbd
 
 
-## TBD
+## Ansible
 
 tbd
+
+
+## CI/CD
+
+tbd
+
+
+## Deployments

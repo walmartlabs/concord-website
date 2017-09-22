@@ -1,18 +1,33 @@
 # First Steps
 
-> tbd
+> Project Creation and Process Execution
 
 
-## First Concord Process
+## First Concord Project
 
 - Create git repository
-- Add deploy key
+- Clone
+- Create `concord.yml` file in root
+- Commit and push
+
+```
+configuration:
+  entryPoint: "main"
+
+flows:
+  main:
+    - log: "Hello Concord"
+```
+
 Note:
+- Demo it
 
+## concord.yml
 
-## Concord File
-
-concord.yml
+- Main configuration file
+- Defines process flows
+- Located with your source code
+- Uses YAML syntax
 
 
 ## YAML
@@ -25,7 +40,34 @@ concord.yml
 - Some validation in Looper
 
 Note:
-- uses [snakeyaml](http://www.snakeyaml.org) 
+- uses jackson
+
+
+## Creating a Project
+
+- Login to Concord Console
+- tbd
+- New item
+- Item name & Looper project
+- GitHub repository URL with `https://`
+
+Now push another commit...
+
+Note:
+Demo it
+
+
+## Process Execution
+
+Hit it with curl
+
+
+## What Happened
+
+- tbd
+
+Note:
+Demo it
 
 
 ## Questions?

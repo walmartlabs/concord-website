@@ -17,6 +17,71 @@ _plugins_ of Concord.
 - [Using Short Form](#short-form)
 - [Injecting Variables](#injecting-variables)
 
+
+
+
+#### Tasks
+
+Tasks allow you to call Java methods implemented in one of the
+[dependencies](#dependencies) of
+the project. In addition to calling a task via an expression as above you can
+invoke the Java code by using dynamic method resolution or by using
+`JavaDelegate` instances.
+
+Dynamic method resolution is the simplest way to call Java code.
+Any object that implements the `com.walmartlabs.concord.common.Task`
+interface and provides a `call(...)` method сan be called this way.
+
+```yaml
+flows:
+  main:
+    # calling a method with a single argument
+    # same as ${myTask.call("hello")}
+    - myTask: hello
+    
+    # calling a method with a single argument
+    # the value will be a result of expression evaluation
+    - myTask: ${myMessage}
+    
+    # calling a method with two arguments
+    # same as ${myTask.call("warn", "hello")}
+    - myTask: ["warn", "hello"]
+    
+    # calling a method with a single argument
+    # the value will be converted into Map<String, Object>
+    - myTask: { "urgency": "high", message: "hello" }
+
+    # multiline strings and string interpolation is also supported
+    - myTask: |
+        those line breaks will be
+        preserved. Here will be a ${result} of EL evaluation.
+```
+
+If a task implements the `#execute(Context)` method, some additional
+features like in/out variables mapping can be used:
+
+```yaml
+flows:
+  main:
+    # calling a task with in/out variables mapping
+    - task: myTask
+      in:
+        taskVar: ${processVar}
+        anotherTaskVar: "a literal value"
+      out:
+        processVar: ${taskVar}
+      error:
+        - log: something bad happened
+```
+
+
+
+
+
+
+
+
+
 <a name="create-task"/>
 ## Creating a Task
 

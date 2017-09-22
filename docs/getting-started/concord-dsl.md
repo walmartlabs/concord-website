@@ -12,24 +12,27 @@ readable format [YAML](http://www.yaml.org/) and defines all your workflow
 process, forms and other aspects:
 
 - [Example](#example)
-- [Process Flows Syntax](#process-syntax)
+- [Configuration](#configuration)
+  - [Provided variables](#provided-variables)
+  - [Dependencies](#dependencies)
+- [Process Definition in `flows:`](#flows)
   - [Entry points](#entry-points)
   - [Execution steps](#execution-steps)
   - [Expressions](#expressions)
-  - [Tasks](#tasks)
   - [Conditional expressions](#conditional-expressions)
   - [Return command](#return-command)
   - [Groups of steps](#groups-of-steps)
-  - [Calling other flows](#calling-other-flows)
-  - [Scripting](#scripting)
-- [Variables](#variables)
+  - [Calling flows](#calling-other-flows)
+- [Profiles](#profiles)
 - [Grammar](#grammar)
 
 Some features are more complex and you can find details in separate documents:
 
-- [Docker](./docker.html)
+- [Scripting](./scripting.html)
+- [Tasks](./tasks.html)
 - [Forms](./forms.html)
- 
+- [Docker](./docker.html)
+
 ## Example
 
 ```yaml
@@ -64,7 +67,8 @@ In this example:
 Note: the actual task names and their required parameters may differ.
 Please refer to the specific task's documentation.
 
-## Process Flows
+<a name="flows"/>
+## Process Definition in `flows:`
 
 ### Entry Points
 
@@ -138,61 +142,6 @@ flows:
     - myTask: ["red", "green", "${colors.blue}"]
     - myTask: { nested: { literals: "${myOtherTask.doSomething()}"} }
 ```
-
-#### Tasks
-
-Tasks allow you to call Java methods implemented in one of the dependencies of
-the project. In addition to calling a task via an expression as above you can
-invoke the Java code by using dynamic method resolution or by using
-`JavaDelegate` instances.
-
-Dynamic method resolution is the simplest way to call Java code.
-Any object that implements the `com.walmartlabs.concord.common.Task`
-interface and provides a `call(...)` method сan be called this way.
-
-```yaml
-flows:
-  main:
-    # calling a method with a single argument
-    # same as ${myTask.call("hello")}
-    - myTask: hello
-    
-    # calling a method with a single argument
-    # the value will be a result of expression evaluation
-    - myTask: ${myMessage}
-    
-    # calling a method with two arguments
-    # same as ${myTask.call("warn", "hello")}
-    - myTask: ["warn", "hello"]
-    
-    # calling a method with a single argument
-    # the value will be converted into Map<String, Object>
-    - myTask: { "urgency": "high", message: "hello" }
-
-    # multiline strings and string interpolation is also supported
-    - myTask: |
-        those line breaks will be
-        preserved. Here will be a ${result} of EL evaluation.
-```
-
-If a task implements the `#execute(Context)` method, some additional
-features like in/out variables mapping can be used:
-
-```yaml
-flows:
-  main:
-    # calling a task with in/out variables mapping
-    - task: myTask
-      in:
-        taskVar: ${processVar}
-        anotherTaskVar: "a literal value"
-      out:
-        processVar: ${taskVar}
-      error:
-        - log: something bad happened
-```
-
-Further details are available in the [Tasks documentation](tasks.html).
 
 ### Conditional Expressions
 
@@ -279,10 +228,120 @@ flows:
 
 Similar to [tasks](#tasks), the `in` variables can use expressions.
 
-### Scripting
+## Error Handling
 
-Most of the JSR-223 compatible script engines are 
-[supported including Python, Groovy and JavaScript](./scripting.html).
+### Capturing Errors
+
+Task and expression errors are normal Java exceptions, which can be
+"caught" and handled using a special syntax.
+
+Expressions, tasks, groups of steps and flow calls can have an
+optional `error` block, which will be executed if an exception
+occurred:
+```yaml
+flows:
+  main:
+  # handling errors in an expression
+  - expr: ${myTask.somethingDangerous()}
+    error:
+    - log: "Gotcha! ${lastError}"
+
+  # handling errors in tasks
+  - task: myTask
+    error:
+    - log: "Fail!"
+
+  # handling errors in groups of steps
+  - ::
+    - ${myTask.doSomethingSafe()}
+    - ${myTask.doSomethingDangerous()}
+    error:
+    - log: "Here we go again"
+
+  # handling errors in flow calls
+  - call: myOtherFlow
+    error:
+    - log: "That failed too"
+```
+
+The `${lastError}` variable contains the last caught
+`java.lang.Exception` object.
+
+If an error was caught, the execution will continue from the next
+step:
+```yaml
+flows:
+  main:
+  - expr: ${misc.throwBpmnError('Catch that!')}
+    error:
+    - log: "A"
+
+  - log: "B"
+```
+will log `A` and then `B`.
+
+### Handling user cancellations and failures
+
+When a process cancelled (killed) by a user, a special flow
+`onCancel` will be executed:
+```yaml
+flows:
+  main:
+  - log: "Doing some work..."
+  - ${sleep.ms(60000)}
+
+  onCancel:
+  - log: "Pack your bags, boys. Show's cancelled"
+```
+
+Similarly, `onFailure` flow will be executed if a process crashed:
+```yaml
+flows:
+  main:
+  - log: "Brace yourselves, we're going to crash!"
+  - ${misc.throwBpmnError('Handle that!')}
+
+  onFailure:
+  - log: "Yep, we just did"
+```
+
+In both cases, the server will start a "child" process with a copy of
+the original process state and use `onCancel` or `onFailure` as an
+entry point.
+
+**Note**: if a process was never suspended (e.g. had no forms or no
+forms were submitted), then `onCancel`/`onFailures` will receive a
+copy of the initial state of a process, which was created when the
+original process was started by the server.
+
+This means that no changes in the process state before suspension
+will be visible to the "child" processes:
+```yaml
+flows:
+  main:
+  # let's change something in the process state...
+  - set:
+      myVar: "xyz"
+
+  # will print "The main flow got xyz"
+  - log: "The main flow got ${myVar}"
+
+  # ...and then crash the process
+  - ${misc.throwBpmnError('Boom!')}
+
+  onFailure:
+  # will log "I've got abc"
+  - log: "And I've got ${myVar}"
+
+variables:
+  entryPoint: main
+  arguments:
+    # original value
+    myVar: "abc"
+```
+
+In the future, Concord will provide a way to explicitly capture the
+state of a process - a "checkpoint" mechanism.
 
 ### Variables
 
@@ -297,6 +356,121 @@ flows:
     - log: ${a}
     - log: ${b}
 ```
+
+
+## Configuration
+
+## Variables
+
+Before executing a process, variables from a project file and a
+request data are merged. Project variables override default project
+variables and then user request's variables are applied.
+
+There are a few variables which affect execution of a process:
+- `template` - the name of a [template](../templates/index.html), will be
+used by the server to create a payload archive;
+- `dependencies` - array of URLs, list of external JAR dependencies.
+See the [Dependencies](#dependencies) section for more details;
+- `arguments` - a JSON object, will be used as process arguments.
+
+Values of `arguments` can contain [expressions](./concord-dsl.html#expressions).
+Expressions can use all regular "tasks" plus external `dependencies`:
+
+```yaml
+variables:
+  arguments:
+    listOfStuff: ${myServiceTask.retrieveListOfStuff()}
+    myStaticVar: 123
+```
+
+The variables are evaluated in the order of definition. For example,
+it is possible to use a variable value in another variable if the
+former is defined earlier than the latter:
+```yaml
+variables:
+  arguments:
+    name: "Concord"
+    message: "Hello, ${name}"
+```
+
+### Provided Variables
+
+Concord automatically provides several built-in variables:
+- `context` - a reference to a context variables map of a current
+execution, instance of `com.walmartlabs.concord.sdk.Context`;
+- `txId` - unique identifier of a current execution;
+- `tasks` - allows access to available tasks (for example:
+  `${tasks.get('oneops')}`);
+- `workDir` - path to the working directory of a current process;
+- `initiator` - information about user who started a process:
+  - `initiator.username` - login, string;
+  - `initiator.displayName` - printable name, string;
+  - `initiator.groups` - list of user's groups;
+  - `initiator.attributes` - other LDAP attributes;
+- `requestInfo` - additional request data:
+  - `requestInfo.query` - query parameters of a request made using
+  user-facing endpoints (e.g. the portal API).
+
+LDAP attributes must be whitelisted in [the configuration](./configuration.html#ldap).
+
+Availability of other variables and "beans" depends on installed
+Concord's plugins and arguments passed on a process' start.
+See also the document on [how to create custom tasks](./tasks.html).
+
+### Dependencies
+
+The `variables.dependencies` array allow users to include external
+dependencies - 3rd-party code and Concord plugins. Each element of
+the array must be a valid URL:
+```yaml
+variables:
+  dependencies:
+  - "http://central.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.11/groovy-all-2.4.11.jar"
+```
+
+Dependencies are automatically downloaded by the Agent and added to
+the classpath of a process.
+
+## Profiles
+
+Profiles can override default variables, flows and forms. For
+example, if the process above will be executed using `myProfile`
+profile, then the default value of `myForm.name` will be `world`.
+
+```yaml
+flows:
+  main:
+  - form: myForm
+  - log: Hello, ${myForm.name}
+
+forms:
+  myForm:
+  - name: {type: "string"}
+
+variables:
+  dependencies: ["..."]
+  otherCfgVar: 123
+  arguments:
+    myForm: {name: "stranger"}
+
+profiles:
+  default:
+    variables:
+      ??
+  myProfile:
+    variables:
+      arguments:
+        myAlias: "world"
+        myForm: {name: "${myAlias}"}
+```
+
+The `activeProfiles` parameter is a
+list of project file's profiles that will be used to start a process. If not
+set, a `default` profile will be used.
+
+
+
+
 
 ## Grammar
 
