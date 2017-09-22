@@ -13,6 +13,7 @@ defined process definition and additional supplied resources.
 - [Project file](#project-file)
 - [Request data](#request-data)
 - [Provided Variables](#variables) 
+- [Execution](#execution)
 
 <a name="structure"/>
 ## Structure
@@ -94,3 +95,16 @@ Availability of other variables and "beans" depends on installed Concord's
 plugins and the arguments passed in at the process invocation and stored in the
 [request data](#request-data).
 
+<a name="execution"/>
+## Execution
+
+A process is executed using the following steps: 
+
+- Project repository data is cloned or updated
+- Binary payload from the process invocation is added to the workspace
+- Configuration from the project file and the request data are merged
+- Project configuration overrides default project configuration
+- User request's configuration is applied
+- Templates are downloaded and applied
+- Dependencies are downloaded and put on the classpath
+- The flow configured as entry point is invoked
