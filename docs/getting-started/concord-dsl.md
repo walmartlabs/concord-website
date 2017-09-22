@@ -25,6 +25,8 @@ process flows, configuration, forms and other aspects:
   - [Return command](#return-command)
   - [Groups of steps](#groups-of-steps)
   - [Calling flows](#calling-other-flows)
+  - [Error handling](#error-handling)
+  - [Setting variables](#setting-variables)
 - [Named Profiles in `profiles`](#profiles)
 
 Some features are more complex and you can find details in separate documents:
@@ -127,7 +129,7 @@ and exploded in the workspace. More detailed documentation, including
 information about available templates, is available in the
 [templates section](../templates/index.html).
 
-## Arguments
+### Arguments
 
 Default values for arguments can be defined in the `arguments` section of the
 configuration as simple key/value pairs as well as nested values
@@ -170,6 +172,9 @@ configuration:
 <a name="flows"/>
 ## Process Definitions in `flows:`
 
+Process definitions are configured in named sections under the `flows:` 
+top-level element in the Concord file.
+
 ### Entry Points
 
 Entry point define the name and start of process definitions within the
@@ -194,9 +199,9 @@ An entry point must be followed by one or more execution steps.
 <a name="expressions"/>
 #### Expressions
 
-Expressions are used to invoke some 3rd-party code. All expressions
-must be valid
-[Java Expresssion Language EL 3.0](https://github.com/javaee/el-spec) syntax.
+Expressions must be valid
+[Java Expresssion Language EL 3.0](https://github.com/javaee/el-spec) syntax 
+and can be simple evaluations or perform actions by invoking more complex code. 
 
 Short form:
 ```yaml
@@ -230,8 +235,6 @@ Full form can optionally contain additional declarations:
 the expression will be stored;
 - `error` block: to handle any exceptions thrown by the evaluation.
 Exceptions are wrapped in `BpmnError` type.
-
-See [the list of automatically provided variables](./processes.html#provided-variables).
 
 Literal values, for example arguments or [form](#forms) field values, can
 contain expressions:
@@ -307,37 +310,17 @@ flows:
     - log: a message from the sub flow
 ```
 
+### Error Handling
+
 The full form syntax allows using input variables (call arguments) and supports
 error handling:
-
-```yaml
-flows:
-  main:
-    - call: mySubFlow
-      in:
-        name: "Concord"
-      error:
-        - log: "Oh, no"
-
-  mySubFlow:
-    - if: "${name != 'Concord'}"
-      then:
-        - return: strangerDanger
-    - log: "Hello, ${name}"
-```
-
-Similar to [tasks](#tasks), the `in` variables can use expressions.
-
-## Error Handling
-
-### Capturing Errors
 
 Task and expression errors are normal Java exceptions, which can be
 "caught" and handled using a special syntax.
 
 Expressions, tasks, groups of steps and flow calls can have an
-optional `error` block, which will be executed if an exception
-occurred:
+optional `error` block, which will be executed if an exception occurrs.
+
 ```yaml
 flows:
   main:
@@ -367,8 +350,8 @@ flows:
 The `${lastError}` variable contains the last caught
 `java.lang.Exception` object.
 
-If an error was caught, the execution will continue from the next
-step:
+If an error was caught, the execution will continue from the next step.
+
 ```yaml
 flows:
   main:
@@ -378,12 +361,12 @@ flows:
 
   - log: "B"
 ```
-will log `A` and then `B`.
 
-### Handling user cancellations and failures
+An execution logs `A` and then `B`.
 
 When a process cancelled (killed) by a user, a special flow
-`onCancel` will be executed:
+`onCancel` is executed:
+
 ```yaml
 flows:
   main:
@@ -394,7 +377,8 @@ flows:
   - log: "Pack your bags, boys. Show's cancelled"
 ```
 
-Similarly, `onFailure` flow will be executed if a process crashed:
+Similarly, `onFailure` flow is executed if a process crashes:
+
 ```yaml
 flows:
   main:
@@ -405,17 +389,18 @@ flows:
   - log: "Yep, we just did"
 ```
 
-In both cases, the server will start a "child" process with a copy of
-the original process state and use `onCancel` or `onFailure` as an
+In both cases, the server starts a "child" process with a copy of
+the original process state and uses `onCancel` or `onFailure` as an
 entry point.
 
 **Note**: if a process was never suspended (e.g. had no forms or no
-forms were submitted), then `onCancel`/`onFailures` will receive a
+forms were submitted), then `onCancel`/`onFailures` receive a
 copy of the initial state of a process, which was created when the
 original process was started by the server.
 
 This means that no changes in the process state before suspension
 will be visible to the "child" processes:
+
 ```yaml
 flows:
   main:
@@ -440,8 +425,6 @@ configuration:
     myVar: "abc"
 ```
 
-In the future, Concord will provide a way to explicitly capture the
-state of a process - a "checkpoint" mechanism.
 
 ### Setting Variables
 
