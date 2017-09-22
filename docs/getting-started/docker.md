@@ -16,8 +16,8 @@ flows:
   - docker: docker.prod.walmart.com/walmartlabs/concord-base
     cmd: echo '${greeting}'
 
-variables:
-  entryPoint: main
+configuration:
+  entryPoint: "main"
   arguments:
     greeting: "Hello, world!"
 ```
@@ -46,8 +46,8 @@ flows:
     env:
       GREETING: "Hello, ${name}!"
 
-variables:
-  entryPoint: main
+configuration
+  entryPoint: "main"
   arguments:
     name: "concord"
 ```

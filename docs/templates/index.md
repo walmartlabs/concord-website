@@ -89,7 +89,7 @@ flows:
   main:
     - log: "${message} ${name}"
 
-variables:
+configuration:
   template: "http://host/path/my-template.jar"
 ```
 Only one template can be used at a time.
@@ -99,7 +99,7 @@ or profiles.
 
 Templates also can be references by their aliases:
 ```yaml
-variables:
+configuration:
   template: "my-template"
 ```
 The alias must be added using the [template API](../api/template.html).

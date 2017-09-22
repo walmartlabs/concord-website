@@ -97,7 +97,7 @@ a single `concord.yml` file in the root of the archive:
 flows:
   main:
     - log: "Hello Concord User"
-variables:
+configuration:
   entryPoint: "main"
 ```
 

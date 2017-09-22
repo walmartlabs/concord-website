@@ -80,7 +80,7 @@ To use the task as a step in a Concord flow, it must be added to the
 data:
 
 ```yaml
-variables:
+configuration:
   dependencies:
   - "http://nexus.prod.walmart.com/nexus/content/repositories/devtools/com/walmartlabs/concord/plugins/basic/ansible-tasks/0.34.0/ansible-tasks-0.34.0.jar"
 ```
@@ -193,7 +193,7 @@ can be specified using `dynamicInventoryFile` parameter in a task
 parameters object:
 
 ```yaml
-variables:
+configuration:
   ansibleParams:
     playbook: "playbook/hello.yml"
     dynamicInventoryFile: "inventory.py"
@@ -247,7 +247,7 @@ An inventory file can be inlined with the request JSON. For example:
 
 Or as a task parameter:
 ```yaml
-variables:
+configuration:
   ansibleParams:
     playbook: "playbook/hello.yml"
     inventory:
@@ -319,7 +319,7 @@ or you want to use a single key for any repository.
 
 In the Concord file, the keys can be configured in a similar way:
 ```yaml
-variables:
+configuration:
   ansible:
     privateKeys:
       repository: ".*"

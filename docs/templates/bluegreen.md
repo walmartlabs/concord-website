@@ -28,18 +28,18 @@ it can be used for the part removed from rotation.
 
 Reference the template in a Concord file using the alias:
 ```yaml
-variables:
+configuration:
   template: "concord/bluegreen"
 ```
 or directly:
 ```yaml
-variables:
+configuration:
   template: "http://nexus.prod.walmart.com/nexus/content/repositories/devtools/com/walmartlabs/concord/templates/concord-template-bluegreen/0.0.3/concord-template-bluegreen-0.0.3.jar"
 ```
 
 Set the necessary process arguments:
 ```yaml
-variables:
+configuration:
   arguments:
     landscape:
       nextVersion: "b"

@@ -23,8 +23,8 @@ For most of the supported languages, flows variables can be accessed
 directly:
 
 ```yaml
-variables:
-  entryPoint: main
+configuration:
+  entryPoint: "main"
   arguments:
     myVar: "world"
 
@@ -115,7 +115,7 @@ the identifier `groovy`.
 
 
 ```yaml
-variables:
+configuration:
   dependencies:
   - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
 
@@ -139,7 +139,7 @@ located in the Central Repository or on another server and the identifier
 
 
 ```yaml
-variables:
+configuration:
   dependencies:
   - "https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.1/jython-standalone-2.7.1.jar"
 

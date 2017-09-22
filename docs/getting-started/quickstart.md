@@ -84,7 +84,7 @@ configure the name of the flow to exectue by default:
 flows:
   main:
     - log: "Hello Concord User"
-variables:
+configuration:
   entryPoint: "main"
 ```
 

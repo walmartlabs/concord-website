@@ -123,7 +123,7 @@ flows:
   main:
   - log: "Hello, ${name}"
 
-variables:
+configuration:
   entryPoint: main
   arguments:
     name: ${crypto.decryptString("4d1+ruCra6CLBboT7Wx5mw==")}

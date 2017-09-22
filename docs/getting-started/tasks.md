@@ -244,7 +244,7 @@ flows:
   main:
   - ${myTask.sayHello("Concord")}
 
-variables:
+configuration:
   arguments:
     greeting: "Hello, %s!"
 ```
