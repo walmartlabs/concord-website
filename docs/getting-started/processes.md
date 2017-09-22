@@ -4,20 +4,20 @@ title:  Processes
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Processes
+# {{ page.title }}
 
 A process is represents an execution of a Concord project using one of the
 defined process definition and additional supplied resources.
 
-  * [Structure of a Process](#structure)
-  * [Project file](#project-file)
-  * [Request data](#request-data)
+- [Structure](#structure)
+- [Project file](#project-file)
+- [Request data](#request-data)
+- [Provided Variables](#variables) 
 
 <a name="structure"/>
-## Structure of a Process
+## Structure
 
-The server expects the following structure of a process working
-directory:
+Console expects the following structure of a process working directory:
 
 - `concord.yml`: the [project file](#project-file) containing the main project
 information and declarations;
@@ -66,4 +66,31 @@ The request's JSON format:
 Only `entryPoint` parameter is mandatory. The `activeProfiles` parameter is a
 list of project file's profiles that will be used to start a process. If not
 set, a `default` profile will be used.
+
+<a name="variables"/>
+## Provided Variables
+
+Concord automatically provides several built-in variables upon process
+execution in addition to the defined [variables](./concord-dsl.html#variables):
+
+- `context`:a reference to a context variables map of a current execution,
+instance of `com.walmartlabs.concord.sdk.Context`;
+- `txId`: unique identifier of a current execution;
+- `tasks`: allows access to available tasks (for example:
+  `${tasks.get('oneops')}`);
+- `workDir`: path to the working directory of a current process;
+- `initiator`: information about user who started a process:
+  - `initiator.username`: login, string;
+  - `initiator.displayName`: printable name, string;
+  - `initiator.groups`: list of user's groups;
+  - `initiator.attributes`: other LDAP attributes;
+- `requestInfo`: additional request data:
+  - `requestInfo.query`: query parameters of a request made using user-facing 
+    endpoints (e.g. the portal API).
+
+LDAP attributes must be whitelisted in [the configuration](./configuration.html#ldap).
+
+Availability of other variables and "beans" depends on installed Concord's
+plugins and the arguments passed in at the process invocation and stored in the
+[request data](#request-data).
 
