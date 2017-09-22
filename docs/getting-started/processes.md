@@ -99,10 +99,10 @@ A process is executed using the following steps:
 
 - Project repository data is cloned or updated
 - Binary payload from the process invocation is added to the workspace
-- Configuartion from he project is used
+- Configuration from the project is used
 - Configuration from project.yml is merged
 - Configuration from an uploaded JSON file is merged
-- Configuration from request parameters is applied
+- Configuration from request parameters and selected profiles applied
 - Templates are downloaded and applied
 - The payload is created and send to the Concord Agent for execution
 - Dependencies are downloaded and put on the classpath

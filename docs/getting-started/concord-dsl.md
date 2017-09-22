@@ -12,10 +12,12 @@ readable format [YAML](http://www.yaml.org/) and defines all your workflow
 process, forms and other aspects:
 
 - [Example](#example)
-- [Configuration](#configuration)
-  - [Provided variables](#provided-variables)
+- [Project Configuration in `configuration`](#configuration)
+  - [Entry Point](#entry-point)
   - [Dependencies](#dependencies)
-- [Process Definition in `flows:`](#flows)
+  - [Template](#template)
+  - [Arguments](#arguments)  
+- [Process Definitions in `flows:`](#flows)
   - [Entry points](#entry-points)
   - [Execution steps](#execution-steps)
   - [Expressions](#expressions)
@@ -36,8 +38,11 @@ Some features are more complex and you can find details in separate documents:
 ## Example
 
 ```yaml
+configuration:
+  entryPoint: "main"
 flows:
   main:
+    - log" "Getting started now"
     - task: sendEmail                               # (1)
       in:
         to: me@localhost.local
@@ -57,6 +62,7 @@ flows:
 ```
 
 In this example:
+- the `main` flow is configured as the process starting point with `entryPoint`
 - the `sendEmail` [task](./tasks.html) (1) is executed using two input
   parameters: `to` and `subject`. The output of the task is stored in `result`
   variable.
@@ -64,11 +70,111 @@ In this example:
   sub-flow (3) or to log a failure message;
 - `reportSuccess` flow is calling a Java bean using the EL syntax (4).
 
-Note: the actual task names and their required parameters may differ.
-Please refer to the specific task's documentation.
+The actual task names and their required parameters may differ. Please refer to
+the [task documentation](./tasks.html) and the specific task used for details.
+
+## Project Configuration in `configuration`
+
+Overall configuration for the project and process executions is contained in the
+`configuration:` top level element of the Concord file:
+
+- [Entry Point](#entry-point)
+- [Dependencies](#dependencies)
+- [Template](#template)
+- [Variables](#variables)
+
+### Entry Point
+
+The `entryPoint` configuration sets the name of the flow that will be used for
+process executions by default.
+
+```yaml
+configuration:
+  entryPoint: "main"
+flows:
+  main:
+    - log: "Hello World"
+```
+
+### Dependencies
+
+The `dependencies` array allows users to specify the URLs of dependencies such
+as 
+
+- Concord plugins and their dependencies 
+- Dependencies needed for specific scripting language support
+- Other dependencies required for process execution
+
+```yaml
+configuration:
+  dependencies:
+    - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.11/groovy-all-2.4.11.jar"
+    - "https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
+```
+
+The artifacts are downloaded and added to the classpath for process execution
+and are typically used for [task implementations](./tasks.html).
+
+### Template
+
+A template can be used to allow inheritance of all the configuration of another
+project. The value for the `template` field has to be a valid URL pointing to
+a JAR-archive of the project to use as template. 
+
+The template is downloaded at process execution time and exploded in the
+workspace. More detailed documentation, including information about available 
+templates, is available in the [templates section](../templates/index.html).
+
+## Arguments
+
+Default values for arguments can be defined in the `arguments` section of the
+configuration as simple key/value pairs as well as nested values
+
+```
+configuration:
+  arguments:
+    name: "Example"
+    coordinates:
+      x: 10
+      y: 5
+      z: 0
+flows:
+  main:
+    log: "Project name: ${name}"
+    log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+```
+
+
+
+See the [Dependencies](#dependencies) section for more details;
+- `arguments` - a JSON object, will be used as process arguments.
+
+Values of `arguments` can contain [expressions](./concord-dsl.html#expressions).
+Expressions can use all regular "tasks" plus external `dependencies`:
+
+```yaml
+configuration:
+  arguments:
+    listOfStuff: ${myServiceTask.retrieveListOfStuff()}
+    myStaticVar: 123
+```
+
+The variables are evaluated in the order of definition. For example,
+it is possible to use a variable value in another variable if the
+former is defined earlier than the latter:
+```yaml
+configuration:
+  arguments:
+    name: "Concord"
+    message: "Hello, ${name}"
+```
+
+
+
+
 
 <a name="flows"/>
-## Process Definition in `flows:`
+## Process Definitions in `flows:`
 
 ### Entry Points
 
@@ -333,7 +439,7 @@ flows:
   # will log "I've got abc"
   - log: "And I've got ${myVar}"
 
-variables:
+configuration:
   entryPoint: main
   arguments:
     # original value
@@ -343,7 +449,7 @@ variables:
 In the future, Concord will provide a way to explicitly capture the
 state of a process - a "checkpoint" mechanism.
 
-### Variables
+### Setting Variables
 
 The `set` command can be used to set variables in the current flow:
 
@@ -358,119 +464,36 @@ flows:
 ```
 
 
-## Configuration
-
-## Variables
-
-Before executing a process, variables from a project file and a
-request data are merged. Project variables override default project
-variables and then user request's variables are applied.
-
-There are a few variables which affect execution of a process:
-- `template` - the name of a [template](../templates/index.html), will be
-used by the server to create a payload archive;
-- `dependencies` - array of URLs, list of external JAR dependencies.
-See the [Dependencies](#dependencies) section for more details;
-- `arguments` - a JSON object, will be used as process arguments.
-
-Values of `arguments` can contain [expressions](./concord-dsl.html#expressions).
-Expressions can use all regular "tasks" plus external `dependencies`:
-
-```yaml
-variables:
-  arguments:
-    listOfStuff: ${myServiceTask.retrieveListOfStuff()}
-    myStaticVar: 123
-```
-
-The variables are evaluated in the order of definition. For example,
-it is possible to use a variable value in another variable if the
-former is defined earlier than the latter:
-```yaml
-variables:
-  arguments:
-    name: "Concord"
-    message: "Hello, ${name}"
-```
-
-### Provided Variables
-
-Concord automatically provides several built-in variables:
-- `context` - a reference to a context variables map of a current
-execution, instance of `com.walmartlabs.concord.sdk.Context`;
-- `txId` - unique identifier of a current execution;
-- `tasks` - allows access to available tasks (for example:
-  `${tasks.get('oneops')}`);
-- `workDir` - path to the working directory of a current process;
-- `initiator` - information about user who started a process:
-  - `initiator.username` - login, string;
-  - `initiator.displayName` - printable name, string;
-  - `initiator.groups` - list of user's groups;
-  - `initiator.attributes` - other LDAP attributes;
-- `requestInfo` - additional request data:
-  - `requestInfo.query` - query parameters of a request made using
-  user-facing endpoints (e.g. the portal API).
-
-LDAP attributes must be whitelisted in [the configuration](./configuration.html#ldap).
-
-Availability of other variables and "beans" depends on installed
-Concord's plugins and arguments passed on a process' start.
-See also the document on [how to create custom tasks](./tasks.html).
-
-### Dependencies
-
-The `variables.dependencies` array allow users to include external
-dependencies - 3rd-party code and Concord plugins. Each element of
-the array must be a valid URL:
-```yaml
-variables:
-  dependencies:
-  - "http://central.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.11/groovy-all-2.4.11.jar"
-```
-
-Dependencies are automatically downloaded by the Agent and added to
-the classpath of a process.
 
 ## Profiles
 
-Profiles can override default variables, flows and forms. For
-example, if the process above will be executed using `myProfile`
-profile, then the default value of `myForm.name` will be `world`.
+Profiles are named collections of configuration, forms and flows and be 
+be used to override defaults set in the top-level content of the Concord file.
+
+Profile selection is configured when a process is
+[executed](./processes.html#execution).
+
+For example, if the process below is executed using `myProfile` profile, then 
+the default value of `foo` is `bazz` instead of the default `bar`.
 
 ```yaml
 flows:
   main:
-  - form: myForm
-  - log: Hello, ${myForm.name}
+  - log: "${foo}
 
-forms:
-  myForm:
-  - name: {type: "string"}
-
-variables:
-  dependencies: ["..."]
-  otherCfgVar: 123
+configuration
   arguments:
-    myForm: {name: "stranger"}
-
+    foo: "bar"
+    
 profiles:
-  default:
-    variables:
-      ??
   myProfile:
-    variables:
+    configuration:
       arguments:
-        myAlias: "world"
-        myForm: {name: "${myAlias}"}
+        foo: "bazz"
 ```
 
-The `activeProfiles` parameter is a
-list of project file's profiles that will be used to start a process. If not
-set, a `default` profile will be used.
-
-
-
-
+The `activeProfiles` parameter is a list of project file's profiles that is
+used to start a process. If not set, a `default` profile will be used.
 
 ## Grammar
 
