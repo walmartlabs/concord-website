@@ -59,8 +59,8 @@ the form is called;
 Supported types of fields and their options:
 - `string`: a string value
   - `pattern`: (optional) a regular expression to check the value.
-  - `inputType`: (optional) specifies the type of html <input>
-  element to display.
+  - `inputType`: (optional) specifies the `type` of html `<input>`
+  element to display e.g. `text`, `button`, `checkbox` and others.
 - `int`: an integer value
   - `min`, `max`: (optional) value bounds.
 - `decimal`: a decimal value
