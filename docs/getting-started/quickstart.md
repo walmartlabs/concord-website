@@ -11,8 +11,8 @@ access to a server already, you can set up your first simple Concord process
 execution with a few simple steps:
 
 - [Create Git Repository](#create-repository)
-- [Add a Deploy Key](#add-deploy-key)
 - [Add the Concord File](#add-concord-file)
+- [Add a Deploy Key](#add-deploy-key)
 - [Create Project in Concord](#create-project)
 - [Execute Process](#execute-process)
 - [Next Steps](#next-steps)
@@ -30,6 +30,37 @@ Start with the following steps:
 - Create the repository in your Git management sytem such as GitHub using the
   user interface
 - Clone the repository to your local workstation
+
+<a name="add-concord-file"/>
+## Add the Concord File
+
+As a next step, add the Concord file `concord.yml` in the root of the
+repository. A minimalistic example file uses the automatically used `default` 
+flow:
+
+```yaml
+flows:
+  default:
+    - log: "Hello Concord User"
+```
+
+The `default` flow in the example simply outputs a message to the process log.
+
+<a name="create-project"/>
+## Create Project in Concord
+
+Now you can create a new project in the Concord Console.
+
+- Log into the Concord Console user interface
+- Select _Create new_ under _Projects_ in the navigation panel
+- Provide a _Name_ for the project e.g. 'myproject'
+- Press _Add repository_
+- Provide a _Name_ for the repository e.g. 'myrepository'
+- Use the SSH URL for the repository in the _URL_ field
+- Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
+
+Alternatively you can
+[create a project with the REST API](../api/project.html#createproject).
 
 <a name="add-deploy-key"/>
 ## Add a Deploy Key
@@ -73,36 +104,6 @@ _Settings - Deploy keys_ section of the repository.
 The value of the `name` attribute e.g. `exampleSecretKey` identifies the key for
 usage in Concord.
 
-<a name="add-concord-file"/>
-## Add the Concord File
-
-As a next step, add the Concord file `concord.yml` in the root of the
-repository. A minimalistic example file uses the automatically used `default` 
-flow:
-
-```yaml
-flows:
-  default:
-    - log: "Hello Concord User"
-```
-
-The `default` flow in the example simply outputs a message to the process log.
-
-<a name="create-project"/>
-## Create Project in Concord
-
-Now you can create a new project in the Concord Console.
-
-- Log into the Concord Console user interface
-- Select _Create new_ under _Projects_ in the navigation panel
-- Provide a _Name_ for the project e.g. 'myproject'
-- Press _Add repository_
-- Provide a _Name_ for the repository e.g. 'default'
-- Use the SSH URL for the repository in the _URL_ field
-- Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
-
-Alternatively you can
-[create a project with the REST API](../api/project.html#createproject).
 
 <a name="execute-process"/>
 ## Execute a Process
@@ -112,7 +113,7 @@ via the [Process REST API](../api/process.html) e.g. with
 
 ```
 curl -H "Content-Type: application/json" -d '{}' \
-     http://concord.example.com/api/v1/process/myproject:default:main
+     http://concord.example.com/api/v1/process/myproject:myrepository
 ```
 
 The `instanceId` for the process is returned:
