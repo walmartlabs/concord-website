@@ -11,11 +11,8 @@
 - Commit and push
 
 ```
-configuration:
-  entryPoint: "main"
-
 flows:
-  main:
+  default:
     - log: "Hello Concord"
 ```
 

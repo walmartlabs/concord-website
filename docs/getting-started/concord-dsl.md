@@ -39,10 +39,8 @@ Some features are more complex and you can find details in separate documents:
 ## Example
 
 ```yaml
-configuration:
-  entryPoint: "main"
 flows:
-  main:
+  default:
     - log" "Getting started now"
     - task: sendEmail                               # (1)
       in:
@@ -63,7 +61,7 @@ flows:
 ```
 
 In this example:
-- the `main` flow is configured as the process starting point with `entryPoint`
+- the `default` flow automatically configured as the process starting point
 - a simple log message is created to start
 - the `sendEmail` [task](./tasks.html) (1) is executed using two input
   parameters: `to` and `subject`. The output of the task is stored in `result`
@@ -89,7 +87,8 @@ Overall configuration for the project and process executions is contained in the
 ### Entry Point
 
 The `entryPoint` configuration sets the name of the flow that will be used for
-process executions by default.
+process executions. Without specific configuration the flow labelled `default`
+is used automatically, if it exists.
 
 ```yaml
 configuration:
@@ -412,7 +411,7 @@ Similarly, `onFailure` flow is executed if a process crashes:
 
 ```yaml
 flows:
-  main:
+  default:
   - log: "Brace yourselves, we're going to crash!"
   - ${misc.throwBpmnError('Handle that!')}
 
@@ -434,7 +433,7 @@ will be visible to the "child" processes:
 
 ```yaml
 flows:
-  main:
+  default:
   # let's change something in the process state...
   - set:
       myVar: "xyz"
@@ -450,7 +449,6 @@ flows:
   - log: "And I've got ${myVar}"
 
 configuration:
-  entryPoint: main
   arguments:
     # original value
     myVar: "abc"

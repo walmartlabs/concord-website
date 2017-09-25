@@ -78,15 +78,16 @@ Those flows will be used to perform environment-specific actions:
 Use the `bluegreen` flow as an entry point:
 ```yaml
 variables:
-  entryPoint: "bluegreen"    
+  entryPoint: "bluegreen"
 ```
 
 Alternatively, it is possible to call the `bluegreen` flow from
 another flow. Additional variables for the environment specific
 flows can be provided this way:
+
 ```yaml
 flows:
-  main:
+  default:
   - call: bluegreen
     in:
       myAdditionalDeployVar: "..."

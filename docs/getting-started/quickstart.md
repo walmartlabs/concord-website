@@ -77,18 +77,16 @@ usage in Concord.
 ## Add the Concord File
 
 As a next step, add the Concord file `concord.yml` in the root of the
-repository. A minimalistic example file configures the entryPoint value to
-configure the name of the flow to exectue by default:
+repository. A minimalistic example file uses the automatically used `default` 
+flow:
 
 ```yaml
 flows:
-  main:
+  default:
     - log: "Hello Concord User"
-configuration:
-  entryPoint: "main"
 ```
 
-The `main` flow in the example simply outputs a message to the process log.
+The `default` flow in the example simply outputs a message to the process log.
 
 <a name="create-project"/>
 ## Create Project in Concord

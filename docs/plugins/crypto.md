@@ -120,11 +120,10 @@ http://localhost:8001/api/v1/project/myProject/encrypt
 
 ```yaml
 flows:
-  main:
+  default:
   - log: "Hello, ${name}"
 
 configuration:
-  entryPoint: main
   arguments:
     name: ${crypto.decryptString("4d1+ruCra6CLBboT7Wx5mw==")}
 ```

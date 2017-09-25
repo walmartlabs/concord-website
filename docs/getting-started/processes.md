@@ -61,9 +61,9 @@ The request's JSON format:
 }
 ```
 
-Only `entryPoint` parameter is mandatory. The `activeProfiles` parameter is a
-list of project file's profiles that will be used to start a process. If not
-set, a `default` profile will be used.
+The `entryPoint` parameter is can be used to defined the flow to be used. The 
+`activeProfiles` parameter is a list of project file's profiles that will be
+used to start a process. If not set, a `default` profile will be used.
 
 <a name="variables"/>
 ## Provided Variables

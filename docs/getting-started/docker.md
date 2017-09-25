@@ -12,12 +12,11 @@ Concord supports running docker images within a process flow.
 
 ```yaml
 flows:
-  main:
+  default:
   - docker: docker.prod.walmart.com/walmartlabs/concord-base
     cmd: echo '${greeting}'
 
 configuration:
-  entryPoint: "main"
   arguments:
     greeting: "Hello, world!"
 ```
@@ -40,14 +39,13 @@ Additional environment variables can be specified using `env` parameter:
 
 ```yaml
 flows:
-  main:
+  default:
   - docker: docker.prod.walmart.com/walmartlabs/concord-base
     cmd: echo $GREETING
     env:
       GREETING: "Hello, ${name}!"
 
 configuration
-  entryPoint: "main"
   arguments:
     name: "concord"
 ```

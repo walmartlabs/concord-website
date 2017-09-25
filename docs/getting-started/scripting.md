@@ -24,12 +24,11 @@ directly:
 
 ```yaml
 configuration:
-  entryPoint: "main"
   arguments:
     myVar: "world"
 
 flows:
-  main:
+  default:
     - script: js
       body: |
         print("Hello, ", myVar)
