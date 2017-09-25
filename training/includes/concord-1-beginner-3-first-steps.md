@@ -34,37 +34,50 @@ Note:
 - Indendation is significant!
 - `#` for comment lines
 - Beware the colon `:` significance
-- Some validation in Looper
+- Some validation in Concord
 
 Note:
 - uses jackson
+
+## Add Deploy Key
+
+To allow Concord access to the repository:
+
+- request key from Concord
+- add to GitHub configuration
 
 
 ## Creating a Project
 
 - Login to Concord Console
-- tbd
-- New item
-- Item name & Looper project
-- GitHub repository URL with `https://`
-
-Now push another commit...
+- New Project
+- Add Repository
+- Use Secret/Deploy Key
 
 Note:
 Demo it
 
 
-## Process Execution
+## Execute Process
 
 Hit it with curl
+
+```
+curl -v -u myuser -H "Content-Type: application/json" -d '{}' \
+http://concord.example.com:8080/api/v1/process/myproject:myrepository
+```
+
+> Inspect the log in the Concord Console
+
+Note:
+Demo it
 
 
 ## What Happened
 
-- tbd
-
-Note:
-Demo it
+- Concord Server clones/updates project repository
+- Prepares for exeuction
+- Runs workflow on Concord Agent
 
 
 ## Questions?

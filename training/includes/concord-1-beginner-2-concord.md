@@ -31,11 +31,10 @@ Note:
 
 Specific software designed for workflow orchestration and BPM
 
-- tbd 1
-- tbd 2
-- tbd 3
-- user interface for job access
-- integration with other tools
+- define workflows
+- run workflow processes
+- provide user interface for process access
+- support integration with numerous tools
 
 
 ## Concord
@@ -48,17 +47,18 @@ Specific software designed for workflow orchestration and BPM
 
 ## Usage Scenarios
 
+- Orchestrate steps in busines processes
+- Support software development processes
 - Provision infrastructure in a public or private cloud
 - Execute Ansible playbooks and deploy applications
 - Orchestrate CI/CD builds and deployments
-- TBD
 
 
 ## Components
 
 - Concord Server
 - Concord Console
-- Concord Agent
+- Concord Agents
 
 
 ## Concord Server
@@ -92,9 +92,9 @@ Web-based user interface for Concord Server and its processes.
 ## Concord Project
 
 - Created by Users
-- Incl plugin implementations
-- Stored in in git repository
-- YAML for flow description
+- Including plugin implementations
+- Stored in git repository
+- YAML for flow definitions
 
 
 ## Questions?
