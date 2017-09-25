@@ -46,22 +46,6 @@ flows:
 
 The `default` flow in the example simply outputs a message to the process log.
 
-<a name="create-project"/>
-## Create Project in Concord
-
-Now you can create a new project in the Concord Console.
-
-- Log into the Concord Console user interface
-- Select _Create new_ under _Projects_ in the navigation panel
-- Provide a _Name_ for the project e.g. 'myproject'
-- Press _Add repository_
-- Provide a _Name_ for the repository e.g. 'myrepository'
-- Use the SSH URL for the repository in the _URL_ field
-- Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
-
-Alternatively you can
-[create a project with the REST API](../api/project.html#createproject).
-
 <a name="add-deploy-key"/>
 ## Add a Deploy Key
 
@@ -103,6 +87,23 @@ _Settings - Deploy keys_ section of the repository.
 
 The value of the `name` attribute e.g. `exampleSecretKey` identifies the key for
 usage in Concord.
+
+
+<a name="create-project"/>
+## Create Project in Concord
+
+Now you can create a new project in the Concord Console.
+
+- Log into the Concord Console user interface
+- Select _Create new_ under _Projects_ in the navigation panel
+- Provide a _Name_ for the project e.g. 'myproject'
+- Press _Add repository_
+- Provide a _Name_ for the repository e.g. 'myrepository'
+- Use the SSH URL for the repository in the _URL_ field
+- Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
+
+Alternatively you can
+[create a project with the REST API](../api/project.html#createproject).
 
 
 <a name="execute-process"/>
