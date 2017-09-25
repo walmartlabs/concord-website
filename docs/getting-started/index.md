@@ -4,7 +4,7 @@ title:  Overview
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Overview
+# {{ page.title}} 
 
 Concord consists of three components:
 
@@ -18,6 +18,14 @@ environment.
 
 3. [Concord Console](#concord-console) is a web UI for managing and
 monitoring the server and its processes.
+
+
+[Concord Concepts](#concord-concepts) explains more about the components that
+are managed and executed by Concord:
+
+- [Projects](#projects)
+- [Processes](#processes)
+- [Credentials](#credentials)
 
 ## Concord Server
 
@@ -67,8 +75,7 @@ briefly introduce these concepts.
 Projects allow users to automatically create payloads by pulling
 files from remote GIT repositories and applying templates.
 
-Projects are created using the REST API or the
-UI.
+Projects are created with the Concord Concole or by using the REST API.
 
 ### Processes
 
@@ -79,7 +86,7 @@ that is executed and which can be inspected in the Concord Console.
 
 An example of a process can be the provisioning of cloud
 infrastructure from a OneOps Boo template or the execution of an Ansible
-playbook.  A far simpler example of a process can be the execution of
+playbook. A far simpler example of a process can be the execution of
 a simple logging task to print "Hello World" as shown in the
 [Concord Quickstart](./quickstart.html).
 
