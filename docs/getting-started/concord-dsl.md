@@ -142,7 +142,7 @@ configuration:
       y: 5
       z: 0
 flows:
-  main:
+  default:
     log: "Project name: ${name}"
     log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
