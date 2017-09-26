@@ -75,7 +75,7 @@ flows:
 Mutliple named flows!
 
 Note:
-- default used unless otherwise specified in invocation
+- `default` used unless otherwise specified in invocation
 
 
 ## Steps
@@ -97,11 +97,53 @@ Note:
 
 ## Expression Language Details
 
-Using [Java Expression Language EL 3.0](https://github.com/javaee/el-spec):
+- [Java Expression Language EL 3.0](https://github.com/javaee/el-spec):
+- Within `${ }`
+- Flow steps
+- Argument values
 
-- tbd
+
+## EL Examples
+
+```yaml
+flows:
+  default:
+    - ${myBean.someMethod()}
+    - ${myBean.someMethod(myContextArg)}
+    - ${1 + 2}
+    - ${[1, 2, 3].stream().map(x -> x + 1).toList()}
+```
 
 
+## EL Long Form
+
+Allows output capture and error handling.
+
+```yaml
+flows:
+  default:
+    - expr: ${myBean.someMethod()}
+      out: myVar
+      error:
+        - log: "An error occured"
+        - ...
+```
+
+
+## Calling Flows
+
+Just use the flow name:
+
+```
+flows:
+  default:d
+    - log: "Calling test next"
+    - test
+    - log: "test done, what next?"
+  test:
+    - log" "Starting test"
+    - ...
+```
 
 
 ## Variable Changes
