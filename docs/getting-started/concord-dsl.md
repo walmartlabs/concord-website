@@ -133,7 +133,7 @@ information about available templates, is available in the
 Default values for arguments can be defined in the `arguments` section of the
 configuration as simple key/value pairs as well as nested values
 
-```
+```yaml
 configuration:
   arguments:
     name: "Example"
@@ -182,7 +182,7 @@ execution. A single Concord file can contain multiple entry points.
 
 ```yaml
 flows:
-  main:
+  default:
     - ...
     - ...
 
@@ -199,13 +199,13 @@ An entry point must be followed by one or more execution steps.
 #### Expressions
 
 Expressions must be valid
-[Java Expresssion Language EL 3.0](https://github.com/javaee/el-spec) syntax 
-and can be simple evaluations or perform actions by invoking more complex code. 
+[Java Expresssion Language EL 3.0](https://github.com/javaee/el-spec) syntax
+and can be simple evaluations or perform actions by invoking more complex code.
 
 Short form:
 ```yaml
 flows:
-  main:
+  default:
     # calling a method
     - ${myBean.someMethod()}
 
@@ -222,7 +222,7 @@ flows:
 Full form:
 ```yaml
 flows:
-  main:
+  default:
     - expr: ${myBean.someMethod()}
       out: myVar
       error:
@@ -240,7 +240,7 @@ contain expressions:
 
 ```yaml
 flows:
-  main:
+  default:
     - myTask: ["red", "green", "${colors.blue}"]
     - myTask: { nested: { literals: "${myOtherTask.doSomething()}"} }
 ```
@@ -250,7 +250,7 @@ flows:
 
 ```yaml
 flows:
-  main:
+  default:
     - if: ${myVar > 0}
       then:                           # (1)
         - log: it's clearly non-zero
@@ -267,16 +267,17 @@ To compare a value (or a result of an expression) with multiple
 values, use the `switch` block:
 
 ```yaml
-main:
-  - switch: ${myVar}
-    red:
-      - log: "It's red!"
-    green:
-      - log: "It's definitely green"
-    default:
-      - log: "I don't know what it is"
-      
-  - log: "Moving along..."
+flows:
+  default:
+    - switch: ${myVar}
+      red:
+        - log: "It's red!"
+      green:
+        - log: "It's definitely green"
+      default:
+        - log: "I don't know what it is"
+
+    - log: "Moving along..."
 ```
 
 In this example, branch labels `red` and `green` are the compared
@@ -286,12 +287,13 @@ value fits.
 Expressions can be used as branch values:
 
 ```yaml
-main:
-  - switch: ${myVar}
-    ${aKnownValue}:
-      - log: "Yes, I recognize this"
-    default:
-      - log: "Nope"          
+flows:
+  default:
+    - switch: ${myVar}
+      ${aKnownValue}:
+        - log: "Yes, I recognize this"
+      default:
+        - log: "Nope"
 ```
 
 ### Return Command
@@ -301,7 +303,7 @@ The `return` command can be used to stop the execution of the current
 
 ```yaml
 flows:
-  main:
+  default:
     - if: ${myVar > 0}
       then:
         - log: moving along
@@ -316,7 +318,7 @@ semantics:
 
 ```yaml
 flows:
-  main:
+  defeult:
     - log: a step before the group
     - ::
       - log: a step inside the group
@@ -331,7 +333,7 @@ Flows, defined in the same YAML document, can be called by their names:
 
 ```yaml
 flows:
-  main:
+  default:
     - log: hello
     - mySubFlow
     - log: bye
@@ -353,7 +355,7 @@ optional `error` block, which will be executed if an exception occurrs.
 
 ```yaml
 flows:
-  main:
+  default:
   # handling errors in an expression
   - expr: ${myTask.somethingDangerous()}
     error:
@@ -384,7 +386,7 @@ If an error was caught, the execution will continue from the next step.
 
 ```yaml
 flows:
-  main:
+  default:
   - expr: ${misc.throwBpmnError('Catch that!')}
     error:
     - log: "A"
@@ -399,7 +401,7 @@ When a process cancelled (killed) by a user, a special flow
 
 ```yaml
 flows:
-  main:
+  default:
   - log: "Doing some work..."
   - ${sleep.ms(60000)}
 
@@ -438,8 +440,8 @@ flows:
   - set:
       myVar: "xyz"
 
-  # will print "The main flow got xyz"
-  - log: "The main flow got ${myVar}"
+  # will print "The default flow got xyz"
+  - log: "The default flow got ${myVar}"
 
   # ...and then crash the process
   - ${misc.throwBpmnError('Boom!')}
@@ -461,7 +463,7 @@ The `set` command can be used to set variables in the current flow:
 
 ```yaml
 flows:
-  main:
+  default:
     - set:
         a: "a-value"
         b: 3
@@ -485,8 +487,8 @@ the value of `foo` is `bazz` and appears in the log instead of the default
 
 ```yaml
 flows:
-  main:
-  - log: "${foo}
+  default:
+    - log: "${foo}
 
 configuration
   arguments:
