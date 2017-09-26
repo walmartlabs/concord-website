@@ -33,6 +33,7 @@ Note:
 - Specs on [YAML website](http://www.yaml.org/)
 - Indendation is significant!
 - `#` for comment lines
+- `-` for elements in map
 - Beware the colon `:` significance
 - Some validation in Concord
 
@@ -60,14 +61,14 @@ Demo it
 
 ## Execute Process
 
-Hit it with curl
+Invoke process via REST API:
 
 ```
 curl -v -u myuser -H "Content-Type: application/json" -d '{}' \
 http://concord.example.com:8080/api/v1/process/myproject:myrepository
 ```
 
-> Inspect the log in the Concord Console
+And inspect the log in the Concord Console
 
 Note:
 Demo it
