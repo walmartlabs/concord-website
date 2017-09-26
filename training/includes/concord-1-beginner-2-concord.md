@@ -9,25 +9,17 @@
 - Takes inputs
 - Creates outputs
 - Performs actions
+- Manage and optimize operation processes
+- Automate to improve performance
 
 Note:
 - quite abstract
 - very flexible what it does
 - like a conductor orchestrates musicians in a orchestra
-
-
-## BPM
-
-_Business Process Management_
-
-- Manage and optimize operation processes
-- Automate to improve performance
-
-Note:
 - https://en.wikipedia.org/wiki/Business_process_management
 
 
-## Workflow/BPM Server
+## Workflow Server
 
 Specific software designed for workflow orchestration and BPM
 
@@ -39,9 +31,11 @@ Specific software designed for workflow orchestration and BPM
 
 ## Concord
 
-- A workflow/BPM server
-- BPM engine inside
+- A workflow server
+- Workflow engine inside
 - Java-based software
+- REST API
+- Web-based user interface
 - Developed by SDE team at Walmart Labs
 
 
@@ -77,8 +71,8 @@ Receives and processes user requests to call workflow scenarios on agents.
 
 Web-based user interface for Concord Server and its processes. 
 
+- Projects and repositories
 - Processes
-- Projects
 - Secrets
 
 
