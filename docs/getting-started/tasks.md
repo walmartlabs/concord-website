@@ -6,39 +6,38 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-Tasks are used to call external Java code that implments functionality that is
+Tasks are used to call Java code that implments functionality that is
 too complex to express with the Concord DSL and EL in YAML directly. They are
 _plugins_ of Concord.
 
-- [Creating a New Task](#create-task)
-- [Adding a Task](#add-task)
-- [Using Expressions](#expressions)
-- [Using Full Form](#full-form)
-- [Using Short Form](#short-form)
-- [Injecting Variables](#injecting-variables)
+- [Using Tasks](#use-task)
+- [Creating Tasks](#create-task)
 
+<a name="use-task"/>
+## Using Tasks
 
+Tasks allow you to call Java methods implemented in one of the of the project.
+In order to be able to use a task a URL to the JAR containing the implementation
+has to be added as a [dependency](./concord-dsl.html#dependencies). Typically
+the JAR is published to a repository manager and a URL pointing to a the JAR in
+a repository is used.
 
+You can invoke a task via an expression or with the `task` step type.
 
-#### Tasks
-
-Tasks allow you to call Java methods implemented in one of the
-[dependencies](#dependencies) of
-the project. In addition to calling a task via an expression as above you can
-invoke the Java code by using dynamic method resolution or by using
-`JavaDelegate` instances.
-
-Dynamic method resolution is the simplest way to call Java code.
-Any object that implements the `com.walmartlabs.concord.common.Task`
-interface and provides a `call(...)` method сan be called this way.
+Following are a number of examples: 
 
 ```yaml
+configuration:
+  dependencies:
+    - "http://repo.example.com/myConcordTask.jar"
 flows:
-  main:
+  default:
+    # invoking via usage of an expression and the call method
+    - ${myTask.call("hello")}
+
     # calling a method with a single argument
-    # same as ${myTask.call("hello")}
     - myTask: hello
-    
+
     # calling a method with a single argument
     # the value will be a result of expression evaluation
     - myTask: ${myMessage}
@@ -62,7 +61,7 @@ features like in/out variables mapping can be used:
 
 ```yaml
 flows:
-  main:
+  default:
     # calling a task with in/out variables mapping
     - task: myTask
       in:
@@ -74,19 +73,13 @@ flows:
         - log: something bad happened
 ```
 
-
-
-
-
-
-
-
-
 <a name="create-task"/>
-## Creating a Task
+## Creating Tasks
 
-Tasks must implement `com.walmartlabs.concord.sdk.Task` Java
-interface. It is provided by the `concord-sdk` module:
+Tasks must implement `com.walmartlabs.concord.sdk.Task` Java interface and
+provides a `call(...)` method сan be called in a Concord flow. 
+
+It Task interface is provided by the `concord-sdk` module:
 
 ```xml
 <dependency>
@@ -97,25 +90,16 @@ interface. It is provided by the `concord-sdk` module:
 </dependency>
 ```
 
-It is recommended to distribute tasks as _fat_ JARs, i.e. to include
-all necessary dependencies in a single archive. However, some
-dependencies should be excluded from the final JAR or marked as
-`provided` in the POM file:
+It is recommended to distribute tasks as _fat_ JARs, i.e. to include all
+necessary dependencies in a single archive. However, some dependencies should be
+excluded from the final JAR or marked as `provided` in the POM file:
+
 - `com.fasterxml.jackson.core/*`
 - `javax.inject/javax.inject`
 - `org.slf4j/slf4j-api`
 
-<a name="add-task"/>
-## Adding a Task
-
-In order to be able to use a task a URL to the JAR containing the implementation
-has to be added as a [dependency](./processes.html#dependencies). Typically the
-JAR is published to a repository manager.
-
-<a name="expressions"/>
-## Using Expressions
-
 Here's an example of a simple task:
+
 ```java
 import com.walmartlabs.concord.sdk.Task;
 import javax.inject.Named;
@@ -133,11 +117,12 @@ public class MyTask implements Task {
 }
 ```
 
-This task can be called using an expression:
+This task can be called using an [expression](./concord-dsl.html#expressions)
+in short or long form:
 
 ```yaml
 flows:
-  main:
+  default:
   - ${myTask.sayHello("world")}         # short form
 
   - expr: ${myTask.sum(1, 2)}           # full form
@@ -146,13 +131,9 @@ flows:
     - log: "Wham! ${lastError.message}"
 ```
 
-See also [the description of expressions](./concord-dsl.html#expressions).
-
-<a name="full-form"/>
-## Using Full Form
-
 If a task implements `Task#execute` method, it can be started using
-`task` command:
+`task` step type:
+
 ```java
 import com.walmartlabs.concord.sdk.Task;
 import com.walmartlabs.concord.sdk.Context;
@@ -171,7 +152,7 @@ public class MyTask implements Task {
 
 ```yaml
 flows:
-  main:
+  default:
   - task: myTask
     in:
       name: world
@@ -181,14 +162,11 @@ flows:
       - log: "Something bad happened: ${lastError}"
 ```
 
-This form allows use of IN and OUT variables and error-handling
-blocks.
-
-<a name="short-form"/>
-## Using Short Form
+This form allows use of `in` and `out` variables and error-handling blocks.
 
 If a task contains method `call` with one or more arguments, it can
-be called using the "short" form:
+be called using the _short_ form:
+
 ```java
 import com.walmartlabs.concord.common.Task;
 import javax.inject.Named;
@@ -204,16 +182,13 @@ public class MyTask implements Task {
 
 ```yaml
 flows:
-  main:
+  default:
   - myTask: ["user", "Concord"]   # using an inline YAML array
 
   - myTask:                       # using a regular YAML array
     - "user"
     - "Concord"
 ```
-
-<a name="injecting-variables"/>
-## Injecting Variables
 
 Context variables can be automatically injected into task fields or
 method arguments:
@@ -241,7 +216,7 @@ public class MyTask implements Task {
 
 ```yaml
 flows:
-  main:
+  default:
   - ${myTask.sayHello("Concord")}
 
 configuration:
