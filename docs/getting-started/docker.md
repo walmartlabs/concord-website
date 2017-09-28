@@ -21,7 +21,8 @@ configuration:
     greeting: "Hello, world!"
 ```
 
-Which is equivalent to running
+The above invocation is equivalent to running
+
 ```
 docker run -i --rm \
 -v /path/to/process/workDir:/workspace \

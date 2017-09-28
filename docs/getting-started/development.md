@@ -4,7 +4,9 @@ title:  Development
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Development
+# {{ page.title }} 
+
+The following instructions are needed for developing Concord itself.
 
 ## Database
 
@@ -50,7 +52,7 @@ To skip NPM-related tasks when building the project:
 
 ## Making a Release
 
-All JAR files are signed using a GPG key. Pass phase for a key must be configured in
+All JAR files are signed using a GPG key. Pass phrase for a key must be configured in
 `~/.m2/settings.xml`:
 ```xml
 <profiles>
@@ -77,7 +79,7 @@ All JAR files are signed using a GPG key. Pass phase for a key must be configure
    git push origin master --tags
    ```
 
-## Pull requests
+## Pull Requests
 
 - squash and rebase your commits;
 - wait for CI checks to pass.
