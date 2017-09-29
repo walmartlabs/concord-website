@@ -7,36 +7,27 @@
     font-family: 'Bogle';
     font-style: normal;
     font-weight: normal;
-    src: url('../fonts/BogleWeb-Regular.eot'); /* IE9 Compat Modes */
-    src: local('Bogle'), local('BogleWeb-Regular'),
-    url('../fonts/BogleWeb-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('../fonts/BogleWeb-Regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/BogleWeb-Regular.woff') format('woff'), /* Modern Browsers */
-    url('../fonts/BogleWeb-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    src: url('../fonts/bogle-web-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/bogle-web-regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/bogle-web-regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 /* bogle regular italic - latin */
 @font-face {
     font-family: 'Bogle';
     font-style: italic;
     font-weight: normal;
-    src: url('../fonts/BogleWeb-RegularItalic.eot'); /* IE9 Compat Modes */
-    src: local('Bogle'), local('BogleWeb-RegularItalic'),
-    url('../fonts/BogleWeb-RegularItalic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('../fonts/BogleWeb-RegularItalic.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/BogleWeb-RegularItalic.woff') format('woff'), /* Modern Browsers */
-    url('../fonts/BogleWeb-RegularItalic.ttf') format('truetype'), /* Safari, Android, iOS */
+    src: url('../fonts/bogle-web-regular-italic.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/bogle-web-regular-italic.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/bogle-web-regular-italic.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 /* bogle bold - latin */
 @font-face {
     font-family: 'Bogle';
     font-style: normal;
     font-weight: bold;
-    src: url('../fonts/BogleWeb-Bold.eot'); /* IE9 Compat Modes */
-    src: local('Bogle'), local('BogleWeb-Bold'),
-    url('../fonts/BogleWeb-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('../fonts/BogleWeb-Bold.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/BogleWeb-Bold.woff') format('woff'), /* Modern Browsers */
-    url('../fonts/BogleWeb-Bold.ttf') format('truetype'), /* Safari, Android, iOS */
+    src: url('../fonts/bogle-web-bold.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/bogle-web-bold.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/bogle-web-bold.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
 /* open-sans-300 - latin */
