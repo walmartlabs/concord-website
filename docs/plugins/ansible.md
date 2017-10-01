@@ -163,28 +163,28 @@ pipelining = True
 
 ## Using Ansible Vault
 
-For the projects using "ansible" template, set `vaultPassword` variable
-in a top-level JSON object of a `request.json` file:
+Password for Ansible Vault files can be specified using
+`vaultPassword` or `vaultPasswordFile` parameters:
+```yaml
+flows:
+  main:
+  - task: ansible2
+    in:
+      vaultPassword: "myS3cr3t"
+      vaultPasswordFile: "get_vault_pwd.py"
+```
+
+The `vaultPasswordFile` value must be a relative path to the file in
+the working directory of a process.
+
+For the projects using "ansible" template, set `vaultPassword` or
+`vaultPasswordFile` variables in a top-level JSON object of a
+`request.json` file:
 ```json
 {
   "vaultPassword": "..."
 }
 ```
-
-When using the task format, set
-`arguments.ansibleCfg.vaultPassword` variable in a request JSON object:
-```json
-{
-  "arguments": {
-    "ansibleCfg": {
-      "vaultPassword": "..."
-    }
-  }
-}
-```
-
-Alternatively, a file named `_vaultPassword` can be added to the root
-directory of a payload.
 
 ## Using dynamic inventories
 
