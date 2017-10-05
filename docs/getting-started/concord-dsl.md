@@ -110,12 +110,26 @@ as
 ```yaml
 configuration:
   dependencies:
-    - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.11/groovy-all-2.4.11.jar"
+    # maven URLs...
+    - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
+    # or direct URLs
+    - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
     - "https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
 ```
 
 The artifacts are downloaded and added to the classpath for process execution
 and are typically used for [task implementations](./tasks.html).
+
+Maven URLs also provide additional options:
+- `transitive=true|false` - include all transitive dependencies
+(default `true`);
+- `scope=compile|provided|system|runtime|test` - use the specific
+dependency scope (default `compile`);
+- `includeOptional=true|false` - include dependencies marked as
+"optional" (default false).
+
+Maven artifacts are downloaded using the configured
+[list of repositories](./configuration.html#dependencies).
 
 ### Template
 

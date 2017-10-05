@@ -116,7 +116,7 @@ the identifier `groovy`.
 ```yaml
 configuration:
   dependencies:
-  - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
+  - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
 
 flows:
   main:
@@ -140,7 +140,7 @@ located in the Central Repository or on another server and the identifier
 ```yaml
 configuration:
   dependencies:
-  - "https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.1/jython-standalone-2.7.1.jar"
+  - "mvn://org.python:jython-standalone:2.7.1"
 
 flows:
   main:

@@ -20,19 +20,46 @@ needs to define their processes and further details. Check out
 
 The following configuration details are available:
 
+- [Common Environment Variables](#common-environment-variables))
 - [Server Environment Variables](#server-environment-variables)
 - [Server LDAP Authentication](#server-ldap-authentication)
 - [Server Slack Connection](#server-ldap-connection)
 - [Agent Environment Variables](#agent-environment-variables)
 
 
+<a name="common-environment-variables"/>
+## Common Environment Variables
+
+<a name="dependencies"/>
+### Dependencies
+
+| Variable           | Description                           | Default value |
+|--------------------|---------------------------------------|---------------|
+| CONCORD_MAVEN_CFG  | Path to a JSON file                   | _empty_       |
+
+Expected format of the configuration file:
+```json
+{
+  "repositories": [
+    {
+      "id": "central",
+      "layout": "default",
+      "url": "https://repo.maven.apache.org/maven2/"
+    },
+    {
+      "id": "local",
+      "url": "file:///home/aUser/.m2/repository"
+    }
+  ]
+}
+```
 
 <a name="server-environment-variables"/>
 ## Server Environment Variables
 
 All parameters are optional.
 
-**Database**
+### Database
 
 | Variable    | Description                                                     | Default value                        |
 |-------------|-----------------------------------------------------------------|--------------------------------------|
@@ -42,31 +69,26 @@ All parameters are optional.
 | DB_USERNAME | Username to connect to the database.                            | `sa`                                 |
 | DB_PASSWORD | Password to connect to the database.                            | _empty_                              |
 
-**Log file store**
+### Log file store
 
 | Variable      | Description                                                 | Default value               |
 |---------------|-------------------------------------------------------------|-----------------------------|
 | LOG_STORE_DIR | Path to a directory where agent's log files will be stored. | _a new temporary directory_ |
 
-**Secret store**
+### Secret store
 
 | Variable          | Description                                                                       | Default value |
 |-------------------|-----------------------------------------------------------------------------------|---------------|
 | SECRET_STORE_SALT | Store's salt value. If changed, all previously created keys will be inaccessable. |               |
 
-**Dependencies**
 
-| Variable           | Description                           | Default value                  |
-|--------------------|---------------------------------------|--------------------------------|
-| DEPS_STORE_DIR     | Directory with `system` dependencies. | `lib` directory of the server. |
-
-**Security**
+### Security
 
 | Variable | Description                      | Default value          |
 |----------|----------------------------------|------------------------|
 | LDAP_CFG | Path to LDAP configuration file. | _empty_                |
 
-**Repositories**
+### Repositories
 
 | Variable       | Description                                    | Default value               |
 |----------------|------------------------------------------------|-----------------------------|
@@ -94,7 +116,7 @@ The `exposeAttributes` property defines a list of LDAP attributes that will be
 [exposed to processes](./processes.html#provided-variables). Remove this property
 to make all LDAP attributes available.
 
-<a name="server-slack-conneti9
+<a name="server-slack-connection"/>
 ## Server Slack Connection
 
 The Concord server can be configured to connect to Slack and post messages on
