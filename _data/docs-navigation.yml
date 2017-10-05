@@ -51,6 +51,8 @@ nav:
     subfolderitems:
       - page: Ansible
         context: /docs/plugins/ansible
+      - page: Concord
+        context: /docs/plugins/concord
       - page: Crypto
         context: /docs/plugins/crypto
       - page: KV
