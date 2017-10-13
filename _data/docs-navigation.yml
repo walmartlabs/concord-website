@@ -41,6 +41,8 @@ nav:
         context: /docs/api/role
       - page: Secret
         context: /docs/api/secret
+      - page: Team
+        context: /docs/api/team
       - page: Template
         context: /docs/api/template
       - page: User

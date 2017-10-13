@@ -36,6 +36,9 @@ Creates a new project with specified parameters or updates an existing one.
     {
       "name": "myProject",
       "description": "my project",
+    
+      "teamId": "...",
+      "teamName": "...",
 
       "repositories": {
         "myRepo": {
@@ -52,6 +55,9 @@ Creates a new project with specified parameters or updates an existing one.
     }
     ```
     All parameters except `name` are optional.
+    
+    The `teamId` and `teamName` parameters are mutually exclusive.
+    Either of those can be used to specify a project's team.
 
     The project configuration is a JSON object of the following structure:
     ```json
@@ -94,6 +100,9 @@ Updates parameters of an existing project.
     ```json
     {
       "description": "my updated project",
+      
+      "teamId": "...",
+      "teamName": "...",
 
       "repositories": {
         "myRepo": {
@@ -108,7 +117,13 @@ Updates parameters of an existing project.
       }
     }
     ```
-    All parameters are optional. Omitted parameters will not be updated.
+    All parameters are optional.
+    
+    The `teamId` and `teamName` parameters are mutually exclusive.
+    Either of those can be used to specify a project's team.
+    
+    Omitted parameters will not be updated.
+    
     An empty value must be specified in order to remove a project's value:
     e.g. an empty `repositories` object to remove all repositories from a project.
 
