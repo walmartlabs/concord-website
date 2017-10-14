@@ -36,7 +36,7 @@ started [in a browser directly](#browser).
 ### Existing Project
 
 * **Permissions** none
-* **URI** `/api/v1/process/${entryPoint}?sync=${sync}`
+* **URI** `/api/v1/process/${entryPoint}?sync=${sync}&out=${outVar}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Parameters**
@@ -53,6 +53,9 @@ started [in a browser directly](#browser).
     The `${sync}` (`true/false`, default is `false`) parameter enables
     synchronous execution of a process. The request will block until
     the process is complete.
+    
+    The `${out}` parameter declares a process OUT variable. To
+    declare multiple OUT variables use `out=varA&outB=varB...`.
 * **Body**
     ```json
     {
@@ -128,7 +131,7 @@ Accepts multiple additional files, which are put into the process'
 working directory.
 
 * **Permissions** none
-* **URI** `/api/v1/process/${entryPoint}?sync=${sync}`
+* **URI** `/api/v1/process/${entryPoint}?sync=${sync}&out=${out}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: multipart/form-data`
 * **Parameters**
@@ -139,6 +142,9 @@ working directory.
     The `${sync}` (`true/false`, default is `false`) parameter enables
     synchronous execution of a process. The request will block until
     the process is complete.
+    
+    The `${out}` parameter declares a process OUT variable. To
+    declare multiple OUT variables use `out=varA&outB=varB...`.
 * **Body**
     Multipart binary data.
 

@@ -13,6 +13,7 @@ defined process definition and additional supplied resources.
 - [Project file](#project-file)
 - [Request data](#request-data)
 - [Provided Variables](#variables) 
+- [Out Variables](#out-variables)
 - [Execution](#execution)
 
 <a name="structure"/>
@@ -91,6 +92,39 @@ LDAP attributes must be whitelisted in [the configuration](./configuration.html#
 Availability of other variables and "beans" depends on installed Concord's
 plugins and the arguments passed in at the process invocation and stored in the
 [request data](#request-data).
+
+<a name="out-variables"/>
+## Out Variables
+
+Concord returns data for OUT variables when a process completes. Such variables
+can be declared when a process starts:
+```
+$ curl ... http://concord.example.com/api/v1/process?sync=true&out=myVar1
+{
+  "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b",
+  "out" : {
+    "myVar1" : "my value"
+  },
+  "ok" : true
+}
+```
+or in `configuration` section:
+```yaml
+configuration:
+  out:
+    - myVar1
+```
+
+When a process starts in the synchronous mode (`sync=true`), the data is
+returned in the response. For asynchronous processes, the OUT variables
+data can be retrieved with an API call:
+```
+$ curl ... http://localhost:8001/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
+
+{"myVar1":"my value"}
+```
+
+Any value type that can be represented as JSON is supported.
 
 <a name="execution"/>
 ## Execution
