@@ -96,8 +96,9 @@ plugins and the arguments passed in at the process invocation and stored in the
 <a name="out-variables"/>
 ## Out Variables
 
-Concord returns data for OUT variables when a process completes. Such variables
-can be declared when a process starts:
+Concord has the ability to return process data when a process completes.
+The names or returned variables should be declared when a process starts
+using query parameters:
 ```
 $ curl ... http://concord.example.com/api/v1/process?sync=true&out=myVar1
 {
@@ -108,12 +109,19 @@ $ curl ... http://concord.example.com/api/v1/process?sync=true&out=myVar1
   "ok" : true
 }
 ```
-or in `configuration` section:
+or declared in the `configuration` section:
 ```yaml
 configuration:
   out:
     - myVar1
 ```
+
+It is also possible to retieve a nested value:
+```
+$ curl ... http://concord.example.com/api/v1/process?sync=true&out=a.b.c
+```
+In this example, Concord will look for variable `a`, its field `b` and
+the nested field `c`.
 
 When a process starts in the synchronous mode (`sync=true`), the data is
 returned in the response. For asynchronous processes, the OUT variables
