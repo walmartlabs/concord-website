@@ -14,6 +14,11 @@ storing.
   * [Exporting credentials (username/password pairs)](#exporting-credentials--username-password-pairs-)
   * [Encrypting a value without storing it](#encrypting-a-value-without-storing-it)
   * [Decrypting a value](#decrypting-a-value)
+  
+## Dependencies
+
+This task is provided automatically by the Concord and does not
+require any external dependencies.
 
 ## Exporting a SSH key pair
 

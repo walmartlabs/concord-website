@@ -10,6 +10,11 @@ This task provides access to the server's simple key-value store.
 All data is project-scoped: processes will see only the values that
 were made by the processes of the same project.
 
+## Dependencies
+
+This task is provided automatically by the Concord and does not
+require any external dependencies.
+
 ## Usage
 
 ### Setting a value

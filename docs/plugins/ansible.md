@@ -82,7 +82,7 @@ data:
 ```yaml
 configuration:
   dependencies:
-  - "http://nexus.prod.walmart.com/nexus/content/repositories/devtools/com/walmartlabs/concord/plugins/basic/ansible-tasks/0.34.0/ansible-tasks-0.34.0.jar"
+  - "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.43.0"
 ```
 
 ### As an expression
