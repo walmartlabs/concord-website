@@ -9,6 +9,16 @@ side-navigation: wmt/docs-navigation.html
 This task allows users to start and manage new processes from within
 running processes.
 
+## Dependencies
+
+The dependency URL of the latest recommended version:
+
+```yaml
+configuration:
+  dependencies:
+  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.32.0"
+```
+
 ## Starting a Process using a Payload Archive
 
 ```yaml
