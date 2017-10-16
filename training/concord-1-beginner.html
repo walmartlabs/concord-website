@@ -9,9 +9,11 @@
 
 <link href="../assets/wmt/reveal/css/theme/walmart-labs-center.css" rel="stylesheet" />
 <script>
-  document.write('<link rel="stylesheet" href="../assets/wmt/reveal/css/print/'
-      + (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper')
-      + '.css" type="text/css" media="print">');
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../assets/wmt/reveal/css/print/pdf.css' : '../assets/wmt/reveal/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
 </script>
 </head>
 <body>
@@ -83,7 +85,15 @@
              data-separator-notes="^Note:"
              data-charset="iso-8859-15"></section>
    </div>
-  </div>
+
+   <div id="hidden" style="display:none;">
+     <div id="header">
+       <div id="footer">
+         <img id="footer-logo" align="right" src="../assets/wmt/img/slides/Walmart_Labs_logo_wht.png"/>
+       </div>
+     </div>
+   </div><!-- END FOOTER -->
+ </div><!-- END REVEAL -->
 <script src="../assets/wmt/reveal/lib/js/head.min.js"></script>
  <script src="../assets/wmt/reveal/js/reveal.js"></script>
  <script>
@@ -125,13 +135,19 @@
       ]
     });
   </script>
-  <div>
-    <div id="header">
-      <div id="footer">
-        <img id="footer-logo" align="right"
-          src="../assets/wmt/img/slides/Walmart_Labs_logo_wht.png"/>
-      </div>
-    </div>
-  </div>
+
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript">
+      // 3. On Reveal.js ready event, copy header/footer <div> into each `.slide-background` <div>
+      var header = $('#header').html();
+      if ( window.location.search.match( /print-pdf/gi ) ) {
+          Reveal.addEventListener( 'ready', function( event ) {
+              $('.slide-background').append(header);
+          });
+      }
+      else {
+          $('div.reveal').append(header);
+     }
+  </script>
 </body>
 </html>
