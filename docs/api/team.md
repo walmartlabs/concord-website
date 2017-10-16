@@ -11,7 +11,7 @@ multiple teams simultaneously.
 
 The REST API provides support for a number of operations:
 
-- [Create or update a Team](#create-team)
+- [Create or Update a Team](#create-team)
 - [List Teams](#list-teams)
 - [List Users in a Team](#list-users)
 - [Add Users to a Team](#add-users)
