@@ -136,9 +136,9 @@ Just use the flow name:
 
 ```
 flows:
-  default:d
+  default:
     - log: "Calling test next"
-    - test
+    - call: test
     - log: "test done, what next?"
   test:
     - log" "Starting test"

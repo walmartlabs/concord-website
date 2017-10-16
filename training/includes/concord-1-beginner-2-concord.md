@@ -1,4 +1,4 @@
-# Workflow Orchestration and BPM
+# Workflow Orchestration
 
 > What is it all about?
 

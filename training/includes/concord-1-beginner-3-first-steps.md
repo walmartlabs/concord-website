@@ -33,7 +33,7 @@ Note:
 - Specs on [YAML website](http://www.yaml.org/)
 - Indendation is significant!
 - `#` for comment lines
-- `-` for elements in map
+- `-` for elements in array
 - Beware the colon `:` significance
 - Some validation in Concord
 
