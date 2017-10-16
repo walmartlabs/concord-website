@@ -54,8 +54,8 @@ started [in a browser directly](#browser).
     synchronous execution of a process. The request will block until
     the process is complete.
     
-    The `${out}` parameter declares a process OUT variable. To
-    declare multiple OUT variables use `out=varA&outB=varB...`.
+    The `${out}` parameter declares a process ouput variable. To
+    declare multiple output variables use `out=varA&outB=varB...`.
 * **Body**
     ```json
     {

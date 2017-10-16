@@ -13,7 +13,7 @@ defined process definition and additional supplied resources.
 - [Project file](#project-file)
 - [Request data](#request-data)
 - [Provided Variables](#variables) 
-- [Out Variables](#out-variables)
+- [Output Variables](#output-variables)
 - [Execution](#execution)
 
 <a name="structure"/>
@@ -87,18 +87,19 @@ instance of `com.walmartlabs.concord.sdk.Context`;
   - `requestInfo.query`: query parameters of a request made using user-facing 
     endpoints (e.g. the portal API).
 
-LDAP attributes must be whitelisted in [the configuration](./configuration.html#ldap).
+LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 
 Availability of other variables and "beans" depends on installed Concord's
 plugins and the arguments passed in at the process invocation and stored in the
 [request data](#request-data).
 
-<a name="out-variables"/>
-## Out Variables
+<a name="output-variables"/>
+## Output Variables
 
 Concord has the ability to return process data when a process completes.
 The names or returned variables should be declared when a process starts
 using query parameters:
+
 ```
 $ curl ... http://concord.example.com/api/v1/process?sync=true&out=myVar1
 {
@@ -109,23 +110,28 @@ $ curl ... http://concord.example.com/api/v1/process?sync=true&out=myVar1
   "ok" : true
 }
 ```
+
 or declared in the `configuration` section:
+
 ```yaml
 configuration:
   out:
     - myVar1
 ```
 
-It is also possible to retieve a nested value:
+It is also possible to retrieve a nested value:
+
 ```
 $ curl ... http://concord.example.com/api/v1/process?sync=true&out=a.b.c
 ```
-In this example, Concord will look for variable `a`, its field `b` and
+
+In this example, Concord looks for variable `a`, its field `b` and
 the nested field `c`.
 
 When a process starts in the synchronous mode (`sync=true`), the data is
-returned in the response. For asynchronous processes, the OUT variables
-data can be retrieved with an API call:
+returned in the response. For asynchronous processes, the output variables data
+can be retrieved with an API call:
+
 ```
 $ curl ... http://localhost:8001/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
 
@@ -147,5 +153,5 @@ A process is executed using the following steps:
 - Configuration from request parameters and selected profiles applied
 - Templates are downloaded and applied
 - The payload is created and send to the Concord Agent for execution
-- Dependencies are downloaded and put on the classpath
+- Dependencies are downloaded and put on the class-path
 - The flow configured as entry point is invoked
