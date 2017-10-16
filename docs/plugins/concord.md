@@ -9,6 +9,12 @@ side-navigation: wmt/docs-navigation.html
 This task allows users to start and manage new processes from within
 running processes.
 
+## Examples
+
+- [process_from_a_process](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/process_from_a_process) - starting a new subprocess from a flow using a payload archive;
+- [fork](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork) - starting a subprocess;
+- [fork_join](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork_join) - starting multiple subprocesses and waiting for completion.
+
 ## Dependencies
 
 The dependency URL of the latest recommended version:
@@ -19,6 +25,27 @@ configuration:
   - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.32.0"
 ```
 
+## Connection Parameters
+
+The plugin requires the following connection parameters to be set for
+all types of actions:
+
+- `baseUrl` - Concord REST API endpoint;
+- `apiKey` - user's REST API key.
+
+For example:
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      baseUrl: "http://concord.example.com:8001"
+      apiKey: "lzfJQL4u2gsH7toQveFYSQ"
+```
+
+Future versions will be able to automatically default to the current
+Concord instance and/or user.
+
 ## Starting a Process using a Payload Archive
 
 ```yaml
@@ -26,6 +53,9 @@ flows:
   default:
   - task: concord
     in:
+      baseUrl: "..." # as described in the "Connection Parameters" section
+      apiKey: "..."
+      
       action: start
       archive: payload.zip
 ```
