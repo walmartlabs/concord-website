@@ -120,13 +120,14 @@ configuration:
 The artifacts are downloaded and added to the classpath for process execution
 and are typically used for [task implementations](./tasks.html).
 
+Multiple versions of the same artifact will be replaced with a single
+one, according to standard Maven resolution rules.
+
 Maven URLs also provide additional options:
 - `transitive=true|false` - include all transitive dependencies
 (default `true`);
 - `scope=compile|provided|system|runtime|test` - use the specific
-dependency scope (default `compile`);
-- `includeOptional=true|false` - include dependencies marked as
-"optional" (default false).
+dependency scope (default `compile`).
 
 Maven artifacts are downloaded using the configured
 [list of repositories](./configuration.html#dependencies).
