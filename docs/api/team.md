@@ -43,6 +43,7 @@ Creates a new team with specified parameters or updates an existing one.
 
     ```json
     {
+      "result": "CREATED",
       "ok": true,
       "id": "..."
     }
@@ -63,11 +64,18 @@ Lists all existing teams.
     ```
     Content-Type: application/json
     ```
-
+    
     ```json
     [
-      { "name": "..." },
-      { "name": "...", "description": "my project", ... }
+      { "id": "...",
+        "name": "...",
+        "description": "...",
+        "enabled": true },
+      { "id": "...",
+        "name": "...",
+        "description": "my project",
+        "enabled": true
+       }
     ]
     ```
 
