@@ -101,7 +101,7 @@ The names or returned variables should be declared when a process starts
 using query parameters:
 
 ```
-$ curl ... http://concord.example.com/api/v1/process?sync=true&out=myVar1
+$ curl ... 'http://concord.example.com/api/v1/process?sync=true&out=myVar1'
 {
   "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b",
   "out" : {
@@ -122,7 +122,7 @@ configuration:
 It is also possible to retrieve a nested value:
 
 ```
-$ curl ... http://concord.example.com/api/v1/process?sync=true&out=a.b.c
+$ curl ... 'http://concord.example.com/api/v1/process?sync=true&out=a.b.c'
 ```
 
 In this example, Concord looks for variable `a`, its field `b` and
