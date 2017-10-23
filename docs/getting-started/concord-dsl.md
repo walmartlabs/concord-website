@@ -95,7 +95,7 @@ configuration:
   entryPoint: "main"
 flows:
   main:
-    - log: "Hello World"
+  - log: "Hello World"
 ```
 
 ### Dependencies

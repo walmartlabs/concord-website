@@ -167,7 +167,7 @@ Password for Ansible Vault files can be specified using
 `vaultPassword` or `vaultPasswordFile` parameters:
 ```yaml
 flows:
-  main:
+  default:
   - task: ansible2
     in:
       vaultPassword: "myS3cr3t"
@@ -199,14 +199,14 @@ configuration:
     dynamicInventoryFile: "inventory.py"
 
 flows:
-  main:
+  default:
   - ${ansible2.run(ansibleParams, workDir)}
 ```
 
 Or as an IN-parameter:
 ```yaml
 flows:
-  main:
+  default:
   - task: ansible2
     in:
       playbook: "playbook/hello.yml"
@@ -258,7 +258,7 @@ configuration:
           ansible_connection: "local"
 
 flows:
-  main:
+  default:
   - ${ansible2.run(ansibleParams, workDir)}
 ```
 

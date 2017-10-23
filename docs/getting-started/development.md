@@ -69,11 +69,7 @@ All JAR files are signed using a GPG key. Pass phrase for a key must be configur
    ```
    ./mvnw release:prepare release:perform
    ```
-2. push docker images:
-   ```
-   git checkout NEW_TAG
-   export DOCKER_REGISTRY=docker.prod.walmart.com
-   ```
+2. push docker images;
 3. don't forget to push new tags and the release commit:
    ```
    git push origin master --tags

@@ -46,7 +46,7 @@ $ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword=12345678 'htt
 
 ```yaml
 flows:
-  main:
+  default:
   - expr: ${crypto.exportKeyAsFile('myKey', 'myKeyPassword')}
     out: myKeys
   - log: "Public: ${myKeys.public}"

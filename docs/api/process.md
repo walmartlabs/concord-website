@@ -98,10 +98,8 @@ a single `concord.yml` file in the root of the archive:
 
 ```yaml
 flows:
-  main:
-    - log: "Hello Concord User"
-configuration:
-  entryPoint: "main"
+  default:
+  - log: "Hello Concord User"
 ```
 
 The format is described in

@@ -86,11 +86,13 @@ template script.
 Template can be referenced with a `template` entry in process variables:
 ```yaml
 flows:
-  main:
-    - log: "${message} ${name}"
+  default:
+  - log: "${message} ${name}"
 
 configuration:
   template: "http://host/path/my-template.jar"
+  # or by using a maven repository 
+  template: "mvn://groupId:artifactId:version"
 ```
 Only one template can be used at a time.
 

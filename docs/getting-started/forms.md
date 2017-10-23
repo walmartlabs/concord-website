@@ -80,7 +80,8 @@ Additional field types will be added in the next versions.
 To call a form from a process, use `form` command:
 
 ```yaml
-main:
+flows:
+  default:
   - form: myForm
   - log: "Hello, ${myForm.myField}"
 ```
@@ -101,7 +102,8 @@ then the form's `myField` will be populated with `my string value`.
 
 The `form` command accepts additional options:
 ```yaml
-main:
+flows:
+  default:
   - form: myForm
     yield: true
     values:
@@ -126,7 +128,7 @@ CSS, JavaScript and other resources.
 For example, if we have a Concord file file with a single form:
 ```yaml
 flows:
-  main:
+  default:
   - form: myForm
   - log: "Hello, ${myForm.name}"
 

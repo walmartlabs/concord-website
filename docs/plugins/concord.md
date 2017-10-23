@@ -167,7 +167,7 @@ disable `onCancel` or `onFailure` flows in subprocesses:
 
 ```yaml
 flows:
-  main:
+  default:
   - task: concord
     in:
       action: fork
@@ -192,7 +192,7 @@ flows:
 
 ```yaml
 flows:
-  main:
+  default:
   - task: concord
     in:
       action: cancel
@@ -210,7 +210,7 @@ specified processes are stopped.
 
 ```yaml
 flows:
-  main:
+  default:
   - task: concord
     in:
       action: start
@@ -223,7 +223,7 @@ This will start a new subprocess tagged with `someTag` and `anotherOne`.
 Tags are useful for filtering (sub)processes:
 ```yaml
 flows:
-  main:
+  default:
   # spawn multiple tagged processes
   
   onCancel:

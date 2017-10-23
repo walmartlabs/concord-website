@@ -29,9 +29,9 @@ configuration:
 
 flows:
   default:
-    - script: js
-      body: |
-        print("Hello, ", myVar)
+  - script: js
+    body: |
+      print("Hello, ", myVar)
 ```
 
 If a flow variable contains an illegal character for a chosen scripting
@@ -75,7 +75,7 @@ Using an inline script:
 
 ```yaml
 flows:
-  main:
+  default:
   - script: js
     body: |
       function doSomething(i) {
@@ -91,7 +91,7 @@ Using an external script file:
 
 ```yaml
 flows:
-  main:
+  default:
   - script: test.js
   - log: ${result}
 ```
@@ -119,7 +119,7 @@ configuration:
   - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
 
 flows:
-  main:
+  default:
   - script: groovy
     body: |
       def x = 2 * 3
@@ -143,7 +143,7 @@ configuration:
   - "mvn://org.python:jython-standalone:2.7.1"
 
 flows:
-  main:
+  default:
   - script: python
     body: |
       x = 2 * 3;
