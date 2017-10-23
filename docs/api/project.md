@@ -120,6 +120,7 @@ Updates parameters of an existing project.
 
     ```json
     {
+      "actionType": "CREATED",
       "ok": true
     }
     ```

@@ -24,23 +24,27 @@ Creates a new API key for a user.
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
-    ```json
-    {
-      "userId": "..."
-    }
-    ```
+  ```json
+  {
+    "username": "myLdapUsername"
+  }
+  ```
 * **Success response**
-    ```
-    Content-Type: application/json
-    ```
+  ```
+  Content-Type: application/json
+  ```
 
-    ```json
-    {
-      "ok": true,
-      "id": "...",
-      "key": "..."
-    }
-    ```
+  ```json
+  {
+    "ok": true,
+    "id": "...",
+    "key": "..."
+  }
+  ```
+* **Example**
+  ```
+  curl -u myLdapUser -H "Content-Type: application/json" -d '{ "username": "myLdapUser" }' http://localhost:8001/api/v1/apikey
+  ```
 
 <a name="delete-key"/>
 ## Delete an existing API key
