@@ -30,7 +30,8 @@ configuration:
 The plugin requires the following connection parameters to be set for
 all types of actions:
 
-- `baseUrl` - Concord REST API endpoint;
+- `baseUrl` - Concord REST API endpoint. Defaults to the current
+  server's API endpoint address;
 - `apiKey` - user's REST API key.
 
 For example:
@@ -53,8 +54,7 @@ flows:
   default:
   - task: concord
     in:
-      baseUrl: "..." # as described in the "Connection Parameters" section
-      apiKey: "..."
+      apiKey: "..." # as described in the "Connection Parameters" section
       
       action: start
       archive: payload.zip
@@ -66,6 +66,63 @@ the first element of `${jobs}` array:
 
 ```yaml
 - log: "I've started a new process: ${jobs[0]}"
+```
+
+## Starting a Process using an existing Project
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      action: start
+      project: myProject
+      archive: payload.zip
+```
+
+This expression will start a new subprocess in the context of the
+specified project.
+
+Alternatively, if the project has a repository configured, the
+process can be started this way:
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      action: start
+      project: myProject
+      repository: myRepo
+```
+
+The process will be started using the resources provided by the
+specified project and repository.
+
+## Output Variables
+
+To get variable values of a child process, their names should be
+specified in `outVars` parameter:
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      action: start
+      project: myProject
+      repository: myRepo
+      sync: true
+      # list of variable names
+      outVars:
+      - someVar1
+      - someVar2
+```
+
+This feature only available if `sync` parameter set to `true`.
+Output values will be stored as a `jobOut` variable:
+
+```yaml
+- log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
 ```
 
 ## Forking a Process
