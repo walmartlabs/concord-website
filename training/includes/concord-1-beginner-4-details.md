@@ -29,14 +29,14 @@ Note:
 ## Dependencies
 
 - JAR archives
-- on execution classpath
-- scripting and tasks
+- Added to execution classpath
+- Used for scripting and tasks
 
 ```
 configuration:
   dependencies:
+    - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
     - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.11/groovy-all-2.4.11.jar"
-    - "https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
 ```
 
 
@@ -163,6 +163,15 @@ flows:
 ## Forms Example
 
 TBD
+
+
+## Scripting
+
+Any scripting languages supported by JSR-310?? 
+
+- Groovy
+- Jython
+- JavaScript
 
 
 ## Questions?
