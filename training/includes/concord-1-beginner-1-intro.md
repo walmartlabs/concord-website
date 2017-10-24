@@ -9,8 +9,6 @@
 - Introduction to Concord
 - Know how to use Concord Console 
 - Develop Concord flows
-- Implement complex flows
-- Write your own Concord tasks
 - Concord use cases with Ansible, CI/CD and more
 
 

@@ -37,15 +37,17 @@ Note:
 - Beware the colon `:` significance
 - Some validation in Concord
 
-Note:
-- uses jackson
 
-## Add Deploy Key
+## Create and Add Deploy Key
 
 To allow Concord access to the repository:
 
-- request key from Concord
-- add to GitHub configuration
+- Login to Concord Console
+- Secrets, Cread New Key Pair
+- Add to GitHub repository configuration
+
+Note:
+- Demo it
 
 
 ## Creating a Project
@@ -77,8 +79,8 @@ Demo it
 ## What Happened
 
 - Concord Server clones/updates project repository
-- Prepares for exeuction
-- Runs workflow on Concord Agent
+- Prepares for execution
+- Runs workflow on Concord cluster
 
 
 ## Questions?

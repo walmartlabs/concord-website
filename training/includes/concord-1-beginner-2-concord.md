@@ -1,6 +1,6 @@
 # Workflow Orchestration
 
-> What is it all about?
+> What is this all about?
 
 
 ## Workflow Orchestration
@@ -15,7 +15,7 @@
 Note:
 - quite abstract
 - very flexible what it does
-- like a conductor orchestrates musicians in a orchestra
+- like a conductor orchestrates musicians in an orchestra
 - https://en.wikipedia.org/wiki/Business_process_management
 
 
@@ -23,29 +23,32 @@ Note:
 
 Specific software designed for workflow orchestration and BPM
 
-- define workflows
-- run workflow processes
-- provide user interface for process access
-- support integration with numerous tools
+- Define workflows
+- Run workflow processes
+- Provide user interface for process access
+- Support integration with numerous tools
 
 
 ## Concord
 
 - A workflow server
-- Workflow engine inside
 - Java-based software
 - REST API
 - Web-based user interface
+- Numerous plugins
 - Developed by SDE team at Walmart Labs
+
+Note:
+- open source in future
 
 
 ## Usage Scenarios
 
-- Orchestrate steps in busines processes
 - Support software development processes
+- Orchestrate CI/CD builds and deployments
 - Provision infrastructure in a public or private cloud
 - Execute Ansible playbooks and deploy applications
-- Orchestrate CI/CD builds and deployments
+- Orchestrate steps in business processes
 
 
 ## Components
@@ -76,19 +79,12 @@ Web-based user interface for Concord Server and its processes.
 - Secrets
 
 
-## Concord Agent
-
-- Remote workflow executor
-- Receives scenarios from the server
-- Executes them in isolated environments
-
-
 ## Concord Project
 
 - Created by Users
-- Including plugin implementations
 - Stored in git repository
 - YAML for flow definitions
+- Execution on Concord Server
 
 
 ## Questions?
