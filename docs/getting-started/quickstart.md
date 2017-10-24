@@ -49,27 +49,30 @@ The `default` flow in the example simply outputs a message to the process log.
 <a name="add-deploy-key"/>
 ## Add a Deploy Key
 
-In order to grant Concord access to the Git repository, you need to request a new
-key from the Concord server using the
-[REST API for secrets](../api/secret.html).
+In order to grant Concord access to the Git repository, you need to create a new
+key one the Concord server.
 
-On a default installation you can perform this step with the default `admin`
-user and it's authorization token:
+- Log into the Concord Console user interface
+- Select _Create new_ under _Secrets_ in the navigation panel
+- Provide a string e.g. `mykey` as _Concord ID_ under the _Create New Key Pair_ title
+- Press _Submit_
 
-```
-curl -X POST -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" 'https://concord.example.com/api/v1/secret/keypair?name=exampleSecretKey'
-```
-
-On a typical production installation you can pass your username and be quoted for the password
+As a next step, retrieve the public key with the REST API with the default
+`admin` user and it's authorization token:
 
 ```
-curl -u username -X POST  'https://concord.example.com/api/v1/secret/keypair?name=exampleSecretKey'
+curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" 'https://concord.example.com/api/v1/secret/mykey/public'
 ```
 
-Or supply the password as well:
+On a typical production installation you can pass your username and be quoted
+for the password:
 
 ```
-curl -u username:password ...
+curl -u username 'https://concord.example.com/api/v1/secret/mykey/public'
+```
+
+Alternatively you can use the [REST API for secrets](../api/secret.html) to create
+the key pair.
 
 The server provides a JSON-formatted response similar to:
  

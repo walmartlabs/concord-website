@@ -53,10 +53,27 @@ key is returned in the response.
       "ok": true
     }
     ```
-* **Example**
-    ```
-curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword=12345678 'http://localhost:8001/api/v1/secret/keypair?name=myKey'
-    ```
+
+Examples:
+
+On a default installation you can perform this step with the default `admin`
+user and it's authorization token:
+
+```
+curl -X POST -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" 'https://concord.example.com/api/v1/secret/keypair?name=exampleSecretKey'
+```
+
+On a typical production installation you can pass your username and be quoted for the password
+
+```
+curl -u username -X POST  'https://concord.example.com/api/v1/secret/keypair?name=exampleSecretKey'
+```
+
+Or supply the password as well:
+
+```
+curl -u username:password ...
+```
 
 <a name="create-secret-ssh-exist"/>
 ## Create a Secret with Existing SSH Key Pair
