@@ -7,9 +7,11 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 Concord flows can include scripting language snippets for execution. The
-scripts run within the same JVM that is running Concord, and hence need to be
-JSR-232 compliant scripting languages with a compliant runtime such as
-[JavaScript](#javascript), [Groovy](#groovy) or [Python](#python).
+scripts run within the same JVM that is running Concord, and hence need to
+implement the Java Scripting API as defined by JSR-223. Language examples with a
+compliant runtimes are
+[JavaScript](#javascript), [Groovy](#groovy), [Python](#python), JRuby and many
+others.
 
 Scripts have to be identified by language. They can be stored as external files
 and invoked from the Concord YAML file or they can be inline in the file.
@@ -107,7 +109,7 @@ execution.setVariable("result", doSomething(2));
 
 ## Groovy
 
-Groovy is another JSR-223 compatible engine that is fully-supported in
+Groovy is another compatible engine that is fully-supported in
 Concord. It requires the addition of a dependency to
 [groovy-all](http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/) and
 the identifier `groovy`.
