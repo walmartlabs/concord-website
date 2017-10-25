@@ -20,7 +20,6 @@ tbd
 tbd
 
 
-
 ## Example
 
 - https://gecgithub01.walmart.com/devtools/concord-cd-example
