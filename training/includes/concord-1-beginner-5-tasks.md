@@ -21,6 +21,9 @@
 
 Note:
 - provide more features in normal flows
+- describe each a bit
+- Crypto works with Concord secrets
+- Concord task can kick off other tasks
 
 
 ## Integration Tasks
@@ -35,15 +38,33 @@ Note:
 
 Note: 
 - describe each a bit
-- Crypto works with Concord secrets
-- Concord task can kick off other tasks
 - https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins/tasks
 - https://gecgithub01.walmart.com/devtools/concord-plugins/tree/master/tasks
 
 
 ## Example Usage
 
-tbd 
+Invocation with input, output and error capture:
+
+```
+flows:
+  default:
+    - task: myTask
+      in:
+        taskVar: ${processVar}
+        anotherTaskVar: "a literal value"
+      out:
+        processVar: ${taskVar}
+      error:
+        - log: something bad happened
+```
+
+
+## More About Tasks
+
+- Alternatively invoke via EL
+- Easy to implement
+- Work with Concord team
 
 
 ## Questions?
