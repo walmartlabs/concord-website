@@ -1,12 +1,12 @@
 ---
 layout: wmt/docs
-title:  KV
+title:  Key Value Task
 side-navigation: wmt/docs-navigation.html
 ---
 
-# KV task
+# {{ page.title }}
 
-This task provides access to the server's simple key-value store.
+The key value `kv` task provides access to the server's simple key-value store.
 All data is project-scoped: processes will see only the values that
 were made by the processes of the same project.
 
