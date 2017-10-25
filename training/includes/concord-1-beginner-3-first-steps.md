@@ -43,7 +43,8 @@ Note:
 To allow Concord access to the repository:
 
 - Login to Concord Console
-- Secrets, Cread New Key Pair
+- Secrets, Create New Key Pair
+- Get public key via REST API
 - Add to GitHub repository configuration
 
 Note:

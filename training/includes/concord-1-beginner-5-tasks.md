@@ -11,7 +11,7 @@
 - Usage configured in Concord DSL
 
 
-## Tasks for Concord Usage
+## Concord Extension Tasks
 
 - Concord
 - Crypto

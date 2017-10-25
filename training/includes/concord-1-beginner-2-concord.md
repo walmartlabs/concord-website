@@ -21,7 +21,7 @@ Note:
 
 ## Workflow Server
 
-Specific software designed for workflow orchestration and BPM
+Specific software designed for workflow orchestration
 
 - Define workflows
 - Run workflow processes
@@ -31,7 +31,7 @@ Specific software designed for workflow orchestration and BPM
 
 ## Concord
 
-- A workflow server
+- High-performance, powerful workflow server
 - Java-based software
 - REST API
 - Web-based user interface
@@ -67,7 +67,7 @@ Note:
   - key/value pairs
 - REST API for access
 
-Receives and processes user requests to call workflow scenarios on agents.
+Receives and processes user requests to call workflow scenarios.
 
 
 ## Concord Console
@@ -81,7 +81,7 @@ Web-based user interface for Concord Server and its processes.
 
 ## Concord Project
 
-- Created by Users
+- Created by users
 - Stored in git repository
 - YAML for flow definitions
 - Execution on Concord Server

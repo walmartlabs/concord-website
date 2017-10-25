@@ -34,7 +34,7 @@ Note:
 What flow to start with.
 
 - Optional configuration
-- `default` is the default ;-)
+- `default` is the default
 
 
 ## Template
@@ -71,6 +71,7 @@ configuration:
       y: 5
       z: 0
 ```
+
 
 ## Arguments Continued
 
