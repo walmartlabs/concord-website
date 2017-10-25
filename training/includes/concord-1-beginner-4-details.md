@@ -12,6 +12,9 @@ Syntax used in `concord.yml` with top level nodes for:
 - `profiles:`
 - `forms:`
 
+Note:
+Explain each a bit .. more is coming below
+
 
 ## Configuration
 
@@ -26,6 +29,22 @@ Note:
 - explain each a bit
 
 
+## Entry Point
+
+What flow to start with.
+
+- Optional configuration
+- `default` is the default ;-)
+
+
+## Template
+
+What other Concord DSL configuration to reuse.
+
+- Advanced usage
+- Powerful for reuse of complex flows, forms and profiles
+
+
 ## Dependencies
 
 - JAR archives
@@ -36,7 +55,6 @@ Note:
 configuration:
   dependencies:
     - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
-    - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.11/groovy-all-2.4.11.jar"
 ```
 
 
@@ -52,16 +70,23 @@ configuration:
       x: 10
       y: 5
       z: 0
+```
+
+## Arguments Continued
+
+Variable usage:
+
+```
 flows:
   default:
     log: "Project name: ${name}"
-    log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+    log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
 
 
 ## Flows
 
-Defintion of steps of a workflow.
+Definition of steps of a workflow.
 
 ```
 flows:
@@ -72,7 +97,7 @@ flows:
     - ...
 ```
 
-Mutliple named flows!
+Multiple named flows!
 
 Note:
 - `default` used unless otherwise specified in invocation
@@ -81,7 +106,7 @@ Note:
 ## Steps
 
 - Step type and parameters
-- Expresssion
+- Expression
 
 ```
 flows:
@@ -91,7 +116,7 @@ flows:
 ```
 
 Note:
-- syntax is step: parameter
+- syntax is `step: parameter`
 - ${expression}
 
 
@@ -138,7 +163,7 @@ Just use the flow name:
 flows:
   default:
     - log: "Calling test next"
-    - call: test
+    - test
     - log: "test done, what next?"
   test:
     - log" "Starting test"
@@ -148,6 +173,7 @@ flows:
 
 ## Variable Changes
 
+- Default values from `configuration - arguments`
 - Process invocation parameter
 - Values in profile
 - `set` step
@@ -155,23 +181,73 @@ flows:
 
 ## Forms
 
-- Provide web-based user interface for your flows.
+- Provide web-based user interface for your flows
 - User input and guidance
 - Served by Concord
 
 
-## Forms Example
+## Forms Definition
 
-TBD
+```
+forms:
+  userInformation:
+  - firstName: { label: "First name:", type: "string" }
+  - lastName: { label: "Last name:", type: "string" }
+```
+
+
+## Form Usage
+
+Called in flows and create variables:
+
+```
+flows:
+  default:
+  - form: userInformation
+  - log: "Hello, ${userInformation.firstName} ${userInformation.lastName}"
+```
+
+
+## More Form Power
+
+- Different data types
+- Restrictions on allowed input
+- Data lookup from plugins
+  - Locale for countries, ...
+- Customizable look and feel
+- Add JS, HTML, CSS and other resources
+- Use as entry point for process start
 
 
 ## Scripting
 
-Any scripting languages supported by JSR-310?? 
+Language needs to implement Java Scripting API, e.g.:
 
 - Groovy
 - Jython
 - JavaScript
+
+
+## Scripting Features
+
+- Inline script
+- External script file
+- Read and write variable values
+- Call tasks
+
+Note:
+more about tasks in a sec
+
+
+## Scripting Example
+
+```
+flows:
+  default:
+  - script: js
+    body: |
+      print("Hello world!")
+```
 
 
 ## Questions?
