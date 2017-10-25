@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title}} 
 
-Concord consists of three components:
+[Concord](../about.html) consists of three components:
 
 1. [Concord Server](#concord-server) provides a REST API for managing
 projects and repositories. It receives and processes user requests

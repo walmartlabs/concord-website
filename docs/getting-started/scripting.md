@@ -13,10 +13,13 @@ compliant runtimes are
 [JavaScript](#javascript), [Groovy](#groovy), [Python](#python), JRuby and many
 others.
 
-Scripts have to be identified by language. They can be stored as external files
-and invoked from the Concord YAML file or they can be inline in the file.
-[Flow variables](#variables) and [Concord tasks](#tasks) can be accessed
-from the scripts.
+Script languages have to be identified by setting language explicitly or can be
+automatically identified based on the file extension used. They can be stored
+as external files and invoked from the Concord YAML file or they can be inline
+in the file.
+
+[Flow variables](#variables), [Concord tasks](#tasks) and other Java methods can
+be accessed from the scripts due to the usage of the Java Scripting API.
 
 <a name="variables">
 ## Using Flow Variables
@@ -72,6 +75,10 @@ JavaScript support is built-in and doesn't require any external
 dependencies. It is based on the
 [Nashorn](https://en.wikipedia.org/wiki/Nashorn_(JavaScript_engine))
 engine and requires the identifier `js`.
+[Nashorn](https://wiki.openjdk.java.net/display/Nashorn/Main) is based on
+ECMAScript, adds
+[numerous extensions](https://wiki.openjdk.java.net/display/Nashorn/Nashorn+extensions).
+including e.g. a `print` command.
 
 Using an inline script:
 
