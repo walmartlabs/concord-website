@@ -6,19 +6,15 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title}} 
 
-[Concord](../about.html) consists of three components:
+[Concord](../about.html) consists of the a server and user interface components:
 
-1. [Concord Server](#concord-server) provides a REST API for managing
+The [Concord Server](#concord-server) provides a REST API for managing
 projects and repositories. It receives and processes user requests
-to call workflow scenarios.
+to call workflow scenarios. Execution of the processes is managed in isolated
+environments for each flow in a cluster of so-called agents.
 
-2. [Concord Agent](#concord-agent) is a (remote) workflow executor. Receives
-scenarios from the server and executes them in an isolated
-environment.
-
-3. [Concord Console](#concord-console) is a web UI for managing and
-monitoring the server and its processes.
-
+The [Concord Console](#concord-console) is a web-based user interfacefor managing and
+monitoring the server.
 
 [Concord Concepts](#concord-concepts) explains more about the components that
 are managed and executed by Concord:
@@ -51,17 +47,15 @@ reference to a [project](#project);
 For methods **2** and **3**, the server will build a payload archive
 itself.
 
-
-## Concord Agent
-
-The agent is a standalone Java application that receives and executes
+The executions of worksflows is performed by the agents. Each agent is a
+standalone Java application that receives and executes
 a [payload](#payload) sent by the server.
-
 
 ## Concord Console
 
-The console is a web application for managing and monitoring the
-server.
+The console is a web application for managing and monitoring the server. It
+provides features for users to login and work with projects, secrets, processes
+and other entities.
 
 ## Concord Concepts
 
@@ -90,9 +84,9 @@ playbook. A far simpler example of a process can be the execution of
 a simple logging task to print "Hello World" as shown in the
 [Concord Quickstart](./quickstart.html).
 
-### Credentials
+### Secrets
 
 As a workflow server Concord often needs to access protected
 resources such as public/private clouds and source control systems.
-Concord maintains a set of credentials that can be associated with a
+Concord maintains a set of secrets that can be associated with a
 project's resources.
