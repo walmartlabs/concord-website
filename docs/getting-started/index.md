@@ -21,7 +21,7 @@ are managed and executed by Concord:
 
 - [Projects](#projects)
 - [Processes](#processes)
-- [Credentials](#credentials)
+- [Secrets](#secrets)
 
 ## Concord Server
 

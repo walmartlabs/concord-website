@@ -4,9 +4,9 @@ title:  Security and Permissions
 side-navigation: wmt/docs-navigation.html
 ---
 
+# {{ page.title }}
 
-# Security
-
+- [Authentication](#authentication)
 - [Managing credentials](#managing-credentials)
 - [Permissions](#permissions)
 
@@ -36,7 +36,8 @@ Username/password authentication uses LDAP/Active Directory realm, check
 
 ## Managing credentials
 
-Credentials (secrets) are managed using the [secret](../api/secret.html) API endpoint.
+Credentials (secrets) are managed using the user interface or the 
+[secret](../api/secret.html) API endpoint.
 
 ## Permissions
 
