@@ -38,7 +38,8 @@ forms:
   - age: { label: "Age", type: "int", min: 21, max: 100 }
   - favouriteColour: { label: "Favourite colour", type: "string", allow: ["gray", "grey"] }
   - languages: { label: "Preferred languages", type: "string+", allow: "${locale.languages()}" }
-  - password: {label: "Password", type: "string", inputType: "password"}
+  - password: { label: "Password", type: "string", inputType: "password" }
+  - rememberMe: { label: "Remember me", type: "boolean" }
 ```
 
 Field declaration consists of the name (`myField`), the type
@@ -65,6 +66,7 @@ Supported types of fields and their options:
   - `min`, `max`: (optional) value bounds.
 - `decimal`: a decimal value
   - `min`, `max`: (optional) value bounds.
+- `boolean`: a boolean value, `true` or `false`.
 
 Cardinality of the field can be specified by adding a cardinality
 quantifier to the type:
