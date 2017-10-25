@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Concord Training</title>
+<link href="../assets/wmt/reveal/css/reveal.css" rel="stylesheet" />
+<link href="../assets/wmt/reveal/lib/css/zenburn.css" rel="stylesheet" />
+<link href="../assets/wmt/reveal/css/theme/walmart-labs.css" rel="stylesheet" />
+
+<link href="../assets/wmt/reveal/css/theme/walmart-labs-center.css" rel="stylesheet" />
+<script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../assets/wmt/reveal/css/print/pdf.css' : '../assets/wmt/reveal/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+ <div class="reveal">
+  <div class="slides">
+    <section data-background="../assets/wmt/img/slides/dark-blue-bg.png"
+        data-background-repeat="repeat"
+        data-background-size="2px"
+        class="title-slide">
+        <h1>Concord Training</h1>
+    </section>
+    <section data-background="images/concord-logo.png"
+             data-background-size="250px"
+             data-background-position="top 10px right 10px">
+      <h1>Concord Training</h1>
+      <ul>
+        <li><a href="./concord-1-beginner.html">Level 1 - Beginner</a></li>
+      </ul>
+    </section>
+    <!-- This is the final slide with a solid background and white bolt -->
+    <section data-background="../assets/wmt/img/slides/dark-blue-bg.png"
+        data-background-repeat="repeat"
+        data-background-size="2px"
+        class="slide-final">
+        <img src="../assets/wmt/img/slides/bolt-wht.png" class="img-responsive"/>
+    </section>
+   </div>
+
+   <div id="hidden" style="display:none;">
+     <div id="header">
+       <div id="footer">
+         <img id="footer-logo" align="right" src="../assets/wmt/img/slides/Walmart_Labs_logo_wht.png"/>
+       </div>
+     </div>
+   </div><!-- END FOOTER -->
+ </div><!-- END REVEAL -->
+<script src="../assets/wmt/reveal/lib/js/head.min.js"></script>
+ <script src="../assets/wmt/reveal/js/reveal.js"></script>
+ <script>
+    // See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      slideNumber: true,
+      width: '100%',
+      height: '100%',
+      // 720p as used for videos
+      //width : 1280,
+      //height : 720,
+      margin: 0.1,
+      minScale: 0.2,
+      maxScale: 1.5,
+
+      // Optional libraries used to extend on reveal.js
+      dependencies : [
+        { src : '../assets/wmt/reveal/lib/js/classList.js',
+          condition : function() { return !document.body.classList; }
+        },
+        { src : '../assets/wmt/reveal/plugin/markdown/marked.js',
+          condition : function() { return !!document.querySelector('[data-markdown]'); }
+        },
+        { src : '../assets/wmt/reveal/plugin/markdown/markdown.js',
+         condition : function() { return !!document.querySelector('[data-markdown]'); }
+        },
+        { src : '../assets/wmt/reveal/plugin/zoom-js/zoom.js',
+          async : true,
+          condition : function() { return !!document.body.classList; }
+        },
+        { src : '../assets/wmt/reveal/plugin/notes/notes.js',
+          async : true,
+          condition : function() { return !!document.body.classList; }
+        }
+      ]
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript">
+      // 3. On Reveal.js ready event, copy header/footer <div> into each `.slide-background` <div>
+      var header = $('#header').html();
+      if ( window.location.search.match( /print-pdf/gi ) ) {
+          Reveal.addEventListener( 'ready', function( event ) {
+              $('.slide-background').append(header);
+          });
+      }
+      else {
+          $('div.reveal').append(header);
+     }
+  </script>
+</body>
+</html>
