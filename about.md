@@ -13,7 +13,12 @@ users.
 Concord can be customized to execute any workflow, but here are a
 few specific examples of how Concord is used:
 
-* To provision infrastructure in a public or private cloud
-* To execute Ansible playbooks and deploy applications
+* Orchestrate numerous CI builds to create complex release artifacts
+* Provision cloud infrastructure based on user input
+* Deploy applications on POS and other hardware systems 
+* Execute Ansible playbooks 
+* Automatically create issues 
+* Notify process-related parties via email and messaging
 
-Find out more details in the [Concord documentation](./docs/).
+Find out more details in the [Concord documentation](./docs/) and in our 
+[training material](./training.html).
