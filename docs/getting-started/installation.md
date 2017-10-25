@@ -102,7 +102,7 @@ docker run -d \
 docker.prod.walmart.com/walmartlabs/concord-agent
 ```
 
-### Step 6. Start the Concord Console (optional)
+### Step 6. Start the Concord Console
 
 ```
 docker run -d -p 8080:8080 \
@@ -111,16 +111,17 @@ docker run -d -p 8080:8080 \
 docker.prod.walmart.com/walmartlabs/concord-console
 ```
 
-  The console will be available on
-  [http://localhost:8080](http://localhost:8080).
+The console is available on [http://localhost:8080](http://localhost:8080).
 
-### Step 7. First Project
+## First Project
 
 As a next step you can create your first project as detailed in the
 [quickstart guide](./quickstart.html).
 
 
-### (Optional) Stop and Remove the Containers
+## Clean Up
+
+Once you have explored Concord you can stop and remove the containers.
 
 ```
 docker rm -f console agent server db
