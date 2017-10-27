@@ -20,6 +20,7 @@ side-navigation: wmt/docs-navigation.html
   * [Using inline inventories](#using-inline-inventories)
   * [Using SSH keys](#using-ssh-keys)
   * [Using custom Docker images](#using-custom-docker-images)
+  * [Retry and Limit Files](#retry-and-limit-files)
 
 There are several ways of how to use Ansible from Concord:
 
@@ -349,3 +350,53 @@ as a base for your custom Ansible images.
 
 Please refer to [Docker support](../getting-started/docker.html)
 document for more details.
+
+## Retry and Limit Files
+
+The plugin provides support for Ansible "retry files" (aka "retry
+files"). By default, when a playbook execution fails, Ansible creates
+a `*.limit` file which can be used to restart the execution for
+failed hosts.
+
+If `retry` parameter set to `true`, the plugin will automatically
+use the existing retry file of the playbook:
+
+```yaml
+flows:
+  default:
+  - task: ansible2
+    in:
+      playbook: playbook/hello.yml      
+      retry: true
+```
+
+Which is equivalent of `ansible-playbook --limit @${workDir}/playbook/hello.retry`
+
+Alternatively, `limit` parameter can be specified directly:
+
+```yaml
+flows:
+  default:
+  - task: ansible2
+    in:
+      playbook: playbook/hello.yml
+      # will use @${workDir}/my.retry file
+      limit: @my.retry
+```
+
+Which is the same as running `ansible-playbook --limit @my.retry`
+
+If `saveRetryFile` parameter is set to `true` then the generated
+`*.retry` file will be saved as a process attachment and can be
+retrieved using the REST API:
+
+```yaml
+flows:
+  default:
+  - task: ansible2
+    in:
+      saveRetryFile: true
+```
+```
+curl ... http://concord.example.com/api/v1/process/${processId}/attachments/ansible.retry
+```
