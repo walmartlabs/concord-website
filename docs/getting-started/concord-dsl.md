@@ -383,7 +383,7 @@ flows:
     - log: "Fail!"
 
   # handling errors in groups of steps
-  - ::
+  - try:
     - ${myTask.doSomethingSafe()}
     - ${myTask.doSomethingDangerous()}
     error:
