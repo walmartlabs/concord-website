@@ -131,10 +131,10 @@ Note:
 
 ## Expression Language Details
 
-- [Java Expression Language EL 3.0](https://github.com/javaee/el-spec):
+- [Java Expression Language EL 3.0](https://github.com/javaee/el-spec) Syntax
 - Within `${ }`
-- Flow steps
-- Argument values
+- Use as flow steps
+- Define Argument values
 
 
 ## EL Examples
@@ -188,6 +188,12 @@ flows:
 - Values in profile
 - `set` step
 
+```
+- set:
+    foo: 1
+- log: "foo is ${foo}"
+```
+
 
 ## Forms
 
@@ -216,6 +222,8 @@ flows:
   - form: userInformation
   - log: "Hello, ${userInformation.firstName} ${userInformation.lastName}"
 ```
+
+Suspends process until data is submitted.
 
 
 ## More Form Power
@@ -258,6 +266,10 @@ flows:
     body: |
       print("Hello world!")
 ```
+
+
+Note:
+- uses JavaScript impl for Java Scritping API which includes extensions like print
 
 
 ## Questions?

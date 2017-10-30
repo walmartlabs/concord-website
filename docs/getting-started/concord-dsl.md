@@ -163,7 +163,7 @@ flows:
 ```
 
 Values of `arguments` can contain [expressions](#expressions). Expressions can
-use all regular tasks as well as external dependencies.
+use all regular tasks.
 
 ```yaml
 configuration:
