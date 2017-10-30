@@ -42,7 +42,12 @@ What flow to start with.
 What other Concord DSL configuration to reuse.
 
 - Advanced usage
-- Powerful for reuse of complex flows, forms and profiles
+- JAR archive of other project
+- Powerful for reuse of
+  - Complex flows
+  - Scripts
+  - Forms 
+  - Profiles
 
 
 ## Dependencies
@@ -56,6 +61,9 @@ configuration:
   dependencies:
     - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
 ```
+
+Note:
+- Can also use normal hardcoded URL, but please don't!
 
 
 ## Arguments
@@ -80,14 +88,14 @@ Variable usage:
 ```
 flows:
   default:
-    log: "Project name: ${name}"
-    log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+    - log: "Project name: ${name}"
+    - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
 
 
 ## Flows
 
-Definition of steps of a workflow.
+Sequence of steps define a workflow.
 
 ```
 flows:
@@ -138,6 +146,7 @@ flows:
     - ${myBean.someMethod(myContextArg)}
     - ${1 + 2}
     - ${[1, 2, 3].stream().map(x -> x + 1).toList()}
+    - log: "Process running on ${System.getProperty("os.name")}"
 ```
 
 
