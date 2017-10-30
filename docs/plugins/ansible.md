@@ -187,11 +187,11 @@ For the projects using "ansible" template, set `vaultPassword` or
 }
 ```
 
-## Using dynamic inventories
+## Using Dynamic Inventories
 
-Path to a [dynamic inventory script](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html)
-can be specified using `dynamicInventoryFile` parameter in a task
-parameters object:
+Path to a 
+[dynamic inventory script](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html)
+can be specified using `dynamicInventoryFile` parameter in a task parameters object:
 
 ```yaml
 configuration:
@@ -228,7 +228,7 @@ http://localhost:8001/api/v1/process/myProject:myRepo
 In any case, it will be marked as executable and passed directly to
 `ansible-playbook` command.
 
-## Using inline inventories
+## Using Inline Inventories
 
 An inventory file can be inlined with the request JSON. For example:
 
@@ -273,9 +273,10 @@ curl -v \
 http://localhost:8001/api/v1/process/myProject:myRepo
 ```
 
-## Using SSH keys
+## Using SSH Keys
 
-First, upload an [existing SSH key pair](../api/secret.html#upload-an-existing-ssh-key-pair)
+First, upload an
+[existing SSH key pair](../api/secret.html#upload-an-existing-ssh-key-pair)
 or [create a new one](../api/secret.html#generate-a-new-ssh-key-pair).
 
 Public part of the key pair should be added as a trusted key to the
@@ -330,7 +331,7 @@ configuration:
 To use SSH keys with [the Ansible template](#using-the-ansible-template),
 the key configuration must be added to a project.
 
-## Using custom Docker images
+## Using Custom Docker Images
 
 Sometimes Ansible playbooks require additional modules to be
 installed. In this case, users can provide a custom Docker image:
@@ -353,13 +354,12 @@ document for more details.
 
 ## Retry and Limit Files
 
-The plugin provides support for Ansible "retry files" (aka "retry
-files"). By default, when a playbook execution fails, Ansible creates
-a `*.limit` file which can be used to restart the execution for
-failed hosts.
+The plugin provides support for Ansible "retry files" (aka "retry files"). By
+default, when a playbook execution fails, Ansible creates a `*.limit` file which
+can be used to restart the execution for failed hosts.
 
-If `retry` parameter set to `true`, the plugin will automatically
-use the existing retry file of the playbook:
+If the `retry` parameter is set to `true`, the plugin automatically uses the
+existing retry file of the playbook:
 
 ```yaml
 flows:
@@ -370,9 +370,13 @@ flows:
       retry: true
 ```
 
-Which is equivalent of `ansible-playbook --limit @${workDir}/playbook/hello.retry`
+The equivalent ansible command is
 
-Alternatively, `limit` parameter can be specified directly:
+```
+ansible-playbook --limit @${workDir}/playbook/hello.retry
+```
+
+Alternatively, the `limit` parameter can be specified directly:
 
 ```yaml
 flows:
@@ -384,11 +388,14 @@ flows:
       limit: @my.retry
 ```
 
-Which is the same as running `ansible-playbook --limit @my.retry`
+The equivalent ansible command is
 
-If `saveRetryFile` parameter is set to `true` then the generated
-`*.retry` file will be saved as a process attachment and can be
-retrieved using the REST API:
+```
+ansible-playbook --limit @my.retry
+```
+
+If the `saveRetryFile` parameter is set to `true`, then the generated `*.retry` file
+is saved as a process attachment and can be retrieved using the REST API:
 
 ```yaml
 flows:
@@ -397,6 +404,8 @@ flows:
     in:
       saveRetryFile: true
 ```
+
+
 ```
 curl ... http://concord.example.com/api/v1/process/${processId}/attachments/ansible.retry
 ```
