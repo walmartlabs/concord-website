@@ -19,6 +19,7 @@ flows:
 Note:
 - Demo it
 
+
 ## concord.yml
 
 - Main configuration file
@@ -49,6 +50,8 @@ To allow Concord access to the repository:
 
 Note:
 - Demo it
+- `curl -u username 'http://concord.prod.walmart.com/api/v1/secret/nameOfKey/public'
+- GitHub repo / Settings / Deploy Keys
 
 
 ## Creating a Project
@@ -82,6 +85,9 @@ Demo it
 - Concord Server clones/updates project repository
 - Prepares for execution
 - Runs workflow on Concord cluster
+
+Note:
+talk a bit about what these steps include such as agent, classpath, ...
 
 
 ## Questions?

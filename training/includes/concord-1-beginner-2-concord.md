@@ -44,7 +44,7 @@ Note:
 
 ## Usage Scenarios
 
-- Support software development processes
+- Support complex software development procedures
 - Orchestrate CI/CD builds and deployments
 - Provision infrastructure in a public or private cloud
 - Execute Ansible playbooks and deploy applications
@@ -53,30 +53,32 @@ Note:
 
 ## Components
 
-- Concord Server
+- Concord Server and Agents
 - Concord Console
-- Concord Agents
+- Concord Projects
 
 
 ## Concord Server
 
 - Main engine and storage
   - user access
+  - secrets
   - projects
   - repositories
   - key/value pairs
 - REST API for access
+- Agents for process execution
 
 Receives and processes user requests to call workflow scenarios.
 
 
 ## Concord Console
 
-Web-based user interface for Concord Server and its processes. 
+Web-based user interface for Concord Server:
 
 - Projects and repositories
-- Processes
 - Secrets
+- Processes
 
 
 ## Concord Project
@@ -84,7 +86,7 @@ Web-based user interface for Concord Server and its processes.
 - Created by users
 - Stored in git repository
 - YAML for flow definitions
-- Execution on Concord Server
+- Execution as process on Concord Server/Agents
 
 
 ## Questions?
