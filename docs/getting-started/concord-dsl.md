@@ -260,7 +260,7 @@ flows:
     - myTask: { nested: { literals: "${myOtherTask.doSomething()}"} }
 ```
 
-Classes from the package java.lang can be access via EL syntax:
+Classes from the package `java.lang` can be accessed via EL syntax:
 
 ```
     - log: "Process running on ${System.getProperty('os.name')}"
