@@ -207,8 +207,8 @@ flows:
 ```
 forms:
   userInformation:
-  - firstName: { label: "First name:", type: "string" }
-  - lastName: { label: "Last name:", type: "string" }
+    - firstName: { label: "First name:", type: "string" }
+    - lastName: { label: "Last name:", type: "string" }
 ```
 
 
@@ -219,8 +219,8 @@ Called in flows and create variables:
 ```
 flows:
   default:
-  - form: userInformation
-  - log: "Hello, ${userInformation.firstName} ${userInformation.lastName}"
+    - form: userInformation
+    - log: "Hello, ${userInformation.firstName} ${userInformation.lastName}"
 ```
 
 Suspends process until data is submitted.
@@ -262,9 +262,9 @@ more about tasks in a sec
 ```
 flows:
   default:
-  - script: js
-    body: |
-      print("Hello world!")
+    - script: js
+      body: |
+        print("Hello world!")
 ```
 
 
