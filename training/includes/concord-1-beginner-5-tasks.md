@@ -62,10 +62,73 @@ flows:
 
 ## More About Tasks
 
-- Alternatively invoke via EL
+- Alternatively invoke via 
+  - EL using `${}`
+  - EL using `expr`
+  - Task name e.g. `log:`
 - Easy to implement
 - Work with Concord team
 
+
+## Log Task
+
+Simple task to add log output support via task `call` method:
+
+```
+flows:
+  default:
+    - log: "My message"
+    - ${log.call("Another message")}
+```
+
+or via other method e.g. `info`
+
+```
+    - ${log.info("mylog", "logging an warn message")}
+```
+
+
+## Key Value Task
+
+-`kv` task
+- create, read, update and delete
+- stored in Concord
+- project scope
+- sequence generation with `inc`
+
+## Key Value Tasks Examples
+
+```
+flows:
+  default
+    - ${kv.putString("key", "value")}
+    - log: ${kv.getString("key")}
+    - expr: ${kv.inc("idSeq")}
+      out: myId
+    - log: "We got an ID: ${myId}"
+```
+
+
+## Crypto Task
+
+tbd
+
+
+## Concord Task
+
+Kick off Concord process
+
+tbd
+
+
+## SMTP Task
+
+tbd
+
+
+## Slack Example
+
+tbd
 
 ## Questions?
 
