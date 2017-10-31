@@ -19,9 +19,14 @@ require any external dependencies.
 
 ### Setting a Value
 
-
+Setting a string value:
 ```yaml
 - ${kv.putString("myKey", "myValue")}
+```
+
+Setting an integer (64-bit `long`) value:
+```yaml
+- ${kv.putLong("myKey", 1234)}
 ```
 
 ### Retrieving a Value
@@ -38,7 +43,7 @@ Using the OUT syntax of expressions:
 Using the context:
 
 ```yaml
-- ${execution.setVariable("myVar", kv.getString("myKey"))}
+- ${context.setVariable("myVar", kv.getString("myKey"))}
 - log: "I've got ${myVar}"
 ```
 
@@ -51,6 +56,12 @@ In scripts:
 
     def id = kv.inc("idSeq");
     println("I've got {id}");
+```
+
+Integer values can be retrieved in the same way:
+
+```yaml
+- log: "I've got ${kv.getLong('myKey')}"
 ```
 
 ### Removing a Value
