@@ -267,7 +267,6 @@ flows:
         print("Hello world!")
 ```
 
-
 Note:
 - uses JavaScript impl for Java Scritping API which includes extensions like print
 
