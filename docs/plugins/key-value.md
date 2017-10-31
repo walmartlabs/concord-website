@@ -6,9 +6,9 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The key value `kv` task provides access to the server's simple key-value store.
-All data is project-scoped: processes will see only the values that
-were made by the processes of the same project.
+The key value `kv` task provides access to the server's simple string
+key-value store. All data is project-scoped e.a. processes only see the values
+created by processes of the same project.
 
 ## Dependencies
 
@@ -17,13 +17,14 @@ require any external dependencies.
 
 ## Usage
 
-### Setting a value
+### Setting a Value
+
 
 ```yaml
-- ${kv.putString("myKey")}
+- ${kv.putString("myKey", "myValue")}
 ```
 
-### Retrieving a value
+### Retrieving a Value
 
 Using the OUT syntax of expressions:
 
@@ -52,7 +53,7 @@ In scripts:
     println("I've got {id}");
 ```
 
-### Removing a value
+### Removing a Value
 
 ```yaml
 - ${kv.remove("myVar")}
@@ -61,7 +62,7 @@ In scripts:
     - log: "Ciao, myVar! You won't be missed."
 ```
 
-### Incrementing a value
+### Incrementing a Value
 
 This can be used as a simple sequence number generator.
 
@@ -71,4 +72,4 @@ This can be used as a simple sequence number generator.
 - log: "We got an ID: ${myId}"
 ```
 
-**Warning**: the exising string values can't be incremented.
+**Warning**: the existing string values can't be incremented.
