@@ -12,7 +12,7 @@ The SMTP `smtp` task supports sending email messages as part of a flow.
 
 ## Usage
 
-This task is needs to be declared as a dependency to be used and the SMTP server
+This task needs to be declared as a dependency to be used and the SMTP server
 used to send the message has to be specified with hostname and port.
 
 ```yaml
@@ -25,7 +25,7 @@ configuration:
       port: 25
 ```
 
-With the global configuration in place email messages can be sent with the task:
+With the global configuration in place, email messages can be sent with the task:
 
 ```yaml
 flows:
@@ -40,7 +40,7 @@ flows:
           message: "My message"
 ```
 
-The `message` value can be replaced with a `template` value. It is configured to
+The `message` can be replaced with a `template`. It is configured to
 the name of a file that contains the message text. It is added into the email
 via processing with [Mustache](https://mustache.github.io/) and can therefore
 use variable values from the flow such as attributes or `initiator.displayName`,
