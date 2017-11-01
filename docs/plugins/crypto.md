@@ -1,29 +1,30 @@
 ---
 layout: wmt/docs
-title:  Crypto
+title:  Crypto Task
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Crypto task
+# {{ page.title }}
 
-This task provides the methods to work with Concord's secrets store
-as well as the methods to encrypt and decrypt simple values without
-storing.
+The `crypto` task provides methods to work with Concord's
+[secrets store](../api/secret.html) as well as the methods to encrypt and
+decrypt simple values without storing.
 
-  * [Exporting a SSH key pair](#exporting-a-ssh-key-pair)
-  * [Exporting credentials (username/password pairs)](#exporting-credentials--username-password-pairs-)
-  * [Encrypting a value without storing it](#encrypting-a-value-without-storing-it)
-  * [Decrypting a value](#decrypting-a-value)
+- [Exporting a SSH key pair](#ssh-key)
+- [Exporting Credentials](#credentials)
+- [Encrypting and Decrypting Values](#encrypting)
   
 ## Dependencies
 
-This task is provided automatically by the Concord and does not
+The task is provided automatically by the Concord and does not
 require any external dependencies.
 
+<a name="ssh-key"/>
 ## Exporting a SSH key pair
 
 A SSH key pair, [stored in the secrets store](../api/secret.html) can
 be exported as a pair of files into a process' working directory:
+
 ```yaml
 - ${crypto.exportKeyAsFile('myKey', 'myKeyPassword')}
 ```
@@ -32,7 +33,8 @@ This expression returns a map with two keys:
 - `public` - relative path to the public key of the key pair;
 - `private` - same but for the private key.
 
-Full example:
+A full example adds a key via the REST API with the default user credentials:
+
 ```
 $ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword=12345678 'http://localhost:8001/api/v1/secret/keypair?name=myKey'
 {
@@ -44,6 +46,8 @@ $ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword=12345678 'htt
 }
 ```
 
+And subsequently exports the key in the default flow.
+
 ```yaml
 flows:
   default:
@@ -53,25 +57,31 @@ flows:
   - log: "Private: ${myKeys.private}"
 ```
 
-The keypair password itself can be encrypted using a [simple single
-value encryption](#encrypting-a-value-without-storing-it) described
-below.
+The keypair password itself can be encrypted using a 
+[simple single value encryption](#encrypting) described below.
 
-## Exporting credentials (username/password pairs)
+<a name="credentials"/>
+## Exporting Credentials
 
-Usage:
+Credentials, so username and password pairs, can be exported with:
+
 ```yaml
 - ${crypto.exportCredentials('myCredentials', 'myPassword')}
 ```
 
 The expression returns a map with two keys:
-- `username` - username part of the credentials;
-- `password` - password part of the credentials.
+- `username` - username part
+- `password` - password part
 
-## Encrypting a value without storing it
+<a name="encrypting"/>
+## Encrypting and Decrypting Values
 
 A value can be encrypted with a project's key and subsequently
-decrypted in the same project's process.
+decrypted in the same project's process. The value is not persistently stored.
+
+
+The REST API can be used to encrypt the value using the the project specific key
+and the `encrypt` context:
 
 ```
 curl -H "Content-Type: application/json" \
@@ -80,7 +90,7 @@ curl -H "Content-Type: application/json" \
 http://localhost:8001/api/v1/project/myProject/encrypt
 ```
 
-The result will look like this:
+The result returns the encrypted value in the `data` element:
 
 ```json
 {
@@ -89,13 +99,11 @@ The result will look like this:
 }
 ```
 
-The value of `data` field must be used as-is as a process variable.
-It can be added to the Concord file, project's configuration or to
-request JSON.
+The value of `data` field can be used as a process variable by adding it as an
+attribute in the Concord file, in the project's configuration or can be supplied 
+to a specific process execution in the  request JSON.
 
 A value can be encrypted and decrypted only by the same server.
-
-## Decrypting a value
 
 To decrypt the previously encrypted value:
 
@@ -109,19 +117,8 @@ Alternatively, the encrypted value can be passed as a variable:
 - ${crypto.decryptString(mySecret)}
 ```
 
-Full example:
-
-```
-$ curl -H "Content-Type: application/json" \
--H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
--d '{ "value": "Concord" }' \
-http://localhost:8001/api/v1/project/myProject/encrypt
-
-{
-  "data" : "4d1+ruCra6CLBboT7Wx5mw==",
-  "ok" : true
-}
-```
+The following example uses the `decryptString` method of the `crypto` task to set
+the value of the `name` attribute: 
 
 ```yaml
 flows:
