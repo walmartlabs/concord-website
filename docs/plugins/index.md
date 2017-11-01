@@ -8,3 +8,8 @@ side-navigation: wmt/docs-navigation.html
 
 Concord supports the integration of plugins to provide additional functionality
 use in the workflow execution.
+
+- [Ansible](./ansible.html)
+- [Concord](./concord.html)
+- [Crypto](./crypto.html)
+- [Key Value](./key-value.html)
