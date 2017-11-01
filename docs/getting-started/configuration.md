@@ -23,7 +23,7 @@ The following configuration details are available:
 - [Common Environment Variables](#common-environment-variables))
 - [Server Environment Variables](#server-environment-variables)
 - [Server LDAP Authentication](#server-ldap-authentication)
-- [Server Slack Connection](#server-ldap-connection)
+- [Server Slack Connection](#slack)
 - [Agent Environment Variables](#agent-environment-variables)
 
 
@@ -116,11 +116,11 @@ The `exposeAttributes` property defines a list of LDAP attributes that will be
 [exposed to processes](./processes.html#provided-variables). Remove this property
 to make all LDAP attributes available.
 
-<a name="server-slack-connection"/>
+<a name="slack"/>
 ## Server Slack Connection
 
 The Concord server can be configured to connect to Slack and post messages on
-the chat channels.
+the chat channels via the [slack task](../plugins/slack.html).
 
 Create `slack.properties` file, containing the following parameters
 (substitute values with the values for your environment):

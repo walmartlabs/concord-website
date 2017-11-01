@@ -132,12 +132,58 @@ Note:
 
 ## SMTP Task
 
-tbd
+Send emails!
+
+First configure:
+
+```
+configuration:
+  dependencies:
+    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.45.1
+  arguments:
+    smtpServer:
+      host: smtp-gw1.wal-mart.com
+      port: 25
+```
+
+
+## SMTP
+
+And send the email:
+
+```
+flows:
+  default:
+    task: smtp
+      in:
+        smtp: ${smtpServer}
+        mail:
+          from: ${initiator.attributes.mail}
+          to: somebody@example.com
+          subject: "Hello"
+          message: "Your process started."
+```
+
+Or Moustache `template` file.
 
 
 ## Slack Example
 
-tbd
+Message to slack channel:
+
+- global config with API Bot token
+- add bot to channel
+- and use it
+
+```
+flows:
+  default:
+    - task: slack
+      in:
+        channelId: "you-channel"
+        text: "Starting execution on Concord"
+```
+
 
 ## Concord Task
 

@@ -59,6 +59,10 @@ nav:
         context: /docs/plugins/crypto
       - page: Key Value
         context: /docs/plugins/key-value
+      - page: Slack
+        context: /docs/plugins/slack
+      - page: SMTP
+        context: /docs/plugins/smtp
   - title: Templates
     id: templates
     collapse: /docs/templates
