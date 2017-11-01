@@ -14,8 +14,6 @@ decrypt simple values without storing.
 - [Exporting Credentials](#credentials)
 - [Encrypting and Decrypting Values](#encrypting)
   
-## Dependencies
-
 The task is provided automatically by the Concord and does not
 require any external dependencies.
 
