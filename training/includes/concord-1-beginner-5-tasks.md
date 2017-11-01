@@ -130,16 +130,6 @@ Note:
 - maybe demo, maybe add example to deck..
 
 
-## Concord Task
-
-Kick off Concord process
-
-```
-configuration:
-  dependencies:
-  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.32.0"tbd
-```
-
 ## SMTP Task
 
 tbd
@@ -148,6 +138,33 @@ tbd
 ## Slack Example
 
 tbd
+
+## Concord Task
+
+Work with other Concord processes
+
+- Fork current process
+- Create subprocesses
+- Cancel processes
+- Wait and get output
+- Cancellations and failures
+
+
+## Concord Task Example
+
+```
+configuration:
+  dependencies:
+  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.32.0"
+flows:
+  default:
+    - task: concord
+        in:
+          action: start
+          project: myProject
+          repository: myRepo
+```
+
 
 ## Questions?
 

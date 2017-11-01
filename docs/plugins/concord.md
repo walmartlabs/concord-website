@@ -92,7 +92,7 @@ flows:
       repository: myRepo
 ```
 
-The process isstarted using the resources provided by the specified archive, 
+The process is started using the resources provided by the specified archive, 
 project and repository.
 
 ## Output Variables
