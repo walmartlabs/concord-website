@@ -1,18 +1,28 @@
 # Continuous Deployment
 
-> tbd
+> Shipping Software to Customers
 
 
-## intro of tools
+## Integrations and Tools
 
 - Looper
-- Concord
 - OneOps
+- Ansible
 
 
-## Blue Green Deployment
+## Looper
 
-tbd
+intro Looper of build server of choice
+
+
+## OneOps
+
+intro OneOps as PaaS of choice
+
+
+## Ansible
+
+intro Ansible in general
 
 
 ## Canary Deployment

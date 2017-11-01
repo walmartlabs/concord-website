@@ -81,11 +81,19 @@ flows:
     - ${log.call("Another message")}
 ```
 
-or via other method e.g. `info`
+Note:
+any task implements call
+
+
+## Log Task
+
+Via other method e.g. `info`
 
 ```
     - ${log.info("mylog", "logging an warn message")}
 ```
+
+Method names differ for each task!
 
 
 ## Key Value Task
@@ -94,7 +102,9 @@ or via other method e.g. `info`
 - create, read, update and delete
 - stored in Concord
 - project scope
+- stringg and long
 - sequence generation with `inc`
+
 
 ## Key Value Tasks Examples
 
@@ -111,7 +121,13 @@ flows:
 
 ## Crypto Task
 
-tbd
+- Access to secrets
+  - keys
+  - credentials
+- Encrypt and Decrypt
+
+Note:
+- maybe demo, maybe add example to deck..
 
 
 ## Concord Task
