@@ -1,29 +1,28 @@
 ---
 layout: wmt/docs
-title:  Concord
+title:  Concord Task
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Concord Task
+# {{ page.title }}
 
-This task allows users to start and manage new processes from within
+The `concord` task allows users to start and manage new processes from within
 running processes.
+
+To be available in your flows, you have to add the dependency URL of the
+latest available version:
+
+```yaml
+configuration:
+  dependencies:
+  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.34.0"
+```
 
 ## Examples
 
 - [process_from_a_process](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/process_from_a_process) - starting a new subprocess from a flow using a payload archive;
 - [fork](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork) - starting a subprocess;
 - [fork_join](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork_join) - starting multiple subprocesses and waiting for completion.
-
-## Dependencies
-
-The dependency URL of the latest recommended version:
-
-```yaml
-configuration:
-  dependencies:
-  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.32.0"
-```
 
 ## Connection Parameters
 
@@ -35,6 +34,7 @@ all types of actions:
 - `apiKey` - user's REST API key.
 
 For example:
+
 ```yaml
 flows:
   default:
@@ -44,8 +44,6 @@ flows:
       apiKey: "lzfJQL4u2gsH7toQveFYSQ"
 ```
 
-Future versions will be able to automatically default to the current
-Concord instance and/or user.
 
 ## Starting a Process using a Payload Archive
 
@@ -54,21 +52,19 @@ flows:
   default:
   - task: concord
     in:
-      apiKey: "..." # as described in the "Connection Parameters" section
-      
+      apiKey: "..."
       action: start
       archive: payload.zip
 ```
 
-This expression will start a new subprocess using the specified
-payload archive. The ID of the started process will be stored as
-the first element of `${jobs}` array:
+The `start` action starts a new subprocess using the specified payload archive.
+The ID of the started process is stored as the first element of `${jobs}` array:
 
 ```yaml
 - log: "I've started a new process: ${jobs[0]}"
 ```
 
-## Starting a Process using an existing Project
+## Starting a Process using an Existing Project
 
 ```yaml
 flows:
@@ -80,11 +76,12 @@ flows:
       archive: payload.zip
 ```
 
-This expression will start a new subprocess in the context of the
-specified project.
+The `start` expression with a `project` parameter and an `archive`, starts a new
+subprocess in the context of the specified project.
 
-Alternatively, if the project has a repository configured, the
-process can be started this way:
+Alternatively, if the project has a repository configured, the process can be
+started by configuring the repository:
+
 ```yaml
 flows:
   default:
@@ -95,13 +92,13 @@ flows:
       repository: myRepo
 ```
 
-The process will be started using the resources provided by the
-specified project and repository.
+The process isstarted using the resources provided by the specified archive, 
+project and repository.
 
 ## Output Variables
 
-To get variable values of a child process, their names should be
-specified in `outVars` parameter:
+Variables of a child process can be accessed via the `outVars` configuration. 
+The functionality requires the `sync` parameter to be set to `true`.
 
 ```yaml
 flows:
@@ -118,8 +115,7 @@ flows:
       - someVar2
 ```
 
-This feature only available if `sync` parameter set to `true`.
-Output values will be stored as a `jobOut` variable:
+Output values are stored as a `jobOut` variable:
 
 ```yaml
 - log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
@@ -127,9 +123,9 @@ Output values will be stored as a `jobOut` variable:
 
 ## Forking a Process
 
-Forking a process will create a copy of the current process. All
-variables and files defined at the start of the parent process will
-be copied to the child process as well:
+Forking a process creates a copy of the current process. All variables and
+files defined at the start of the parent process are copied to the child process
+as well:
 
 ```yaml
 flows:
@@ -143,14 +139,14 @@ flows:
   - log: "Hello from a subprocess!"
 ```
 
-The IDs of the started processes will be stored as `${jobs}` array.
+The IDs of the started processes are stored as `${jobs}` array.
 
 **Note** Due to the current limitations, variables and files created
 after the start of a process cannot be copied to child processes.
 
 ## Forking Multiple Instances
 
-It is possible to create multiple forks of a process with different
+It is possible to create multiple forks of a process with a different
 sets of parameters:
 
 ```yaml
@@ -172,15 +168,14 @@ flows:
           color: "blue"
 ```
 
-The `instances` parameters allows spawning more than one copy of a
-process.
+The `instances` parameter allows spawning of more than one copy of a process.
 
-The IDs of the started processes will be stored as `${jobs}` array.
+The IDs of the started processes arestored as `${jobs}` array.
 
 ## Synchronous Execution
 
-By default all subprocesses are started asynchronously. To start a
-process and wait for it completion use `sync` parameter:
+By default all subprocesses are started asynchronously. To start a process and
+wait for it to complete, use `sync` parameter:
 
 ```yaml
 flows:
@@ -192,21 +187,22 @@ flows:
       sync: true
 ```
 
-If a subprocess fails, the task will throw an exception.
+If a subprocess fails, the task throws an exception.
 
 ## Waiting for Completion
 
 To wait for a completion of a process:
+
 ```yaml
 flows:
   default:
   - ${concord.waitForCompletion(jobIds)}
 ```
 
-The `jobIds` value should be a list (as in `java.util.List`) of
-process IDs.
+The `jobIds` value is a list (as in `java.util.List`) of process IDs.
 
 The expression returns a map of process statuses:
+
 ```json
 {
   "56e3dcd8-a775-11e7-b5d6-c7787447ca6d": "FINISHED",
@@ -216,11 +212,10 @@ The expression returns a map of process statuses:
 
 ## Handling Cancellation and Failures
 
-Just like regular processes, subprocesses can have `onCancel` and
-`onFailure` flows.
+Just like regular processes, subprocesses can have `onCancel` and `onFailure` flows.
 
-However, as process forks share their flows, it may be useful to
-disable `onCancel` or `onFailure` flows in subprocesses:
+However, as process forks share their flows, it may be useful to disable
+`onCancel` or `onFailure` flows in subprocesses:
 
 ```yaml
 flows:
@@ -247,6 +242,8 @@ flows:
 
 ## Cancelling Processes
 
+The `cancel` action can be used to cancel the execution of a subprocess.
+
 ```yaml
 flows:
   default:
@@ -260,10 +257,13 @@ flows:
 The `instanceId` parameter can be a single value or a list of process
 IDs.
 
-Setting `sync` to `true` will make the task to wait until the
-specified processes are stopped.
+Setting `sync` to `true` forces the the task to wait until the specified processes
+are stopped.
 
 ## Tagging Subprocesses
+
+The `tags` parameters can be used to tag new subprocess with one or multiple
+labels.
 
 ```yaml
 flows:
@@ -275,9 +275,9 @@ flows:
       tags: ["someTag", "anotherOne"]
 ```
 
-This will start a new subprocess tagged with `someTag` and `anotherOne`.
 
 Tags are useful for filtering (sub)processes:
+
 ```yaml
 flows:
   default:

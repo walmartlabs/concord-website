@@ -134,8 +134,11 @@ Note:
 
 Kick off Concord process
 
-tbd
-
+```
+configuration:
+  dependencies:
+  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.32.0"tbd
+```
 
 ## SMTP Task
 
