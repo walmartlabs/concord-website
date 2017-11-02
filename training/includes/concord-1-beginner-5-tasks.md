@@ -212,6 +212,18 @@ flows:
 ```
 
 
+## More Tasks
+
+Let explore some in source and examples!
+
+- Locale
+- JIRA
+
+Note:
+- https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins
+- https://gecgithub01.walmart.com/devtools/concord/tree/master/examples
+
+
 ## Questions?
 
 <em class="yellow">Ask now, before we jump to the next section.</em>
