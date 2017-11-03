@@ -195,6 +195,46 @@ flows:
 ```
 
 
+## If The
+
+```
+flows:
+  default:
+    - if: ${myVar > 0}
+      then:
+        - log: it's clearly non-zero
+      else:
+        - log: zero or less
+```
+
+
+## Switch Case
+
+```
+flows:
+  default:
+    - switch: ${myVar}
+      red:
+        - log: "It's red!"
+      green:
+        - log: "It's definitely green"
+      default:
+        - log: "I don't know what it is"
+```
+
+
+## More Flow Features
+
+- `return` statement
+- group of steps `::`
+- `error:` handling with
+  - expression
+  - call
+  - task
+  - group
+- `onCancel` and `onFailure` flows
+
+
 ## Forms
 
 - Provide web-based user interface for your flows
