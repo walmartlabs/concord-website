@@ -12,22 +12,19 @@
 
 ## Looper
 
-intro Looper of build server of choice
+Continuous integration server server of choice.
 
 
 ## OneOps
 
-intro OneOps as PaaS of choice
+Cloud Platform as a Service of choice.
 
 
 ## Ansible
 
-intro Ansible in general
+Automation engine for configuration management and application deployment.
 
 
-## Canary Deployment
-
-tbd
 
 
 ## Example
