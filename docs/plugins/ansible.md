@@ -20,6 +20,7 @@ side-navigation: wmt/docs-navigation.html
   * [Using inline inventories](#using-inline-inventories)
   * [Using SSH keys](#using-ssh-keys)
   * [Using custom Docker images](#using-custom-docker-images)
+  * [Retry and Limit Files](#retry-and-limit-files)
 
 There are several ways of how to use Ansible from Concord:
 
@@ -186,11 +187,11 @@ For the projects using "ansible" template, set `vaultPassword` or
 }
 ```
 
-## Using dynamic inventories
+## Using Dynamic Inventories
 
-Path to a [dynamic inventory script](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html)
-can be specified using `dynamicInventoryFile` parameter in a task
-parameters object:
+Path to a 
+[dynamic inventory script](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html)
+can be specified using `dynamicInventoryFile` parameter in a task parameters object:
 
 ```yaml
 configuration:
@@ -227,7 +228,7 @@ http://localhost:8001/api/v1/process/myProject:myRepo
 In any case, it will be marked as executable and passed directly to
 `ansible-playbook` command.
 
-## Using inline inventories
+## Using Inline Inventories
 
 An inventory file can be inlined with the request JSON. For example:
 
@@ -272,9 +273,10 @@ curl -v \
 http://localhost:8001/api/v1/process/myProject:myRepo
 ```
 
-## Using SSH keys
+## Using SSH Keys
 
-First, upload an [existing SSH key pair](../api/secret.html#upload-an-existing-ssh-key-pair)
+First, upload an
+[existing SSH key pair](../api/secret.html#upload-an-existing-ssh-key-pair)
 or [create a new one](../api/secret.html#generate-a-new-ssh-key-pair).
 
 Public part of the key pair should be added as a trusted key to the
@@ -329,7 +331,7 @@ configuration:
 To use SSH keys with [the Ansible template](#using-the-ansible-template),
 the key configuration must be added to a project.
 
-## Using custom Docker images
+## Using Custom Docker Images
 
 Sometimes Ansible playbooks require additional modules to be
 installed. In this case, users can provide a custom Docker image:
@@ -349,3 +351,61 @@ as a base for your custom Ansible images.
 
 Please refer to [Docker support](../getting-started/docker.html)
 document for more details.
+
+## Retry and Limit Files
+
+The plugin provides support for Ansible "retry files" (aka "retry files"). By
+default, when a playbook execution fails, Ansible creates a `*.limit` file which
+can be used to restart the execution for failed hosts.
+
+If the `retry` parameter is set to `true`, the plugin automatically uses the
+existing retry file of the playbook:
+
+```yaml
+flows:
+  default:
+  - task: ansible2
+    in:
+      playbook: playbook/hello.yml      
+      retry: true
+```
+
+The equivalent ansible command is
+
+```
+ansible-playbook --limit @${workDir}/playbook/hello.retry
+```
+
+Alternatively, the `limit` parameter can be specified directly:
+
+```yaml
+flows:
+  default:
+  - task: ansible2
+    in:
+      playbook: playbook/hello.yml
+      # will use @${workDir}/my.retry file
+      limit: @my.retry
+```
+
+The equivalent ansible command is
+
+```
+ansible-playbook --limit @my.retry
+```
+
+If the `saveRetryFile` parameter is set to `true`, then the generated `*.retry` file
+is saved as a process attachment and can be retrieved using the REST API:
+
+```yaml
+flows:
+  default:
+  - task: ansible2
+    in:
+      saveRetryFile: true
+```
+
+
+```
+curl ... http://concord.example.com/api/v1/process/${processId}/attachments/ansible.retry
+```
