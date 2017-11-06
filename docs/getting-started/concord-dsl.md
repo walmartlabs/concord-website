@@ -339,9 +339,10 @@ semantics:
 
 ```yaml
 flows:
-  defeult:
+  default:
     - log: a step before the group
-    - ::
+    
+    - try:
       - log: a step inside the group
       - ${myBean.somethingDangerous()}
       error:
@@ -388,7 +389,7 @@ flows:
     - log: "Fail!"
 
   # handling errors in groups of steps
-  - ::
+  - try:
     - ${myTask.doSomethingSafe()}
     - ${myTask.doSomethingDangerous()}
     error:
