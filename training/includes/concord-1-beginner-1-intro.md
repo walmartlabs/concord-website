@@ -23,7 +23,7 @@
 At the end of this class, you should: <!-- .element: class="fragment" -->
 
 - Be able to use the Concord Server and Concord Console, <!-- .element: class="fragment" -->
-- Know how to create a simple Concord projects, <!-- .element: class="fragment" -->
+- Know how to create a simple Concord project, <!-- .element: class="fragment" -->
 - Add forms and customizations, and  <!-- .element: class="fragment" -->
 - Know the Concord terminology <!-- .element: class="fragment" -->
 

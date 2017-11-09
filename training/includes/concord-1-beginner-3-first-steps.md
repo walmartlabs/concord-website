@@ -32,7 +32,7 @@ Note:
 
 - Simple, human readable text format
 - Specs on [YAML website](http://www.yaml.org/)
-- Indendation is significant!
+- Indentation is significant!
 - `#` for comment lines
 - `-` for elements in array
 - Beware the colon `:` significance

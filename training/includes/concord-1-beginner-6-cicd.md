@@ -12,7 +12,7 @@
 
 ## Looper
 
-Continuous integration server server of choice.
+Continuous integration server of choice.
 
 
 ## OneOps
