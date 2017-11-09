@@ -85,7 +85,15 @@ instance of `com.walmartlabs.concord.sdk.Context`;
   - `initiator.attributes`: other LDAP attributes;
 - `requestInfo`: additional request data:
   - `requestInfo.query`: query parameters of a request made using user-facing 
-    endpoints (e.g. the portal API).
+    endpoints (e.g. the portal API);
+- `projectInfo`: project's data:
+  - `projectInfo.teamId` - the project's team ID;
+  - `projectInfo.teamName` - the team's name;
+  - `projectInfo.projectId` - the project's ID;
+  - `projectInfo.projectName` - the project's name;
+  - `projectInfo.repoId` - the project's repository ID;
+  - `projectInfo.repoName` - the repository's name;
+  - `projectInfo.repoUrl` - the repository's URL.
 
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 
