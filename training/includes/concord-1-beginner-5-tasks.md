@@ -102,7 +102,7 @@ Method names differ for each task!
 - create, read, update and delete
 - stored in Concord
 - project scope
-- stringg and long
+- string and long
 - sequence generation with `inc`
 
 
@@ -190,7 +190,7 @@ flows:
 Work with other Concord processes
 
 - Fork current process
-- Create subprocesses
+- Create sub processes
 - Cancel processes
 - Wait and get output
 - Cancellations and failures

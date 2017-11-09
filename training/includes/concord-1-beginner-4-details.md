@@ -7,7 +7,7 @@
 
 Syntax used in `concord.yml` with top level nodes for:
 
-- `configuration`:
+- `configuration:`
 - `flows:`
 - `profiles:`
 - `forms:`
@@ -160,7 +160,7 @@ flows:
     - expr: ${myBean.someMethod()}
       out: myVar
       error:
-        - log: "An error occured"
+        - log: "An error occurred"
         - ...
 ```
 
@@ -308,7 +308,7 @@ flows:
 ```
 
 Note:
-- uses JavaScript impl for Java Scritping API which includes extensions like print
+- uses JavaScript impl for Java Scripting API which includes extensions like print
 
 
 ## Questions?
