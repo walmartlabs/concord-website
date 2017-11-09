@@ -25,6 +25,31 @@ Cloud Platform as a Service of choice.
 Automation engine for configuration management and application deployment.
 
 
+## OneOps Integration
+
+- Boo task
+- OneOps task
+
+
+## Ansible Task
+
+TBD
+
+
+## Example Deployment Flow
+
+- Commit to GitHub
+- Triggers Looper flow
+- Deployment to WaRM
+- Event from WaRM kicks off Concord flow
+- Concord flow runs OneOps or Ansible deployment
+
+
+## Example Replacement Flow
+
+- OneOps compute or Ansible deployment goes down
+- Reboot/repair of system fires event to Concord
+- Concord flow triggers new deployment via Ansible or Oneops task
 
 
 ## Example
