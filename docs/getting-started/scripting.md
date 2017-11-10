@@ -69,6 +69,18 @@ Scripts can retrieve and invoke all tasks available for flows by name:
     slack.call("C5NUWH9S5", "Hi there!");
 ```
 
+<a name="external-scripts">
+## External scripts
+
+Scripts can be automatically retrieved from an external server:
+```yaml
+- script: "http://localhost:8000/myScript.groovy"
+```
+
+The file extension in the URL must match the script engine's
+supported extensions -- e.g. `.groovy` for the Groovy language, `.js`
+for JavaScript, etc.
+
 ## JavaScript
 
 JavaScript support is built-in and doesn't require any external
