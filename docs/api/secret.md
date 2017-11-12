@@ -15,6 +15,7 @@ The REST API provides support for a number of operations:
 - [Create a Secret with Existing SSH Key Pair](#create-secret-ssh-exist)
 - [Get Public SSH Key of Secret](#get-key)
 - [Create a Secret with Username and Password Values](#create-secret-user-pwd)
+- [Add a Plain Value Secret](#create-secret-plain)
 - [Delete a Secret](#delete-secret)
 - [List Secrets](#list-secrets)
 
@@ -30,17 +31,14 @@ key is returned in the response.
 * **URI** `/api/v1/secret/keypair?name=${secretName}&generatePassword=${generatePassword}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: multipart/form-data`
-* **Parameters**
-    Query parameters:
+* **Query parameters**
     - `name` - mandatory, unique name;
     - `generatePassword` - optional, if true and there is no
     `storePassword`, the server will encrypt the new secret with a
     random generated password.
-
-    Multipart request:
+* **Multipart request**
     - `storePassword` - optional, password, which will be used to
     encrypt the new secret and which can be used to retrieve it back.
-* **Body** none
 * **Success response**
     ```
     Content-Type: application/json
@@ -84,8 +82,7 @@ Upload an existing SSH key pair  .
 * **URI** `/api/v1/secret/keypair?name=${secretName}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: multipart/form-data`
-* **Body**
-    Multipart request:
+* **Multipart request**
     - `${storePassword}` - optional, password, which will be used to
     encrypt the new secret and which can be used to retrieve it back.
     - `public` - mandatory, public key, binary data;
@@ -138,20 +135,16 @@ Creates a new secret containing username and password values.
 * **URI** `/api/v1/secret/password?name=${secretName}&generatePassword=${generatePassword}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: multipart/form-data`
-* **Parameters**
-    Query parameters:
+* **Query parameters**
     - `name` - mandatory, unique name;
     - `generatePassword` - optional, if true and there is no
     `storePassword`, the server will encrypt the new secret with a
     random generated password.
-
-    Multipart request:
+* **Multipart request**
     - `storePassword` - optional, password, which will be used to
     encrypt the new secret and which can be used to retrieve it back;
     - `username` - mandatory, username part of the new secret;
     - `password` - mandatory, password part of the new secret.
-* **Body**
-    none
 * **Success response**
     ```
     Content-Type: application/json
@@ -167,7 +160,8 @@ Creates a new secret containing username and password values.
 curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F username=myUser -F password=myPassword -F storePassword=12345678 'http://localhost:8001/api/v1/secret/password?name=myCreds'
     ```
 
-## Add a plain value secret
+<a name="create-secret-plain"/>
+## Add a Plain Value Secret
 
 Adds a new secret containing a simple value.
 
@@ -175,20 +169,16 @@ Adds a new secret containing a simple value.
 * **URI** `/api/v1/secret/plain?name=${secretName}&generatePassword=${generatePassword}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: multipart/form-data`
-* **Parameters**
-    Query parameters:
+* **Query parameters**
     - `name` - mandatory, unique name;
     - `generatePassword` - optional, if true and there is no
     `storePassword`, the server will encrypt the new secret with a
     random generated password.
-
-    Multipart request:
+* **Multipart request**
     - `storePassword` - optional, password, which will be used to
     encrypt the new secret and which can be used to retrieve it back;
     - `secret` - mandatory, value of the new secret. Can be a string
     or a stream of bytes.
-* **Body**
-    none
 * **Success response**
     ```
     Content-Type: application/json
