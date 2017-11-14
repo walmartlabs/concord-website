@@ -34,12 +34,12 @@ This expression returns a map with two keys:
 A full example adds a key via the REST API with the default user credentials:
 
 ```
-$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword=12345678 'http://localhost:8001/api/v1/secret/keypair?name=myKey'
+$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword="myKeyPassword" 'http://localhost:8001/api/v1/secret/keypair?name=myKey'
 {
 
   "name" : "myKey",
   "publicKey" : "...",
-  "exportPassword" : "12345678",
+  "exportPassword" : "myKeyPassword",
   "ok" : true
 }
 ```
@@ -70,6 +70,23 @@ Credentials, so username and password pairs, can be exported with:
 The expression returns a map with two keys:
 - `username` - username part
 - `password` - password part
+
+<a name="plain"/>
+## Exporting Plain Secrets
+
+A "plain" secret is a single encrypted value, which is stored using
+the REST API or the UI and retrieved using the
+`crypto.exportAsString` method:
+    
+```
+$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword="myPassword" -F secret="my value" 'http://localhost:8001/api/v1/secret/plain?name=myValue'
+```
+
+```yaml
+- log: "${crypto.exportAsString('myValue', 'myPassword')}"
+```
+
+In this example, `my value` will be printed in the log.
 
 <a name="encrypting"/>
 ## Encrypting and Decrypting Values
