@@ -18,17 +18,13 @@ information about the slides can be found in the
 This training is aimed at anyone new to Concord. The following topics are
 covered:
 
-- Workflow orchestration and business process management
+- Workflow orchestration overview
 - Introduction of Concord
 - Flow overview
 - User interface
-- Ansible
-- OneOps
-- User forms
-- Task creation
-- Misc advanced usage
-
-__The material is currently in development.__
+- Forms
+- Tasks including JIRA, slack, ...
+- Ansible and OneOps
 
 > Check out the [slides](./training/concord-1-beginner.html)
 
