@@ -22,7 +22,7 @@ Cloud Platform as a Service of choice.
 
 ## Ansible
 
-Automation engine for configuration management and application deployment.
+Automation engine for application configuration and deployment.
 
 
 ## OneOps Integration
