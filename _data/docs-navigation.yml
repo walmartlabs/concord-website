@@ -25,6 +25,8 @@ nav:
         context: /docs/getting-started/security
       - page: Tasks
         context: /docs/getting-started/tasks
+      - page: Triggers
+        context: /docs/getting-started/triggers
   - title: API
     id: api
     collapse: /docs/api
