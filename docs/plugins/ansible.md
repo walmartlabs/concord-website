@@ -89,7 +89,7 @@ configuration:
 ### As an expression
 
 ```yaml
-- ${ansible2.run(params, workDir)}
+- ${ansible.run(params, workDir)}
 ```
 
 This expression will execute an Ansible process using `params`
@@ -99,7 +99,7 @@ described [below](#task-parameters).
 ### As a task
 
 ```yaml
-- task: ansible2
+- task: ansible
   in:
     ...params...
 ```
@@ -169,7 +169,7 @@ Password for Ansible Vault files can be specified using
 ```yaml
 flows:
   default:
-  - task: ansible2
+  - task: ansible
     in:
       vaultPassword: "myS3cr3t"
       vaultPasswordFile: "get_vault_pwd.py"
@@ -201,14 +201,14 @@ configuration:
 
 flows:
   default:
-  - ${ansible2.run(ansibleParams, workDir)}
+  - ${ansible.run(ansibleParams, workDir)}
 ```
 
 Or as an IN-parameter:
 ```yaml
 flows:
   default:
-  - task: ansible2
+  - task: ansible
     in:
       playbook: "playbook/hello.yml"
       dynamicInventoryFile: "inventory.py"
@@ -260,7 +260,7 @@ configuration:
 
 flows:
   default:
-  - ${ansible2.run(ansibleParams, workDir)}
+  - ${ansible.run(ansibleParams, workDir)}
 ```
 
 Alternatively, an inventory file can be uploaded as a separate file:
@@ -338,10 +338,10 @@ installed. In this case, users can provide a custom Docker image:
 
 ```yaml
 # as an expression:
-- ${ansible2.run('docker.prod.walmart.com/walmartlabs/concord-ansible', params, workDir)}
+- ${ansible.run('docker.prod.walmart.com/walmartlabs/concord-ansible', params, workDir)}
 
 # or as a task step:
-- task: ansible2
+- task: ansible
   in:
     dockerImage: "docker.prod.walmart.com/walmartlabs/concord-ansible"
 ```
@@ -364,7 +364,7 @@ existing retry file of the playbook:
 ```yaml
 flows:
   default:
-  - task: ansible2
+  - task: ansible
     in:
       playbook: playbook/hello.yml      
       retry: true
@@ -381,7 +381,7 @@ Alternatively, the `limit` parameter can be specified directly:
 ```yaml
 flows:
   default:
-  - task: ansible2
+  - task: ansible
     in:
       playbook: playbook/hello.yml
       # will use @${workDir}/my.retry file
@@ -400,7 +400,7 @@ is saved as a process attachment and can be retrieved using the REST API:
 ```yaml
 flows:
   default:
-  - task: ansible2
+  - task: ansible
     in:
       saveRetryFile: true
 ```
