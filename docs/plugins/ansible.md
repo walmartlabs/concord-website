@@ -6,8 +6,9 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-Concord supports running Ansible playbooks with the `ansible` task as part of
-any flow.
+Concord supports running [Ansible](https://www.ansible.com/) playbooks with the
+`ansible` task as part of any flow. This allows you to provision and manage 
+application deployments with Concord.
 
 - [Usage](#usage)
 - [Parameters](#parameters)
@@ -22,7 +23,7 @@ any flow.
 
 ## Usage
 
-To use the task in a Concord flow, it must be added as a
+To be able to use the task in a Concord flow, it must be added as a
 [dependency](../getting-started/concord-dsl.html#dependencies)`:
 
 ```yaml
@@ -35,16 +36,16 @@ This adds the task to the classpath and allows you to invoke the task in a flow
 using an expression using the `run` method:
 
 ```yaml
-- ${ansible.run(params, ${workDir})}
+- ${ansible.run(ansibleParams, ${workDir})}
 ```
 
-This expression executes an Ansible process using `params` arguments in the 
+This expression executes an Ansible process using `ansibleParams` arguments in the 
 working directory on Concord.
 
 ```yaml
 configuration:
   arguments:
-    params:
+    ansibleParams:
       playbook: playbook/hello.yml
 ```
 
@@ -64,16 +65,13 @@ A full list of available parameters is described [below](#parameters).
 - `playbook` - string, relative path to a playbook;
 - `debug` - boolean, enables additional debug logging;
 - `config` - JSON object, used to create an
-[Ansible configuration](http://docs.ansible.com/ansible/latest/intro_configuration.html)
-file. See also the [Configuring Ansible](#configuring-ansible)
-section;
+[Ansible configuration](#configuring-ansible);
 - `extraVars` - JSON object, used as `--extra-vars`
 argument of `ansible-playbook` command. Check [the official
 documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
 for more details;
-- `inventory` - JSON object, an inventory data in
-[the standard JSON format](http://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#id1). More information can be found in the 
-[inline inventories](#inline-inventories) section;
+- `inventory` - JSON object, an inventory data specifying 
+[a static, inline inventories](#inline-inventories)section;
 - `inventoryFile` - string, path to an inventory file;
 - `dynamicInventoryFile` - string, path to a dynamic inventory
 script. See also [Using dynamic inventories] section;
@@ -85,7 +83,7 @@ script. See also [Using dynamic inventories] section;
 ## Configuring Ansible
 
 Ansible's [configuration](http://docs.ansible.com/ansible/intro_configuration.html)
-can be specified under `config` key:
+can be specified under the  `config` key:
 
 
 ```yaml
@@ -137,23 +135,13 @@ For the projects using "ansible" template, set `vaultPassword` or
 
 ## Inline Inventories
 
-An inventory file can be inlined with the request JSON. For example:
+Using an inline 
+[inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) you 
+can specify the details for all target systems  to use.
 
-```json
-{
-  "playbook": "playbook/hello.yml",
-  "inventory": {
-    "local": {
-      "hosts": ["127.0.0.1"],
-      "vars": {
-        "ansible_connection": "local"
-      }
-    }
-  }
-}
-```
+The example sets the host IP of the `local` inventory item and an
+additional variable in `vars`:
 
-Or as a task parameter:
 ```yaml
 configuration:
   ansibleParams:
@@ -170,22 +158,34 @@ flows:
   - ${ansible.run(ansibleParams, workDir)}
 ```
 
-Alternatively, an inventory file can be uploaded as a separate file:
+Alternatively, an inventory file can be uploaded supplied as a separate file
+e.g. `inventory.ini`:
 
 ```
-curl -v \
--H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
--F request=@request.json \
--F inventory=@inventory.ini \
-http://localhost:8001/api/v1/process/myProject:myRepo
-```
+[local]
+127.0.0.1
 
+[local:vars]
+ansible_connection=local
+````
+
+and specify to use it in `inventoryFile`:
+
+```yaml
+configuration:
+  ansibleParams:
+    playbook: "playbook/hello.yml"
+    inventoryFile: inventory.ini
+```
 
 ## Dynamic Inventories
 
-Path to a 
-[dynamic inventory script](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html)
-can be specified using `dynamicInventoryFile` parameter in a task parameters object:
+Alternatively to a static configuration to set the target system for Ansible, 
+you can use a script to create the inventory - a 
+[dynamic inventory](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html).
+
+You can specify the name of the script using the `dynamicInventoryFile` parameter in
+in your parameters:
 
 ```yaml
 configuration:
@@ -198,7 +198,8 @@ flows:
   - ${ansible.run(ansibleParams, workDir)}
 ```
 
-Or as an IN-parameter:
+Or you can configure it as input parameter for the task:
+
 ```yaml
 flows:
   default:
@@ -208,20 +209,9 @@ flows:
       dynamicInventoryFile: "inventory.py"
 ```
 
-Alternatively, a dynamic inventory script can be uploaded as a
-separate file:
 
-```
-curl -v \
--H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
--F request=@request.json \
--F dynamicInventory=@inventory.py \
-http://localhost:8001/api/v1/process/myProject:myRepo
-```
-
-In any case, it will be marked as executable and passed directly to
+The script is automatically marked as executable and passed directly to
 `ansible-playbook` command.
-
 
 ## Using SSH Keys
 
