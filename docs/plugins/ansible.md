@@ -13,10 +13,10 @@ application deployments with Concord.
 - [Usage](#usage)
 - [Parameters](#parameters)
 - [Configuring Ansible](#configuring-ansible)
-- [Ansible Vault](#ansible-vault)
 - [Inline inventories](#inline-inventories)
 - [Dynamic inventories](#dynamic-inventories)
-- [Using SSH keys](#using-ssh-keys)
+- [Secrets](#secrets)
+- [Ansible Vault](#ansible-vault)
 - [Custom Docker images](#custom-docker-images)
 - [Retry and Limit Files](#retry-and-limit-files)
 - [Limitations](#limitations)
@@ -106,32 +106,6 @@ forks = 50
 pipelining = True
 ```
 
-## Ansible Vault
-
-Password for 
-[Ansible Vault](http://docs.ansible.com/ansible/latest/playbooks_vault.html)
-files can be specified using `vaultPassword` or  `vaultPasswordFile` parameters:
-
-```yaml
-flows:
-  default:
-  - task: ansible
-    in:
-      vaultPassword: "myS3cr3t"
-      vaultPasswordFile: "get_vault_pwd.py"
-```
-
-The `vaultPasswordFile` value must be a relative path to the file in
-the working directory of a process.
-
-For the projects using "ansible" template, set `vaultPassword` or
-`vaultPasswordFile` variables in a top-level JSON object of a
-`request.json` file:
-```json
-{
-  "vaultPassword": "..."
-}
-```
 
 ## Inline Inventories
 
@@ -213,13 +187,13 @@ flows:
 The script is automatically marked as executable and passed directly to
 `ansible-playbook` command.
 
-## Using SSH Keys
+## Secrets
 
-First, upload an
-[existing SSH key pair](../api/secret.html#upload-an-existing-ssh-key-pair)
-or [create a new one](../api/secret.html#generate-a-new-ssh-key-pair).
+The Ansible task can use a key managed as a secret by Concord, that you have
+created  or uploaded  via the user interface or the
+[REST API](../api/secret.html).
 
-Public part of the key pair should be added as a trusted key to the
+The public part of a key pair should be added as a trusted key to the
 target server. The easiest way to check if the key is correct is to
 try to login to the remote server like this:
 ```
@@ -230,43 +204,49 @@ If you are able to login to the target server without any error
 messages or password prompt, then the key is correct and can be used
 with Ansible and Concord.
 
-The next step will be configuring Concord to use the key with your
-project or a standalone flow/playbook.
+The next step is to configure Concord to use the key with your
+project with the `privateKey` configuration:
 
-This can be done by adding `ansible.privateKeys` section to the
-project's configuration, the Concord file or request JSON:
+```yaml
+flows:
+ default:
+ - task: ansible
+   in:
+     privateKey:
+       secretName: mySecret
+       password: mySecretPassword
+```
 
+This exports the key with the provided username and password.
+
+
+## Ansible Vault
+
+Password for 
+[Ansible Vault](http://docs.ansible.com/ansible/latest/playbooks_vault.html)
+files can be specified using `vaultPassword` or  `vaultPasswordFile` parameters:
+
+```yaml
+flows:
+  default:
+  - task: ansible
+    in:
+      vaultPassword: "myS3cr3t"
+      vaultPasswordFile: "get_vault_pwd.py"
+```
+
+The `vaultPasswordFile` value must be a relative path to the file in
+the working directory of a process.
+
+For the projects using "ansible" template, set `vaultPassword` or
+`vaultPasswordFile` variables in a top-level JSON object of a
+`request.json` file:
 ```json
 {
-  "ansible": {
-    "privateKeys": [
-      {
-        "repository": "myRepo",
-        "secret": "mySshKeyPair"
-      },
-      {
-        "repository": ".*",
-        "secret": "mySshKeyPair"
-      }
-    ]
-  }
+  "vaultPassword": "..."
 }
 ```
 
-Where `repository` is the pattern, matching the name of a project's
-repository and `secret` is the name of the uploaded SSH key pair.
-
-A `.*` pattern can be used when there is no repositories configured
-or you want to use a single key for any repository.
-
-In the Concord file, the keys can be configured in a similar way:
-```yaml
-configuration:
-  ansible:
-    privateKeys:
-      repository: ".*"
-      secret: "mySshKeyPair"
-```
 
 ## Custom Docker Images
 
