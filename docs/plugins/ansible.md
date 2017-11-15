@@ -9,25 +9,19 @@ side-navigation: wmt/docs-navigation.html
 Concord supports running Ansible playbooks with the `ansible` task as part of
 any flow.
 
-  * [Limitations](#limitations)
-  * [Using the task directly](#using-the-task-directly)
-    + [As an expression](#as-an-expression)
-    + [As a task](#as-a-task)
-    + [Task parameters](#task-parameters)
-  * [Configuring Ansible](#configuring-ansible)
-  * [Using Ansible Vault](#using-ansible-vault)
-  * [Using dynamic inventories](#using-dynamic-inventories)
-  * [Using inline inventories](#using-inline-inventories)
-  * [Using SSH keys](#using-ssh-keys)
-  * [Using custom Docker images](#using-custom-docker-images)
-  * [Retry and Limit Files](#retry-and-limit-files)
 
-## Limitations
-
-Ansible's `strategy: debug` is not supported. It requires an interactive terminal and
-expects user input and should not be used in Concord's environment.
-Playbooks with `strategy: debug` will hang indefinitely, but can be killed using the
-REST API or the Console.
+- [Using the task directly](#using-the-task-directly)
+  - [As an expression](#as-an-expression)
+  - [As a task](#as-a-task)
+  - [Task parameters](#task-parameters)
+- [Configuring Ansible](#configuring-ansible)
+- [Using Ansible Vault](#using-ansible-vault)
+- [Using dynamic inventories](#using-dynamic-inventories)
+- [Using inline inventories](#using-inline-inventories)
+  - [Using SSH keys](#using-ssh-keys)
+  - [Using custom Docker images](#using-custom-docker-images)
+  - [Retry and Limit Files](#retry-and-limit-files)
+- [Limitations](#limitations)
 
 ## Using the task directly
 
@@ -364,3 +358,10 @@ flows:
 ```
 curl ... http://concord.example.com/api/v1/process/${processId}/attachments/ansible.retry
 ```
+
+## Limitations
+
+Ansible's `strategy: debug` is not supported. It requires an interactive terminal and
+expects user input and should not be used in Concord's environment.
+Playbooks with `strategy: debug` will hang indefinitely, but can be killed using the
+REST API or the Console.
