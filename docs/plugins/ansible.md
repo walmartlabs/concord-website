@@ -1,15 +1,15 @@
 ---
 layout: wmt/docs
-title:  Ansible
+title:  Ansible Task
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Ansible task
+# {{ page.title }}
+
+Concord supports running Ansible playbooks with the `ansible` task as part of
+any flow.
 
   * [Limitations](#limitations)
-  * [Using the Ansible template](#using-the-ansible-template)
-    + [With playbooks stored locally](#with-playbooks-stored-locally)
-    + [With a GIT repository](#with-a-git-repository)
   * [Using the task directly](#using-the-task-directly)
     + [As an expression](#as-an-expression)
     + [As a task](#as-a-task)
@@ -22,57 +22,12 @@ side-navigation: wmt/docs-navigation.html
   * [Using custom Docker images](#using-custom-docker-images)
   * [Retry and Limit Files](#retry-and-limit-files)
 
-There are several ways of how to use Ansible from Concord:
-
-1. if you only need to run an existing playbook without additional
-steps:
-    - ...and [the playbook is stored locally](#for-playbooks-stored-locally);
-    - ...or [the playbook is stored in a GIT repository](#from-a-git-repository).
-2. if you need to run a playbook as a step in a Concord flow: [use
-the task directly](#using-the-task-directly). This is also the most flexible way
-to run playbooks from Concord.
-
 ## Limitations
 
 Ansible's `strategy: debug` is not supported. It requires an interactive terminal and
 expects user input and should not be used in Concord's environment.
 Playbooks with `strategy: debug` will hang indefinitely, but can be killed using the
 REST API or the Console.
-
-## Using the Ansible template
-
-To simplify runnning standalone playbooks we provide a
-[template](../templates/index.html) that contains the
-necessary boilerplate to execute the Ansible task.
-
-### With playbooks stored locally
-
-1. Create a ZIP archive containing the playbook;
-2. Create a `request.json` file of the following structure:
-   ```json
-   {
-    "template": "ansible",
-    "playbook": "playbook/my.yml"
-   }
-   ```
-   The `playbook` parameter is the path to a playbook inside of the
-   archive. Make sure that they are the same.
-3. Send the archive and `request.json` file to Concord:
-   ```
-   curl -v \
-   -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
-   -F request=@request.json \
-   -F archive=@archive.zip \
-   http://localhost:8001/api/v1/process
-   ```
-4. Open the Concord's Console and check the process logs.
-
-See also the full [example](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/ansible_template).
-
-### With a GIT repository
-
-Please refer to the [ansible_project](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/ansible_project)
-example.
 
 ## Using the task directly
 
