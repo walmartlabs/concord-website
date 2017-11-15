@@ -9,54 +9,57 @@ side-navigation: wmt/docs-navigation.html
 Concord supports running Ansible playbooks with the `ansible` task as part of
 any flow.
 
-
-- [Using the task directly](#using-the-task-directly)
-  - [As an expression](#as-an-expression)
-  - [As a task](#as-a-task)
-  - [Task parameters](#task-parameters)
+- [Usage](#usage)
+- [Parameters](#parameters)
 - [Configuring Ansible](#configuring-ansible)
-- [Using Ansible Vault](#using-ansible-vault)
-- [Using dynamic inventories](#using-dynamic-inventories)
-- [Using inline inventories](#using-inline-inventories)
-  - [Using SSH keys](#using-ssh-keys)
-  - [Using custom Docker images](#using-custom-docker-images)
-  - [Retry and Limit Files](#retry-and-limit-files)
+- [Ansible Vault](#ansible-vault)
+- [Inline inventories](#inline-inventories)
+- [Dynamic inventories](#dynamic-inventories)
+- [Using SSH keys](#using-ssh-keys)
+- [Custom Docker images](#custom-docker-images)
+- [Retry and Limit Files](#retry-and-limit-files)
 - [Limitations](#limitations)
 
-## Using the task directly
+## Usage
 
-To use the task as a step in a Concord flow, it must be added to the
-`dependencies` section of the Concord file or as a parameter in JSON request
-data:
+To use the task in a Concord flow, it must be added as a
+[dependency](../getting-started/concord-dsl.html#dependencies)`:
 
 ```yaml
 configuration:
   dependencies:
-  - "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.43.0"
+  - "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.46.0"
 ```
 
-### As an expression
+This adds the task to the classpath and allows you to invoke the task in a flow
+using an expression using the `run` method:
 
 ```yaml
-- ${ansible.run(params, workDir)}
+- ${ansible.run(params, ${workDir})}
 ```
 
-This expression will execute an Ansible process using `params`
-parameters in the `workDir` working directory. The parameters are
-described [below](#task-parameters).
+This expression executes an Ansible process using `params` arguments in the 
+working directory on Concord.
 
-### As a task
+```yaml
+configuration:
+  arguments:
+    params:
+      playbook: playbook/hello.yml
+```
+
+Alternatively you can use the `task` syntax and specify the input parameters
 
 ```yaml
 - task: ansible
   in:
-    ...params...
+    playbook: playbook/hello.yml
+    ...
 ```
 
-The `in` parameters are the same as in the expression call form and
-described [below](#task-parameters)
+A full list of available parameters is described [below](#parameters).
 
-### Task parameters
+## Parameters
 
 - `playbook` - string, relative path to a playbook;
 - `debug` - boolean, enables additional debug logging;
@@ -69,36 +72,30 @@ argument of `ansible-playbook` command. Check [the official
 documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
 for more details;
 - `inventory` - JSON object, an inventory data in
-[the standard JSON format](http://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#id1).
-See also [Using inline inventories](#using-inline-inventories) section;
+[the standard JSON format](http://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#id1). More information can be found in the 
+[inline inventories](#inline-inventories) section;
 - `inventoryFile` - string, path to an inventory file;
 - `dynamicInventoryFile` - string, path to a dynamic inventory
 script. See also [Using dynamic inventories] section;
 - `user` - string, username to connect to target servers;
 - `tags` - string, comma-separated list of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
-- `vaultPassword` - string, password to use with [Ansible Vault](http://docs.ansible.com/ansible/latest/playbooks_vault.html).
-See the [Using Ansible Vault](#using-ansible-vault) section for more details.
+- `vaultPassword` - string, password to use with [Ansible Vault](#ansible-vault).
 - `verbose` - integer, increase log [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4 correlate to -v through -vvvv.
-
-When [the Ansible template](#using-the-ansible-template) is used, all
-parameters should be on the top-level of request JSON.
 
 ## Configuring Ansible
 
-Ansible's [[configuration]](http://docs.ansible.com/ansible/intro_configuration.html)
-can be specified under `config` key in `request.json`:
+Ansible's [configuration](http://docs.ansible.com/ansible/intro_configuration.html)
+can be specified under `config` key:
 
-```json
-{
-  "config": {
-    "defaults": {
-      "forks": 50
-    },
-    "ssh_connection": {
-      "pipelining": "True"
-    }
-  }
-}
+
+```yaml
+- task: ansible
+  in:
+    config:
+      defaults:
+        - forks: 50
+      ssh_connection:
+        - pipelining: True
 ```
 
 which is equivalent to:
@@ -111,10 +108,12 @@ forks = 50
 pipelining = True
 ```
 
-## Using Ansible Vault
+## Ansible Vault
 
-Password for Ansible Vault files can be specified using
-`vaultPassword` or `vaultPasswordFile` parameters:
+Password for 
+[Ansible Vault](http://docs.ansible.com/ansible/latest/playbooks_vault.html)
+files can be specified using `vaultPassword` or  `vaultPasswordFile` parameters:
+
 ```yaml
 flows:
   default:
@@ -136,48 +135,7 @@ For the projects using "ansible" template, set `vaultPassword` or
 }
 ```
 
-## Using Dynamic Inventories
-
-Path to a 
-[dynamic inventory script](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html)
-can be specified using `dynamicInventoryFile` parameter in a task parameters object:
-
-```yaml
-configuration:
-  ansibleParams:
-    playbook: "playbook/hello.yml"
-    dynamicInventoryFile: "inventory.py"
-
-flows:
-  default:
-  - ${ansible.run(ansibleParams, workDir)}
-```
-
-Or as an IN-parameter:
-```yaml
-flows:
-  default:
-  - task: ansible
-    in:
-      playbook: "playbook/hello.yml"
-      dynamicInventoryFile: "inventory.py"
-```
-
-Alternatively, a dynamic inventory script can be uploaded as a
-separate file:
-
-```
-curl -v \
--H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
--F request=@request.json \
--F dynamicInventory=@inventory.py \
-http://localhost:8001/api/v1/process/myProject:myRepo
-```
-
-In any case, it will be marked as executable and passed directly to
-`ansible-playbook` command.
-
-## Using Inline Inventories
+## Inline Inventories
 
 An inventory file can be inlined with the request JSON. For example:
 
@@ -221,6 +179,49 @@ curl -v \
 -F inventory=@inventory.ini \
 http://localhost:8001/api/v1/process/myProject:myRepo
 ```
+
+
+## Dynamic Inventories
+
+Path to a 
+[dynamic inventory script](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html)
+can be specified using `dynamicInventoryFile` parameter in a task parameters object:
+
+```yaml
+configuration:
+  ansibleParams:
+    playbook: "playbook/hello.yml"
+    dynamicInventoryFile: "inventory.py"
+
+flows:
+  default:
+  - ${ansible.run(ansibleParams, workDir)}
+```
+
+Or as an IN-parameter:
+```yaml
+flows:
+  default:
+  - task: ansible
+    in:
+      playbook: "playbook/hello.yml"
+      dynamicInventoryFile: "inventory.py"
+```
+
+Alternatively, a dynamic inventory script can be uploaded as a
+separate file:
+
+```
+curl -v \
+-H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+-F request=@request.json \
+-F dynamicInventory=@inventory.py \
+http://localhost:8001/api/v1/process/myProject:myRepo
+```
+
+In any case, it will be marked as executable and passed directly to
+`ansible-playbook` command.
+
 
 ## Using SSH Keys
 
@@ -277,10 +278,7 @@ configuration:
       secret: "mySshKeyPair"
 ```
 
-To use SSH keys with [the Ansible template](#using-the-ansible-template),
-the key configuration must be added to a project.
-
-## Using Custom Docker Images
+## Custom Docker Images
 
 Sometimes Ansible playbooks require additional modules to be
 installed. In this case, users can provide a custom Docker image:
