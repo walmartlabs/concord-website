@@ -266,11 +266,11 @@ for more details.
 
 ## Retry and Limit Files
 
-The plugin provides support for Ansible "retry files" (aka "retry files"). By
+Concord provides support for Ansible "retry files". By
 default, when a playbook execution fails, Ansible creates a `*.limit` file which
 can be used to restart the execution for failed hosts.
 
-If the `retry` parameter is set to `true`, the plugin automatically uses the
+If the `retry` parameter is set to `true`, Concord automatically uses the
 existing retry file of the playbook:
 
 ```yaml
