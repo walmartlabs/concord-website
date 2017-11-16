@@ -222,6 +222,8 @@ This exports the key with the provided username and password.
 
 ## Ansible Vault
 
+[Ansible Vault](https://docs.ansible.com/ansible/latest/vault.html) allows you
+to keep sensitive data in file that can then be accessed in a concord flow 
 Password for 
 [Ansible Vault](http://docs.ansible.com/ansible/latest/playbooks_vault.html)
 files can be specified using `vaultPassword` or  `vaultPasswordFile` parameters:
@@ -235,39 +237,32 @@ flows:
       vaultPasswordFile: "get_vault_pwd.py"
 ```
 
-The `vaultPasswordFile` value must be a relative path to the file in
-the working directory of a process.
-
-For the projects using "ansible" template, set `vaultPassword` or
-`vaultPasswordFile` variables in a top-level JSON object of a
-`request.json` file:
-```json
-{
-  "vaultPassword": "..."
-}
-```
-
-
 ## Custom Docker Images
 
-Sometimes Ansible playbooks require additional modules to be
-installed. In this case, users can provide a custom Docker image:
+The Ansible task typically runs on the default Docker container used by Concord
+for process executions. In some cases  Ansible playbooks require additional
+modules to be installed. You can create a suitable Docker image, publish it to a
+registry and subsequently use it in your flow by specifying it as parameter for
+`run`:
 
 ```yaml
-# as an expression:
 - ${ansible.run('docker.prod.walmart.com/walmartlabs/concord-ansible', params, workDir)}
+```
 
-# or as a task step:
+Or as input parameters for the Ansible task:
+
+```yaml
 - task: ansible
   in:
     dockerImage: "docker.prod.walmart.com/walmartlabs/concord-ansible"
 ```
 
 We recommend using `docker.prod.walmart.com/walmartlabs/concord-ansible`
-as a base for your custom Ansible images.
+as a base for your custom Docker images.
 
-Please refer to [Docker support](../getting-started/docker.html)
-document for more details.
+Please refer to our
+[Docker support documentation](../getting-started/docker.html)
+for more details.
 
 ## Retry and Limit Files
 
