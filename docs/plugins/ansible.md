@@ -24,7 +24,7 @@ application deployments with Concord.
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies)`:
+[dependency](../getting-started/concord-dsl.html#dependencies):
 
 ```yaml
 configuration:
@@ -32,30 +32,14 @@ configuration:
   - "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.46.0"
 ```
 
-This adds the task to the classpath and allows you to invoke the task in a flow
-using an expression using the `run` method:
+This adds the task to the classpath and allows you to invoke the task in a flow:
 
 ```yaml
-- ${ansible.run(ansibleParams, ${workDir})}
-```
-
-This expression executes an Ansible process using `ansibleParams` arguments in the 
-working directory on Concord.
-
-```yaml
-configuration:
-  arguments:
-    ansibleParams:
+flows:
+  default:
+  - task: ansible
+    in:
       playbook: playbook/hello.yml
-```
-
-Alternatively you can use the `task` syntax and specify the input parameters
-
-```yaml
-- task: ansible
-  in:
-    playbook: playbook/hello.yml
-    ...
 ```
 
 A full list of available parameters is described [below](#parameters).
@@ -87,13 +71,15 @@ can be specified under the  `config` key:
 
 
 ```yaml
-- task: ansible
-  in:
-    config:
-      defaults:
-        - forks: 50
-      ssh_connection:
-        - pipelining: True
+flows:
+  default:
+  - task: ansible
+    in:
+      config:
+        defaults:
+          - forks: 50
+        ssh_connection:
+          - pipelining: True
 ```
 
 which is equivalent to:
@@ -106,7 +92,6 @@ forks = 50
 pipelining = True
 ```
 
-
 ## Inline Inventories
 
 Using an inline 
@@ -117,19 +102,17 @@ The example sets the host IP of the `local` inventory item and an
 additional variable in `vars`:
 
 ```yaml
-configuration:
-  ansibleParams:
-    playbook: "playbook/hello.yml"
-    inventory:
-      local:
-        hosts:
-        - "127.0.0.1"
-        vars:
-          ansible_connection: "local"
-
 flows:
   default:
-  - ${ansible.run(ansibleParams, workDir)}
+  - task: ansible
+    in:
+      playbook: "playbook/hello.yml"
+      inventory:
+        local:
+          hosts:
+            - "127.0.0.1"
+          vars:
+            ansible_connection: "local"
 ```
 
 Alternatively, an inventory file can be uploaded supplied as a separate file
@@ -146,10 +129,12 @@ ansible_connection=local
 and specify to use it in `inventoryFile`:
 
 ```yaml
-configuration:
-  ansibleParams:
-    playbook: "playbook/hello.yml"
-    inventoryFile: inventory.ini
+flows:
+  default:
+  - task: ansible
+    in:
+      playbook: "playbook/hello.yml"
+      inventoryFile: inventory.ini
 ```
 
 ## Dynamic Inventories
@@ -158,21 +143,8 @@ Alternatively to a static configuration to set the target system for Ansible,
 you can use a script to create the inventory - a 
 [dynamic inventory](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html).
 
-You can specify the name of the script using the `dynamicInventoryFile` parameter in
-in your parameters:
-
-```yaml
-configuration:
-  ansibleParams:
-    playbook: "playbook/hello.yml"
-    dynamicInventoryFile: "inventory.py"
-
-flows:
-  default:
-  - ${ansible.run(ansibleParams, workDir)}
-```
-
-Or you can configure it as input parameter for the task:
+You can specify the name of the script using the `dynamicInventoryFile` as input
+parameter for the task:
 
 ```yaml
 flows:
@@ -182,7 +154,6 @@ flows:
       playbook: "playbook/hello.yml"
       dynamicInventoryFile: "inventory.py"
 ```
-
 
 The script is automatically marked as executable and passed directly to
 `ansible-playbook` command.
@@ -196,6 +167,7 @@ created  or uploaded  via the user interface or the
 The public part of a key pair should be added as a trusted key to the
 target server. The easiest way to check if the key is correct is to
 try to login to the remote server like this:
+
 ```
 ssh -v -i /path/to/the/private/key remote_user@target_host
 ```
@@ -240,21 +212,17 @@ flows:
 ## Custom Docker Images
 
 The Ansible task typically runs on the default Docker container used by Concord
-for process executions. In some cases  Ansible playbooks require additional
+for process executions. In some cases Ansible playbooks require additional
 modules to be installed. You can create a suitable Docker image, publish it to a
-registry and subsequently use it in your flow by specifying it as parameter for
-`run`:
+registry and subsequently use it in your flow by specifying it as input
+parameters for the Ansible task:
 
 ```yaml
-- ${ansible.run('docker.prod.walmart.com/walmartlabs/concord-ansible', params, workDir)}
-```
-
-Or as input parameters for the Ansible task:
-
-```yaml
-- task: ansible
-  in:
-    dockerImage: "docker.prod.walmart.com/walmartlabs/concord-ansible"
+flows:
+  default:
+  - task: ansible
+    in:
+      dockerImage: "docker.prod.walmart.com/walmartlabs/concord-ansible"
 ```
 
 We recommend using `docker.prod.walmart.com/walmartlabs/concord-ansible`
