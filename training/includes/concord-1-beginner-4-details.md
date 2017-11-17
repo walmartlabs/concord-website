@@ -195,7 +195,7 @@ flows:
 ```
 
 
-## If The
+## If Then
 
 ```
 flows:
