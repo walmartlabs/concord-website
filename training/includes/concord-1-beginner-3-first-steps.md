@@ -45,11 +45,12 @@ To allow Concord access to the repository:
 
 - Login to Concord Console
 - Secrets, Create New Key Pair
-- Get public key via REST API
+- Get public key
 - Add to GitHub repository configuration
 
 Note:
 - Demo it
+- you can also get the key via the REST API
 - `curl -u username 'http://concord.prod.walmart.com/api/v1/secret/nameOfKey/public'
 - GitHub repo / Settings / Deploy Keys
 
@@ -67,7 +68,9 @@ Demo it
 
 ## Execute Process
 
-Invoke process via REST API:
+- Start the process in the Concord Console or
+- Hit a URL or
+-  Invoke process via REST API:
 
 ```
 curl -v -u myuser -H "Content-Type: application/json" -d '{}' \
