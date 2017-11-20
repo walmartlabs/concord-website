@@ -59,7 +59,7 @@ What other Concord DSL configuration to reuse.
 ```
 configuration:
   dependencies:
-    - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
+  - mvn://org.codehaus.groovy:groovy-all:2.4.12
 ```
 
 Note:
@@ -88,8 +88,8 @@ Variable usage:
 ```
 flows:
   default:
-    - log: "Project name: ${name}"
-    - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+  - log: "Project name: ${name}"
+  - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
 
 
@@ -100,10 +100,11 @@ Sequence of steps define a workflow.
 ```
 flows:
   default:
-    - log: "foo"
-    - log: "bar"
+  - log: "foo"
+  - log: "bar"
+
   test:
-    - ...
+  - ...
 ```
 
 Multiple named flows!
@@ -120,8 +121,8 @@ Note:
 ```
 flows:
   default:
-    - log: "My first log message"
-    - ${1 + 2}
+  - log: "My first log message"
+  - ${1 + 2}
 ```
 
 Note:
@@ -142,11 +143,11 @@ Note:
 ```yaml
 flows:
   default:
-    - ${myBean.someMethod()}
-    - ${myBean.someMethod(myContextArg)}
-    - ${1 + 2}
-    - ${[1, 2, 3].stream().map(x -> x + 1).toList()}
-    - log: "Process running on ${System.getProperty("os.name")}"
+  - ${myBean.someMethod()}
+  - ${myBean.someMethod(myContextArg)}
+  - ${1 + 2}
+  - ${[1, 2, 3].stream().map(x -> x + 1).toList()}
+  - log: "Process running on ${System.getProperty("os.name")}"
 ```
 
 
@@ -157,11 +158,10 @@ Allows output capture and error handling.
 ```yaml
 flows:
   default:
-    - expr: ${myBean.someMethod()}
-      out: myVar
-      error:
-        - log: "An error occurred"
-        - ...
+  - expr: ${myBean.someMethod()}
+    out: myVar
+    error:
+      - log: "An error occurred"
 ```
 
 
@@ -172,11 +172,12 @@ Just use the flow name:
 ```
 flows:
   default:
-    - log: "Calling test next"
-    - test
-    - log: "test done, what next?"
+  - log: "Calling test next"
+  - test
+  - log: "test done, what next?"
+
   test:
-    - log" "Starting test"
+  - log" "Starting test"
     - ...
 ```
 
@@ -200,11 +201,11 @@ flows:
 ```
 flows:
   default:
-    - if: ${myVar > 0}
-      then:
-        - log: it's clearly non-zero
-      else:
-        - log: zero or less
+  - if: ${myVar > 0}
+    then:
+      - log: it's clearly non-zero
+    else:
+      - log: zero or less
 ```
 
 
@@ -213,7 +214,7 @@ flows:
 ```
 flows:
   default:
-    - switch: ${myVar}
+  - switch: ${myVar}
       red:
         - log: "It's red!"
       green:
@@ -247,8 +248,8 @@ flows:
 ```
 forms:
   userInformation:
-    - firstName: { label: "First name:", type: "string" }
-    - lastName: { label: "Last name:", type: "string" }
+  - firstName: { label: "First name:", type: "string" }
+  - lastName: { label: "Last name:", type: "string" }
 ```
 
 
@@ -259,8 +260,8 @@ Called in flows and create variables:
 ```
 flows:
   default:
-    - form: userInformation
-    - log: "Hello, ${userInformation.firstName} ${userInformation.lastName}"
+  - form: userInformation
+  - log: "Hello, ${userInformation.firstName} ${userInformation.lastName}"
 ```
 
 Suspends process until data is submitted.
@@ -302,9 +303,9 @@ more about tasks in a sec
 ```
 flows:
   default:
-    - script: js
-      body: |
-        print("Hello world!")
+  - script: js
+    body: |
+      print("Hello world!")
 ```
 
 Note:

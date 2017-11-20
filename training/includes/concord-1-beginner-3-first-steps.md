@@ -13,7 +13,7 @@
 ```
 flows:
   default:
-    - log: "Hello Concord"
+  - log: "Hello Concord"
 ```
 
 Note:

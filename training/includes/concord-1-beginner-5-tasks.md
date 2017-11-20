@@ -49,14 +49,14 @@ Invocation with input, output and error capture:
 ```
 flows:
   default:
-    - task: myTask
-      in:
-        taskVar: ${processVar}
-        anotherTaskVar: "a literal value"
-      out:
-        processVar: ${taskVar}
-      error:
-        - log: something bad happened
+  - task: myTask
+    in:
+      taskVar: ${processVar}
+      anotherTaskVar: "a literal value"
+    out:
+      processVar: ${taskVar}
+    error:
+    - log: something bad happened
 ```
 
 
@@ -77,8 +77,8 @@ Simple task to add log output support via task `call` method:
 ```
 flows:
   default:
-    - log: "My message"
-    - ${log.call("Another message")}
+  - log: "My message"
+  - ${log.call("Another message")}
 ```
 
 Note:
@@ -90,7 +90,7 @@ any task implements call
 Via other method e.g. `info`
 
 ```
-    - ${log.info("mylog", "logging an warn message")}
+- ${log.info("mylog", "logging an warn message")}
 ```
 
 Method names differ for each task!
@@ -111,11 +111,11 @@ Method names differ for each task!
 ```
 flows:
   default
-    - ${kv.putString("key", "value")}
-    - log: ${kv.getString("key")}
-    - expr: ${kv.inc("idSeq")}
-      out: myId
-    - log: "We got an ID: ${myId}"
+  - ${kv.putString("key", "value")}
+  - log: ${kv.getString("key")}
+  - expr: ${kv.inc("idSeq")}
+    out: myId
+  - log: "We got an ID: ${myId}"
 ```
 
 
@@ -139,7 +139,7 @@ First configure:
 ```
 configuration:
   dependencies:
-    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.45.1
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.47.0
   arguments:
     smtpServer:
       host: smtp-gw1.wal-mart.com
@@ -154,14 +154,14 @@ And send the email:
 ```
 flows:
   default:
-    task: smtp
-      in:
-        smtp: ${smtpServer}
-        mail:
-          from: ${initiator.attributes.mail}
-          to: somebody@example.com
-          subject: "Hello"
-          message: "Your process started."
+  - task: smtp
+    in:
+      smtp: ${smtpServer}
+      mail:
+        from: ${initiator.attributes.mail}
+        to: somebody@example.com
+        subject: "Hello"
+        message: "Your process started."
 ```
 
 Or Moustache `template` file.
@@ -178,10 +178,10 @@ Message to slack channel:
 ```
 flows:
   default:
-    - task: slack
-      in:
-        channelId: "you-channel"
-        text: "Starting execution on Concord"
+  - task: slack
+    in:
+      channelId: "you-channel"
+      text: "Starting execution on Concord"
 ```
 
 

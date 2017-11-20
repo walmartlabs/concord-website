@@ -11,9 +11,9 @@
 ## Advantages
 
 - Declarative, version controlled workflow configuration
-- TBD 1
-- TBD 2
-- TBD 3
+- Powerful integrations
+- Simple to use
+- Easy to extend
 
 
 ## Next
