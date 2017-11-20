@@ -195,10 +195,8 @@ This exports the key with the provided username and password.
 ## Ansible Vault
 
 [Ansible Vault](https://docs.ansible.com/ansible/latest/vault.html) allows you
-to keep sensitive data in file that can then be accessed in a concord flow 
-Password for 
-[Ansible Vault](http://docs.ansible.com/ansible/latest/playbooks_vault.html)
-files can be specified using `vaultPassword` or  `vaultPasswordFile` parameters:
+to keep sensitive data in files that can then be accessed in a concord flow.
+The password  and the password file for Vault usage can be specified using `vaultPassword` or  `vaultPasswordFile` parameters:
 
 ```yaml
 flows:
@@ -208,6 +206,11 @@ flows:
       vaultPassword: "myS3cr3t"
       vaultPasswordFile: "get_vault_pwd.py"
 ```
+
+Any secret values are then made available for usage in the ansible playbook as
+usual. 
+
+Our [ansible_vault example project]({{ site.concord_source}}/tree/master/examples/ansible_vault) shows a complete setup and usage.
 
 ## Custom Docker Images
 

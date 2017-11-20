@@ -13,6 +13,8 @@ description: "Concord is a workflow server."
 source_url: https://gecgithub01.walmart.com/devtools/concord-website
 collapseNavDocs: false
 
+concord_source: https://gecgithub01.walmart.com/devtools/concord/
+
 navigation:
   - title: DOCS
     url: /docs/index.html
