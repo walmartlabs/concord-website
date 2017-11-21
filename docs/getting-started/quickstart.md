@@ -27,21 +27,20 @@ the content.
 
 Start with the following steps:
 
-- Create the repository in your Git management sytem such as GitHub using the
+- Create the repository in your Git management sytem, such as GitHub, using the
   user interface
 - Clone the repository to your local workstation
 
 <a name="add-concord-file"/>
 ## Add the Concord File
 
-As a next step, add the Concord file `concord.yml` in the root of the
-repository. A minimalistic example file uses the automatically used `default` 
-flow:
+As a next step, add the Concord file `concord.yml` in the root of the repository.
+A minimal example file uses the automatically used `default` flow:
 
 ```yaml
 flows:
   default:
-    - log: "Hello Concord User"
+  - log: "Hello Concord User"
 ```
 
 The `default` flow in the example simply outputs a message to the process log.
@@ -49,48 +48,22 @@ The `default` flow in the example simply outputs a message to the process log.
 <a name="add-deploy-key"/>
 ## Add a Deploy Key
 
-In order to grant Concord access to the Git repository, you need to create a new
-key one the Concord server.
+In order to grant Concord access to the Git repository via SSH, you need to
+create a new key one the Concord server.
 
 - Log into the Concord Console user interface
 - Select _Create new_ under _Secrets_ in the navigation panel
 - Provide a string e.g. `mykey` as _Concord ID_ under the _Create New Key Pair_ title
 - Press _Submit_
 
-As a next step, retrieve the public key with the REST API with the default
-`admin` user and it's authorization token:
-
-```
-curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" 'https://concord.example.com/api/v1/secret/mykey/public'
-```
-
-On a typical production installation you can pass your username and be quoted
-for the password:
-
-```
-curl -u username 'https://concord.example.com/api/v1/secret/mykey/public'
-```
-
-Alternatively you can use the [REST API for secrets](../api/secret.html) to create
-the key pair.
-
-The server provides a JSON-formatted response similar to:
- 
-```json
-{
-  "name" : "exampleSecretKey",
-  "publicKey" : "ssh-rsa ABCXYZ... concord-server",
-  "ok" : true
-}
-```
-
-The value of the `publicKey` attribute has to be added as an authorized deploy
+The user interface shows the public key of the generated key similar to 
+`ssh-rsa ABCXYZ... concord-server`. This valuehas to be added as an authorized deploy
 key for the git repository. In GitHub, for example, this can be done in the 
 _Settings - Deploy keys_ section of the repository.
 
-The value of the `name` attribute e.g. `exampleSecretKey` identifies the key for
-usage in Concord.
-
+Alternatively the key can be
+[created](../api/secret.html#create-secret-ssh-new) and
+[accessed](../api/secret.html#get-key) with the REST API for secrets.
 
 <a name="create-project"/>
 ## Create Project in Concord
@@ -112,29 +85,33 @@ Alternatively you can
 <a name="execute-process"/>
 ## Execute a Process
 
-Everything is ready to kick off an execution of a flow - a process. This is done
-via the [Process REST API](../api/process.html) e.g. with
+Everything is ready to kick off an execution of a flow - a process:
+
+- Locate the repository for the project
+- Press on the _Run_ button for the repository on the right
+- Confirm to start the process by clicking on _Yes_ in the dialog
+
+A successful process execution results a message such as
 
 ```
-curl -H "Content-Type: application/json" -d '{}' \
-     http://concord.example.com/api/v1/process/myproject:myrepository
-```
-
-The `instanceId` for the process is returned:
-
-```json
 {
-  "instanceId" : "5b38d33a-463e-4598-97ca-913924343150",
-  "ok" : true
+  "instanceId": "e3fd96f9-580f-4b9b-b846-cc8fdd310cf6",
+  "ok": true
 }
 ```
 
-The process can be inspected in the user interface:
+The _Open process status_ button navigates you to the process execution and
+provides access to the log, forms and more. Note how the log message
+`Hello Concord User` is visible.
+
+Alternatively the process can be accessed via the queue:
 
 - Click on _Queue_ under _Processess_ in the navigation
-- Click on the _Instance ID_ value to see further details
+- Click on the _Instance ID_ value of the specific process
 - Press on the _View Log_ button to inspect the log
-- Note how the log message `Hello Concord User` is visible
+
+Alternatively the process can be started via the
+[Process REST API](../api/process.html).
 
 <a name="next-steps"/>
 ## Next Steps
@@ -151,6 +128,6 @@ You can now learn more about flows and perform tasks such as
 - Work with Ansible, Boo and other tasks
 - Maybe even implement tasks
 
-And much more. Have a look at all the documentation about the
+and much more. Have a look at all the documentation about the
 [Concord DSL](./concord-dsl.html), [forms](./forms.html),
 [scripting](./scripting.html) and other aspects to find out more!

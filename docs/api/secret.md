@@ -125,7 +125,39 @@ Returns a public key from an existing key pair of a secret.
       "ok": true
     }
     ```
-    
+
+Examples:
+
+On a default installation you can access a key with the default `admin` user and it's authorization token:
+
+```
+curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" 'https://concord.example.com/api/v1/secret/mykey/public'
+```
+
+On a typical production installation you can pass your username and be quoted
+for the password:
+
+```
+curl -u username 'https://concord.example.com/api/v1/secret/mykey/public'
+```
+
+The server provides a JSON-formatted response similar to:
+ 
+```json
+{
+  "name" : "exampleSecretKey",
+  "publicKey" : "ssh-rsa ABCXYZ... concord-server",
+  "ok" : true
+}
+```
+
+The value of the `publicKey` attribute represents the public key of the newly
+generated key.
+
+The value of the `name` attribute e.g. `exampleSecretKey` identifies the key for
+usage in Concord.
+
+
 <a name="create-secret-user-pwd"/>
 ## Create a Secret with Username and Password Values
 

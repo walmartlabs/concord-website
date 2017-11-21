@@ -75,9 +75,17 @@ started [in a browser directly](#browser).
       "ok" : true
     }
     ```
-    
-An example of a invocation triggers the `main` flow in the `default` repository
+
+An example of a invocation triggers the `default` flow in the `default` repository
 of `myproject` without further parameters.
+
+```
+curl -H "Content-Type: application/json" -d '{}' https://concord.example.com/api/v1/process/myproject:default
+```
+
+
+You can specify the flow e.g. `main` to start with a different flow for the same
+`default` repository of the `myproject` without further parameters.
 
 ```
 curl -H "Content-Type: application/json" -d '{}' https://concord.example.com/api/v1/process/myproject:default:main
