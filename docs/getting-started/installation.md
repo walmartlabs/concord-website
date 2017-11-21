@@ -6,11 +6,14 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The fastest way to get a Concord server instance up and running is to use the
+The fastest way to get a Concord instance up and running is to use the
 pre-built Docker images to run all three components of Concord:
-the Concord Agent, the Concord Server, and the Concord Console.
 
-After finishing these steps you can read the [Introduction to
+- Concord Server
+- Concord Console.
+- one agent 
+
+If you already have access to a Concord deployment or after finishing these installation steps, you can read the [Introduction to
 Concord](./index.html) to understand the basic concepts of Concord
 or set up your first project with the [quick start tips](./quickstart.html).
 
@@ -18,20 +21,20 @@ or set up your first project with the [quick start tips](./quickstart.html).
 
 ### Docker
 
-  If you do not already have Docker installed, see
-  https://www.docker.com/ to obtain Docker.  You can install Docker
+If you do not already have Docker installed, see
+https://www.docker.com/ to obtain Docker.  You can install Docker
   through various methods that are outside the scope of this document.
 
-  Once you have installed Docker see Walmart's [Nexus and
-  Docker](http://sde.walmart.com/docs/warm/docker.html)
-  instructions to find the location of the private Docker registry
-  containing Concord's pre-built images - docker.prod.walmart.com.
+Once you have installed Docker see Walmart's [Nexus and
+Docker](http://sde.walmart.com/docs/warm/docker.html)
+instructions to find the location of the private Docker registry
+containing Concord's pre-built images - docker.prod.walmart.com.
 
 ### Referencing a Private Docker Registry
 
-  If you are using a private Docker registry, add its name to an image
-  name in the examples below.  For example, if your private docker
-  registry is running on `docker.prod.walmart.com` this command:
+If you are using a private Docker registry, add its name to an image
+name in the examples below.  For example, if your private docker
+registry is running on `docker.prod.walmart.com` this command:
 
 ```
 docker run ... walmartlabs/concord-agent
@@ -45,15 +48,15 @@ docker run ... docker.prod.walmart.com/walmartlabs/concord-agent
 
 ## Starting Concord Docker Images
 
-  There are four components to Concord: the Agent, the Server, the
-  Console and the Database. Follow these steps to start all four
-  components and run a simple process to test your Concord instance.
+There are four components to Concord: the Server, the
+Console, the Database and an agent. Follow these steps to start all four
+components and run a simple process to test your Concord instance.
 
 ### Step 1. Create a LDAP Configuration File
 
-  Use the example in [LDAP](./configuration.html#ldap) section of
-  Configuration document. You'll need the parameters suitable for
-  your environment.
+Use the example in [LDAP](./configuration.html#ldap) section of
+Configuration document. You'll need the parameters suitable for
+your environment.
 
 ### Step 2. Start the Database
 
@@ -79,13 +82,13 @@ docker run -d \
 docker.prod.walmart.com/walmartlabs/concord-server
 ```
 
-  Replace `/path/to/ldap.properties` with the path to the file
-  created on the previous step.
+Replace `/path/to/ldap.properties` with the path to the file
+created on the previous step.
 
-  This will start the server with an in-memory database and temporary
-  storage for its working files. Please see the
-  [Configuration](./configuration.html) description to configure a more
-  permanent storage.
+This starts the server with an in-memory database and temporary
+storage for its working files. Please see the
+[Configuration](./configuration.html) description to configure a more
+permanent storage.
 
 ### Step 4. Check the Concord Server Logs
 
@@ -93,7 +96,7 @@ docker.prod.walmart.com/walmartlabs/concord-server
 docker logs server
 ```
 
-### Step 5. Start the Concord Agent
+### Step 5. Start a Concord Agent
 
 ```
 docker run -d \

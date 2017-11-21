@@ -22,7 +22,7 @@ docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' hub.docker.prod.w
 
 ## Running from an IDE
 
-It is possible to start the server and the agent directly from an IDE using the
+It is possible to start the server and an agent directly from an IDE using the
 following main classes:
 - concord-server: `com.walmartlabs.concord.server.Main`
 - concord-agent: `com.walmartlabs.concord.agent.Main`
@@ -40,8 +40,8 @@ To start the UI, please refer to the console's readme file.
 The `concord-server` and `concord-agent` processes can be started in debug mode as
 normal Java applications.
 
-However, as the agent processes its payload in a separate JVM, it must be configured to
-start those processes with the remove debugging enabled: *TBD*
+However, as the agent processes its payload in a separate JVM, it must be
+configured to start those processes with the remote debugging enabled.
 
 ## Building
 

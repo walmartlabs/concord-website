@@ -90,7 +90,7 @@ Demo it
 - Runs workflow on Concord cluster
 
 Note:
-talk a bit about what these steps include such as agent, classpath, ...
+talk a bit about what these steps include such as separate JVM, classpath, ...
 
 
 ## Questions?

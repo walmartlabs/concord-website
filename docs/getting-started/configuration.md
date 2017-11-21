@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title}}
 
-The Concord server and agents can be configured via a number of environment
+The Concord server can be configured via a number of environment
 variables. Typically this is done by the administrator responsible for the
 Concord installation.
 
@@ -24,7 +24,7 @@ The following configuration details are available:
 - [Server Environment Variables](#server-environment-variables)
 - [Server LDAP Authentication](#server-ldap-authentication)
 - [Server Slack Connection](#slack)
-- [Agent Environment Variables](#agent-environment-variables)
+- [Process Runtime Variables](#process-runtime-variables)
 
 
 <a name="common-environment-variables"/>
@@ -147,9 +147,11 @@ Set `SLACK_CFG` environment variable to the path of the created file.
 | maxConnections | Maximum connections
 | requestLimit   | Notifications per second
 
-## Agent Environment Variables
+## Process Runtime Variables
 
-All parameters are optional.
+Specific Concord project executions are processes on the so-called _agents_.
+The following parameters affect the agent configuration used for any process
+execution. All parameters are optional.
 
 | Variable          | Description                                     | Default value               |
 |-------------------|-------------------------------------------------|-----------------------------|

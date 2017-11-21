@@ -53,7 +53,7 @@ Note:
 
 ## Components
 
-- Concord Server and Agents
+- Concord Server
 - Concord Console
 - Concord Projects
 
@@ -67,7 +67,7 @@ Note:
   - repositories
   - key/value pairs
 - REST API for access
-- Agents for process execution
+- Process execution on JVM
 
 Receives and processes user requests to call workflow scenarios.
 
@@ -86,7 +86,7 @@ Web-based user interface for Concord Server:
 - Created by users
 - Stored in git repository
 - YAML for flow definitions
-- Execution as process on Concord Server/Agents
+- Execution as process on Concord Server
 
 
 ## Questions?

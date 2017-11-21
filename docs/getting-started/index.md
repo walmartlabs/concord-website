@@ -13,8 +13,8 @@ projects and repositories. It receives and processes user requests
 to call workflow scenarios. Execution of the processes is managed in isolated
 environments for each flow in a cluster of so-called agents.
 
-The [Concord Console](#concord-console) is a web-based user interfacefor managing and
-monitoring the server.
+The [Concord Console](#concord-console) is a web-based user interface for
+managing and monitoring the server.
 
 [Concord Concepts](#concord-concepts) explains more about the components that
 are managed and executed by Concord:
@@ -30,7 +30,7 @@ data, they are described in the [API documentation](../api/index.html).
 
 The main purpose of the server is to receive a workflow process
 definition and its dependencies from a user and execute it remotely
-using the agent.
+using one of many agents.
 
 Workflow process definitions, its dependencies and supporting files
 collected in a single archive file called "payload".

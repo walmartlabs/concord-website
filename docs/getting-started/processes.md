@@ -99,7 +99,7 @@ LDAP attributes must be white-listed in [the configuration](./configuration.html
 
 Availability of other variables and "beans" depends on installed Concord's
 plugins and the arguments passed in at the process invocation and stored in the
-[request data](#request-data).
+request data.
 
 <a name="output-variables"/>
 ## Output Variables
@@ -151,15 +151,15 @@ Any value type that can be represented as JSON is supported.
 <a name="execution"/>
 ## Execution
 
-A process is executed using the following steps: 
+A process is executed by the Concord Server using the following steps: 
 
-- Project repository data is cloned or updated
-- Binary payload from the process invocation is added to the workspace
-- Configuration from the project is used
-- Configuration from project.yml is merged
-- Configuration from an uploaded JSON file is merged
-- Configuration from request parameters and selected profiles applied
-- Templates are downloaded and applied
-- The payload is created and send to the Concord Agent for execution
-- Dependencies are downloaded and put on the class-path
-- The flow configured as entry point is invoked
+- Project repository data is cloned or updated.
+- Binary payload from the process invocation is added to the workspace.
+- Configuration from the project is used.
+- Configuration from project.yml is merged.
+- Configuration from an uploaded JSON file is merged.
+- Configuration from request parameters and selected profiles is applied.
+- Templates are downloaded and applied.
+- The payload is created and send to an agent for execution.
+- Dependencies are downloaded and put on the class-path.
+- The flow configured as entry point is invoked.
