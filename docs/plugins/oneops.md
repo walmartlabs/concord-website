@@ -10,15 +10,10 @@ Concord supports interactions with [OneOps](http://oneops.com/) with the
 `oneops` task as part of any flow. This allows you to manage application
 deployments with Concord.
 
-- [Usage](#usage)
-- [Get Compute IP Numbers](#compute)
-- [Instances](#instances)
-- [Scaling](#scaling)
-- [Variables](#variables)
-- [Tags](#tags)
-- [Touch Component](#touch)
-- [Commit and Deploy](#commit-deploy)
-- [Source Reference](#source)
+Modifications via Concord follow the same change process from design to 
+transition and to operate via commit and deploy operations as any other usage
+of OneOps.
+
 
 <a name="usage"/>
 
@@ -66,72 +61,115 @@ flows:
   - ${oneops.commitAndDeploy(oneOpsConfig)}
 ```
 
-The following sections describe the available functions in more detail.
+The following sections describe the available functions in more detail:
+
+- [Get IP Numbers](#ip)
+- [Instances](#instances)
+- [Scaling](#scaling)
+- [Variables](#variables)
+- [Tags](#tags)
+- [Touch Component](#touch)
+- [Commit and Deploy](#commit-deploy)
+- [Source Reference](#source)
 
 
-<a name="compute"/>
+<a name="ip"/>
 
-## Get Compute IP Numbers 
+## Get IP Numbers 
 
-The OneOps task provides a number of functions to get a the IP addresses of
-oeprating computes:
+The OneOps task provides a number of functions to get a the IP numbers of
+operating `compute` component instances or other components such as `lb` from a
+specific platform.  Typically an argument is populated and later used:
 
 ```yaml
-oneops.getIPs()
-oneops.getIPsForCloud()
-oneops.getIPsByCloud()
+configuration:
+  arguments:
+    ipNumbers: ${oneops.getIPs(oneOpsConfig, platform, component)}
+    moreIpNumbers: ${oneops.getIPs(oneOpsConfig, asm, env, platform, component)}
+```
+
+You can also use the expression or set syntax:
+
+```yaml
+- expr: ${oneops.getIPs(oneOpsConfig, platform, component)}
+  out: ipNumbers
+- set:
+    moreIipNumbers: ${oneops.getIPs(oneOpsConfig, platform, component)}
+```
+
+This can also be narrowed down to the IP numbers of a specific cloud:
+
+```yaml
+${oneops.getIPsForCloud(oneOpsConfig, platform, component, cloud)}
+${oneops.getIPsForCloud(oneOpsConfig, asm, env, platform, component, cloud)}
+````
+
+Or grouped by cloud:
+
+```yaml
+${oneops.getIPsByCloud(oneOpsConfig, platform, component, cloud)}
+${oneops.getIPsByCloud(oneOpsConfig, asm, env, platform, component, cloud)}
 ```
 
 <a name="instances"/>
 
 ## Instances
 
+The OneOps task can return all operating instances of a component
+in a platform and their attributes:
+
 ```yaml
-oneops.getInstancesFromAssemblyAndPlatform()
+- expr: ${oneops.getInstancesFromAssemblyAndPlatform(oneOpsConfig, platform, component)}
+  out: instances
+- expr: ${oneops.getInstancesFromAssemblyAndPlatform(oneOpsConfig, asm, env, platform, component)}
+  out: moreInstances
 ```
-
-
 
 
 <a name="scaling"/>
 
 ## Scaling
 
+The OneOps task can be used to update the scaling parameters for a specific
+platform as defined in transition.
+
 ```yaml
-oneops.updatePlatformScale()
+- ${oneops.updatePlatformScale(oneOpsConfig, platform, component, min, current, max, stepUp, stepDown, percentDeploy)}
+- ${oneops.updatePlatformScale(oneOpsConfig, asm, env, platform, component, min, current, max, stepUp, stepDown, percentDeploy)}
 ```
 
 <a name="variables"/>
 
 ## Variables
 
-Modifying Platform Variables
+The OneOps task can be used to update a platform variable.
 
 ```yaml
-oneops.updatePlatformVariable()
+- ${oneops.updatePlatformVariable((oneOpsConfig, platform, key, value)}
 ```
-
-
 
 <a name="tags"/>
 
 ## Tags
 
+The OneOps task can retrieve all tags for a specific assembly as a map of
+key/value pairs.
+
 ```yaml
-oneops.getTagsFromAssembly()
+- expr: ${oneops.getTagsFromAssembly(oneOpsConfig, asm)}
+  out: tags
 ```
-
-<a name="instances"/>
-
-
 
 
 <a name="touch"/>
 
 ## Touch Component
 
+The OneOps task can be used to perform a touch action on a component.
+
 ```yaml
-oneops.touchComponent()
+- ${oneops.touchComponent(oneOpsConfig, platform, component)}
+- ${oneops.touchComponent(oneOpsConfig, asm, env, platform, component)}
 ```
 
 
@@ -139,12 +177,23 @@ oneops.touchComponent()
 
 ## Commit and Deploy 
 
-```yaml
-oneops.commit()
-oneops.deploy()
-oneops.commitAndDeploy()
+The OneOps task can be used to commit as well as deploy a specific environment
+of an assembly.
 
-oneops.isDeploying()
+```yaml
+- ${oneops.commit(oneOpsConfig)}
+- ${oneops.commit(oneOpsConfig, asm, env)}
+- ${oneops.deploy(oneOpsConfig)}
+- ${oneops.deploy(oneOpsConfig, asm, env)}
+- ${oneops.commitAndDeploy(oneOpsConfig)}
+- ${oneops.commitAndDeploy(oneOpsConfig, asm, env)}
+```
+
+You can also verify if a deployment is currently in progress:
+
+```yaml
+- expr: - ${oneops.isDeploying(oneOpsConfig, asm, env)}
+  out: isDeploying
 ```
 
 <a name="source"/>
