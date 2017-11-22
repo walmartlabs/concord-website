@@ -13,5 +13,6 @@ use in the workflow execution.
 - [Concord](./concord.html)
 - [Crypto](./crypto.html)
 - [Key Value](./key-value.html)
+- [OneOps](./oneops.html)
 - [Slack](./slack.html)
 - [SMTP](./smtp.html)

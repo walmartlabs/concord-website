@@ -7,11 +7,20 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 Concord supports interactions with [OneOps](http://oneops.com/) with the
-`oneops` task as part of any flow. This allows you to provision and manage 
-application deployments with Concord.
+`oneops` task as part of any flow. This allows you to manage application
+deployments with Concord.
 
 - [Usage](#usage)
-- [Parameters](#parameters)
+- [Get Compute IP Numbers](#compute)
+- [Instances](#instances)
+- [Scaling](#scaling)
+- [Variables](#variables)
+- [Tags](#tags)
+- [Touch Component](#touch)
+- [Commit and Deploy](#commit-deploy)
+- [Source Reference](#source)
+
+<a name="usage"/>
 
 ## Usage
 
@@ -21,89 +30,127 @@ To be able to use the task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:0.35.0
+  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:0.33.0
 ```
 
-This adds the task to the classpath and allows you to invoke the task in a flow:
+This adds the task to the classpath and allows you to configure the main
+parameters in a separate collection e.g. named `oneOpsConfig`:
+
+```yaml
+configuration:
+  arguments:
+    oneOpsConfig:
+      baseUrl: https://oneops.example.com/
+      apiToken: ${crypto.decryptString("encryptedApiTokenValue")}
+      org: myOrganization
+      asm: myAssembly
+      env: myEnvironment
+```
+
+- `baseUrl` - URL of the OneOps server
+- `apiToken` - the OneOps API token for authentication and authorization,
+  typically this should be provided via usage of the [Crypto task](./crypto.html).
+- `org` - the name of the organization in OneOps;
+- `asm` - the name of the assembly in OneOps;
+- `env` - the name of the environment of the assembly in OneOps;
+
+With the configuration in place, you can call the various functions of the
+oneops tasks using the configuration object with the potential addition of any
+further required parameters.
 
 ```yaml
 flows:
   default:
-  - task: oneops
-    in:
-      baseUrl: 
-      apiToken:
-      org:
-      asm:
-      env:
+  - ${oneops.updatePlatformVariable(oneOpsConfig, "webappserver", "version", "1.0.0")}
+  - ${oneops.touchComponent(oneOpsConfig, "webappserver", "fqdn")}
+  - ${oneops.commitAndDeploy(oneOpsConfig)}
 ```
 
-A full list of available parameters is described [below](#parameters).
-
-## Parameters
-
-Configuration object
-
-- `baseUrl` - string, relative path to a playbook;
-- `apiToken` - string, ;
-- `org` - string, ;
-- `asm` - string, ;
-- `env` - string, ;
+The following sections describe the available functions in more detail.
 
 
+<a name="compute"/>
 
-## Get IP Numbers of Compute
+## Get Compute IP Numbers 
 
-oneops.getIPs
+The OneOps task provides a number of functions to get a the IP addresses of
+oeprating computes:
 
-oneops.getIPsForCloud
+```yaml
+oneops.getIPs()
+oneops.getIPsForCloud()
+oneops.getIPsByCloud()
+```
 
-oneops.getIPsByCloud
-
-
-## Scaling
-
-oneops.updatePlatformScale
-
-
-## Modifying Platform Variables
-
-oneops.updatePlatformScale
-
-
-
-## Deploying
-
-oneops.isDeploying
-
-
-
-## Tags
-
-oneops.getTagsFromAssembly
-
+<a name="instances"/>
 
 ## Instances
 
-oneops.getInstancesFromAssemblyAndPlatform
+```yaml
+oneops.getInstancesFromAssemblyAndPlatform()
+```
 
 
-## Touching
-
-touchComponent
 
 
-## Commit
+<a name="scaling"/>
 
-oneops.commit
+## Scaling
 
-## Deploy
+```yaml
+oneops.updatePlatformScale()
+```
 
-oneops.deploy
+<a name="variables"/>
 
+## Variables
+
+Modifying Platform Variables
+
+```yaml
+oneops.updatePlatformVariable()
+```
+
+
+
+<a name="tags"/>
+
+## Tags
+
+```yaml
+oneops.getTagsFromAssembly()
+```
+
+<a name="instances"/>
+
+
+
+
+<a name="touch"/>
+
+## Touch Component
+
+```yaml
+oneops.touchComponent()
+```
+
+
+<a name="commit-deploy"/>
 
 ## Commit and Deploy 
 
-oneops.commitAndDeploy
+```yaml
+oneops.commit()
+oneops.deploy()
+oneops.commitAndDeploy()
 
+oneops.isDeploying()
+```
 
+<a name="source"/>
+
+## Source Reference
+
+The [source code of the task implementation](${concord_plugins_source}tree/master/tasks/oneops)
+can be used as the reference for the available functionality.
+available functionality.
