@@ -58,13 +58,15 @@ provided via usage of the [Crypto task](./crypto.html)
 
 
 With the configuration in place, you can call the various functions of the
-JIRA tasks using the configuration object with the potential addition of any
+JIRA tasks using the
+[execution context](../getting-started/processes.html#provided-variables), 
+and the configuration object e.g. `jiraConfig` with the potential addition of any
 further required parameters.
 
 ```yaml
 flows:
   default:
-  - ${jira.addComment(jiraConfig, "my new comment"")}
+  - ${jira.addComment(context, jiraConfig, "my new comment"")}
 ```
 
 The following sections describe the available functions in more detail:
@@ -82,7 +84,7 @@ The following sections describe the available functions in more detail:
 The JIRA task can be used to create a new issue: 
 
 ```yaml
-- ${jira.create(jiraConfig)}
+- ${jira.create(context, jiraConfig)}
 ```
 
 <a name="add-comment"/>
@@ -92,7 +94,7 @@ The JIRA task can be used to create a new issue:
 The JIRA task can be used to add a comment to an existing issue:
 
 ```yaml
-- ${jira.addComment(jiraConfig), comment}
+- ${jira.addComment(context, jiraConfig), comment}
 ```
 
 <a name="transition"/>
@@ -103,7 +105,7 @@ The JIRA task can be used to transition an existing issue to another status such
 as work in progress, ready for review or done:
 
 ```yaml
-- ${jira.transition(jiraConfig)}
+- ${jira.transition(context, jiraConfig)}
 ```
 
 
@@ -114,7 +116,7 @@ as work in progress, ready for review or done:
 The JIRA task can be used to delete an existing issue.
 
 ```yaml
-- ${jira.delete(jiraConfig)}
+- ${jira.delete(context, jiraConfig)}
 ```
 
 <a name="source"/>
