@@ -59,6 +59,8 @@ nav:
         context: /docs/plugins/crypto
       - page: Key Value
         context: /docs/plugins/key-value
+      - page: OneOps
+        context: /docs/plugins/oneops
       - page: Slack
         context: /docs/plugins/slack
       - page: SMTP
