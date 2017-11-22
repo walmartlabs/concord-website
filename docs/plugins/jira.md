@@ -31,18 +31,13 @@ configuration:
       jiraUid: myUser
       jiraPwd: ${crypto.decryptString("encryptedApiTokenValue")}
       jiraProjectKey: 
-      jiraSummary: 
-      jiraDescription: 
-      jiraIssueTypeId: 
-      jiraComponents: 
-      jiraLabels: 
-      jiraRequestorUid: 
-      jiraCustomFields: 
-      jiraIssueKey: 
-      jiraTransitionFields: 
-      jiraTransitionId: 
-      jiraTransitionComment: 
+      jiraSummary: "My Summary"
+      jiraDescription: "We should really fix this"
+      jiraIssueTypeId: 10
+      jiraRequestorUid: 12
 ```
+
+Following is a complete list of available configuration attributes:
 
 - `jiraUrl` -  URL of the JIRA server
 - `jiraUid` -  identifier of the user account to use for the interaction
