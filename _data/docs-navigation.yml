@@ -53,6 +53,8 @@ nav:
     subfolderitems:
       - page: Ansible
         context: /docs/plugins/ansible
+      - page: Boo
+        context: /docs/plugins/boo
       - page: Concord
         context: /docs/plugins/concord
       - page: Crypto
@@ -61,6 +63,8 @@ nav:
         context: /docs/plugins/jira
       - page: Key Value
         context: /docs/plugins/key-value
+      - page: OneOps
+        context: /docs/plugins/oneops
       - page: Slack
         context: /docs/plugins/slack
       - page: SMTP
