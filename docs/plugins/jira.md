@@ -50,9 +50,10 @@ provided via usage of the [Crypto task](./crypto.html)
 - `jiraComponents` - list of components 
 - `jiraLabels` - list of labels
 - `jiraRequestorUid` - identifier of the use account to be used as the requestor
-- `jiraCustomFields` - custom fields
-- `jiraIssueKey` - the identifier of the ticket e.g. use for [transition](#transition)
-- `jiraTransitionFields` - list of fields to add 
+- `jiraCustomFields` - list of custom fields
+- `jiraIssueKey` - the identifier of the ticket e.g. used for
+[adding a comment](#add-comment) or [transitioning](#transition) an issue.
+- `jiraTransitionFields` - list of fields to add
 - `jiraTransitionId` - identifier to use for the transition
 - `jiraTransitionComment` - comment to add to the transition
 
