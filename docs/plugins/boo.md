@@ -33,36 +33,26 @@ configuration:
 ```
 
 This adds the task to the classpath and allows you to configure the main
-parameters in a separate collection e.g. named `oneOpsConfig`:
+parameters in a separate collection e.g. named `booConfig`:
 
 ```yaml
 configuration:
   arguments:
-    oneOpsConfig:
-      baseUrl: https://oneops.example.com/
-      apiToken: ${crypto.decryptString("encryptedApiTokenValue")}
-      org: myOrganization
-      asm: myAssembly
-      env: myEnvironment
+    booConfig:
+      booTemplateLocation: boo.yml
 ```
 
-- `baseUrl` - URL of the OneOps server
-- `apiToken` - the OneOps API token for authentication and authorization,
-  typically this should be provided via usage of the [Crypto task](./crypto.html).
-- `org` - the name of the organization in OneOps;
-- `asm` - the name of the assembly in OneOps;
-- `env` - the name of the environment of the assembly in OneOps;
+- `tbd` - tbd
 
-With the configuration in place, you can call the various functions of the
-oneops tasks using the configuration object with the potential addition of any
-further required parameters.
+With the configuration in place, you can call use the boo tasks using the
+configuration object.
 
 ```yaml
 flows:
   default:
   - task: boo
     in:
-      tbd
+      booTemplateLocation: boo.yml
 ```
 
 The following sections describe the available functions in more detail:
@@ -76,7 +66,10 @@ The following sections describe the available functions in more detail:
 
 ## Running the Boo Task
 
-tbd 
+The main Boo task creates an assembly and any enviroments based on the boo
+configuration and the content of the Boo YAML file. Variables from the Concord
+configuration are injected into the Boo file.
+
 
 ```yaml
 flows:
@@ -90,10 +83,12 @@ flows:
 
 ## Delete an Assembly
 
-tbd
+The Boo task can delete an assembly. This includes the deletion of any
+environments:
 
 ```yaml
 - ${boo.deleteAssembly(tbd)
+ - expr: ${boo.deleteAssembly(execution, config, __attr_localPath)}
 ```
 
 
