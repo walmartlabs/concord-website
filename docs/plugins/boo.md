@@ -33,29 +33,25 @@ configuration:
 ```
 
 This adds the task to the classpath and allows you to configure the main
-parameters in a separate collection e.g. named `booConfig`:
+parameter in a separate collections e.g. named `booConfig`:
 
 ```yaml
 configuration:
   arguments:
     booConfig:
       booTemplateLocation: boo.yml
+      oneopsApiHost: https://oneops.example.com
+      assemblyTags:
+        owner: "Jane Doe"
+        team: "The Incredibles"
 ```
 
-- `tbd` - tbd
+- `booTemplateLocation` - path to the Boo YAML file
+- `oneopsApiHost` - URL of the OneOps server
+- `assemblyTags` - list of key/value pairs to use as tags for the assembly
 
-With the configuration in place, you can call use the boo tasks using the
-configuration object.
-
-```yaml
-flows:
-  default:
-  - task: boo
-    in:
-      booTemplateLocation: boo.yml
-```
-
-The following sections describe the available functions in more detail:
+In addition any other defined parameters are passed into the Boo YAML file for
+substitution.
 
 - [Running the Boo task](#run)
 - [Delete an Assembly](#delete)
@@ -70,14 +66,59 @@ The main Boo task creates an assembly and any enviroments based on the boo
 configuration and the content of the Boo YAML file. Variables from the Concord
 configuration are injected into the Boo file.
 
+For example, the Boo YAML file can start with this content:
+
+```yaml
+boo:
+  oneops_host: "{{oneopsApiHost}}"
+  organization: '{{org}}'
+  api_key: '{{apiKey}}'
+  email: '{{email}}'
+  environment_name: '{{env}}'
+  ip_output: 'json'
+
+assembly:
+  name: "{{asm}}"
+```
+
+The variables such as `organization`, `apiKey`, `email` and others can be added to the
+`booConfig` and are passed in a substituted for execution of Boo.
+
+```
+configuration:
+  arguments:
+    booConfig:
+      booTemplateLocation: boo.yml
+      oneopsApiHost: https://oneops.example.com
+      organization: myOrganization
+      apiKey: ${crypto.decryptString("encryptedApiTokenValue")}
+      email: jane.doe@example.com
+      asm: myAssembly
+      env: myEnv
+      ...
+```
+
+With the configuration in place, you can call the Boo tasks using the
+configuration object with the task syntax:
 
 ```yaml
 flows:
   default:
   - task: boo
-    in: 
-      tbd: tbd
+    in:
+      booConfig
 ```
+
+Or using an expression:
+
+```yaml
+flows:
+  default:
+  ${boo.run(context, booConfig, workDir)}
+```
+
+The `context` and `workDir` values are automatically provided by Concord.
+
 
 <a name="delete"/>
 
@@ -87,9 +128,10 @@ The Boo task can delete an assembly. This includes the deletion of any
 environments:
 
 ```yaml
-- ${boo.deleteAssembly(tbd)
- - expr: ${boo.deleteAssembly(execution, config, __attr_localPath)}
+- ${boo.deleteAssembly(context, config, workDir)}
 ```
+
+The `context` and `workDir` values are automatically provided by Concord.
 
 
 <a name="source"/>
