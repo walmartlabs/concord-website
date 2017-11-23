@@ -32,39 +32,74 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins:boo-task:0.35.0
 ```
 
-This adds the task to the classpath and allows you to configure the main
-parameter in a separate collections e.g. named `booConfig`:
+This adds the task to the classpath and allows you use the Boo task.
+
+
+- [Using the Boo Task](#using)
+- [Delete an Assembly](#delete)
+- [Source Reference](#source)
+
+
+<a name="using"/>
+
+## Using the Boo Task
+
+The main Boo task creates an assembly and any enviroments based on the boo
+configuration and the content of the Boo YAML file. Variables from the Concord
+configuration are injected into the Boo file.
+
+The main configuration parameters for boo are:
 
 ```yaml
-configuration:
-  arguments:
-    booConfig:
-      booTemplateLocation: boo.yml
-      oneopsApiHost: https://oneops.example.com
-      assemblyTags:
-        owner: "Jane Doe"
-        team: "The Incredibles"
+booTemplateLocation: boo.yml
+oneopsApiHost: https://oneops.example.com
+assemblyTags:
+  owner: "Jane Doe"
+  team: "The Incredibles"
 ```
 
 - `booTemplateLocation` - path to the Boo YAML file
 - `oneopsApiHost` - URL of the OneOps server
 - `assemblyTags` - list of key/value pairs to use as tags for the assembly
 
-In addition any other defined parameters are passed into the Boo YAML file for
+These can be set in a separate argument configuration object e.g. called
+`booConfig`.
+
+
+```yaml
+configuration:
+  arguments:
+    booConfig:
+      booTemplateLocation: boo.yml
+      ...
+```
+
+This is mainly suitable for invocation of the Boo task via an
+expression.
+
+```yaml
+flows:
+  default:
+  - ${boo.run(context, config, workDir)}
+```
+
+The `context` and `workDir` values are automatically provided by Concord.
+
+Alternatively the configuration can be provided directly as input parameters of
+a Boo task invocation.
+
+```yaml
+flows:
+  default:
+  - task: boo
+    in:
+      booTemplateLocation: boo.yml
+      oneopsApiHost: https://oneops.example.com
+      ...
+````
+
+Any other defined parameters are passed into the Boo YAML file for
 substitution.
-
-- [Running the Boo task](#run)
-- [Delete an Assembly](#delete)
-- [Source Reference](#source)
-
-
-<a name="run"/>
-
-## Running the Boo Task
-
-The main Boo task creates an assembly and any enviroments based on the boo
-configuration and the content of the Boo YAML file. Variables from the Concord
-configuration are injected into the Boo file.
 
 For example, the Boo YAML file can start with this content:
 
@@ -81,8 +116,9 @@ assembly:
   name: "{{asm}}"
 ```
 
-The variables such as `organization`, `apiKey`, `email` and others can be added to the
-`booConfig` and are passed in a substituted for execution of Boo.
+The variables such as `organization`, `apiKey`, `email` and others can be added to
+the `booConfig` or the 'in` parameters and are passed in a substituted for
+execution of Boo.
 
 ```
 configuration:
@@ -97,27 +133,6 @@ configuration:
       env: myEnv
       ...
 ```
-
-With the configuration in place, you can call the Boo tasks using the
-configuration object with the task syntax:
-
-```yaml
-flows:
-  default:
-  - task: boo
-    in:
-      booConfig
-```
-
-Or using an expression:
-
-```yaml
-flows:
-  default:
-  ${boo.run(context, booConfig, workDir)}
-```
-
-The `context` and `workDir` values are automatically provided by Concord.
 
 
 <a name="delete"/>
