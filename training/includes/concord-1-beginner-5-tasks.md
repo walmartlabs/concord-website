@@ -216,8 +216,8 @@ flows:
 
 Let explore some in source and examples!
 
-- Locale
 - JIRA
+- Locale
 
 Note:
 - https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins
