@@ -57,6 +57,8 @@ nav:
         context: /docs/plugins/concord
       - page: Crypto
         context: /docs/plugins/crypto
+      - page: JIRA
+        context: /docs/plugins/jira
       - page: Key Value
         context: /docs/plugins/key-value
       - page: Slack

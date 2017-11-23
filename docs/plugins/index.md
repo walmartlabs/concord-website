@@ -12,6 +12,7 @@ use in the workflow execution.
 - [Ansible](./ansible.html)
 - [Concord](./concord.html)
 - [Crypto](./crypto.html)
+- [JIRA](./jira.html)
 - [Key Value](./key-value.html)
 - [Slack](./slack.html)
 - [SMTP](./smtp.html)
