@@ -53,6 +53,8 @@ nav:
     subfolderitems:
       - page: Ansible
         context: /docs/plugins/ansible
+      - page: Boo
+        context: /docs/plugins/boo
       - page: Concord
         context: /docs/plugins/concord
       - page: Crypto
