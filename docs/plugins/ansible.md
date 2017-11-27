@@ -51,16 +51,17 @@ A full list of available parameters is described [below](#parameters).
 - `config`: JSON object, used to create an
 [Ansible configuration](#configuring-ansible);
 - `extraVars`: JSON object, used as `--extra-vars`
-argument of `ansible-playbook` command. Check [the official
-documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
-for more details;
+  argument of `ansible-playbook` command. Check [the official
+  documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
+  for more details;
 - `inventory`: JSON object, an inventory data specifying
-[a static, inline inventories](#inline-inventories)section;
+  [a static, inline inventories](#inline-inventories)section;
 - `inventoryFile`: string, path to an inventory file;
 - `dynamicInventoryFile`: string, path to a dynamic inventory
-script. See also [Using dynamic inventories] section;
+  script. See also [Using dynamic inventories] section;
 - `user`: string, username to connect to target servers;
-- `privateKey` with nested `secretName` and `password`:
+- `privateKey` with nested `secretName` and `password`: details for the SSH key to use
+  to connect to the target servers;
 - `tags`: string, comma-separated list of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
 - `vaultPassword`: string, password to use with [Ansible Vault](#ansible-vault).
 - `verbose`: integer, increase log [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4 correlate to -v through -vvvv.
