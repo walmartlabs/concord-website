@@ -15,7 +15,7 @@ application deployments with Concord.
 - [Configuring Ansible](#configuring-ansible)
 - [Inline inventories](#inline-inventories)
 - [Dynamic inventories](#dynamic-inventories)
-- [Secrets](#secrets)
+- [Authentication with Secrets](#secrets)
 - [Ansible Vault](#ansible-vault)
 - [Custom Docker images](#custom-docker-images)
 - [Retry and Limit Files](#retry-and-limit-files)
@@ -46,23 +46,24 @@ A full list of available parameters is described [below](#parameters).
 
 ## Parameters
 
-- `playbook` - string, relative path to a playbook;
-- `debug` - boolean, enables additional debug logging;
-- `config` - JSON object, used to create an
+- `playbook`: string, relative path to a playbook;
+- `debug`: boolean, enables additional debug logging;
+- `config`: JSON object, used to create an
 [Ansible configuration](#configuring-ansible);
-- `extraVars` - JSON object, used as `--extra-vars`
+- `extraVars`: JSON object, used as `--extra-vars`
 argument of `ansible-playbook` command. Check [the official
 documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
 for more details;
-- `inventory` - JSON object, an inventory data specifying 
+- `inventory`: JSON object, an inventory data specifying
 [a static, inline inventories](#inline-inventories)section;
-- `inventoryFile` - string, path to an inventory file;
-- `dynamicInventoryFile` - string, path to a dynamic inventory
+- `inventoryFile`: string, path to an inventory file;
+- `dynamicInventoryFile`: string, path to a dynamic inventory
 script. See also [Using dynamic inventories] section;
-- `user` - string, username to connect to target servers;
-- `tags` - string, comma-separated list of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
-- `vaultPassword` - string, password to use with [Ansible Vault](#ansible-vault).
-- `verbose` - integer, increase log [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4 correlate to -v through -vvvv.
+- `user`: string, username to connect to target servers;
+- `privateKey` with nested `secretName` and `password`:
+- `tags`: string, comma-separated list of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
+- `vaultPassword`: string, password to use with [Ansible Vault](#ansible-vault).
+- `verbose`: integer, increase log [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4 correlate to -v through -vvvv.
 
 ## Configuring Ansible
 
@@ -95,7 +96,7 @@ pipelining = True
 ## Inline Inventories
 
 Using an inline 
-[inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) you 
+[inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) you
 can specify the details for all target systems  to use.
 
 The example sets the host IP of the `local` inventory item and an
@@ -139,8 +140,8 @@ flows:
 
 ## Dynamic Inventories
 
-Alternatively to a static configuration to set the target system for Ansible, 
-you can use a script to create the inventory - a 
+Alternatively to a static configuration to set the target system for Ansible,
+you can use a script to create the inventory - a
 [dynamic inventory](http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html).
 
 You can specify the name of the script using the `dynamicInventoryFile` as input
@@ -158,11 +159,13 @@ flows:
 The script is automatically marked as executable and passed directly to
 `ansible-playbook` command.
 
-## Secrets
+
+<a name="secrets"/>
+## Authentication with Secrets
 
 The Ansible task can use a key managed as a secret by Concord, that you have
 created  or uploaded  via the user interface or the
-[REST API](../api/secret.html).
+[REST API](../api/secret.html) to connect to the target servers.
 
 The public part of a key pair should be added as a trusted key to the
 target server. The easiest way to check if the key is correct is to
@@ -176,27 +179,34 @@ If you are able to login to the target server without any error
 messages or password prompt, then the key is correct and can be used
 with Ansible and Concord.
 
-The next step is to configure Concord to use the key with your
-project with the `privateKey` configuration:
+The next step is to configure the `user` to use to connect to the servers and
+the key to use with the `privateKey` configuration:
 
 ```yaml
 flows:
  default:
  - task: ansible
    in:
+     user: app
      privateKey:
        secretName: mySecret
        password: mySecretPassword
 ```
 
-This exports the key with the provided username and password.
+This exports the key with the provided username and password to the filesystem
+as `temporaryKeyFile` and uses the configured username `app` to connect. The
+equivalent Ansible command is
 
+```
+ansible-playbook --user=app --private-key temporaryKeyFile ...
+```
 
 ## Ansible Vault
 
 [Ansible Vault](https://docs.ansible.com/ansible/latest/vault.html) allows you
 to keep sensitive data in files that can then be accessed in a concord flow.
-The password  and the password file for Vault usage can be specified using `vaultPassword` or  `vaultPasswordFile` parameters:
+The password  and the password file for Vault usage can be specified using
+`vaultPassword` or  `vaultPasswordFile` parameters:
 
 ```yaml
 flows:
@@ -210,7 +220,8 @@ flows:
 Any secret values are then made available for usage in the ansible playbook as
 usual. 
 
-Our [ansible_vault example project]({{ site.concord_source}}/tree/master/examples/ansible_vault) shows a complete setup and usage.
+Our [ansible_vault example project]({{ site.concord_source}}/tree/master/examples/ansible_vault)
+shows a complete setup and usage.
 
 ## Custom Docker Images
 
