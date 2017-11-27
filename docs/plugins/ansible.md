@@ -17,8 +17,8 @@ application deployments with Concord.
 - [Dynamic inventories](#dynamic-inventories)
 - [Authentication with Secrets](#secrets)
 - [Ansible Vault](#ansible-vault)
-- [Custom Docker images](#custom-docker-images)
-- [Retry and Limit Files](#retry-and-limit-files)
+- [Custom Docker Images](#docker)
+- [Retry and Limit Files](#retry-limit)
 - [Limitations](#limitations)
 
 ## Usage
@@ -46,25 +46,34 @@ A full list of available parameters is described [below](#parameters).
 
 ## Parameters
 
-- `playbook`: string, relative path to a playbook;
-- `debug`: boolean, enables additional debug logging;
+All parameter sorted alphabetically. Usage documentation can be found in the 
+following sections:
+
 - `config`: JSON object, used to create an
+- `debug`: boolean, enables additional debug logging;
 [Ansible configuration](#configuring-ansible);
+- `dockerImage`: optional configuration to specifiy 
+- `dynamicInventoryFile`: string, path to a dynamic inventory
+  script. See also [Using dynamic inventories] section;
+- `extraEnv`: JSON object, additional environment variables
 - `extraVars`: JSON object, used as `--extra-vars`
-  argument of `ansible-playbook` command. Check [the official
-  documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
-  for more details;
 - `inventory`: JSON object, an inventory data specifying
   [a static, inline inventories](#inline-inventories)section;
 - `inventoryFile`: string, path to an inventory file;
-- `dynamicInventoryFile`: string, path to a dynamic inventory
-  script. See also [Using dynamic inventories] section;
+- `limit`: limit file, see [Retry and Limit Files](#retry-limit)
+- `playbook`: string, relative path to a playbook;
+  argument of `ansible-playbook` command. Check [the official
+  documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
+  for more details;
+- `privateKey`: path to a privateKey file or with nested `secretName` and `password`
+  the name of a Concord secret SSH key to use to connect to the target servers;
 - `user`: string, username to connect to target servers;
-- `privateKey` with nested `secretName` and `password`: details for the SSH key to use
-  to connect to the target servers;
+- `retry`: retry flag, see [Retry and Limit Files](#retry-limit)
 - `tags`: string, comma-separated list of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
+- `saveRetryFile`: file name for the retry file, see [Retry and Limit Files](#retry-limit)
 - `vaultPassword`: string, password to use with [Ansible Vault](#ansible-vault).
 - `verbose`: integer, increase log [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4 correlate to -v through -vvvv.
+
 
 ## Configuring Ansible
 
@@ -224,6 +233,8 @@ usual.
 Our [ansible_vault example project]({{ site.concord_source}}/tree/master/examples/ansible_vault)
 shows a complete setup and usage.
 
+<a name="docker"/>
+
 ## Custom Docker Images
 
 The Ansible task typically runs on the default Docker container used by Concord
@@ -246,6 +257,8 @@ as a base for your custom Docker images.
 Please refer to our
 [Docker support documentation](../getting-started/docker.html)
 for more details.
+
+<a name="retry-limit"/>
 
 ## Retry and Limit Files
 
