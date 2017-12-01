@@ -15,6 +15,7 @@ Concord interacts with
 - Slack
 - SMTP
 
+
 ## Looper
 
 Continuous integration server of choice.
@@ -141,6 +142,7 @@ configuration:
       env: myEnvironment
 ```
 
+
 ## OneOps Task Example
 
 Usage:
@@ -177,5 +179,3 @@ Concord, the orchestrator!
 ## Questions?
 
 <em class="yellow">Ask now, before we jump to the next section.</em>
-
-

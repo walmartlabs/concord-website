@@ -98,7 +98,7 @@ Method names differ for each task!
 
 ## Key Value Task
 
--`kv` task
+- `kv` task
 - create, read, update and delete
 - stored in Concord
 - project scope
