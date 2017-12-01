@@ -1,4 +1,4 @@
-# Concord Training
+# Concord User Training
 
 > Level 1 - Beginner
 
