@@ -101,7 +101,7 @@ flows:
 ### Dependencies
 
 The `dependencies` array allows users to specify the URLs of dependencies such
-as 
+as
 
 - Concord plugins and their dependencies 
 - dependencies needed for specific scripting language support
@@ -111,26 +111,52 @@ as
 configuration:
   dependencies:
     # maven URLs...
-    - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
+    - mvn://org.codehaus.groovy:groovy-all:2.4.12
     # or direct URLs
-    - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
-    - "https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
+    - https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
+    - https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
 ```
 
 The artifacts are downloaded and added to the classpath for process execution
 and are typically used for [task implementations](./tasks.html).
 
-Multiple versions of the same artifact will be replaced with a single
-one, according to standard Maven resolution rules.
+Multiple versions of the same artifact are replaced with a single one, according
+to standard Maven resolution rules.
 
-Maven URLs also provide additional options:
+Usage of the `mvn:` URL pattern is preferred since it uses the centrally
+configured [list of repositories](./configuration.html#dependencies) and
+downloads not only the specified dependency itself, but also any required
+transitive dependencies. This makes the Concord project independent of access to
+a specific repository URL, and hence more portable.
+
+Maven URLs provide additional options:
+
 - `transitive=true|false` - include all transitive dependencies
 (default `true`);
-- `scope=compile|provided|system|runtime|test` - use the specific
-dependency scope (default `compile`).
+- `scope=compile|provided|system|runtime|test` - use the specific dependency scope
+(default `compile`).
 
-Maven artifacts are downloaded using the configured
-[list of repositories](./configuration.html#dependencies).
+The syntax for the Maven URL uses the groupId, artifactId and version values -
+the GAV coordinates of a project. For example the Maven pom.xml for the Groovy
+scripting language runtime has the following definition:
+
+```xml
+<project>
+  <groupId>org.codehaus.groovy</groupId>
+  <artifactId>groovy-all</artifactId>
+  <version>2.4.12</version>
+  ...
+```
+
+This results in the path
+`org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar` in the Central
+Repository and any repository manager proxying the repository.
+
+The `mvn` syntax uses the short form for GAV coordinates
+`groupId:artifactId:version`, so for example
+`org.codehaus.groovy:groovy-all:2.4.12` for Groovy.
+
+The same logic applies to all other dependencies including Concord plugins.
 
 ### Template
 
