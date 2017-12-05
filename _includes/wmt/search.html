@@ -1,0 +1,16 @@
+<div id="search-container">
+  <div id="search-input-bar">
+    <input type="text" id="search-input" placeholder="Search..." />
+    <!--<i class="fa fa-search icon-search"></i>-->
+  </div>
+  <div id="results-container"></div>
+</div>
+<script type="text/javascript" src="{{site.context}}/assets/wmt/js/simple-jekyll-search.js"></script>
+<script>
+SimpleJekyllSearch({
+  searchInput: document.getElementById('search-input'),
+  resultsContainer: document.getElementById('results-container'),
+  json: '{{site.url}}/search.json',
+  limit: 30
+})
+</script>

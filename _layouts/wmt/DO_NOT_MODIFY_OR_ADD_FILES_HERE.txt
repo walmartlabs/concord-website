@@ -1,0 +1,1 @@
+Do not modify or add any files to this folder, as they will be erased or overwritten when a wmt update is applied.

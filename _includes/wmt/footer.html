@@ -2,15 +2,18 @@
 
       <div class="copyright">
         <div class="container">
-          <div class="row">
-            <div class="col-md-6">
+          {% if site.custom-footer == true %}
+            {% include custom-footer.html %}
+          {% endif %}
+          <div class="row margin-bottom-30">
+            <div class="col-md-8">
               <p class="copyright-space">
-                2016 - {{ 'now' | date: "%Y" }} &copy;
+                2011 - {{ 'now' | date: "%Y" }} &copy;
                 Walmart Inc. All Rights Reserved.
               </p>
             </div>
-            <div class="col-md-6">
-              
+            <div class="col-md-4">
+              <img src="{{site.context}}/assets/wmt/img/logos/walmart-labs-wht.png" class="img-responsive" width="150px" align="right" style="padding-top:10px;"/>
             </div>
           </div>
         </div>

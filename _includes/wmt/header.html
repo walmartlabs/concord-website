@@ -1,6 +1,7 @@
       <div class="header">
         <div class="navbar navbar-default" role="navigation">
           <div class="">
+            {% if site.crossSite == true %}
             <ul class="top-nav">
               <!--<li><i class="fa fa-globe" aria-hidden="true"></i></li>-->
               {% for link in site.cross-site %}
@@ -10,6 +11,7 @@
               {% endfor %}
               <li>{{ site.name }}</li>
             </ul>
+            {% endif %}
           </div>
           <div class="container">
 
@@ -47,6 +49,11 @@
                       {% endif %}
                   </li>
                 {% endfor %}
+                {% if site.display-search-in-header == true %}
+                  <li>
+                  {% include wmt/search.html %}
+                  </li>
+                {% endif %}
               </ul>
             </div>
           </div>

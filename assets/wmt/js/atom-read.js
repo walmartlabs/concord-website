@@ -8,7 +8,7 @@ function atomRead(feedUrl, divId) {
               url: $this.find("link").attr('href'),
               date: $this.find("updated").text()
           };
-     var blog = "<a href=\"" + item.url + "\">" + item.title + "</a><br>" + item.date + "<br><br>";
+     var blog = "<a href=\"" + item.url + "\">" + item.title + "</a> | " + item.date + "<br><br>";
       $('#' + divId).append(blog);
     });
   });
