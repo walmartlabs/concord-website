@@ -1,6 +1,7 @@
 ---
 layout: wmt/default
 title: Our Blog
+searchindex: false
 ---
 
 <div class="row blog-page">
@@ -8,16 +9,16 @@ title: Our Blog
   <div class="col-md-8">
     {% include wmt/breadcrumbs.html %}
     <h1>{{ page.title }}</h1>
-    <p>A vibrant project needs to share news, events, releases and other topics. The blog is the place to follow. 
+    <p>A vibrant project needs to share news, events, releases and other topics. The blog is the place to follow.
     And below are some example posts. The source for each post is located in <code>_posts</code>. </p>
   </div>
   <div class="col-md-2"></div>
 </div>
-    
+
 <div class="row blog-page">
   <div class="col-md-2"></div>
   <div class="col-md-8">
-    
+
     {% for post in site.posts limit: 10 %}
     <div class="blog">
       <h2><a href="{{ post.url }}">{{post.title}}</a></h2>
@@ -39,7 +40,7 @@ title: Our Blog
     </div>
     <div class="clearfix"></div>    
     {% endfor %}
-    
+
     <p><a href="./archive.html">Older Posts in the Archive</a></p>
   </div>
   <div class="col-md-2"></div>

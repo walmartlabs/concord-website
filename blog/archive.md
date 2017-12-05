@@ -1,6 +1,7 @@
 ---
 layout: wmt/default
 title: Blog Archive
+searchindex: false
 ---
 
 <div class="row blog-page">
@@ -11,7 +12,7 @@ title: Blog Archive
   </div>
   <div class="col-md-2"></div>
 </div>
-    
+
 <div class="row blog-page">
   <div class="col-md-2"></div>
   <div class="col-md-8">
@@ -22,12 +23,12 @@ title: Blog Archive
 {% assign currentdate = post.date | date: "%Y" %}
 {% if currentdate != date %}
 <h1 id="y{{currentdate}}">{{ currentdate }}</h1>
-{% assign date = currentdate %} 
+{% assign date = currentdate %}
 {% endif %}
 
 <p>
 {{ post.date | date: "%-d %B %Y" }}:
-<a href="{{ post.url }}">{{ post.title}}</a> by 
+<a href="{{ post.url }}">{{ post.title}}</a> by
 {% for author in post.authors %}{% assign current = site.authors[author] %}<a href="{{ current.web }}">{{ current.name }}</a>
 {% unless forloop.last %},{% endunless%}
 {% endfor %}
