@@ -54,7 +54,7 @@ following sections:
 [Ansible configuration](#configuring-ansible);
 - `dockerImage`: optional configuration to specifiy 
 - `dynamicInventoryFile`: string, path to a dynamic inventory
-  script. See also [Using dynamic inventories] section;
+  script. See also [Dynamic inventories](#dynamic-inventories) section;
 - `extraEnv`: JSON object, additional environment variables
 - `extraVars`: JSON object, used as `--extra-vars`
 - `inventory`: JSON object, an inventory data specifying
