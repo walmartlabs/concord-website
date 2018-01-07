@@ -93,7 +93,10 @@ instance of `com.walmartlabs.concord.sdk.Context`;
   - `projectInfo.projectName` - the project's name;
   - `projectInfo.repoId` - the project's repository ID;
   - `projectInfo.repoName` - the repository's name;
-  - `projectInfo.repoUrl` - the repository's URL.
+  - `projectInfo.repoUrl` - the repository's URL;
+  - `projectInfo.repoCommitId` - the repository's last commit ID;
+  - `projectInfo.repoCommitAuthor` - the repository's last commit author;
+  - `projectInfo.repoCommitMessage` - the repository's last commit message.
 
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 
