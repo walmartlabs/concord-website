@@ -69,7 +69,8 @@ following sections:
   the name of a Concord secret SSH key to use to connect to the target servers;
 - `user`: string, username to connect to target servers;
 - `retry`: retry flag, see [Retry and Limit Files](#retry-limit)
-- `tags`: string, comma-separated list of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
+- `tags`: string, a comma-separated list or an array of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
+- `skipTags`: string, a comma-separated list or an array of [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html) to skip;
 - `saveRetryFile`: file name for the retry file, see [Retry and Limit Files](#retry-limit)
 - `vaultPassword`: string, password to use with [Ansible Vault](#ansible-vault).
 - `verbose`: integer, increase log [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4 correlate to -v through -vvvv.
