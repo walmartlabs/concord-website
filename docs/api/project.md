@@ -15,10 +15,6 @@ The REST API provides support for a number of operations:
 - [Update a Project](#update-project)
 - [Delete a Project](#delete-project)
 - [List Projects](#list-projects)
-- [Create a Repository](#create-repository)
-- [Update a Repository](#update-repository)
-- [Delete a Repository](#delete-repository)
-- [List Repositories](#list-repositories)
 - [Get Project Configuration](#get-project-configuration)
 - [Update Project Configuration](#update-project-configuration)
 
@@ -27,8 +23,7 @@ The REST API provides support for a number of operations:
 
 Creates a new project with specified parameters or updates an existing one.
 
-* **Permissions** `project:create`, `project:update:${projectName}`, `secret:read:${secretName}` (optional)
-* **URI** `/api/v1/project`
+* **URI** `/api/v1/org/${orgName}/project`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
@@ -37,9 +32,6 @@ Creates a new project with specified parameters or updates an existing one.
       "name": "myProject",
       "description": "my project",
     
-      "teamId": "...",
-      "teamName": "...",
-
       "repositories": {
         "myRepo": {
           "url": "...",
@@ -56,8 +48,6 @@ Creates a new project with specified parameters or updates an existing one.
     ```
     All parameters except `name` are optional.
     
-    The `teamId` and `teamName` parameters are mutually exclusive.
-
     The project configuration is a JSON object of the following structure:
     ```json
     {
@@ -73,8 +63,6 @@ Creates a new project with specified parameters or updates an existing one.
     ```
 
     Most of the parameter groups are defined by used plugins.
-
-    See also: [create a new repository](#create-a-new-repository)
 * **Success response**
     ```
     Content-Type: application/json
@@ -82,7 +70,8 @@ Creates a new project with specified parameters or updates an existing one.
 
     ```json
     {
-      "ok": true
+      "ok": true,
+      "result": "CREATED"
     }
     ```
 
@@ -91,18 +80,16 @@ Creates a new project with specified parameters or updates an existing one.
 
 Updates parameters of an existing project.
 
-* **Permissions** `project:update:${projectName}`, `secret:read:${secretName}` (optional)
-* **URI** `/api/v1/project/${projectName}`
+* **URI** `/api/v1/org/${orgName}/project/${projectName}`
 * **Method** `PUT`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
     ```json
     {
+      "name": "New name",
+  
       "description": "my updated project",
       
-      "teamId": "...",
-      "teamName": "...",
-
       "repositories": {
         "myRepo": {
           "url": "...",
@@ -118,14 +105,12 @@ Updates parameters of an existing project.
     ```
     All parameters are optional.
     
-    The `teamId` and `teamName` parameters are mutually exclusive.
-    
     Omitted parameters are not updated.
     
     An empty value must be specified in order to remove a project's value:
     e.g. an empty `repositories` object to remove all repositories from a project.
 
-    See also: [create a new repository](#create-a-new-repository), [project configuration](#project-configuration)
+    See also: [project configuration](#project-configuration)
 * **Success response**
     ```
     Content-Type: application/json
@@ -133,8 +118,8 @@ Updates parameters of an existing project.
 
     ```json
     {
-      "actionType": "CREATED",
-      "ok": true
+      "ok": true,
+      "result": "UPDATED"
     }
     ```
 
@@ -143,8 +128,7 @@ Updates parameters of an existing project.
 
 Removes a project and its resources.
 
-* **Permissions** `project:delete:${projectName}`
-* **URI** `/api/v1/project/${projectName}`
+* **URI** `/api/v1/org/${orgName}/project/${projectName}`
 * **Method** `DELETE`
 * **Headers** `Authorization`
 * **Body**
@@ -156,7 +140,8 @@ Removes a project and its resources.
 
     ```json
     {
-      "ok": true
+      "ok": true,
+      "result": "DELETED"
     }
     ```
 
@@ -165,8 +150,7 @@ Removes a project and its resources.
 
 Lists all existing projects.
 
-* **Permissions**
-* **URI** `/api/v1/project?sortBy=${sortBy}&asc=${asc}`
+* **URI** `/api/v1/org/${orgName}/project`
 * **Query parameters**
     - `sortBy`: `projectId`, `name`;
     - `asc`: direction of sorting, `true` - ascending, `false` - descending
@@ -185,127 +169,12 @@ Lists all existing projects.
     ]
     ```
 
-<a name="create-repository"/>
-## Create a Repository
-
-Adds a new repository for a project.
-
-* **Permissions** `project:update:${projectName}`, `secret:read:${secretName}` (optional)
-* **URI** `/api/v1/project/${projectName}/repository`
-* **Method** `POST`
-* **Headers** `Authorization`, `Content-Type: application/json`
-* **Body**
-    ```json
-    {
-      "name": "myRepo",
-      "url": "...",
-      "branch": "...",
-      "commitId": "...",
-      "path": "...",
-      "secret": "..."
-    }
-    ```
-
-    Mandatory parameters: `name` and `url`.
-    Parameters `branch` and `commitId` are mutually exclusive.
-    The referenced secret must exist beforehand.
-* **Success response**
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    {
-      "ok": true
-    }
-    ```
-
-<a name="update-repository"/>
-## Update a Repository
-
-Updates parameters of an existing repository.
-
-* **Permissions** `project:update:${projectName}`, `secret:read:${secretName}`
-* **URI** `/api/v1/project/${projectName}/repository/${repoName}`
-* **Method** `PUT`
-* **Headers** `Authorization`, `Content-Type: application/json`
-* **Body**
-    ```json
-    {
-      "url": "...",
-      "branch": "...",
-      "secret": "..."
-    }
-    ```
-
-    All parameters except `url` are optional.
-    The referenced secret must exist beforehand.
-* **Success response**
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    {
-      "ok": true
-    }
-    ```
-
-<a name="delete-repository"/>
-## Delete a Repository
-
-Removes a repository.
-
-* **Permissions** `project:update:${projectName}`
-* **URI** `/api/v1/project/${projectName}/repository/${repoName}`
-* **Method** `DELETE`
-* **Headers** `Authorization`, `Content-Type: application/json`
-* **Body**
-    none
-* **Success response**
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    {
-      "ok": true
-    }
-    ```
-
-<a name="list-repositories"/>
-## List Repositories
-
-Lists existing repositories in a project.
-
-* **Permissions** `project:read:${projectName}`
-* **URI** `/api/v1/project/${projectName}/repository?sortBy=${sortBy}&asc=${asc}`
-* **Query parameters**
-    - `sortBy`: `name`, `url`, `branch`;
-    - `asc`: direction of sorting, `true` - ascending, `false` - descending
-* **Method** `GET`
-* **Headers** `Authorization`
-* **Body**
-    none
-* **Success response**
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    [
-      { "name": "...", "url": "...", "branch": "...", "secret": "..." },
-      { "name": "...", "url": "..." }
-    ]
-    ```
-
 <a name="get-project-configuration"/>
 ## Get Project Configuration
 
 Returns project's configuration JSON or its part.
 
-* **Permissions** `project:read:${projectName}`
-* **URI** `/api/v1/project/${projectName}/cfg/${path}`
+* **URI** `/api/v1/org/${orgName}/project/${projectName}/cfg/${path}`
 * **Query parameters**
     - `path`: path to a sub-object in the configuration, can be empty
 * **Method** `GET`
@@ -328,8 +197,7 @@ a name="update-project-configuration"/>
 
 Updates project's configuration or its part.
 
-* **Permissions** `project:read:${projectName}`
-* **URI** `/api/v1/project/${projectName}/cfg/${path}`
+* **URI** `/api/v1/org/${orgName}/project/${projectName}/cfg/${path}`
 * **Query parameters**
     - `path`: path to a sub-object in the configuration, can be empty
 * **Method** `PUT`
@@ -353,6 +221,7 @@ Updates project's configuration or its part.
 
     ```json
     {
-      "ok": true
+      "ok": true,
+      "result": "UPDATED"
     }
     ```

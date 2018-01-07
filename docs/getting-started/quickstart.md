@@ -62,7 +62,7 @@ key for the git repository. In GitHub, for example, this can be done in the
 _Settings - Deploy keys_ section of the repository.
 
 Alternatively the key can be
-[created](../api/secret.html#create-secret-ssh-new) and
+[created](../api/secret.html#create-secret) and
 [accessed](../api/secret.html#get-key) with the REST API for secrets.
 
 <a name="create-project"/>

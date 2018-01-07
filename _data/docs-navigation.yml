@@ -25,20 +25,20 @@ nav:
         context: /docs/getting-started/security
       - page: Tasks
         context: /docs/getting-started/tasks
+      - page: Organizations and Teams
+        context: /docs/getting-started/orgs
   - title: API
     id: api
     collapse: /docs/api
     subfolderitems:
       - page: API Key
         context: /docs/api/apikey
-      - page: LDAP Mapping
-        context: /docs/api/ldap
+      - page: Organization
+        context: /docs/api/org
       - page: Process
         context: /docs/api/process
       - page: Project
         context: /docs/api/project
-      - page: Role
-        context: /docs/api/role
       - page: Secret
         context: /docs/api/secret
       - page: Team

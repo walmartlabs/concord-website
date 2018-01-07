@@ -35,7 +35,6 @@ started [in a browser directly](#browser).
 <a name="existing-project"/>
 ### Existing Project
 
-* **Permissions** none
 * **URI** `/api/v1/process/${entryPoint}?sync=${sync}&out=${outVar}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
@@ -71,7 +70,8 @@ started [in a browser directly](#browser).
 
     ```json
     {
-      "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
+      "instanceId" : "0c8fde* **Permissions** none
+ca-5158-4781-ac58-97e34b9a70ee",
       "ok" : true
     }
     ```
@@ -136,7 +136,6 @@ to starts a new process using the provided files as request data.
 Accepts multiple additional files, which are put into the process'
 working directory.
 
-* **Permissions** none
 * **URI** `/api/v1/process/${entryPoint}?sync=${sync}&out=${out}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: multipart/form-data`
@@ -189,7 +188,6 @@ working directory.
 You can start a new process in Concord. This execution walks a user through all
 process' forms and intermediate "pages".
 
-* **Permissions** none
 * **URI** `/api/service/process_portal/start?entryPoint=${entryPoint}&myParam=myVal...`
 * **Method** `GET`
 * **Headers** none
@@ -216,7 +214,6 @@ process' forms and intermediate "pages".
 
 Forcefully stops the process.
 
-* **Permissions** none
 * **URI** `/api/v1/process/${instanceId}`
 * **Method** `DELETE`
 * **Headers** `Authorization`
@@ -232,7 +229,6 @@ Forcefully stops the process.
 
 Returns the current status of a process.
 
-* **Permissions** none
 * **URI** `/api/v1/process/${instanceId}`
 * **Method** `GET`
 * **Headers** `Authorization`
@@ -261,7 +257,6 @@ Returns the current status of a process.
 
 Downloads the log file of a process.
 
-* **Permissions** none
 * **URI** `/api/v1/process/${instanceId}/log`
 * **Method** `GET`
 * **Headers** `Authorization`, `Range`
@@ -282,7 +277,6 @@ Downloads the log file of a process.
 
 Downloads a process' attachment.
 
-* **Permissions** none
 * **URI** `/api/v1/process/${instanceId}/attachment/${attachmentName}`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/octet-stream`

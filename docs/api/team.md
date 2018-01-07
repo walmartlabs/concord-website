@@ -6,8 +6,8 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-A team owns projects, repositories and secrets. Users can be in
-multiple teams simultaneously.
+A team is a group of users. Users can be in multiple teams
+simultaneously.
 
 The REST API provides support for a number of operations:
 
@@ -22,20 +22,16 @@ The REST API provides support for a number of operations:
 
 Creates a new team with specified parameters or updates an existing one.
 
-* **Permissions** `team:manage`
-* **URI** `/api/v1/team`
+* **URI** `/api/v1/org/${orgName}/team`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
     ```json
     {
       "name": "myTeam",
-      "description": "my team",
-      "enabled": true
+      "description": "my team"
     }
     ```
-    All parameters except `name` are optional.
-    
 * **Success response**
     ```
     Content-Type: application/json
@@ -54,8 +50,7 @@ Creates a new team with specified parameters or updates an existing one.
 
 Lists all existing teams.
 
-* **Permissions**
-* **URI** `/api/v1/team`
+* **URI** `/api/v1/org/${orgName}/team`
 * **Method** `GET`
 * **Headers** `Authorization`
 * **Body**
@@ -67,14 +62,15 @@ Lists all existing teams.
     
     ```json
     [
-      { "id": "...",
+      {
+        "id": "...",
         "name": "...",
-        "description": "...",
-        "enabled": true },
-      { "id": "...",
+        "description": "..."
+      },
+      {
+        "id": "...",
         "name": "...",
-        "description": "my project",
-        "enabled": true
+        "description": "my project"
        }
     ]
     ```
@@ -84,8 +80,7 @@ Lists all existing teams.
 
 Returns a list of users associated with the specified team.
 
-* **Permissions**
-* **URI** `/api/v1/team/${teamName}/users`
+* **URI** `/api/v1/org/${orgName}/team/${teamName}/users`
 * **Method** `GET`
 * **Headers** `Authorization`
 * **Body**
@@ -107,8 +102,7 @@ Returns a list of users associated with the specified team.
 
 Adds a list of users to the specified team.
 
-* **Permissions** `team:manage`
-* **URI** `/api/v1/team/${teamName}/users`
+* **URI** `/api/v1/org/${orgName}/team/${teamName}/users`
 * **Method** `PUT`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
@@ -131,8 +125,7 @@ Adds a list of users to the specified team.
 
 Removes a list of users from the specified team.
 
-* **Permissions** `team:manage`
-* **URI** `/api/v1/team/${teamName}/users`
+* **URI** `/api/v1/org/${orgName}/team/${teamName}/users`
 * **Method** `DELETE`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**

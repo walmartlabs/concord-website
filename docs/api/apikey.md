@@ -19,7 +19,6 @@ The REST API provides support for a number of operations:
 
 Creates a new API key for a user.
 
-* **Permissions** `apikey:create`
 * **URI** `/api/v1/apikey`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
@@ -51,7 +50,6 @@ Creates a new API key for a user.
 
 Removes an existing API key.
 
-* **Permissions** `apikey:delete`
 * **URI** `/api/v1/apikey/${id}`
 * **Method** `DELETE`
 * **Headers** `Authorization`

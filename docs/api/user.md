@@ -21,7 +21,6 @@ The REST API provides support for a number of operations:
 Creates a new user with specified parameters or updates an existing one
 using the specified username.
 
-* **Permissions** `user:create`, `user:update`
 * **URI** `/api/v1/user`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
@@ -59,7 +58,6 @@ using the specified username.
 
 Find an existing user by name.
 
-* **Permissions** none
 * **URI** `/api/v1/user/${username}`
 * **Method** `GET`
 * **Headers** `Authorization`
