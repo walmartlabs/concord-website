@@ -11,7 +11,6 @@ A process is an execution of a flow in repository of a project.
 The REST API provides support for a number of operations:
 
 - [Start a Process](#start-process)
-  - [Existing Project](#existing-project)
   - [ZIP File](#zip-file)
   - [Browser](#browser)
 - [Stop a Process](#stop-process)
@@ -24,7 +23,7 @@ The REST API provides support for a number of operations:
 ## Start a Process
 
 The best approach to start a process is to execute a flow defined in the Concord
-file in a repository of an [existing project](#existing-project).
+file in a repository of an existing project.
 
 Alternatively you can create a [ZIP file with the necessary content](#zip-file)
 and submit it for execution.
@@ -32,37 +31,39 @@ and submit it for execution.
 For simple user interaction with flows that include forms, a process can also be
 started [in a browser directly](#browser).
 
-<a name="existing-project"/>
-### Existing Project
+Following is the full information about the API. It allows the user 
+to starts a new process using the provided files as request data.
+Accepts multiple additional files, which are put into the process'
+working directory.
 
-* **URI** `/api/v1/process/${entryPoint}?sync=${sync}&out=${outVar}`
+* **URI** `/api/v1/process`
 * **Method** `POST`
-* **Headers** `Authorization`, `Content-Type: application/json`
-* **Parameters**
-    The `${entryPoint}` parameter should be one the following formats:
-    - `projectName:repositoryName`
-    - `projectName:repositoryName:flowName`
-
-    For example:`myProject:default:main`
-
-    The `flowName` part can be ommitted if the project has the
-    entry flow name set in the main project file or in a project
-    template.
-
-    The `${sync}` (`true/false`, default is `false`) parameter enables
-    synchronous execution of a process. The request will block until
-    the process is complete.
-    
-    The `${out}` parameter declares a process ouput variable. To
-    declare multiple output variables use `out=varA&outB=varB...`.
+* **Headers** `Authorization`, `Content-Type: multipart/form-data`
 * **Body**
-    ```json
-    {
-      "arguments": {
-        "myVar": "..."
-      }
-    }
-    ```
+    Multipart binary data.
+
+    The values will be interpreted depending on their name:
+    - `archive` - ZIP archive, will be extracted into the process'
+    working directory;
+    - `request` - JSON file, will be used as the process' parameters;
+    - any value of `application/octet-stream` type - will be copied
+    as a file into the process' working directory;
+    - `orgId` or `org` - ID or name of the organization which
+    "owns" the process;
+    - `projectId` or `project` - ID or name of the project
+    which will be used to run the process;
+    - `repoId` or `repo` - ID or name of the repository which
+    will be used to run the process;
+    - `entryPoint` - name of the starting flow;
+    - `sync` - enables synchronous execution of a process. The
+    request will block until the process is complete;
+    - `out` - list of comma-separated names of variables that will be
+    returned after the process finishes. Works only with `sync`;
+    - any other value of `text/plain` type - will be used as a process'
+    parameter. Nested values can be specified using `.` as the
+    delimiter;
+    - any other value will be saved as a file in the process' working
+    directory.
 * **Success response**
     ```
     Content-Type: application/json
@@ -70,17 +71,27 @@ started [in a browser directly](#browser).
 
     ```json
     {
-      "instanceId" : "0c8fde* **Permissions** none
-ca-5158-4781-ac58-97e34b9a70ee",
+      "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
       "ok" : true
     }
     ```
+* **Example**
+    ```
+    curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+    -F org=MyOrg \
+    -F project=MyProject \
+    -F archive=@src/payload.zip \
+    -F myFile.txt=@src/myFile.txt \
+    -F entryPoint=main \
+    -F arguments.name=Concord \
+    http://concord.example.com:8001/api/v1/process
+    ```
 
 An example of a invocation triggers the `default` flow in the `default` repository
-of `myproject` without further parameters.
+of `myproject` in the `myorg` organization without further parameters.
 
 ```
-curl -H "Content-Type: application/json" -d '{}' https://concord.example.com/api/v1/process/myproject:default
+curl -F org=myorg -F project=myproject -F repo=default https://concord.example.com/api/v1/process
 ```
 
 
@@ -88,7 +99,7 @@ You can specify the flow e.g. `main` to start with a different flow for the same
 `default` repository of the `myproject` without further parameters.
 
 ```
-curl -H "Content-Type: application/json" -d '{}' https://concord.example.com/api/v1/process/myproject:default:main
+curl -F org=myorg -F project=myproject -F repo=default -F entryPoint=main https://concord.example.com/api/v1/process
 ```
 
 
@@ -118,8 +129,7 @@ with the admin authorization or your user credentials as described in our
 [getting started example](../getting-started/):
 
 ```
-curl -H "Content-Type: application/octet-stream" \
-     --data-binary @archive.zip http://concord.example.com/api/v1/process
+curl -F archive=@archive.zip http://concord.example.com/api/v1/process
 ```
 
 The response should look like:
@@ -131,57 +141,6 @@ The response should look like:
 }
 ```
 
-Following is the full information about the API. It allows the user 
-to starts a new process using the provided files as request data.
-Accepts multiple additional files, which are put into the process'
-working directory.
-
-* **URI** `/api/v1/process/${entryPoint}?sync=${sync}&out=${out}`
-* **Method** `POST`
-* **Headers** `Authorization`, `Content-Type: multipart/form-data`
-* **Parameters**
-    The `${entryPoint}` parameter should be one the following formats:
-    - `projectName:repositoryName`
-    - `projectName:repositoryName:flowName`
-
-    The `${sync}` (`true/false`, default is `false`) parameter enables
-    synchronous execution of a process. The request will block until
-    the process is complete.
-    
-    The `${out}` parameter declares a process OUT variable. To
-    declare multiple OUT variables use `out=varA&outB=varB...`.
-* **Body**
-    Multipart binary data.
-
-    The values will be interpreted depending on their name:
-    - `archive` - ZIP archive, will be extracted into the process'
-    working directory;
-    - `request` - JSON file, will be used as the process' parameters;
-    - any value of `application/octet-stream` type - will be copied
-    as a file into the process' working directory;
-    - any value of `text/plain` type - will be used as a process'
-    parameter. Nested values can be specified using `.` as the
-    delimiter.
-* **Success response**
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    {
-      "instanceId" : "0c8fdeca-5158-4781-ac58-97e34b9a70ee",
-      "ok" : true
-    }
-    ```
-* **Example**
-    ```
-    curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
-    -F archive=@src/payload.zip \
-    -F myFile.txt=@src/myFile.txt \
-    -F entryPoint=main \
-    -F arguments.name=Concord \
-    http://concord.example.com:8001/api/v1/process
-    ```
 <a name="browser"/>
 ### Browser
 

@@ -106,10 +106,10 @@ request data.
 
 Concord has the ability to return process data when a process completes.
 The names or returned variables should be declared when a process starts
-using query parameters:
+using `multipart/form-data` parameters:
 
 ```
-$ curl ... 'http://concord.example.com/api/v1/process?sync=true&out=myVar1'
+$ curl ... -F sync=true -F out=myVar1 http://concord.example.com/api/v1/process
 {
   "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b",
   "out" : {
@@ -130,7 +130,7 @@ configuration:
 It is also possible to retrieve a nested value:
 
 ```
-$ curl ... 'http://concord.example.com/api/v1/process?sync=true&out=a.b.c'
+$ curl ... -F sync=true -F out=a.b.c http://concord.example.com/api/v1/process
 ```
 
 In this example, Concord looks for variable `a`, its field `b` and
