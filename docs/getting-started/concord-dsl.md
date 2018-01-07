@@ -512,11 +512,28 @@ The `set` command can be used to set variables in the current flow:
 ```yaml
 flows:
   default:
-    - set:
-        a: "a-value"
-        b: 3
-    - log: ${a}
-    - log: ${b}
+  - set:
+      a: "a-value"
+      b: 3
+  - log: ${a}
+  - log: ${b}
+```
+
+Nested data can be updated using the `.` syntax:
+
+```yaml
+configuration:
+  arguments:
+    myComplexData:
+      nestedValue: "Hello"
+
+flows:
+  default:
+  - set:
+      myComplexData.nestedValue: "Bye"
+      
+  # will print "Bye, Concord"
+  - log: "${myComplexData.nestedValue}, Concord"
 ```
 
 <a name="profiles"/>
