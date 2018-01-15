@@ -37,12 +37,12 @@ collected in a single archive file called "payload".
 
 There are several ways to start a process:
 
-- send a complete, self-contained ZIP archive to the server. Its
+1. send a complete, self-contained ZIP archive to the server. Its
 format is described in a
 [separate document](./processes.html#payload-format);
-- send a JSON request, containing only request parameters and a
+2. send a JSON request, containing only request parameters and a
 reference to a [project](#project);
-- same as **2**, but sending additional files with the request.
+3. same as **2**, but sending additional files with the request.
 
 For methods **2** and **3**, the server will build a payload archive
 itself.
