@@ -16,8 +16,8 @@ collapseNavDocs: true
 display-search-in-header: true
 custom-footer: false
 
-concord_source: https://gecgithub01.walmart.com/devtools/concord/
-concord_plugins_source: https://gecgithub01.walmart.com/devtools/concord-plugins/
+concord_source: "https://gecgithub01.walmart.com/devtools/concord/"
+concord_plugins_source: "https://gecgithub01.walmart.com/devtools/concord-plugins/"
 
 navigation:
   - title: DOCS

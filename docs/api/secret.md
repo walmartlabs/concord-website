@@ -39,7 +39,7 @@ Creates a new secret.
     server will automatically generate and return a `storePassword`
     value;
     - `visibility` - optional, `PUBLIC` (default) or `PRIVATE`. See
-    the description of [public and private resources](../getting-started/org.html);
+    the description of [public and private resources](../getting-started/orgs.html);
     
     The rest of the parameters depend of the `type` of the created
     secret:

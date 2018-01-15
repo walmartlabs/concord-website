@@ -153,5 +153,6 @@ The `context` and `workDir` values are automatically provided by Concord.
 
 ## Source Reference
 
-The [source code of the task implementation](${concord_plugins_source}tree/master/tasks/boo)
+The
+[source code of the task implementation]({{site.concord_plugins_source}}tree/master/tasks/boo)
 can be used as the reference for the available functionality.

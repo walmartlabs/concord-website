@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title}} 
 
-[Concord](../about.html) consists of the a server and user interface components:
+[Concord](../../about.html) consists of the a server and user interface components:
 
 The [Concord Server](#concord-server) provides a REST API for managing
 projects and repositories. It receives and processes user requests

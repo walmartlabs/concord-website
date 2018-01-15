@@ -80,7 +80,7 @@ triggers:
 The `event` object's, in addition to the trigger parameters, contains `payload`
 attribute - the original event's data "as is". The following example uses the
 IP address of the deployment component to build an ansible inventory for
-exection of an [Ansible task](./ansible.html):
+exection of an [Ansible task](../plugins/ansible.html):
 
 
 ```yaml

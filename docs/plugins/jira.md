@@ -124,5 +124,6 @@ The JIRA task can be used to delete an existing issue.
 
 ## Source Reference
 
-The [source code of the task implementation](${concord_plugins_source}tree/master/tasks/jira)
+The
+[source code of the task implementation]({{site.concord_plugins_source}}tree/master/tasks/jira)
 can be used as the reference for the available functionality.
