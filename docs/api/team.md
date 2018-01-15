@@ -107,7 +107,17 @@ Adds a list of users to the specified team.
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
     ```json
-    ["userA", "userB", "..."]
+    [
+      {
+        "username": "userA",
+        "role": "MEMBER"  
+      },
+      {
+        "username": "userB",
+        "role": "MAINTAINER"  
+      },
+      ...
+    ]    
     ```
 * **Success response**
     ```
