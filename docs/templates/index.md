@@ -27,8 +27,9 @@ Template is a regular JAR or ZIP archive with the structure similar
 to a regular process payload.
 
 For example, the
-[ansible template](https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins/templates/ansible/src/main/filtered-resources)
+[ansible template]({{site.concord_source}}tree/master/plugins/templates/ansible/src/main/filtered-resources)
 has the following structure:
+
 ```
 _callbacks/  # (1)
   trace.py
@@ -52,6 +53,7 @@ server before starting a process. The script must return a JSON
 object which will be used as process variables.
 
 For example, if `_main.js` looks like this:
+
 ```javascript
 ({
     entryPoint: "main",
@@ -61,13 +63,17 @@ For example, if `_main.js` looks like this:
     }
 })
 ```
+
 then given this request data
+
 ```json
 {
   "message": "Hello,"
 }
 ```
+
 the process variables will look like this:
+
 ```json
 {
   "entryPoint": "main",
@@ -84,6 +90,7 @@ template script.
 ## Usage
 
 Template can be referenced with a `template` entry in process variables:
+
 ```yaml
 flows:
   default:
@@ -94,14 +101,17 @@ configuration:
   # or by using a maven repository 
   template: "mvn://groupId:artifactId:version"
 ```
+
 Only one template can be used at a time.
 
 The `template` parameter can also be specified in request JSON data
 or profiles.
 
 Templates also can be references by their aliases:
+
 ```yaml
 configuration:
   template: "my-template"
 ```
+
 The alias must be added using the [template API](../api/template.html).

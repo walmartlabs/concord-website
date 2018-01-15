@@ -139,7 +139,7 @@ First configure:
 ```
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.47.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
   arguments:
     smtpServer:
       host: smtp-gw1.wal-mart.com
@@ -201,7 +201,7 @@ Work with other Concord processes
 ```
 configuration:
   dependencies:
-  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.32.0"
+  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.35.0"
 flows:
   default:
     - task: concord

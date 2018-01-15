@@ -15,7 +15,7 @@ latest available version:
 ```yaml
 configuration:
   dependencies:
-  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.34.0"
+  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.35.0"
 ```
 
 ## Examples

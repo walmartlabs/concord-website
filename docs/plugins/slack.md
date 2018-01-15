@@ -11,7 +11,7 @@ The `slack` task supports posting messages on a channel of the
 
 ## Configuration
 
-This task is provided automatically by the Concord and the target Slack server
+This task is provided automatically by Concord and the target Slack server
 instance has to be
 [configured as part of the server installation](../getting-started/configuration.html#slack).
 

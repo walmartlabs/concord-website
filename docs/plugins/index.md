@@ -18,3 +18,6 @@ use in the workflow execution.
 - [OneOps](./oneops.html)
 - [Slack](./slack.html)
 - [SMTP](./smtp.html)
+
+You can find the binaries of the plugins and all available versions in 
+[the repository at com/walmartlabs/concord/plugins](https://repository.walmart.com/content/groups/public/com/walmartlabs/concord/plugins/).

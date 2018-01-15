@@ -85,7 +85,7 @@ It Task interface is provided by the `concord-sdk` module:
 <dependency>
   <groupId>com.walmartlabs.concord</groupId>
   <artifactId>concord-sdk</artifactId>
-  <version>0.47.0</version>
+  <version>0.50.0</version>
   <scope>provided</scope>
 </dependency>
 ```

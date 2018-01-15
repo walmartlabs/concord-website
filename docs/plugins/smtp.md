@@ -8,8 +8,6 @@ side-navigation: wmt/docs-navigation.html
 
 The SMTP `smtp` task supports sending email messages as part of a flow.
 
-
-
 ## Usage
 
 This task needs to be declared as a dependency to be used and the SMTP server
@@ -18,7 +16,7 @@ used to send the message has to be specified with hostname and port.
 ```yaml
 configuration:
   dependencies:
-    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.45.1
+    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
   arguments:
     smtpServer:
       host: smtp-gw1.wal-mart.com

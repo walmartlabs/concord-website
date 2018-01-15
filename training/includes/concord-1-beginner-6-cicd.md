@@ -102,7 +102,7 @@ Managed Service at Walmart implements that for Cassandra, CloudRDBMS and others.
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.46.0
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.50.0
 flows:
   default:
   - task: ansible
@@ -131,7 +131,7 @@ Configuration:
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:0.35.0
+  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:0.36.0
 configuration:
   arguments:
     oneOpsConfig:
