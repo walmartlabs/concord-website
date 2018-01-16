@@ -79,14 +79,23 @@ the REST API or the UI and retrieved using the
 `crypto.exportAsString` method:
     
 ```
-$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword="myPassword" -F secret="my value" 'http://localhost:8001/api/v1/secret/plain?name=myValue'
+$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword="myPassword" -F secret="my value" 'http://localhost:8001/api/v1/secret/plain?name=mySecret'
 ```
 
 ```yaml
-- log: "${crypto.exportAsString('myValue', 'myPassword')}"
+- log: "${crypto.exportAsString('mySecret', 'myPassword')}"
 ```
 
 In this example, `my value` will be printed in the log.
+
+Alternatively, the `crypto` task provides a method to export plain
+secrets as files:
+```yaml
+- log: "${crypto.exportAsFile('mySecret', 'myPassword')}"
+```
+
+The method returns a path to the temporary file containing the
+exported secret.
 
 <a name="encrypting"/>
 ## Encrypting and Decrypting Values
