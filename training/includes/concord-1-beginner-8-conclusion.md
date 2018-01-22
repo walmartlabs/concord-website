@@ -18,7 +18,7 @@
 
 ## Next
 
-- Learn more from the documentation
+- Learn more from the [documentation](http://concord.walmart.com)
 - Talk to the team on chat
 - Request features and improvements
 

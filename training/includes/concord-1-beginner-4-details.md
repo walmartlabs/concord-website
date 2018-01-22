@@ -9,8 +9,9 @@ Syntax used in `concord.yml` with top level nodes for:
 
 - `configuration:`
 - `flows:`
-- `profiles:`
 - `forms:`
+- `profiles:`
+- `triggers:`
 
 Note:
 Explain each a bit .. more is coming below
@@ -21,12 +22,12 @@ Explain each a bit .. more is coming below
 Project global settings in `configuration`:
 
 - `entryPoint:`
-- `template:`
 - `dependencies:`
 - `arguments:`
+- `template:`
 
 Note:
-- explain each a bit
+- explain in next slides
 
 
 ## Entry Point
@@ -35,19 +36,6 @@ What flow to start with.
 
 - Optional configuration
 - `default` is the default
-
-
-## Template
-
-What other Concord DSL configuration to reuse.
-
-- Advanced usage
-- JAR archive of other project
-- Powerful for reuse of
-  - Complex flows
-  - Scripts
-  - Forms 
-  - Profiles
 
 
 ## Dependencies
@@ -91,6 +79,19 @@ flows:
   - log: "Project name: ${name}"
   - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
+
+
+## Template
+
+What other Concord DSL configuration to reuse.
+
+- Advanced usage
+- JAR archive of other project
+- Powerful for reuse of
+  - Complex flows
+  - Scripts
+  - Forms 
+  - Profiles
 
 
 ## Flows
@@ -285,6 +286,9 @@ Language needs to implement Java Scripting API, e.g.:
 - Groovy
 - Jython
 - JavaScript
+- Ruby
+
+Runs on JVM!
 
 
 ## Scripting Features
@@ -310,6 +314,53 @@ flows:
 
 Note:
 - uses JavaScript impl for Java Scripting API which includes extensions like print
+- show other examples from concord codebase examples folder
+
+## Triggers
+
+Kick off flow based on external events.
+
+- OneOps
+- GitHub
+- Generic
+
+
+## Trigger Example
+
+```
+flows:
+  onDeployment:
+  - log: "OneOps has completed a deployment: ${event}"
+  
+triggers:
+- oneops:
+    org: "myOrganization"
+    asm: "myAssembly"
+    env: "myEnvironment"
+    platform: "myPlatform"
+    type: "deployment"
+    deploymentState: "complete"
+    entryPoint: onDeployment
+```
+
+
+## Profile Example
+
+```
+flows:
+  default:
+    - log: "${foo}
+
+configuration
+  arguments:
+    foo: "bar"
+    
+profiles:
+  myProfile:
+    configuration:
+      arguments:
+        foo: "bazz"
+```
 
 
 ## Questions?

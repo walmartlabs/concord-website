@@ -51,7 +51,7 @@ Walmart Repository Manager stores binaries.
 
 ## Ansible Task
 
-Feature rich Ansible integration
+Feature-rich Ansible integration
 
 - Run playbooks
 - Static inventories

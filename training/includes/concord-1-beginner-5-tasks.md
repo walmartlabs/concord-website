@@ -124,10 +124,12 @@ flows:
 - Access to secrets
   - keys
   - credentials
-- Encrypt and Decrypt
+- Encrypt secret via API
+- Decrypt in flow with task
 
 Note:
 - maybe demo, maybe add example to deck..
+- e.g. OneOps API token 
 
 
 ## SMTP Task
@@ -140,10 +142,6 @@ First configure:
 configuration:
   dependencies:
   - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
-  arguments:
-    smtpServer:
-      host: smtp-gw1.wal-mart.com
-      port: 25
 ```
 
 
@@ -156,7 +154,6 @@ flows:
   default:
   - task: smtp
     in:
-      smtp: ${smtpServer}
       mail:
         from: ${initiator.attributes.mail}
         to: somebody@example.com
@@ -164,7 +161,7 @@ flows:
         message: "Your process started."
 ```
 
-Or Moustache `template` file.
+Or Moustache `template:` file.
 
 
 ## Slack Example
@@ -201,7 +198,7 @@ Work with other Concord processes
 ```
 configuration:
   dependencies:
-  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.35.0"
+  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.36.0"
 flows:
   default:
     - task: concord

@@ -45,6 +45,8 @@ To allow Concord access to the repository:
 
 - Login to Concord Console
 - Secrets, Create New Key Pair
+  - Visibility public/private
+  - No password
 - Get public key
 - Add to GitHub repository configuration
 

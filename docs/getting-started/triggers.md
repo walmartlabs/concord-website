@@ -39,6 +39,11 @@ matched with the external event's parameters, `entryPoint` is the name of the
 flow which will be started if there is a match and `arguments` is the list of
 additional parameters which are passed to the flow.
 
+Any events published by the external system to the the API end-point
+`/api/v1/events/` are matched with the name of the trigger. So events published to
+`/api/v1/events/eventSource` are matched with triggers using the name `eventSource` as
+used in the example.
+
 Parameters may contain YAML literals such as strings, numbers, boolean values or
 regular expressions.
 
@@ -123,5 +128,22 @@ repository which were updated in GitHub;
 <a name="generic"/>
 ## Generic Events
 
-The generic event endpoint provides a simple way of integration with Concord for
-3rd-party systems.
+The generic event end-point provides a simple way of integration with Concord for
+3rd-party systems. Any event submitted to the events API using a specific
+trigger name is routed to the identically named triggers in your Concord
+project.
+
+You can submit a JSON document to the API at `/api/v1/events/example` and start off
+a flow with the trigger:
+
+```
+triggers:
+- example:
+    project: "myProject"
+    repository: "myRepository"
+    entryPoint: exampleFLow
+```
+
+Check out the
+[full example]({{site.concord_source}}tree/master/examples/generic_triggers)
+for more details.

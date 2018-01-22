@@ -86,7 +86,7 @@ Web-based user interface for Concord Server:
 - Created by users
 - Stored in git repository
 - YAML for flow definitions
-- Execution as process on Concord Server
+- Execution as _process_ on Concord Server
 
 
 ## Questions?
