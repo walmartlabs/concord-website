@@ -40,6 +40,7 @@ forms:
   - languages: { label: "Preferred languages", type: "string+", allow: "${locale.languages()}" }
   - password: { label: "Password", type: "string", inputType: "password" }
   - rememberMe: { label: "Remember me", type: "boolean" }
+  - photo: { label: "Photo", type: "file" }
 ```
 
 Field declaration consists of the name (`myField`), the type
@@ -66,7 +67,9 @@ Supported types of fields and their options:
   - `min`, `max`: (optional) value bounds.
 - `decimal`: a decimal value
   - `min`, `max`: (optional) value bounds.
-- `boolean`: a boolean value, `true` or `false`.
+- `boolean`: a boolean value, `true` or `false`;
+- `file`: a file upload field, will be stored as a file in the
+process' workspace.
 
 Cardinality of the field can be specified by adding a cardinality
 quantifier to the type:
@@ -191,6 +194,16 @@ unique URL;
 
 Forms can use any external JavaScript library or a CSS resource. The
 only mandatory part is to use provided `submitUrl` value.
+
+Custom forms with file uploading fields must use
+`enctype="multipart/form-data"`:
+```html
+<form method="post" enctype="multipart/form-data">
+    <label>Photo:</label>
+    <input name="photo" type="file"/>
+    <button>Submit</button>
+</form>
+```
 
 ### Accessing the Data
 
