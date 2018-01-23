@@ -25,6 +25,7 @@ The following configuration details are available:
 - [Server LDAP Authentication](#server-ldap-authentication)
 - [Server Slack Connection](#slack)
 - [Process Runtime Variables](#process-runtime-variables)
+- [Default Process Variables](#default-process-variables)
 
 
 <a name="common-environment-variables"/>
@@ -161,3 +162,23 @@ execution. All parameters are optional.
 | AGENT_PAYLOAD_DIR | Directory to store unpacked payload files.      | _a new temporary directory_ |
 | AGENT_JAVA_CMD    | Path to `java` executable.                      | `java`                      |
 | DEPS_CACHE_DIR    | Path to a directory for the dependency cache.   | _a new temporary directory_ |
+
+
+## Default Process Variables
+
+As a Concord administrator, you can set default variable values that
+are automatically set in all process execution.
+
+This allows you to set global parameters such as the connection details for
+an SMTP server used by the [SMTP task](../plugins/smtp.html).
+
+The values are configured in the file `/data/conf/default_vars.yml`. The following
+example, shows how to configure an SMTP server to be used by all processes. As
+a result, project authors do not need to specify the SMTP server configuration
+in their own `concord.yml`.
+
+```
+smtpParams:
+  host: "smtp.example.com"
+  port: 25
+```
