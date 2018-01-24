@@ -13,12 +13,16 @@ The SMTP `smtp` task supports sending email messages as part of a flow.
 This task needs to be declared as a dependency to be used and the SMTP server
 used to send the message has to be specified with hostname and port.
 
+The simplest and cleanest way to specify the `smtpServer` is to specify it as a 
+[default process variable](../getting-started/configuration.html#default-process-variable)
+called `smtpParams`.
+
 ```yaml
 configuration:
   dependencies:
     - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
   arguments:
-    smtpServer:
+    smtpParamsServer:
       host: smtp-gw1.wal-mart.com
       port: 25
 ```
@@ -48,5 +52,30 @@ use variable values from the flow such as attributes or `initiator.displayName`,
           template: mail.moustache
 ```
 
-You can use the email address of the process initiator with the value
-`${initiator.attributes.mail}` as the `from` address.
+To specify the SMTP server in your own Concord file instead taking advantage of
+a global default value you can set the parameter as an argument:
+
+```yaml
+configuration:
+  dependencies:
+    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
+  arguments:
+    smtpParams:
+      host: smtp-gw1.wal-mart.com
+      port: 25
+```
+
+And then use it:
+
+```yaml
+flows:
+  default:
+    - task: smtp
+      in:
+        smtp: ${smtpParams}
+        mail:
+          from: sender@example.com
+          to: recipient@example.com
+          subject: "Hello from Concord"
+          message: "My message"
+```
