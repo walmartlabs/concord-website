@@ -167,10 +167,11 @@ execution. All parameters are optional.
 ## Default Process Variables
 
 As a Concord administrator, you can set default variable values that
-are automatically set in all process execution.
+are automatically set in all process executions.
 
 This allows you to set global parameters such as the connection details for
-an SMTP server used by the [SMTP task](../plugins/smtp.html).
+an SMTP server used by the [SMTP task](../plugins/smtp.html) in one central
+location separate from the individual projects.
 
 The values are configured in the file `/data/conf/default_vars.yml`. The following
 example, shows how to configure an SMTP server to be used by all processes. As
