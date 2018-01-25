@@ -125,6 +125,9 @@ repository which were updated in GitHub;
 - `branch` - the GIT repository's branch;
 - `commitId` - ID of the commit which triggered the notification.
 
+The connection to the GitHub deployment needs to be 
+[configured globally](./configuration.html#github).
+
 <a name="generic"/>
 ## Generic Events
 

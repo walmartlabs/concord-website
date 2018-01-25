@@ -24,6 +24,7 @@ The following configuration details are available:
 - [Server Environment Variables](#server-environment-variables)
 - [Server LDAP Authentication](#server-ldap-authentication)
 - [Server Slack Connection](#slack)
+- [Server GitHub Connection](#github)
 - [Process Runtime Variables](#process-runtime-variables)
 - [Default Process Variables](#default-process-variables)
 
@@ -128,7 +129,7 @@ Create `slack.properties` file, containing the following parameters
 
 ```
 authToken=123456
-proxyAddress=proxy.wal-mart.com
+proxyAddress=proxy.example.com
 proxyPort=9080
 connectTimeout=10000
 soTimeout=10000
@@ -147,6 +148,43 @@ Set `SLACK_CFG` environment variable to the path of the created file.
 | soTimeout      | The time in ms waiting for data – after the connection was established |
 | maxConnections | Maximum connections
 | requestLimit   | Notifications per second
+
+
+<a name="github"/>
+## Server GitHub Connection
+
+The Concord server can be configured to connect to a GitHub Enterprise instance
+and receive [trigger events](./triggers.html).
+
+Create `github.properties` file, containing the following parameters and
+substitute values with the values for your environment:
+
+
+
+ 
+```
+secret=abc123
+oauthAccessToken=12ssdfd682121...
+apiUrl=https://github.example.com/api/v3
+webhookUrl=https://concord.example.com/events/github/push
+githubUrl=github.example.com
+refreshInterval=1800000
+cacheEnabled=true
+```
+
+Set `GITHUB_CFG` environment variable to the path of the created file.
+
+| Variable       | Description                                                            |
+|----------------| -----------------------------------------------------------------------|
+| secret           | signing key  |
+| oauthAccessToken | OAUTH access token for GitHub access|
+| apiUrl           | URL of the GitHub API endpoint |
+| webhookUrl       | URL of the Concord webhook endpoint | 
+| githubUrl        | URL of the GitHub instance as | 
+| refreshInterval  | Time interval to use between forced webhook re-registrations in ms | 
+| cacheEnabled     | Flag to signal if GitHub webhooks are used to update the local repository
+cache as performance improvement when set `true`, when `false` webhooks are only used as triggers |
+
 
 ## Process Runtime Variables
 
