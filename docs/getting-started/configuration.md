@@ -154,7 +154,7 @@ Set `SLACK_CFG` environment variable to the path of the created file.
 ## Server GitHub Connection
 
 The Concord server can be configured to connect to a GitHub Enterprise instance
-and receive [trigger events](./triggers.html).
+or github.com itself and receive [trigger events](./triggers.html).
 
 Create `github.properties` file, containing the following parameters and
 substitute values with the values for your environment:
@@ -207,10 +207,11 @@ This allows you to set global parameters such as the connection details for
 an SMTP server used by the [SMTP task](../plugins/smtp.html) in one central
 location separate from the individual projects.
 
-The values are configured in the file `/data/conf/default_vars.yml`. The following
-example, shows how to configure an SMTP server to be used by all processes. As
-a result, project authors do not need to specify the SMTP server configuration
-in their own `concord.yml`.
+The values are configured in a YAML file. The path to the file and the name are
+configured with the environment variable `DEF_VARS_CFG`. The following example,
+shows how to configure an SMTP server to be used by all processes. As a result,
+project authors do not need to specify the SMTP server configuration in their
+own `concord.yml`.
 
 ```
 smtpParams:
