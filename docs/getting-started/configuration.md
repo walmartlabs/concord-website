@@ -159,9 +159,6 @@ and receive [trigger events](./triggers.html).
 Create `github.properties` file, containing the following parameters and
 substitute values with the values for your environment:
 
-
-
- 
 ```
 secret=abc123
 oauthAccessToken=12ssdfd682121...
@@ -182,8 +179,7 @@ Set `GITHUB_CFG` environment variable to the path of the created file.
 | webhookUrl       | URL of the Concord webhook endpoint | 
 | githubUrl        | URL of the GitHub instance as | 
 | refreshInterval  | Time interval to use between forced webhook re-registrations in ms | 
-| cacheEnabled     | Flag to signal if GitHub webhooks are used to update the local repository
-cache as performance improvement when set `true`, when `false` webhooks are only used as triggers |
+| cacheEnabled     | Flag to signal if GitHub webhooks are used to update the local repository cache as performance improvement when set `true`, when `false` webhooks are only used as triggers |
 
 
 ## Process Runtime Variables
