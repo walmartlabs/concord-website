@@ -29,6 +29,8 @@ nav:
         context: /docs/getting-started/orgs
       - page: Triggers
         context: /docs/getting-started/triggers
+      - page: Development
+        context: /docs/getting-started/development
   - title: API
     id: api
     collapse: /docs/api

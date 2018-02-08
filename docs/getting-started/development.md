@@ -17,7 +17,7 @@ will try to connect to `localhost:5432` using username `postgres`, password
 The easiest way to get the database up and running is to use an official
 Docker image:
 ```
-docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' hub.docker.prod.walmart.com/library/postgres:latest
+docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' library/postgres
 ```
 
 ## Running from an IDE
@@ -79,3 +79,66 @@ All JAR files are signed using a GPG key. Pass phrase for a key must be configur
 
 - squash and rebase your commits;
 - wait for CI checks to pass.
+
+## Using OpenLDAP for Authentication
+
+1. start the OpenLDAP sever. The easiest way is to use Docker:
+   ```
+   $ docker run --rm --name oldap -p 1389:389 osixia/openldap
+   ...
+   5a709dd5 slapd starting
+   ...
+   ```
+
+   Note: if you want your data to persist, you need to start the server
+   as a daemon (using `-d` option).
+
+2. create a user's LDIF file:
+   ```
+   $ cat /tmp/new-user.ldif
+   dn: cn=myuser,dc=example,dc=org
+   cn: myuser
+   objectClass: top
+   objectClass: organizationalRole
+   objectClass: simpleSecurityObject
+   objectClass: mailAccount
+   userPassword: {SSHA}FNvyYavb8XMKC0s2HdCJFZqDY1IzMHqy
+   mail: myuser@example.org
+   ```
+
+   This creates a new user `myuser` with the password `q1`.
+
+3. import the LDIF file:
+   ```
+   $ cat /tmp/new-user.ldif | docker exec -i oldap ldapadd -x -D "cn=admin,dc=example,dc=org" -w admin
+   
+   adding new entry "cn=myuser,dc=example,dc=org"
+   ```
+
+4. create the Concord's LDAP configuration file:
+   ```
+   $ cat /opt/concord/conf/oldap.properties
+   url=ldap://127.0.0.1:1389
+   searchBase=dc=example,dc=org
+   principalSuffix=,dc=example,dc=org
+   principalSearchFilter=({0})
+   systemUsername=cn=admin,dc=example,dc=org
+   systemPassword=admin
+   ```
+
+5. start the Concord's server using the created LDAP configuration
+file:
+
+   ```
+   LDAP_CFG=/opt/concord/conf/oldap.properties
+   ...
+   11:21:36.873 [main] [INFO ] c.w.c.server.cfg.LdapConfiguration - init -> using external LDAP configuration: /opt/concord/conf/oldap.properties
+   ```
+
+6. use `cn=myuser` and `q1` to authenticate in the Console:
+
+   ![Login](/assets/img/screenshots/oldap-login.png)
+  
+7. after successful authentication, you should see the UI similar to this: 
+
+   ![Success](/assets/img/screenshots/oldap-success.png)
