@@ -41,7 +41,7 @@ Some features are more complex and you can find details in separate documents:
 ```yaml
 flows:
   default:
-    - log" "Getting started now"
+    - log: "Getting started now"
     - task: sendEmail                               # (1)
       in:
         to: me@localhost.local
