@@ -16,7 +16,7 @@ process flows, configuration, forms and other aspects:
   - [Entry Point](#entry-point)
   - [Dependencies](#dependencies)
   - [Template](#template)
-  - [Arguments](#arguments)  
+  - [Arguments](#arguments)
 - [Process Definitions in `flows:`](#flows)
   - [Entry points](#entry-points)
   - [Execution steps](#execution-steps)
@@ -82,7 +82,7 @@ Overall configuration for the project and process executions is contained in the
 - [Entry Point](#entry-point)
 - [Dependencies](#dependencies)
 - [Template](#template)
-- [Variables](#variables)
+- [Arguments](#arguments)
 
 ### Entry Point
 
