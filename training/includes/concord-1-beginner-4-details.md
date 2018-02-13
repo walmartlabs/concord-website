@@ -25,6 +25,7 @@ Project global settings in `configuration`:
 - `dependencies:`
 - `arguments:`
 - `template:`
+- `debug:`
 
 Note:
 - explain in next slides
@@ -92,6 +93,16 @@ What other Concord DSL configuration to reuse.
   - Scripts
   - Forms 
   - Profiles
+
+
+## Debug
+
+Logs information about dependeny resolution.
+
+```yaml
+configuration:
+  debug: true
+```
 
 
 ## Flows

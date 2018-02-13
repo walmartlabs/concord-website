@@ -17,6 +17,7 @@ process flows, configuration, forms and other aspects:
   - [Dependencies](#dependencies)
   - [Template](#template)
   - [Arguments](#arguments)
+  - [Debug](#debug)
 - [Process Definitions in `flows:`](#flows)
   - [Entry points](#entry-points)
   - [Execution steps](#execution-steps)
@@ -83,6 +84,7 @@ Overall configuration for the project and process executions is contained in the
 - [Dependencies](#dependencies)
 - [Template](#template)
 - [Arguments](#arguments)
+- [Debug](#debug)
 
 ### Entry Point
 
@@ -209,7 +211,20 @@ configuration:
     message: "Hello, ${name}"
 ```
 
+
+### Debug
+
+Enabling the `debug` configuration option causes Concord to log paths of all
+resolved dependencies. It is useful for debugging classpath conflict issues.
+
+```yaml
+configuration:
+  debug: true
+```
+
+
 <a name="flows"/>
+
 ## Process Definitions in `flows:`
 
 Process definitions are configured in named sections under the `flows:` 
@@ -232,7 +247,11 @@ flows:
     - ...
 ```
 
-An entry point must be followed by one or more execution steps.
+An entry point must be followed by one or more [execution steps](#execution-steps).
+
+
+
+<a name="execution-steps"/>
 
 ### Execution Steps
 
