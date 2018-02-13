@@ -97,7 +97,7 @@ What other Concord DSL configuration to reuse.
 
 ## Debug
 
-Logs information about dependeny resolution.
+Logs information about dependency resolution.
 
 ```yaml
 configuration:
