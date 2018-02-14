@@ -54,6 +54,26 @@ configuration
 Environment variables can contain expressions: all values will be
 converted to strings.
 
+## Docker options
+
+### --add-host option
+
+Additional `/etc/hosts` lines can be specified using `hosts` parameter:
+
+```yaml
+flows:
+  default:
+  - docker: docker.prod.walmart.com/walmartlabs/concord-base
+    cmd: echo '${greeting}'
+    hosts:
+      - foo:10.0.0.3
+      - bar:10.7.3.21
+      
+configuration:
+  arguments:
+    greeting: "Hello, world!"            
+```
+
 ## Custom Images
 
 All images must provide a standard POSIX shell as `/bin/sh`.
