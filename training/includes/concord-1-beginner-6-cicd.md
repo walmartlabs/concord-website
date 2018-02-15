@@ -10,7 +10,7 @@ Concord interacts with
 - Looper
 - OneOps
 - Ansible
-- WaRM
+- Proximity
 - JIRA
 - Slack
 - SMTP
@@ -31,9 +31,14 @@ Cloud Platform as a Service of choice.
 Automation engine for application configuration and deployment.
 
 
-## WaRM
+## Proximity
 
-Walmart Repository Manager stores binaries.
+Proximity is the repository manager to stores binaries.
+
+- Java binaries from Maven, Gradle, ..
+- npm packages
+- docker images
+- ...
 
 
 ## OneOps Integration
@@ -68,7 +73,7 @@ Note:
 
 - Commit to GitHub
 - Triggers Looper flow
-- Looper build deploys to WaRM
+- Looper build deploys to Proximity
 - Looper kicks off Concord flow
 - Concord runs OneOps deployment 
 - Or Ansible deployment

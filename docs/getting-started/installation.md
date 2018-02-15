@@ -25,8 +25,8 @@ If you do not already have Docker installed, see
 https://www.docker.com/ to obtain Docker.  You can install Docker
   through various methods that are outside the scope of this document.
 
-Once you have installed Docker see Walmart's [Nexus and
-Docker](http://sde.walmart.com/docs/warm/docker.html)
+Once you have installed Docker see Walmart's [Proximity and
+Docker](http://sde.walmart.com/docs/proximity/docker.html)
 instructions to find the location of the private Docker registry
 containing Concord's pre-built images - docker.prod.walmart.com.
 
