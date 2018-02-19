@@ -71,7 +71,13 @@ All parameters are optional.
 | DB_USERNAME | Username to connect to the database.                            | `sa`                                 |
 | DB_PASSWORD | Password to connect to the database.                            | _empty_                              |
 
-### Log file store
+### Process State Store
+
+| Variable              | Description                                 | Default value        |
+|-----------------------|---------------------------------------------|----------------------|
+| CONCORD_MAX_STATE_AGE | How long the process state is kept (in ms). | `604800000` (7 days) |
+
+### Log File Store
 
 | Variable      | Description                                                 | Default value               |
 |---------------|-------------------------------------------------------------|-----------------------------|
@@ -82,7 +88,6 @@ All parameters are optional.
 | Variable          | Description                                                                       | Default value |
 |-------------------|-----------------------------------------------------------------------------------|---------------|
 | SECRET_STORE_SALT | Store's salt value. If changed, all previously created keys will be inaccessable. |               |
-
 
 ### Security
 
