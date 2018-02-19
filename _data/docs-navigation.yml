@@ -49,6 +49,8 @@ nav:
         context: /docs/api/team
       - page: Template
         context: /docs/api/template
+      - page: Trigger
+        context: /docs/api/trigger
       - page: User
         context: /docs/api/user
   - title: Plugins
