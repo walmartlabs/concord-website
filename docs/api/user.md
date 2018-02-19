@@ -28,16 +28,13 @@ using the specified username.
     ```json
     {
       "username": "myUser",
-      "permissions": [
-        "project:create",
-        "process:start:*",
-        "..."
-      ]
+      "type": "LOCAL"
     }
     ```
-    Permissions are optional.
-
-    See also [the list of available permissions](../getting-started/security.html#permissions).
+    
+    Allowed `type` value:
+    - `LOCAL` - a local user, can be authenticated using an [API key](./apikey.html);
+    - `LDAP` - a AD/LDAP user, can be authenticated using AD/LDAP credentials or an API key.
 * **Success response**
     ```
     Content-Type: application/json
@@ -71,8 +68,7 @@ Find an existing user by name.
     ```json
     {
       "id" : "...",
-      "name" : "myUser",
-      "permissions" : [ "*:*:*" ]
+      "name" : "myUser"
 
     }
     ```
