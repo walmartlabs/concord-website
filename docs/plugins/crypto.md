@@ -24,7 +24,7 @@ A SSH key pair, [stored in the secrets store](../api/secret.html) can
 be exported as a pair of files into a process' working directory:
 
 ```yaml
-- ${crypto.exportKeyAsFile('myKey', 'myKeyPassword')}
+- ${crypto.exportKeyAsFile('Default', 'myKey', 'myKeyPassword')}
 ```
 
 This expression returns a map with two keys:
@@ -34,12 +34,14 @@ This expression returns a map with two keys:
 A full example adds a key via the REST API with the default user credentials:
 
 ```
-$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword="myKeyPassword" 'http://localhost:8001/api/v1/secret/keypair?name=myKey'
-{
+$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword="myKeyPassword" -F name=myKey -F type=key_pair http://localhost:8001/api/1/org/Default/secret
 
+{
+  "id" : "...",
+  "result" : "CREATED",
   "name" : "myKey",
   "publicKey" : "...",
-  "exportPassword" : "myKeyPassword",
+  "password" : "myKeyPassword",
   "ok" : true
 }
 ```
@@ -49,7 +51,7 @@ And subsequently exports the key in the default flow.
 ```yaml
 flows:
   default:
-  - expr: ${crypto.exportKeyAsFile('myKey', 'myKeyPassword')}
+  - expr: ${crypto.exportKeyAsFile('Default', 'myKey', 'myKeyPassword')}
     out: myKeys
   - log: "Public: ${myKeys.public}"
   - log: "Private: ${myKeys.private}"
@@ -64,7 +66,7 @@ The keypair password itself can be encrypted using a
 Credentials, so username and password pairs, can be exported with:
 
 ```yaml
-- ${crypto.exportCredentials('myCredentials', 'myPassword')}
+- ${crypto.exportCredentials('Default', 'myCredentials', 'myPassword')}
 ```
 
 The expression returns a map with two keys:
@@ -79,19 +81,18 @@ the REST API or the UI and retrieved using the
 `crypto.exportAsString` method:
     
 ```
-$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword="myPassword" -F secret="my value" 'http://localhost:8001/api/v1/secret/plain?name=mySecret'
+$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F name=mySecret -F type=data -F data="my value" -F storePassword="myPassword" http://localhost:8001/api/v1/org/Default/secret
 ```
 
 ```yaml
-- log: "${crypto.exportAsString('mySecret', 'myPassword')}"
+- log: "${crypto.exportAsString('Default', 'mySecret', 'myPassword')}"
 ```
 
 In this example, `my value` will be printed in the log.
 
-Alternatively, the `crypto` task provides a method to export plain
-secrets as files:
+Alternatively, the `crypto` task provides a method to export plain secrets as files:
 ```yaml
-- log: "${crypto.exportAsFile('mySecret', 'myPassword')}"
+- log: "${crypto.exportAsFile('Default', 'mySecret', 'myPassword')}"
 ```
 
 The method returns a path to the temporary file containing the

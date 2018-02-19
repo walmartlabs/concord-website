@@ -66,7 +66,7 @@ following sections:
   argument of `ansible-playbook` command. Check [the official
   documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
   for more details;
-- `privateKey`: path to a privateKey file or with nested `secretName` and `password`
+- `privateKey`: path to a privateKey file or with nested `org`, `secretName` and `password`
   the name of a Concord secret SSH key to use to connect to the target servers;
 - `user`: string, username to connect to target servers;
 - `retry`: retry flag, see [Retry and Limit Files](#retry-limit)
