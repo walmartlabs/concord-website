@@ -9,41 +9,14 @@ side-navigation: wmt/docs-navigation.html
 The `concord` task allows users to start and manage new processes from within
 running processes.
 
-To be available in your flows, you have to add the dependency URL of the
-latest available version:
-
-```yaml
-configuration:
-  dependencies:
-  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.35.0"
-```
+The task is provided automatically for all flows, no external dependencies
+necessary.
 
 ## Examples
 
 - [process_from_a_process](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/process_from_a_process) - starting a new subprocess from a flow using a payload archive;
 - [fork](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork) - starting a subprocess;
 - [fork_join](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork_join) - starting multiple subprocesses and waiting for completion.
-
-## Connection Parameters
-
-The plugin requires the following connection parameters to be set for
-all types of actions:
-
-- `baseUrl` - Concord REST API endpoint. Defaults to the current
-  server's API endpoint address;
-- `apiKey` - user's REST API key.
-
-For example:
-
-```yaml
-flows:
-  default:
-  - task: concord
-    in:
-      baseUrl: "http://concord.example.com:8001"
-      apiKey: "lzfJQL4u2gsH7toQveFYSQ"
-```
-
 
 ## Starting a Process using a Payload Archive
 
@@ -288,4 +261,25 @@ flows:
     in:
       action: kill
       instanceId: "${concord.listSubprocesses(parentInstanceId, 'someTag')}"
+```
+
+## Connection Parameters
+
+By default, the task uses the same Concord instance and user that
+started the flow.
+
+Connection parameters can be overridden using the following keys:
+- `baseUrl` - Concord REST API endpoint. Defaults to the current
+  server's API endpoint address;
+- `apiKey` - user's REST API key.
+
+For example:
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      baseUrl: "http://concord.example.com:8001"
+      apiKey: "lzfJQL4u2gsH7toQveFYSQ"
 ```
