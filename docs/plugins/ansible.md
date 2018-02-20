@@ -43,6 +43,11 @@ flows:
       playbook: playbook/hello.yml
 ```
 
+This executes an Ansible playbook with the Ansible installation running on
+Concord. 
+
+__The version of Ansible being used is 2.4.3.__
+
 A full list of available parameters is described [below](#parameters).
 
 ## Parameters

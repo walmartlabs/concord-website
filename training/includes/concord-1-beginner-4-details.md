@@ -240,11 +240,12 @@ flows:
 
 - `return` statement
 - group of steps `::`
+- equivalent to `try:`
 - `error:` handling with
-  - expression
-  - call
-  - task
-  - group
+  - expressions `expr:`
+  - flow invocations with `call:`
+  - tasks `task:`
+  - try blocks `try:`
 - `onCancel` and `onFailure` flows
 
 
