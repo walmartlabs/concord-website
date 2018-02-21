@@ -66,6 +66,9 @@ control_path = %(directory)s/%%h-%%p-%%r
 pipelining = True
 ```
 
+Further and up to date details are available
+[in the source code of the plugin]({{concord_source}}blob/master/plugins/tasks/ansible/src/main/java/com/walmartlabs/concord/plugins/ansible/RunPlaybookTask2.java).
+
 One of the most important lines is `gather_subset = !facter,!ohai`. This disables
 some of the variables that are usually available such as `ansible_default_ipv4`. 
 The parameters can be overridden in your own Ansible task invocation:
