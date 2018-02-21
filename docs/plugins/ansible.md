@@ -71,8 +71,9 @@ Further and up to date details are available
 
 One of the most important lines is `gather_subset = !facter,!ohai`. This disables
 some of the variables that are usually available such as `ansible_default_ipv4`. 
-The parameters can be overridden in your own Ansible task invocation:
-overridden with
+The parameters can be overridden in your own Ansible task invocation as
+described in [Configuring Ansible](#configuring-ansible):
+
 
 ```
 - task: ansible
@@ -81,6 +82,7 @@ overridden with
       defaults:
          gather_subset: all
 ```
+
 
 ## Parameters
 
