@@ -11,6 +11,7 @@ Concord supports running [Ansible](https://www.ansible.com/) playbooks with the
 application deployments with Concord.
 
 - [Usage](#usage)
+- [Ansible](#ansible)
 - [Parameters](#parameters)
 - [Configuring Ansible](#configuring-ansible)
 - [Inline inventories](#inline-inventories)
@@ -43,12 +44,45 @@ flows:
       playbook: playbook/hello.yml
 ```
 
-This executes an Ansible playbook with the Ansible installation running on
-Concord. 
+## Ansible 
+
+The plugin, with a configuration as above, executes an Ansible playbook with the
+Ansible installation running on Concord. 
 
 __The version of Ansible being used is 2.4.3.__
 
-A full list of available parameters is described [below](#parameters).
+A number of configuration parameters are pre-configred by the plugin:
+
+```
+[defaults]
+callback_plugins = _callbacks
+host_key_checking = false
+gather_subset = !facter,!ohai
+remote_tmp = /tmp/ansible/$USER
+timeout = 120
+lookup_plugins = _lookups
+[ssh_connection]
+control_path = %(directory)s/%%h-%%p-%%r
+pipelining = True
+```
+
+Further and up to date details are available
+[in the source code of the plugin]({{concord_source}}blob/master/plugins/tasks/ansible/src/main/java/com/walmartlabs/concord/plugins/ansible/RunPlaybookTask2.java).
+
+One of the most important lines is `gather_subset = !facter,!ohai`. This disables
+some of the variables that are usually available such as `ansible_default_ipv4`. 
+The parameters can be overridden in your own Ansible task invocation as
+described in [Configuring Ansible](#configuring-ansible):
+
+
+```
+- task: ansible
+  in:
+    config:
+      defaults:
+         gather_subset: all
+```
+
 
 ## Parameters
 
@@ -178,6 +212,7 @@ The script is automatically marked as executable and passed directly to
 
 
 <a name="secrets"/>
+
 ## Authentication with Secrets
 
 The Ansible task can use a key managed as a secret by Concord, that you have
