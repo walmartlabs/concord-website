@@ -6,8 +6,8 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provides a basic HTTP/REST client as a task to call restful endpoints. `http` task execute the request and return the [Http response](#http-task-response) object which can be store in the 
-output variable by providing the `out` parameter. 
+The `http` task provides a basic HTTP/REST client as a task to call restful endpoints. `http` task execute the request 
+and return the [Http response](#http-task-response) object which can be store in the output variable by providing the `out` parameter. 
 
 The task is provided automatically by the Concord and does not require any external dependencies.
 
