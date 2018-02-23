@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provide a basic HTTP/REST client as a task so the users won't have to use a script or resort to running 
+The `http` task provides a basic HTTP/REST client as a task so the users won't have to use a script or resort to running 
 curl from a docker container.
 
 `http` task execute the request and return the [Http response](#http-task-response) object which can be store in the 
@@ -78,14 +78,14 @@ Provided credentials or token must be valid otherwise `http` task will throw `Un
 ```
 `http` task will convert the above into `{ "myObject": { "nestedVar": 123 } }` string and pass it into the body of post request.
 
-   You can also give the raw json string but it must be valid otherwise `http` task will throw incompatible request type 
+   You can also give the raw json string, but it must be valid otherwise `http` task will throw incompatible request type 
 exception.
 ### Body for request type 'file'
 ```yaml
   request: file
   body: "relative_path/file.bin"
 ```
-If file does not exist in the mentioned location then `http` task will throw `FileNotFoundException` exception.
+If file does not exist in the mentioned location, then `http` task will throw `FileNotFoundException` exception.
 ### Body for request type 'string'
 ```yaml
   request: string
@@ -109,15 +109,15 @@ Currently supported types:
 - file (converted into `application/octet-stream`)
 
 ## Http task response
-Object return by `http` task. It will contains the following fields:
+Object return by `http` task. It will contain the following fields:
 - `success`: true if status code belongs to success family
-- `content`: json/string response or relative path(for response type `file`)
+- `content`: json/string response or relative path (for response type `file`)
 - `statusCode`: http status codes
 - `errorString`: Descriptive error message from endpoint
 
 ## Samples
-Below is the samples for `http` task.
-### inline syntax(only for GET request)
+Below are the samples for `http` task.
+### inline syntax (only for GET request)
 ```yaml
 - log: "${http.asString('http://host:post/path/test.txt')}"
 ```
