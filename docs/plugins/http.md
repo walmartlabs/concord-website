@@ -6,10 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provides a basic HTTP/REST client as a task so the users won't have to use a script or resort to running 
-curl from a docker container.
-
-`http` task execute the request and return the [Http response](#http-task-response) object which can be store in the 
+The `http` task provides a basic HTTP/REST client as a task to call restful endpoints. `http` task execute the request and return the [Http response](#http-task-response) object which can be store in the 
 output variable by providing the `out` parameter. 
 
 The task is provided automatically by the Concord and does not require any external dependencies.
@@ -21,10 +18,11 @@ The task is provided automatically by the Concord and does not require any exter
 
 ## Usage 
 ### inline syntax
-`asString` method will return the response as string
+`asString` method will return the response as string and uses `GET` as a default request method.
 ```yaml
 - log: "${http.asString('http://host:post/path/test.txt')}"
 ```
+
 ### full syntax
 ```yaml
 - task: http
@@ -133,38 +131,7 @@ Below are the samples for `http` task.
   then:
    - log: "Response received: ${jsonResponse.content}"
 ```
-### Full syntax for secure 'GET' request
-Using auth token:
-```yaml
-- task: http
-  in:
-    auth:
-      basic:
-        token: base64_encoded_token
-    method: GET
-    url: "http://host:post/path/endpoint"
-    response: json
-    out: jsonResponse
-- if: ${jsonResponse.success} # HttpTaskResponse object
-  then:
-   - log: "Response received: ${jsonResponse.content}"
-```
-Using username and password: 
-```yaml
-- task: http
-  in:
-    auth:
-      basic:
-        username: username
-        password: password
-    method: GET
-    url: "http://host:post/path/endpoint"
-    response: json
-    out: jsonResponse
-- if: ${jsonResponse.success} # HttpTaskResponse object
-  then:
-   - log: "Response received: ${jsonResponse.content}"
-```
+
 ### Full syntax for 'POST' request
 Using map as a body:
 ```yaml
@@ -196,18 +163,32 @@ Using raw json as a body:
   then:
    - log: "Response received: ${jsonResponse.content}"
 ```
-### Full syntax for secure 'POST' request
+### Full syntax for secure request
+Using auth token:
 ```yaml
 - task: http
   in:
     auth:
       basic:
-        username: myusername
-        password: mypassword
-    request: file
-    method: POST
-    url: "http://host:post/path/post_endpoint"
-    body: "file.bin"
+        token: base64_encoded_token
+    method: GET
+    url: "http://host:post/path/endpoint"
+    response: json
+    out: jsonResponse
+- if: ${jsonResponse.success} # HttpTaskResponse object
+  then:
+   - log: "Response received: ${jsonResponse.content}"
+```
+Using username and password: 
+```yaml
+- task: http
+  in:
+    auth:
+      basic:
+        username: username
+        password: password
+    method: GET
+    url: "http://host:post/path/endpoint"
     response: json
     out: jsonResponse
 - if: ${jsonResponse.success} # HttpTaskResponse object
