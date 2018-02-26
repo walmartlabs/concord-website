@@ -21,7 +21,7 @@ The REST API provides support for a number of operations:
 <a name="create-project"/>
 ## Create a Project
 
-Creates a new project with specified parameters or updates an existing one.
+Creates a new project with specified parameters.
 
 * **URI** `/api/v1/org/${orgName}/project`
 * **Method** `POST`
@@ -80,14 +80,14 @@ Creates a new project with specified parameters or updates an existing one.
 
 Updates parameters of an existing project.
 
-* **URI** `/api/v1/org/${orgName}/project/${projectName}`
+* **URI** `/api/v1/org/${orgName}/project`
 * **Method** `PUT`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
     ```json
     {
       "name": "New name",
-  
+      "id": "---",
       "description": "my updated project",
       
       "repositories": {
@@ -106,6 +106,8 @@ Updates parameters of an existing project.
     All parameters are optional.
     
     Omitted parameters are not updated.
+
+    In case of updating project `name`, projecct `id` is mandatory.
     
     An empty value must be specified in order to remove a project's value:
     e.g. an empty `repositories` object to remove all repositories from a project.

@@ -11,7 +11,8 @@ simultaneously.
 
 The REST API provides support for a number of operations:
 
-- [Create or Update a Team](#create-team)
+- [Create a Team](#create-team)
+- [Update a Team](#update-team)
 - [List Teams](#list-teams)
 - [List Users in a Team](#list-users)
 - [Add Users to a Team](#add-users)
@@ -29,9 +30,13 @@ Creates a new team with specified parameters or updates an existing one.
     ```json
     {
       "name": "myTeam",
-      "description": "my team"
+      "description": "my team",
+      "orgId": "---",
+      "orgName": "---"
     }
     ```
+    All parameters except `name` are optional.
+
 * **Success response**
     ```
     Content-Type: application/json
@@ -40,6 +45,42 @@ Creates a new team with specified parameters or updates an existing one.
     ```json
     {
       "result": "CREATED",
+      "ok": true,
+      "id": "..."
+    }
+    ```
+
+<a name="update-team"/>
+## Update a Team
+
+Updates parameters of an existing team.
+
+* **URI** `/api/v1/org/${orgName}/team`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    {
+      "name": "new name",
+      "id": "---"
+      ---
+    }
+    ```
+
+    All parameters are optional.
+
+    Omitted parameters are not updated.
+    
+    In case of updating the team `name`, team `id` is mandatory.
+
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "result": "UPDATED",
       "ok": true,
       "id": "..."
     }

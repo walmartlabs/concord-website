@@ -1,23 +1,23 @@
 ---
 layout: wmt/docs
-title:  Team
+title:  Organization
 side-navigation: wmt/docs-navigation.html
 ---
 
 # {{ page.title }}
 
-An Organization owns projects, repositories, secrets and teams.
+An Organization owns projects, repositories, inventory, secrets and teams.
 
 The REST API provides support for a number of operations:
 
-- [Create or Update an Organization](#create-org)
+- [Create an Organization](#create-org)
+- [Update an Organization](#update-org)
 - [List Organizations](#list-org)
 
-<a name="create-orgs"/>
+<a name="create-org"/>
 ## Create an Organization
 
-Creates a new organization with specified parameters or updates an
-existing one.
+Creates a new organization with specified parameters.
 
 Only administrators can create new organizations.
 
@@ -38,6 +38,36 @@ Only administrators can create new organizations.
     ```json
     {
       "result": "CREATED",
+      "ok": true,
+      "id": "..."
+    }
+    ```
+
+<a name="update-org"/>
+## Update an Organization
+
+Updates parameters of an existing organization.
+
+* **URI** `/api/v1/org`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    {
+      "name": "new name",
+      "id": "---"
+    }
+    ```
+    In case of updating the organization `name`, organization `id` is mandatory.
+
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "result": "UPDATED",
       "ok": true,
       "id": "..."
     }
