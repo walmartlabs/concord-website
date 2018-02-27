@@ -107,7 +107,7 @@ Updates parameters of an existing project.
     
     Omitted parameters are not updated.
 
-    In case of updating project `name`, projecct `id` is mandatory.
+    Project `id` is mandatory, in case of updating project `name`, .
     
     An empty value must be specified in order to remove a project's value:
     e.g. an empty `repositories` object to remove all repositories from a project.

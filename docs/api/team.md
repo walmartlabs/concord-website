@@ -30,9 +30,7 @@ Creates a new team with specified parameters or updates an existing one.
     ```json
     {
       "name": "myTeam",
-      "description": "my team",
-      "orgId": "---",
-      "orgName": "---"
+      "description": "my team"
     }
     ```
     All parameters except `name` are optional.
@@ -71,7 +69,7 @@ Updates parameters of an existing team.
 
     Omitted parameters are not updated.
     
-    In case of updating the team `name`, team `id` is mandatory.
+    Team `id` is mandatory, in case of updating team `name`.
 
 * **Success response**
     ```

@@ -87,7 +87,7 @@ Updates parameters of an existing inventory.
 
     Omitted parameters are not updated.
     
-    In case of updating the inventory `name`, inventory `id` is mandatory.
+    Inventory `id` is mandatory, in case of updating inventory `name`.
     
     An empty value must be specified in order to remove a project's value:
     e.g. an empty `parent` object to remove parent inventory from a inventory.

@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-An Organization owns projects, repositories, inventory, secrets and teams.
+An Organization owns projects, repositories, inventories, secrets and teams.
 
 The REST API provides support for a number of operations:
 
@@ -58,7 +58,7 @@ Updates parameters of an existing organization.
       "id": "---"
     }
     ```
-    In case of updating the organization `name`, organization `id` is mandatory.
+    Organization `id` is mandatory, in case of updating organization `name`.
 
 * **Success response**
     ```
