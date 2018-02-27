@@ -6,10 +6,12 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provides a basic HTTP/REST client as a task to call restful endpoints. `http` task execute the request 
-and return the [Http response](#http-task-response) object which can be store in the output variable by providing the `out` parameter. 
+The `http` task provides a basic HTTP/REST client that allows you to call restful endpoints. It is provided automatically by 
+Concord, runs in the Concord flow, and does not require any external dependencies.
 
-The task is provided automatically by the Concord and does not require any external dependencies.
+The `http` task executes REST requests and returns [HTTP response](#http-task-response) objects.
+
+To store response objects in the output variable, use the `out` parameter. 
 
 - [Usage](#usage)
 - [Parameters](#parameters)
@@ -18,7 +20,7 @@ The task is provided automatically by the Concord and does not require any exter
 
 ## Usage 
 ### inline syntax
-`asString` method will return the response as string and uses `GET` as a default request method.
+The `asString` method uses `GET` as a default request method and returns the response as string.
 ```yaml
 - log: "${http.asString('http://host:post/path/test.txt')}"
 ```
@@ -42,31 +44,31 @@ All parameters sorted in alphabetical order.
 - `auth`: used for secure endpoints. See [Basic auth](#basic-authentication);
 - `body`: only used for __POST__ method. It can be string or complex object(map). See [Body](#body);
 - `method`: http request method (e.g. **POST**, **GET**)
-- `out`: to store the [Http response](#http-task-response) object
+- `out`: to store the [HTTP response](#http-task-response) object
 - `request`: type of request data [Request type](#request-type);
 - `response`: type of response data from endpoint [Response type](#response-type);
 - `url`: complete url in string for http request
 
-## Basic authentication
-`auth` is an optional parameter. It must contain the `basic` nested element which either contains 
-`token` or `username` and `password` element.
-- basic auth using token syntax
+### Basic authentication
+The `auth` parameter is optional. When used, it must contain the `basic` nested element which contains either the
+`token` element, or the `username` and `password` element.
+- basic auth using `token` syntax
 ```yaml
   auth:
     basic:
       token: base64_encoded_auth_token
 ```
-- basic auth using username and password syntax
+- basic auth using `username` and `password` syntax
 ```yaml
   auth:
     basic:
       username: any_username
       password: any_password
 ```
-Provided credentials or token must be valid otherwise `http` task will throw `UnauthorizedException` exception.
+Use valid values for basic authentication parameters. Authentication failure causes an `UnauthorizedException` error.
 
-## Body
-`body` is mandatory parameter for `method` type __POST__. It can contain complex object (map), json or raw string.
+### Body
+The `method` type __POST__ requires a `body` parameter that contains a complex object (map), json, or raw string.
 ### Body for request type 'json'
 ```yaml
   request: json
@@ -74,7 +76,7 @@ Provided credentials or token must be valid otherwise `http` task will throw `Un
     myObject:
       nestedVar: 123
 ```
-`http` task will convert the above into `{ "myObject": { "nestedVar": 123 } }` string and pass it into the body of post request.
+The `http` task converts complex objects like the above into string and passes it into the body of post request. The converted string for the above example is `{ "myObject": { "nestedVar": 123 } }`.
 
    You can also give the raw json string, but it must be valid otherwise `http` task will throw incompatible request type 
 exception.
@@ -83,14 +85,14 @@ exception.
   request: file
   body: "relative_path/file.bin"
 ```
-If file does not exist in the mentioned location, then `http` task will throw `FileNotFoundException` exception.
-### Body for request type 'string'
+Failure to find file of the name given in the referenced location results in a`FileNotFoundException` error.
+#### Body for request type 'string'
 ```yaml
   request: string
-  body: "sample string that will pass into the body of post request"
+  body: "sample string for body of post request"
 ```
 
-## Request type
+### Request type
 `request` is optional for `GET` but mandatory for `POST` method. It will map over to the `CONTENT-TYPE` header.
 
 Currently supported types:
@@ -98,7 +100,7 @@ Currently supported types:
 - json (converted into `application/json`)
 - file (converted into `application/octet-stream`)
 
-## Response type
+### Response type
 `response` is mandatory parameter and it will map over to the `ACCEPT` header.
 
 Currently supported types:
@@ -106,7 +108,7 @@ Currently supported types:
 - json (converted into `application/json`)
 - file (converted into `application/octet-stream`)
 
-## Http task response
+### Http task response
 Object return by `http` task. It will contain the following fields:
 - `success`: true if status code belongs to success family
 - `content`: json/string response or relative path (for response type `file`)
@@ -196,5 +198,5 @@ Using username and password:
    - log: "Response received: ${jsonResponse.content}"
 ```
 
-## Limitation
-`http` task only support `GET` and `POST` methods. We will add more http methods in future. 
+## Limitations
+The `http` task only supports the `GET` and `POST` methods. We will add more http methods in future. 
