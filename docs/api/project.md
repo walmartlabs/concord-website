@@ -81,7 +81,7 @@ Creates a new project with specified parameters.
 Updates parameters of an existing project.
 
 * **URI** `/api/v1/org/${orgName}/project`
-* **Method** `PUT`
+* **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
     ```json
@@ -121,7 +121,8 @@ Updates parameters of an existing project.
     ```json
     {
       "ok": true,
-      "result": "UPDATED"
+      "result": "UPDATED",
+      "id": "---"
     }
     ```
 
