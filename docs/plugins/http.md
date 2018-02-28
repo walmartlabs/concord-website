@@ -77,7 +77,8 @@ Use valid values for basic authentication parameters. Authentication failure cau
 
 ### Body
 
-The `method` type __POST__ requires a `body` parameter that contains a complex object (map), json, or raw string.
+The `method` type __POST__ requires a `body` parameter that contains a complex
+object (map), json, or raw string.
 
 ### Body for request type 'json'
 
