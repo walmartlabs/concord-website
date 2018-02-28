@@ -6,8 +6,8 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provides a basic HTTP/REST client that allows you to call restful endpoints. It is provided automatically by 
-Concord, runs in the Concord flow, and does not require any external dependencies.
+The `http` task provides a basic HTTP/RESTful client that allows you to call restful endpoints. It is provided automatically by 
+Concord, and does not require any external dependencies.
 
 The `http` task executes REST requests and returns [HTTP response](#http-task-response) objects.
 
@@ -19,13 +19,13 @@ To store response objects in the output variable, use the `out` parameter.
 - [Limitation](#limitation)
 
 ## Usage 
-### inline syntax
+### Inline Syntax
 The `asString` method uses `GET` as a default request method and returns the response as string.
 ```yaml
 - log: "${http.asString('http://host:post/path/test.txt')}"
 ```
 
-### full syntax
+### Full Syntax
 ```yaml
 - task: http
   in:
@@ -80,7 +80,7 @@ The `http` task converts complex objects like the above into string and passes i
 
    You can also give the raw json string, but it must be valid otherwise `http` task will throw incompatible request type 
 exception.
-### Body for request type 'file'
+### Body for Request Type 'file'
 ```yaml
   request: file
   body: "relative_path/file.bin"
@@ -95,7 +95,7 @@ Failure to find file of the name given in the referenced location results in a`F
 ### Request Type
 `request` is optional for `GET` but mandatory for `POST` method. It will map over to the `CONTENT-TYPE` header.
 
-Currently supported types:
+Types supported currently:
 - string (converted into `text/plain`)
 - json (converted into `application/json`)
 - file (converted into `application/octet-stream`)
@@ -103,7 +103,7 @@ Currently supported types:
 ### Response type
 `response` is mandatory parameter and it will map over to the `ACCEPT` header.
 
-Currently supported types:
+Types supported currently:
 - string (converted into `text/plain`)
 - json (converted into `application/json`)
 - file (converted into `application/octet-stream`)
