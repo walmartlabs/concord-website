@@ -65,7 +65,7 @@ nav:
         context: /docs/plugins/concord
       - page: Crypto
         context: /docs/plugins/crypto
-      - page: Http
+      - page: HTTP
         context: /docs/plugins/http
       - page: JIRA
         context: /docs/plugins/jira
