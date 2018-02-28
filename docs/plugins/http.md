@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provides a basic HTTP/RESTful client that allows you to call restful endpoints. It is provided automatically by 
+The `http` task provides a basic HTTP/RESTful client that allows you to call RESTful endpoints. It is provided automatically by 
 Concord, and does not require any external dependencies.
 
 The `http` task executes REST requests and returns [HTTP response](#http-task-response) objects.
