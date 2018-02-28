@@ -233,4 +233,4 @@ Using username and password:
 ## Limitations
 
 The `http` task only supports the `GET` and `POST` 
-methods. We will add more HTTP methods in future. 
+methods. 
