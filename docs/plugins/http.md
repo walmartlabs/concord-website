@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Http Task
+title:  HTTP Task
 side-navigation: wmt/docs-navigation.html
 ---
 
@@ -49,7 +49,7 @@ All parameters sorted in alphabetical order.
 - `response`: type of response data from endpoint [Response type](#response-type);
 - `url`: complete url in string for http request
 
-### Basic authentication
+### Basic Authentication
 The `auth` parameter is optional. When used, it must contain the `basic` nested element which contains either the
 `token` element, or the `username` and `password` element.
 - basic auth using `token` syntax
@@ -86,13 +86,13 @@ exception.
   body: "relative_path/file.bin"
 ```
 Failure to find file of the name given in the referenced location results in a`FileNotFoundException` error.
-#### Body for request type 'string'
+#### Body for Request Type 'string'
 ```yaml
   request: string
   body: "sample string for body of post request"
 ```
 
-### Request type
+### Request Type
 `request` is optional for `GET` but mandatory for `POST` method. It will map over to the `CONTENT-TYPE` header.
 
 Currently supported types:
@@ -108,7 +108,7 @@ Currently supported types:
 - json (converted into `application/json`)
 - file (converted into `application/octet-stream`)
 
-### Http task response
+### HTTP Task Response
 Object return by `http` task. It will contain the following fields:
 - `success`: true if status code belongs to success family
 - `content`: json/string response or relative path (for response type `file`)
@@ -121,7 +121,7 @@ Below are the samples for `http` task.
 ```yaml
 - log: "${http.asString('http://host:post/path/test.txt')}"
 ```
-### Full syntax for 'GET' request
+### Full Syntax for 'GET' Request
 ```yaml
 - task: http
   in:
@@ -134,7 +134,7 @@ Below are the samples for `http` task.
    - log: "Response received: ${jsonResponse.content}"
 ```
 
-### Full syntax for 'POST' request
+### Full Syntax for 'POST' Request
 Using map as a body:
 ```yaml
 - task: http
@@ -165,7 +165,7 @@ Using raw json as a body:
   then:
    - log: "Response received: ${jsonResponse.content}"
 ```
-### Full syntax for secure request
+### Full Syntax for Secure Request
 Using auth token:
 ```yaml
 - task: http
