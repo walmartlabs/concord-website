@@ -8,9 +8,7 @@ side-navigation: wmt/docs-navigation.html
 
 The `http` task provides a basic HTTP/RESTful client that allows you to call RESTful endpoints. It is provided automatically by Concord, and does not require any external dependencies.
 
-The `http` task executes RESTful requests and returns [HTTP response](#http-task-response) objects.
-
-To store response objects in an output variable, use the `out` parameter. 
+The `http` task executes RESTful requests and returns [HTTP response](#http-task-response) objects, with the option of storing response objects in an output variable by using an `out` parameter. 
 
 - [Usage](#usage)
 - [Parameters](#parameters)
@@ -18,6 +16,11 @@ To store response objects in an output variable, use the `out` parameter.
 - [Limitation](#limitation)
 
 ## Usage 
+
+For requests, you have the following options:
+
+- inline syntax.
+- full formatting using mapping that the `http` task interprets.
 
 ### Inline Syntax
 
@@ -41,9 +44,9 @@ The `asString` method uses `GET` as a default request method and returns a respo
    - log: "Response received: ${response.content}"
 ```
 
-A full list of available parameters is described [below](#parameters).
-
 ## Parameters
+
+A full list of available parameters is described [below](#parameters).
 
 All parameters sorted in alphabetical order.
 - `auth`: used for secure endpoints. See [Basic auth](#basic-authentication);
@@ -130,7 +133,7 @@ Types supported currently:
 
 ### HTTP Task Response
 
-Object returned by `http` task—contains the following fields:
+Objects returned by `http` task contain the following fields:
 
 - `success`: true if status code belongs to success family
 - `content`: json/string response or relative path (for response type `file`)
@@ -163,7 +166,7 @@ Following are examples that illustrate syntax use for `http` task.
 
 ### Full Syntax for 'POST' Request
 
-Using map as a body:
+Using map for the body:
 
 ```yaml
 - task: http
@@ -181,7 +184,7 @@ Using map as a body:
    - log: "Response received: ${jsonResponse.content}"
 ```
 
-Using raw json as a body:
+Using raw json for the body:
 
 ```yaml
 - task: http
@@ -189,7 +192,11 @@ Using raw json as a body:
     request: json
     method: POST
     url: "http://host:post/path/post_endpoint"
-    body: "{ \"myObject\": { \"nestedVar\": 123 } }"
+    body: "{ 
+             \"myObject\": 
+               { \"nestedVar\": 123 
+               } 
+           }"
     response: json
     out: jsonResponse
 - if: ${jsonResponse.success} # HttpTaskResponse object
@@ -199,7 +206,7 @@ Using raw json as a body:
 
 ### Full Syntax for Secure Request
 
-Using auth token:
+Using a basic auth token:
 
 ```yaml
 - task: http
