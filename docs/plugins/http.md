@@ -91,7 +91,7 @@ object (map), json, or raw string.
 
 The `http` task converts complex objects like the above into string and passes it into the body of post request. The converted string for the above example is `{ "myObject": { "nestedVar": 123 } }`.
 
-   You can also give the raw json string, but it must be valid otherwise `http` task will throw incompatible request type exception.
+The `http` task accepts raw json string, and throws an `incompatible request type` error when it detects improper formatting.
 
 ### Body for Request Type 'file'
 
@@ -233,4 +233,4 @@ Using username and password:
 ## Limitations
 
 The `http` task only supports the `GET` and `POST` 
-methods. We will add more http methods in future. 
+methods. We will add more HTTP methods in future. 
