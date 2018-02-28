@@ -6,12 +6,11 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provides a basic HTTP/RESTful client that allows you to call RESTful endpoints. It is provided automatically by 
-Concord, and does not require any external dependencies.
+The `http` task provides a basic HTTP/RESTful client that allows you to call RESTful endpoints. It is provided automatically by Concord, and does not require any external dependencies.
 
 The `http` task executes RESTful requests and returns [HTTP response](#http-task-response) objects.
 
-To store response objects in the output variable, use the `out` parameter. 
+To store response objects in an output variable, use the `out` parameter. 
 
 - [Usage](#usage)
 - [Parameters](#parameters)
@@ -22,7 +21,8 @@ To store response objects in the output variable, use the `out` parameter.
 
 ### Inline Syntax
 
-The `asString` method uses `GET` as a default request method and returns the response as string.
+The `asString` method uses `GET` as a default request method and returns a response as string.
+
 ```yaml
 - log: "${http.asString('http://host:post/path/test.txt')}"
 ```
@@ -40,6 +40,7 @@ The `asString` method uses `GET` as a default request method and returns the res
   then:
    - log: "Response received: ${response.content}"
 ```
+
 A full list of available parameters is described [below](#parameters).
 
 ## Parameters
@@ -73,6 +74,7 @@ The `auth` parameter is optional. When used, it must contain the `basic` nested 
       username: any_username
       password: any_password
 ```
+
 Use valid values for basic authentication parameters. Authentication failure causes an `UnauthorizedException` error.
 
 ### Body
@@ -102,6 +104,7 @@ The `http` task accepts raw json string, and throws an `incompatible request typ
 Failure to find file of the name given in the referenced location results in a`FileNotFoundException` error.
 
 #### Body for Request Type 'string'
+
 ```yaml
   request: string
   body: "sample string for body of post request"
@@ -134,15 +137,16 @@ Object returned by `http` task—contains the following fields:
 - `statusCode`: http status codes
 - `errorString`: Descriptive error message from endpoint
 
-## Samples
+## Examples
 
-Below are the samples for `http` task.
+Following are examples that illustrate syntax use for `http` task.
 
 ### Inline Syntax (only for GET request)
 
 ```yaml
 - log: "${http.asString('http://host:post/path/test.txt')}"
 ```
+
 ### Full Syntax for 'GET' Request
 
 ```yaml
