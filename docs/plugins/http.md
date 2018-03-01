@@ -61,7 +61,8 @@ All parameters sorted in alphabetical order.
 - `method`: http request method (e.g. **POST**, **GET**)
 - `out`: to store the [HTTP response](#http-task-response) object
 - `request`: type of request data [Request type](#request-type);
-- `response`: type of response data from endpoint [Response type](#response-type);
+- `response`: type of response data from endpoint [Response type]
+(#response-type);
 - `url`: complete url in string for http request
 
 ### Basic Authentication
