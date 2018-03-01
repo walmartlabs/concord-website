@@ -6,9 +6,13 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provides a basic HTTP/RESTful client that allows you to call RESTful endpoints. It is provided automatically by Concord, and does not require any external dependencies.
+The `http` task provides a basic HTTP/RESTful client that allows you to call
+RESTful endpoints. It is provided automatically by Concord, and does not require
+any external dependencies.
 
-The `http` task executes RESTful requests and returns [HTTP response](#http-task-response) objects, with the option of storing response objects in an output variable by using an `out` parameter. 
+The `http` task executes RESTful requests and returns
+[HTTP response](#http-task-response) objects, with the option of storing
+response objects in an output variable by using an `out` parameter.
 
 - [Usage](#usage)
 - [Parameters](#parameters)
@@ -24,7 +28,8 @@ For requests, you have the following options:
 
 ### Inline Syntax
 
-The `asString` method uses `GET` as a default request method and returns a response as string.
+The `asString` method uses `GET` as a default request method and returns a
+response as string.
 
 ```yaml
 - log: "${http.asString('http://host:post/path/test.txt')}"
@@ -49,8 +54,10 @@ The `asString` method uses `GET` as a default request method and returns a respo
 A full list of available parameters is described [below](#parameters).
 
 All parameters sorted in alphabetical order.
+
 - `auth`: used for secure endpoints. See [Basic auth](#basic-authentication);
-- `body`: only used for __POST__ method. It can be string or complex object(map). See [Body](#body);
+- `body`: only used for __POST__ method. It can be string or complex
+  object(map). See [Body](#body);
 - `method`: http request method (e.g. **POST**, **GET**)
 - `out`: to store the [HTTP response](#http-task-response) object
 - `request`: type of request data [Request type](#request-type);
@@ -59,7 +66,9 @@ All parameters sorted in alphabetical order.
 
 ### Basic Authentication
 
-The `auth` parameter is optional. When used, it must contain the `basic` nested element which contains either the `token` element, or the `username` and `password` element.
+The `auth` parameter is optional. When used, it must contain the `basic` nested
+element which contains either the `token` element, or the `username` and
+`password` element.
 
 - basic auth using `token` syntax:
 
@@ -78,7 +87,8 @@ The `auth` parameter is optional. When used, it must contain the `basic` nested 
       password: any_password
 ```
 
-Use valid values for basic authentication parameters. Authentication failure causes an `UnauthorizedException` error.
+Use valid values for basic authentication parameters. Authentication failure
+causes an `UnauthorizedException` error.
 
 ### Body
 
@@ -94,9 +104,12 @@ object (map), json, or raw string.
       nestedVar: 123
 ```
 
-The `http` task converts complex objects like the above into string and passes it into the body of post request. The converted string for the above example is `{ "myObject": { "nestedVar": 123 } }`.
+The `http` task converts complex objects like the above into string and passes
+it into the body of post request. The converted string for the above example is
+`{ "myObject": { "nestedVar": 123 } }`.
 
-The `http` task accepts raw json string, and throws an `incompatible request type` error when it detects improper formatting.
+The `http` task accepts raw json string, and throws an `incompatible request
+type` error when it detects improper formatting.
 
 ### Body for Request Type 'file'
 
@@ -104,7 +117,9 @@ The `http` task accepts raw json string, and throws an `incompatible request typ
   request: file
   body: "relative_path/file.bin"
 ```
-Failure to find file of the name given in the referenced location results in a`FileNotFoundException` error.
+
+Failure to find file of the name given in the referenced location results in
+a`FileNotFoundException` error.
 
 #### Body for Request Type 'string'
 
@@ -115,7 +130,8 @@ Failure to find file of the name given in the referenced location results in a`F
 
 ### Request Type
 
-`request` is optional for `GET` but mandatory for `POST` method. It will map over to the `CONTENT-TYPE` header.
+`request` is optional for `GET` but mandatory for `POST` method. It will map
+over to the `CONTENT-TYPE` header.
 
 Types supported currently:
 - string (converted into `text/plain`)
@@ -127,6 +143,7 @@ Types supported currently:
 `response` is mandatory parameter and it will map over to the `ACCEPT` header.
 
 Types supported currently:
+
 - string (converted into `text/plain`)
 - json (converted into `application/json`)
 - file (converted into `application/octet-stream`)
@@ -243,5 +260,4 @@ Using username and password:
 
 ## Limitations
 
-The `http` task only supports the `GET` and `POST` 
-methods. 
+The `http` task only supports the `GET` and `POST` methods.
