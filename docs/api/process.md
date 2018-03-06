@@ -142,30 +142,33 @@ The response should look like:
 ```
 
 <a name="browser"/>
-### Browser
+### Browser Link
 
-You can start a new process in Concord. This execution walks a user through all
-process' forms and intermediate "pages".
+You can start a new process in Concord via simply accessing a URL in a browser.
+This execution starts the process with the specified parameters and potentially
+walks a user through all process' forms and intermediate pages.
 
-* **URI** `/api/service/process_portal/start?entryPoint=${entryPoint}&myParam=myVal...`
+* **URI** `/api/v1/org/{orgName}/project/{projectName}/repo/{repoName}/start/{entryPoint}`
 * **Method** `GET`
 * **Headers** none
-* **Parameters**
-    The `${entryPoint}` parameter should be one the following formats:
-    - `projectName:repositoryName`
-    - `projectName:repositoryName:flowName`
-
-    For example:`myProject:default:main`
-
-    The `flowName` part can be ommitted if the project has the
-    entry flow name set in the main project file or in a project
-    template.
-
-    Rest of the query parameters are used as process arguments.
+* **Required Parameters**
+    - orgName - name of the organization in Concord
+    - projectName - name of the project in Concord
+    - repoName - name of the repository in the project
+    - entryPoint - name of the entryPoint to use
+* **Optional Parameters**
+    - activeProfiles - comma separate list of profiles to activate
+    - arguments - process arguments can be supplied using the `arguments.` prefix
 * **Body**
     none
 * **Success response**
-    Redirects a user to a form or an intermediate page.
+    Redirects a user to a form or an intermediate page or a results page that
+    allows access to the process log.
+* **Examples**
+    - Minimal: `/api/v1/org/Default/project/test-project/repo/test-repo/start/default`
+    - Different flow _main_: `/api/v1/org/Default/project/test-project/repo/test-repo/start/main`
+    - Specific profile: `/api/v1/org/Default/project/test-project/repo/test-repo/start/default?activeProfiles=dev`
+    - Passing process arguments: `/api/v1/org/Default/project/test-project/repo/test-repo/start/default?arguments.x=123&arguments.y=boo`
 
 
 <a name="stop-process"/>
