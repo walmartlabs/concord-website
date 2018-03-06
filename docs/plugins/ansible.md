@@ -129,9 +129,9 @@ flows:
     in:
       config:
         defaults:
-          - forks: 50
+          forks: 50
         ssh_connection:
-          - pipelining: True
+          pipelining: True
 ```
 
 which is equivalent to:
