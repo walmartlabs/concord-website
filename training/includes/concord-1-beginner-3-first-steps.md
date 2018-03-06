@@ -72,6 +72,11 @@ Demo it
 
 - Start the process in the Concord Console or
 - Hit a URL or
+
+```
+../api/v1/org/{orgName}/project/{projectName}/repo/{repoName}/start/{entryPoint}`
+```
+
 -  Invoke process via REST API:
 
 ```
