@@ -9,3 +9,4 @@ linkcheck-results.log
 *.iml
 vendor
 .jekyll-metadata
+.arcconfig
