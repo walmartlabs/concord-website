@@ -8,7 +8,7 @@ side-navigation: wmt/docs-navigation.html
 
 An Organization owns projects, repositories, inventories, secrets and teams.
 
-The REST API provides support for a number of operations:
+The REST API provides support for working with organizations:
 
 - [Create an Organization](#create-org)
 - [Update an Organization](#update-org)
@@ -31,6 +31,7 @@ Only administrators can create new organizations.
     }
     ```
 * **Success response**
+
     ```
     Content-Type: application/json
     ```
@@ -61,6 +62,7 @@ Updates parameters of an existing organization.
     Organization `id` is mandatory, in case of updating organization `name`.
 
 * **Success response**
+
     ```
     Content-Type: application/json
     ```
@@ -88,10 +90,11 @@ Lists all available organizations.
 * **Body**
     none
 * **Success response**
+
     ```
     Content-Type: application/json
     ```
-    
+
     ```json
     [
       {

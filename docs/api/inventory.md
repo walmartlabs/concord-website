@@ -8,10 +8,14 @@ side-navigation: wmt/docs-navigation.html
 
 An organization can contain one or more inventories.
 
-The REST API provides support for a number of operations:
+The REST API provides support for working with inventories:
 
 - [Create an Inventory](#create-inventory)
 - [Update an Inventory](#update-inventory)
+
+To remove a project's value, specify an empty value. For example, you can use an
+empty `parent` inventory JSON object to remove a parent inventory from an 
+inventory.
 
 <a name="create-inventory"/>
 ## Create an Inventory
@@ -42,7 +46,9 @@ Creates a new inventory with specified parameters.
     All parameters except `name` are optional.
 
     Parent inventory is also an inventory JSON object.
+
 * **Success response**
+
     ```
     Content-Type: application/json
     ```
@@ -83,16 +89,14 @@ Updates parameters of an existing inventory.
 	       }
     }
     ```
-    All parameters are optional.
+
+    All parameters are optional except when updating inventory 'name', when 'id'
+    is required.
 
     Omitted parameters are not updated.
-    
-    Inventory `id` is mandatory, in case of updating inventory `name`.
-    
-    An empty value must be specified in order to remove a project's value:
-    e.g. an empty `parent` object to remove parent inventory from a inventory.
-    Parent inventory is also an inventory JSON object.
+
 * **Success response**
+
     ```
     Content-Type: application/json
     ```
