@@ -209,6 +209,32 @@ flows:
 ```
 
 
+## HTTP Task
+
+Interact with any REST endpoint.
+
+- very powerful since most applications expose REST API
+- built-in
+- supports authentication
+- response can be captured
+- and then used in follow up steps
+
+
+## HTTP Task Example
+
+```yaml
+- task: http
+  in:
+    method: GET
+    url: "http://host:post/path/endpoint"
+    response: string
+    out: response
+- if: ${response.success}
+  then:
+   - log: "Response received: ${response.content}"
+```
+
+
 ## More Tasks
 
 Let explore some in source and examples!
