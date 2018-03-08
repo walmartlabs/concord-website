@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `http` task provides a basic HTTP/RESTful client that allows you to call
+The HTTP task provides a basic HTTP/RESTful client that allows you to call
 RESTful endpoints. It is provided automatically by Concord, and does not require
 any external dependencies.
 
@@ -17,13 +17,13 @@ automate the interaction  with these applications. This makes the http task a
 very powerful tool to integrate Concord with applications that do not have a
 custom integration with Concord via a specific task.
 
-The `http` task executes RESTful requests using a HTTP `GET` or `POST` method
+The HTTP task executes RESTful requests using a HTTP `GET` or `POST` method
 and returns [HTTP response](#http-task-response) objects. The response object
 can be stored in an `out` parameter for later usage.
 
 - [Usage](#usage)
 - [Parameters](#parameters)
-- [Samples](#samples)
+- [Examples](#examples)
 
 ## Usage 
 
@@ -62,13 +62,14 @@ A full list of available parameters is described [below](#parameters).
 All parameters sorted in alphabetical order.
 
 - `auth`: used for secure endpoints. See [Basic auth](#basic-authentication);
-- `body`: only used for __POST__ method. It can be string or complex
+- `body`: only used for `POST` method. It can be string or complex
   object(map). See [Body](#body);
-- `method`: HTTP request method either 'post'(e.g. **POST**, **GET**)
-- `out`: to store the [HTTP response](#http-task-response) object
-- `request`: type of request data [Request type](#request-type);
-- `response`: type of response data from endpoint [Response type]
-(#response-type);
+- `method`: HTTP request method, either `POST` or `GET`
+- `out`: variable to store the [HTTP response](#http-task-response) object
+- `request`: type of request data `string`, `json`, or `file`, details available
+   in [Request type](#request-type);
+- `response`: type of response data from endpoint, details available in
+  [Response type](#response-type);
 - `url`: complete url in string for http request
 
 ### Basic Authentication
