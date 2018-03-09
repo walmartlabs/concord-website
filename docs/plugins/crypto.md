@@ -31,10 +31,10 @@ This expression returns a map with two keys:
 - `public` - relative path to the public key of the key pair;
 - `private` - same but for the private key.
 
-A full example adds a key via the REST API with the default user credentials:
+A full example adds a key via the REST API:
 
 ```
-$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F storePassword="myKeyPassword" -F name=myKey -F type=key_pair http://localhost:8001/api/1/org/Default/secret
+$ curl -u yourusername -F storePassword="myKeyPassword" -F name=myKey -F type=key_pair http://localhost:8001/api/1/org/Default/secret
 
 {
   "id" : "...",
@@ -81,7 +81,7 @@ the REST API or the UI and retrieved using the
 `crypto.exportAsString` method:
     
 ```
-$ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" -F name=mySecret -F type=data -F data="my value" -F storePassword="myPassword" http://localhost:8001/api/v1/org/Default/secret
+$ curl -u myusername -F name=mySecret -F type=data -F data="my value" -F storePassword="myPassword" http://localhost:8001/api/v1/org/Default/secret
 ```
 
 ```yaml
@@ -110,7 +110,7 @@ and the `encrypt` context:
 
 ```
 curl -H "Content-Type: application/json" \
--H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+-u myusername \
 -d '{ "value": "my secret value" }' \
 http://localhost:8001/api/v1/project/myProject/encrypt
 ```
