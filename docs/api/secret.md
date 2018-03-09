@@ -12,6 +12,10 @@ access to repositories and other systems.
 The REST API provides support for the following operations related to secrets:
 
 - [Create a Secret](#create-secret)
+  - [Example: Generate a new Key Pair](example-new-key-pair)
+  - [Example: Upload an Existing Key Pair](example-upload-key-pair)
+  - [Example: Creating a Username and Password Secret](example-username-password-secret)
+  - [Example: Storing a Single Value as Secret](example-single-value-secret)
 - [Get Public SSH Key of Secret](#get-key)
 - [Delete a Secret](#delete-secret)
 - [List Secrets](#list-secrets)
@@ -20,7 +24,7 @@ The REST API provides support for the following operations related to secrets:
 <a name="create-secret"/>
 ## Create a Secret
 
-Creates a new secret.
+Creates a new secret to be stored in Concord.
 
 * **URI** `/api/v1/org/${orgName}/secret`
 * **Method** `POST`
@@ -69,8 +73,9 @@ Creates a new secret.
     }
     ```
 
+<a name="example-new-key-pair"/>
 
-### Examples
+### Example: Generate a new Key Pair
 
 As default `admin` user, on a default installation, you can generate a new key 
 pair using a valid authorization token as follows:
@@ -93,6 +98,10 @@ The server generates the new key pair and returns the public key:
 }
 ```
 
+<a name="example-upload-key-pair"/>
+
+### Example:  Upload an Existing Key Pair
+
 As default `admin` user, on a default installation, you can upload an existing 
 key pair using a valid authorization token as follows:
 
@@ -105,6 +114,10 @@ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
 https://concord.example.com/api/v1/org/Default/secret
 ```
 
+<a name="example-username-password-secret"/>
+
+### Example: Creating a Username and Password Secret
+
 On a default installation you can create a username and password secret with 
 the default `admin` user and its authorization token:
 
@@ -116,6 +129,10 @@ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
 -F password=myPass \
 https://concord.example.com/api/v1/org/Default/secret
 ```
+
+<a name="example-single-value-secret"/>
+
+### Example: Storing a Single Value as Secret
 
 On a default installation you can store a single value with the default `admin`
 user and its authorization token:
@@ -209,7 +226,7 @@ Deletes a secret and associated keys.
 <a name="list-secrets"/>
 ## List Secrets
 
-Lists existing secrets.
+List all existing secrets in a specific organization.
 
 * **Permissions**
 * **URI** `/api/v1/org/${orgName}/secret`
