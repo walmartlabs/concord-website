@@ -95,6 +95,9 @@ Basic auth using `username` and `password` syntax:
       password: any_password
 ```
 
+To avoid exposing credentials in your Concord file, replace the actual values
+with usage of the [Crypto task](./crypto.html).
+
 Use valid values for basic authentication parameters. Authentication failure
 causes an `UnauthorizedException` error.
 
