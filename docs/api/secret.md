@@ -77,17 +77,17 @@ Creates a new secret to be stored in Concord.
 
 ### Example: Generate a new Key Pair
 
-As default `admin` user, on a default installation, you can generate a new key 
-pair using a valid authorization token as follows:
+You can create a new key pair that is signed by the Concord server as follows:
 
 ```
-curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+curl -u myusername \
 -F name=myKey \
 -F type=key_pair \
 https://concord.example.com/api/v1/org/Default/secret
 ```
 
-The server generates the new key pair and returns the public key:
+After successful authentication with the provided prompted password, the server
+generates the new key pair and returns the public key:
 
 ```
 {
@@ -98,12 +98,15 @@ The server generates the new key pair and returns the public key:
 }
 ```
 
+This key can be used a deploy key in the git repository of your project to
+establish the necessary trust between the Concord server and your git repository
+hosting system.
+
 <a name="example-upload-key-pair"/>
 
 ### Example:  Upload an Existing Key Pair
 
-As default `admin` user, on a default installation, you can upload an existing 
-key pair using a valid authorization token as follows:
+You can upload an existing key pair as follows:
 
 ```
 curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
@@ -113,16 +116,18 @@ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
 -F private=@/path/to/id_rsa \
 https://concord.example.com/api/v1/org/Default/secret
 ```
+After successful authentication with the prompted password, the server
+uploads and stores the files. The secret can subsequently be used within your
+Concord flows.
 
 <a name="example-username-password-secret"/>
 
 ### Example: Creating a Username and Password Secret
 
-On a default installation you can create a username and password secret with 
-the default `admin` user and its authorization token:
+You can a username and password secret with as follows:
 
 ```
-curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+curl -u myusername \
 -F name=myKey \
 -F type=username_password \
 -F username=myUser \
@@ -130,20 +135,27 @@ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
 https://concord.example.com/api/v1/org/Default/secret
 ```
 
+After successful authentication with the prompted password, the server 
+creates and stores both values with a secret. It can subsequently be used within
+your Concord flows.
+
 <a name="example-single-value-secret"/>
 
 ### Example: Storing a Single Value as Secret
 
-On a default installation you can store a single value with the default `admin`
-user and its authorization token:
+You can store a single value as a secret on Concord as follows:
 
 ```
-curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+curl -u myusername \
 -F name=myKey \
 -F type=data \
 -F data=myValue \
 https://concord.example.com/api/v1/org/Default/secret
 ```
+
+After successful authentication with the prompted password, the server 
+creates and stores the value as a secret. It can subsequently be used within
+your Concord flows.
 
 <a name="get-key"/>
 ## Get Public SSH Key of Secret
@@ -169,16 +181,7 @@ Returns a public key from an existing key pair of a secret.
     }
     ```
 
-### Examples
-
-On a default installation you can access a key with the default `admin` user 
-and its authorization token:
-
-```
-curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" 'https://concord.example.com/api/v1/org/Default/secret/myKey/public'
-```
-
-On a typical production installation you can pass your username and be quoted
+On a typical Concord installation you can pass your username and be quoted
 for the password:
 
 ```
