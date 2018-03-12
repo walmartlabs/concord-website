@@ -13,6 +13,7 @@ The REST API provides support for a number of operations:
 
 - [Create a Secret](#create-secret)
 - [Examples](#examples)
+- [Get Secret's Metadata](#get-secret-metadata)
 - [Get Public SSH Key of Secret](#get-key)
 - [Delete a Secret](#delete-secret)
 - [List Secrets](#list-secrets)
@@ -133,6 +134,33 @@ curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
 -F data=myValue \
 https://concord.example.com/api/v1/org/Default/secret
 ```
+    
+<a name="get-secret-metadata>
+## Get Secret's Metadata
+
+Retrieves metadata of an existing secret.
+
+* **URI** `/api/v1/org/${orgName}/secret/${secretName}`
+* **Method** `GET`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "id": "...",
+      "name": "secretName",
+      "orgId": "...",
+      "orgName": "...",
+      "type": "...",
+      "storeType": "...",
+      "visibility": "..."
+    }
+    ```
 
 <a name="get-key"/>
 ## Get Public SSH Key of Secret
