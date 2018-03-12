@@ -16,6 +16,7 @@ The REST API provides support for the following operations related to secrets:
   - [Example: Upload an Existing Key Pair](example-upload-key-pair)
   - [Example: Creating a Username and Password Secret](example-username-password-secret)
   - [Example: Storing a Single Value as Secret](example-single-value-secret)
+- [Get Metadata of Secret](#meta-data)
 - [Get Public SSH Key of Secret](#get-key)
 - [Delete a Secret](#delete-secret)
 - [List Secrets](#list-secrets)
@@ -153,8 +154,8 @@ curl -u myusername \
 https://concord.example.com/api/v1/org/Default/secret
 ```
     
-<a name="get-secret-metadata>
-## Get Secret's Metadata
+<a name="metadata>
+## Get Metadata of Secret
 
 Retrieves metadata of an existing secret.
 
