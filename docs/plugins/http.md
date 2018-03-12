@@ -11,26 +11,25 @@ RESTful endpoints. It is provided automatically by Concord, and does not require
 any external dependencies.
 
 RESTful endpoints are very commonly used and often expose an API to work with 
-an application. The http task allows you to therefore invoke any exposed
-functionality  in third party applications in your Concord project and therefore
-automate the interaction  with these applications. This makes the http task a
-very powerful tool to integrate Concord with applications that do not have a
-custom integration with Concord via a specific task.
+an application. The HTTP task allows you to invoke any exposed functionality in
+third party applications in your Concord project and therefore automate the
+interaction with these applications. This makes the HTTP task a very powerful
+tool to integrate Concord with applications that do not have a custom
+integration with Concord via a specific task.
 
 The HTTP task executes RESTful requests using a HTTP `GET` or `POST` method
 and returns [HTTP response](#http-task-response) objects. The response object
 can be stored in an `out` parameter for later usage.
 
-- [Usage](#usage)
-- [Parameters](#parameters)
+- [Usage and Configuration](#usage)
 - [Examples](#examples)
 
-## Usage 
+<a name="usage"/>
 
-For requests, you have the following options:
+## Usage and Configuration
 
-- inline syntax.
-- full formatting using mapping that the `http` task interprets.
+As with all tasks you can invoke the HTTP task with a short inline syntax or 
+the full `task` syntax.
 
 The simple inline syntax uses an expression with the http task and the 
 `asString` method. It uses a HTTP `GET` as a default request method and returns
@@ -55,22 +54,18 @@ task:
    - log: "Response received: ${response.content}"
 ```
 
-A full list of available parameters is described [below](#parameters).
-
-## Parameters
-
 All parameters sorted in alphabetical order.
 
-- `auth`: used for secure endpoints. See [Basic auth](#basic-authentication);
-- `body`: only used for `POST` method. It can be string or complex
-  object(map). See [Body](#body);
+- `auth`: authentication used for secure endpoints, details in 
+  [Basic authentication](#basic-authentication);
+- `body`: the request body, details in [Body](#body);
 - `method`: HTTP request method, either `POST` or `GET`
 - `out`: variable to store the [HTTP response](#http-task-response) object
 - `request`: type of request data `string`, `json`, or `file`, details available
    in [Request type](#request-type);
-- `response`: type of response data from endpoint, details available in
-  [Response type](#response-type);
-- `url`: complete url in string for http request
+- `response`: type of response data `string`, `json`, or `file` received from
+  the endpoint, details in [Response type](#response-type);
+- `url`: complete URL in string for HTTP request
 
 ### Basic Authentication
 
@@ -103,7 +98,7 @@ causes an `UnauthorizedException` error.
 
 ### Body
 
-The HTTP method type _POST_ requires a `body` parameter that contains a complex
+The HTTP method type `POST` requires a `body` parameter that contains a complex
 object (map), json sourced from a file, or raw string.
 
 
@@ -116,11 +111,11 @@ Body for request type `json`:
       nestedVar: 123
 ```
 
-The `http` task converts complex objects like the above into string and passes
-it into the body of post request. The converted string for the above example is
+The HTTP task converts complex objects like the above into a string and passes
+it into the body of the request. The converted string for the above example is
 `{ "myObject": { "nestedVar": 123 } }`.
 
-The `http` task accepts raw json string, and throws an `incompatible request
+The HTTP task accepts raw JSON string, and throws an `incompatible request
 type` error when it detects improper formatting.
 
 Body for Request Type `file`:
@@ -148,20 +143,20 @@ request.
 
 Types supported currently:
 
-- string (converted into `text/plain`)
-- json (converted into `application/json`)
-- file (converted into `application/octet-stream`)
+- `string` (converted into `text/plain`)
+- `json` (converted into `application/json`)
+- `file` (converted into `application/octet-stream`)
 
 ### Response Type
 
-`response` is mandatory parameter and maps to the `ACCEPT` header of the HTTP
+`response` is a mandatory parameter that maps to the `ACCEPT` header of the HTTP
 request.
 
 Types supported currently:
 
-- string (converted into `text/plain`)
-- json (converted into `application/json`)
-- file (converted into `application/octet-stream`)
+- `string` (converted into `text/plain`)
+- `json` (converted into `application/json`)
+- `file` (converted into `application/octet-stream`)
 
 ### HTTP Task Response
 
@@ -174,7 +169,7 @@ Objects returned by the HTTP task contain the following fields:
 
 ## Examples
 
-Following are examples that illustrate syntax use for `http` task.
+Following are examples that illustrate the syntax usage for the HTTP task.
 
 ### Full Syntax for 'GET' Request
 
@@ -210,7 +205,7 @@ Using map for the body:
    - log: "Response received: ${jsonResponse.content}"
 ```
 
-Using raw json for the body:
+Using raw JSON for the body:
 
 ```yaml
 - task: http
@@ -232,7 +227,7 @@ Using raw json for the body:
 
 ### Full Syntax for Secure Request
 
-Using a basic auth token:
+Using a basic authentication token:
 
 ```yaml
 - task: http
