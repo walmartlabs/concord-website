@@ -13,6 +13,7 @@ use in the workflow execution.
 - [Boo](./boo.html)
 - [Concord](./concord.html)
 - [Crypto](./crypto.html)
+- [Http](./http.html)
 - [JIRA](./jira.html)
 - [Key Value](./key-value.html)
 - [OneOps](./oneops.html)
