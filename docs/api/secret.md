@@ -152,6 +152,33 @@ curl -u myusername \
 -F data=myValue \
 https://concord.example.com/api/v1/org/Default/secret
 ```
+    
+<a name="get-secret-metadata>
+## Get Secret's Metadata
+
+Retrieves metadata of an existing secret.
+
+* **URI** `/api/v1/org/${orgName}/secret/${secretName}`
+* **Method** `GET`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "id": "...",
+      "name": "secretName",
+      "orgId": "...",
+      "orgName": "...",
+      "type": "...",
+      "storeType": "...",
+      "visibility": "..."
+    }
+    ```
 
 After successful authentication with the prompted password, the server 
 creates and stores the value as a secret. It can subsequently be used within
