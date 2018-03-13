@@ -201,11 +201,11 @@ configuration:
   - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.36.0"
 flows:
   default:
-    - task: concord
-        in:
-          action: start
-          project: myProject
-          repository: myRepo
+  - task: concord
+    in:
+      action: start
+      project: myProject
+      repository: myRepo
 ```
 
 

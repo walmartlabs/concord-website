@@ -48,7 +48,7 @@ What flow to start with.
 ```
 configuration:
   dependencies:
-  - mvn://org.codehaus.groovy:groovy-all:2.4.12
+  - mvn://org.codehaus.groovy:groovy-all:2.4.14
 ```
 
 Note:
@@ -190,7 +190,6 @@ flows:
 
   test:
   - log" "Starting test"
-    - ...
 ```
 
 
@@ -322,11 +321,14 @@ flows:
   - script: js
     body: |
       print("Hello world!")
+      print("More script..")
 ```
 
 Note:
 - uses JavaScript impl for Java Scripting API which includes extensions like print
 - show other examples from concord codebase examples folder
+- multi line
+
 
 ## Triggers
 
@@ -361,7 +363,7 @@ triggers:
 ```
 flows:
   default:
-    - log: "${foo}
+  - log: "${foo}
 
 configuration
   arguments:

@@ -90,7 +90,7 @@ Updates parameters of an existing inventory.
     }
     ```
 
-    All parameters are optional except when updating inventory 'name', when 'id'
+    All parameters are optional except when updating inventory 'name', 'id'
     is required.
 
     Omitted parameters are not updated.
