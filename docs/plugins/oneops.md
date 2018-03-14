@@ -81,6 +81,8 @@ The OneOps task provides a number of functions to get a the IP numbers of
 operating `compute` component instances or other components such as `lb` from a
 specific platform.  Typically an argument is populated and later used:
 
+**Note:** This method is `Deprecated`, use `getComputeIPs()` or `getFqdnIPs()` methods instead of this.
+
 ```yaml
 configuration:
   arguments:
@@ -107,8 +109,22 @@ ${oneops.getIPsForCloud(oneOpsConfig, asm, env, platform, component, cloud)}
 Or grouped by cloud:
 
 ```yaml
-${oneops.getIPsByCloud(oneOpsConfig, platform, component, cloud)}
-${oneops.getIPsByCloud(oneOpsConfig, asm, env, platform, component, cloud)}
+${oneops.getIPsByCloud(oneOpsConfig, platform, component)}
+${oneops.getIPsByCloud(oneOpsConfig, asm, env, platform, component)}
+```
+
+Get Compute IPs:
+
+```yaml
+${oneops.getComputeIPs(oneOpsConfig, platform)}
+${oneops.getComputeIPs(oneOpsConfig, asm, env, platform)}
+```
+
+Get Fqdn IPs:
+
+```yaml
+${oneops.getFqdnIPs(oneOpsConfig, platform)}
+${oneops.getFqdnIPs(oneOpsConfig, asm, env, platform)}
 ```
 
 <a name="instances"/>
