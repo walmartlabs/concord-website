@@ -59,6 +59,9 @@ working directory.
     request will block until the process is complete;
     - `out` - list of comma-separated names of variables that will be
     returned after the process finishes. Works only with `sync`;
+    - `startAt` - ISO-8601 date-time value. If specified, the process
+    will be scheduled to run on the specified date and time. Can't be
+    in the past. Explicitly specifying the timezone is recommended;
     - any other value of `text/plain` type - will be used as a process'
     parameter. Nested values can be specified using `.` as the
     delimiter;
@@ -102,6 +105,11 @@ You can specify the flow e.g. `main` to start with a different flow for the same
 curl -F org=myorg -F project=myproject -F repo=default -F entryPoint=main https://concord.example.com/api/v1/process
 ```
 
+Scheduling an execution:
+
+```
+curl ... -F startAt='2018-03-15T15:25:00-05:00' https://concord.example.com/api/v1/process
+```
 
 <a name="zip-file"/>
 ### ZIP File
