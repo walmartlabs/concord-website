@@ -17,7 +17,7 @@ To be able to use the `jira` task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:jira-task:0.36.0
+  - mvn://com.walmartlabs.concord.plugins:jira-task:0.38.0
 ```
 
 This adds the task to the classpath and allows you to configure the main
@@ -76,7 +76,9 @@ The following sections describe the available functions in more detail:
 - [Add a comment](#add-comment)
 - [Transition an Issue](#transition)
 - [Delete an Issue](#delete)
+- [Create a Component](#create-component)
 - [Source Reference](#source)
+
 
 <a name="create"/>
 
@@ -118,6 +120,16 @@ The JIRA task can be used to delete an existing issue.
 
 ```yaml
 - ${jira.delete(context, jiraConfig)}
+```
+
+<a name="create-component"/>
+
+## Create a new Component
+
+The JIRA task can be used to create a new Component for a given JIRA project.
+
+```yaml
+- ${jira.createComponent(context, jiraConfig, componentName)}
 ```
 
 <a name="source"/>
