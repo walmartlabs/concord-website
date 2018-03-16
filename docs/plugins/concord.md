@@ -68,6 +68,26 @@ flows:
 The process is started using the resources provided by the specified archive, 
 project and repository.
 
+## Scheduling a Process
+
+To schedule a process to a specific date and time, use the `startAt` parameter:
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      action: start
+      ...
+      startAt: "2018-03-16T23:59:59-05:00"
+```
+
+The `startAt` parameter accepts an ISO-8601 string, `java.util.Date` or
+`java.util.Calendar` values. It is important to include a timezone as the
+server may use a different default timezone value.
+
+
+
 ## Output Variables
 
 Variables of a child process can be accessed via the `outVars` configuration. 
