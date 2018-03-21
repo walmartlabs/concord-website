@@ -17,6 +17,7 @@ The REST API provides support for a number of operations:
 - [Getting Status of a Process](#get-status-process)
 - [Retrieve a Process Log](#retrieve-log)
 - [Download an Attachment](#download-attachment)
+- [List Processes](#list-processes)
 
 
 <a name="start-process"/>
@@ -251,4 +252,30 @@ Downloads a process' attachment.
 
     ```
     ...data...
+    ```
+
+<a name="list-processes"/>
+## List Processes
+
+Retrieve a list of processes.
+
+* **URI** `/api/v1/process`
+* **Query parameters**
+    - `projectId`: filter by the project's ID;
+    - `beforeCreatedAt`: limit by date, ISO-8601 string;
+    - `tags`: filter by a tag, repeat the parameter to filter by multiple tags;
+    - `limit`: maximum number of records to return.
+* **Method** `GET`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [
+      { "instanceId": "...", "status": "...", ... },
+      { "instanceId": "...", ... }
+    ]
     ```
