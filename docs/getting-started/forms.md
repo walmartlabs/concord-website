@@ -120,7 +120,7 @@ flows:
 
 Supported options:
 - `yield`: a boolean value. If `true`, the UI wizard will stop after
-this form and the rest of the process will continue in "background".
+this form and the rest of the process will continue in the background.
 Supported only for custom (with branding) forms;
 - `values`: additional values, to override default form values or to
 provide additional data.
@@ -280,8 +280,8 @@ custom and regular forms:
 ## Accessing Forms
 
 Forms can be accessed by a user in two different ways:
-- though [the "portal" URL](../api/process.html#from-a-browser);
-- by clicking on the "wizard" button on the Console's process
+- through [the URL](../api/process.html#from-a-browser);
+- by clicking on the _Wizard_ button on the Console's process
 status page.
 
 In both cases, users will be redirected from form to form until the
