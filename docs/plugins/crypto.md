@@ -109,11 +109,13 @@ The REST API can be used to encrypt the value using the the project specific key
 and the `encrypt` context:
 
 ```
-curl -H "Content-Type: application/json" \
--u myusername \
--d '{ "value": "my secret value" }' \
-http://localhost:8001/api/v1/project/myProject/encrypt
+curl -u myusername \
+-H 'Content-Type: text/plain' \
+-d 'my secret value' \
+http://localhost:8001/api/v1/org/MyOrg/project/MyProject/encrypt
 ```
+
+(replace `MyOrg` and `MyProject` with the names of your organization and project).
 
 The result returns the encrypted value in the `data` element:
 
