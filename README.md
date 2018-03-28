@@ -11,10 +11,10 @@ Building and publishing are the same as for the
 
 ## CI
 
-Automatic CI build and deployment of master branch is done via a
-[Looper build](https://ci.walmart.com/view/SDE-Sites/job/concord-site/)
+This site uses Looper's automatic CI build and deployment for its master branch:
+[Looper build](https://ci.walmart.com/job/SDE-Docs-Training/job/concord-site/)
 
-[![Build Status](https://ci.walmart.com/buildStatus/icon?job=concord-site)](https://ci.walmart.com/view/SDE-Sites/job/concord-site/)
+[![Build Status](https://ci.walmart.com/buildStatus/icon?job=SDE-Docs-Training/concord-site)](https://ci.walmart.com/job/SDE-Docs-Training/concord-site)
 
 ## Project Quality
 
