@@ -11,6 +11,7 @@ A process is an execution of a flow in repository of a project.
 The REST API provides support for a number of operations:
 
 - [Start a Process](#start-process)
+  - [Form data](#form-data)
   - [ZIP File](#zip-file)
   - [Browser](#browser)
 - [Stop a Process](#stop-process)
@@ -110,6 +111,33 @@ Scheduling an execution:
 
 ```
 curl ... -F startAt='2018-03-15T15:25:00-05:00' https://concord.example.com/api/v1/process
+```
+
+<a name="form-data"/>
+### Form Data
+
+Concord accepts `multipart/form-data` requests to start a process. 
+Special variables such as `arguments`, `sync`, `archive`, `out`, `activeProfiles`, etc
+are automatically configured. Other submitted data of format `text/plain` is used
+to configure variables. All other information is stored as a file in the
+process' working directory.
+
+However, if user tries to upload a `.txt` file
+
+```
+curl ... -F myFile.txt=@myFile.txt -F archive=@target/payload.zip \ 
+  https://concord.example.com/api/v1/process
+```
+
+then curl uses `Content-Type: text/plain` header and Concord stores this as a
+configuration variable instead of a file as desired.
+
+As a workaround you can configured the content type of the field explicitly:
+
+```
+curl ... -F "myFile.txt=@myFile.txt;type=application/octet-stream" \
+  -F archive=@target/payload.zip \
+  https://concord.example.com//api/v1/process
 ```
 
 <a name="zip-file"/>
