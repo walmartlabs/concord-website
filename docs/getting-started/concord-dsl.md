@@ -377,6 +377,19 @@ flows:
         - return
 ```
 
+### Exit Command
+
+The `exit` command can be used to stop the execution of the flow:
+
+```yaml
+flows:
+  default:
+    - if: ${myVar > 0}
+      then:
+        - exit
+    - log: "message"
+```
+
 ### Groups of Steps
 
 Several steps can be grouped in one block. This allows `try-catch`-like
