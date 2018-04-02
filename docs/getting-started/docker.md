@@ -77,3 +77,9 @@ configuration:
 ## Custom Images
 
 All images must provide a standard POSIX shell as `/bin/sh`.
+
+## Limitations
+
+Running containers as `root` user is not supported - all user containers
+are executed using `concord` user (as in `docker run -u concord ... myImage`).
+The user is created automatically with UID `456`.
