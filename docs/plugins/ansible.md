@@ -21,6 +21,7 @@ application deployments with Concord.
 - [Custom Docker Images](#docker)
 - [Retry and Limit Files](#retry-limit)
 - [Ansible Lookup Plugins](#ansible-lookup-plugins)
+- [Group Vars](#group-vars)
 - [Limitations](#limitations)
 
 ## Usage
@@ -97,6 +98,7 @@ following sections:
   script. See also [Dynamic inventories](#dynamic-inventories) section;
 - `extraEnv`: JSON object, additional environment variables
 - `extraVars`: JSON object, used as `--extra-vars`
+- `groupVars`: configuration for exporting secrets as Ansible [group_vars](#group-vars) files;
 - `inventory`: JSON object, an inventory data specifying
   [a static, inline inventories](#inline-inventories)section;
 - `inventoryFile`: string, path to an inventory file;
@@ -396,6 +398,48 @@ Currently, only simple string value secrets are supported.
 
 See also [the example](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/secret_lookup)
 project.
+
+## Group Vars
+
+Files stored as Concord [secrets](../api/secret.html) can be used as Ansible's
+`group_var` files.
+
+For example, if we have a file stored as a secret like this:
+```yaml
+# myVars.yml
+my_name: "Concord"
+
+# saved as:
+#   curl ... \
+#     -F type=data \
+#     -F name=myVars \
+#     -F data=@myVars.yml \
+#     -F storePassword=myPwd \
+#     http://host:port/api/v1/org/Default/secret
+```
+
+it can be exported as a group_vars file using `groupVars` parameter:
+```yaml
+flows:
+  default:
+  - task: ansible
+    in:
+      playbook: myPlaybooks/play.yml
+      ...
+      groupVars:
+      - myGroup:
+          orgName: "Default"    # optional
+          secretName: "myVars"
+          password: "myPwd"     # optional
+          type: "yml"           # optional, default "yml"
+```
+
+In the example above, `myVars` secret will be exported as a file into
+`${workDir}/myPlaybooks/group_vars/myGroup.yml` and `my_name` variable will be
+available for `myGroup` host group.
+
+Check [the official Ansible documentation](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#group-variables)
+for more details on how `group_vars` files work.
 
 ## Limitations
 
