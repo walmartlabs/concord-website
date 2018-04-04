@@ -1,10 +1,18 @@
-<div id="search-container">
-  <div id="search-input-bar">
-    <input type="text" id="search-input" placeholder="Search..." />
-    <!--<i class="fa fa-search icon-search"></i>-->
+<li class="dropdown" id="search">
+  <a id="dropdownSearch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fa fa-search"></i>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownSearch">
+    <div id="search-container">
+      <div id="search-input-bar">
+        <input type="text" id="search-input" name="search" placeholder="Search..." />
+        <!--<i class="fa fa-search icon-search"></i>-->
+      </div>
+      <div id="results-container"></div>
+    </div>
   </div>
-  <div id="results-container"></div>
-</div>
+</li>
+
 <script type="text/javascript" src="{{site.context}}/assets/wmt/js/simple-jekyll-search.js"></script>
 <script>
 SimpleJekyllSearch({
