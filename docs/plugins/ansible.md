@@ -404,7 +404,8 @@ project.
 Files stored as Concord [secrets](../api/secret.html) can be used as Ansible's
 `group_var` files.
 
-For example, if we have a file stored as a secret like this:
+For example, if we have a file stored as a secret like this,
+
 ```yaml
 # myVars.yml
 my_name: "Concord"
@@ -418,7 +419,8 @@ my_name: "Concord"
 #     http://host:port/api/v1/org/Default/secret
 ```
 
-it can be exported as a group_vars file using `groupVars` parameter:
+it can be exported as a `group_vars` file using `groupVars` parameter:
+
 ```yaml
 flows:
   default:
@@ -434,12 +436,13 @@ flows:
           type: "yml"           # optional, default "yml"
 ```
 
-In the example above, `myVars` secret will be exported as a file into
-`${workDir}/myPlaybooks/group_vars/myGroup.yml` and `my_name` variable will be
+In the example above, `myVars` secret is exported as a file into
+`${workDir}/myPlaybooks/group_vars/myGroup.yml` and `my_name` variable is
 available for `myGroup` host group.
 
-Check [the official Ansible documentation](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#group-variables)
-for more details on how `group_vars` files work.
+Check
+[the official Ansible documentation](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#group-variables)
+for more details `group_vars` files.
 
 ## Limitations
 
