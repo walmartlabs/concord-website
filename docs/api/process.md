@@ -247,7 +247,9 @@ Returns the current status of a process.
     "createdAt" : "2017-07-19T16:31:39.331+0000",
     "initiator" : "admin",
     "lastUpdatedAt" : "2017-07-19T16:31:40.493+0000",
-    "status" : "FAILED"
+    "status" : "FAILED",
+    "parentInstanceId" : "b82bb6c7-f184-405e-ae08-68b62125c8be",
+    "childrenIds":["d4892eab-f75d-43a2-bb26-20903ffa10d8","be79ee81-78db-4afa-b207-d361a417e892","d5a35c8f-faba-4b9d-b957-ca9c31bf2a39"]
     }
     ```
 
@@ -311,7 +313,7 @@ Retrieve a list of processes.
 
     ```json
     [
-      { "instanceId": "...", "status": "...", ... },
+      { "instanceId": "...", "status": "...","parentInstanceId" : "...","childrenIds":["...","..."], ... },
       { "instanceId": "...", ... }
     ]
     ```
