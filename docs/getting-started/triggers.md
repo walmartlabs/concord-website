@@ -13,14 +13,16 @@ response to external events.
 - [OneOps Events](#oneops)
 - [GitHub Events](#github)
 - [Cron Events](#cron)
-- [Generic Events](#generic)
+- [Generic Event Integration](#generic)
 
 
 <a name="common"/>
 ## Common Syntax
 
-All triggers work by the same process: the patterns you specify as triggers 
-are matched to external event data, and for each matched trigger, a new process 
+All triggers work by the same process: 
+
+- Concord matches the patterns you specify as triggers to external event data.
+- for each matched trigger, it starts a new process 
 is started.
 
 Triggers are defined in the `triggers` section of a `concord.yml` file:
@@ -62,11 +64,11 @@ source of the event, the exact structure of the `event` object may vary.
 <a name="oneops"/>
 ## OneOps Events
 
-The `oneops` event source allows Concord to receive events from OneOps. The
-exact nature of those events depends on the configuration of the notification
-sink in OneOps.
+Using `oneops` as an event source allows Concord to receive events from OneOps. 
+You can configure event properties in the OneOps notification sink, specifically
+for use in Concord triggers.
 
-One of the possible event types is a deployment completion event:
+Deployment completion events can be especially useful:
 
 ```yaml
 flows:
@@ -84,11 +86,11 @@ triggers:
     entryPoint: onDeployment
 ```
 
-The `event` object's, in addition to the trigger parameters, contains `payload`
-attribute - the original event's data "as is". The following example uses the
-IP address of the deployment component to build an ansible inventory for
-exection of an [Ansible task](../plugins/ansible.html):
+The `event` object, in addition to its trigger parameters, contains a `payload`
+attribute--the original event's data "as is". 
 
+The following example uses the IP address of the deployment component to build 
+an ansible inventory for exection of an [Ansible task](../plugins/ansible.html):
 
 ```yaml
 flows:
@@ -146,8 +148,8 @@ flows:
  
   onTrigger:
   - log: "Triggered by ${event}. Hello from ${name}"
-triggers:
-- cron:
+  triggers:
+  - cron:
     spec: 0,3,6,9
     entryPoint: onTrigger
     arguments:
@@ -157,15 +159,15 @@ triggers:
 A single `concord.yml` file can contain multiple cron trigger definitions.
 
 <a name="generic"/>
-## Generic Events
+## Generic Event Integration
 
-The generic event end-point provides a simple way of integration with Concord for
-3rd-party systems. Any event submitted to the events API using a specific
+The generic event end-point provides a simple way of integration with Concord 
+for third-party systems. Any event submitted to the events API using a specific
 trigger name is routed to the identically named triggers in your Concord
 project.
 
-You can submit a JSON document to the API at `/api/v1/events/example` and start off
-a flow with the trigger:
+You can submit a JSON document to the API at `/api/v1/events/example` and start 
+off a flow with the trigger:
 
 ```
 triggers:
