@@ -135,9 +135,9 @@ The connection to the GitHub deployment needs to be
 <a namr="cron"/>
 ## Cron Events
 
-You can schedule processes using cron events using:
+You can schedule processes with cron events using:
 
-- `fireat` for specific date and time date in ISO-8601 format.
+- `fireat` for specifying a future date and time in ISO-8601 format.
 - `spec` for time interval(s) in seconds.
 - a combination of the above.
 
