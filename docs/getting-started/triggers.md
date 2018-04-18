@@ -96,7 +96,7 @@ The `event` object, in addition to its trigger parameters, contains a `payload`
 attribute--the original event's data "as is". 
 
 The following example uses the IP address of the deployment component to build 
-an ansible inventory for exection of an [Ansible task](../plugins/ansible.html):
+an Ansible inventory for execution of an [Ansible task](../plugins/ansible.html):
 
 ```yaml
 flows:
@@ -169,7 +169,7 @@ A single `concord.yml` file can contain multiple cron trigger definitions.
 
 You can create generic events for may uses. 
 
-For expale, submit a JSON document to the API at `/api/v1/events/example`, and start off a flow with an `example` trigger:
+For example, submit a JSON document to the API at `/api/v1/events/example`, and start off a flow with an `example` trigger:
 
 ```
 triggers:
@@ -182,10 +182,11 @@ triggers:
 <a name="integration">
 ## Integration Using Events
 
-The generic event end-point provides a simple way of integration with Concord 
-for third-party systems. Any event submitted to the events API using a specific
-trigger name is routed to the identically named triggers in your Concord
-project.
+The generic event end-point provides a simple way of integrating third-party 
+systems with Concord. 
+ 
+Simply name an event and a trigger with identical names. Concord routes any 
+events incoming to the API that have names that match any triggers, to the identically named triggers.
 
 Check out the
 [full example](
