@@ -13,7 +13,8 @@ response to external events.
 - [OneOps Events](#oneops)
 - [GitHub Events](#github)
 - [Cron Events](#cron)
-- [Generic Event Integration](#generic)
+- [Generic Event](#generic)
+- [Integration Using Event](#integration)
 
 
 <a name="common"/>
@@ -41,7 +42,9 @@ triggers:
 When the API end-point `/api/v1/events/` receives an event, Concord detects any
 existing matches with trigger names. 
 
-This allows you to publish events to `/api/v1/events/eventSource` for matching with triggers (where `eventSource` is any string). Further: 
+This allows you to publish events to `/api/v1/events/eventSource` for matching with triggers (where `eventSource` is any string). 
+
+Further: 
 
 - Concord matches `parameter1` and `parameter2` with the external event's parameters.
 - `entryPoint` is the name of the flow that Concord starts when there is a match.
@@ -162,12 +165,7 @@ flows:
 A single `concord.yml` file can contain multiple cron trigger definitions.
 
 <a name="generic"/>
-## Generic Event Integration
-
-The generic event end-point provides a simple way of integration with Concord 
-for third-party systems. Any event submitted to the events API using a specific
-trigger name is routed to the identically named triggers in your Concord
-project.
+## Generic Event
 
 You can submit a JSON document to the API at `/api/v1/events/example` and start 
 off a flow with the trigger:
@@ -180,6 +178,15 @@ triggers:
     entryPoint: exampleFLow
 ```
 
+<a name="integration">
+## Integration Using Events
+
+The generic event end-point provides a simple way of integration with Concord 
+for third-party systems. Any event submitted to the events API using a specific
+trigger name is routed to the identically named triggers in your Concord
+project.
+
 Check out the
-[full example]({{site.concord_source}}tree/master/examples/generic_triggers)
+[full example](
+{{site.concord_source}}tree/master/examples/generic_triggers)
 for more details.
