@@ -23,10 +23,10 @@ response to external events.
 All triggers work by the same process: 
 
 - Concord matches the patterns you specify as triggers to external event data.
-- for each matched trigger, it starts a new process 
-is started.
+- For each matched trigger, it starts a new process.
 
-Triggers are defined in the `triggers` section of a `concord.yml` file:
+You define triggers in the `triggers` section of a `concord.yml` file, as in 
+this example:
 
 ```yaml
 triggers:
@@ -46,16 +46,16 @@ This allows you to publish events to `/api/v1/events/eventSource` for matching w
 
 Further: 
 
-- Concord matches `parameter1` and `parameter2` with the external event's parameters.
+- Concord detects any matches of `parameter1` and `parameter2` with the external event's parameters.
 - `entryPoint` is the name of the flow that Concord starts when there is a match.
 - `arguments` is the list of additional parameters that are passed to the flow.
 
-Parameters can contain YAML literals incuding:
+Parameters can contain YAML literals as follows:
 
-- strings.
-- numbers.
-- boolean values.
-- regular expressions.
+- strings
+- numbers
+- boolean values
+- regular expressions
 
 The `triggers` section can contain multiple trigger definitions. Each matching
 trigger is processed individually--each match can start a new process.
@@ -113,7 +113,7 @@ flows:
 ## GitHub Events
 
 The `github` event source allows Concord to receive push notifications from
-GitHub:
+GitHub. Here's an example:
 
 ```yaml
 flows:
@@ -127,13 +127,13 @@ triggers:
     entryPoint: onReplace
 ```
 
-The `event` object provides the following attributes:
+The `event` object provides the following attributes
 
 - `project` and `repository` - the name of the Concord project and
-repository which were updated in GitHub;
-- `author` - GitHub user, the autor of the commit;
-- `branch` - the GIT repository's branch;
-- `commitId` - ID of the commit which triggered the notification.
+repository which were updated in GitHub
+- `author` - GitHub user, the autor of the commit
+- `branch` - the GIT repository's branch
+- `commitId` - ID of the commit which triggered the notification
 
 The connection to the GitHub deployment needs to be 
 [configured globally](./configuration.html#github).
@@ -141,11 +141,11 @@ The connection to the GitHub deployment needs to be
 <a namr="cron"/>
 ## Cron Events
 
-You can schedule processes with cron events using:
+You can schedule processes with cron events using one or both of the parameters
+available.
 
-- `fireat` for specifying a future date and time in ISO-8601 format.
-- `spec` for time interval(s) in seconds, .
-- a combination of the above.
+- `fireat` for specifying a future date and time in ISO-8601 format
+- `spec` for time interval(s) in seconds
 
 ```yaml
 flows:
