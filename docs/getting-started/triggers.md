@@ -167,8 +167,9 @@ A single `concord.yml` file can contain multiple cron trigger definitions.
 <a name="generic"/>
 ## Generic Event
 
-You can submit a JSON document to the API at `/api/v1/events/example` and start 
-off a flow with the trigger:
+You can create generic events for may uses. 
+
+For expale, submit a JSON document to the API at `/api/v1/events/example`, and start off a flow with an `example` trigger:
 
 ```
 triggers:
