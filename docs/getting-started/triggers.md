@@ -12,14 +12,16 @@ response to external events.
 - [Common Syntax](#common)
 - [OneOps Events](#oneops)
 - [GitHub Events](#github)
+- [Cron Events](#cron)
 - [Generic Events](#generic)
+
 
 <a name="common"/>
 ## Common Syntax
 
-All triggers works by the same principle: the external event's data is matched
-using the specified patterns and for each matched trigger a new process is
-started.
+All triggers work by the same process: the patterns you specify as triggers 
+are matched to external event data, and for each matched trigger, a new process 
+is started.
 
 Triggers are defined in the `triggers` section of a `concord.yml` file:
 
@@ -34,23 +36,23 @@ triggers:
 ...
 ```
 
-In the example above, `parameter1` and `parameter2` are the parameters which are
-matched with the external event's parameters, `entryPoint` is the name of the
-flow which will be started if there is a match and `arguments` is the list of
-additional parameters which are passed to the flow.
+The above example makes use of the fact that events published by the external system to the the API end-point `/api/v1/events/`  are matched with trigger names. This allows you to publish events to `/api/v1/events/eventSource` for matching with triggers using the name `eventSource` as in the example. Further: 
 
-Any events published by the external system to the the API end-point
-`/api/v1/events/` are matched with the name of the trigger. So events published to
-`/api/v1/events/eventSource` are matched with triggers using the name `eventSource` as
-used in the example.
+- `parameter1` and `parameter2` are then are then matched with the external event's parameters.
+- `entryPoint` is the name of the flow which will be started if there is a match.
+- `arguments` is the list of additional parameters which are passed to the flow.
 
-Parameters may contain YAML literals such as strings, numbers, boolean values or
-regular expressions.
+Parameters can contain YAML literals incuding:
+
+- strings.
+- numbers.
+- boolean values.
+- regular expressions.
 
 The `triggers` section can contain multiple trigger definitions. Each matching
-triggers is processed individually, i.e. each match can start a new process.
+trigger is processed individually--each match can start a new process.
 
-The trigger definition without match attributes is activated for any event
+A trigger definition without match attributes is activated for any event
 received from the specified source.
 
 In addition to the `arguments` list, a started flow receives the `event`
@@ -127,6 +129,26 @@ repository which were updated in GitHub;
 
 The connection to the GitHub deployment needs to be 
 [configured globally](./configuration.html#github).
+
+<a namr="cron"/>
+## Cron Events
+
+You can schedule processes using cron events using:
+
+- `fireat` for specific date and time date in ISO-8601 format.
+- `spec` for time interval(s) in seconds.
+- a combination of the above.
+
+```yaml
+triggers:
+- cron:
+    spec: 0,3,6,9
+    entryPoint: onTrigger
+    arguments:
+      name: "Concord"
+```
+
+A single `concord.yml` file can contain multiple cron trigger definitions.
 
 <a name="generic"/>
 ## Generic Events
