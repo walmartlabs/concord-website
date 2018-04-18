@@ -131,7 +131,7 @@ The `event` object provides the following attributes
 
 - `project` and `repository` - the name of the Concord project and
 repository which were updated in GitHub
-- `author` - GitHub user, the autor of the commit
+- `author` - GitHub user, the author of the commit
 - `branch` - the GIT repository's branch
 - `commitId` - ID of the commit which triggered the notification
 
