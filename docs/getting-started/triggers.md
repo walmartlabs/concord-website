@@ -140,6 +140,12 @@ You can schedule processes using cron events using:
 - a combination of the above.
 
 ```yaml
+flows:
+  default:
+  - log: "hello"
+ 
+  onTrigger:
+  - log: "Triggered by ${event}. Hello from ${name}"
 triggers:
 - cron:
     spec: 0,3,6,9
