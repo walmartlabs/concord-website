@@ -38,11 +38,14 @@ triggers:
 ...
 ```
 
-The above example makes use of the fact that events published by the external system to the the API end-point `/api/v1/events/`  are matched with trigger names. This allows you to publish events to `/api/v1/events/eventSource` for matching with triggers using the name `eventSource` as in the example. Further: 
+When the API end-point `/api/v1/events/` receives an event, Concord detects any
+existing matches with trigger names. 
 
-- `parameter1` and `parameter2` are then are then matched with the external event's parameters.
-- `entryPoint` is the name of the flow which will be started if there is a match.
-- `arguments` is the list of additional parameters which are passed to the flow.
+This allows you to publish events to `/api/v1/events/eventSource` for matching with triggers (where `eventSource` is any string). Further: 
+
+- Concord matches `parameter1` and `parameter2` with the external event's parameters.
+- `entryPoint` is the name of the flow that Concord starts when there is a match.
+- `arguments` is the list of additional parameters that are passed to the flow.
 
 Parameters can contain YAML literals incuding:
 
@@ -138,7 +141,7 @@ The connection to the GitHub deployment needs to be
 You can schedule processes with cron events using:
 
 - `fireat` for specifying a future date and time in ISO-8601 format.
-- `spec` for time interval(s) in seconds.
+- `spec` for time interval(s) in seconds, .
 - a combination of the above.
 
 ```yaml
