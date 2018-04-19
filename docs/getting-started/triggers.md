@@ -7,13 +7,23 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 Triggers provide a way to automatically start specific Concord flows as a
-response to external events.
+response to specific events.
 
 - [Common Syntax](#common)
 - [OneOps Triggers](#oneops)
 - [GitHub Triggers](#github)
 - [Scheduled Triggers](#scheduled)
 - [Generic Triggers](#generic)
+
+> Trigger configuration is typically loaded automatically, but can be disabled
+> globally or for specific types of repositories. For example, personal git
+> repositories can be treated differently from organizational repositories in
+> GitHub. You can force a new parsing and configuration by reloading a
+> repository content with the reload button beside the repository in the Concord
+> Console.
+  
+
+
 
 <a name="common"/>
 ## Common Syntax
@@ -148,7 +158,7 @@ Each `cron` trigger is required to specify the flow to execute with the
 `entryPoint` parameter. Optionally, key/value pairs can be supplied as
 `arguments`.
 
-The `spec` parameter can be used to supply a regular schedule to execute the
+The `spec` parameter is used to supply a regular schedule to execute the
 flow by using a [CRON syntax](https://en.wikipedia.org/wiki/Cron).
 
 The following example trigger kicks off a process to run the `hourlyCleanUp`
@@ -165,8 +175,10 @@ triggers:
 ```
 
 Multiple values can be used to achieve shorter intervals, e.g. every 15 minutes
-with `spec: 0,15,30,45 * * * *`. The later fields can be used for hour, day and other
-values and advanced CRON features such as regex usage are supported as well.
+with `spec: 0,15,30,45 * * * *`. A daily execution at 9 can be specified with
+`spec: 0 9 * * *`. The later fields can be used for hour, day and other
+values and advanced [CRON](https://en.wikipedia.org/wiki/Cron) features such as
+regular expression usage are supported as well.
 
 Each trigger execution receives an `event` object with the properties `event.fireAt`
 and `event.spec` as well as any additional arguments supplied in the
