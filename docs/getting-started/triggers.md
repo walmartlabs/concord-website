@@ -10,19 +10,19 @@ Triggers provide a way to automatically start specific Concord flows as a
 response to external events.
 
 - [Common Syntax](#common)
-- [OneOps Events](#oneops)
-- [GitHub Events](#github)
-- [Cron Events](#cron)
-- [Generic Event](#generic)
-- [Integration Using Event](#integration)
-
+- [OneOps Triggers](#oneops)
+- [GitHub Triggers](#github)
+- [Scheduled Triggers](#scheduled)
+- [Generic Triggers](#generic)
 
 <a name="common"/>
 ## Common Syntax
 
 All triggers work by the same process: 
 
-- Concord matches the patterns you specify as triggers to external event data.
+- Concord matches the patterns you specify as triggers to event data.
+- Event data is typically external, but can be internally produced in the case
+of the [scheduled triggers](#scheduled).
 - For each matched trigger, it starts a new process.
 
 You define triggers in the `triggers` section of a `concord.yml` file, as in 
@@ -42,7 +42,8 @@ triggers:
 When the API end-point `/api/v1/events/` receives an event, Concord detects any
 existing matches with trigger names. 
 
-This allows you to publish events to `/api/v1/events/eventSource` for matching with triggers (where `eventSource` is any string). 
+This allows you to publish events to `/api/v1/events/eventSource` for matching
+with triggers (where `eventSource` is any string).
 
 Further: 
 
@@ -68,7 +69,7 @@ parameter which contains attributes of the external event. Depending on the
 source of the event, the exact structure of the `event` object may vary.
 
 <a name="oneops"/>
-## OneOps Events
+## OneOps Triggers
 
 Using `oneops` as an event source allows Concord to receive events from OneOps. 
 You can configure event properties in the OneOps notification sink, specifically
@@ -110,7 +111,7 @@ flows:
 ```
 
 <a name="github"/>
-## GitHub Events
+## GitHub Triggers
 
 The `github` event source allows Concord to receive push notifications from
 GitHub. Here's an example:
@@ -138,40 +139,66 @@ repository which were updated in GitHub
 The connection to the GitHub deployment needs to be 
 [configured globally](./configuration.html#github).
 
-<a namr="cron"/>
-## Cron Events
+<a name="scheduled"/>
+## Scheduled Triggers
 
-You can schedule processes with cron events using one or both of the parameters
-available.
+You can schedule execution of flows by defining one or multiple `cron` triggers.
 
-- `fireat` for specifying a future date and time in ISO-8601 format
-- `spec` for time interval(s) in seconds
+Each `cron` trigger is required to specify the flow to execute with the
+`entryPoint` parameter. Optionally, key/value pairs can be supplied as
+`arguments`.
+
+The `spec` parameter can be used to supply a regular schedule to execute the
+flow by using a [CRON syntax](https://en.wikipedia.org/wiki/Cron).
+
+The following example trigger kicks off a process to run the `hourlyCleanUp`
+flow whenever the minute value is 30, and hence once an hour every hour.
 
 ```yaml
 flows:
-  default:
-  - log: "hello"
- 
-  onTrigger:
-  - log: "Triggered by ${event}. Hello from ${name}"
-  triggers:
-  - cron:
-    spec: 0,3,6,9
-    entryPoint: onTrigger
+  hourlyCleanUp:
+  - log: "Sweep and wash."
+triggers:
+- cron:
+    spec: 30 * * * *
+    entryPoint: hourlyCleanUp
+```
+
+Multiple values can be used to achieve shorter intervals, e.g. every 15 minutes
+with `spec: 0,15,30,45 * * * *`. The later fields can be used for hour, day and other
+values and advanced CRON features such as regex usage are supported as well.
+
+Each trigger execution receives an `event` object with the properties `event.fireAt`
+and `event.spec` as well as any additional arguments supplied in the
+configuration: 
+
+```yaml
+flows:
+  eventOutput:
+  - log: "${name} - event run at ${event.fireAt} due to spec ${event.spec} started."
+triggers:
+- cron:
+    spec: * 12 * * * 
+    entryPoint: eventOutput
     arguments:
       name: "Concord"
 ```
 
-A single `concord.yml` file can contain multiple cron trigger definitions.
+Scheduled events are a useful feature to enable tasks such as regular cleanup
+operations,  batch reporting or processing and other repeating task that are
+automated via a Concord flow.
 
 <a name="generic"/>
-## Generic Event
+## Generic Triggers
 
-You can create generic events for may uses. 
+You can configure generic triggers to respond to events that are configured to
+submit data to the Concord REST API.
 
-For example, submit a JSON document to the API at `/api/v1/events/example`, and start off a flow with an `example` trigger:
+For example, if you submit a JSON document to the API at `/api/v1/events/example`,
+an `example` event is triggered. You can capture this event and trigger a flow by
+creating a trigger configuration using the same `example` name:
 
-```
+```yaml
 triggers:
 - example:
     project: "myProject"
@@ -179,14 +206,13 @@ triggers:
     entryPoint: exampleFLow
 ```
 
-<a name="integration">
-## Integration Using Events
+Every incoming `example` event kicks of a process of the `exampleFlow` from
+`myRepository` in `myProject`.
 
 The generic event end-point provides a simple way of integrating third-party 
-systems with Concord. 
- 
-Simply name an event and a trigger with identical names. Concord routes any 
-events incoming to the API that have names that match any triggers, to the identically named triggers.
+systems with Concord. Simply modify or extend the external system to send
+events to the Concord API and define the flow in Concord to proceed with the
+next steps.
 
 Check out the
 [full example](

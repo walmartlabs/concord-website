@@ -332,10 +332,11 @@ Note:
 
 ## Triggers
 
-Kick off flow based on external events.
+Kick off flow based on events.
 
 - OneOps
 - GitHub
+- Scheduled
 - Generic
 
 
