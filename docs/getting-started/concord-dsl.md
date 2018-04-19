@@ -35,7 +35,9 @@ Some features are more complex and you can find details in separate documents:
 - [Scripting](./scripting.html)
 - [Tasks](./tasks.html)
 - [Forms](./forms.html)
-- [Docker](./docker.html)
+
+Additional features are available by using tasks available in a
+[number of plugins](../plugins/index.html).
 
 ## Example
 

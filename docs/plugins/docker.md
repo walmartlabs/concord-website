@@ -80,6 +80,12 @@ All images must provide a standard POSIX shell as `/bin/sh`.
 
 ## Limitations
 
-Running containers as `root` user is not supported - all user containers
-are executed using `concord` user (as in `docker run -u concord ... myImage`).
-The user is created automatically with UID `456`.
+Running containers as `root` user is not supported - all user containers are
+executed using the `concord` user equivalent to a run command like `docker run
+-u concord ... myImage`.  The user is created automatically with UID `456`.
+
+As a result any operations in the docker container that require root access,
+such as installing packages, is not supported on Concord. If required, ensure
+that the relevant package installation and other tasks are performed as part of
+your initial container image build and published to the registry from which
+Concord retrieves the image.

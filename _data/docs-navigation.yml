@@ -19,8 +19,6 @@ nav:
         context: /docs/getting-started/forms
       - page: Scripting
         context: /docs/getting-started/scripting
-      - page: Docker
-        context: /docs/getting-started/docker
       - page: Security
         context: /docs/getting-started/security
       - page: Tasks
@@ -67,6 +65,8 @@ nav:
         context: /docs/plugins/concord
       - page: Crypto
         context: /docs/plugins/crypto
+      - page: Docker
+        context: /docs/plugins/docker
       - page: HTTP
         context: /docs/plugins/http
       - page: JIRA
@@ -85,5 +85,5 @@ nav:
     subfolderitems:
       - page: Introduction
         context: /docs/templates/index
-      - page: Blue/green deployment
+      - page: Blue/Green Deployment
         context: /docs/templates/bluegreen
