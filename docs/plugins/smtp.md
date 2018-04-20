@@ -53,7 +53,7 @@ use variable values from the flow such as attributes or `initiator.displayName`,
 ```
 
 To specify the SMTP server in your own Concord file instead taking advantage of
-a global default value you can set the parameter as an argument:
+a global default value, set the parameter as an argument:
 
 ```yaml
 configuration:
@@ -65,7 +65,7 @@ configuration:
       port: 25
 ```
 
-And then use it:
+And then specify the email as input for a task:
 
 ```yaml
 flows:
@@ -75,7 +75,16 @@ flows:
         smtp: ${smtpParams}
         mail:
           from: sender@example.com
-          to: recipient@example.com
+          to: recipient-a@example.com
           subject: "Hello from Concord"
           message: "My message"
 ```
+
+You can specifying multiple recipients using several optons.
+
+- add`cc` and/or `bcc` fields
+- add a recipient list as a CSV into any recipient field
+
+
+
+
