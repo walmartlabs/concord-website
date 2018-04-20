@@ -10,26 +10,13 @@ The SMTP `smtp` task supports sending email messages as part of a flow.
 
 ## Usage
 
-This task needs to be declared as a dependency to be used and the SMTP server
-used to send the message has to be specified with hostname and port.
-
-The simplest and cleanest way to specify the `smtpServer` is to specify it as a 
-[default process variable](../getting-started/configuration.html#default-process-variable)
-called `smtpParams`.
+This task needs to be declared as a dependency to be used, so that email
+messages can be sent using the task:
 
 ```yaml
 configuration:
   dependencies:
     - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
-  arguments:
-    smtpParamsServer:
-      host: smtp-gw1.wal-mart.com
-      port: 25
-```
-
-With the global configuration in place, email messages can be sent using the task:
-
-```yaml
 flows:
   default:
   - task: smtp
@@ -48,7 +35,7 @@ use variable values from the flow such as attributes or `initiator.displayName`,
 `initiator.username` and others.
 
 ```
-          template: mail.moustache
+        template: mail.moustache
 ```
 
 The syntax used to reference any variable defined in the flow requires the usage
@@ -58,8 +45,26 @@ of `{{}}` in the template file.
 The process for this project was started by {{ initiator.displayName }}.
 ```
 
-To specify the SMTP server in your own Concord file instead of taking advantage of
-a global default value, set the parameter as an argument:
+## SMTP Server Configuration
+
+The smtp task relies on a configured SMTP server specified with hostname and
+port.
+
+The simplest and cleanest way to specify the `smtpServer` is to specify it as a 
+[default process variable](../getting-started/configuration.html#default-process-variable) called `smtpParams`.
+
+```yaml
+configuration:
+  dependencies:
+    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
+  arguments:
+    smtpParams:
+      host: smtp-gw1.wal-mart.com
+      port: 25
+```
+
+To specify the SMTP server in your own Concord file instead of taking advantage
+of a global default value, set the parameter as an argument:
 
 ```yaml
 configuration:
@@ -76,19 +81,21 @@ And then specify the email as input for a task:
 ```yaml
 flows:
   default:
-    - task: smtp
-      in:
-        smtp: ${smtpParams}
+  - task: smtp
+    in:
+      smtp: ${smtpParams}
         mail:
-          from: sender@example.com
-          to: recipient@example.com
-          subject: "Hello from Concord"
-          message: "My message"
+        from: sender@example.com
+        to: recipient@example.com
+        subject: "Hello from Concord"
+        message: "My message"
 ```
 
+## Additional Parameters
+
 Besides the above mentioned parameters for `mail` for the identifying the sender
-`from` and the recipient `to` you can specify emails for carbon copy `cc` and
-blind carbon copy `bcc` recipients. 
+`from` and the recipient `to`, you can specify email address t use for carbon copy
+`cc` and blind carbon copy `bcc` recipients. 
 
 In addition, you can add an optional `replyTo` field.
 
@@ -113,6 +120,4 @@ flows:
         subject: "Hello from Concord"
         message: "My message"
 ```
-
-
 
