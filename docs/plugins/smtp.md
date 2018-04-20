@@ -27,7 +27,7 @@ configuration:
       port: 25
 ```
 
-With the global configuration in place, email messages can be sent with the task:
+With the global configuration in place, email messages can be sent using the task:
 
 ```yaml
 flows:
@@ -75,12 +75,12 @@ flows:
         smtp: ${smtpParams}
         mail:
           from: sender@example.com
-          to: recipient-a@example.com
+          to: recipient@example.com
           subject: "Hello from Concord"
           message: "My message"
 ```
 
-You can specifying multiple recipients using several optons.
+You can specifying multiple recipients using several options.
 
 - add`cc` and/or `bcc` fields
 - add a recipient list as a CSV into any recipient field
@@ -88,6 +88,23 @@ You can specifying multiple recipients using several optons.
 In addition, you can add an optional `replyTo` field and specify one or more 
 recipients to which replies can be sent.
 
+Here's an example:
+
+```yaml
+flows:
+  default:
+    - task: smtp
+      in:
+        smtp: ${smtpParams}
+        mail:
+          from: sender@example.com
+          to: recipient-a@example.com
+          cc: recipient-b@example.com
+          bcc: recipient-c@example.com,recipient-d@example.com
+          replyTo: feedback@example.com,product-team@example.com
+          subject: "Hello from Concord"
+          message: "My message"
+```
 
 
 
