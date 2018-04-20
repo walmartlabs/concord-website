@@ -32,14 +32,13 @@ With the global configuration in place, email messages can be sent using the tas
 ```yaml
 flows:
   default:
-    - task: smtp
-      in:
-        smtp: ${smtpServer}
-        mail:
-          from: sender@example.com
-          to: recipient@example.com
-          subject: "Hello from Concord"
-          message: "My message"
+  - task: smtp
+    in:
+      mail:
+        from: sender@example.com
+        to: recipient@example.com
+        subject: "Hello from Concord"
+        message: "My message"
 ```
 
 The `message` can be replaced with a `template`. It is configured to
@@ -52,7 +51,14 @@ use variable values from the flow such as attributes or `initiator.displayName`,
           template: mail.moustache
 ```
 
-To specify the SMTP server in your own Concord file instead taking advantage of
+The syntax used to reference any variable defined in the flow requires the usage
+of `{{}}` in the template file.
+
+```
+The process for this project was started by {{ initiator.displayName }}.
+```
+
+To specify the SMTP server in your own Concord file instead of taking advantage of
 a global default value, set the parameter as an argument:
 
 ```yaml
@@ -80,30 +86,32 @@ flows:
           message: "My message"
 ```
 
-You can specifying multiple recipients using several options.
+Besides the above mentioned parameters for `mail` for the identifying the sender
+`from` and the recipient `to` you can specify emails for carbon copy `cc` and
+blind carbon copy `bcc` recipients. 
 
-- add`cc` and/or `bcc` fields
-- add a recipient list as a CSV into any recipient field
+In addition, you can add an optional `replyTo` field.
 
-In addition, you can add an optional `replyTo` field and specify one or more 
-recipients to which replies can be sent.
-
-Here's an example:
+The `to`, `cc` and `bcc` parameters support the usage of multiple addresses as a
+comma separated list as seen in `cc` configuration or YAML array in the `bcc`
+configuration:
 
 ```yaml
 flows:
   default:
-    - task: smtp
-      in:
-        smtp: ${smtpParams}
-        mail:
-          from: sender@example.com
-          to: recipient-a@example.com
-          cc: recipient-b@example.com
-          bcc: recipient-c@example.com,recipient-d@example.com
-          replyTo: feedback@example.com,product-team@example.com
-          subject: "Hello from Concord"
-          message: "My message"
+  - task: smtp
+    in:
+      mail:
+        from: sender@example.com
+        to: recipient-a@example.com
+        cc: abc@example.com,def@example.com,ghi@example.com
+        bcc:
+        - 123@example.com
+        - 456@example.com
+        - 789@example.com
+        replyTo: feedback@example.com
+        subject: "Hello from Concord"
+        message: "My message"
 ```
 
 
