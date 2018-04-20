@@ -85,6 +85,9 @@ You can specifying multiple recipients using several optons.
 - add`cc` and/or `bcc` fields
 - add a recipient list as a CSV into any recipient field
 
+In addition, you can add an optional `replyTo` field and specify one or more 
+recipients to which replies can be sent.
+
 
 
 
