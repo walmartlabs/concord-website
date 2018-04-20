@@ -313,7 +313,7 @@ Retrieve a list of processes.
 
     ```json
     [
-      { "instanceId": "...", "status": "...","parentInstanceId" : "...","childrenIds":["...","..."], ... },
+      { "instanceId": "...", "status": "...", ... },
       { "instanceId": "...", ... }
     ]
     ```
