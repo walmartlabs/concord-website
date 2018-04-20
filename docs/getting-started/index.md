@@ -25,8 +25,8 @@ are managed and executed by Concord:
 
 ## Concord Server
 
-The server provides several REST API endpoints for managing it's
-data, they are described in the [API documentation](../api/index.html).
+The server provides several REST API endpoints for managing its
+data, described in the [API documentation](../api/index.html).
 
 The main purpose of the server is to receive a workflow process
 definition and its dependencies from a user and execute it remotely
@@ -37,17 +37,17 @@ collected in a single archive file called "payload".
 
 There are several ways to start a process:
 
-1. send a complete, self-contained ZIP archive to the server. Its
+1. Send a complete, self-contained ZIP archive to the server. Its
 format is described in a
-[separate document](./processes.html#payload-format);
-2. send a JSON request, containing only request parameters and a
-reference to a [project](#project);
-3. same as **2**, but sending additional files with the request.
+[separate document](./processes.html#payload-format).
+2. Send a JSON request, containing only request parameters and a
+reference to a [project](#project).
+3. Same as **2**, but sending additional files with the request.
 
-For methods **2** and **3**, the server will build a payload archive
+For methods **2** and **3** above, the server builds a payload archive
 itself.
 
-The executions of worksflows is performed by the agents. Each agent is a
+The executions of workflows are performed by the agents. Each agent is a
 standalone Java application that receives and executes
 a [payload](#payload) sent by the server.
 
