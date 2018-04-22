@@ -86,7 +86,24 @@ The `startAt` parameter accepts an ISO-8601 string, `java.util.Date` or
 `java.util.Calendar` values. It is important to include a timezone as the
 server may use a different default timezone value.
 
+## Specifying Profiles
 
+To specify which profiles should be used to start the process, use the
+`activeProfiles` parameter:
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      action: start
+      ...
+      activeProfiles:
+      - firstProfile
+      - secondProfile
+```
+
+The parameter accepts either a YAML array or a comma-separated string value.
 
 ## Output Variables
 
@@ -268,6 +285,7 @@ flows:
       tags: ["someTag", "anotherOne"]
 ```
 
+The parameter accepts either a YAML array or a comma-separated string value.
 
 Tags are useful for filtering (sub)processes:
 
