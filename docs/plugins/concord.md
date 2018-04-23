@@ -88,7 +88,7 @@ server may use a different default timezone value.
 
 ## Specifying Profiles
 
-To specify which profiles should be used to start the process, use the
+To specify which profiles are used to start the process, use the
 `activeProfiles` parameter:
 
 ```yaml
