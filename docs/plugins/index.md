@@ -16,6 +16,7 @@ use in the workflow execution.
 - [Http](./http.html)
 - [JIRA](./jira.html)
 - [Key Value](./key-value.html)
+- [Looper](./looper.html)
 - [OneOps](./oneops.html)
 - [Slack](./slack.html)
 - [SMTP](./smtp.html)

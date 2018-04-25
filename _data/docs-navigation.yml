@@ -73,6 +73,8 @@ nav:
         context: /docs/plugins/jira
       - page: Key Value
         context: /docs/plugins/key-value
+      - page: Looper
+        context: /docs/plugins/looper
       - page: OneOps
         context: /docs/plugins/oneops
       - page: Slack
