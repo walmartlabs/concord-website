@@ -37,21 +37,23 @@ All parameters sorted in alphabetical order.
 - `apiToken`: looper's api token, It can be omitted as concord will provide default api token to call looper jobs
 - `baseUrl`: looper's server url, if not provided default looper url will be used
 - `jobName`: looper's job name
-- `parameters`: only for looper's parametrize job, details in [Call Parameterize Job](#call-parameterize-job);
+- `parameters`: only for looper's parametrize job, details in [Calling Parameterized Job](#calling-parameterized-job);
 - `userName`: looper's username, It can be omitted as concord will provide default username to call looper jobs
 
-### Call Parameterize Job
-Concord can also call looper's parameterize jobs, Following is ths list of supported parameters;
+### Calling Parameterized Job
+Concord can also trigger looper's parameterized jobs, following is the list of supported parameters;
 
 - String parameter
 - Boolean parameter
-- File parameter
+- File parameter, details in [File Parameter](#file-parameter);
 - Choice parameter
-- Password parameter, user must set the password parameter value as `<DEFAULT>` in order to use the default password set 
+- Password parameter
+
+**Note:** Set the password parameter value as `<DEFAULT>` in order to use the default password set 
 in looper job configuration
 
 From looper's perspective, `String`, `Boolean`, `Choice` and `Password` parameters are all simple string `key:value` pairs. Looper
-will check the key and map the given value over the looper's specified type so any invalid value may result in exception.
+will check the key and map the given value over the looper's specified type and any invalid value may result in exception.
 
 ```yaml
 flows:
@@ -63,13 +65,13 @@ flows:
       apiToken: looper_api_token
       jobName: looper-job-name
       parameters:
-        string_parameter: abc123
+        string_parameter: any_string
         choiceParameter: any_choice
         booleanParameter: true
         passwordParameter: ${anyPassword}
 ```
-### File parameter
-For file parameter, value must prefix with `file://` otherwise it will not consider as file parameter, kindly see below example;
+### File Parameter
+For file parameter, value must prefix with `file://` otherwise it will not be considered as file parameter, kindly see below example;
 
 ```yaml
 flows:
@@ -78,10 +80,6 @@ flows:
     in:
       jobName: looper-job-name
       parameters:
-        string_parameter: abc123
+        string_parameter: any_string
         some_file_parameter: file://path_to_file
 ```
-
-### Limitations
-`looper` task is not currently log the schedule job url because looper doesn't return any schedule job url in response for
-parameterize job;
