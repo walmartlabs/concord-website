@@ -45,6 +45,7 @@ working directory.
     Multipart binary data.
 
     The values will be interpreted depending on their name:
+    - `activeProfiles` - a comma-separated list of profiles to use;
     - `archive` - ZIP archive, will be extracted into the process'
     working directory;
     - `request` - JSON file, will be used as the process' parameters;
@@ -88,6 +89,7 @@ working directory.
     -F archive=@src/payload.zip \
     -F myFile.txt=@src/myFile.txt \
     -F entryPoint=main \
+    -F activeProfiles=myProfile \
     -F arguments.name=Concord \
     http://concord.example.com:8001/api/v1/process
     ```
