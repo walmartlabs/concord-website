@@ -36,6 +36,7 @@ All parameters sorted in alphabetical order.
 
 - `apiToken`: looper's api token, It can be omitted as concord will provide default api token to call looper jobs
 - `baseUrl`: looper's server url, if not provided default looper url will be used
+- `call`: use to call the specific flow in looper, if not provided `default` flow will be executed
 - `jobName`: looper's job name
 - `parameters`: only for looper's parametrize job, details in [Calling Parameterized Job](#calling-parameterized-job);
 - `userName`: looper's username, It can be omitted as concord will provide default username to call looper jobs
