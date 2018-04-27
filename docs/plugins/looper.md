@@ -72,7 +72,7 @@ flows:
         passwordParameter: ${anyPassword}
 ```
 ### File Parameter
-For file parameter, value must prefix with `file://` otherwise it will not be considered as file parameter, kindly see below example;
+For file parameters, right side value(i.e. path) should be prefixed with 'file://' as shown in the following example:
 
 ```yaml
 flows:
