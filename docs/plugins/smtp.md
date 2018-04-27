@@ -39,11 +39,11 @@ use variable values from the flow such as attributes or `initiator.displayName`,
 ```
 
 The syntax used to reference any variable defined in the flow requires the usage
-of double open `{` and closing curly braces `}` in the template file.
+of double open `{` and closing curly braces `}` in the template file:
 
-```
+<code>
 The process for this project was started by &#123;&#123; initiator.displayName  &#125;&#125;.
-```
+</code>
 
 ## SMTP Server Configuration
 
