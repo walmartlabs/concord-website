@@ -14,14 +14,14 @@ connection to your SMTP server](#smtp-as-default-process-variable).
 
 ## Usage
 
-To make use of the `smtp` task, first declare the plugin in `dependencies` under 
+To make use of the `smtp` task, first declare the plugin in `dependencies` under
 `configuration`, then specify email parameters within an `smtp` task, as in the
 following example:
 
 ```yaml
 configuration:
   dependencies:
-    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
+    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
 flows:
   default:
   - task: smtp
@@ -33,14 +33,14 @@ flows:
         message: "My message"
 ```
 
-### Add Optional Parameters and Lists
+### Optional Parameters
 
-You can add optional `cc` and `bcc` recipient email addresses, and also an 
-optional `replyTo` field.
+You can add optional `cc` and `bcc` recipient email addresses, and  specify 
+a `replyTo` address.
 
-In the `to`, `cc`, and `bcc` feilds, you can handle multiple addresses either as 
-a comma separated list (as in the following `cc` configuration), or a YAML array 
-(as in the following `bcc` configuration):
+In the `to`, `cc`, and `bcc` fields, you can handle multiple addresses either as 
+a comma separated list shown in the following `cc` configuration, or a YAML array 
+as in the following `bcc` configuration:
 
 ```yaml
 flows:
@@ -60,26 +60,30 @@ flows:
         message: "My message"
 ```
 
-### Mustache Template
+### Message Template
 
-Looper supports the use of [Mustache](https://mustache.github.io/) to process 
-email template files.
-
-This means that, as an optional alternative to `message`, you can specify 
-`template` and point to a `mustache` file that contains the message text:
+Looper supports the use of a separate file to use for longer email messages. As
+an alternative to `message`, you can specify `template` and point to a file that
+contains the message text:
 
 ```yaml
         template: mail.mustache
 ```
 
-When creating content in a template file, you can reference any variable that 
-is defined in the flow using double curly braces (`{{}}`), as in the following example:
+The templating engine [Mustache](https://mustache.github.io/) is used to process
+email template files, so you can use any variables from the Concord process
+context in the message.
 
-```
-The process for this project was started by {{ initiator.displayName }}.
-```
+When creating content in a template file, you can reference any variable that is
+defined in the flow using double open `{` and closing curly braces `}` in the
+template file:
 
-Use variable values that are defined in the flow--attributes or variables like `initiator.displayName`, `initiator.username`, and others.
+<code>
+The process for this project was started by &#123;&#123; initiator.displayName  &#125;&#125;.
+</code>
+
+Use variable values that are defined in the flow--attributes or variables like
+`initiator.displayName`, `initiator.username`, and others.
 
 
 ## SMTP Server
