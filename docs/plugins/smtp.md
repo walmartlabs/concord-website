@@ -6,17 +6,12 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-
-To send email notifications as part of a flow, use the `smtp` task.
-
-In most cases, a Concord administrator takes care of any [prerequisite
-connection to your SMTP server](#smtp-as-default-process-variable).
+To send email notifications as a step of a flow, use the `smtp` task.
 
 ## Usage
 
 To make use of the `smtp` task, first declare the plugin in `dependencies` under
-`configuration`, then specify email parameters within an `smtp` task, as in the
-following example:
+`configuration`. This allows you to add an `smtp` task in any flow as a step.
 
 ```yaml
 configuration:
@@ -33,12 +28,16 @@ flows:
         message: "My message"
 ```
 
-### Optional Parameters
+The `mail` input parameters includes the parameters `from` to specify the email
+address to be used as the sender address, `to` for the recipient address,
+`subject` for the message subject and `message` for the actual message body.
 
-You can add optional `cc` and `bcc` recipient email addresses, and  specify 
+## Optional Parameters
+
+You can add `cc` and `bcc` recipient email addresses, and  specify 
 a `replyTo` address.
 
-In the `to`, `cc`, and `bcc` fields, you can handle multiple addresses either as 
+In the `to`, `cc`, and `bcc` fields, you can handle multiple addresses, either as 
 a comma separated list shown in the following `cc` configuration, or a YAML array 
 as in the following `bcc` configuration:
 
@@ -60,17 +59,17 @@ flows:
         message: "My message"
 ```
 
-### Message Template
+## Message Template
 
-Looper supports the use of a separate file to use for longer email messages. As
-an alternative to `message`, you can specify `template` and point to a file that
-contains the message text:
+Concord supports the use of a separate file for longer email messages. As an
+alternative to `message`, specify `template` and point to a file in your project
+that contains the message text:
 
 ```yaml
         template: mail.mustache
 ```
 
-The templating engine [Mustache](https://mustache.github.io/) is used to process
+The template engine [Mustache](https://mustache.github.io/) is used to process
 email template files, so you can use any variables from the Concord process
 context in the message.
 
@@ -82,59 +81,56 @@ template file:
 The process for this project was started by &#123;&#123; initiator.displayName  &#125;&#125;.
 </code>
 
-Use variable values that are defined in the flow--attributes or variables like
-`initiator.displayName`, `initiator.username`, and others.
-
-
 ## SMTP Server
 
-For the SMTP task to work, your email server, hostname and port must be 
-specified using one of the following options:
+For email notifications with the `smtp` task to work, the connections details
+for your SMTP server must specified using one of the following options:
 
 - as a default process variable
 - as a configuration dependency within your flow
 
+In most cases, a Concord administrator takes care of this configuration on a
+global server level.
+
 ### SMTP as Default Process Variable
  
-The simplest and cleanest way to specify the `smtpServer` is to set up a 
-[default process variable](../getting-started/configuration.html#default-process-variable):
+The simplest and cleanest way to activat the task and specify the SMTP server
+connection details is to set up a
+[default process configuration](../getting-started/configuration.html#default-process-variable):
 
 1. Under `configuration/dependencies`, specify the `smtp-tasks` plugin. 
 2. Add `smtpParams` as an `argument` and specify the SMTP server `host` and 
-`port` as child parameters.
-
-Following is an example:
+`port` as child parameters:
 
 ```yaml
 configuration:
   dependencies:
-    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
+    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
   arguments:
     smtpParams:
-      host: smtp-gw1.wal-mart.com
+      host: smtp.example.com
       port: 25
 ```
 
 ### Specify SMTP Server Within Flow
 
-In some cases you might want to specify the SMTP server in your own Concord flow 
-instead of using the global value. 
-
-To do this:
+In some cases you might want to specify the SMTP server in your own Concord
+flow, instead of using the global value:
 
 1. Set the parameters as an argument as in the following example:
 
 ```yaml
 configuration:
   dependencies:
-    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
+    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
   arguments:
     smtpParams:
-      host: smtp-gw1.wal-mart.com
+      host: smtp.example.com
       port: 25
 ```
 
-2. Specify the email as input for a task as in the following example:
+2. Reference the `smtpParams` in the `smtp` input parameters for any usage of
+   the `smtp` task:
 
 ```yaml
 flows:
@@ -142,13 +138,9 @@ flows:
   - task: smtp
     in:
       smtp: ${smtpParams}
-        mail:
+      mail:
         from: sender@example.com
         to: recipient@example.com
         subject: "Hello from Concord"
         message: "My message"
 ```
-
-
-
-
