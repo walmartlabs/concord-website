@@ -120,8 +120,8 @@ In some cases you might want to specify the SMTP server in your own Concord
 flow, instead of using the global configuration. This approach is required if no
 global configuration is set up.
 
-1. Add the plugin as a dependency and set the `smtpParams` argument with the
-   connection details:
+First, add the plugin as a dependency and set the `smtpParams` argument with the
+connection details:
 
 ```yaml
 configuration:
@@ -133,8 +133,8 @@ configuration:
       port: 25
 ```
 
-2. Reference the `smtpParams` in the `smtp` input parameters for any usage of
-   the `smtp` task:
+Then reference the `smtpParams` in the `smtp` input parameters for any usage of
+the `smtp` task:
 
 ```yaml
 flows:
