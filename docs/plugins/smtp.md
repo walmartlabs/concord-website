@@ -16,7 +16,7 @@ To make use of the `smtp` task, first declare the plugin in `dependencies` under
 ```yaml
 configuration:
   dependencies:
-    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
 flows:
   default:
   - task: smtp
@@ -77,52 +77,56 @@ When creating content in a template file, you can reference any variable that is
 defined in the flow using double open `{` and closing curly braces `}` in the
 template file:
 
+<pre>
 <code>
 The process for this project was started by &#123;&#123; initiator.displayName  &#125;&#125;.
 </code>
+</pre>
 
 ## SMTP Server
 
 For email notifications with the `smtp` task to work, the connections details
 for your SMTP server must specified using one of the following options:
 
-- as a default process variable
-- as a configuration dependency within your flow
+- as a global default process configuration
+- as a configuration within your Concord file
 
 In most cases, a Concord administrator takes care of this configuration on a
-global server level.
+global default process configuration.
 
-### SMTP as Default Process Variable
+### SMTP as Default Process Configuration
  
-The simplest and cleanest way to activat the task and specify the SMTP server
+The simplest and cleanest way to activate the task and specify the SMTP server
 connection details is to set up a
 [default process configuration](../getting-started/configuration.html#default-process-variable):
 
 1. Under `configuration/dependencies`, specify the `smtp-tasks` plugin. 
 2. Add `smtpParams` as an `argument` and specify the SMTP server `host` and 
-`port` as child parameters:
+`port` as attributes:
 
 ```yaml
 configuration:
   dependencies:
-    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
   arguments:
     smtpParams:
       host: smtp.example.com
       port: 25
 ```
 
-### Specify SMTP Server Within Flow
+### Specific SMTP Server in Your Concord File
 
 In some cases you might want to specify the SMTP server in your own Concord
-flow, instead of using the global value:
+flow, instead of using the global configuration. This approach is required if no
+global configuration is set up.
 
-1. Set the parameters as an argument as in the following example:
+1. Add the plugin as a dependency and set the `smtpParams` argument with the
+   connection details:
 
 ```yaml
 configuration:
   dependencies:
-    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
   arguments:
     smtpParams:
       host: smtp.example.com
