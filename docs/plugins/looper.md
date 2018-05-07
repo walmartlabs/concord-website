@@ -5,7 +5,10 @@ side-navigation: wmt/docs-navigation.html
 ---
 
 # {{ page.title }}
-The `looper` task allows users to trigger looper jobs as part of a flow. 
+
+The `looper` task allows users to trigger build jobs on a
+[Looper](https://looper.walmart.com) continuous integration server as a step of
+a flow.
 
 <a name="usage"/>
 
@@ -17,7 +20,7 @@ To be able to use the task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:looper-tasks:0.40.1
+  - mvn://com.walmartlabs.concord.plugins:looper-tasks:0.42.0
 ```
 
 This adds the task to the classpath and allows you to invoke the task in a flow:
@@ -32,17 +35,26 @@ flows:
       apiToken: looper_api_token
       jobName: looper-job-name
 ```
+
 All parameters sorted in alphabetical order.
 
-- `apiToken`: looper's api token, It can be omitted as concord will provide default api token to call looper jobs
-- `baseUrl`: looper's server url, if not provided default looper url will be used
-- `call`: use to call the specific flow in looper, if not provided `default` flow will be executed
-- `jobName`: looper's job name
-- `parameters`: only for looper's parametrize job, details in [Calling Parameterized Job](#calling-parameterized-job);
-- `userName`: looper's username, It can be omitted as concord will provide default username to call looper jobs
+- `apiToken`: Looper's api token, It can be omitted if Concord provides a
+  default API token to call Looper jobs in its global configuration
+- `baseUrl`: Looper server URL, if not provided a configured default Looper URL
+  is used
+- `call`: name of a specific flow to use for the exection of the Looper job, if
+  not provided `default` flow is used
+- `jobName`: name of the job on the Looper server
+- `parameters`: Parameters to pass, the job has to be configured as
+  parameterized job, details in
+  [Calling Parameterized Job](#calling-parameterized-job);
+- `userName`: username to use for the job invocation, it can be omitted if
+  Concord provides a default username to use
 
 ### Calling Parameterized Job
-Concord can also trigger looper's parameterized jobs, following is the list of supported parameters;
+
+Concord can trigger parameterized jobs on Looper. Following is the list of
+supported parameters types.
 
 - String parameter
 - Boolean parameter
@@ -50,11 +62,14 @@ Concord can also trigger looper's parameterized jobs, following is the list of s
 - Choice parameter
 - Password parameter
 
-**Note:** Set the password parameter value as `<DEFAULT>` in order to use the default password set 
-in looper job configuration
+**Note:** Set the password parameter value as `<DEFAULT>` in order to use the
+default password set in Looper job configuration
 
-From looper's perspective, `String`, `Boolean`, `Choice` and `Password` parameters are all simple string `key:value` pairs. Looper
-will check the key and map the given value over the looper's specified type and any invalid value may result in exception.
+From Looper's perspective, `String`, `Boolean`, `Choice` and `Password`
+parameters are all simple string `name:value` pairs. Looper checks the name of a
+parameter and maps the given value over specified type in Looper. Therefore, any
+invalid value may result in an exception and a failure to invoke a job.
+
 
 ```yaml
 flows:
@@ -72,7 +87,9 @@ flows:
         passwordParameter: ${anyPassword}
 ```
 ### File Parameter
-For file parameters, right side value(i.e. path) should be prefixed with 'file://' as shown in the following example:
+
+For file parameters, the value details the path to a file in the Concord
+project, prefixed with `file://`:
 
 ```yaml
 flows:
