@@ -102,7 +102,7 @@ All JAR files are signed using a GPG key. Pass phrase for a key must be configur
    objectClass: organizationalRole
    objectClass: simpleSecurityObject
    objectClass: mailAccount
-   userPassword: {SSHA}FNvyYavb8XMKC0s2HdCJFZqDY1IzMHqy
+   userPassword: {SSHA}FZxXb9WXU8yO5VgJYCU8Z+pbVzCJisNX
    mail: myuser@example.org
    ```
 
@@ -118,10 +118,10 @@ All JAR files are signed using a GPG key. Pass phrase for a key must be configur
 4. create the Concord's LDAP configuration file:
    ```
    $ cat /opt/concord/conf/oldap.properties
-   url=ldap://127.0.0.1:1389
+   url=ldap://localhost:1389
    searchBase=dc=example,dc=org
-   principalSuffix=,dc=example,dc=org
-   principalSearchFilter=({0})
+   principalSearchFilter=(cn={0})
+   usernameProperty=cn
    systemUsername=cn=admin,dc=example,dc=org
    systemPassword=admin
    ```
@@ -135,7 +135,7 @@ file:
    11:21:36.873 [main] [INFO ] c.w.c.server.cfg.LdapConfiguration - init -> using external LDAP configuration: /opt/concord/conf/oldap.properties
    ```
 
-6. use `cn=myuser` and `q1` to authenticate in the Console:
+6. use `myuser` and `q1` to authenticate in the Console:
 
    ![Login](/assets/img/screenshots/oldap-login.png)
   

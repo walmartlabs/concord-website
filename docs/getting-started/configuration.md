@@ -108,13 +108,12 @@ Create `ldap.properties` file, containing the following parameters
 (substitute values with the values for your environment):
 
 ```
-url=ldap://host:389
-searchBase=DC=unit,DC=org,DC=com
-principalSuffix=@unit.org.com
-principalSearchFilter=(&(objectCategory=Person)(sAMAccountName={0}))
+url=ldaps://host:389
+searchBase=DC=Wal-Mart,DC=com
+principalSearchFilter=(&(sAMAccountName={0})(objectCategory=person))
+usernameProperty=sAMAccountName
 systemUsername=user
 systemPassword=pwd
-exposeAttributes=mail,company
 ```
 
 Set `LDAP_CFG` environment variable to the path of the created file.
