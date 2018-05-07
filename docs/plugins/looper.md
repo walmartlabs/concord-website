@@ -38,11 +38,11 @@ flows:
 
 All parameters sorted in alphabetical order.
 
-- `apiToken`: Looper's api token, It can be omitted if Concord provides a
+- `apiToken`: Looper's API token, It can be omitted if Concord provides a
   default API token to call Looper jobs in its global configuration
 - `baseUrl`: Looper server URL, if not provided a configured default Looper URL
   is used
-- `call`: name of a specific flow to use for the exection of the Looper job, if
+- `call`: name of a specific flow to use for the execution of the Looper job, if
   not provided `default` flow is used
 - `jobName`: name of the job on the Looper server
 - `parameters`: Parameters to pass, the job has to be configured as
