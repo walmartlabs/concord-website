@@ -238,13 +238,14 @@ the key to use with the `privateKey` configuration:
 
 ```yaml
 flows:
- default:
- - task: ansible
-   in:
-     user: app
-     privateKey:
-       secretName: mySecret
-       password: mySecretPassword
+  default:
+  - task: ansible
+    in:
+      user: app
+      privateKey:
+        org: "myOrg" # optional
+        secretName: mySecret
+        password: mySecretPassword # optional
 ```
 
 This exports the key with the provided username and password to the filesystem
