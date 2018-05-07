@@ -89,7 +89,7 @@ flows:
 ### File Parameter
 
 For file parameters, the value details the path to a file in the Concord
-project, prefixed with `file://`:
+project in quotes and prefixed with `@`:
 
 ```yaml
 flows:
@@ -99,5 +99,5 @@ flows:
       jobName: looper-job-name
       parameters:
         string_parameter: any_string
-        some_file_parameter: file://path_to_file
+        some_file_parameter: "@example-file-txt"
 ```
