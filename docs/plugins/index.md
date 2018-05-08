@@ -19,6 +19,7 @@ use in the workflow execution.
 - [Key Value](./key-value.html)
 - [Looper](./looper.html)
 - [OneOps](./oneops.html)
+- [Resource](./resource.html)
 - [Slack](./slack.html)
 - [SMTP](./smtp.html)
 
