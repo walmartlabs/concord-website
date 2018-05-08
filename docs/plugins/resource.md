@@ -6,7 +6,8 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `resource` task provides methods to read and write the resource in `json` or `string` format.
+The `resource` task provides methods to persist data to a file in the scope of a process. This data 
+can be read back for later use in the same process. The 'resource' task supports `json` and `string` formats.
 
 The task is provided automatically by the Concord and does not
 require any external dependencies.
@@ -48,4 +49,4 @@ require any external dependencies.
 - log: ${resource.writeAsString('test string')} 
 ```
 
-`writeAsJson` and `writeAsString` methods return a path to the temporary file.
+`writeAsJson` and `writeAsString` methods return path of the newly created file.
