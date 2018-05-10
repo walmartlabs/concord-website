@@ -225,43 +225,6 @@ Using raw JSON for the body:
    - log: "Response received: ${jsonResponse.content}"
 ```
 
-### Full Syntax for Secure Request
-
-Using a basic authentication token:
-
-```yaml
-- task: http
-  in:
-    auth:
-      basic:
-        token: base64_encoded_token
-    method: GET
-    url: "http://host:post/path/endpoint"
-    response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
-  then:
-   - log: "Response received: ${jsonResponse.content}"
-```
-
-Using username and password: 
-
-```yaml
-- task: http
-  in:
-    auth:
-      basic:
-        username: username
-        password: password
-    method: GET
-    url: "http://host:post/path/endpoint"
-    response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
-  then:
-   - log: "Response received: ${jsonResponse.content}"
-```
-
 ### Full Syntax for 'PUT' Request
 
 Using map for the body:
@@ -295,6 +258,43 @@ Using raw JSON for the body:
                { \"nestedVar\": 123 
                } 
            }"
+    response: json
+    out: jsonResponse
+- if: ${jsonResponse.success}
+  then:
+   - log: "Response received: ${jsonResponse.content}"
+```
+
+### Full Syntax for Secure Request
+
+Using a basic authentication token:
+
+```yaml
+- task: http
+  in:
+    auth:
+      basic:
+        token: base64_encoded_token
+    method: GET
+    url: "http://host:post/path/endpoint"
+    response: json
+    out: jsonResponse
+- if: ${jsonResponse.success}
+  then:
+   - log: "Response received: ${jsonResponse.content}"
+```
+
+Using username and password: 
+
+```yaml
+- task: http
+  in:
+    auth:
+      basic:
+        username: username
+        password: password
+    method: GET
+    url: "http://host:post/path/endpoint"
     response: json
     out: jsonResponse
 - if: ${jsonResponse.success}
