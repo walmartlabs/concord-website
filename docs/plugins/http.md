@@ -17,7 +17,7 @@ interaction with these applications. This makes the HTTP task a very powerful
 tool to integrate Concord with applications that do not have a custom
 integration with Concord via a specific task.
 
-The HTTP task executes RESTful requests using a HTTP `GET` or `POST` method
+The HTTP task executes RESTful requests using a HTTP `GET`, `PUT` or `POST` method
 and returns [HTTP response](#http-task-response) objects. The response object
 can be stored in an `out` parameter for later usage.
 
@@ -59,7 +59,7 @@ All parameters sorted in alphabetical order.
 - `auth`: authentication used for secure endpoints, details in 
   [Basic authentication](#basic-authentication);
 - `body`: the request body, details in [Body](#body);
-- `method`: HTTP request method, either `POST` or `GET`
+- `method`: HTTP request method, either `POST`, `PUT` or `GET`
 - `out`: variable to store the [HTTP response](#http-task-response) object
 - `request`: type of request data `string`, `json`, or `file`, details available
    in [Request type](#request-type);
@@ -98,7 +98,7 @@ causes an `UnauthorizedException` error.
 
 ### Body
 
-The HTTP method type `POST` requires a `body` parameter that contains a complex
+The HTTP method type `POST` and `PUT` requires a `body` parameter that contains a complex
 object (map), json sourced from a file, or raw string.
 
 
@@ -138,7 +138,7 @@ Body for Request Type `string`:
 ### Request Type
 
 A specific request type in `request` is optional for `GET` method usage, but
-mandatory for `POST`. It maps over to the `CONTENT-TYPE` header of the HTTP
+mandatory for `POST` and `PUT`. It maps over to the `CONTENT-TYPE` header of the HTTP
 request.
 
 Types supported currently:
@@ -255,6 +255,46 @@ Using username and password:
         password: password
     method: GET
     url: "http://host:post/path/endpoint"
+    response: json
+    out: jsonResponse
+- if: ${jsonResponse.success}
+  then:
+   - log: "Response received: ${jsonResponse.content}"
+```
+
+### Full Syntax for 'PUT' Request
+
+Using map for the body:
+
+```yaml
+- task: http
+  in:
+    request: json
+    method: PUT
+    url: "http://host:put/path/put_endpoint"
+    body: 
+      userObj:
+        name: concord
+    response: json
+    out: jsonResponse
+- if: ${jsonResponse.success}
+  then:
+   - log: "Response received: ${jsonResponse.content}"
+```
+
+Using raw JSON for the body:
+
+```yaml
+- task: http
+  in:
+    request: json
+    method: PUT
+    url: "http://host:put/path/put_endpoint"
+    body: "{ 
+             \"myObject\": 
+               { \"nestedVar\": 123 
+               } 
+           }"
     response: json
     out: jsonResponse
 - if: ${jsonResponse.success}
