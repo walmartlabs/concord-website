@@ -36,7 +36,7 @@ The simple inline syntax uses an expression with the http task and the
 the response as string.
 
 ```yaml
-- log: "${http.asString('http://host:post/path/test.txt')}"
+- log: "${http.asString('https://api.example.com:port/path/test.txt')}"
 ```
 
 The full syntax is preferred since it allows access to all features of the HTTP
@@ -46,7 +46,7 @@ task:
 - task: http
   in:
     method: GET
-    url: "http://host:post/path/endpoint"
+    url: "https://api.example.com:port/path/endpoint"
     response: string
     out: response
 - if: ${response.success}
@@ -177,7 +177,7 @@ Following are examples that illustrate the syntax usage for the HTTP task.
 - task: http
   in:
     method: GET
-    url: "http://host:post/path/endpoint"
+    url: "https://api.example.com:port/path/endpoint"
     response: json
     out: jsonResponse
 - if: ${jsonResponse.success}
@@ -194,7 +194,7 @@ Using map for the body:
   in:
     request: json
     method: POST
-    url: "http://host:post/path/post_endpoint"
+    url: "https://api.example.com:port/path/post_endpoint"
     body: 
       userObj:
         name: concord
@@ -212,7 +212,7 @@ Using raw JSON for the body:
   in:
     request: json
     method: POST
-    url: "http://host:post/path/post_endpoint"
+    url: "https://api.example.com:port/path/post_endpoint"
     body: "{ 
              \"myObject\": 
                { \"nestedVar\": 123 
@@ -234,7 +234,7 @@ Using map for the body:
   in:
     request: json
     method: PUT
-    url: "http://host:put/path/put_endpoint"
+    url: "https://api.example.com:port/path/put_endpoint"
     body: 
       userObj:
         name: concord
@@ -252,7 +252,7 @@ Using raw JSON for the body:
   in:
     request: json
     method: PUT
-    url: "http://host:put/path/put_endpoint"
+    url: "https://api.example.com:port/path/put_endpoint"
     body: "{ 
              \"myObject\": 
                { \"nestedVar\": 123 
@@ -276,7 +276,7 @@ Using a basic authentication token:
       basic:
         token: base64_encoded_token
     method: GET
-    url: "http://host:post/path/endpoint"
+    url: "https://api.example.com:port/path/endpoint"
     response: json
     out: jsonResponse
 - if: ${jsonResponse.success}
@@ -294,7 +294,7 @@ Using username and password:
         username: username
         password: password
     method: GET
-    url: "http://host:post/path/endpoint"
+    url: "https://api.example.com:port/path/endpoint"
     response: json
     out: jsonResponse
 - if: ${jsonResponse.success}
