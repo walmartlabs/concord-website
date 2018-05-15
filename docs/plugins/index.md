@@ -10,6 +10,7 @@ Concord supports the integration of plugins to provide additional functionality
 use in the workflow execution.
 
 - [Ansible](./ansible.html)
+- [Automaton](./automaton.html)
 - [Boo](./boo.html)
 - [Concord](./concord.html)
 - [Crypto](./crypto.html)
@@ -21,5 +22,5 @@ use in the workflow execution.
 - [Slack](./slack.html)
 - [SMTP](./smtp.html)
 
-You can find the binaries of the plugins and all available versions in 
+You can find the binaries of the plugins and all available versions in
 [the repository at com/walmartlabs/concord/plugins](https://repository.walmart.com/content/groups/public/com/walmartlabs/concord/plugins/).
