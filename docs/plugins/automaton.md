@@ -6,34 +6,30 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The plugin allows Concord to trigger Performance Tests to run on Automaton
-
-## Pre-requsite
-
-The project should be already on-boarded on Automaton.
-Please refer to the Automaton Howto for more information
+The `automaton` task allows Concord to start performance test runs on Automaton.
 
 ## Usage
 
-1) On git hub, create a repo.  In the repo, create a `concord.yml` file:
+To be able to use the `automaton` task in a Concord flow, it must be added as a
+[dependency](../getting-started/concord-dsl.html#dependencies):
 
- ```
- flows:
+```yaml
+configuration:
+  dependencies:
+  - mvn://com.walmartlabs.concord.plugins:automaton-task:0.40.0
+```
+
+Once your project is configured on Automaton, you can trigger
+a test run with the task in any flow.
+
+```yaml
+flows:
    default:
-     - task: automaton
-       in:
-         projectName: Automaton_Demo_Json
-         gitUrl: https://github.sample.com/Automaton_Demo_Json.git
-         emailId: email@sample.com
-         tenant: concord
+   - task: automaton
+     in:
+       projectName: myDemoProject
+       gitUrl: https://github.example.com/automaton_demo.git
+       emailId: email@example.com
+       tenant: myAutomatonTenant
+```
 
- configuration:
-   dependencies:
-   - "mvn://com.walmartlabs.concord.plugins:automaton-task:0.40.0"
- ```
-
-2) Add a Deploy Key: In order to grant Concord access to the Git repository via SSH, you need to create a new key in the Concord server
-
-3) Create the Project in Concord
-
-4) Execute a Process
