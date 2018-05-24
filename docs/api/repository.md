@@ -6,18 +6,18 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-A repository contains information regarding online directory with project deployment files.
+A repository resource to manage repositories associated with a project.
 
 The REST API provides support for a number of operations:
 
-- [Create/Update a Repository](#create-repository)
+- [Create a Repository](#create-repository)
+- [Update a Repository](#update-repository)
 - [Delete a Repository](#delete-repository)
-- [Refresh Repository](#refesh-repository)
 
 <a name="create-repository"/>
-## Create a Repository
+## Create a repository
 
-Creates/Update a new repository with specified parameters.
+Creates a new repository with specified parameters.
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/repository`
 * **Method** `POST`
@@ -36,7 +36,6 @@ Creates/Update a new repository with specified parameters.
       "secretName": "..."
     }
     ```
-     `name`, `url`, `secretId` are mandatory.
 
 * **Success response**
     ```
@@ -47,6 +46,41 @@ Creates/Update a new repository with specified parameters.
     {
       "result": "CREATED",
       "ok": true
+    }
+    ```
+
+<a name="update-repository"/>
+## Update a repository
+
+Updates existing repository with specified parameters.
+
+* **URI** `/api/v1/org/{orgName}/project/{projectName}/repository`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    {
+      "id": "...",
+      "projectId": "...",
+      "name": "...",
+      "url": "...",
+      "branch": "...",
+      "commitId": "...",
+      "path": "...",
+      "secretId": "...",
+      "secretName": "..."
+    }
+    ```
+
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "result" : "UPDATED",
+      "ok" : true
     }
     ```
 
@@ -73,23 +107,3 @@ Removes a repository.
     }
     ```
 
-<a name="refesh-repository">
-## Refresh Repository
-
-Refresh repository cached data.
-
-* **URI** `/api/v1/org/{orgName}/project/{projectName}/repository/{repositoryName}/refresh`
-* **Method** `POST`
-* **Body**
-    none
-* **Success response**
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    {
-       "result": "UPDATED",
-       "ok": true
-    }
-    ```
