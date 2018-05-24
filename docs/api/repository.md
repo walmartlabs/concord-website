@@ -86,7 +86,7 @@ Updates existing repository with specified parameters.
 
 
 <a name="delete-repository"/>
-## Delete a Repository
+## Delete a repository
 
 Removes a repository.
 
