@@ -15,7 +15,7 @@ The REST API provides support for a number of operations:
 - [Delete a Repository](#delete-repository)
 
 <a name="create-repository"/>
-## Create a repository
+## Create a Repository
 
 Creates a new repository with specified parameters.
 
@@ -25,15 +25,12 @@ Creates a new repository with specified parameters.
 * **Body**
     ```json
     {
-      "id": "...",
-      "projectId": "...",
       "name": "...",
       "url": "...",
       "branch": "...",
       "commitId": "...",
       "path": "...",
-      "secretId": "...",
-      "secretName": "..."
+      "secretId": "..."
     }
     ```
 
@@ -50,7 +47,7 @@ Creates a new repository with specified parameters.
     ```
 
 <a name="update-repository"/>
-## Update a repository
+## Update a Repository
 
 Updates existing repository with specified parameters.
 
@@ -61,14 +58,12 @@ Updates existing repository with specified parameters.
     ```json
     {
       "id": "...",
-      "projectId": "...",
       "name": "...",
       "url": "...",
       "branch": "...",
       "commitId": "...",
       "path": "...",
-      "secretId": "...",
-      "secretName": "..."
+      "secretId": "..."
     }
     ```
 
@@ -86,7 +81,7 @@ Updates existing repository with specified parameters.
 
 
 <a name="delete-repository"/>
-## Delete a repository
+## Delete a Repository
 
 Removes a repository.
 
