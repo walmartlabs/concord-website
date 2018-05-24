@@ -33,6 +33,11 @@ flows:
        tenant: myAutomatonTenant
 ```
 
+The task starts the performance run on Automaton asynchronously and proceeds
+with the next flow steps immediately.
+
+Available parameters are:
+
 - `projectName`: name of the project on the Automaton server
 - `gitUrl`: HTTPS git URL for the repository containing the performance test
 definition
