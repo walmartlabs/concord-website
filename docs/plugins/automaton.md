@@ -43,3 +43,5 @@ Available parameters are:
 definition
 - `emailId`: email address to receive the performance test results
 - `tenant`: the tenant organization of the project on the Automaton server
+
+The Automaton server connections is configured globally.
