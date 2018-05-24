@@ -33,3 +33,8 @@ flows:
        tenant: myAutomatonTenant
 ```
 
+- `projectName`: name of the project on the Automaton server
+- `gitUrl`: HTTPS git URL for the repository containing the performance test
+definition
+- `emailId`: email address to receive the performance test results
+- `tenant`: the tenant organization of the project on the Automaton server
