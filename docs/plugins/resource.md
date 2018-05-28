@@ -6,18 +6,22 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `resource` task provides methods to persist data to a file in the scope of a process. This data 
-can be read back for later use in the same process. The `resource` task supports `json` and `string` formats.
+The `resource` task provides methods to persist data to a file in the scope of a
+process. This data can be read back for later use in the same process. The
+`resource` task supports `json` and `string` formats.
 
-The task is provided automatically by the Concord and does not
-require any external dependencies.
+The task is provided automatically by the Concord and does not require any
+external dependencies.
 
 <a name="usage"/>
 
 ## Usage
 
 ### Reading a resource
-`asJson` method is used to read the resource as `json` object.
+
+The `asJson` method of the `resource` task can read a JSON-file resource and
+create a `json` object.
+
 ```yaml
 - flows:
     default:
@@ -25,14 +29,20 @@ require any external dependencies.
       out: jsonObj
     # we can now use it like a simple object
     - log: ${jsonObj.any_key}
-```
-`asString` method is used to read the resource as `string` object.
+    ```
+
+The `asString` method can read a file resource and create a `string` object with
+the content.
+
 ```yaml
 - log: ${resource.asString(sample-file.txt)}
 ```
 
 ### Writing a Resource
-`writeAsJson` method is used to write the resource as `json`.
+
+The `writeAsJson` method of the `resource` task can write a JSON object into a
+JSON-file resource.
+
 ```yaml
 - flows:
     default:
@@ -40,13 +50,16 @@ require any external dependencies.
        newObj:
         name: testName
         type: testType
-    # write and print the relative path of a file
     - log: ${resource.writeAsJson(newObj)} 
 ```
-`writeAsString` method is used to write the resource as `string`.
+
+
+The `writeAsString` method is used to write a file with `string` content.
+
 ```yaml
-# write and print the relative path of a file
 - log: ${resource.writeAsString('test string')} 
 ```
 
-`writeAsJson` and `writeAsString` methods return path of the newly created file.
+The `writeAsJson` and `writeAsString` methods return path of the newly created
+file as result. These values can be stored in a variable later be used to read
+content back into the process with the read methods.
