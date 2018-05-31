@@ -17,7 +17,7 @@ To be able to use the `jira` task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:jira-task:0.38.0
+  - mvn://com.walmartlabs.concord.plugins:jira-task:0.43.0
 ```
 
 This adds the task to the classpath and allows you to configure the main
@@ -27,14 +27,14 @@ parameters in a separate collection e.g. named `jiraConfig`:
 configuration:
   arguments:
     jiraConfig:
-      jiraUrl: https://jira.example.com/
-      jiraUid: myUser
-      jiraPwd: ${crypto.decryptString("encryptedApiTokenValue")}
-      jiraProjectKey: 
+      jiraUrl: "https://jira.example.com"
+      jiraUid: "myJiraUser"
+      jiraPwd: "${crypto.decryptString('encryptedPassword')}"
+      jiraProjectKey: MYPROJECT 
       jiraSummary: "My Summary"
       jiraDescription: "We should really fix this"
       jiraIssueTypeId: 10
-      jiraRequestorUid: 12
+      jiraRequestorUid: "${initiator.username}"
 ```
 
 Following is a complete list of available configuration attributes:
@@ -49,7 +49,7 @@ provided via usage of the [Crypto task](./crypto.html)
 - `jiraIssueTypeId` -  numerical identifier for the issue type
 - `jiraComponents` - list of components 
 - `jiraLabels` - list of labels
-- `jiraRequestorUid` - identifier of the use account to be used as the requestor
+- `jiraRequestorUid` - identifier of the user account to be used as the requestor
 - `jiraCustomFields` - list of custom fields
 - `jiraIssueKey` - the identifier of the ticket e.g. used for
 [adding a comment](#add-comment) or [transitioning](#transition) an issue.
