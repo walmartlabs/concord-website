@@ -14,6 +14,7 @@ use in the workflow execution.
 - [Boo](./boo.html)
 - [Concord](./concord.html)
 - [Crypto](./crypto.html)
+- [Git and GitHub](./git.html)
 - [Http](./http.html)
 - [JIRA](./jira.html)
 - [Key Value](./key-value.html)
