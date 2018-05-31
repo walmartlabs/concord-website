@@ -50,7 +50,7 @@ Following is a complete list of available configuration attributes:
 - `action`: Required. Set this parameter to `createNewBranch` to trigger `Create New Branch` operation or set it to             `MergeBranch` to trigger a `Merge` operation.
 - `url`: Required. ssh url of the GitRepo
 - `workingDir`: Required. All the GitRepo files will be cloned to this directory on Concord Sever
-- `baseBranch`: New branch will be created based on this input parameter. If not provided `default` Master Branch will be        used as base to create New Branch
+- `baseBranch`: New branch will be created based on this input parameter. If not provided `default` Master Branch will be        used as base to create New Branch.Similarly if not provided `default` Master Branch will be used as base in `Clone`            operation 
 - `newBranchName`: Required. Name of New Branch
 - `pushNewBranchToOrigin`: Required. Set this Parmeter to 'false' if you dont want to push the New Branch to origin
 - `sourceBranch`: Required. The name of the branch where your changes are implemented.
@@ -76,6 +76,25 @@ flows:
          org: myOrg
          secretName: mySecret
 ```
+
+## Clone Operation
+
+Below GIT task can be used to Perform Git Clone operation
+
+```yaml
+flows:
+  default:
+  - task: git
+    in:
+      action: clone
+      url: myRepoUrl
+      baseBranch: perf_testing
+      workingDir: "concordgit"
+      privateKey:
+         org: Default
+         secretName: ppendha_key
+```         
+         
 
 ## GITHUB TASK
 The `GitHub` task allows users to trigger git operations on 
