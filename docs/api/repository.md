@@ -6,9 +6,8 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-A repository resource to manage repositories associated with a project.
-
-The REST API provides support for a number of operations:
+Concord projects have one or multiple associated repositories. The `repository` API supports
+a number of operations on the project specific repositories:
 
 - [Create a Repository](#create-repository)
 - [Update a Repository](#update-repository)
@@ -17,7 +16,7 @@ The REST API provides support for a number of operations:
 <a name="create-repository"/>
 ## Create a Repository
 
-Creates a new repository with specified parameters.
+A new repository can be created with a POST request and the required parameters.
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/repository`
 * **Method** `POST`
@@ -49,7 +48,8 @@ Creates a new repository with specified parameters.
 <a name="update-repository"/>
 ## Update a Repository
 
-Updates existing repository with specified parameters.
+An existing repository can be updated with a POST request and the changed
+parameters.
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/repository`
 * **Method** `POST`
@@ -83,7 +83,7 @@ Updates existing repository with specified parameters.
 <a name="delete-repository"/>
 ## Delete a Repository
 
-Removes a repository.
+A DELETE request can be used to removes a repository.
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/repository/{repositoryName}`
 * **Method** `DELETE`
