@@ -16,6 +16,8 @@ task.
   - [Create and Push a New Branch](#branch)
   - [Merge Branches](#merge)
 - [GitHub Task](#github-task)
+  - [Create and Merge a Pull Request](#pr)
+  - [Create a Tag](#tag)
   
 <a name="usage"/>
 ## Usage
@@ -26,12 +28,13 @@ To be able to use the plugin in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:git-task:0.42.1
+  - mvn://com.walmartlabs.concord.plugins:git:0.xx.y
 ```
 
 This adds the Git plugin to the classpath and allows you to invoke the
 [Git task](#git-task) or the [GitHub task](#github-task).
 
+<a name="git"/>
 ## Git Task
 
 The `git` task allows users to trigger git operations as a step of a flow. The
@@ -156,32 +159,41 @@ flows:
       destinationBranch: master
 ```
 
+<a name="github"/>
+## GitHub Task
+      
+The `github` task of the git plugin allows you to trigger git operations on a
+git repository hosted on [GitHub.com](https://github.com/) or a GitHub
+Enterprise server as a step of a flow.
+
+While the `git` mentioned above works on a repository by cloning it to the
+Concord server and performing operations locally, the `github` task uses the
+REST API of GitHub to perform the operations. This avoids the network overhead
+of the cloning and other operations and is therefore advantageous for large
+repositories.
+
+- `accessToken`: Required - a GitHub [access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
+- `org`: Required - the name of the GitHub organization or user in which the git repository is located.
+- `repo`: Required - the name of the git repository.
 
 
-         
 
-## GITHUB TASK
-The `GitHub` task allows users to trigger git operations on 
-[GitHub](https://gecgithub01.walmart.com/) server as a step of a flow.
 
-<a name="usage"/>
+<a name="pr"/>
+## Create and Merge a Pull Request and Merge 
 
-## Usage
+The `createPRandMerge` action of the `github` task creates a pull request in
+GitHub and merges it.
 
-To be able to use the task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+- `PRTitle`: Required - the title used for the pull request.
+- `PRBody`: Required - the description body for the pull request.
+- `PRSourceBranch`: Required - the name of the branch from where your changes
+  are implemented.
+- `PRDestinationBranch`: Required - the name of the branch into which the
+  changes are merged.
 
-```yaml
-configuration:
-  dependencies:
-  - mvn://com.walmartlabs.concord.plugins:git-task:0.42.1
-```
-
-This adds the GitHub task to the classpath and allows you to invoke the GitHub task in a flow:
-
-## Create PR and Merge 
-
-Below GITHUB task can be used to create a New PR and Merge it.
+The following example creates a pull request to merge the changes from branch
+`feature-a` into the `master` branch:
 
 ```yaml
 flows:
@@ -192,46 +204,41 @@ flows:
       accessToken: myGitToken
       org: myOrg
       repo: myRepo
-      PRTitle: myPRTitle
-      PRBody: myPRBody
-      PRSourceBranch: mySource
-      PRDestinationBranch: myDest
+      PRTitle: "Feature A"
+      PRBody: "Feature A implements the requirements from request 12."
+      PRSourceBranch: feature-a
+      PRDestinationBranch: master
 ```
 
-Following is a complete list of available configuration attributes:
-- `action`: Required. Set this parameter to `createPRAndMerge` to trigger `Create PR and Merge ` operation or set it to             `CreateTag` to trigger a `Create Tag` operation.
-- `accessToken`: Required. GitHub Access Token 
-- `org`: Required. Name of the Org where the GitRepo is present.
-- `repo`: Required. Name of the GitRepo
-- `PRTitle`: Required. Pull Request Title
-- `PRBody`: Required. Pull Request Body
-- `PRSourceBranch`: Required. The name of the branch where your changes are implemented.
-- `PRDestinationBranch`: Required. The name of the branch you want the changes pulled into.
-- `tagVersion`: Required. The tag's name. This is typically a version (e.g., "v0.0.1").
-- `tagMessage`: Required. The tag message.
-- `taggerUID`: Required. The name of the author of the tag.
-- `taggerEMAIL`: Required. The email of the author of the tag.
-- `branchSHA`: Required. The SHA of the successful git commit that user want to tag. This gets passed from the Looper build
+<a name="tag"/>
+## Create a Tag
 
+The `CreateTag` action of the `github` task can create a tag based on a specific
+commit SHA. This commit identifier has to be supplied to the Concord flow -
+typically via a parameter from a form or a invocation of the flow from another
+application. One example is the usage of the Concord task in the Looper
+continuous integration server.
 
-## Create Tag
+- `branchSHA`: Required - the SHA of the git commit to use for the tag creation.
+- `tagVersion`: Required - the name of the tag e.g. a version string `1.0.1`.
+- `tagMessage`: Required - the message associated with the tagging.
+- `taggerUID`: Required - the name of the author of the tag.
+- `taggerEMAIL`: Required - the email of the author of the tag.
 
-Below GITHUB task can be used to Create Tag on Last successful commit/Looper Build
 
 ```yaml
-#Parameters required are shown below
 flows:
   default:
-  - task: gitHub
+  - task: github
     in:
       action: CreateTag
       accessToken: myGitToken
       org: myOrg
       repo: myRepo
-      tagVersion: myVersion
-      tagMessage: myMsg
-      taggerUID: myUserID
-      taggerEMAIL: myEmailID
+      tagVersion: 1.0.0
+      tagMessage: "Release 1.0.0"
+      taggerUID: "Jane Doe"
+      taggerEMAIL: jane@example.com
       branchSHA: ${gitHubBranchSHA}
 ```
 
