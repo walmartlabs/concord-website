@@ -193,6 +193,22 @@ remaining parameters:
   repository is located.
 - `repo`: Required - the name of the git repository.
 
+The following example includes a locally defined `apiUrl`:
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: createPr
+      apiUrl: "https://github.example.com/api/v3"
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+```
+
+Examples below take advantage of a globally configured `apiUrl`.
+
 <a name="pr"/>
 ## Create and Merge a Pull Request 
 
