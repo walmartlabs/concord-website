@@ -181,7 +181,7 @@ with a `githubParams` argument:
 configuration:
   arguments:
     githubParam:
-      apiUrl: https://github.example.com/api/v3"
+      apiUrl: "https://github.example.com/api/v3"
 ```
 
 The authors of specific projects on the Concord server can then specify the
@@ -194,7 +194,7 @@ remaining parameters:
 - `repo`: Required - the name of the git repository.
 
 <a name="pr"/>
-## Create and Merge a Pull Request and Merge 
+## Create and Merge a Pull Request 
 
 The `createPr` and `mergePr` actions of the `github` task allow the creation and
 merging a pull request in GitHub. Executed one after another, the tasks can be
