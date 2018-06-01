@@ -199,10 +199,12 @@ of an assembly.
 ```yaml
 - ${oneops.commit(oneOpsConfig)}
 - ${oneops.commit(oneOpsConfig, asm, env)}
+- ${oneops.commit(oneOpsConfig, asm, env, ['platform1', 'platform2'])}
 - ${oneops.deploy(oneOpsConfig)}
 - ${oneops.deploy(oneOpsConfig, asm, env)}
 - ${oneops.commitAndDeploy(oneOpsConfig)}
 - ${oneops.commitAndDeploy(oneOpsConfig, asm, env)}
+- ${oneops.commitAndDeploy(oneOpsConfig, asm, env, ['platform1', 'platform2'])}
 ```
 
 You can also verify if a deployment is currently in progress:
