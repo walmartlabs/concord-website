@@ -38,8 +38,8 @@ This adds the Git plugin to the classpath and allows you to invoke the
 ## Git Task
 
 The `git` task allows users to trigger git operations as a step of a flow. The
-operations are run via git command usage on the Concord server in the process
-execution space.
+operations are run via git command usage in the process working directory on the
+Concord server.
 
 The `git` task uses a number of input parameters that are common for all
 operations:
@@ -100,7 +100,7 @@ the repository is used - typically called `master`.
 <a name="branch"/>
 ## Create and Push a New Branch
 
-The `createNewBranch` action of the `git` task allows the creation of a new
+The `createBranch` action of the `git` task allows the creation of a new
 branch in the process space. The new branch can be pushed back to the remote
 origin. The following parameters are needed in addition to the general
 parameters:
@@ -108,8 +108,8 @@ parameters:
 - `baseBranch`: Optional - the name of the branch to use as starting point for
 the new branch. If not provided, the default branch of the repository is used -
 typically called `master`.
-- `newBranchName`: Required - the name of new branch.
-- `pushNewBranchToOrigin`: Required configuration to determine if the new branch
+- `newBranch`: Required - the name of new branch.
+- `pushBranch`: Required configuration to determine if the new branch
 is pushed to the origin repository - `true` or `false`.
 
 The following example creates a new feature branch called `feature-b` off the
@@ -119,15 +119,15 @@ The following example creates a new feature branch called `feature-b` off the
 flows: default:
   - task: git
     in:
-      action: createNewBranch
+      action: createBranch
       url: "git@git.example.com:example-org/git-project.git"
       workingDir: "git-project"
       privateKey:
         org: myOrg
         secretName: mySecret
       baseBranch: master
-      newBranchName: feature-b
-      pushNewBranchToOrigin: true
+      newBranch: feature-b
+      pushBranch: true
 ```
 
 <a name="merge"/>
@@ -149,7 +149,7 @@ flows:
   default:
   - task: git
     in:
-      action: createNewBranch
+      action: merge
       url: "git@git.example.com:example-org/git-project.git"
       workingDir: "git-project"
       privateKey:
@@ -172,11 +172,13 @@ REST API of GitHub to perform the operations. This avoids the network overhead
 of the cloning and other operations and is therefore advantageous for large
 repositories.
 
-- `accessToken`: Required - a GitHub [access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
-- `org`: Required - the name of the GitHub organization or user in which the git repository is located.
+- `apiUrl`: Required - the GitHub API endpoint, typically this is globally
+  configured in the Concord server.
+- `accessToken`: Required - the GitHub
+  [access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
+- `org`: Required - the name of the GitHub organization or user in which the git
+  repository is located.
 - `repo`: Required - the name of the git repository.
-
-
 
 
 <a name="pr"/>
@@ -185,11 +187,11 @@ repositories.
 The `createPRandMerge` action of the `github` task creates a pull request in
 GitHub and merges it.
 
-- `PRTitle`: Required - the title used for the pull request.
-- `PRBody`: Required - the description body for the pull request.
-- `PRSourceBranch`: Required - the name of the branch from where your changes
+- `prTitle`: Required - the title used for the pull request.
+- `prBody`: Required - the description body for the pull request.
+- `prSourceBranch`: Required - the name of the branch from where your changes
   are implemented.
-- `PRDestinationBranch`: Required - the name of the branch into which the
+- `prDestinationBranch`: Required - the name of the branch into which the
   changes are merged.
 
 The following example creates a pull request to merge the changes from branch
@@ -200,30 +202,30 @@ flows:
   default:
   - task: github
     in:
-      action: createPRAndMerge
+      action: createAndPRAndMerge
       accessToken: myGitToken
       org: myOrg
       repo: myRepo
-      PRTitle: "Feature A"
-      PRBody: "Feature A implements the requirements from request 12."
-      PRSourceBranch: feature-a
-      PRDestinationBranch: master
+      prTitle: "Feature A"
+      prBody: "Feature A implements the requirements from request 12."
+      prSourceBranch: feature-a
+      prDestinationBranch: master
 ```
 
 <a name="tag"/>
 ## Create a Tag
 
-The `CreateTag` action of the `github` task can create a tag based on a specific
+The `createTag` action of the `github` task can create a tag based on a specific
 commit SHA. This commit identifier has to be supplied to the Concord flow -
 typically via a parameter from a form or a invocation of the flow from another
 application. One example is the usage of the Concord task in the Looper
 continuous integration server.
 
-- `branchSHA`: Required - the SHA of the git commit to use for the tag creation.
+- `commitSHA`: Required - the SHA of the git commit to use for the tag creation.
 - `tagVersion`: Required - the name of the tag e.g. a version string `1.0.1`.
 - `tagMessage`: Required - the message associated with the tagging.
-- `taggerUID`: Required - the name of the author of the tag.
-- `taggerEMAIL`: Required - the email of the author of the tag.
+- `tagAuthorName`: Required - the name of the author of the tag.
+- `tagAuthorEmail`: Required - the email of the author of the tag.
 
 
 ```yaml
@@ -231,14 +233,14 @@ flows:
   default:
   - task: github
     in:
-      action: CreateTag
+      action: createTag
       accessToken: myGitToken
       org: myOrg
       repo: myRepo
       tagVersion: 1.0.0
       tagMessage: "Release 1.0.0"
-      taggerUID: "Jane Doe"
-      taggerEMAIL: jane@example.com
-      branchSHA: ${gitHubBranchSHA}
+      tagAuthorName: "Jane Doe"
+      tagAuthorEmail: jane@example.com
+      commitSHA: ${gitHubBranchSHA}
 ```
 
