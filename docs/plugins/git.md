@@ -172,20 +172,35 @@ REST API of GitHub to perform the operations. This avoids the network overhead
 of the cloning and other operations and is therefore advantageous for large
 repositories.
 
-- `apiUrl`: Required - the GitHub API endpoint, typically this is globally
-  configured in the Concord server.
+The `apiUrl` configures the GitHub API endpoint. It is best configured globally
+as 
+[default process configuration](../getting-started/configuration.html#default-process-variable):
+with a `githubParams` argument:
+
+```yaml
+configuration:
+  arguments:
+    githubParam:
+      apiUrl: https://github.example.com/api/v3"
+```
+
+The authors of specific projects on the Concord server can then specify the
+remaining parameters:
+  
 - `accessToken`: Required - the GitHub
   [access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
 - `org`: Required - the name of the GitHub organization or user in which the git
   repository is located.
 - `repo`: Required - the name of the git repository.
 
-
 <a name="pr"/>
 ## Create and Merge a Pull Request and Merge 
 
-The `createPRandMerge` action of the `github` task creates a pull request in
-GitHub and merges it.
+The `createPr` and `mergePr` actions of the `github` task allow the creation and
+merging a pull request in GitHub. Executed one after another, the tasks can be
+used to create and merge a pull request within one Concord process.
+
+The following parameters are needed by the `createPr` action:
 
 - `prTitle`: Required - the title used for the pull request.
 - `prBody`: Required - the description body for the pull request.
@@ -194,15 +209,16 @@ GitHub and merges it.
 - `prDestinationBranch`: Required - the name of the branch into which the
   changes are merged.
 
-The following example creates a pull request to merge the changes from branch
+The example below creates a pull request to merge the changes from branch
 `feature-a` into the `master` branch:
+
 
 ```yaml
 flows:
   default:
   - task: github
     in:
-      action: createAndPRAndMerge
+      action: createPr
       accessToken: myGitToken
       org: myOrg
       repo: myRepo
@@ -210,6 +226,26 @@ flows:
       prBody: "Feature A implements the requirements from request 12."
       prSourceBranch: feature-a
       prDestinationBranch: master
+    out:
+      prId: ${myPrId}
+```
+
+The `mergePr` action can be used to merge a pull request. The pull request
+identifier has to be known to perform the action. It can be available from a
+form value, an external invocation of the process or as output parameter from
+the `createPr` action. The example below uses the pull request identifier `myPrId`,
+that was populated with a value in the `createPr` action above.
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: mergePr
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      prId: ${myPrId}
 ```
 
 <a name="tag"/>
