@@ -53,7 +53,8 @@ operations:
   in Concord org where the secret can be located, if not specified defaults to
   `Default`.
 - `secretName` of the `privateKey` parameter: Required - the name of the Concord
-  secret used for the SSH connection to the git repository on the remote server.
+  [secret](../api/secrets.html) used for the SSH connection to the git 
+  repository on the remote server.
 
 Following is an example showing the common parameters:
 
