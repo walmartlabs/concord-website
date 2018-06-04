@@ -239,8 +239,12 @@ Interact with any REST endpoint.
 
 Let explore some in source and examples!
 
+- Git / GitHub
 - JIRA
 - Locale
+- Automaton
+
+And more are on the way.
 
 Note:
 - https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins
