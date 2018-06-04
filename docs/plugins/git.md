@@ -1,0 +1,298 @@
+---
+layout: wmt/docs
+title:  Git and GitHub Task
+side-navigation: wmt/docs-navigation.html
+---
+
+# {{ page.title }}
+
+The Git plugin supports direct operations on git repositories with the `git`
+task and interactions with git repositories hosted on GitHub with the `github`
+task.
+
+- [Usage](#usage)
+- [Git Task](#git-task)
+  - [Clone a Repository](#clone)
+  - [Create and Push a New Branch](#branch)
+  - [Merge Branches](#merge)
+- [GitHub Task](#github-task)
+  - [Create and Merge a Pull Request](#pr)
+  - [Create a Tag](#tag)
+  
+<a name="usage"/>
+## Usage
+
+To be able to use the plugin in a Concord flow, it must be added as a
+[dependency](../getting-started/concord-dsl.html#dependencies):
+
+```yaml
+configuration:
+  dependencies:
+  - mvn://com.walmartlabs.concord.plugins:git:0.45.0
+```
+
+This adds the Git plugin to the classpath and allows you to invoke the
+[Git task](#git-task) or the [GitHub task](#github-task).
+
+<a name="git"/>
+## Git Task
+
+The `git` task allows users to trigger git operations as a step of a flow. The
+operations are run via git command usage in the process working directory on the
+Concord server.
+
+The `git` task uses a number of input parameters that are common for all
+operations:
+
+- `url`: Required - the SSH URL of git repository
+- `workingDir`: Required - the name of the directory inside the process space on
+  the Concord server into which the git repository is cloned before any
+  operation is performed.
+- `action`: Required - the name of the operation to perform.
+- `org` of the `privateKey` parameter: Optional - the name of the organization
+  in Concord org where the secret can be located, if not specified defaults to
+  `Default`.
+- `secretName` of the `privateKey` parameter: Required - the name of the Concord
+  secret used for the SSH connection to the git repository on the remote server.
+
+Following is an example showing the common parameters:
+
+```yaml
+flows:
+  default:
+  - task: git
+    in:
+      action: actionName
+      url: "git@git.example.com:example-org/git-project.git"
+      workingDir: "git-project"
+      privateKey:
+        org: myOrg
+        secretName: mySecret
+```
+
+<a name="clone"/>
+### Clone a Repository
+
+The `clone` action of the `git` task can be used to clone a git repository into
+the Concord server process space.
+
+It simply uses the minimal common parameters with the addition of the
+`baseBranch` parameter:
+
+```yaml
+flows:
+  default:
+  - task: git
+    in:
+      action: clone
+      url: "git@git.example.com:example-org/git-project.git"
+      workingDir: "git-project"
+      privateKey:
+        org: myOrg
+        secretName: mySecret
+      baseBranch: feature-a
+```
+
+The `baseBranch` parameter is optional and specifies the name of the branch to
+use check out after the clone operation. If not provided, the default branch of
+the repository is used - typically called `master`.
+
+<a name="branch"/>
+## Create and Push a New Branch
+
+The `createBranch` action of the `git` task allows the creation of a new
+branch in the process space. The new branch can be pushed back to the remote
+origin. The following parameters are needed in addition to the general
+parameters:
+
+- `baseBranch`: Optional - the name of the branch to use as starting point for
+the new branch. If not provided, the default branch of the repository is used -
+typically called `master`.
+- `newBranch`: Required - the name of new branch.
+- `pushBranch`: Required configuration to determine if the new branch
+is pushed to the origin repository - `true` or `false`.
+
+The following example creates a new feature branch called `feature-b` off the
+`master` branch and pushes the new branch back to the remote origin.
+
+```yaml
+flows: default:
+  - task: git
+    in:
+      action: createBranch
+      url: "git@git.example.com:example-org/git-project.git"
+      workingDir: "git-project"
+      privateKey:
+        org: myOrg
+        secretName: mySecret
+      baseBranch: master
+      newBranch: feature-b
+      pushBranch: true
+```
+
+<a name="merge"/>
+## Merge Branches
+
+The `merge` action of the `git` task can be used to merge branches using the
+following parameters:
+
+- `sourceBranch`: Required - the name of the branch where your changes are
+  implemented.
+- `destinationBranch`: Required - the name of the branch into which the branches
+  have to be merged.
+
+The following example merges the changes in the branch `feature-a` into the
+`master` branch.
+
+```yaml
+flows:
+  default:
+  - task: git
+    in:
+      action: merge
+      url: "git@git.example.com:example-org/git-project.git"
+      workingDir: "git-project"
+      privateKey:
+        org: myOrg
+        secretName: mySecret
+      sourceBranch: feature-a
+      destinationBranch: master
+```
+
+<a name="github"/>
+## GitHub Task
+      
+The `github` task of the git plugin allows you to trigger git operations on a
+git repository hosted on [GitHub.com](https://github.com/) or a GitHub
+Enterprise server as a step of a flow.
+
+While the `git` mentioned above works on a repository by cloning it to the
+Concord server and performing operations locally, the `github` task uses the
+REST API of GitHub to perform the operations. This avoids the network overhead
+of the cloning and other operations and is therefore advantageous for large
+repositories.
+
+The `apiUrl` configures the GitHub API endpoint. It is best configured globally
+as 
+[default process configuration](../getting-started/configuration.html#default-process-variable):
+with a `githubParams` argument:
+
+```yaml
+configuration:
+  arguments:
+    githubParam:
+      apiUrl: "https://github.example.com/api/v3"
+```
+
+The authors of specific projects on the Concord server can then specify the
+remaining parameters:
+  
+- `accessToken`: Required - the GitHub
+  [access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
+- `org`: Required - the name of the GitHub organization or user in which the git
+  repository is located.
+- `repo`: Required - the name of the git repository.
+
+The following example includes a locally defined `apiUrl`:
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: createPr
+      apiUrl: "https://github.example.com/api/v3"
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+```
+
+Examples below take advantage of a globally configured `apiUrl`.
+
+<a name="pr"/>
+## Create and Merge a Pull Request 
+
+The `createPr` and `mergePr` actions of the `github` task allow the creation and
+merging a pull request in GitHub. Executed one after another, the tasks can be
+used to create and merge a pull request within one Concord process.
+
+The following parameters are needed by the `createPr` action:
+
+- `prTitle`: Required - the title used for the pull request.
+- `prBody`: Required - the description body for the pull request.
+- `prSourceBranch`: Required - the name of the branch from where your changes
+  are implemented.
+- `prDestinationBranch`: Required - the name of the branch into which the
+  changes are merged.
+
+The example below creates a pull request to merge the changes from branch
+`feature-a` into the `master` branch:
+
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: createPr
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      prTitle: "Feature A"
+      prBody: "Feature A implements the requirements from request 12."
+      prSourceBranch: feature-a
+      prDestinationBranch: master
+    out:
+      prId: ${myPrId}
+```
+
+The `mergePr` action can be used to merge a pull request. The pull request
+identifier has to be known to perform the action. It can be available from a
+form value, an external invocation of the process or as output parameter from
+the `createPr` action. The example below uses the pull request identifier `myPrId`,
+that was populated with a value in the `createPr` action above.
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: mergePr
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      prId: ${myPrId}
+```
+
+<a name="tag"/>
+## Create a Tag
+
+The `createTag` action of the `github` task can create a tag based on a specific
+commit SHA. This commit identifier has to be supplied to the Concord flow -
+typically via a parameter from a form or a invocation of the flow from another
+application. One example is the usage of the Concord task in the Looper
+continuous integration server.
+
+- `commitSHA`: Required - the SHA of the git commit to use for the tag creation.
+- `tagVersion`: Required - the name of the tag e.g. a version string `1.0.1`.
+- `tagMessage`: Required - the message associated with the tagging.
+- `tagAuthorName`: Required - the name of the author of the tag.
+- `tagAuthorEmail`: Required - the email of the author of the tag.
+
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: createTag
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      tagVersion: 1.0.0
+      tagMessage: "Release 1.0.0"
+      tagAuthorName: "Jane Doe"
+      tagAuthorEmail: jane@example.com
+      commitSHA: ${gitHubBranchSHA}
+```
+

@@ -69,6 +69,8 @@ nav:
         context: /docs/plugins/crypto
       - page: Docker
         context: /docs/plugins/docker
+      - page: Git and GitHub
+        context: /docs/plugins/git
       - page: HTTP
         context: /docs/plugins/http
       - page: JIRA
