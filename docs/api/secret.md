@@ -7,7 +7,8 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 A secret is either a username/password or name/ssh-key pair for use in securing 
-access to repositories and other systems.
+access to repositories and other systems. Secrets can be created and managed
+in the Concord Console user interface as well as the Concord REST API.
 
 The REST API provides support for the following operations related to secrets:
 
