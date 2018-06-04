@@ -197,7 +197,19 @@ flows:
       sync: true
 ```
 
-If a subprocess fails, the task throws an exception.
+If a subprocess fails, the task throws an exception. To ignore failed processes
+use `ignoreFailures: true` parameter:
+
+```yaml
+flows:
+  default:
+  - tasks: concord
+    in:
+      action: start
+      archive: payload.zip
+      sync: true
+      ignoreFailures: true
+```
 
 ## Waiting for Completion
 
