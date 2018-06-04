@@ -43,6 +43,8 @@ nav:
         context: /docs/api/process
       - page: Project
         context: /docs/api/project
+      - page: Repository
+        context: /docs/api/repository
       - page: Secret
         context: /docs/api/secret
       - page: Team
