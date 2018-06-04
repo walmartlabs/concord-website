@@ -167,7 +167,7 @@ Updates parameters of an existing secret.
     ```json
     {
       "name": "New name",
-      "visibility": ""
+      "visibility": "PRIVATE"
     }
     ```
     
