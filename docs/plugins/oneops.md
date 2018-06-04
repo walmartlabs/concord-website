@@ -25,7 +25,7 @@ To be able to use the task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:0.36.0
+  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:0.45.0
 ```
 
 This adds the task to the classpath and allows you to configure the main
@@ -40,6 +40,7 @@ configuration:
       org: myOrganization
       asm: myAssembly
       env: myEnvironment
+      includePlatforms: ['platform-1', 'platform-2']
 ```
 
 - `baseUrl` - URL of the OneOps server
@@ -48,6 +49,7 @@ configuration:
 - `org` - the name of the organization in OneOps;
 - `asm` - the name of the assembly in OneOps;
 - `env` - the name of the environment of the assembly in OneOps;
+- `includePlatforms` - list of included platforms for commit;
 
 With the configuration in place, you can call the various functions of the
 oneops tasks using the configuration object with the potential addition of any
@@ -194,15 +196,17 @@ The OneOps task can be used to perform a touch action on a component.
 ## Commit and Deploy 
 
 The OneOps task can be used to commit as well as deploy a specific environment
-of an assembly.
+of an assembly. You can also commit selected platforms by providing the `includePlatforms` list.
 
 ```yaml
 - ${oneops.commit(oneOpsConfig)}
 - ${oneops.commit(oneOpsConfig, asm, env)}
+- ${oneops.commit(oneOpsConfig, asm, env, includedPlatforms)}
 - ${oneops.deploy(oneOpsConfig)}
 - ${oneops.deploy(oneOpsConfig, asm, env)}
 - ${oneops.commitAndDeploy(oneOpsConfig)}
 - ${oneops.commitAndDeploy(oneOpsConfig, asm, env)}
+- ${oneops.commitAndDeploy(oneOpsConfig, asm, env, ['platform1', 'platform2'])}
 ```
 
 You can also verify if a deployment is currently in progress:
