@@ -239,7 +239,8 @@ Interact with any REST endpoint.
 
 Let explore some in source and examples!
 
-- Git / GitHub
+- Git
+- GitHub
 - JIRA
 - Locale
 - Automaton
