@@ -395,6 +395,19 @@ omitted. Concord will automatically use the name of the project's organization:
 {% endraw %}
 ```
 
+If secret was created without password then `None` should be passed to get secret data.
+
+```yaml
+{% raw %}
+- hosts: local
+  tasks:
+  - debug:
+      # password will be None if secret was created with server key.
+      msg: "We got {{ lookup('concord_data_secret', 'mySecret', None) }}"
+      verbosity: 0
+{% endraw %}
+```
+
 Currently, only simple string value secrets are supported.
 
 See also [the example](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/secret_lookup)
