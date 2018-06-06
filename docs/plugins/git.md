@@ -29,7 +29,7 @@ To be able to use the plugin in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:git:0.45.0
+  - mvn://com.walmartlabs.concord.plugins:git:0.46.0
 ```
 
 This adds the Git plugin to the classpath and allows you to invoke the
