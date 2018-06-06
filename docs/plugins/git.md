@@ -18,7 +18,7 @@ task.
 - [GitHub Task](#github-task)
   - [Create and Merge a Pull Request](#pr)
   - [Create a Tag](#tag)
-  - [Merge](#merge)
+  - [Merge](#github-merge)
   
 <a name="usage"/>
 ## Usage
@@ -298,7 +298,7 @@ flows:
       commitSHA: ${gitHubBranchSHA}
 ```
 
-<a name="merge"/>
+<a name="github-merge"/>
 ## Merge
 
 The `merge` action of the `github` task can do a merge without the need of a Pull Request.
