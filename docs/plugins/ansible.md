@@ -373,7 +373,7 @@ to retrieve password-protected secrets in playbooks:
 - hosts: local
   tasks:
   - debug:
-      msg: "We got {{ lookup('concord_secret', 'myOrg', 'mySecret', 'myPwd') }}"
+      msg: "We got {{ lookup('concord_data_secret', 'myOrg', 'mySecret', 'myPwd') }}"
       verbosity: 0
 {% endraw %}
 ```
@@ -390,7 +390,7 @@ omitted. Concord will automatically use the name of the project's organization:
 - hosts: local
   tasks:
   - debug:
-      msg: "We got {{ lookup('concord_secret', 'mySecret', 'myPwd') }}"
+      msg: "We got {{ lookup('concord_data_secret', 'mySecret', 'myPwd') }}"
       verbosity: 0
 {% endraw %}
 ```
