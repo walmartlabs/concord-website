@@ -18,6 +18,7 @@ task.
 - [GitHub Task](#github-task)
   - [Create and Merge a Pull Request](#pr)
   - [Create a Tag](#tag)
+  - [Merge](#merge)
   
 <a name="usage"/>
 ## Usage
@@ -295,5 +296,34 @@ flows:
       tagAuthorName: "Jane Doe"
       tagAuthorEmail: jane@example.com
       commitSHA: ${gitHubBranchSHA}
+```
+
+<a name="merge"/>
+## Merge
+
+The `merge` action of the `github` task can do a merge without the need of a Pull Request.
+This commit identifier has to be supplied to the Concord flow -
+typically via a parameter from a form or a invocation of the flow from another
+application. One example is the usage of the Concord task in the Looper
+continuous integration server.
+
+- `base`: Required. The name of the base branch that the head will be merged into.
+- `head`: Required. The head to merge. This can be a branch name or a commit SHA1.
+- `commitMessage`: Required - Commit message to use for the merge commit. If omitted, a default message will be used.
+
+
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: merge
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      base: master
+      head: ${gitHubBranchSHA}
+      commitMessage: "my commit message"
 ```
 
