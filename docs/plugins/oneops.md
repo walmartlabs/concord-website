@@ -160,10 +160,19 @@ platform as defined in transition.
 
 ## Variables
 
-The OneOps task can be used to update a platform variable.
+The OneOps task can be used to get or update a platform variable.
 
+### Get platform variable(s)
 ```yaml
-- ${oneops.updatePlatformVariable((oneOpsConfig, platform, key, value)}
+- ${oneops.getPlatformVariable(oneOpsConfig, asm, platform, variable_name)}
+- ${oneops.getPlatformVariable(oneOpsConfig, variable_name)}
+- ${oneops.getPlatformVariables(oneOpsConfig)}
+- ${oneops.getPlatformVariables(oneOpsConfig, asm, platform)}
+```
+
+### Update platform variable
+```yaml
+- ${oneops.updatePlatformVariable(oneOpsConfig, platform, key, value)}
 ```
 
 <a name="tags"/>
