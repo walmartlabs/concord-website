@@ -32,7 +32,7 @@ To be able to use the task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.73.0
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:{{ site.concord_core_version }}
 ```
 
 This adds the task to the classpath and allows you to invoke the task in a flow:

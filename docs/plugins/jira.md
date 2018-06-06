@@ -17,7 +17,7 @@ To be able to use the `jira` task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:jira-task:0.43.0
+  - mvn://com.walmartlabs.concord.plugins:jira-task:{{ site.concord_plugins_version }}
 ```
 
 This adds the task to the classpath and allows you to configure the main

@@ -16,7 +16,7 @@ To make use of the `smtp` task, first declare the plugin in `dependencies` under
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:{{ site.concord_core_version }}
 flows:
   default:
   - task: smtp

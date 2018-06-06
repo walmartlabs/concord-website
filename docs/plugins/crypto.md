@@ -14,7 +14,7 @@ decrypt simple values without storing.
 - [Exporting Credentials](#credentials)
 - [Encrypting and Decrypting Values](#encrypting)
   
-The task is provided automatically by the Concord and does not
+The task is provided automatically by Concord and does not
 require any external dependencies.
 
 <a name="ssh-key"/>

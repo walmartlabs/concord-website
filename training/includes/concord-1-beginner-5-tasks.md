@@ -141,7 +141,7 @@ First configure:
 ```
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.73.0
 ```
 
 
@@ -196,9 +196,6 @@ Work with other Concord processes
 ## Concord Task Example
 
 ```
-configuration:
-  dependencies:
-  - "mvn://com.walmartlabs.concord.plugins:concord-tasks:0.36.0"
 flows:
   default:
   - task: concord

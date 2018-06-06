@@ -10,7 +10,7 @@ The key value `kv` task provides access to the server's simple string
 key-value store. All data is project-scoped e.a. processes only see the values
 created by processes of the same project.
 
-This task is provided automatically by the Concord.
+This task is provided automatically by Concord.
 
 ## Usage
 
