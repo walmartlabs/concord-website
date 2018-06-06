@@ -161,6 +161,10 @@ flows:
       destinationBranch: master
 ```
 
+We recommend using the [merge action of the GitHub task](#github-merge) to merge
+branches in large repositories, since no local cloning is required and the
+action is therefore completed faster.
+
 <a name="github"/>
 ## GitHub Task
       
