@@ -365,7 +365,8 @@ curl ... http://concord.example.com/api/v1/process/${processId}/attachments/ansi
 
 ## Ansible Lookup Plugins
 
-Concord provides a special [Ansible lookup plugin](https://docs.ansible.com/ansible/devel/plugins/lookup.html)
+Concord provides a special
+[Ansible lookup plugin](https://docs.ansible.com/ansible/devel/plugins/lookup.html)
 to retrieve password-protected secrets in playbooks:
 
 ```yaml
@@ -378,11 +379,11 @@ to retrieve password-protected secrets in playbooks:
 {% endraw %}
 ```
 
-In this example `myOrg` is the name of the organization which owns the secret,
+In this example `myOrg` is the name of the organization that owns the secret,
 `mySecret` is the name of the retrieved secret and `myPwd` is the password
-which was used to store the secret.
+for accessing the secret.
 
-Use 'None' to lookup a secret created without password.
+Use `None` to retrieve a secret created without a password:
 
 ```yaml
 {% raw %}
