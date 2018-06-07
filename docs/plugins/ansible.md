@@ -407,8 +407,6 @@ omitted. Concord will automatically use the name of the project's organization:
 {% endraw %}
 ```
 
-
-
 Currently, only simple string value secrets are supported.
 
 See also [the example](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/secret_lookup)
