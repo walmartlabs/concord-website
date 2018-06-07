@@ -16,7 +16,7 @@ To be able to use the `automaton` task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:automaton-task:0.40.0
+  - mvn://com.walmartlabs.concord.plugins:automaton-task:{{ site.concord_plugins_version }}
 ```
 
 Once your project is configured on Automaton, you can trigger

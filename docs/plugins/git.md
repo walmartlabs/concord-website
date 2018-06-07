@@ -18,6 +18,7 @@ task.
 - [GitHub Task](#github-task)
   - [Create and Merge a Pull Request](#pr)
   - [Create a Tag](#tag)
+  - [Merge Branches](#github-merge)
   
 <a name="usage"/>
 ## Usage
@@ -28,7 +29,7 @@ To be able to use the plugin in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:git:0.45.0
+  - mvn://com.walmartlabs.concord.plugins:git:{{ site.concord_plugins_version }}
 ```
 
 This adds the Git plugin to the classpath and allows you to invoke the
@@ -159,6 +160,10 @@ flows:
       sourceBranch: feature-a
       destinationBranch: master
 ```
+
+We recommend using the [merge action of the GitHub task](#github-merge) to merge
+branches in large repositories, since no local cloning is required and the
+action is therefore completed faster.
 
 <a name="github"/>
 ## GitHub Task
@@ -295,5 +300,39 @@ flows:
       tagAuthorName: "Jane Doe"
       tagAuthorEmail: jane@example.com
       commitSHA: ${gitHubBranchSHA}
+```
+
+<a name="github-merge"/>
+## Merge Branches
+
+The `merge` action of the `github` task can merge two branches of a repository
+on GitHub. Compared to [merging branches with the git](#merge) task, it does not
+require a local clone of the repository and is therefore faster in the execution
+and requires no local storage on the Concord server.
+
+The parameters identifying the branches to merge have to be supplied to the
+Concord flow - typically by a parameter from a form or a invocation of the flow
+from another application. One example is the usage of the Concord task in the
+Looper continuous integration server.
+
+- `base`: Required - the name of the base branch into which the head is merged.
+- `head`: Required - the identifier for the head to merge. Head can be specified
+  by using a branch name or a commit SHA1.
+- `commitMessage`: Required - - the message to use for the merge commit. If
+  omitted, a default message is used. Expressions can be used to add process
+  information.
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: merge
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      base: master
+      head: ${gitHubBranchName}
+      commitMessage: "Automated merge performed by Concord flow."
 ```
 

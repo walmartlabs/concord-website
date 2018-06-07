@@ -25,7 +25,7 @@ To be able to use the task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:0.45.0
+  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:{{ site.concord_plugins_version }}
 ```
 
 This adds the task to the classpath and allows you to configure the main

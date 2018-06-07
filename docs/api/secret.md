@@ -17,6 +17,7 @@ The REST API provides support for the following operations related to secrets:
   - [Example: Upload an Existing Key Pair](example-upload-key-pair)
   - [Example: Creating a Username and Password Secret](example-username-password-secret)
   - [Example: Storing a Single Value as Secret](example-single-value-secret)
+- [Update a Secret](#update-secret)
 - [Get Metadata of Secret](#meta-data)
 - [Get Public SSH Key of Secret](#get-key)
 - [Delete a Secret](#delete-secret)
@@ -154,7 +155,38 @@ curl -u myusername \
 -F data=myValue \
 https://concord.example.com/api/v1/org/Default/secret
 ```
+
+<a name="update-secret"/>
+## Update a Secret
+
+Updates parameters of an existing secret.
+
+* **URI** `/api/v1/org/${orgName}/secret/${secretName}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    {
+      "name": "New name",
+      "visibility": "PRIVATE"
+    }
+    ```
     
+    Either `name` or `visibility` (or both) must be specified.
+
+    Omitted parameters are not updated.    
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
+    ```
+
 <a name="metadata>
 ## Get Metadata of Secret
 
