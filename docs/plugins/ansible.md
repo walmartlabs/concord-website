@@ -373,7 +373,7 @@ to retrieve password-protected secrets in playbooks:
 - hosts: local
   tasks:
   - debug:
-      msg: "We got {{ lookup('concord_secret', 'myOrg', 'mySecret', 'myPwd') }}"
+      msg: "We got {{ lookup('concord_data_secret', 'myOrg', 'mySecret', 'myPwd') }}"
       verbosity: 0
 {% endraw %}
 ```
@@ -381,6 +381,18 @@ to retrieve password-protected secrets in playbooks:
 In this example `myOrg` is the name of the organization which owns the secret,
 `mySecret` is the name of the retrieved secret and `myPwd` is the password
 which was used to store the secret.
+
+Use 'None' to lookup a secret created without password.
+
+```yaml
+{% raw %}
+- hosts: local
+  tasks:
+  - debug:
+      msg: "We got {{ lookup('concord_data_secret', 'myOrg', 'mySecret', None) }}"
+      verbosity: 0
+{% endraw %}
+```
 
 If the process was started using a project, then the organization name can be
 omitted. Concord will automatically use the name of the project's organization:
@@ -390,7 +402,7 @@ omitted. Concord will automatically use the name of the project's organization:
 - hosts: local
   tasks:
   - debug:
-      msg: "We got {{ lookup('concord_secret', 'mySecret', 'myPwd') }}"
+      msg: "We got {{ lookup('concord_data_secret', 'mySecret', 'myPwd') }}"
       verbosity: 0
 {% endraw %}
 ```
