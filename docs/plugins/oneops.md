@@ -162,16 +162,12 @@ platform as defined in transition.
 
 The OneOps task can be used to get or update a platform variable.
 
-### Get platform variable(s)
+### Get platform variables
 ```yaml
-- expr: ${oneops.getPlatformVariable(oneOpsConfig, asm, platform, test_variable_1)}
-  out: test_variable_1_value
-- expr: ${oneops.getPlatformVariable(oneOpsConfig, test_variable_2)}
-  out: test_variable_2_value
-- expr: ${oneops.getPlatformVariables(oneOpsConfig)}
+- expr: ${oneops.getPlatformVariables(oneOpsConfig, platform)}
   out: platform_variables1
 - log: "Variable value: ${platform_variables1.testVariable}"
-- expr: ${oneops.getPlatformVariables(oneOpsConfig, asm, platform)}
+- expr: ${oneops.getPlatformVariables(oneOpsConfig, asm, env, platform)}
   out: platform_variables2
 - log: "Variable value: ${platform_variables2.variableName}"
   # if variable name contains hyphen then use get method
