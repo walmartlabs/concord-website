@@ -1,0 +1,6 @@
+# ignoring third party library
+**/reveal/**
+**/bootstrap.js
+# ignoring feed read JS
+**/atom-read.js
+
