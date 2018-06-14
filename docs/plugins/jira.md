@@ -97,7 +97,7 @@ The JIRA task can be used to create a new issue:
 The JIRA task can be used to add a comment to an existing issue:
 
 ```yaml
-- ${jira.addComment(context, jiraConfig), comment}
+- ${jira.addComment(context, jiraConfig, comment}
 ```
 
 <a name="transition"/>
