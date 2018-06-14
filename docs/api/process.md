@@ -10,18 +10,18 @@ A process is an execution of a flow in repository of a project.
 
 The REST API provides support for a number of operations:
 
-- [Start a Process](#start-process)
+- [Start a Process](#start)
   - [Form data](#form-data)
   - [ZIP File](#zip-file)
   - [Browser](#browser)
-- [Stop a Process](#stop-process)
-- [Getting Status of a Process](#get-status-process)
-- [Retrieve a Process Log](#retrieve-log)
+- [Stop a Process](#stop)
+- [Getting Status of a Process](#status)
+- [Retrieve a Process Log](#log)
 - [Download an Attachment](#download-attachment)
-- [List Processes](#list-processes)
+- [List Processes](#list)
 
 
-<a name="start-process"/>
+<a name="start"/>
 ## Start a Process
 
 The best approach to start a process is to execute a flow defined in the Concord
@@ -210,7 +210,7 @@ walks a user through all process' forms and intermediate pages.
     - Passing process arguments: `/api/v1/org/Default/project/test-project/repo/test-repo/start/default?arguments.x=123&arguments.y=boo`
 
 
-<a name="stop-process"/>
+<a name="stop"/>
 ## Stop a Process
 
 Forcefully stops the process.
@@ -225,7 +225,7 @@ Forcefully stops the process.
 * **Success response**
     Empty body.
 
-<a name="get-process-status"/>
+<a name="status"/>
 ## Getting the Status of a Process
 
 Returns the current status of a process.
@@ -255,7 +255,7 @@ Returns the current status of a process.
     }
     ```
 
-<a name="retrieve-log"/>
+<a name="log"/>
 ## Retrieve a Process Log
 
 Downloads the log file of a process.
@@ -294,7 +294,7 @@ Downloads a process' attachment.
     ...data...
     ```
 
-<a name="list-processes"/>
+<a name="list"/>
 ## List Processes
 
 Retrieve a list of processes.
