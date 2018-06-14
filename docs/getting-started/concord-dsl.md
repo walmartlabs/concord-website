@@ -213,6 +213,9 @@ configuration:
     message: "Hello, ${name}"
 ```
 
+Variable value can be [defined or modified with the set step](#set) and a
+[number of variables](../processes.html#variables) are automatically set in each
+process and available for usage.
 
 ### Debug
 
@@ -539,9 +542,11 @@ configuration:
 ```
 
 
+<a name="set-step"/>
+
 ### Setting Variables
 
-The `set` command can be used to set variables in the current flow:
+The `set` step can be used to set variables in the current process context:
 
 ```yaml
 flows:
@@ -569,6 +574,9 @@ flows:
   # will print "Bye, Concord"
   - log: "${myComplexData.nestedValue}, Concord"
 ```
+  
+A [number of variables](../processes.html#variables) are automatically set in
+each process and available for usage.
 
 <a name="profiles"/>
 ## Named Profiles in `profiles`
