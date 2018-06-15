@@ -193,6 +193,25 @@ flows:
 ```
 
 
+## Loops
+
+Use call with items:
+
+```
+  default:
+  - call: deployToClouds
+    withItems:
+    - name: cloud1
+      fqdn: cloud1.myapp.example.com
+    - name: cloud2
+      fqdn: cloud2.myapp.example.com
+
+  deployToClouds:
+  - log: "Starting deployment to ${item.name}"
+  - log: "Using fqdn ${item.fqdn}"
+```
+
+
 ## Variable Changes
 
 - Default values from `configuration - arguments`
