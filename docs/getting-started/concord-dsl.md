@@ -470,7 +470,23 @@ The items are available in the invoked flow with the `${item}` expression.
   myFlow:
   - log: "We got ${item}"
 ```
-  
+
+Complex objects can be used in loops as well:
+
+```yaml
+flows:
+  default:
+  - call: deployToClouds
+    withItems:
+    - name: cloud1
+      fqdn: cloud1.myapp.example.com
+    - name: cloud2
+      fqdn: cloud2.myapp.example.com
+
+  deployToClouds:
+  - log: "Starting deployment to ${item.name}"
+  - log: "Using fqdn ${item.fqdn}"
+```
 
 ### Error Handling
 
