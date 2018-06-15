@@ -2,6 +2,7 @@
 
 > What is this all about?
 
+<!--- vertical -->"
 
 ## Workflow Orchestration
 
@@ -18,6 +19,7 @@ Note:
 - like a conductor orchestrates musicians in an orchestra
 - https://en.wikipedia.org/wiki/Business_process_management
 
+<!--- vertical -->"
 
 ## Workflow Server
 
@@ -28,6 +30,7 @@ Specific software designed for workflow orchestration
 - Provide user interface for process access
 - Support integration with numerous tools
 
+<!--- vertical -->"
 
 ## Concord
 
@@ -41,6 +44,7 @@ Specific software designed for workflow orchestration
 Note:
 - open source in future
 
+<!--- vertical -->"
 
 ## Usage Scenarios
 
@@ -50,6 +54,7 @@ Note:
 - Execute Ansible playbooks and deploy applications
 - Orchestrate steps in business processes
 
+<!--- vertical -->"
 
 ## Components
 
@@ -57,6 +62,7 @@ Note:
 - Concord Console
 - Concord Projects
 
+<!--- vertical -->"
 
 ## Concord Server
 
@@ -71,6 +77,7 @@ Note:
 
 Receives and processes user requests to call workflow scenarios.
 
+<!--- vertical -->"
 
 ## Concord Console
 
@@ -80,6 +87,7 @@ Web-based user interface for Concord Server:
 - Secrets
 - Processes
 
+<!--- vertical -->"
 
 ## Concord Project
 
@@ -88,6 +96,7 @@ Web-based user interface for Concord Server:
 - YAML for flow definitions
 - Execution as _process_ on Concord Server
 
+<!--- vertical -->"
 
 ## Questions?
 

@@ -2,6 +2,7 @@
 
 > Getting Things Done With Concord
 
+<!--- vertical -->"
 
 ## Overview
 
@@ -10,6 +11,7 @@
 - Pulled as dependencies
 - Usage configured in Concord DSL
 
+<!--- vertical -->"
 
 ## Concord Extension Tasks
 
@@ -25,6 +27,7 @@ Note:
 - Crypto works with Concord secrets
 - Concord task can kick off other tasks
 
+<!--- vertical -->"
 
 ## Integration Tasks
 
@@ -41,6 +44,7 @@ Note:
 - https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins/tasks
 - https://gecgithub01.walmart.com/devtools/concord-plugins/tree/master/tasks
 
+<!--- vertical -->"
 
 ## Example Usage
 
@@ -59,6 +63,7 @@ flows:
     - log: something bad happened
 ```
 
+<!--- vertical -->"
 
 ## More About Tasks
 
@@ -69,6 +74,7 @@ flows:
 - Easy to implement
 - Work with Concord team
 
+<!--- vertical -->"
 
 ## Log Task
 
@@ -84,6 +90,7 @@ flows:
 Note:
 any task implements call
 
+<!--- vertical -->"
 
 ## Log Task
 
@@ -95,6 +102,7 @@ Via other method e.g. `info`
 
 Method names differ for each task!
 
+<!--- vertical -->"
 
 ## Key Value Task
 
@@ -105,6 +113,7 @@ Method names differ for each task!
 - string and long
 - sequence generation with `inc`
 
+<!--- vertical -->"
 
 ## Key Value Tasks Examples
 
@@ -118,6 +127,7 @@ flows:
   - log: "We got an ID: ${myId}"
 ```
 
+<!--- vertical -->"
 
 ## Crypto Task
 
@@ -131,6 +141,7 @@ Note:
 - maybe demo, maybe add example to deck..
 - e.g. OneOps API token 
 
+<!--- vertical -->"
 
 ## SMTP Task
 
@@ -144,6 +155,7 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.73.0
 ```
 
+<!--- vertical -->"
 
 ## SMTP
 
@@ -163,6 +175,7 @@ flows:
 
 Or Moustache `template:` file.
 
+<!--- vertical -->"
 
 ## Slack Example
 
@@ -181,6 +194,7 @@ flows:
       text: "Starting execution on Concord"
 ```
 
+<!--- vertical -->"
 
 ## Concord Task
 
@@ -192,6 +206,7 @@ Work with other Concord processes
 - Wait and get output
 - Cancellations and failures
 
+<!--- vertical -->"
 
 ## Concord Task Example
 
@@ -205,6 +220,7 @@ flows:
       repository: myRepo
 ```
 
+<!--- vertical -->"
 
 ## HTTP Task
 
@@ -216,6 +232,7 @@ Interact with any REST endpoint.
 - response can be captured
 - and then used in follow up steps
 
+<!--- vertical -->"
 
 ## HTTP Task Example
 
@@ -231,6 +248,7 @@ Interact with any REST endpoint.
    - log: "Response received: ${response.content}"
 ```
 
+<!--- vertical -->"
 
 ## More Tasks
 
@@ -248,6 +266,7 @@ Note:
 - https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins
 - https://gecgithub01.walmart.com/devtools/concord/tree/master/examples
 
+<!--- vertical -->"
 
 ## Questions?
 

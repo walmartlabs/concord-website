@@ -2,6 +2,7 @@
 
 > Shipping Software to Customers
 
+<!--- vertical -->"
 
 ## Integrations and Tools
 
@@ -15,21 +16,25 @@ Concord interacts with
 - Slack
 - SMTP
 
+<!--- vertical -->"
 
 ## Looper
 
 Continuous integration server of choice.
 
+<!--- vertical -->"
 
 ## OneOps
 
 Cloud Platform as a Service of choice.
 
+<!--- vertical -->"
 
 ## Ansible
 
 Automation engine for application configuration and deployment.
 
+<!--- vertical -->"
 
 ## Proximity
 
@@ -40,6 +45,7 @@ Proximity is the repository manager to stores binaries.
 - docker images
 - ...
 
+<!--- vertical -->"
 
 ## OneOps Integration
 
@@ -53,6 +59,7 @@ Proximity is the repository manager to stores binaries.
   - touch 
   - commit and deploy
 
+<!--- vertical -->"
 
 ## Ansible Task
 
@@ -68,6 +75,7 @@ and more.
 Note:
 - Concord = improved, more flexible version of Ansible Tower
 
+<!--- vertical -->"
 
 ## Example Deployment Flow
 
@@ -82,6 +90,7 @@ Note:
 - https://gecgithub01.walmart.com/devtools/concord-cd-example
 - https://ci.walmart.com/job/concord-cd-example/
 
+<!--- vertical -->"
 
 ## Example Replacement Flow
 
@@ -89,6 +98,7 @@ Note:
 - Reboot/repair of system fires event to Concord
 - Concord flow triggers new deployment
 
+<!--- vertical -->"
 
 ## Full Provisioning Scenario
 
@@ -101,6 +111,7 @@ Note:
 Note: 
 Managed Service at Walmart implements that for Cassandra, CloudRDBMS and others.
 
+<!--- vertical -->"
 
 ## Ansible Static Inventory
 
@@ -116,6 +127,7 @@ flows:
       inventoryFile: inventory.ini
 ```
 
+<!--- vertical -->"
 
 ## Ansible Dynamic Inventory
 
@@ -128,6 +140,7 @@ flows:
       dynamicInventoryFile: "inventory.py"
 ```
 
+<!--- vertical -->"
 
 ## OneOps Task Example
 
@@ -147,6 +160,7 @@ configuration:
       env: myEnvironment
 ```
 
+<!--- vertical -->"
 
 ## OneOps Task Example
 
@@ -160,6 +174,7 @@ flows:
   - ${oneops.commitAndDeploy(oneOpsConfig)}
 ```
 
+<!--- vertical -->"
 
 ## OneOps Inventory and Ansible
 
@@ -172,6 +187,7 @@ Note:
 - https://gecgithub01.walmart.com/devtools/concord-pipeline
 - https://gecgithub01.walmart.com/vn0xxv4/concord-oneops-ansible-example
 
+<!--- vertical -->"
 
 ## Summary
 
@@ -180,6 +196,7 @@ Note:
 
 Concord, the orchestrator!
 
+<!--- vertical -->"
 
 ## Questions?
 

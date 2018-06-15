@@ -16,6 +16,7 @@ Syntax used in `concord.yml` with top level nodes for:
 Note:
 Explain each a bit .. more is coming below
 
+<!--- vertical -->"
 
 ## Configuration
 
@@ -30,6 +31,7 @@ Project global settings in `configuration`:
 Note:
 - explain in next slides
 
+<!--- vertical -->"
 
 ## Entry Point
 
@@ -38,6 +40,7 @@ What flow to start with.
 - Optional configuration
 - `default` is the default
 
+<!--- vertical -->"
 
 ## Dependencies
 
@@ -54,6 +57,7 @@ configuration:
 Note:
 - Can also use normal hardcoded URL, but please don't!
 
+<!--- vertical -->"
 
 ## Arguments
 
@@ -69,6 +73,7 @@ configuration:
       z: 0
 ```
 
+<!--- vertical -->"
 
 ## Arguments Continued
 
@@ -81,6 +86,7 @@ flows:
   - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
 
+<!--- vertical -->"
 
 ## Template
 
@@ -94,6 +100,7 @@ What other Concord DSL configuration to reuse.
   - Forms 
   - Profiles
 
+<!--- vertical -->"
 
 ## Debug
 
@@ -104,6 +111,7 @@ configuration:
   debug: true
 ```
 
+<!--- vertical -->"
 
 ## Flows
 
@@ -124,6 +132,7 @@ Multiple named flows!
 Note:
 - `default` used unless otherwise specified in invocation
 
+<!--- vertical -->"
 
 ## Steps
 
@@ -141,6 +150,7 @@ Note:
 - syntax is `step: parameter`
 - ${expression}
 
+<!--- vertical -->"
 
 ## Expression Language Details
 
@@ -149,6 +159,7 @@ Note:
 - Use as flow steps
 - Define Argument values
 
+<!--- vertical -->"
 
 ## EL Examples
 
@@ -162,6 +173,7 @@ flows:
   - log: "Process running on ${System.getProperty("os.name")}"
 ```
 
+<!--- vertical -->"
 
 ## EL Long Form
 
@@ -176,6 +188,7 @@ flows:
       - log: "An error occurred"
 ```
 
+<!--- vertical -->"
 
 ## Calling Flows
 
@@ -192,6 +205,7 @@ flows:
   - log" "Starting test"
 ```
 
+<!--- vertical -->"
 
 ## Loops
 
@@ -211,6 +225,7 @@ Use call with items:
   - log: "Using fqdn ${item.fqdn}"
 ```
 
+<!--- vertical -->"
 
 ## Variable Changes
 
@@ -225,6 +240,7 @@ Use call with items:
 - log: "foo is ${foo}"
 ```
 
+<!--- vertical -->"
 
 ## If Then
 
@@ -238,6 +254,7 @@ flows:
       - log: zero or less
 ```
 
+<!--- vertical -->"
 
 ## Switch Case
 
@@ -253,6 +270,7 @@ flows:
         - log: "I don't know what it is"
 ```
 
+<!--- vertical -->"
 
 ## More Flow Features
 
@@ -266,6 +284,7 @@ flows:
   - try blocks `try:`
 - `onCancel` and `onFailure` flows
 
+<!--- vertical -->"
 
 ## Forms
 
@@ -273,6 +292,7 @@ flows:
 - User input and guidance
 - Served by Concord
 
+<!--- vertical -->"
 
 ## Forms Definition
 
@@ -283,6 +303,7 @@ forms:
   - lastName: { label: "Last name:", type: "string" }
 ```
 
+<!--- vertical -->"
 
 ## Form Usage
 
@@ -297,6 +318,7 @@ flows:
 
 Suspends process until data is submitted.
 
+<!--- vertical -->"
 
 ## More Form Power
 
@@ -308,6 +330,7 @@ Suspends process until data is submitted.
 - Add JS, HTML, CSS and other resources
 - Use as entry point for process start
 
+<!--- vertical -->"
 
 ## Scripting
 
@@ -320,6 +343,7 @@ Language needs to implement Java Scripting API, e.g.:
 
 Runs on JVM!
 
+<!--- vertical -->"
 
 ## Scripting Features
 
@@ -331,6 +355,7 @@ Runs on JVM!
 Note:
 more about tasks in a sec
 
+<!--- vertical -->"
 
 ## Scripting Example
 
@@ -348,6 +373,7 @@ Note:
 - show other examples from concord codebase examples folder
 - multi line
 
+<!--- vertical -->"
 
 ## Triggers
 
@@ -358,6 +384,7 @@ Kick off flow based on events.
 - Scheduled
 - Generic
 
+<!--- vertical -->"
 
 ## Trigger Example
 
@@ -377,6 +404,7 @@ triggers:
     entryPoint: onDeployment
 ```
 
+<!--- vertical -->"
 
 ## Profile Example
 
@@ -396,6 +424,7 @@ profiles:
         foo: "bazz"
 ```
 
+<!--- vertical -->"
 
 ## Questions?
 
