@@ -25,6 +25,7 @@ process flows, configuration, forms and other aspects:
   - [Conditional expressions](#conditional-expressions)
   - [Return command](#return-command)
   - [Groups of steps](#groups-of-steps)
+  - [Loops](#loops)
   - [Calling flows](#calling-other-flows)
   - [Error handling](#error-handling)
   - [Setting variables](#setting-variables)
@@ -406,26 +407,70 @@ flows:
     - log: a step before the group
     
     - try:
-      - log: a step inside the group
+      - log: "a step inside the group"
       - ${myBean.somethingDangerous()}
       error:
-        - log: well, that didn't work
+        - log: "well, that didn't work"
 ```
+
 
 ### Calling Other Flows
 
-Flows, defined in the same YAML document, can be called by their names:
+Flows, defined in the same YAML document, can be called by their names or using
+the `call` step.
 
 ```yaml
 flows:
   default:
-    - log: hello
-    - mySubFlow
-    - log: bye
-
+  - log: hello
+  - mySubFlow
+  - call: anotherFlow
+  - log: bye
+    
   mySubFlow:
-    - log: a message from the sub flow
+  - log: "a message from the sub flow"
+
+  anotherFlow:
+  - log: "message from another flow"
 ```
+
+### Loops
+
+Concord flow can iterate through a collection of items in a loop using the
+`call` step and the `withItems` collection of values.
+
+```yaml
+  - call: myFlow
+    withItems:
+    - "first element"
+    - "second element"
+    - 3
+    - false
+```
+
+The collection of items to iterate over can be provided by an expression:
+
+```yaml
+configuration:
+  arguments:
+    myItems:
+    - 100500
+    - false
+    - "a string value"
+
+flows:
+  default:
+  - call: myFlow
+    withItems: ${myItems}
+```
+
+The items are available in the invoked flow with the `${item}` expression.
+
+```yaml
+  myFlow:
+  - log: "We got ${item}"
+```
+  
 
 ### Error Handling
 
