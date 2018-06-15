@@ -179,15 +179,15 @@ flows:
 
 ## Calling Flows
 
-Just use the flow name:
+Just use the flow name or `call`:
 
 ```
 flows:
   default:
   - log: "Calling test next"
   - test
-  - log: "test done, what next?"
-
+  - call: anotherFlow
+  
   test:
   - log" "Starting test"
 ```
