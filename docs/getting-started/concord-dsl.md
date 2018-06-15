@@ -436,7 +436,7 @@ flows:
 
 ### Loops
 
-Concord flow can iterate through a collection of items in a loop using the
+Concord flows can iterate through a collection of items in a loop using the
 `call` step and the `withItems` collection of values.
 
 ```yaml
