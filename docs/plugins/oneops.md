@@ -156,6 +156,13 @@ platform as defined in transition.
 - ${oneops.updatePlatformScale(oneOpsConfig, asm, env, platform, component, min, current, max, stepUp, stepDown, percentDeploy)}
 ```
 
+Cloud-specific scaling parameters can be configured separately:
+
+```yaml
+- ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, attributesMap)}
+```
+
+The attribus 
 <a name="variables"/>
 
 ## Variables
