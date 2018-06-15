@@ -162,7 +162,17 @@ Cloud-specific scaling parameters can be configured separately:
 - ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, attributesMap)}
 ```
 
-The attribus 
+The attributes map can contain `adminstatus` with values `active` or `inactive`
+and `priority` with values `1` for primary and `2` for secondary cloud status.
+
+The following call sets the cloud to active and secondary. As a result the cloud
+is up and running (active), while at the smae time not receiving any external
+requests (secondar).
+
+```yaml
+- ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, {adminStatus: 'active', priority: 2})}
+```
+
 <a name="variables"/>
 
 ## Variables
