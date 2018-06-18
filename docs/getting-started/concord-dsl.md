@@ -447,7 +447,7 @@ Concord flows can iterate through a collection of items in a loop using the
     - 3
     - false
 
-  # withItems can alse be used with tasks
+  # withItems can also be used with tasks
   - task: myTask
     in:
       myVar: ${item}
