@@ -67,6 +67,7 @@ The following sections describe the available functions in more detail:
 
 - [Get IP Numbers](#ip)
 - [Instances](#instances)
+- [Clouds](#clouds)
 - [Scaling](#scaling)
 - [Variables](#variables)
 - [Tags](#tags)
@@ -143,6 +144,20 @@ in a platform and their attributes:
   out: moreInstances
 ```
 
+<a name="clouds"/>
+
+## Clouds
+
+The OneOps task can be used to retrieve the list of cloud for a specific 
+platform in an environment.
+
+```yaml
+- expr: ${oneops.getTransitionPlatformClouds(oneOpsConfig, platform)}
+  out: clouds
+```
+
+As a results clouds `variable` contains a list of all clouds identifiers, which
+can subsequently used for [scaling](#scaling) and other operations.
 
 <a name="scaling"/>
 
