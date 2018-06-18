@@ -198,8 +198,8 @@ If a variable name contains a hyphen, the `get` method can be used to retrieve
 the value:
 
 ```yaml
-- log: "Variable value: ${platform_variables2.get('variable-name')}" ```
-
+- log: "Variable value: ${platform_variables2.get('variable-name')}"
+```
 
 Platform variable values can be updated as well:
 
@@ -253,7 +253,7 @@ of an assembly. You can also commit selected platforms by providing the `include
 You can also verify if a deployment is currently in progress:
 
 ```yaml
-- expr: - ${oneops.isDeploying(oneOpsConfig, asm, env)}
+- expr: ${oneops.isDeploying(oneOpsConfig, asm, env)}
   out: isDeploying
 ```
 
