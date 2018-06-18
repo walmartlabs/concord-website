@@ -446,6 +446,14 @@ Concord flows can iterate through a collection of items in a loop using the
     - "second element"
     - 3
     - false
+
+  # withItems can also be used with tasks
+  - task: myTask
+    in:
+      myVar: ${item}
+    withItems:
+    - "first element"
+    - "second element"
 ```
 
 The collection of items to iterate over can be provided by an expression:
