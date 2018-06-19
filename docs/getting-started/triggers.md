@@ -135,7 +135,7 @@ triggers:
 - github:
     project: "myProject"
     repository: "myRepository"
-    entryPoint: onReplace
+    entryPoint: onPush
 ```
 
 The `event` object provides the following attributes
