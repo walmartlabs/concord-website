@@ -87,8 +87,8 @@ instance of `com.walmartlabs.concord.sdk.Context`;
   - `requestInfo.query`: query parameters of a request made using user-facing 
     endpoints (e.g. the portal API);
 - `projectInfo`: project's data:
-  - `projectInfo.teamId` - the project's team ID;
-  - `projectInfo.teamName` - the team's name;
+  - `projectInfo.orgId` - the ID of the project's organization;
+  - `projectInfo.orgName` - the name of the project's organization;
   - `projectInfo.projectId` - the project's ID;
   - `projectInfo.projectName` - the project's name;
   - `projectInfo.repoId` - the project's repository ID;
