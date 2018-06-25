@@ -50,7 +50,7 @@ flows:
 The plugin, with a configuration as above, executes an Ansible playbook with the
 Ansible installation running on Concord. 
 
-__The version of Ansible being used is 2.4.3.__
+__The version of Ansible being used is {{ site.concord_ansible_version }}.__
 
 A number of configuration parameters are pre-configred by the plugin:
 
