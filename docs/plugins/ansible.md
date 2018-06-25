@@ -68,7 +68,7 @@ pipelining = True
 ```
 
 Further and up to date details are available
-[in the source code of the plugin]({{concord_source}}blob/master/plugins/tasks/ansible/src/main/java/com/walmartlabs/concord/plugins/ansible/RunPlaybookTask2.java).
+[in the source code of the plugin]({{ site.concord_source }}blob/master/plugins/tasks/ansible/src/main/java/com/walmartlabs/concord/plugins/ansible/RunPlaybookTask2.java).
 
 One of the most important lines is `gather_subset = !facter,!ohai`. This disables
 some of the variables that are usually available such as `ansible_default_ipv4`. 
@@ -300,7 +300,7 @@ We recommend using `docker.prod.walmart.com/walmartlabs/concord-ansible`
 as a base for your custom Docker images.
 
 Please refer to our
-[Docker support documentation](../getting-started/docker.html)
+[Docker plugin documentation](./docker.html)
 for more details.
 
 <a name="retry-limit"/>

@@ -13,10 +13,10 @@ in the Concord Console user interface as well as the Concord REST API.
 The REST API provides support for the following operations related to secrets:
 
 - [Create a Secret](#create-secret)
-  - [Example: Generate a new Key Pair](example-new-key-pair)
-  - [Example: Upload an Existing Key Pair](example-upload-key-pair)
-  - [Example: Creating a Username and Password Secret](example-username-password-secret)
-  - [Example: Storing a Single Value as Secret](example-single-value-secret)
+  - [Example: Generate a new Key Pair](#example-new-key-pair)
+  - [Example: Upload an Existing Key Pair](#example-upload-key-pair)
+  - [Example: Creating a Username and Password Secret](#example-username-password-secret)
+  - [Example: Storing a Single Value as Secret](#example-single-value-secret)
 - [Update a Secret](#update-secret)
 - [Get Metadata of Secret](#meta-data)
 - [Get Public SSH Key of Secret](#get-key)

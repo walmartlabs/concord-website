@@ -215,7 +215,7 @@ configuration:
 ```
 
 Variable value can be [defined or modified with the set step](#set) and a
-[number of variables](../processes.html#variables) are automatically set in each
+[number of variables](./processes.html#variables) are automatically set in each
 process and available for usage.
 
 ### Debug
@@ -644,7 +644,7 @@ flows:
   - log: "${myComplexData.nestedValue}, Concord"
 ```
   
-A [number of variables](../processes.html#variables) are automatically set in
+A [number of variables](./processes.html#variables) are automatically set in
 each process and available for usage.
 
 <a name="profiles"/>
