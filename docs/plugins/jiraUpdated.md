@@ -33,51 +33,58 @@ configuration:
 This adds the task to the classpath and allows you to invoke the
 [Jira Task](#git-task)
 
-```yaml
-configuration:
-  arguments:
-    jiraConfig:
-      jiraUrl: "https://jira.example.com"
-      jiraUid: "myJiraUser"
-      jiraPwd: "${crypto.decryptString('encryptedPassword')}"
-      jiraProjectKey: MYPROJECT 
-      jiraSummary: "My Summary"
-      jiraDescription: "We should really fix this"
-      jiraIssueTypeId: 10
-      jiraRequestorUid: "${initiator.username}"
-```
+## Jira Task
+The jira task allows users to trigger jira operations as a step of a flow. 
 
-Following is a complete list of available configuration attributes:
+The `jira` task uses a number of input parameters that are common for all operations:
 
-- `jiraUrl` -  URL of the JIRA server
-- `jiraUid` -  identifier of the user account to use for the interaction
-- `jiraPwd` -  password for the user account to use, typically this should be
+Following is a complete list of available attributes:
+
+- `apiUrl` -  URL of the JIRA server
+- `userId` -  identifier of the user account to use for the interaction
+- `password` -  password for the user account to use, typically this should be
 provided via usage of the [Crypto task](./crypto.html)
-- `jiraProjectKey` - identifying key for the project
-- `jiraSummary` - summary text
-- `jiraDescription` - description text
-- `jiraIssueTypeId` -  numerical identifier for the issue type
-- `jiraComponents` - list of components 
-- `jiraLabels` - list of labels
-- `jiraRequestorUid` - identifier of the user account to be used as the requestor
-- `jiraCustomFields` - list of custom fields
-- `jiraIssueKey` - the identifier of the ticket e.g. used for
+- `projectKey` - identifying key for the project
+- `summary` - summary text
+- `description` - description text
+- `issueType` -  name the issue type
+- `components` - list of components 
+- `labels` - list of labels
+- `requestorUid` - identifier of the user account to be used as the requestor
+- `customFieldsTypeKv` - list of custom fields of type key->value (e.g "customfield_40000": "this is a text field")
+- `customFieldsTypeFieldAttr` - list of custom fields of type fieldAttribute 
+          (e.g customfield_10216:
+                    value: "4 - Cosmetic")
+- `issueKey` - the identifier of the ticket e.g. used for
 [adding a comment](#add-comment) or [transitioning](#transition) an issue.
-- `jiraTransitionFields` - list of fields to add
-- `jiraTransitionId` - identifier to use for the transition
-- `jiraTransitionComment` - comment to add to the transition
+- `transitionId` - identifier to use for the transition
+- `transitionComment` - comment to add to the transition
 
-
-With the configuration in place, you can call the various functions of the
-JIRA tasks using the
-[execution context](../getting-started/processes.html#provided-variables), 
-and the configuration object e.g. `jiraConfig` with the potential addition of any
-further required parameters.
+Following is an example showing the common parameters:
 
 ```yaml
 flows:
   default:
-  - ${jira.addComment(context, jiraConfig, "my new comment"")}
+  - task: jira
+    in:
+      action: createIssue
+      apiUrl: "https://jira.example.com/rest/api/2/"
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      projectKey: MYPROJECT
+      summary: mySummary
+      description: myDescription
+      requestorUid: "${initiator.username}"
+      issueType: "Bug"
+      priority: P4
+      labels: ["myLabel1","myLabel2"]
+      components: [{"name": "myComponent1"},{"name": "myComponent1"}]
+      customFieldsTypeKv: {"customfield_10212": "mycustomfield_10212","customfield_10213": "mycustomfield_10213"}
+      customFieldsTypeFieldAttr:
+        customfield_10216:
+                    value: "mycustomfield_10216"
+        customfield_10212: 
+                    value: "mycustomfield_10212"
 ```
 
 The following sections describe the available functions in more detail:
