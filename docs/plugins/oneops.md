@@ -69,7 +69,10 @@ The following sections describe the available functions in more detail:
 - [Instances](#instances)
 - [Clouds](#clouds)
 - [Scaling](#scaling)
-  - [Cloud scaling](#cloud-scaling)
+  - [Platform](#platform-scaling) 
+  - [Cloud](#cloud-scaling)
+    - [Active vs Inactive](#active-vs-inactive)
+    - [Primary vs Secondary](#primary-vs-secondary)
 - [Variables](#variables)
 - [Tags](#tags)
 - [Touch Component](#touch)
@@ -164,6 +167,10 @@ can subsequently used for [scaling](#scaling) and other operations.
 
 ## Scaling
 
+<a name="platform-scaling"/>
+
+### Platform
+
 The OneOps task can be used to update the scaling parameters for a specific
 platform as defined in transition.
 
@@ -172,9 +179,11 @@ platform as defined in transition.
 - ${oneops.updatePlatformScale(oneOpsConfig, asm, env, platform, component, min, current, max, stepUp, stepDown, percentDeploy)}
 ```
 
-### Cloud scaling
+<a name="cloud-scaling"/>
 
-Cloud-specific scaling parameters can be configured separately:
+### Cloud
+
+The OneOps task can be used to update the cloud specific parameters for specific platform as defined in transaction.
 
 ```yaml
 - ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, attributesMap)}
@@ -184,24 +193,23 @@ The attributes map can contain `adminstatus` with values `active` or `inactive`
 and `priority` with values `1` or `2`.
 
 
-#### Deactivate cloud
-To deactivate the cloud, you must set the `adminstatus` to `inactive`. This is equivalent to ignore the cloud
-from oneops ui. 
+#### Active vs Inactive
+
+Cloud status can be set to active or inactive by using the `adminstatus`. To make your cloud inactive, you must set the `adminstatus`
+to `inactive`. This is equivalent to ignoring a cloud from OneOps ui. To make your cloud active again, set `adminstatus` back to `active` .
 
 ```yaml
 - ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, {adminStatus: 'inactive'})}
 ```
-To make the cloud active again, set `adminstatus` back to `active`.
 
-#### Make cloud secondary
+#### Primary vs Secondary
 
-To make a cloud secondary, you must set the `priority` to `2`. 
+Cloud status can be marked as primary or secondary by using `priority`. `priority` with value `1` mark the cloud as primary and `2`
+for secondary.
 
 ```yaml
 - ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, {priority: 2})}
 ```
-
-To make cloud primary, set `priority` to `1`.
 
 <a name="variables"/>
 
