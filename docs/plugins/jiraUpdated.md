@@ -9,6 +9,16 @@ side-navigation: wmt/docs-navigation.html
 The `jira` task supports creating and updating issues in
 [Atlassian JIRA](https://www.atlassian.com/software/jira).
 
+- [Usage](#usage)
+- [Jira Task](#jira-task)
+  - [Create an Issue](#createIssue)
+  - [Add a comment](#addComment)
+  - [Transition an Issue](#transition)
+  - [Delete an Issue](#deleteIssue)
+  - [Create a Component](#createComponent)
+  - [Delete a Component](#deleteComponent)
+
+<a name="usage"/>
 ## Usage
 
 To be able to use the `jira` task in a Concord flow, it must be added as a
@@ -20,8 +30,8 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins:jira-task:{{ site.concord_plugins_version }}
 ```
 
-This adds the task to the classpath and allows you to configure the main
-parameters in a separate collection e.g. named `jiraConfig`:
+This adds the task to the classpath and allows you to invoke the
+[Jira Task](#git-task)
 
 ```yaml
 configuration:
