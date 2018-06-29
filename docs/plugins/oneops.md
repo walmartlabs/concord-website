@@ -190,7 +190,7 @@ The OneOps task can be used to update the cloud specific parameters for specific
 ```
 
 The attributes map can contain `adminstatus` with values `active` or `inactive`
-and `priority` with values `1` or `2`.
+and `priority` with values `1` or `2` as described below in detail.
 
 
 #### Active vs Inactive
@@ -204,7 +204,7 @@ to `inactive`. This is equivalent to ignoring a cloud from OneOps ui. To make yo
 
 #### Primary vs Secondary
 
-Cloud status can be marked as primary or secondary by using `priority`. `priority` with value `1` mark the cloud as primary and `2`
+`priority` can be used to mark Cloud as primary or secondary. `priority` with value `1` mark the cloud as primary and `2`
 for secondary.
 
 ```yaml
