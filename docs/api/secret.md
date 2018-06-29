@@ -127,7 +127,7 @@ Concord flows.
 
 ### Example: Creating a Username and Password Secret
 
-You can a username and password secret with as follows:
+You can create a username and password secret as follows:
 
 ```
 curl -u myusername \
