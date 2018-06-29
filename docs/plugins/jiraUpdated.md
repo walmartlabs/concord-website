@@ -61,6 +61,18 @@ provided via usage of the [Crypto task](./crypto.html)
 - `transitionComment` - comment to add to the transition
 - `componentId` - identifier to use for the deletion of component
 
+The `apiUrl` configures the jira API endpoint. It is best configured globally
+as 
+[default process configuration](../getting-started/configuration.html#default-process-variable):
+with a `jiraParams` argument:
+
+```yaml
+configuration:
+  arguments:
+    jiraParams:
+      apiUrl: "https://jira.example.com/rest/api/2/"
+```
+
 Following is an example showing the common parameters.
 <a name="createIssue"/>
 ### Create an Issue
