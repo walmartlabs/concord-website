@@ -59,6 +59,7 @@ provided via usage of the [Crypto task](./crypto.html)
 [adding a comment](#add-comment) or [transitioning](#transition) an issue.
 - `transitionId` - identifier to use for the transition
 - `transitionComment` - comment to add to the transition
+- `componentId` - identifier to use for the deletion of component
 
 Following is an example showing the common parameters.
 <a name="createIssue"/>
