@@ -69,6 +69,7 @@ The following sections describe the available functions in more detail:
 - [Instances](#instances)
 - [Clouds](#clouds)
 - [Scaling](#scaling)
+  - [Cloud scaling](#cloud-scaling)
 - [Variables](#variables)
 - [Tags](#tags)
 - [Touch Component](#touch)
@@ -171,6 +172,8 @@ platform as defined in transition.
 - ${oneops.updatePlatformScale(oneOpsConfig, asm, env, platform, component, min, current, max, stepUp, stepDown, percentDeploy)}
 ```
 
+### Cloud scaling
+
 Cloud-specific scaling parameters can be configured separately:
 
 ```yaml
@@ -178,15 +181,27 @@ Cloud-specific scaling parameters can be configured separately:
 ```
 
 The attributes map can contain `adminstatus` with values `active` or `inactive`
-and `priority` with values `1` for primary and `2` for secondary cloud status.
+and `priority` with values `1` or `2`.
 
-The following call sets the cloud to active and secondary. As a result the cloud
-is up and running (active), while at the smae time not receiving any external
-requests (secondar).
+
+#### Deactivate cloud
+To deactivate the cloud, you must set the `adminstatus` to `inactive`. This is equivalent to ignore the cloud
+from oneops ui. 
 
 ```yaml
-- ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, {adminStatus: 'active', priority: 2})}
+- ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, {adminStatus: 'inactive'})}
 ```
+To make the cloud active again, set `adminstatus` back to `active`.
+
+#### Make cloud secondary
+
+To make a cloud secondary, you must set the `priority` to `2`. 
+
+```yaml
+- ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, {priority: 2})}
+```
+
+To make cloud primary, set `priority` to `1`.
 
 <a name="variables"/>
 
