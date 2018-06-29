@@ -183,7 +183,8 @@ platform as defined in transition.
 
 ### Cloud
 
-The OneOps task can be used to update the cloud specific parameters for specific platform as defined in transaction.
+The OneOps task can be used to update the cloud specific parameters for specific
+platform as defined in transaction.
 
 ```yaml
 - ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, attributesMap)}
@@ -195,8 +196,10 @@ and `priority` with values `1` or `2` as described below in detail.
 
 #### Active vs Inactive
 
-Cloud status can be set to active or inactive by using the `adminstatus`. To make your cloud inactive, you must set the `adminstatus`
-to `inactive`. This is equivalent to ignoring a cloud from OneOps ui. To make your cloud active again, set `adminstatus` back to `active` .
+Cloud status can be set to active or inactive by using the `adminstatus`. To
+make your cloud inactive, you must set the `adminstatus` to `inactive`. This is
+equivalent to ignoring a cloud from OneOps ui. To make your cloud active again,
+set `adminstatus` back to `active` .
 
 ```yaml
 - ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, {adminStatus: 'inactive'})}
@@ -204,8 +207,8 @@ to `inactive`. This is equivalent to ignoring a cloud from OneOps ui. To make yo
 
 #### Primary vs Secondary
 
-`priority` can be used to mark Cloud as primary or secondary. `priority` with value `1` mark the cloud as primary and `2`
-for secondary.
+`priority` can be used to mark Cloud as primary or secondary. `priority` with
+value `1` mark the cloud as primary and `2` for secondary.
 
 ```yaml
 - ${oneops.updatePlatformCloudScale(oneOpsConfig, platform, cloudId, {priority: 2})}
