@@ -47,6 +47,8 @@ Creates a new secret to be stored in Concord.
     value;
     - `visibility` - optional, `PUBLIC` (default) or `PRIVATE`. See
     the description of [public and private resources](../getting-started/orgs.html);
+    - `project` - optional, a project name. If set, the secret can
+    only be used in the processes of the specified project;
     
     The rest of the parameters depend of the `type` of the created
     secret:
@@ -208,6 +210,8 @@ Retrieves metadata of an existing secret.
       "name": "secretName",
       "orgId": "...",
       "orgName": "...",
+      "projectId": "...",
+      "projectName": "...",
       "type": "...",
       "storeType": "...",
       "visibility": "..."
