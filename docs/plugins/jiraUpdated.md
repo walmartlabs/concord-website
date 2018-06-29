@@ -40,7 +40,7 @@ The `jira` task uses a number of input parameters that are common for all operat
 
 Following is a complete list of available attributes:
 
-- `apiUrl` -  URL of the JIRA server
+- `apiUrl` -  apiUrl of the JIRA server
 - `userId` -  identifier of the user account to use for the interaction
 - `password` -  password for the user account to use, typically this should be
 provided via usage of the [Crypto task](./crypto.html)
@@ -60,7 +60,11 @@ provided via usage of the [Crypto task](./crypto.html)
 - `transitionId` - identifier to use for the transition
 - `transitionComment` - comment to add to the transition
 
-Following is an example showing the common parameters:
+Following is an example showing the common parameters.
+<a name="createIssue"/>
+### Create an Issue
+
+The JIRA task can be used to create a new issue:
 
 ```yaml
 flows:
@@ -86,73 +90,102 @@ flows:
         customfield_10212: 
                     value: "mycustomfield_10212"
 ```
-
-The following sections describe the available functions in more detail:
-
-- [Create an Issue](#create)
-- [Add a comment](#add-comment)
-- [Transition an Issue](#transition)
-- [Delete an Issue](#delete)
-- [Create a Component](#create-component)
-- [Source Reference](#source)
-
-
-<a name="create"/>
-
-## Create an Issue
-
-The JIRA task can be used to create a new issue: 
-
-```yaml
-- ${jira.create(context, jiraConfig)}
-```
-
-<a name="add-comment"/>
-
-## Add a Comment
+<a name="addComment"/>
+### Add a comment
 
 The JIRA task can be used to add a comment to an existing issue:
 
 ```yaml
-- ${jira.addComment(context, jiraConfig, comment)}
+flows:
+  default:
+  - task: jira
+    in:
+      action: addComment
+       apiUrl: "https://jira.example.com/rest/api/2/"
+       userId: myUserId
+       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+       issueKey: "MYISSUEKEY"
+       comment: "This is my comment from concord"
 ```
 
 <a name="transition"/>
-
 ## Transition an Issue
 
 The JIRA task can be used to transition an existing issue to another status such
 as work in progress, ready for review or done:
 
 ```yaml
-- ${jira.transition(context, jiraConfig)}
+flows:
+  default:
+  - task: jira
+    in:
+      action: transition
+      apiUrl: "https://jira.example.com/rest/api/2/"
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      issueKey: "MYISSUEKEY"
+      transitionId: 561
+      transitionComment: "marking as Done"
+      customFieldsTypeKv: {"customfield_10212": "Development","customfield_10213": "PROD"}
+      customFieldsTypeFieldAttr:
+         customfield_10229:
+                   value: "Task Completed"
+         customfield_20106: 
+                  value: "This is not going into production (ever)"
+      
 ```
 
-
-<a name="delete"/>
-
+<a name="deleteIssue"/>
 ## Delete an Issue
 
 The JIRA task can be used to delete an existing issue.
 
 ```yaml
-- ${jira.delete(context, jiraConfig)}
+flows:
+  default:
+  - task: jira
+     in:
+      action: deleteIssue
+      apiUrl: "https://jira.example.com/rest/api/2/"
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      issueKey: "MYISSUEKEY"
 ```
 
-<a name="create-component"/>
-
+<a name="ccreateComponent"/>
 ## Create a new Component
 
 The JIRA task can be used to create a new Component for a given JIRA project.
 
 ```yaml
-- ${jira.createComponent(context, jiraConfig, componentName)}
+flows:
+  default:
+  - task: jira
+    in:
+      action: createComponent
+      apiUrl: "https://jira.example.com/rest/api/2/"
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      projectKey: "MYPROJECTKEY"
+      componentName: "MYCOMPONENT"
+      
 ```
 
-<a name="source"/>
 
-## Source Reference
+<a name="deleteComponent"/>
+## Delete a Component
 
-The
-[source code of the task implementation]({{site.concord_plugins_source}}tree/master/tasks/jira)
-can be used as the reference for the available functionality.
+The JIRA task can be used to delete a Component using componentId
+
+```yaml
+flows:
+  default:
+  - task: jira
+    in:
+      action: deleteComponent
+      apiUrl: "https://jira.example.com/rest/api/2/"
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      componentId: 33818
+      
+```
