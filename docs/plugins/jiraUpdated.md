@@ -152,7 +152,7 @@ flows:
       issueKey: "MYISSUEKEY"
 ```
 
-<a name="ccreateComponent"/>
+<a name="createComponent"/>
 ## Create a new Component
 
 The JIRA task can be used to create a new Component for a given JIRA project.
