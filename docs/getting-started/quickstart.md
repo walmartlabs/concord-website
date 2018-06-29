@@ -49,7 +49,7 @@ The `default` flow in the example simply outputs a message to the process log.
 ## Add a Deploy Key
 
 In order to grant Concord access to the Git repository via SSH, you need to
-create a new key one the Concord server.
+create a new key on the Concord server.
 
 - Log into the Concord Console user interface
 - Select _Create new_ under _Secrets_ in the navigation panel
