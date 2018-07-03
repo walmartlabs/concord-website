@@ -4,19 +4,53 @@ envs:
       oneops.organization: devtools
       oneops.assembly: website
       oneops.environment: prod-concord
-      
+
 tools:
   jdk: 8
-  maven: 3.5.0
+  maven: 3.5.4
+  sonarscanner: 3.0.3.778
 
 flows:
   default:
+  - try:
     - call: checkVersions
-    - ./publish.sh
-    - oneops.environmentVariableUpdate(platform = 'webserver', component = 'artifact', variables = { SITE_VERSION = '0.0.1-SNAPSHOT' })
+    - (name Clean) rm -rf _site || true
+    - call: rubyConfiguration
+    - call: buildSiteArchive
+    - call: deployArchive
+    - exposeVars(maven)
+    - oneops.environmentVariableUpdate(platform = 'webserver', component = 'artifact', variables = { SITE_VERSION = '${MAVEN_VERSION}' })
     - oneops.environmentCommitAndDeploy(platform = 'webserver')
+    - call: sonar
+    finally:
+    - (name Publish to Hygieia) hygieia.publishBuild()
 
   checkVersions:
-    - (name JDK/Maven version) mvn -v
-    - (name Ruby/Gem version) ruby -v; gem -v
-    - (name Gem dependencies) gem dependency
+  - (name JDK/Maven version) mvn -v
+  - (name Ruby/Gem version) ruby -v; gem -v
+  - (name Gem dependencies) gem dependency
+
+  rubyConfiguration:
+  - (name Remove RubyGems HTTP) gem sources --remove "http://rubygems.org"
+  - (name Remove RubyGems HTTPS) gem sources --remove "https://rubygems.org"
+  - (name Add repository source) gem sources --add "https://repository.walmart.com/content/repositories/rubygems/"
+  - (name Clear cache) gem sources -c
+  - (name Bundle clean install) bundle clean --force || true; bundle install
+
+  buildSiteArchive:
+  - (name Build site)bundle exec jekyll build
+  - dir(_site):
+    - (name Zip site) zip -or site.zip *
+
+  deployArchive:
+  - var(pom = "-DpomFile=pom.xml")
+  - var(file = "-Dfile=_site/site.zip")
+  - var(url = "-Durl=https://repository.walmart.com/content/repositories/labs_snapshots")
+  - var(id = "-DrepositoryId=pangaea_releases")
+  - (name Deploy archive) mvn -B deploy:deploy-file ${pom} ${file} ${url} ${id}
+
+  sonar:
+  - sonar("Sonar"):
+    - (name Run sonar) sonar-scanner -Dproject.settings=sonar-project.properties
+    - (name Publish sonar) hygieia.publishSonar()
+
