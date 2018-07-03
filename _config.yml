@@ -15,6 +15,14 @@ crossSite: true
 collapseNavDocs: true
 display-search-in-header: true
 custom-footer: false
+crossSite: true
+collapseNavDocs: false
+display-search-in-header: true
+custom-footer: false
+contribute: true
+edit-on-github: true
+matomo-analytics: true
+matomo-site-id: 11
 
 concord_source: "https://gecgithub01.walmart.com/devtools/concord/"
 concord_plugins_source: "https://gecgithub01.walmart.com/devtools/concord-plugins/"

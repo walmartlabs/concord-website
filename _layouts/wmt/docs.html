@@ -7,7 +7,11 @@ layout: wmt/default
 
   <!----- Looper Docs Content ----->
   <div class="col-md-9 docs-content">
-  {% include wmt/edit-on-github.html %}
+    {% if site.edit-on-github == false %}
+      
+    {% else %}
+      {% include wmt/edit-on-github.html %}
+    {% endif %}
   {% include wmt/breadcrumbs.html %}
   {{content}}
   {% include wmt/auto-header-links.html %}

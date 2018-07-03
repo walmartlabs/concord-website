@@ -430,7 +430,7 @@ ul.top-nav li a {
 
 /* ------------------------------ SEARCH STYLES ------------------------------ */
 
-#search .dropdown-menu {
+#site-search .dropdown-menu {
   border: 0px;
   padding: 0px;
   margin: 0px; }
@@ -488,43 +488,46 @@ ul.top-nav li a {
 /* ------------------------------ HOMEPAGE STYLES ------------------------------ */
 
 .homeBanner {
-    background: #2f2951;
-    margin-top: -20px;
-    margin-bottom: 50px;
-    padding: 0px; }
+  background: #2f2951;
+  margin-top: -20px;
+  margin-bottom: 50px;
+  padding: 0px; }
 
 /* ------------------------------ ICON STYLES ------------------------------ */
 
 .icons {
-    text-align: center;
-    background: #fcfcfc;
-    box-shadow: 0 0 5px #ddd;
-    overflow: hidden;
-    margin-bottom: 30px;
-    padding: 20px 30px 10px; }
+  text-align: center;
+  background: #fcfcfc;
+  box-shadow: 0 0 5px #ddd;
+  overflow: hidden;
+  margin-bottom: 30px;
+  padding: 20px 30px 10px; }
+
+.icons:hover {
+  box-shadow: 0 0 10px #ccc; }
 
 .icons img.center {
-    margin: auto;
-    padding: 20px;
-    text-align: center;
-    width: 40%; }
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  width: 40%; }
 
 .icons .headline {
-    display: block;
-    margin: 10px 0 25px;
-    border-bottom: 0px; }
+  display: block;
+  margin: 10px 0 25px;
+  border-bottom: 0px; }
 
 .icons .headline h2 {
-    border-bottom: 0px; }
+  border-bottom: 0px; }
 
 .icons .headline h2 a {
-    color: #454545;
-    font-size: 24px;
-    line-height: 32px;
-    margin: 0 0 -1px;
-    padding-bottom: 0px;
-    display: inline-block;
-    border-bottom: 0px solid #fff; }
+  color: #454545;
+  font-size: 24px;
+  line-height: 32px;
+  margin: 0 0 -1px;
+  padding-bottom: 0px;
+  display: inline-block;
+  border-bottom: 0px solid #fff; }
 
 /* ------------------------------ FONT HEADLINE STYLES ------------------------------ */
 
