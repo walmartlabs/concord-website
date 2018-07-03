@@ -2,13 +2,13 @@
 
 > And what is next ...
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Concord
 
 <em class="yellow">Your workflow orchestration tool of choice.</em>
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Advantages
 
@@ -17,7 +17,7 @@
 - Simple to use
 - Easy to extend
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Next
 
@@ -27,7 +27,7 @@
 
 <em class="yellow">Become an advanced user.</em>
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Thank You
 

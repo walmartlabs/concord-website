@@ -2,7 +2,7 @@
 
 > Level 1 - Beginner
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Training Overview
 
@@ -12,14 +12,14 @@
 - Develop Concord flows
 - Concord use cases with Ansible, CI/CD and more
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Exclusions
 
 - Installing and running Concord <!-- .element: class="fragment" -->
 - Developing Concord itself <!-- .element: class="fragment" -->
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Goals and Objectives
 
@@ -37,7 +37,7 @@ Note:
 - Mention that there's a lot of ground to cover.
 - Class helps even if you already know/use Concord
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Instructors
 
@@ -50,7 +50,7 @@ Note:
 - maybe show yourself via video for a bit
 - keep it short!
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Course Mechanics
 
@@ -62,7 +62,7 @@ Note:
 Note:
 - Remind people to mute their audio line
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Prerequisites
 
@@ -70,7 +70,7 @@ None, <!-- .element: class="fragment" -->
 
 but pay attention! <!-- .element: class="fragment" -->
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Planned Class Structure
 
@@ -78,7 +78,7 @@ but pay attention! <!-- .element: class="fragment" -->
 - Talk _theory_ only as needed
 - Emphasize demos over talk
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Please Interrupt Me
 
@@ -86,7 +86,7 @@ but pay attention! <!-- .element: class="fragment" -->
 - Ask on chat
 - There is time for questions
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Questions?
 

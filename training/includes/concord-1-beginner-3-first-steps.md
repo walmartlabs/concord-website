@@ -2,7 +2,7 @@
 
 > Project Creation and Process Execution
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## First Concord Project
 
@@ -20,7 +20,7 @@ flows:
 Note:
 - Demo it
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## concord.yml
 
@@ -29,7 +29,7 @@ Note:
 - Located with your source code
 - Uses YAML syntax
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## YAML
 
@@ -41,7 +41,7 @@ Note:
 - Beware the colon `:` significance
 - Some validation in Concord
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Create and Add Deploy Key
 
@@ -60,7 +60,7 @@ Note:
 - `curl -u username 'http://concord.prod.walmart.com/api/v1/secret/nameOfKey/public'
 - GitHub repo / Settings / Deploy Keys
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Creating a Project
 
@@ -72,7 +72,7 @@ Note:
 Note:
 Demo it
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Execute Process
 
@@ -95,7 +95,7 @@ And inspect the log in the Concord Console
 Note:
 Demo it
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## What Happened
 
@@ -106,7 +106,7 @@ Demo it
 Note:
 talk a bit about what these steps include such as separate JVM, classpath, ...
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Questions?
 

@@ -16,7 +16,7 @@ Syntax used in `concord.yml` with top level nodes for:
 Note:
 Explain each a bit .. more is coming below
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Configuration
 
@@ -31,7 +31,7 @@ Project global settings in `configuration`:
 Note:
 - explain in next slides
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Entry Point
 
@@ -40,7 +40,7 @@ What flow to start with.
 - Optional configuration
 - `default` is the default
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Dependencies
 
@@ -57,7 +57,7 @@ configuration:
 Note:
 - Can also use normal hardcoded URL, but please don't!
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Arguments
 
@@ -73,7 +73,7 @@ configuration:
       z: 0
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Arguments Continued
 
@@ -86,7 +86,7 @@ flows:
   - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Template
 
@@ -100,7 +100,7 @@ What other Concord DSL configuration to reuse.
   - Forms 
   - Profiles
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Debug
 
@@ -111,7 +111,7 @@ configuration:
   debug: true
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Flows
 
@@ -132,7 +132,7 @@ Multiple named flows!
 Note:
 - `default` used unless otherwise specified in invocation
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Steps
 
@@ -150,7 +150,7 @@ Note:
 - syntax is `step: parameter`
 - ${expression}
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Expression Language Details
 
@@ -159,7 +159,7 @@ Note:
 - Use as flow steps
 - Define Argument values
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## EL Examples
 
@@ -173,7 +173,7 @@ flows:
   - log: "Process running on ${System.getProperty("os.name")}"
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## EL Long Form
 
@@ -188,7 +188,7 @@ flows:
       - log: "An error occurred"
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Calling Flows
 
@@ -205,7 +205,7 @@ flows:
   - log" "Starting test"
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Loops
 
@@ -225,7 +225,7 @@ Use call with items:
   - log: "Using fqdn ${item.fqdn}"
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Variable Changes
 
@@ -240,7 +240,7 @@ Use call with items:
 - log: "foo is ${foo}"
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## If Then
 
@@ -254,7 +254,7 @@ flows:
       - log: zero or less
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Switch Case
 
@@ -270,7 +270,7 @@ flows:
         - log: "I don't know what it is"
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## More Flow Features
 
@@ -284,7 +284,7 @@ flows:
   - try blocks `try:`
 - `onCancel` and `onFailure` flows
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Forms
 
@@ -292,7 +292,7 @@ flows:
 - User input and guidance
 - Served by Concord
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Forms Definition
 
@@ -303,7 +303,7 @@ forms:
   - lastName: { label: "Last name:", type: "string" }
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Form Usage
 
@@ -318,7 +318,7 @@ flows:
 
 Suspends process until data is submitted.
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## More Form Power
 
@@ -330,7 +330,7 @@ Suspends process until data is submitted.
 - Add JS, HTML, CSS and other resources
 - Use as entry point for process start
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Scripting
 
@@ -343,7 +343,7 @@ Language needs to implement Java Scripting API, e.g.:
 
 Runs on JVM!
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Scripting Features
 
@@ -355,7 +355,7 @@ Runs on JVM!
 Note:
 more about tasks in a sec
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Scripting Example
 
@@ -373,7 +373,7 @@ Note:
 - show other examples from concord codebase examples folder
 - multi line
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Triggers
 
@@ -384,7 +384,7 @@ Kick off flow based on events.
 - Scheduled
 - Generic
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Trigger Example
 
@@ -404,7 +404,7 @@ triggers:
     entryPoint: onDeployment
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Profile Example
 
@@ -424,7 +424,7 @@ profiles:
         foo: "bazz"
 ```
 
-<!--- vertical -->"
+<!--- vertical -->
 
 ## Questions?
 
