@@ -71,9 +71,11 @@ Alternatively the key can be
 Now you can create a new project in the Concord Console.
 
 - Log into the Concord Console user interface
-- Select _Create new_ under _Projects_ in the navigation panel
+- Select _New project_ under _Organizations > Default > Projects_ in the navigation panel
 - Provide a _Name_ for the project e.g. 'myproject'
-- Press _Add repository_
+- Click _Create_ button
+
+- Under 'Repositories' tab, select _Add repository_
 - Provide a _Name_ for the repository e.g. 'myrepository'
 - Use the SSH URL for the repository in the _URL_ field
 - Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
