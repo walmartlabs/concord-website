@@ -2,6 +2,7 @@
 
 > Diving Right In
 
+<!--- vertical -->
 
 ## Concord DSL
 
