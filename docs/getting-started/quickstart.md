@@ -53,8 +53,8 @@ create a new key on the Concord server.
 
 - Log into the Concord Console user interface
 - Select _Create new_ under _Secrets_ in the navigation panel
-- Provide a string e.g. `mykey` as _Concord ID_ under the _Create New Key Pair_ title
-- Press _Submit_
+- Provide a string e.g. `mykey` as _Concord ID_ under the _Generate a new key pair_ title
+- Press _Create_
 
 The user interface shows the public key of the generated key similar to 
 `ssh-rsa ABCXYZ... concord-server`. This valuehas to be added as an authorized deploy
