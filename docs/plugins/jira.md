@@ -6,11 +6,14 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `jira` task supports creating and updating issues in
+The `jira` task supports operations on the popluar issue tracking system
 [Atlassian Jira](https://www.atlassian.com/software/jira).
 
 - [Usage](#usage)
 - [Overview](#overview)
+
+Possible operations are: 
+
 - [Create an Issue](#createIssue)
 - [Add a comment](#addComment)
 - [Transition an Issue](#transitionIssue)
