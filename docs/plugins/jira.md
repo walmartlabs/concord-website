@@ -38,7 +38,7 @@ This adds the task to the classpath and allows you to invoke the
 > when upgrading from these versions.
 
 
-< a name="overview"/>
+<a name="overview"/>
 ## Overview
 
 The `jira` task allows users to trigger operations on a Jira server as a step of
@@ -79,7 +79,7 @@ flows:
 ```
 
 <a name="createIssue"/>
-### Create an Issue
+## Create an Issue
 
 The JIRA task can be used to create a new issue with the `createIssue` action.
 
@@ -120,7 +120,7 @@ Additional parameters to use are:
 - `customFieldsTypeFieldAttr` - list of custom fields of type fieldAttribute
 
 <a name="addComment"/>
-### Add a comment
+## Add a comment
 
 The JIRA task can be used to add a comment to an existing issue with the
 `addComment` action.
