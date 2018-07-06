@@ -75,7 +75,7 @@ nav:
         context: /docs/plugins/git
       - page: HTTP
         context: /docs/plugins/http
-      - page: JIRA
+      - page: Jira
         context: /docs/plugins/jira
       - page: Key Value
         context: /docs/plugins/key-value

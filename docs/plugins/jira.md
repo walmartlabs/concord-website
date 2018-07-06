@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  JIRA Task
+title:  Jira Task
 side-navigation: wmt/docs-navigation.html
 ---
 
