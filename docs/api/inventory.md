@@ -12,6 +12,7 @@ The REST API provides support for working with inventories:
 
 - [Create an Inventory](#create-inventory)
 - [Update an Inventory](#update-inventory)
+- [List Inventories](#list-inventories)
 
 To remove a project's value, specify an empty value. For example, you can use an
 empty `parent` inventory JSON object to remove a parent inventory from an 
@@ -107,4 +108,25 @@ Updates parameters of an existing inventory.
       "ok": true,
       "id": "..."
     }
+    ```
+    
+<a name="list-inventories"/>
+## List Inventories
+
+Lists all existing inventories for the specified organization.
+
+* **URI** `/api/v1/org/${orgName}/inventory`
+* **Method** `GET`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [
+      { "id": "...", "name": "..." },
+      ...
+    ]
     ```
