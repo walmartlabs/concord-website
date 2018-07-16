@@ -75,7 +75,7 @@ Creates a new project with specified parameters.
     }
     ```
 
-<a name="update-project"/>
+**<a name="update-project"/>
 ## Update a Project
 
 Updates parameters of an existing project.
@@ -124,7 +124,7 @@ Updates parameters of an existing project.
       "result": "UPDATED",
       "id": "---"
     }
-    ```
+    ```**
 
 <a name="delete-project"/>
 ## Delete a Project
