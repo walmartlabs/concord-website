@@ -19,7 +19,7 @@ The REST API provides support for a number of operations:
 
 Returns a list of triggers registered for the specified project's repository.
 
-* **URI** `/api/v1/org/${orgName}/project/${projectName}/repo/${repoName}/trigger`
+* **URI** `/api/v1/org/${orgName}/project/${projectName}/repository/${repoName}/trigger`
 * **Method** `GET`
 * **Headers** `Authorization`
 * **Body**
@@ -45,7 +45,7 @@ Returns a list of triggers registered for the specified project's repository.
 
 Reloads the trigger definitions for the specified project's repository.
 
-* **URI** `/api/v1/org/${orgName}/project/${projectName}/repo/${repoName}/trigger`
+* **URI** `/api/v1/org/${orgName}/project/${projectName}/repository/${repoName}/trigger`
 * **Method** `POST`
 * **Headers** `Authorization`
 * **Body**
