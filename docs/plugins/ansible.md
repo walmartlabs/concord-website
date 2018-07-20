@@ -7,7 +7,7 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 Concord supports running [Ansible](https://www.ansible.com/) playbooks with the
-`ansible` task as part of any flow. This allows you to provision and manage 
+`ansible` task as part of any flow. This allows you to provision and manage
 application deployments with Concord.
 
 - [Usage](#usage)
@@ -22,6 +22,7 @@ application deployments with Concord.
 - [Retry and Limit Files](#retry-limit)
 - [Ansible Lookup Plugins](#ansible-lookup-plugins)
 - [Group Vars](#group-vars)
+- [myVars](#myVars)
 - [Limitations](#limitations)
 
 ## Usage
@@ -45,10 +46,10 @@ flows:
       playbook: playbook/hello.yml
 ```
 
-## Ansible 
+## Ansible
 
 The plugin, with a configuration as above, executes an Ansible playbook with the
-Ansible installation running on Concord. 
+Ansible installation running on Concord.
 
 __The version of Ansible being used is {{ site.concord_ansible_version }}.__
 
@@ -71,7 +72,7 @@ Further and up to date details are available
 [in the source code of the plugin]({{ site.concord_source }}blob/master/plugins/tasks/ansible/src/main/java/com/walmartlabs/concord/plugins/ansible/RunPlaybookTask2.java).
 
 One of the most important lines is `gather_subset = !facter,!ohai`. This disables
-some of the variables that are usually available such as `ansible_default_ipv4`. 
+some of the variables that are usually available such as `ansible_default_ipv4`.
 The parameters can be overridden in your own Ansible task invocation as
 described in [Configuring Ansible](#configuring-ansible):
 
@@ -87,13 +88,13 @@ described in [Configuring Ansible](#configuring-ansible):
 
 ## Parameters
 
-All parameter sorted alphabetically. Usage documentation can be found in the 
+All parameter sorted alphabetically. Usage documentation can be found in the
 following sections:
 
 - `config`: JSON object, used to create an
 - `debug`: boolean, enables additional debug logging;
 [Ansible configuration](#configuring-ansible);
-- `dockerImage`: optional configuration to specifiy 
+- `dockerImage`: optional configuration to specifiy
 - `dynamicInventoryFile`: string, path to a dynamic inventory
   script. See also [Dynamic inventories](#dynamic-inventories) section;
 - `extraEnv`: JSON object, additional environment variables
@@ -148,7 +149,7 @@ pipelining = True
 
 ## Inline Inventories
 
-Using an inline 
+Using an inline
 [inventory](http://docs.ansible.com/ansible/latest/intro_inventory.html) you
 can specify the details for all target systems  to use.
 
@@ -273,7 +274,7 @@ flows:
 ```
 
 Any secret values are then made available for usage in the ansible playbook as
-usual. 
+usual.
 
 Our [ansible_vault example project]({{ site.concord_source}}/tree/master/examples/ansible_vault)
 shows a complete setup and usage.
@@ -457,6 +458,62 @@ available for `myGroup` host group.
 Check
 [the official Ansible documentation](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#group-variables)
 for more details `group_vars` files.
+
+## myVars
+
+In 0.75.0 the Ansible plugin got a new parameter: `outVars`.It's a list of
+variable names that will be exported from the Ansible's process into the flow's
+context.
+
+__For example__
+
+__Concord.yaml__
+```yaml
+
+configuration:
+  dependencies:
+  - "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.75.0"
+
+flows:
+  default:
+  - task: ansible
+    in:
+      playbook: playbook/hello.yml
+      inventory:
+        local:
+          hosts:
+            - "127.0.0.1"
+          vars:
+            ansible_connection: "local"
+      outVars:
+      - "myVar" # created using the `register` statement in the playbook
+  ```
+
+  # `myVar` contains the variable values for all hosts in the play
+  - log: ${myVar['127.0.0.1']['msg']}
+
+ __Playbook/hello.yml__
+
+  ```yml
+
+- hosts: local
+  tasks:
+  - debug:
+      msg: "Hi there!"
+      verbosity: 0
+    register: myVar
+  ```
+  `myVar` will be saved as a map (dict/hash/whatever) of host -> value elements.
+I.e. if there was a single 127.0.0.1 in the play, then myVar will look like this:
+
+  ```
+  {
+   "127.0.0.1": {
+      "msg": "Hi there!",
+      ...
+    }
+}
+```
 
 ## Limitations
 
