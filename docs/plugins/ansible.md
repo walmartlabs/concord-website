@@ -22,7 +22,7 @@ application deployments with Concord.
 - [Retry and Limit Files](#retry-limit)
 - [Ansible Lookup Plugins](#ansible-lookup-plugins)
 - [Group Vars](#group-vars)
-- [myVars](#myVars)
+- [outVars](#myVars)
 - [Limitations](#limitations)
 
 ## Usage
@@ -94,7 +94,7 @@ following sections:
 - `config`: JSON object, used to create an
 - `debug`: boolean, enables additional debug logging;
 [Ansible configuration](#configuring-ansible);
-- `dockerImage`: optional configuration to specifiy
+- `dockerImage`: optional configuration to specify
 - `dynamicInventoryFile`: string, path to a dynamic inventory
   script. See also [Dynamic inventories](#dynamic-inventories) section;
 - `extraEnv`: JSON object, additional environment variables
@@ -459,20 +459,17 @@ Check
 [the official Ansible documentation](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#group-variables)
 for more details `group_vars` files.
 
-## myVars
+## outVars
 
-In 0.75.0 the Ansible plugin got a new parameter: `outVars`.It's a list of
-variable names that will be exported from the Ansible's process into the flow's
-context.
+Ansible plugin got a new parameter: `outVars`.It is a list of variable names
+that is exported from the Ansible's process into the flow's context. The Ansible
+task supports output variables from the Ansible execution to be passed back to
+the Concord process using the `outVars` parameter.
 
-__For example__
+
 
 __Concord.yaml__
 ```yaml
-
-configuration:
-  dependencies:
-  - "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.75.0"
 
 flows:
   default:
@@ -489,8 +486,10 @@ flows:
       - "myVar" # created using the `register` statement in the playbook
   ```
 
-  # `myVar` contains the variable values for all hosts in the play
-  - log: ${myVar['127.0.0.1']['msg']}
+  `myVar` contains the variable values for all hosts in the play
+  ```
+  log: ${myVar['127.0.0.1']['msg']}
+  ```
 
  __Playbook/hello.yml__
 
@@ -503,7 +502,7 @@ flows:
       verbosity: 0
     register: myVar
   ```
-  `myVar` will be saved as a map (dict/hash/whatever) of host -> value elements.
+  `myVar` save as a map (dict/hash/whatever) of host -> value elements.
 I.e. if there was a single 127.0.0.1 in the play, then myVar will look like this:
 
   ```
