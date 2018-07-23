@@ -550,6 +550,22 @@ flows:
 
 An execution logs `A` and then `B`.
 
+`throw` keyword can be used to throw new or re-throw caught exceptions from flows.
+
+```yaml
+flows:
+  default:
+  - try:
+    # do something dangerous here
+    error:
+    - throw: ${lastError} # re-throw the caught exception
+  anotherEntry:
+  - try:
+    # do something dangerous here
+    error:
+    - throw: "oh, some thing went wrong." # throws new RuntimeException with a message
+```
+
 When a process cancelled (killed) by a user, a special flow
 `onCancel` is executed:
 
