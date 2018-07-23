@@ -28,7 +28,8 @@ process flows, configuration, forms and other aspects:
   - [Loops](#loops)
   - [Calling flows](#calling-other-flows)
   - [Error handling](#error-handling)
-  - [Setting variables](#setting-variables)
+  - [Throwing exceptions](#throw-step)
+  - [Setting variables](#set-step)
 - [Named Profiles in `profiles`](#profiles)
 
 Some features are more complex and you can find details in separate documents:
@@ -550,22 +551,6 @@ flows:
 
 An execution logs `A` and then `B`.
 
-`throw` keyword can be used to throw new or re-throw caught exceptions from flows.
-
-```yaml
-flows:
-  default:
-  - try:
-    # do something dangerous here
-    error:
-    - throw: ${lastError} # re-throw the caught exception
-  anotherEntry:
-  - try:
-    # do something dangerous here
-    error:
-    - throw: "oh, some thing went wrong." # throws new RuntimeException with a message
-```
-
 When a process cancelled (killed) by a user, a special flow
 `onCancel` is executed:
 
@@ -626,6 +611,34 @@ configuration:
     myVar: "abc"
 ```
 
+<a name="throw-step"/>
+
+### Throwing Exceptions
+
+The `throw` step can be used to throw a new RuntimeException with the supplied
+message anywhere in a flow including `error` sections, but also in
+[conditional expressions](#conditional-expressions) such as if-then or
+switch-case.
+
+```yaml
+flows:
+  default:
+  - try:
+    - shell: echo "Do something dangerous here"
+    error:
+    - throw: "oh, something went wrong."
+```
+
+Alternatively a caught exception can be thrown again using the `lastError` variable.
+
+```yaml
+flows:
+  default:
+  - try:
+    - shell: echo "Do something dangerous here"
+    error:
+    - throw: ${lastError}
+```
 
 <a name="set-step"/>
 
