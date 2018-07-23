@@ -4,22 +4,27 @@
 
 /* ------------------------------ HOMEPAGE STYLES ------------------------------ */
 
-.homeBanner {
-    background: #007dc6;
-    margin-top: -20px;
-    margin-bottom: 50px;
-    padding: 0px; }
+.body {
+  height: 100%;
+  margin: 0;
+}
 
-/* ------------------------------ LANDING PAGE STYLES ------------------------------ */
+.full-bg {
+  background: #2F2951;
+}
+
+.full-bg .header .navbar {
+  background: #FFFFFF;
+}
 
 .landingPage {
-    background: url(/assets/img/index-bg.png);
-    background-repeat: repeat-x;
-    margin-top: -20px;
-    height: 100%;
-    /*min-height: 700px;*/
-    padding: 50px 0px;
-    text-align: center; }
+  /*background-image: linear-gradient(133deg, #000000 0%, #092B55 48%, #2E2951 87%, #2F2951 100%);*/
+  margin-top: -20px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding: 50px 0px; }
+
 
 .landingPage h1 {
-    display: none; }
+  display: none; }
