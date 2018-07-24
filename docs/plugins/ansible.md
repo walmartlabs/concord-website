@@ -22,7 +22,7 @@ application deployments with Concord.
 - [Retry and Limit Files](#retry-limit)
 - [Ansible Lookup Plugins](#ansible-lookup-plugins)
 - [Group Vars](#group-vars)
-- [outVars](#myVars)
+- [Output Parameters](#out)
 - [Limitations](#limitations)
 
 ## Usage
@@ -459,60 +459,60 @@ Check
 [the official Ansible documentation](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#group-variables)
 for more details `group_vars` files.
 
-## outVars
+<a name="out"/>
+## Output Parameters
 
-Ansible plugin got a new parameter: `outVars`.It is a list of variable names
-that is exported from the Ansible's process into the flow's context. The Ansible
-task supports output variables from the Ansible execution to be passed back to
-the Concord process using the `outVars` parameter.
+The `ansible` task can export a list of variable names from the Ansible
+execution back to the Concord process context with the `outVars` parameters
 
+The Ansible playbook has to use the `register` statement to make the variable 
+available.
 
-
-__Concord.yaml__
-```yaml
-
-flows:
-  default:
-  - task: ansible
-    in:
-      playbook: playbook/hello.yml
-      inventory:
-        local:
-          hosts:
-            - "127.0.0.1"
-          vars:
-            ansible_connection: "local"
-      outVars:
-      - "myVar" # created using the `register` statement in the playbook
-  ```
-
-  `myVar` contains the variable values for all hosts in the play
-  ```
-  log: ${myVar['127.0.0.1']['msg']}
-  ```
-
- __Playbook/hello.yml__
-
-  ```yml
-
+```yml
 - hosts: local
   tasks:
   - debug:
       msg: "Hi there!"
       verbosity: 0
     register: myVar
-  ```
-  `myVar` save as a map (dict/hash/whatever) of host -> value elements.
-I.e. if there was a single 127.0.0.1 in the play, then myVar will look like this:
+```
 
-  ```
-  {
+In the example above, the `myVar` variable saves a map of host -> value elements.
+If there was a single host 127.0.0.1 in the ansible execution, then the `myVar` 
+looks like the following snippet:
+
+```
+{
    "127.0.0.1": {
       "msg": "Hi there!",
       ...
     }
 }
 ```
+
+The variable is captured in Concord with `outVars` and can be used after the
+ansible task.
+
+```yaml
+- task: ansible
+  in:
+    playbook: playbook/hello.yml
+    inventory:
+      local:
+        hosts:
+          - "127.0.0.1"
+        vars:
+          ansible_connection: "local"
+    outVars:
+    - "myVar"
+```
+
+The JSON object can be traversed to access specific values.
+
+```
+- log: ${myVar['127.0.0.1']['msg']}
+```
+
 
 ## Limitations
 
