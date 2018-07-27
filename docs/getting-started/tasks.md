@@ -12,6 +12,7 @@ _plugins_ of Concord.
 
 - [Using Tasks](#use-task)
 - [Creating Tasks](#create-task)
+- [Retry Tasks](#retry-task)
 
 <a name="use-task"/>
 ## Using Tasks
@@ -24,7 +25,7 @@ a repository is used.
 
 You can invoke a task via an expression or with the `task` step type.
 
-Following are a number of examples: 
+Following are a number of examples:
 
 ```yaml
 configuration:
@@ -41,11 +42,11 @@ flows:
     # calling a method with a single argument
     # the value will be a result of expression evaluation
     - myTask: ${myMessage}
-    
+
     # calling a method with two arguments
     # same as ${myTask.call("warn", "hello")}
     - myTask: ["warn", "hello"]
-    
+
     # calling a method with a single argument
     # the value will be converted into Map<String, Object>
     - myTask: { "urgency": "high", message: "hello" }
@@ -77,7 +78,7 @@ flows:
 ## Creating Tasks
 
 Tasks must implement `com.walmartlabs.concord.sdk.Task` Java interface and
-provides a `call(...)` method сan be called in a Concord flow. 
+provides a `call(...)` method сan be called in a Concord flow.
 
 It Task interface is provided by the `concord-sdk` module:
 
@@ -223,3 +224,37 @@ configuration:
   arguments:
     greeting: "Hello, %s!"
 ```
+<a name="retry-task"/>
+## Retry Tasks
+
+The `retry` attribute inside a task can be used to restart the task automatically in case of errors or failures. Users can define the number of times the task can be re-tried and a delay for each `retry`. If not specified, the default value for the delay is 5 seconds.
+
+For example the below section  will execute `myTask` using the provided `in` parameters. In case of errors, the task will be restarted up to 3 times with 3 seconds delay and additional parameters supplied in the `in` block.
+
+```YAML
+- task: myTask
+  in:
+    ...
+  retry:
+    in:                                         # optional
+      ...additional parameters...
+    times: 3
+    delay: 3000                          # ms, optional, default is 5000
+```
+
+Original `in` and `retry` variables with the same values will be overwritten.
+
+
+```YAML
+- task: myTask
+  in:
+    someVar:
+      nestedValue: 123
+  retry:
+    in:
+      someVar:
+        nestedValue: 321
+        newValue: "hello"
+    ...
+
+  ```
