@@ -227,25 +227,32 @@ configuration:
 <a name="retry-task"/>
 ## Retry Tasks
 
-The `retry` attribute inside a task can be used to restart the task automatically in case of errors or failures. Users can define the number of times the task can be re-tried and a delay for each `retry`. If not specified, the default value for the delay is 5 seconds.
+The `retry` attribute inside a task is use to restart the task automatically
+in case of errors or failures. Users can define the number of times the task can
+be re-tried and a delay for each `retry`. If not specified, the default value
+for the delay is 5 seconds.
 
-For example the below section  will execute `myTask` using the provided `in` parameters. In case of errors, the task will be restarted up to 3 times with 3 seconds delay and additional parameters supplied in the `in` block.
+For example the below section  will execute `myTask` using the provided `in`
+parameters. In case of errors, the task restart up to 3 times with 3
+seconds delay and additional parameters supplied in the `in` block.
 
-```YAML
+```yaml
 - task: myTask
   in:
     ...
   retry:
-    in:                                         # optional
+    in:                                         
       ...additional parameters...
     times: 3
-    delay: 3000                          # ms, optional, default is 5000
+    delay: 3000                          
 ```
 
-Original `in` and `retry` variables with the same values will be overwritten.
+Original `in` and `retry` variables with the same values are overwritten.
+In the example below the value of `someVar` is overwritten to 321 in the
+`retry` block..
 
 
-```YAML
+```yaml
 - task: myTask
   in:
     someVar:
