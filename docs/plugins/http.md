@@ -25,7 +25,6 @@ can be stored in an `out` parameter for later usage.
 - [Examples](#examples)
 
 <a name="usage"/>
-
 ## Usage and Configuration
 
 As with all tasks you can invoke the HTTP task with a short inline syntax or 
@@ -135,6 +134,15 @@ Body for Request Type `string`:
   body: "sample string for body of post request"
 ```
 
+### Headers
+
+Extra header values can be specified using `headers` key:
+```yaml
+  headers:
+    MyHeader: "a value"
+    X-Some-Header: "..."
+```
+
 ### Request Type
 
 A specific request type in `request` is optional for `GET` method usage, but
@@ -227,14 +235,14 @@ Using raw JSON for the body:
 
 ### Full Syntax for 'PUT' Request
 
-Using map for the body:
+Using a YAML object for the body:
 
 ```yaml
 - task: http
   in:
-    request: json
     method: PUT
     url: "https://api.example.com:port/path/put_endpoint"
+    request: json
     body: 
       userObj:
         name: concord
@@ -250,14 +258,15 @@ Using raw JSON for the body:
 ```yaml
 - task: http
   in:
-    request: json
     method: PUT
     url: "https://api.example.com:port/path/put_endpoint"
-    body: "{ 
-             \"myObject\": 
-               { \"nestedVar\": 123 
-               } 
-           }"
+    request: json
+    body: |
+      { 
+        "myObject": {
+           "nestedVar": 123
+        } 
+      }
     response: json
     out: jsonResponse
 - if: ${jsonResponse.success}
@@ -267,7 +276,7 @@ Using raw JSON for the body:
 
 ### Full Syntax for Secure Request
 
-Using a basic authentication token:
+Using Basic Authentication with an existing value:
 
 ```yaml
 - task: http
@@ -284,7 +293,7 @@ Using a basic authentication token:
    - log: "Response received: ${jsonResponse.content}"
 ```
 
-Using username and password: 
+Using Basic Authentication with a username and a password: 
 
 ```yaml
 - task: http
