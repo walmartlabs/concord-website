@@ -233,7 +233,7 @@ be re-tried and a delay for each `retry`. If not specified, the default value
 for the delay is 5000 milliseconds .
 
 Time parameter defines the number of times a task can be `retry` and delay is the
-time span after which it `retry` in case of error.The delay time always be in
+time span after which it `retry` in case of error.The delay time is always in
 milliseconds.
 
 For example the below section execute `myTask` using the provided `in` parameters.
