@@ -8,8 +8,8 @@ side-navigation: wmt/docs-navigation.html
 
 Concord flows can provide simple web-based user interfaces with forms for data
 input from users. Forms are described declaratively in
-[Concord file](./concord-dsl.html) and optionally contain custom
-HTML/CSS/JS/etc resources (["custom forms"](#custom-forms)).
+[Concord file](./concord-dsl.html) and [optionally contain custom
+HTML/CSS/JS/etc resources](#custom-forms).
 
 ## Form Syntax
 
