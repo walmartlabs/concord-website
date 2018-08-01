@@ -58,6 +58,7 @@ All parameters sorted in alphabetical order.
 - `auth`: authentication used for secure endpoints, details in 
   [Basic authentication](#basic-authentication);
 - `body`: the request body, details in [Body](#body);
+- `headers`: add additional headers, details in [Headers](#headers)
 - `method`: HTTP request method, either `POST`, `PUT` or `GET`
 - `out`: variable to store the [HTTP response](#http-task-response) object
 - `request`: type of request data `string`, `json`, or `file`, details available
