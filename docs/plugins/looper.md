@@ -31,7 +31,7 @@ flows:
   - task: looper
     in:
       baseUrl: https://looper.example.com
-      userName: looper_username
+      username: looper_username
       apiToken: looper_api_token
       jobName: looper-job-name
 ```
@@ -48,7 +48,7 @@ All parameters sorted in alphabetical order.
 - `parameters`: Parameters to pass, the job has to be configured as
   parameterized job, details in
   [Calling Parameterized Job](#calling-parameterized-job);
-- `userName`: username to use for the job invocation, it can be omitted if
+- `username`: username to use for the job invocation, it can be omitted if
   Concord provides a default username to use
 
 ### Calling Parameterized Job
@@ -77,7 +77,7 @@ flows:
   - task: looper
     in:
       baseUrl: https://looper.example.com
-      userName: looper_username
+      username: looper_username
       apiToken: looper_api_token
       jobName: looper-job-name
       parameters:
