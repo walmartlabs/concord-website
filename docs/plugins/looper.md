@@ -49,7 +49,8 @@ All parameters sorted in alphabetical order.
   parameterized job, details in
   [Calling Parameterized Job](#calling-parameterized-job);
 - `username`: username to use for the job invocation, it can be omitted if
-  Concord provides a default username to use
+  Concord provides a default username to use;
+- `sync`: if `true` the task will wait for the Looper job to complete.
 
 ### Calling Parameterized Job
 
@@ -101,3 +102,20 @@ flows:
         string_parameter: any_string
         some_file_parameter: "@example-file-txt"
 ```
+
+### Task Output
+
+The last known status of the submitted Looper job is saved into `looperJob`
+variable:
+
+```yaml
+flows:
+  default:
+  - task: looper
+    in:
+      ...
+  - log: "Build #${looperJob.build} - ${looperJob.status}"
+```
+
+Note that for the jobs submitted without `sync: true` the build number may not
+be available.
