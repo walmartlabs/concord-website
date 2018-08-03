@@ -50,7 +50,7 @@ All parameters sorted in alphabetical order.
   [Calling Parameterized Job](#calling-parameterized-job);
 - `username`: username to use for the job invocation, it can be omitted if
   Concord provides a default username to use;
-- `sync`: if `true` the task will wait for the Looper job to complete.
+- `sync`: if `true` the task waits for the Looper job to complete.
 
 ### Calling Parameterized Job
 
