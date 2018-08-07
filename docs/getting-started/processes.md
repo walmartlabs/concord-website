@@ -83,6 +83,8 @@ instance of `com.walmartlabs.concord.sdk.Context`;
   - `initiator.displayName`: printable name, string;
   - `initiator.groups`: list of user's groups;
   - `initiator.attributes`: other LDAP attributes;
+- `currentUser`: information about the current user. Has the same structure
+  as `initiator`;
 - `requestInfo`: additional request data:
   - `requestInfo.query`: query parameters of a request made using user-facing 
     endpoints (e.g. the portal API);

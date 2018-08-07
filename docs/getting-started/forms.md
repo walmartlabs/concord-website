@@ -269,13 +269,91 @@ Shared resources can be referenced by forms using relative path:
 </head>
 ```
 
-### Examples
+### Restricting Forms
+
+Submitting a form can be restricted to a particular user or a group of
+users. This can be used to, but is not limited to, create flows with approval
+steps. You can configure a flow, where an action is required from a user that is
+not the process' initiator.
+
+Restricted forms can be submitted only by the specified user or the membersos a
+security group - e.g. configured in your Active Directory/LDAP setup.
+
+To restrict a form to a specific user, use the `runAs` attribute. Used with a
+boolean variable, rendered as a checkbox, in the form, can change the flow
+depending on the approval or disapproval from the authorized user defined in
+`username`.
+
+```yaml
+flows:
+  default:
+  - form: approvalForm
+    runAs:
+      username: "expectedUsername"
+
+  - if: ${approvalForm.approved}
+    then:
+    - log: "Approved =)"
+    else:
+    - log: "Rejected =("
+
+forms:
+  approvalForm:
+  - approved: { type: boolean }
+```
+
+Here's how a form can be restricted to specific AD/LDAP groups:
+
+In most cases it is more practical to use groups of users to decide on the
+authorization. This can be achieved with the `group` list specified as
+attributes of the `ldap` parameter of `runAs`.
+
+```yaml
+- form: approvalForm
+  runAs:
+    ldap:
+      group:
+      - "CN=managers,.*"
+      - "CN=project-leads,.*"
+```
+   
+The `group` element is a list of regular expressions used to match
+the user's groups. If there's at least one match - the user will be
+allowed to submit the form.
+
+By default, after the restricted form is submitted, the process continues to run
+on behalf of the process initiator. If you need to continue the execution on
+behalf of the user that submitted the form, you need to set the `keep` attribute
+to `true`. The `currentUser.username` variable initially contains the value of
+`initiator.username`. After the form with the `keep: true` configuration,
+`currentUser` contains details from the user, who submitted the form.
+
+```yaml
+flows:
+  default:
+  - log: "Starting as ${currentUser.username}" # the same as ${initiator.username}
+  
+  - form: approvalForm
+    runAs:
+      username: "expectedUsername"
+      keep: true
+  
+  - log: "Continuing as ${currentUser.username}" # the user that submitted the form
+
+forms:
+  approvalForm:
+  - approved: { type: boolean }
+```
+
+###Examples
 
 The Concord repository contains a couple of examples on how to use
 custom and regular forms:
+
 - [single form](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/forms)
 - [custom form](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/forms_branding)
 - [custom form with dynamic fields](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/dynamic_forms)
+- [approval-style flow](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/approval)
 
 ## Accessing Forms
 
