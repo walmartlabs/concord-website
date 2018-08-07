@@ -387,8 +387,8 @@ forms:
 The Concord repository contains a couple of examples on how to use
 custom and regular forms:
 
-- [single form](${site.source_url}examples/forms)
-- [custom form](${site.source_url}examples/forms_branding)
-- [custom form with dynamic fields](${site.source_url}examples/dynamic_forms)
-- [approval-style flow](${site.source_url}examples/approval)
+- [single form]({{site.source_url}}examples/forms)
+- [custom form]({{site.source_url}}examples/forms_branding)
+- [custom form with dynamic fields]({{site.source_url}}examples/dynamic_forms)
+- [approval-style flow]({{site.source_url}}examples/approval)
 
