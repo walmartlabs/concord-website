@@ -127,11 +127,23 @@ ${oneops.getComputeIPs(oneOpsConfig, platform)}
 ${oneops.getComputeIPs(oneOpsConfig, asm, env, platform)}
 ```
 
-Get Fqdn IPs:
+Get FQDN IPs:
 
 ```yaml
 ${oneops.getFqdnIPs(oneOpsConfig, platform)}
 ${oneops.getFqdnIPs(oneOpsConfig, asm, env, platform)}
+```
+
+Get IPs for a specific cloud priority value:
+```yaml
+${oneops.getIPsByCloudPriority(oneOpsConfig, platform, priority)}
+${oneops.getIPsByCloudPriority(oneOpsConfig, asm, env, platform, priority)}
+```
+Typically, primary clouds have priority value `1` and secondary - `2`:
+```yaml
+- set:
+    myPrimaryIPs: ${oneops.getIPsByCloudPriority(oneOpsConfig, platform, 1)}
+    mySecondaryIPs: ${oneops.getIPsByCloudPriority(oneOpsConfig, platform, 2)}
 ```
 
 <a name="instances"/>
