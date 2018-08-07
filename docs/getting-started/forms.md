@@ -11,9 +11,19 @@ input from users. Forms are described declaratively in
 [Concord file](./concord-dsl.html) and [optionally contain custom
 HTML/CSS/JS/etc resources](#custom-forms).
 
-## Form Syntax
+- [Form declaration](#declaration)
+- [Form fields](#fields)
+- [Using a form in a flow](#using)
+- [Custom forms](#custom)
+- [Accessing form data](#access)
+- [Shared resources](#shared)
+- [User access](#user)
+- [Restricting forms](#restriction)
+- [Examples](#examples)
 
-### Declaring a New Form
+<a name="declaration"/>
+
+## Form Declaration
 
 Forms are declared at in the `forms` section of the Concord file:
 
@@ -27,7 +37,9 @@ The name of a form (in this example it's `myForm`) can be used to
 [call a form](#calling-a-form) from a process. Also, it will be used
 as a name of an object which will store the values of the fields.
 
-### Form Fields
+<a name="fields"/>
+
+## Form Fields
 
 Forms must contain one or more fields:
 
@@ -80,7 +92,9 @@ quantifier to the type:
 
 Additional field types will be added in the next versions.
 
-### Calling a Form
+<a name="using"/>
+
+## Using a Form in a Flow
 
 To call a form from a process, use `form` command:
 
@@ -124,6 +138,8 @@ this form and the rest of the process will continue in the background.
 Supported only for custom (with branding) forms;
 - `values`: additional values, to override default form values or to
 provide additional data.
+
+<a name="custom"/>
 
 ## Custom Forms
 
@@ -205,7 +221,9 @@ Custom forms with file uploading fields must use
 </form>
 ```
 
-### Accessing the Data
+<a name="access"/>
+
+## Accessing Form Data
 
 When a custom form is opened, the server generates a `data.js` file.
 It contains values of the fields, validation error and additional
@@ -244,7 +262,9 @@ field:
 - `values` - current values of the form fields;
 - `errors` - validation error messages.
 
-### Shared Resources
+<a name="shared"/>
+
+## Shared Resources
 
 Custom forms can have shared resources (e.g. common scripts or CSS
 files). Those resources should be put into `forms/shared` directory
@@ -269,7 +289,22 @@ Shared resources can be referenced by forms using relative path:
 </head>
 ```
 
-### Restricting Forms
+<a name="user"/>
+
+## User Access
+
+Forms can be accessed by a user in two different ways:
+- through [the URL](../api/process.html#from-a-browser);
+- by clicking on the _Wizard_ button on the Console's process
+status page.
+
+In both cases, users will be redirected from form to form until the
+process finishes, an error occurs or until a form with `yield: true`
+is reached.
+
+<a name="restriction"/>
+
+## Restricting Forms
 
 Submitting a form can be restricted to a particular user or a group of
 users. This can be used to, but is not limited to, create flows with approval
@@ -345,23 +380,15 @@ forms:
   - approved: { type: boolean }
 ```
 
-###Examples
+<a name="examples"/>
+
+## Examples
 
 The Concord repository contains a couple of examples on how to use
 custom and regular forms:
 
-- [single form](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/forms)
-- [custom form](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/forms_branding)
-- [custom form with dynamic fields](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/dynamic_forms)
-- [approval-style flow](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/approval)
+- [single form](${site.source_url}examples/forms)
+- [custom form](${site.source_url}examples/forms_branding)
+- [custom form with dynamic fields](${site.source_url}examples/dynamic_forms)
+- [approval-style flow](${site.source_url}examples/approval)
 
-## Accessing Forms
-
-Forms can be accessed by a user in two different ways:
-- through [the URL](../api/process.html#from-a-browser);
-- by clicking on the _Wizard_ button on the Console's process
-status page.
-
-In both cases, users will be redirected from form to form until the
-process finishes, an error occurs or until a form with `yield: true`
-is reached.
