@@ -152,6 +152,7 @@ scripting language runtime has the following definition:
   <artifactId>groovy-all</artifactId>
   <version>2.4.12</version>
   ...
+</project>
 ```
 
 This results in the path
@@ -190,8 +191,8 @@ configuration:
       z: 0
 flows:
   default:
-    log: "Project name: ${name}"
-    log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+    - log: "Project name: ${name}"
+    - log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
 
 Values of `arguments` can contain [expressions](#expressions). Expressions can
