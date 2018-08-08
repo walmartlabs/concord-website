@@ -739,7 +739,7 @@ flows:
   - log: "${aList}" # will print out '["primer elemento", "segundo elemento"]'
 ```
 
-Multiple active profiles will be merged the same order they are specified in
+Multiple active profiles are merged the same order they are specified in
 `activeProfiles` parameter:
 
 ```bash
