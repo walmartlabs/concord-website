@@ -703,15 +703,15 @@ profiles:
         foo: "bazz"
 flows:
   default:
-    - log: "${foo}"
+  - log: "${foo}"
 ```
 
 The `activeProfiles` parameter is a list of project file's profiles that is
-used to start a process. If not set, a `default` profile will be used.
+used to start a process. If not set, a `default` profile is used.
 
-The active profile's configuration will be merged with the default values
-specified in the top-level `configuration` section. Nested objects will be
-merged, lists of values will be replaced:
+The active profile's configuration is merged with the default values
+specified in the top-level `configuration` section. Nested objects are 
+merged, lists of values are replaced:
 
 ```yaml
 configuration:
@@ -736,15 +736,18 @@ profiles:
 
 flows:
   default:
-  - log: "${nested.x} ${nested.y} ${nested.z}" # will print out '123 cba true'
-  - log: "${aList}" # will print out '["primer elemento", "segundo elemento"]'
+  # Expected next log output: 123 cba true
+  - log: "${nested.x} ${nested.y} ${nested.z}"
+  # Expected next log output: ["primer elemento", "segundo elemento"]
+  - log: "${aList}"
 ```
 
-Multiple active profiles are merged the same order they are specified in
+Multiple active profiles are merged in the order they are specified in
 `activeProfiles` parameter:
 
 ```bash
 $ curl ... -F activeProfiles=a,b http://concord.example.com/api/v1/process
 ```
-In this example, values from `b` will be merged with the result of the merge
+
+In this example, values from `b` are merged with the result of the merge
 of `a` and the default configuration.
