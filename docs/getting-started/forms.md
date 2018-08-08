@@ -16,6 +16,7 @@ HTML/CSS/JS/etc resources](#custom-forms).
 - [Using a form in a flow](#using)
 - [Custom forms](#custom)
 - [Accessing form data](#access)
+- [File Upload](#upload)
 - [Shared resources](#shared)
 - [User access](#user)
 - [Restricting forms](#restriction)
@@ -261,6 +262,34 @@ field:
   - `allow` - allowed value(s) of the field.
 - `values` - current values of the form fields;
 - `errors` - validation error messages.
+
+
+<a name="upload"/>
+
+## File Upload
+
+Forms with `file` fields allow users to upload arbitrary files:
+```yaml
+forms:
+  myForm:
+  - myFile: { label: "Upload a text file", type: "file" }
+  
+flows:
+  default:
+  - form: myForm
+  - log: "Path: ${myForm.myFile}"
+  - log: "Content: ${resource.asString(myForm.myFile)}"  
+```
+
+After the file is uploaded, the path is stored as the field's value.
+
+Typically, the server limits the maximum size of uploaded files, but
+the exact limit depends on the configuration of a particular
+environment.
+
+Custom forms must use `<form enctype="multipart/form-data"/>` in order
+to support file upload.
+
 
 <a name="shared"/>
 
