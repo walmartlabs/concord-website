@@ -152,6 +152,7 @@ scripting language runtime has the following definition:
   <artifactId>groovy-all</artifactId>
   <version>2.4.12</version>
   ...
+</project>
 ```
 
 This results in the path
@@ -190,8 +191,8 @@ configuration:
       z: 0
 flows:
   default:
-    log: "Project name: ${name}"
-    log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+    - log: "Project name: ${name}"
+    - log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
 ```
 
 Values of `arguments` can contain [expressions](#expressions). Expressions can
@@ -691,11 +692,7 @@ the value of `foo` is `bazz` and appears in the log instead of the default
 `bar`.
 
 ```yaml
-flows:
-  default:
-    - log: "${foo}
-
-configuration
+configuration:
   arguments:
     foo: "bar"
     
@@ -704,9 +701,53 @@ profiles:
     configuration:
       arguments:
         foo: "bazz"
+flows:
+  default:
+  - log: "${foo}"
 ```
 
 The `activeProfiles` parameter is a list of project file's profiles that is
-used to start a process. If not set, a `default` profile will be used.
+used to start a process. If not set, a `default` profile is used.
 
+The active profile's configuration is merged with the default values
+specified in the top-level `configuration` section. Nested objects are 
+merged, lists of values are replaced:
 
+```yaml
+configuration:
+  arguments:
+    nested:
+      x: 123
+      y: "abc"
+    aList:
+    - "first item"
+    - "second item"  
+
+profiles:
+  myProfile:
+    configuration:
+      arguments:
+        nested:
+          y: "cba"
+          z: true
+        aList:
+        - "primer elemento"
+        - "segundo elemento"
+
+flows:
+  default:
+  # Expected next log output: 123 cba true
+  - log: "${nested.x} ${nested.y} ${nested.z}"
+  # Expected next log output: ["primer elemento", "segundo elemento"]
+  - log: "${aList}"
+```
+
+Multiple active profiles are merged in the order they are specified in
+`activeProfiles` parameter:
+
+```bash
+$ curl ... -F activeProfiles=a,b http://concord.example.com/api/v1/process
+```
+
+In this example, values from `b` are merged with the result of the merge
+of `a` and the default configuration.
