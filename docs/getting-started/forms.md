@@ -16,6 +16,7 @@ HTML/CSS/JS/etc resources](#custom-forms).
 - [Using a form in a flow](#using)
 - [Custom forms](#custom)
 - [Accessing form data](#access)
+- [File upload](#upload)
 - [Shared resources](#shared)
 - [User access](#user)
 - [Restricting forms](#restriction)
@@ -80,8 +81,8 @@ Supported types of fields and their options:
 - `decimal`: a decimal value
   - `min`, `max`: (optional) value bounds.
 - `boolean`: a boolean value, `true` or `false`;
-- `file`: a file upload field, will be stored as a file in the
-process' workspace.
+- `file`: a file upload field, the submitted file is stored as a file in the
+process' workspace. Find more tips in our [dedicated section](#upload).
 
 Cardinality of the field can be specified by adding a cardinality
 quantifier to the type:
@@ -261,6 +262,34 @@ field:
   - `allow` - allowed value(s) of the field.
 - `values` - current values of the form fields;
 - `errors` - validation error messages.
+
+
+<a name="upload"/>
+
+## File Upload
+
+Forms with `file` fields allow users to upload arbitrary files:
+
+```yaml
+forms:
+  myForm:
+  - myFile: { label: "Upload a text file", type: "file" }
+  
+flows:
+  default:
+  - form: myForm
+  - log: "Path: ${myForm.myFile}"
+  - log: "Content: ${resource.asString(myForm.myFile)}"  
+```
+
+After the file is uploaded, the path to the file in the workspace is stored as
+the field's value.
+
+Typically, the server limits the maximum size of uploaded files. The exact limit
+depends on the configuration of a particular environment.
+
+Custom forms must use `<form enctype="multipart/form-data"/>` in order
+to support file upload.
 
 <a name="shared"/>
 
