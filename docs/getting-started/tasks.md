@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-Tasks are used to call Java code that implments functionality that is
+Tasks are used to call Java code that implements functionality that is
 too complex to express with the Concord DSL and EL in YAML directly. They are
 _plugins_ of Concord.
 
