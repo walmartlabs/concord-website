@@ -69,7 +69,7 @@ briefly introduce these concepts.
 Projects allow users to automatically create payloads by pulling
 files from remote GIT repositories and applying templates.
 
-Projects are created with the Concord Concole or by using the REST API.
+Projects are created with the Concord Console or by using the REST API.
 
 ### Processes
 
