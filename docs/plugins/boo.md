@@ -63,8 +63,8 @@ assemblyTags:
 
 Optional parameters :
 
-- `showOriginalTemplate` - print the provided template in logs
-- `debug` - print the provided template after parameters substitution. Use it with care as 
+- `showOriginalTemplate` - prints out the original template in process logs
+- `debug` - prints out the original template after parameter substitutions. Use it with care as 
 it will also print sensitive information in the logs
 
 These can be set in a separate argument configuration object e.g. called
