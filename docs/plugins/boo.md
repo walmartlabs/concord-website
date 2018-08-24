@@ -61,6 +61,12 @@ assemblyTags:
 - `oneopsApiHost` - URL of the OneOps server
 - `assemblyTags` - list of key/value pairs to use as tags for the assembly
 
+Optional parameters :
+
+- `showOriginalTemplate` - prints out the original template in process logs
+- `debug` - prints out the original template after parameter substitutions. Use it with care as 
+it will also print sensitive information in the logs
+
 These can be set in a separate argument configuration object e.g. called
 `booConfig`.
 
