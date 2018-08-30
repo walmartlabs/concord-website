@@ -633,7 +633,7 @@ switch-case.
 flows:
   default:
   - try:
-    - shell: echo "Do something dangerous here"
+    - log: "Do something dangerous here"
     error:
     - throw: "oh, something went wrong."
 ```
@@ -644,7 +644,7 @@ Alternatively a caught exception can be thrown again using the `lastError` varia
 flows:
   default:
   - try:
-    - shell: echo "Do something dangerous here"
+    - log: "Do something dangerous here"
     error:
     - throw: ${lastError}
 ```
