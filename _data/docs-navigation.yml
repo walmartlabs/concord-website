@@ -35,6 +35,8 @@ nav:
     subfolderitems:
       - page: API Key
         context: /docs/api/apikey
+      - page: Checkpoint
+        context: /docs/api/checkpoint
       - page: Inventory
         context: /docs/api/inventory
       - page: Organization
