@@ -10,11 +10,11 @@ Checkpoint is a point within a flow from which a process can be restored. A flow
 
 The REST API provides support for a number of operations:
 
-- [List Checkpoints](#list-checkpoints)
 - [Restore Process](#restore-process)
+- [List Checkpoints](#list-checkpoints)
 
 <a name="list-checkpoints"/>
-## List checkpoints
+## List Checkpoints
 
 List all checkpoints of a process.
 
@@ -32,11 +32,6 @@ List all checkpoints of a process.
     
     ```json
     [
-        {
-            "checkpointId": "...",
-            "checkpointName": "...",
-            "checkpointDate": "..."
-        },
         {
             "checkpointId": "...",
             "checkpointName": "...",
