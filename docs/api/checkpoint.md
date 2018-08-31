@@ -34,15 +34,18 @@ List all checkpoints of a process.
     [
         {
             "checkpointId": "...",
-            "checkpointName": "..."
+            "checkpointName": "...",
+            "checkpointDate": "..."
         },
         {
             "checkpointId": "...",
-            "checkpointName": "..."
+            "checkpointName": "...",
+            "checkpointDate": "..."
         },
         {
             "checkpointId": "...",
-            "checkpointName": "..."
+            "checkpointName": "...",
+            "checkpointDate": "..."
         },
         ...
     ]
