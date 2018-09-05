@@ -26,7 +26,7 @@ process flows, configuration, forms and other aspects:
   - [Return command](#return-command)
   - [Groups of steps](#groups-of-steps)
   - [Loops](#loops)
-  - [Calling flows](#calling-other-flows)
+  - [Calling other flows](#calling-other-flows)
   - [Error handling](#error-handling)
   - [Throwing exceptions](#throw-step)
   - [Setting variables](#set-step)
@@ -425,15 +425,23 @@ the `call` step.
 flows:
   default:
   - log: hello
+  
+  # short form: call another flow by its name 
   - mySubFlow
+  
+  # full form: use `call` step
   - call: anotherFlow
+    # (optional) additional call parameters
+    in:
+      msg: "Hello!"
+    
   - log: bye
     
   mySubFlow:
   - log: "a message from the sub flow"
 
   anotherFlow:
-  - log: "message from another flow"
+  - log: "message from another flow: ${msg}"
 ```
 
 ### Loops
@@ -625,7 +633,7 @@ switch-case.
 flows:
   default:
   - try:
-    - shell: echo "Do something dangerous here"
+    - log: "Do something dangerous here"
     error:
     - throw: "oh, something went wrong."
 ```
@@ -636,7 +644,7 @@ Alternatively a caught exception can be thrown again using the `lastError` varia
 flows:
   default:
   - try:
-    - shell: echo "Do something dangerous here"
+    - log: "Do something dangerous here"
     error:
     - throw: ${lastError}
 ```
