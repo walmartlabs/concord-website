@@ -33,14 +33,14 @@ List all checkpoints of a process.
     ```json
     [
         {
-            "checkpointId": "...",
-            "checkpointName": "...",
-            "checkpointDate": "..."
+            "id": "...",
+            "name": "...",
+            "createdAt": "..."
         },
         {
-            "checkpointId": "...",
-            "checkpointName": "...",
-            "checkpointDate": "..."
+            "id": "...",
+            "name": "...",
+            "createdAt": "..."
         },
         ...
     ]
@@ -58,7 +58,7 @@ Restore a process from a specific checkpoint.
 * **Body**
     ```json
     {
-      "checkpointId": "..."
+      "id": "..."
     }
     ```
 
@@ -73,4 +73,3 @@ Restore a process from a specific checkpoint.
       "ok": true
     }
     ```
-    
