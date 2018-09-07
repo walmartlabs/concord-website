@@ -18,6 +18,29 @@ necessary.
 - [fork](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork) - starting a subprocess;
 - [fork_join](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork_join) - starting multiple subprocesses and waiting for completion.
 
+## Parameters
+
+All parameter sorted alphabetically. Usage documentation can be found in the
+following sections:
+
+- `action` - string, name of the action (`start`, `fork`, `kill`);
+- `activeProfiles` - list of string values, profiles to activate; 
+- `arguments` - input arguments of the starting processes;
+- `disableOnCancel` - disable `onCancel` flow in forked processes;
+- `disableOnFailure` - disable `onFailure` flow in forked processes;
+- `entryPoint` - string, name of the starting process' flow;
+- `ignoreFailures` - boolean, ignore failed processes;
+- `instanceId` - UUID, ID of the process to `kill`;
+- `org` - string, name of the process' organization;
+- `outVars` - list of string values, out variables to capture;
+- `payload` - path to a ZIP archive or a directory, the process' payload;
+- `project` - string, name of the process' project;
+- `repo` - string, name of the project's repository to use;
+- `startAt` - [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date/time
+value, the process' start time;
+- `sync` - boolean, wait for completion if `true`;
+- `tags` - list of string values, the process' tags.
+
 ## Starting a Process using a Payload Archive
 
 ```yaml
@@ -45,6 +68,7 @@ flows:
   - task: concord
     in:
       action: start
+      org: myOrg
       project: myProject
       archive: payload.zip
 ```
