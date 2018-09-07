@@ -30,6 +30,7 @@ process flows, configuration, forms and other aspects:
   - [Error handling](#error-handling)
   - [Throwing exceptions](#throw-step)
   - [Setting variables](#set-step)
+  - [Checkpoints](#checkpoints)
 - [Named Profiles in `profiles`](#profiles)
 
 Some features are more complex and you can find details in separate documents:
@@ -650,7 +651,6 @@ flows:
 ```
 
 <a name="set-step"/>
-
 ### Setting Variables
 
 The `set` step can be used to set variables in the current process context:
@@ -685,7 +685,41 @@ flows:
 A [number of variables](./processes.html#variables) are automatically set in
 each process and available for usage.
 
+<a name="checkpoints">
+
+## Checkpoints
+
+A checkpoint is a point defined within a flow at which the process state is
+persisted in Concord. This process state can subsequently be restored and
+process execution can continue. A flow can contain multiple checkpoints.
+
+The [REST API](../api/checkpoint.html) can be for listing and restoring
+checkpoints. Alternatively you can restore a checkpoint to continue processing
+directly from the Concord Console.
+
+The `checkpoint` step can be used to create a named checkpoint:
+
+```yaml
+flows:
+  default:
+  - log: "Starting the process..."
+  - checkpoint: "first"
+  - log: "Continuing the process..."
+  - checkpoint: "second"
+  - log: "Done!"
+```
+
+The example above creates two checkpoints: `first` and `second`.
+These checkpoints can be used to restart the process from the point after the
+checkpoint's step. For example, if the process is restored using `first`
+checkpoint, all steps starting from `Continuing the process...`
+message and further are executed.
+
+**Note**: files created during the process' execution are not saved during the
+checkpoint creation.
+
 <a name="profiles"/>
+
 ## Named Profiles in `profiles`
 
 Profiles are named collections of configuration, forms and flows and can be used
