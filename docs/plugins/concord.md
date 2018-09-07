@@ -50,7 +50,7 @@ flows:
     in:
       apiKey: "..."
       action: start
-      archive: payload.zip
+      payload: payload.zip
 ```
 
 The `start` action starts a new subprocess using the specified payload archive.
@@ -70,10 +70,10 @@ flows:
       action: start
       org: myOrg
       project: myProject
-      archive: payload.zip
+      payload: payload.zip
 ```
 
-The `start` expression with a `project` parameter and an `archive`, starts a new
+The `start` expression with a `project` parameter and an `payload`, starts a new
 subprocess in the context of the specified project.
 
 Alternatively, if the project has a repository configured, the process can be
@@ -217,7 +217,7 @@ flows:
   - tasks: concord
     in:
       action: start
-      archive: payload.zip
+      payload: payload.zip
       sync: true
 ```
 
@@ -230,7 +230,7 @@ flows:
   - tasks: concord
     in:
       action: start
-      archive: payload.zip
+      payload: payload.zip
       sync: true
       ignoreFailures: true
 ```
@@ -317,7 +317,7 @@ flows:
   - task: concord
     in:
       action: start
-      archive: payload.zip
+      payload: payload.zip
       tags: ["someTag", "anotherOne"]
 ```
 
