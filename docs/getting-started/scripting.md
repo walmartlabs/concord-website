@@ -19,9 +19,19 @@ as external files and invoked from the Concord YAML file or they can be inline
 in the file.
 
 [Flow variables](#variables), [Concord tasks](#tasks) and other Java methods can
-be accessed from the scripts due to the usage of the Java Scripting API.
+be accessed from the scripts due to the usage of the Java Scripting API. The
+script and your Concord process essentially run within the same context on the
+JVM.
+
+- [Using Flow Variables](#variables)
+- [Using Concord Tasks](#tasks)
+- [Javascript](#javascript)
+- [Groovy](#groovy)
+- [Python](#python)
+- [Ruby](#ruby)
 
 <a name="variables">
+
 ## Using Flow Variables
 
 For most of the supported languages, flows variables can be accessed
@@ -58,6 +68,7 @@ To set a variable, you need to use `execution#setVariable` method:
 ```
 
 <a name="tasks">
+
 ## Using Concord Tasks
 
 Scripts can retrieve and invoke all tasks available for flows by name:
@@ -171,4 +182,25 @@ flows:
       execution.setVariable("result", x)
 
   - log: ${result}
+```
+
+## Ruby
+
+Ruby scripts can be executed using the [JRuby](http://jruby.org/)
+runtime. It requires the addition of a dependency to
+[jruby](https://repo1.maven.org/maven2/org/jruby/jruby)
+located in the Central Repository or on another server and the identifier
+`ruby`.
+
+
+```yaml
+configuration:
+  dependencies:
+  - "mvn://org.jruby:jruby:9.1.13.0"
+
+flows:
+  default:
+  - script: ruby
+    body: |
+      puts "Hello!"
 ```
