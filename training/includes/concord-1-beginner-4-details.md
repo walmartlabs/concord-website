@@ -243,7 +243,7 @@ Use call with items:
 
 <!--- vertical -->
 
-## If Then
+## If Then Else
 
 ```
 flows:
@@ -273,7 +273,7 @@ flows:
 
 <!--- vertical -->
 
-## More Flow Features
+## More Flow Control Structures
 
 - `return` statement
 - group of steps `::`
@@ -283,7 +283,14 @@ flows:
   - flow invocations with `call:`
   - tasks `task:`
   - try blocks `try:`
-- `onCancel` and `onFailure` flows
+
+<!--- vertical -->
+
+## Standard Flows
+
+- `default`
+- `onCancel`
+- `onFailure`
 
 <!--- vertical -->
 
@@ -299,25 +306,25 @@ flows:
 
 ```
 forms:
-  userInformation:
-  - firstName: { label: "First name:", type: "string" }
-  - lastName: { label: "Last name:", type: "string" }
+  survey:
+  - book: { label: "What book are you currently reading?", type: "string" }
 ```
 
 <!--- vertical -->
 
 ## Form Usage
 
-Called in flows and create variables:
+Called in flows and creates variables:
 
 ```
 flows:
   default:
-  - form: userInformation
-  - log: "Hello, ${userInformation.firstName} ${userInformation.lastName}"
+  - form: survey
+  - log: "${initiator.displayName} is currently reading ${survey.book}."
 ```
 
-Suspends process until data is submitted.
+- `form` suspends process until data is submitted
+- `initiator` is one of default variable values in process
 
 <!--- vertical -->
 
@@ -329,7 +336,8 @@ Suspends process until data is submitted.
   - Locale for countries, ...
 - Customizable look and feel
 - Add JS, HTML, CSS and other resources
-- Use as entry point for process start
+- Use as UI entry point for process start from browser link
+- Each form is a step, so you can chain them to a wizard-style usage.
 
 <!--- vertical -->
 
