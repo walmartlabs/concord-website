@@ -686,9 +686,19 @@ A [number of variables](./processes.html#variables) are automatically set in
 each process and available for usage.
 
 <a name="checkpoints">
+
 ## Checkpoints
 
+A checkpoint is a point defined within a flow at which the process state is
+persisted in Concord. This process state can subsequently be restored and
+process execution can continue. A flow can contain multiple checkpoints.
+
+The [REST API](../api/checkpoint.html) can be for listing and restoring
+checkpoints. Alternatively you can restore a checkpoint to continue processing
+directly from the Concord Console.
+
 The `checkpoint` step can be used to create a named checkpoint:
+
 ```yaml
 flows:
   default:
@@ -699,20 +709,17 @@ flows:
   - log: "Done!"
 ```
 
-The snipped above creates two checkpoints: `first` and `second`.
-Those checkpoints can be used to restart the process from the point after the
+The example above creates two checkpoints: `first` and `second`.
+These checkpoints can be used to restart the process from the point after the
 checkpoint's step. For example, if the process is restored using `first`
-checkpoint, it will repeat all steps starting from `Continuing the process...`
-message and further.
-
-To restore a process from a specific checkpoint use
-[Checkpoint API](../api/checkpoint.html) or Concord Console.
+checkpoint, all steps starting from `Continuing the process...`
+message and further are executed.
 
 **Note**: files created during the process' execution are not saved during the
 checkpoint creation.
 
-
 <a name="profiles"/>
+
 ## Named Profiles in `profiles`
 
 Profiles are named collections of configuration, forms and flows and can be used

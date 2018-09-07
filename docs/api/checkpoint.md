@@ -6,17 +6,18 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-Checkpoint is a point within a flow from which a process can be restored. A flow can contains multiple checkpoints.
+The checkpoint API can be used to list and restore
+[checkpoints created in a flow](../getting-started/concord-dsl.html#checkpoints).
 
-The REST API provides support for a number of operations:
+- [List Checkpoints](#list)
+- [Restore a Process](#restore)
 
-- [Restore Process](#restore-process)
-- [List Checkpoints](#list-checkpoints)
+<a name="list"/>
 
-<a name="list-checkpoints"/>
 ## List Checkpoints
 
-List all checkpoints of a process.
+You can access a list of all checkpoints for a specific process, identified by
+the `id`, with the REST API.
 
 * **URI** `/api/v1/process/{id}/checkpoint`
 * **Method** `GET`
@@ -46,11 +47,13 @@ List all checkpoints of a process.
     ]
     ```
 
+<a name="restore"/>
 
-<a name="restore-process"/>
-## Restore a process
+## Restore a Process
 
-Restore a process from a specific checkpoint.
+You can restore a process state from a named checkpoint of a specific process
+using the process identifier in the URL and the checkpoint identifier in the
+body.
 
 * **URI** `/api/v1/process/{id}/checkpoint/restore`
 * **Method** `POST`
