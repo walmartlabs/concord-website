@@ -26,8 +26,8 @@ following sections:
 - `action` - string, name of the action (`start`, `fork`, `kill`);
 - `activeProfiles` - list of string values, profiles to activate; 
 - `arguments` - input arguments of the starting processes;
-- `disableOnCancel` - disable `onCancel` flow in forked processes;
-- `disableOnFailure` - disable `onFailure` flow in forked processes;
+- `disableOnCancel` - boolean, disable `onCancel` flow in forked processes;
+- `disableOnFailure` - boolean, disable `onFailure` flow in forked processes;
 - `entryPoint` - string, name of the starting process' flow;
 - `ignoreFailures` - boolean, ignore failed processes;
 - `instanceId` - UUID, ID of the process to `kill`;
