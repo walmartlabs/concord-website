@@ -70,7 +70,6 @@ it will also print sensitive information in the logs
 These can be set in a separate argument configuration object e.g. called
 `booConfig`.
 
-
 ```yaml
 configuration:
   arguments:
@@ -152,6 +151,17 @@ environments:
 ```
 
 The `context` and `workDir` values are automatically provided by Concord.
+
+
+<a name="debug"/>
+
+## Debugging
+
+Following options can be useful to debug issues with Boo templates:
+- `showOriginalTemplate` - boolean, prints out the template before variable
+substitution;
+- `showEffectiveTemplate` - boolean, prints out the template after variable
+substitution.
 
 
 <a name="source"/>
