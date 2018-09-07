@@ -18,6 +18,30 @@ necessary.
 - [fork](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork) - starting a subprocess;
 - [fork_join](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork_join) - starting multiple subprocesses and waiting for completion.
 
+## Parameters
+
+All parameter sorted alphabetically. Usage documentation can be found in the
+following sections:
+
+- `action` - string, name of the action (`start`, `fork`, `kill`);
+- `activeProfiles` - list of string values, profiles to activate; 
+- `arguments` - input arguments of the starting processes;
+- `disableOnCancel` - boolean, disable `onCancel` flow in forked processes;
+- `disableOnFailure` - boolean, disable `onFailure` flow in forked processes;
+- `entryPoint` - string, name of the starting process' flow;
+- `ignoreFailures` - boolean, ignore failed processes;
+- `instanceId` - UUID, ID of the process to `kill`;
+- `org` - string, name of the process' organization, optional, defaults to the 
+organization of the calling process;
+- `outVars` - list of string values, out variables to capture;
+- `payload` - path to a ZIP archive or a directory, the process' payload;
+- `project` - string, name of the process' project;
+- `repo` - string, name of the project's repository to use;
+- `startAt` - [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date/time
+value, the process' start time;
+- `sync` - boolean, wait for completion if `true`, defaults to `false`;
+- `tags` - list of string values, the process' tags.
+
 ## Starting a Process using a Payload Archive
 
 ```yaml
@@ -27,7 +51,7 @@ flows:
     in:
       apiKey: "..."
       action: start
-      archive: payload.zip
+      payload: payload.zip
 ```
 
 The `start` action starts a new subprocess using the specified payload archive.
@@ -45,11 +69,12 @@ flows:
   - task: concord
     in:
       action: start
+      org: myOrg
       project: myProject
-      archive: payload.zip
+      payload: payload.zip
 ```
 
-The `start` expression with a `project` parameter and an `archive`, starts a new
+The `start` expression with a `project` parameter and an `payload`, starts a new
 subprocess in the context of the specified project.
 
 Alternatively, if the project has a repository configured, the process can be
@@ -62,7 +87,7 @@ flows:
     in:
       action: start
       project: myProject
-      repository: myRepo
+      repo: myRepo
 ```
 
 The process is started using the resources provided by the specified archive, 
@@ -117,7 +142,7 @@ flows:
     in:
       action: start
       project: myProject
-      repository: myRepo
+      repo: myRepo
       sync: true
       # list of variable names
       outVars:
@@ -193,7 +218,7 @@ flows:
   - tasks: concord
     in:
       action: start
-      archive: payload.zip
+      payload: payload.zip
       sync: true
 ```
 
@@ -206,7 +231,7 @@ flows:
   - tasks: concord
     in:
       action: start
-      archive: payload.zip
+      payload: payload.zip
       sync: true
       ignoreFailures: true
 ```
@@ -293,7 +318,7 @@ flows:
   - task: concord
     in:
       action: start
-      archive: payload.zip
+      payload: payload.zip
       tags: ["someTag", "anotherOne"]
 ```
 
