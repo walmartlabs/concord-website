@@ -17,11 +17,11 @@ _plugins_ of Concord.
 <a name="use-task"/>
 ## Using Tasks
 
-Tasks allow you to call Java methods implemented in one of the of the project.
+Tasks allow you to call Java methods implemented in one of the projects.
 In order to be able to use a task a URL to the JAR containing the implementation
 has to be added as a [dependency](./concord-dsl.html#dependencies). Typically
-the JAR is published to a repository manager and a URL pointing to a the JAR in
-a repository is used.
+the JAR is published to a repository manager and a URL pointing to the JAR in
+the repository is used.
 
 You can invoke a task via an expression or with the `task` step type.
 
