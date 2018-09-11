@@ -274,12 +274,12 @@ Forms with `file` fields allow users to upload arbitrary files:
 forms:
   myForm:
   - myFile: { label: "Upload a text file", type: "file" }
-  
+
 flows:
   default:
   - form: myForm
   - log: "Path: ${myForm.myFile}"
-  - log: "Content: ${resource.asString(myForm.myFile)}"  
+  - log: "Content: ${resource.asString(myForm.myFile)}"
 ```
 
 After the file is uploaded, the path to the file in the workspace is stored as
@@ -313,7 +313,7 @@ forms/
 
 Shared resources can be referenced by forms using relative path:
 ```html
-<head>    
+<head>
     <script src="../shared/common.js"></script>
 </head>
 ```
@@ -376,11 +376,10 @@ attributes of the `ldap` parameter of `runAs`.
 - form: approvalForm
   runAs:
     ldap:
-      group:
-      - "CN=managers,.*"
-      - "CN=project-leads,.*"
+      - group: "CN=managers,.*"
+      - group: "CN=project-leads,.*"
 ```
-   
+
 The `group` element is a list of regular expressions used to match
 the user's groups. If there's at least one match - the user will be
 allowed to submit the form.
@@ -396,12 +395,12 @@ to `true`. The `currentUser.username` variable initially contains the value of
 flows:
   default:
   - log: "Starting as ${currentUser.username}" # the same as ${initiator.username}
-  
+
   - form: approvalForm
     runAs:
       username: "expectedUsername"
       keep: true
-  
+
   - log: "Continuing as ${currentUser.username}" # the user that submitted the form
 
 forms:
