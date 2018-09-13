@@ -139,16 +139,21 @@ execution.setVariable("result", doSomething(2));
 
 ## Groovy
 
-Groovy is another compatible engine that is fully-supported in
-Concord. It requires the addition of a dependency to
+Groovy is another compatible engine that is fully-supported in Concord. It
+requires the addition of a dependency to
 [groovy-all](http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/) and
-the identifier `groovy`.
+the identifier `groovy`. For versions 2.4.* and lower jar packaging is used in
+this projects, so the correct dependencies is
+e.g. `mvn://org.codehaus.groovy:groovy-all:2.4.12`. Versions 2.5.0 and higher
+use pom packaging, which has to be added to the dependency declaration before
+the version `mvn://org.codehaus.groovy:groovy-all:pom:2.5.2`.
+
 
 
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
+  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
 
 flows:
   default:
