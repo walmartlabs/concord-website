@@ -117,11 +117,11 @@ as
 ```yaml
 configuration:
   dependencies:
-    # maven URLs...
-    - mvn://org.codehaus.groovy:groovy-all:2.4.12
-    # or direct URLs
-    - https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
-    - https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
+  # maven URLs...
+  - mvn://org.codehaus.groovy:groovy-all:2.4.12
+  # or direct URLs
+  - https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
+  - https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
 ```
 
 The artifacts are downloaded and added to the classpath for process execution
@@ -139,13 +139,14 @@ a specific repository URL, and hence more portable.
 Maven URLs provide additional options:
 
 - `transitive=true|false` - include all transitive dependencies
-(default `true`);
-- `scope=compile|provided|system|runtime|test` - use the specific dependency scope
-(default `compile`).
+  (default `true`);
+- `scope=compile|provided|system|runtime|test` - use the specific 
+  dependency scope (default `compile`).
 
-The syntax for the Maven URL uses the groupId, artifactId and version values -
-the GAV coordinates of a project. For example the Maven pom.xml for the Groovy
-scripting language runtime has the following definition:
+The syntax for the Maven URL uses the groupId, artifactId, optionally packaging,
+and version values - the GAV coordinates of a project. For example the Maven
+`pom.xml` for the Groovy scripting language runtime has the following
+definition:
 
 ```xml
 <project>
@@ -157,14 +158,27 @@ scripting language runtime has the following definition:
 ```
 
 This results in the path
-`org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar` in the Central
-Repository and any repository manager proxying the repository.
+`org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar` in the
+Central Repository and any repository manager proxying the repository.
 
 The `mvn` syntax uses the short form for GAV coordinates
 `groupId:artifactId:version`, so for example
 `org.codehaus.groovy:groovy-all:2.4.12` for Groovy.
 
-The same logic applies to all other dependencies including Concord plugins.
+Newer versions of groovy-all use `<packaging>pom</packaging>` and define
+dependencies. To use a project that applies this approach, called Bill of
+Material BOM, as a dependency you need to specify the packaging in the between
+artifactId and version. For example, version 2.5.2 has to be specified as
+`org.codehaus.groovy:groovy-all:pom:2.5.2`:
+
+```yaml
+configuration:
+  dependencies:
+  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+```
+
+The same logic and syntax usage applies to all other dependencies including
+Concord plugins.
 
 ### Template
 
