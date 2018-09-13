@@ -497,7 +497,7 @@ flows:
     withItems: ${myItems}
 ```
 
-The items are available in the invoked flow with the `${item}` expression.
+The items are referenced in the invoked flow with the `${item}` expression.
 
 ```yaml
   myFlow:
