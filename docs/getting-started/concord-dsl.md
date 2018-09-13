@@ -108,9 +108,9 @@ flows:
 ### Dependencies
 
 The `dependencies` array allows users to specify the URLs of dependencies such
-as
+as:
 
-- Concord plugins and their dependencies 
+- Concord plugins and their dependencies
 - dependencies needed for specific scripting language support
 - other dependencies required for process execution
 
@@ -140,7 +140,7 @@ Maven URLs provide additional options:
 
 - `transitive=true|false` - include all transitive dependencies
   (default `true`);
-- `scope=compile|provided|system|runtime|test` - use the specific 
+- `scope=compile|provided|system|runtime|test` - use the specific
   dependency scope (default `compile`).
 
 The syntax for the Maven URL uses the groupId, artifactId, optionally packaging,
@@ -184,7 +184,7 @@ Concord plugins.
 
 A template can be used to allow inheritance of all the configuration of another
 project. The value for the `template` field has to be a valid URL pointing to
-a JAR-archive of the project to use as template. 
+a JAR-archive of the project to use as template.
 
 The template is downloaded for [process execution](./processes.html#execution)
 and exploded in the workspace. More detailed documentation, including
@@ -194,7 +194,7 @@ information about available templates, is available in the
 ### Arguments
 
 Default values for arguments can be defined in the `arguments` section of the
-configuration as simple key/value pairs as well as nested values
+configuration as simple key/value pairs as well as nested values:
 
 ```yaml
 configuration:
@@ -211,7 +211,7 @@ flows:
 ```
 
 Values of `arguments` can contain [expressions](#expressions). Expressions can
-use all regular tasks.
+use all regular tasks:
 
 ```yaml
 configuration:
@@ -238,7 +238,7 @@ process and available for usage.
 ### Debug
 
 Enabling the `debug` configuration option causes Concord to log paths of all
-resolved dependencies. It is useful for debugging classpath conflict issues.
+resolved dependencies. It is useful for debugging classpath conflict issues:
 
 ```yaml
 configuration:
@@ -250,7 +250,7 @@ configuration:
 
 ## Process Definitions in `flows:`
 
-Process definitions are configured in named sections under the `flows:` 
+Process definitions are configured in named sections under the `flows:`
 top-level element in the Concord file.
 
 ### Entry Points
@@ -422,7 +422,7 @@ semantics:
 flows:
   default:
     - log: a step before the group
-    
+
     - try:
       - log: "a step inside the group"
       - ${myBean.somethingDangerous()}
@@ -440,18 +440,18 @@ the `call` step.
 flows:
   default:
   - log: hello
-  
-  # short form: call another flow by its name 
+
+  # short form: call another flow by its name
   - mySubFlow
-  
+
   # full form: use `call` step
   - call: anotherFlow
     # (optional) additional call parameters
     in:
       msg: "Hello!"
-    
+
   - log: bye
-    
+
   mySubFlow:
   - log: "a message from the sub flow"
 
@@ -691,11 +691,11 @@ flows:
   default:
   - set:
       myComplexData.nestedValue: "Bye"
-      
+
   # will print "Bye, Concord"
   - log: "${myComplexData.nestedValue}, Concord"
 ```
-  
+
 A [number of variables](./processes.html#variables) are automatically set in
 each process and available for usage.
 
@@ -743,7 +743,7 @@ created by inserting a name section in the `profiles` top-level element.
 Profile selection is configured when a process is
 [executed](./processes.html#execution).
 
-For example, if the process below is executed using the `myProfile` profile, 
+For example, if the process below is executed using the `myProfile` profile,
 the value of `foo` is `bazz` and appears in the log instead of the default
 `bar`.
 
@@ -751,7 +751,7 @@ the value of `foo` is `bazz` and appears in the log instead of the default
 configuration:
   arguments:
     foo: "bar"
-    
+
 profiles:
   myProfile:
     configuration:
@@ -766,7 +766,7 @@ The `activeProfiles` parameter is a list of project file's profiles that is
 used to start a process. If not set, a `default` profile is used.
 
 The active profile's configuration is merged with the default values
-specified in the top-level `configuration` section. Nested objects are 
+specified in the top-level `configuration` section. Nested objects are
 merged, lists of values are replaced:
 
 ```yaml
@@ -777,7 +777,7 @@ configuration:
       y: "abc"
     aList:
     - "first item"
-    - "second item"  
+    - "second item"
 
 profiles:
   myProfile:
