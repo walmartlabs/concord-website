@@ -77,8 +77,11 @@ Now you can create a new project in the Concord Console.
 
 - Under 'Repositories' tab, select _Add repository_
 - Provide a _Name_ for the repository e.g. 'myrepository'
-- Use the SSH URL for the repository in the _URL_ field
-- Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
+- Use the HTTPS URL for the repository in the _URL_ field.
+- Personal repositories require additional authentication:
+    - Select the _Custom authentication_ button
+    - Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
+    - Use the SSH URL for the repository in the _URL_ field
 
 Alternatively you can
 [create a project with the REST API](../api/project.html#createproject).
