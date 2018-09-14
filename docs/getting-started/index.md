@@ -4,9 +4,9 @@ title:  Overview
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title}} 
+# {{ page.title}}
 
-[Concord](../../about.html) consists of the a server and user interface components:
+[Concord](../../about.html) consists of a server and user interface components:
 
 The [Concord Server](#concord-server) provides a REST API for managing
 projects and repositories. It receives and processes user requests
@@ -32,8 +32,8 @@ The main purpose of the server is to receive a workflow process
 definition and its dependencies from a user and execute it remotely
 using one of many agents.
 
-Workflow process definitions, its dependencies and supporting files
-collected in a single archive file called "payload".
+The workflow process definition, its dependencies and supporting files are
+collected in a single archive file called a "payload".
 
 There are several ways to start a process:
 
@@ -86,7 +86,7 @@ a simple logging task to print "Hello World" as shown in the
 
 ### Secrets
 
-As a workflow server Concord often needs to access protected
+As a workflow server, Concord often needs to access protected
 resources such as public/private clouds and source control systems.
 Concord maintains a set of secrets that can be associated with a
 project's resources.
