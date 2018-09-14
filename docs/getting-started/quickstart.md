@@ -10,11 +10,11 @@ If you have [installed your own Concord server](./installation.html) or have
 access to a server already, you can set up your first simple Concord process
 execution with a few simple steps:
 
-- [Create Git Repository](#create-repository)
+- [Create a Git Repository](#create-repository)
 - [Add the Concord File](#add-concord-file)
 - [Add a Deploy Key](#add-deploy-key)
 - [Create Project in Concord](#create-project)
-- [Execute Process](#execute-process)
+- [Execute a Process](#execute-process)
 - [Next Steps](#next-steps)
 
 <a name="create-repository"/>
@@ -56,9 +56,9 @@ create a new key on the Concord server.
 - Provide a string e.g. `mykey` as _Concord ID_ under the _Generate a new key pair_ title
 - Press _Create_
 
-The user interface shows the public key of the generated key similar to 
-`ssh-rsa ABCXYZ... concord-server`. This valuehas to be added as an authorized deploy
-key for the git repository. In GitHub, for example, this can be done in the 
+The user interface shows the public key of the generated key similar to
+`ssh-rsa ABCXYZ... concord-server`. This value has to be added as an authorized deploy
+key for the git repository. In GitHub, for example, this can be done in the
 _Settings - Deploy keys_ section of the repository.
 
 Alternatively the key can be
@@ -73,8 +73,7 @@ Now you can create a new project in the Concord Console.
 - Log into the Concord Console user interface
 - Select _New project_ under _Organizations > Default > Projects_ in the navigation panel
 - Provide a _Name_ for the project e.g. 'myproject'
-- Click _Create_ button
-
+- Click the _Create_ button
 - Under 'Repositories' tab, select _Add repository_
 - Provide a _Name_ for the repository e.g. 'myrepository'
 - Use the SSH URL for the repository in the _URL_ field
@@ -87,13 +86,14 @@ Alternatively you can
 <a name="execute-process"/>
 ## Execute a Process
 
-Everything is ready to kick off an execution of a flow - a process:
+Everything is ready to kick off an execution of the flow - a process:
 
 - Locate the repository for the project
-- Press on the _Run_ button for the repository on the right
+- Press on the three dots for the repository on the right
+- Press on the _Run_ button
 - Confirm to start the process by clicking on _Yes_ in the dialog
 
-A successful process execution results a message such as
+A successful process execution results a message such as:
 
 ```
 {
@@ -108,9 +108,9 @@ provides access to the log, forms and more. Note how the log message
 
 Alternatively the process can be accessed via the queue:
 
-- Click on _Queue_ under _Processess_ in the navigation
+- Click on the _Processes_ tab
 - Click on the _Instance ID_ value of the specific process
-- Press on the _View Log_ button to inspect the log
+- Press on the _Log_ tab to inspect the log
 
 Alternatively the process can be started via the
 [Process REST API](../api/process.html).
@@ -122,13 +122,13 @@ Congratulations, your first process flow execution completed successfully!
 
 You can now learn more about flows and perform tasks such as
 
-- Add a forms to capture user input
-- Use variables
-- Group steps
-- Add conditional expressions
-- Call others flow
-- Work with Ansible, Boo and other tasks
-- Maybe even implement tasks
+- Add a [form](./forms.html) to capture user input
+- Using [variables](./concord-dsl.html#setting-variables)
+- [Groups of steps](./concord-dsl.html#groups-of-steps)
+- Add [conditional expressions](./concord-dsl.html#conditional-expressions)
+- [Calling other flows](./concord-dsl.html#calling-other-flows)
+- Work with [Ansible](../plugins/ansible.html), [Jira](../plugins/jira.html) and [other](../plugins/) tasks
+- Maybe even implement your own task
 
 and much more. Have a look at all the documentation about the
 [Concord DSL](./concord-dsl.html), [forms](./forms.html),
