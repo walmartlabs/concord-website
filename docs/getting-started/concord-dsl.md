@@ -415,7 +415,7 @@ flows:
 
 ### Groups of Steps
 
-Several steps can be grouped in one block. This allows `try-catch`-like
+Several steps can be grouped into one block. This allows `try-catch`-like
 semantics:
 
 ```yaml
@@ -434,7 +434,7 @@ flows:
 ### Calling Other Flows
 
 Flows, defined in the same YAML document, can be called by their names or using
-the `call` step.
+the `call` step:
 
 ```yaml
 flows:
@@ -462,7 +462,7 @@ flows:
 ### Loops
 
 Concord flows can iterate through a collection of items in a loop using the
-`call` step and the `withItems` collection of values.
+`call` step and the `withItems` collection of values:
 
 ```yaml
   - call: myFlow
@@ -497,7 +497,7 @@ flows:
     withItems: ${myItems}
 ```
 
-The items are referenced in the invoked flow with the `${item}` expression.
+The items are referenced in the invoked flow with the `${item}` expression:
 
 ```yaml
   myFlow:
@@ -524,13 +524,13 @@ flows:
 ### Error Handling
 
 The full form syntax allows using input variables (call arguments) and supports
-error handling:
+error handling.
 
 Task and expression errors are normal Java exceptions, which can be
-"caught" and handled using a special syntax.
+\"caught\" and handled using a special syntax.
 
 Expressions, tasks, groups of steps and flow calls can have an
-optional `error` block, which will be executed if an exception occurrs.
+optional `error` block, which will be executed if an exception occurs:
 
 ```yaml
 flows:
@@ -561,7 +561,7 @@ flows:
 The `${lastError}` variable contains the last caught
 `java.lang.Exception` object.
 
-If an error was caught, the execution will continue from the next step.
+If an error was caught, the execution will continue from the next step:
 
 ```yaml
 flows:
@@ -575,7 +575,7 @@ flows:
 
 An execution logs `A` and then `B`.
 
-When a process cancelled (killed) by a user, a special flow
+When a process is cancelled (killed) by a user, a special flow
 `onCancel` is executed:
 
 ```yaml
@@ -600,17 +600,17 @@ flows:
   - log: "Yep, we just did"
 ```
 
-In both cases, the server starts a "child" process with a copy of
+In both cases, the server starts a \"child\" process with a copy of
 the original process state and uses `onCancel` or `onFailure` as an
 entry point.
 
-**Note**: if a process was never suspended (e.g. had no forms or no
+**Note**: If a process was never suspended (e.g. had no forms or no
 forms were submitted), then `onCancel`/`onFailures` receive a
 copy of the initial state of a process, which was created when the
 original process was started by the server.
 
 This means that no changes in the process state before suspension
-will be visible to the "child" processes:
+will be visible to the \"child\" processes:
 
 ```yaml
 flows:
@@ -640,7 +640,7 @@ configuration:
 ### Throwing Exceptions
 
 The `throw` step can be used to throw a new RuntimeException with the supplied
-message anywhere in a flow including `error` sections, but also in
+message anywhere in a flow including in `error` sections and in
 [conditional expressions](#conditional-expressions) such as if-then or
 switch-case.
 
@@ -653,7 +653,7 @@ flows:
     - throw: "oh, something went wrong."
 ```
 
-Alternatively a caught exception can be thrown again using the `lastError` variable.
+Alternatively a caught exception can be thrown again using the `lastError` variable:
 
 ```yaml
 flows:
