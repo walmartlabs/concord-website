@@ -400,9 +400,12 @@ flows:
         - return
 ```
 
+The `return` command can be used to stop the current process if called from an
+entry point.
+
 ### Exit Command
 
-The `exit` command can be used to stop the execution of the flow:
+The `exit` command can be used to stop the execution of the current process:
 
 ```yaml
 flows:
