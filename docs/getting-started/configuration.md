@@ -6,13 +6,8 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title}}
 
-The Concord server can be configured via a number of environment
-variables. Typically this is done by the administrator responsible for the
-Concord installation.
-
-The environment variables can be set in a startup script or similar
-location. When using docker they can be passed as parameters with a `docker run`
-command.
+The Concord server can be configured via a configuration file. Typically this
+is done by the administrator responsible for the Concord installation.
 
 A Concord user does not need to be concerned about these settings and instead
 needs to define their processes and further details. Check out
@@ -23,9 +18,6 @@ The following configuration details are available:
 - [Common Environment Variables](#common-environment-variables)
 - [Server Configuration File](#server-cfg-file)
 - [Server Environment Variables](#server-environment-variables)
-- [Server LDAP Authentication](#server-ldap-authentication)
-- [Server Slack Connection](#slack)
-- [Server GitHub Connection](#github)
 - [Process Runtime Variables](#process-runtime-variables)
 - [Default Process Variables](#default-process-variables)
 
@@ -55,6 +47,13 @@ Expected format of the configuration file:
 
 <a name="server-cfg-file"/>
 ## Server Configuration File
+
+The path to the configuration file must be passed via `ollie.conf` JVM
+parameter like so:
+```
+java ... -Dollie.conf=/opt/concord/conf/server.conf com.walmartlabs.concord.server.Main
+```
+When using docker it can be passed as `CFG_FILE` environment variable.
 
 Here's a complete example of the server configuration file including the
 default values. All parameters are optional unless specified:
