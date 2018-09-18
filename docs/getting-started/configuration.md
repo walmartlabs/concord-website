@@ -20,7 +20,8 @@ needs to define their processes and further details. Check out
 
 The following configuration details are available:
 
-- [Common Environment Variables](#common-environment-variables))
+- [Common Environment Variables](#common-environment-variables)
+- [Server Configuration File](#server-cfg-file)
 - [Server Environment Variables](#server-environment-variables)
 - [Server LDAP Authentication](#server-ldap-authentication)
 - [Server Slack Connection](#slack)
@@ -47,13 +48,308 @@ Expected format of the configuration file:
       "id": "central",
       "layout": "default",
       "url": "https://repo.maven.apache.org/maven2/"
-    },
-    {
-      "id": "local",
-      "url": "file:///home/aUser/.m2/repository"
     }
   ]
 }
+```
+
+<a name="server-cfg-file"/>
+## Server Configuration File
+
+Here's a complete example of the server configuration file including the
+default values. All parameters are optional unless specified:
+```
+concord-server {
+
+    # API port
+    port = 8001
+
+    # database connection
+    db {
+        # (optional) JDBC URL of the database
+        url = "jdbc:postgresql://localhost:5432/postgres"
+
+        # primary database user
+        appUsername = "postgres"
+        # (mandatory)
+        appPassword= "..."
+
+        # database user of the inventory system's  
+        inventoryUsername = "postgres"
+        # (mandatory)
+        inventoryPassword = "..."
+
+        # maximum number of connections per database user
+        maxPoolSize = 10
+    }
+
+    # email notifications (API key expiration, etc)
+    # not related to notifications send from user flows
+    email {
+        enabled = false
+
+        host = "localhost"
+        port = "25"
+
+        connectTimeout = 20000
+        readTimeout = 10000
+
+        from = "noreply@walmart.com"
+    }
+
+    # process-related configuration
+    process {
+        # path to a YAML file with the default process variables
+        defaultVariables = "..."
+
+        # max age of the process state data (ms)
+        maxStateAge = 604800000
+
+        # max age of failed processes to handle (PG interval)
+        maxFailureHandlingAge = "3 days"
+
+        # max age of stalled processes to handle (PG interval)
+        maxStalledAge = "1 minute"
+
+        # max age of processes which are failed to start (PG interval)
+        maxStartFailureAge = "10 minutes"
+
+        # list of state files that must be encrypted before storing
+        secureFiles: ["_main.json"]
+
+        # process state archive
+        archive {
+            enabled = false
+
+            # the archival task's period (ms)
+            period = 60000
+
+            # maximum time after which the entry will be considered "stalled" (ms)
+            stalledAge = 3600000
+
+            # maximum process age after which it is moved to the archive (ms)
+            processAge = 86400000
+
+            # maximum parallelism of upload operations
+            uploadThreads = 4
+
+            # max age of an archive (ms), disabled if 0
+            maxArchiveAge = 1209600000
+        }
+
+        # process checkpoints
+        checkpoints {
+        
+            # process checkpoints archive            
+            archive {
+                enabled = false
+
+                # the archival task's period (ms)
+                period = 60000
+
+                # maximum time after which the entry will be considered "stalled" (ms)
+                stalledAge = 3600000
+
+                # maximum parallelism of upload operations
+                uploadThreads = 4
+
+                # max age of an archive (ms), disabled if 0
+                maxArchiveAge = 1209600000
+            }
+        }
+    }
+
+    # audit logging
+    audit {
+        enabled = true
+
+        # max age of the audit log data (ms)
+        maxLogAge = 604800000
+    }
+
+    # git repository cache
+    repositoryCache {
+        # directory to store the local repo cache
+        # created automatically if not specified
+        cacheDir = "/tmp/concord/repos"
+
+        # directory to store the local repo cache metadata
+        # created automatically if not specified
+        metaDir = "/tmp/concord/repo_meta"
+
+        # check if concord.yml is present in the repo
+        concordFileValidationEnabled = false
+
+        # timeout for checkout operations (ms)
+        lockTimeout = 180000
+    }
+
+    # process templates
+    template {
+        # directory to store process template cache
+        # created automatically if not specified
+        cacheDir = "/tmp/concord/templates"
+    }
+
+    # secrets and encryption
+    secretStore {
+        # default store to use. See below for store configuration sections
+        default = concord
+
+        # maximum allowed size of binary secrets (bytes)
+        maxSecretDataSize = 1048576
+
+        # maximum allowed size of encrypted strings (used in `crypto.decryptString`, bytes)
+        maxEncryptedStringLength = 102400
+
+        # (mandatory), base64 encoded values used to encrypt secrets
+        serverPassword = "..."
+        secretStoreSalt = "..."
+        projectSecretSalt = "..."
+
+        # default DB store
+        concord {
+            enabled = true
+        }
+
+        # support for storing secret's binaries in Keywhiz
+        keywhiz {
+            enabled = false
+            
+            # automation API URL 
+            url = "https://localhost:4444"
+            
+            # SSL authentication
+            trustStore = "/path/to/trustStore.p12"
+            trustStorePassword = "..."            
+            keyStore = "/path/to/keystore.p12"
+            keyStorePassword = "..."
+            
+            connectTimeout = 5000
+            soTimeout = 5000
+            connectionRequestTimeout = 5000
+        }
+    }
+
+    # process triggers
+    triggers {
+        # disabling all triggers mean that all events (including repository refresh) will be disabled
+        disableAll: false
+
+        # the specified event types will be ignored
+        # for example:
+        #   disabled: ['cron', 'github']
+        # will disable cron scheduling and GitHub notifications
+        disabled: []
+    }
+
+    # API key authentication
+    apiKey {
+        # if disabled the keys are never expire
+        expirationEnabled = false
+
+        # default expiration period (days)
+        expirationPeriod =  30
+
+        # how often Concord will send expiration notifications (days)
+        notifyBeforeDays = [1, 3, 7, 15]
+    }
+
+    # AD/LDAP authentication
+    ldap {
+        url = "ldap://oldap:389"
+        searchBase = "dc=example,dc=org"
+        principalSearchFilter = "(cn={0})"
+        userSearchFilter = "(cn=*{0}*)"
+        usernameProperty = "cn"
+        mailProperty = "mail"
+        systemUsername = "cn=admin,dc=example,dc=org"
+        systemPassword = "..."
+    }
+
+    # GIT-related configuration
+    git {
+        # OAUth token to use when no repository secrets are specified
+        oauth = "..."
+
+        # use GIT's shallow clone
+        shallowClone = true
+    }
+
+    # GitHub integration
+    github {
+        enabled = false
+
+        # Concord will try to register webhooks for repository URL that contain this domain
+        githubDomain = "github.com"
+
+        # GitHub API url
+        apiUrl = "https://github.com/api/v3"
+
+        # API secret, can be anything
+        secret = "..."
+        # OAuth token to use for webhook registration
+        oauthAccessToken = "..."
+
+        # webhook (callback) endpoint. Should be a URL that GitHub can use to connect to Concord
+        webhookUrl = "http://localhost:8001/events/github/push"
+
+        # webhook refresh interval (ms)
+        refreshInterval = 60000
+
+        # use webhooks to refresh the repo cache
+        cacheEnabled = false
+    }
+
+    # S3 support for process state and checkpoint archives
+    s3 {
+        enabled = false
+
+        # list of S3-compatible endpoints
+        destinations: [
+            {
+                url: "http://localhost:9090",
+                accessKey: "a",
+                secretKey: "b",
+                bucketName: "archive"
+            },
+            {
+                url: "http://localhost:9091",
+                accessKey: "a",
+                secretKey: "b",
+                bucketName: "archive"
+            }
+        ]
+    }
+}
+```
+
+A minimal example suitable for local development:
+```
+concord-server {
+    db {
+        appPassword = "q1"
+        inventoryPassword = "q1"
+    }
+
+    secretStore {
+        # just some random values
+        serverPassword = "cTFxMXExcTE="
+        secretStoreSalt = "SCk4KmBlazMi"
+        projectSecretSalt = "I34xCmcOCwVv"
+    }
+
+    ldap {
+        url = "ldap://oldap:389"
+        searchBase = "dc=example,dc=org"
+        principalSearchFilter = "(cn={0})"
+        userSearchFilter = "(cn=*{0}*)"
+        usernameProperty = "cn"
+        systemUsername = "cn=admin,dc=example,dc=org"
+        systemPassword = "admin"
+    }
+}
+
 ```
 
 <a name="server-environment-variables"/>
@@ -61,130 +357,17 @@ Expected format of the configuration file:
 
 All parameters are optional.
 
-### Database
+### Forms
 
-| Variable    | Description                                                     | Default value                        |
-|-------------|-----------------------------------------------------------------|--------------------------------------|
-| DB_DIALECT  | Type of the used database. Supported dialects: `H2`, `POSTGRES` | `H2`                                 |
-| DB_DRIVER   | FQN of the driver's class.                                      | `org.h2.Driver`                      |
-| DB_URL      | JDBC URL of the database.                                       | `jdbc:h2:mem:test;DB_CLOSE_DELAY=-1` |
-| DB_USERNAME | Username to connect to the database.                            | `sa`                                 |
-| DB_PASSWORD | Password to connect to the database.                            | _empty_                              |
+| Variable        | Description                          | Default value               |
+|-----------------|--------------------------------------|-----------------------------|
+| FORM_SERVER_DIR | Directory to store custom form files | _a new temporary directory_ |
 
-### Process State Store
+### HTTPS support
 
-| Variable              | Description                                 | Default value        |
-|-----------------------|---------------------------------------------|----------------------|
-| CONCORD_MAX_STATE_AGE | How long the process state is kept (in ms). | `604800000` (7 days) |
-
-### Log File Store
-
-| Variable      | Description                                                 | Default value               |
-|---------------|-------------------------------------------------------------|-----------------------------|
-| LOG_STORE_DIR | Path to a directory where agent's log files will be stored. | _a new temporary directory_ |
-
-### Secret store
-
-| Variable          | Description                                                                       | Default value |
-|-------------------|-----------------------------------------------------------------------------------|---------------|
-| SECRET_STORE_SALT | Store's salt value. If changed, all previously created keys will be inaccessable. |               |
-
-### Security
-
-| Variable | Description                      | Default value          |
-|----------|----------------------------------|------------------------|
-| LDAP_CFG | Path to LDAP configuration file. | _empty_                |
-
-### Repositories
-
-| Variable       | Description                                    | Default value               |
-|----------------|------------------------------------------------|-----------------------------|
-| REPO_CACHE_DIR | Directory to store project (git) repositories. | _a new temporary directory_ |
-
-<a name="server-ldap-authentication"/>
-## Server LDAP Authentication
-
-Create `ldap.properties` file, containing the following parameters
-(substitute values with the values for your environment):
-
-```
-url=ldaps://host:389
-searchBase=DC=Wal-Mart,DC=com
-principalSearchFilter=(&(sAMAccountName={0})(objectCategory=person))
-usernameProperty=sAMAccountName
-systemUsername=user
-systemPassword=pwd
-```
-
-Set `LDAP_CFG` environment variable to the path of the created file.
-
-The `exposeAttributes` property defines a list of LDAP attributes that will be
-[exposed to processes](./processes.html#provided-variables). Remove this property
-to make all LDAP attributes available.
-
-<a name="slack"/>
-## Server Slack Connection
-
-The Concord server can be configured to connect to Slack and post messages on
-the chat channels via the [slack task](../plugins/slack.html).
-
-Create `slack.properties` file, containing the following parameters
-(substitute values with the values for your environment):
-
-```
-authToken=123456
-proxyAddress=proxy.example.com
-proxyPort=9080
-connectTimeout=10000
-soTimeout=10000
-maxConnections=10
-requestLimit=1
-```
-
-Set `SLACK_CFG` environment variable to the path of the created file.
-
-| Variable       | Description                                                            |
-|----------------| -----------------------------------------------------------------------|
-| authToken      | Slack Bot API Token                                                    |
-| proxyAddress   | Proxy host for slack.com/api access                                    |
-| proxyPort      | Proxy port for slack.com/api access                                    |
-| connectTimeout | The time in ms to establish the connection with the remote host        |
-| soTimeout      | The time in ms waiting for data – after the connection was established |
-| maxConnections | Maximum connections
-| requestLimit   | Notifications per second
-
-
-<a name="github"/>
-## Server GitHub Connection
-
-The Concord server can be configured to connect to a GitHub Enterprise instance
-or github.com itself and receive [trigger events](./triggers.html).
-
-Create `github.properties` file, containing the following parameters and
-substitute values with the values for your environment:
-
-```
-secret=abc123
-oauthAccessToken=12ssdfd682121...
-apiUrl=https://github.example.com/api/v3
-webhookUrl=https://concord.example.com/events/github/push
-githubUrl=github.example.com
-refreshInterval=1800000
-cacheEnabled=true
-```
-
-Set `GITHUB_CFG` environment variable to the path of the created file.
-
-| Variable       | Description                                                            |
-|----------------| -----------------------------------------------------------------------|
-| secret           | signing key  |
-| oauthAccessToken | OAUTH access token for GitHub access|
-| apiUrl           | URL of the GitHub API endpoint |
-| webhookUrl       | URL of the Concord webhook endpoint | 
-| githubUrl        | URL of the GitHub instance as | 
-| refreshInterval  | Time interval to use between forced webhook re-registrations in ms | 
-| cacheEnabled     | Flag to signal if GitHub webhooks are used to update the local repository cache as performance improvement when set `true`, when `false` webhooks are only used as triggers |
-
+| Variable       | Description                                  | Default value |
+|----------------|----------------------------------------------|---------------|
+| SECURE_COOKIES | Enable `secure` attribute on server cookies. | false         |
 
 ## Process Runtime Variables
 
@@ -212,9 +395,10 @@ an SMTP server used by the [SMTP task](../plugins/smtp.html) in one central
 location separate from the individual projects.
 
 The values are configured in a YAML file. The path to the file and the name are
-configured with the environment variable `DEF_VARS_CFG`. The following example,
-shows how to configure an SMTP server to be used by all processes. As a result,
-project authors do not need to specify the SMTP server configuration in their
+configured in [the server's configuration file](#server-cfg-file). The
+following example, shows how to configure an SMTP server to be used by all
+processes. As a result, project authors do not need to specify the SMTP server
+configuration in their
 own `concord.yml`.
 
 ```
