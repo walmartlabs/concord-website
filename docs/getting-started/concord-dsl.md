@@ -82,7 +82,7 @@ the [task documentation](./tasks.html) and the specific task used for details.
 <a name="configuration"/>
 ## Project Configuration in `configuration`
 
-Overall configuration for the project and process executions is contained in the
+Overall configuration for the project and process executions are contained in the
 `configuration:` top level element of the Concord file:
 
 - [Entry Point](#entry-point)
@@ -94,7 +94,7 @@ Overall configuration for the project and process executions is contained in the
 ### Entry Point
 
 The `entryPoint` configuration sets the name of the flow that will be used for
-process executions. Without specific configuration the flow labelled `default`
+process executions. If no `entrypoint` is specified the flow labelled `default`
 is used automatically, if it exists.
 
 ```yaml
@@ -111,8 +111,8 @@ The `dependencies` array allows users to specify the URLs of dependencies such
 as:
 
 - Concord plugins and their dependencies
-- dependencies needed for specific scripting language support
-- other dependencies required for process execution
+- Dependencies needed for specific scripting language support
+- Other dependencies required for process execution
 
 ```yaml
 configuration:
@@ -127,8 +127,8 @@ configuration:
 The artifacts are downloaded and added to the classpath for process execution
 and are typically used for [task implementations](./tasks.html).
 
-Multiple versions of the same artifact are replaced with a single one, according
-to standard Maven resolution rules.
+Multiple versions of the same artifact are replaced with a single one, following
+ standard Maven resolution rules.
 
 Usage of the `mvn:` URL pattern is preferred since it uses the centrally
 configured [list of repositories](./configuration.html#dependencies) and
@@ -167,8 +167,8 @@ The `mvn` syntax uses the short form for GAV coordinates
 
 Newer versions of groovy-all use `<packaging>pom</packaging>` and define
 dependencies. To use a project that applies this approach, called Bill of
-Material BOM, as a dependency you need to specify the packaging in the between
-artifactId and version. For example, version 2.5.2 has to be specified as
+Material (BOM), as a dependency you need to specify the packaging in between
+the artifactId and version. For example, version 2.5.2 has to be specified as
 `org.codehaus.groovy:groovy-all:pom:2.5.2`:
 
 ```yaml
@@ -182,13 +182,13 @@ Concord plugins.
 
 ### Template
 
-A template can be used to allow inheritance of all the configuration of another
+A template can be used to allow inheritance of all the configurations of another
 project. The value for the `template` field has to be a valid URL pointing to
 a JAR-archive of the project to use as template.
 
 The template is downloaded for [process execution](./processes.html#execution)
 and exploded in the workspace. More detailed documentation, including
-information about available templates, is available in the
+information about available templates, can be found in the
 [templates section](../templates/index.html).
 
 ### Arguments
@@ -231,7 +231,7 @@ configuration:
     message: "Hello, ${name}"
 ```
 
-Variable value can be [defined or modified with the set step](#set) and a
+A variables value can be [defined or modified with the set step](#set) and a
 [number of variables](./processes.html#variables) are automatically set in each
 process and available for usage.
 
@@ -255,9 +255,9 @@ top-level element in the Concord file.
 
 ### Entry Points
 
-Entry point define the name and start of process definitions within the
-top-level `flows:` element. Concord uses entry points as a starting step of an
-execution. A single Concord file can contain multiple entry points.
+Entry points define the name and start of process definitions within the
+top-level `flows:` element. Concord uses entry points as the starting step of
+an execution. A single Concord file can contain multiple entry points:
 
 ```yaml
 flows:
@@ -352,7 +352,7 @@ flows:
 In this example, after `then` (1) or `else` (2) block are completed,
 the execution continues with the next step in the flow (3).
 
-To compare a value (or a result of an expression) with multiple
+To compare a value (or the result of an expression) with multiple
 values, use the `switch` block:
 
 ```yaml
