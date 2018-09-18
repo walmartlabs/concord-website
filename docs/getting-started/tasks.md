@@ -11,8 +11,8 @@ too complex to express with the Concord DSL and EL in YAML directly. They are
 _plugins_ of Concord.
 
 - [Using Tasks](#use-task)
-- [Creating Tasks](#create-task)
 - [Retry Tasks](#retry-task)
+- [Creating Tasks](#create-task)
 
 <a name="use-task"/>
 ## Using Tasks
@@ -72,6 +72,52 @@ flows:
         processVar: ${taskVar}
       error:
         - log: something bad happened
+```
+
+<a name="retry-task"/>
+## Retry Tasks
+
+The `retry` attribute inside a task is used to restart the task automatically
+in case of errors or failures. Users can define the number of times the task can
+be re-tried and a delay for each retry. If not specified, the default value
+for the delay is 5000 milliseconds.
+
+The `times` parameter defines the number of times a task can be `retry` and
+`delay` specifies the time span after which it retries the task in case of
+errors. The delay time is always in milliseconds.
+
+For example the below section executes the `myTask` using the provided `in`
+parameters.  In case of errors, the task retries up to 3 times with 3000
+milliseconds delay each. Additional parameters for the retry are supplied in the
+`in` block.
+
+```yaml
+- task: myTask
+  in:
+    ...
+  retry:
+    in:
+      ...additional parameters...
+    times: 3
+    delay: 3000
+```
+
+The default `in` and `retry` variables with the same values are overwritten.
+
+In the example below the value of `someVar` is overwritten to 321 in the
+`retry` block..
+
+
+```yaml
+- task: myTask
+  in:
+    someVar:
+      nestedValue: 123
+  retry:
+    in:
+      someVar:
+        nestedValue: 321
+        newValue: "hello"
 ```
 
 <a name="create-task"/>
@@ -223,49 +269,4 @@ flows:
 configuration:
   arguments:
     greeting: "Hello, %s!"
-```
-<a name="retry-task"/>
-## Retry Tasks
-
-The `retry` attribute inside a task is used to restart the task automatically
-in case of errors or failures. Users can define the number of times the task can
-be re-tried and a delay for each retry. If not specified, the default value
-for the delay is 5000 milliseconds.
-
-The `times` parameter defines the number of times a task can be `retry` and
-`delay` specifies the time span after which it retries the task in case of
-errors. The delay time is always in milliseconds.
-
-For example the below section executes the `myTask` using the provided `in`
-parameters.  In case of errors, the task retries up to 3 times with 3000
-milliseconds delay each. Additional parameters for the retry are supplied in the
-`in` block.
-
-```yaml
-- task: myTask
-  in:
-    ...
-  retry:
-    in:
-      ...additional parameters...
-    times: 3
-    delay: 3000
-```
-
-The default `in` and `retry` variables with the same values are overwritten.
-
-In the example below the value of `someVar` is overwritten to 321 in the
-`retry` block..
-
-
-```yaml
-- task: myTask
-  in:
-    someVar:
-      nestedValue: 123
-  retry:
-    in:
-      someVar:
-        nestedValue: 321
-        newValue: "hello"
 ```
