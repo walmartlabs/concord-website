@@ -748,7 +748,7 @@ Profile selection is configured when a process is
 
 For example, if the process below is executed using the `myProfile` profile,
 the value of `foo` is `bazz` and appears in the log instead of the default
-`bar`.
+`bar`:
 
 ```yaml
 configuration:
