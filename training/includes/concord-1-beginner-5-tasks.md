@@ -134,7 +134,9 @@ flows:
 - Access to secrets
   - keys
   - credentials
-- Encrypt secret via API
+- Encrypt secret 
+  - in project settings in Concord Console
+  - or with REST API
 - Decrypt in flow with task
 
 Note:
