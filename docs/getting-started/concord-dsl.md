@@ -82,7 +82,7 @@ the [task documentation](./tasks.html) and the specific task used for details.
 <a name="configuration"/>
 ## Project Configuration in `configuration`
 
-Overall configuration for the project and process executions is contained in the
+Overall configuration for the project and process executions are contained in the
 `configuration:` top level element of the Concord file:
 
 - [Entry Point](#entry-point)
@@ -94,7 +94,7 @@ Overall configuration for the project and process executions is contained in the
 ### Entry Point
 
 The `entryPoint` configuration sets the name of the flow that will be used for
-process executions. Without specific configuration the flow labelled `default`
+process executions. If no `entrypoint` is specified the flow labelled `default`
 is used automatically, if it exists.
 
 ```yaml
@@ -111,8 +111,8 @@ The `dependencies` array allows users to specify the URLs of dependencies such
 as:
 
 - Concord plugins and their dependencies
-- dependencies needed for specific scripting language support
-- other dependencies required for process execution
+- Dependencies needed for specific scripting language support
+- Other dependencies required for process execution
 
 ```yaml
 configuration:
@@ -127,8 +127,8 @@ configuration:
 The artifacts are downloaded and added to the classpath for process execution
 and are typically used for [task implementations](./tasks.html).
 
-Multiple versions of the same artifact are replaced with a single one, according
-to standard Maven resolution rules.
+Multiple versions of the same artifact are replaced with a single one, following
+ standard Maven resolution rules.
 
 Usage of the `mvn:` URL pattern is preferred since it uses the centrally
 configured [list of repositories](./configuration.html#dependencies) and
@@ -167,8 +167,8 @@ The `mvn` syntax uses the short form for GAV coordinates
 
 Newer versions of groovy-all use `<packaging>pom</packaging>` and define
 dependencies. To use a project that applies this approach, called Bill of
-Material BOM, as a dependency you need to specify the packaging in the between
-artifactId and version. For example, version 2.5.2 has to be specified as
+Material (BOM), as a dependency you need to specify the packaging in between
+the artifactId and version. For example, version 2.5.2 has to be specified as
 `org.codehaus.groovy:groovy-all:pom:2.5.2`:
 
 ```yaml
@@ -182,13 +182,13 @@ Concord plugins.
 
 ### Template
 
-A template can be used to allow inheritance of all the configuration of another
+A template can be used to allow inheritance of all the configurations of another
 project. The value for the `template` field has to be a valid URL pointing to
 a JAR-archive of the project to use as template.
 
 The template is downloaded for [process execution](./processes.html#execution)
 and exploded in the workspace. More detailed documentation, including
-information about available templates, is available in the
+information about available templates, can be found in the
 [templates section](../templates/index.html).
 
 ### Arguments
@@ -231,7 +231,7 @@ configuration:
     message: "Hello, ${name}"
 ```
 
-Variable value can be [defined or modified with the set step](#set) and a
+A variables value can be [defined or modified with the set step](#set) and a
 [number of variables](./processes.html#variables) are automatically set in each
 process and available for usage.
 
@@ -255,9 +255,9 @@ top-level element in the Concord file.
 
 ### Entry Points
 
-Entry point define the name and start of process definitions within the
-top-level `flows:` element. Concord uses entry points as a starting step of an
-execution. A single Concord file can contain multiple entry points.
+Entry points define the name and start of process definitions within the
+top-level `flows:` element. Concord uses entry points as the starting step of
+an execution. A single Concord file can contain multiple entry points:
 
 ```yaml
 flows:
@@ -352,7 +352,7 @@ flows:
 In this example, after `then` (1) or `else` (2) block are completed,
 the execution continues with the next step in the flow (3).
 
-To compare a value (or a result of an expression) with multiple
+To compare a value (or the result of an expression) with multiple
 values, use the `switch` block:
 
 ```yaml
@@ -400,9 +400,12 @@ flows:
         - return
 ```
 
+The `return` command can be used to stop the current process if called from an
+entry point.
+
 ### Exit Command
 
-The `exit` command can be used to stop the execution of the flow:
+The `exit` command can be used to stop the execution of the current process:
 
 ```yaml
 flows:
@@ -415,7 +418,7 @@ flows:
 
 ### Groups of Steps
 
-Several steps can be grouped in one block. This allows `try-catch`-like
+Several steps can be grouped into one block. This allows `try-catch`-like
 semantics:
 
 ```yaml
@@ -434,7 +437,7 @@ flows:
 ### Calling Other Flows
 
 Flows, defined in the same YAML document, can be called by their names or using
-the `call` step.
+the `call` step:
 
 ```yaml
 flows:
@@ -462,7 +465,7 @@ flows:
 ### Loops
 
 Concord flows can iterate through a collection of items in a loop using the
-`call` step and the `withItems` collection of values.
+`call` step and the `withItems` collection of values:
 
 ```yaml
   - call: myFlow
@@ -497,7 +500,7 @@ flows:
     withItems: ${myItems}
 ```
 
-The items are referenced in the invoked flow with the `${item}` expression.
+The items are referenced in the invoked flow with the `${item}` expression:
 
 ```yaml
   myFlow:
@@ -524,13 +527,13 @@ flows:
 ### Error Handling
 
 The full form syntax allows using input variables (call arguments) and supports
-error handling:
+error handling.
 
 Task and expression errors are normal Java exceptions, which can be
-"caught" and handled using a special syntax.
+\"caught\" and handled using a special syntax.
 
 Expressions, tasks, groups of steps and flow calls can have an
-optional `error` block, which will be executed if an exception occurrs.
+optional `error` block, which will be executed if an exception occurs:
 
 ```yaml
 flows:
@@ -561,7 +564,7 @@ flows:
 The `${lastError}` variable contains the last caught
 `java.lang.Exception` object.
 
-If an error was caught, the execution will continue from the next step.
+If an error was caught, the execution will continue from the next step:
 
 ```yaml
 flows:
@@ -575,7 +578,7 @@ flows:
 
 An execution logs `A` and then `B`.
 
-When a process cancelled (killed) by a user, a special flow
+When a process is cancelled (killed) by a user, a special flow
 `onCancel` is executed:
 
 ```yaml
@@ -600,17 +603,17 @@ flows:
   - log: "Yep, we just did"
 ```
 
-In both cases, the server starts a "child" process with a copy of
+In both cases, the server starts a \"child\" process with a copy of
 the original process state and uses `onCancel` or `onFailure` as an
 entry point.
 
-**Note**: if a process was never suspended (e.g. had no forms or no
+**Note**: If a process was never suspended (e.g. had no forms or no
 forms were submitted), then `onCancel`/`onFailures` receive a
 copy of the initial state of a process, which was created when the
 original process was started by the server.
 
 This means that no changes in the process state before suspension
-will be visible to the "child" processes:
+will be visible to the \"child\" processes:
 
 ```yaml
 flows:
@@ -640,7 +643,7 @@ configuration:
 ### Throwing Exceptions
 
 The `throw` step can be used to throw a new RuntimeException with the supplied
-message anywhere in a flow including `error` sections, but also in
+message anywhere in a flow including in `error` sections and in
 [conditional expressions](#conditional-expressions) such as if-then or
 switch-case.
 
@@ -653,7 +656,7 @@ flows:
     - throw: "oh, something went wrong."
 ```
 
-Alternatively a caught exception can be thrown again using the `lastError` variable.
+Alternatively a caught exception can be thrown again using the `lastError` variable:
 
 ```yaml
 flows:
@@ -745,7 +748,7 @@ Profile selection is configured when a process is
 
 For example, if the process below is executed using the `myProfile` profile,
 the value of `foo` is `bazz` and appears in the log instead of the default
-`bar`.
+`bar`:
 
 ```yaml
 configuration:
