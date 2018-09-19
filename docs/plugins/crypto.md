@@ -104,8 +104,10 @@ exported secret.
 A value can be encrypted with a project's key and subsequently
 decrypted in the same project's process. The value is not persistently stored.
 
+You can encrypt a value in your project's settings configuration in the
+Concord Console.
 
-The REST API can be used to encrypt the value using the the project specific key
+Alternatively, the REST API can be used to encrypt the value using the the project specific key
 and the `encrypt` context:
 
 ```
