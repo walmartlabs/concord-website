@@ -40,7 +40,7 @@ Teams have different **access levels** to the Organization's resources:
 Resources such as project, secrets and inventories can have different
 **visibility**:
 - `PUBLIC` - any Concord user can access and use the resource. For example,
-a public project can be used by anyone to start a new process;
+a public project can be used by anyone to start a new process.
 - `PRIVATE` - only [teams](#teams) that have an appropriate **access level**
 can use the resource.
 

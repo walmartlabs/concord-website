@@ -30,7 +30,7 @@ curl -v -u myuser:mypwd ...
 The actual user record will be created on the first successful authentication attempt.
 After that, it can be managed as usual, by using the [User](../api/user.html) API endpoint.
 
-Username/password authentication uses LDAP/Active Directory realm, check
+Username/password authentication uses an LDAP/Active Directory realm. Check
 [Configuration](./configuration.html#ldap) document for details.
 
 ## Managing Credentials

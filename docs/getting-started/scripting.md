@@ -13,14 +13,14 @@ compliant runtimes are
 [JavaScript](#javascript), [Groovy](#groovy), [Python](#python), JRuby and many
 others.
 
-Script languages have to be identified by setting language explicitly or can be
+Script languages have to be identified by setting the language explicitly or can be
 automatically identified based on the file extension used. They can be stored
 as external files and invoked from the Concord YAML file or they can be inline
 in the file.
 
 [Flow variables](#variables), [Concord tasks](#tasks) and other Java methods can
 be accessed from the scripts due to the usage of the Java Scripting API. The
-script and your Concord process essentially run within the same context on the
+script and your Concord processes essentially run within the same context on the
 JVM.
 
 - [Using Flow Variables](#variables)
@@ -143,7 +143,7 @@ Groovy is another compatible engine that is fully-supported in Concord. It
 requires the addition of a dependency to
 [groovy-all](http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/) and
 the identifier `groovy`. For versions 2.4.* and lower jar packaging is used in
-this projects, so the correct dependencies is
+projects, so the correct dependency is
 e.g. `mvn://org.codehaus.groovy:groovy-all:2.4.12`. Versions 2.5.0 and higher
 use pom packaging, which has to be added to the dependency declaration before
 the version `mvn://org.codehaus.groovy:groovy-all:pom:2.5.2`.
