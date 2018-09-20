@@ -231,7 +231,7 @@ configuration:
     message: "Hello, ${name}"
 ```
 
-A variables value can be [defined or modified with the set step](#set-step) and a
+A variable's value can be [defined or modified with the set step](#set-step) and a
 [number of variables](./processes.html#variables) are automatically set in each
 process and available for usage.
 
