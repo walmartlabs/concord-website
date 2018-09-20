@@ -13,6 +13,7 @@ task.
 - [Usage](#usage)
 - [Git Task](#git-task)
   - [Clone a Repository](#clone)
+  - [Commit and Push Changes](#commit-push)
   - [Create and Push a New Branch](#branch)
   - [Merge Branches](#merge)
 - [GitHub Task](#github-task)
@@ -98,6 +99,30 @@ flows:
 The `baseBranch` parameter is optional and specifies the name of the branch to
 use check out after the clone operation. If not provided, the default branch of
 the repository is used - typically called `master`.
+
+<a name="commit-push"/>
+### Commit and Push Changes
+
+The `commit` action of the `git` task can be used to commit your changes made on the cloned repo. You can also
+push the changes to origin by setting 'pushChanges' to true.
+
+
+```yaml
+- task: git
+    in:
+      action: commit
+      workingDir: "git-project"
+      privateKey:
+         org: myOrg
+         secretName: mySecret
+      baseBranch: feature-a
+      commitMessage: "my commit message"
+      pushChanges: true      
+```
+
+The `baseBranch` parameter is mandatory and specifies the name of the branch to
+use to commit the changes. The `commitMessage` is a message to add to your commit operataion.
+The `pushChanges` parameter is optional and if not provided, will not push the changes to origin
 
 <a name="branch"/>
 ## Create and Push a New Branch
