@@ -104,7 +104,7 @@ the repository is used - typically called `master`.
 ### Commit and Push Changes
 
 The `commit` action of the `git` task can be used to commit your changes made on the cloned repo. You can also
-push the changes to origin by setting 'pushChanges' to true.
+push the changes to origin by setting 'pushChanges' to true.`commit` action is dependent on `clone` action. So make sure `clone` action is performed first.
 
 
 ```yaml
