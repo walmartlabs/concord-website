@@ -6,8 +6,8 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-A process is represents an execution of a Concord project using one of the
-defined process definition and additional supplied resources.
+A process represents an execution of a Concord project using one of the
+defined process definitions and additional supplied resources.
 
 - [Structure](#structure)
 - [Project file](#project-file)
@@ -62,7 +62,7 @@ The request's JSON format:
 }
 ```
 
-The `entryPoint` parameter is can be used to defined the flow to be used. The 
+The `entryPoint` parameter defines the flow to be used. The 
 `activeProfiles` parameter is a list of project file's profiles that will be
 used to start a process. If not set, a `default` profile will be used.
 
@@ -78,7 +78,7 @@ instance of `com.walmartlabs.concord.sdk.Context`;
 - `tasks`: allows access to available tasks (for example:
   `${tasks.get('oneops')}`);
 - `workDir`: path to the working directory of a current process;
-- `initiator`: information about user who started a process:
+- `initiator`: information about the user who started a process:
   - `initiator.username`: login, string;
   - `initiator.displayName`: printable name, string;
   - `initiator.groups`: list of user's groups;
@@ -102,7 +102,7 @@ instance of `com.walmartlabs.concord.sdk.Context`;
 
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 
-Availability of other variables and "beans" depends on installed Concord's
+Availability of other variables and "beans" depends on the installed Concord
 plugins and the arguments passed in at the process invocation and stored in the
 request data.
 
@@ -141,7 +141,7 @@ $ curl ... -F sync=true -F out=a.b.c http://concord.example.com/api/v1/process
 In this example, Concord looks for variable `a`, its field `b` and
 the nested field `c`.
 
-When a process starts in the synchronous mode (`sync=true`), the data is
+When a process starts in synchronous mode (`sync=true`), the data is
 returned in the response. For asynchronous processes, the output variables data
 can be retrieved with an API call:
 
@@ -165,6 +165,6 @@ A process is executed by the Concord Server using the following steps:
 - Configuration from an uploaded JSON file is merged.
 - Configuration from request parameters and selected profiles is applied.
 - Templates are downloaded and applied.
-- The payload is created and send to an agent for execution.
+- The payload is created and sent to an agent for execution.
 - Dependencies are downloaded and put on the class-path.
 - The flow configured as entry point is invoked.
