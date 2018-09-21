@@ -117,8 +117,8 @@ push the changes to origin by setting 'pushChanges' to true.`commit` action is d
          secretName: mySecret
       baseBranch: feature-a
       commitMessage: "my commit message"
-      committerUId: myUserId
-      committerEmail: myEmail
+      commitUsername: myUserId
+      commitEmail: myEmail
       pushChanges: true      
 ```
 
