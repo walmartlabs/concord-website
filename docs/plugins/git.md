@@ -119,13 +119,16 @@ action, so make sure `clone` action is performed first.
          secretName: mySecret
       baseBranch: feature-a
       commitMessage: "my commit message"
+      commitUsername: myUserId
+      commitEmail: myEmail
       pushChanges: true
 ```
 
 The `baseBranch` parameter is mandatory and specifies the name of the branch to
 use to commit the changes. The `commitMessage` is a message to add to your
 commit operataion. The `pushChanges` parameter is optional and defaults to
-`false`, when omitted.
+`false`, when omitted. The `commitUsername` and `commitEmail` are mandatory
+parameters to capture committer details.
 
 
 <a name="branch"/>
