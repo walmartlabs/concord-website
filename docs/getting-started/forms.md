@@ -54,6 +54,7 @@ forms:
   - password: { label: "Password", type: "string", inputType: "password" }
   - rememberMe: { label: "Remember me", type: "boolean" }
   - photo: { label: "Photo", type: "file" }
+  - email: { label: "Email", type: "string", inputType: "email" }
 ```
 
 Field declaration consists of the name (`myField`), the type
@@ -83,6 +84,10 @@ Supported types of fields and their options:
 - `boolean`: a boolean value, `true` or `false`;
 - `file`: a file upload field, the submitted file is stored as a file in the
 process' workspace. Find more tips in our [dedicated section](#upload).
+
+Supported input types:
+- `password`: provide a way for the user to securely enter a password.
+- `email`: provide a way for the user to enter a correct email.
 
 Cardinality of the field can be specified by adding a cardinality
 quantifier to the type:
