@@ -103,8 +103,10 @@ the repository is used - typically called `master`.
 <a name="commit-push"/>
 ### Commit and Push Changes
 
-The `commit` action of the `git` task can be used to commit your changes made on the cloned repo. You can also
-push the changes to origin by setting 'pushChanges' to true.`commit` action is dependent on `clone` action. So make sure `clone` action is performed first.
+The `commit` action of the `git` task can be used to commit your changes made on
+the cloned repository. You can push the changes to origin by setting
+`pushChanges` to `true`. The `commit` action is dependent on a prior `clone`
+action, so make sure `clone` action is performed first.
 
 
 ```yaml
@@ -117,12 +119,14 @@ push the changes to origin by setting 'pushChanges' to true.`commit` action is d
          secretName: mySecret
       baseBranch: feature-a
       commitMessage: "my commit message"
-      pushChanges: true      
+      pushChanges: true
 ```
 
 The `baseBranch` parameter is mandatory and specifies the name of the branch to
-use to commit the changes. The `commitMessage` is a message to add to your commit operataion.
-The `pushChanges` parameter is optional and if not provided, will not push the changes to origin
+use to commit the changes. The `commitMessage` is a message to add to your
+commit operataion. The `pushChanges` parameter is optional and defaults to
+`false`, when omitted.
+
 
 <a name="branch"/>
 ## Create and Push a New Branch
