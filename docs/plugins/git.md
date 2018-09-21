@@ -125,7 +125,7 @@ push the changes to origin by setting 'pushChanges' to true.`commit` action is d
 The `baseBranch` parameter is mandatory and specifies the name of the branch to
 use to commit the changes. The `commitMessage` is a message to add to your commit operataion.
 The `pushChanges` parameter is optional and if not provided, will not push the changes to origin.
-The `committerUId` and `committerEmail` are mandatory parameters to capture committer details.
+The `commitUsername` and `commitEmail` are mandatory parameters to capture committer details.
 
 <a name="branch"/>
 ## Create and Push a New Branch
