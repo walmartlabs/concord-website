@@ -1,4 +1,4 @@
-source "https://nexus.prod.walmart.com/nexus/content/repositories/rubygems/"
+source "https://repository.walmart.com/content/repositories/rubygems/"
 
 ruby RUBY_VERSION
 
