@@ -141,13 +141,14 @@ triggers:
 
 The `event` object provides the following attributes
 
+- `type` - Notifications type to bind with respective event notification. Possible values can be `push` and `pull_request`. 
+If not specified, the `type` is set to `push` by default.
+- `status` - for `pull_request` notifications only, with possible values of `opened` or `closed`
 - `project` and `repository` - the name of the Concord project and
 repository which were updated in GitHub
 - `author` - GitHub user, the author of the commit
 - `branch` - the GIT repository's branch
 - `commitId` - ID of the commit which triggered the notification
-- `type` - the name of the github event. Expected values, `push` or `pull_request`. Default set to `push`
-- `status` - only valid for type `pull_request`. Expected values, `opened` or `closed`
 
 The connection to the GitHub deployment needs to be 
 [configured globally](./configuration.html#github).
