@@ -146,8 +146,8 @@ repository which were updated in GitHub
 - `author` - GitHub user, the author of the commit
 - `branch` - the GIT repository's branch
 - `commitId` - ID of the commit which triggered the notification
-- `type` - type of event, `push` or `pull_request`
-- `status` - Only valid for type `pull_request`. Expected values, `opened` or `closed`
+- `type` - the name of the github event. Expected values, `push` or `pull_request`. Default set to `push`
+- `status` - only valid for type `pull_request`. Expected values, `opened` or `closed`
 
 The connection to the GitHub deployment needs to be 
 [configured globally](./configuration.html#github).
