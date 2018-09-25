@@ -74,7 +74,8 @@ flows:
       payload: payload.zip
 ```
 
-The `start` expression with a `project` parameter and an `payload`, starts a new
+The `start` expression with a `project` parameter and a `payload` in the form of
+a zip archive or the name of a folder in your project repository, starts a new
 subprocess in the context of the specified project.
 
 Alternatively, if the project has a repository configured, the process can be
