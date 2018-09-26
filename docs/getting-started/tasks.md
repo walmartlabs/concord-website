@@ -80,15 +80,15 @@ flows:
 The `retry` attribute inside a task is used to restart the task automatically
 in case of errors or failures. Users can define the number of times the task can
 be re-tried and a delay for each retry. If not specified, the default value
-for the delay is 5000 milliseconds.
+for the delay is 5 seconds.
 
 The `times` parameter defines the number of times a task can be `retry` and
 `delay` specifies the time span after which it retries the task in case of
-errors. The delay time is always in milliseconds.
+errors. The delay time is always in seconds.
 
 For example the below section executes the `myTask` using the provided `in`
-parameters.  In case of errors, the task retries up to 3 times with 3000
-milliseconds delay each. Additional parameters for the retry are supplied in the
+parameters.  In case of errors, the task retries up to 3 times with 3
+seconds delay each. Additional parameters for the retry are supplied in the
 `in` block.
 
 ```yaml
@@ -99,7 +99,7 @@ milliseconds delay each. Additional parameters for the retry are supplied in the
     in:
       ...additional parameters...
     times: 3
-    delay: 3000
+    delay: 3
 ```
 
 The default `in` and `retry` variables with the same values are overwritten.
