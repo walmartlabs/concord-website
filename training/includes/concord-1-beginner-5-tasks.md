@@ -154,7 +154,7 @@ First configure:
 ```
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.73.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.89.0
 ```
 
 <!--- vertical -->

@@ -52,7 +52,8 @@ What flow to start with.
 ```
 configuration:
   dependencies:
-  - mvn://org.codehaus.groovy:groovy-all:2.4.14
+  - "mvn://org.codehaus.groovy:groovy-all:2.4.14"
+  - "mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.89.0"
 ```
 
 Note:
@@ -84,7 +85,7 @@ Variable usage:
 flows:
   default:
   - log: "Project name: ${name}"
-  - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+  - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}"
 ```
 
 <!--- vertical -->
@@ -171,7 +172,7 @@ flows:
   - ${myBean.someMethod(myContextArg)}
   - ${1 + 2}
   - ${[1, 2, 3].stream().map(x -> x + 1).toList()}
-  - log: "Process running on ${System.getProperty("os.name")}"
+  - log: "Process running on ${System.getProperty('os.name')}"
 ```
 
 <!--- vertical -->
@@ -250,9 +251,9 @@ flows:
   default:
   - if: ${myVar > 0}
     then:
-      - log: it's clearly non-zero
+      - log: "it's clearly non-zero"
     else:
-      - log: zero or less
+      - log: "zero or less"
 ```
 
 <!--- vertical -->
