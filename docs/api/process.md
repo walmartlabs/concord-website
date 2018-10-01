@@ -86,6 +86,7 @@ working directory.
     curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
     -F org=MyOrg \
     -F project=MyProject \
+    -F repo=MyRepo \
     -F archive=@src/payload.zip \
     -F myFile.txt=@src/myFile.txt \
     -F entryPoint=main \
