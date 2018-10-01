@@ -123,7 +123,7 @@ flows:
 <a name="github"/>
 ## GitHub Triggers
 
-The `github` event source allows Concord to receive push notifications from
+The `github` event source allows Concord to receive `push` and `pull_request` notifications from
 GitHub. Here's an example:
 
 ```yaml
@@ -133,6 +133,7 @@ flows:
   
 triggers:
 - github:
+    type: push
     project: "myProject"
     repository: "myRepository"
     entryPoint: onPush
@@ -140,6 +141,9 @@ triggers:
 
 The `event` object provides the following attributes
 
+- `type` - Notifications type to bind with respective event notification. Possible values can be `push` and `pull_request`. 
+If not specified, the `type` is set to `push` by default.
+- `status` - for `pull_request` notifications only, with possible values of `opened` or `closed`
 - `project` and `repository` - the name of the Concord project and
 repository which were updated in GitHub
 - `author` - GitHub user, the author of the commit
