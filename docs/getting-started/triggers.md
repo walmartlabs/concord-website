@@ -174,7 +174,7 @@ flows:
   - log: "Sweep and wash."
 triggers:
 - cron:
-    spec: 30 * * * *
+    spec: "30 * * * *"
     entryPoint: hourlyCleanUp
 ```
 
@@ -194,7 +194,7 @@ flows:
   - log: "${name} - event run at ${event.fireAt} due to spec ${event.spec} started."
 triggers:
 - cron:
-    spec: * 12 * * * 
+    spec: "* 12 * * *"
     entryPoint: eventOutput
     arguments:
       name: "Concord"
