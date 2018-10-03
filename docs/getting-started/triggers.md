@@ -100,11 +100,13 @@ triggers:
     platform: "myPlatform"
     type: "deployment"
     deploymentState: "complete"
+    useInitiator: true
     entryPoint: onDeployment
 ```
 
 The `event` object, in addition to its trigger parameters, contains a `payload`
-attribute--the original event's data "as is". 
+attribute--the original event's data "as is". You can set `useInitiator` to `true` in order to make
+sure that process is initiated using `createdBy` attribute of the event.
 
 The following example uses the IP address of the deployment component to build 
 an Ansible inventory for execution of an [Ansible task](../plugins/ansible.html):
@@ -136,6 +138,7 @@ triggers:
     type: push
     project: "myProject"
     repository: "myRepository"
+    useInitiator: true
     entryPoint: onPush
 ```
 
@@ -149,6 +152,7 @@ repository which were updated in GitHub
 - `author` - GitHub user, the author of the commit
 - `branch` - the GIT repository's branch
 - `commitId` - ID of the commit which triggered the notification
+- `useInitiator` - process initiator is set to `author` when this attribute is marked as `true`
 
 The connection to the GitHub deployment needs to be 
 [configured globally](./configuration.html#github).
