@@ -41,7 +41,23 @@ The `concord-server` and `concord-agent` processes can be started in debug mode 
 normal Java applications.
 
 However, as the agent processes its payload in a separate JVM, it must be
-configured to start those processes with the remote debugging enabled.
+configured to start those processes with the remote debugging enabled. To
+enable the remote debugging add `_agent.json` to the root directory of the
+process' payload (so either into your GIT repository or into the payload
+archive) with this content:
+
+```json
+{
+  "jvmArgs": ["-Xdebug", "-Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=y"]
+}
+```
+
+This makes all processes to listen on port `5005` for incoming connections from
+an IDE. Make sure to change the port number if you plan to debug multiple
+processes simultaneously.
+
+This method is suitable only for local development.
+
 
 ## Building
 
