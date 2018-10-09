@@ -710,7 +710,7 @@ A checkpoint is a point defined within a flow at which the process state is
 persisted in Concord. This process state can subsequently be restored and
 process execution can continue. A flow can contain multiple checkpoints.
 
-The [REST API](../api/checkpoint.html) can be for listing and restoring
+The [REST API](../api/checkpoint.html) can be used for listing and restoring
 checkpoints. Alternatively you can restore a checkpoint to continue processing
 directly from the Concord Console.
 
