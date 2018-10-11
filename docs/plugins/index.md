@@ -18,6 +18,7 @@ use in the workflow execution.
 - [Http](./http.html)
 - [JIRA](./jira.html)
 - [Key Value](./key-value.html)
+- [LDAP](./ldap.html)
 - [Looper](./looper.html)
 - [OneOps](./oneops.html)
 - [Resource](./resource.html)
