@@ -6,17 +6,17 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `ldap` task supports several search queries to an LDAP / AD server.
+The `ldap` task supports several search queries to an LDAP server.
 
 - [Usage](#usage)
 - [Overview](#overview)
 
 Possible search operations are: 
 
-  - [Search for an entry by DN](#search-by-dn)
-  - [Search for a user](#get-user)
-  - [Search for a group](#get-group)
-  - [Check user is a member of a group](#is-member-of)
+- [Search for an entry by DN](#search-by-dn)
+- [Search for a user](#get-user)
+- [Search for a group](#get-group)
+- [Check user is a member of a group](#is-member-of)
   
 <a name="usage"/>
 ## Usage
@@ -36,19 +36,23 @@ This adds the task to the classpath and allows you to invoke the
 <a name="overview"/>
 ## Overview
 
-The `ldap` task allows users to make search queries to an LDAP / AD server as a step of
+The `ldap` task allows users to make search queries to an LDAP server as a step of
 a flow. It uses a number of required input parameters that are common for all
 operations:
 
-- `action` - determines the operation to be performed with the currennt invocation of the LDAP task
-- `ldapAdServer` - URL to the LDAP / AD server, e.g `ldap://hostname.domain.com:3268`
-- `bindUserDn` - the identifier of the account which will be used to bind to the LDAP / AD server for the operation 
-- `bindPassword` - the password of the `bindUserDn` identifier. Typically should be provided via usage of the [Crypto task](./crypto.html)
-- `searchBase` - defines the starting point for the search in the directory tree, e.g. `DC=subdomain,DC=domain,DC=com`
-- `out` - (optional) the variable where the result will be stored in. If not specified, `ldapResult` will be used
+- `action`: determines the operation to be performed with the currennt
+  invocation of the LDAP task
+- `ldapAdServer`: URL to the LDAP server, e.g `ldap://hostname.domain.com:3268`
+- `bindUserDn`: the identifier of the account which is used to bind to the LDAP
+  server for the operation
+- `bindPassword`: the password of the `bindUserDn` identifier, typically
+  provided by usage of the [Crypto task](./crypto.html)
+- `searchBase`: defines the starting point for the search in the directory tree, e.g. `DC=subdomain,DC=domain,DC=com`
+- `out`: optional, the variable where the result is stored in. If not specified,
+  `ldapResult` is used.
 
-The `ldapAdServer`, `bindUserDn`, and `bindPassword` vars configure the connection to the LDAP / AD server. It is best
-configured globally as
+The `ldapAdServer`, `bindUserDn`, and `bindPassword` variables configure the
+connection to the LDAP server. It is best configured globally as
 [default process configuration](../getting-started/configuration.html#default-process-variable):
 with an `ldapParams` argument:
 
@@ -62,8 +66,8 @@ configuration:
 ```
 
 A minimal configuration taking advantage of a globally configured API URL
-includes the `action` to perform, the `searchBase`, and any
-additional parameters needed for the action:
+includes the `action` to perform, the `searchBase`, and any additional
+parameters needed for the action:
 
 ```yaml
 flows:
@@ -79,7 +83,8 @@ flows:
 <a name="searchByDn"/>
 ## Search By DN
 
-The LDAP task can be used to search for an LDAP entry by DN (Distinguished Name) with the `searchByDn` action.
+The LDAP task can be used to search for an LDAP entry by DN (Distinguished Name)
+with the `searchByDn` action.
 
 ```yaml
 flows:
@@ -94,7 +99,7 @@ flows:
 
 Additional parameters to use are:
 
-- `dn` - the distinguished name of the LDAP entry
+- `dn`: the distinguished name of the LDAP entry
 
 <a name="getUser"/>
 ## Get User
@@ -114,13 +119,13 @@ flows:
 
 Additional parameters to use are:
 
-- `user` - the user id, email address, or user principal name to search for
+- `user`: the user id, email address, or user principal name to search for
 
 <a name="getGroup"/>
 ## Get Group
 
-The LDAP task can be used to search for a group with the `getUser` action. You can specifiy whether it
-is a security group or not by `securityEnabled`
+The LDAP task can be used to search for a group with the `getUser` action. You
+can specifiy whether it is a security group or not by `securityEnabled`
 
 ```yaml
 flows:
@@ -136,13 +141,15 @@ flows:
 
 Additional parameters to use are:
 
-- `group` - the identifier of the issue
-- `securityEnabled` - a boolean (true/false) that determines whether to search for security group or not
+- `group`: the identifier of the issue
+- `securityEnabled`: a boolean (`true`/`false`) that determines whether to
+  search for security group or not
 
 <a name="isMemberOf"/>
 ## Is Member Of
 
-The LDAP task can be used to check whether a user is a member of a particular group (includes recursive searching) with the `isMemberOf` action.
+The LDAP task can be used to check whether a user is a member of a particular
+group, includeing recursive searching, with the `isMemberOf` action.
 
 ```yaml
 flows:
@@ -157,6 +164,7 @@ flows:
       out: isMemberOfResult
 ```
 
-- `user` - the user id, email address, or user principal name to search for
-- `group` - the identifier of the issue
-- `securityEnabled` - a boolean (true/false) that determines whether to search for security group or not
+- `user`: the user id, email address, or user principal name to search for
+- `group`: the identifier of the issue
+- `securityEnabled`: a boolean (`true`/`false`) that determines whether to
+  search for security group or not
