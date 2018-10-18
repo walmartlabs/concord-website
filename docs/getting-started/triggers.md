@@ -202,9 +202,12 @@ triggers:
     entryPoint: cronEvent
 ```
 
-Values for the timezone are derived from the [tzdata](https://en.wikipedia.org/wiki/Tz_database)
-database as used in the [Java TimeZone class.](https://docs.oracle.com/javase/8/docs/api/java/util/TimeZone.html)
-You can use any of the TZ values from the [full list of zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+Values for the timezone are derived from the
+[tzdata](https://en.wikipedia.org/wiki/Tz_database)
+database as used in the
+[Java TimeZone class](https://docs.oracle.com/javase/8/docs/api/java/util/TimeZone.html).
+You can use any of the TZ values from the
+[full list of zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 Each trigger execution receives an `event` object with the properties `event.fireAt`
 and `event.spec` as well as any additional arguments supplied in the
