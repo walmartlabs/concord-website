@@ -188,6 +188,24 @@ with `spec: 0,15,30,45 * * * *`. A daily execution at 9 can be specified with
 values and advanced [CRON](https://en.wikipedia.org/wiki/Cron) features such as
 regular expression usage are supported as well.
 
+Cron triggers that include a specific hour of day, can also specify a timezone 
+value for stricter control. Otherwise the Concord instance specific timezone is used.
+
+```yaml
+flows:
+  cronEvent:
+  - log: "On cron event."
+triggers:
+- cron:
+    spec: "0 12 * * *"
+    timezone: "Europe/Moscow"
+    entryPoint: cronEvent
+```
+
+Values for the timezone are derived from the [tzdata](https://en.wikipedia.org/wiki/Tz_database)
+database as used in the [Java TimeZone class.](https://docs.oracle.com/javase/8/docs/api/java/util/TimeZone.html)
+You can use any of the TZ values from the [full list of zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
 Each trigger execution receives an `event` object with the properties `event.fireAt`
 and `event.spec` as well as any additional arguments supplied in the
 configuration: 
