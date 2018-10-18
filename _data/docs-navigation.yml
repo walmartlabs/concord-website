@@ -81,6 +81,8 @@ nav:
         context: /docs/plugins/jira
       - page: Key Value
         context: /docs/plugins/key-value
+      - page: LDAP
+        context: /docs/plugins/ldap
       - page: Looper
         context: /docs/plugins/looper
       - page: OneOps
