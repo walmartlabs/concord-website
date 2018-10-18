@@ -336,7 +336,6 @@ Classes from the package `java.lang` can be accessed via EL syntax:
 
 ### Conditional Expressions
 
-
 ```yaml
 flows:
   default:
@@ -351,6 +350,21 @@ flows:
 
 In this example, after `then` (1) or `else` (2) block are completed,
 the execution continues with the next step in the flow (3).
+
+"And", "or" and "not" operations are supported as well:
+```yaml
+flows:
+  default:
+    - if: ${true && true}
+      then:
+      - log: "Right-o"
+    - if: ${true || false}
+      then:
+      - log: "Yep!"
+    - if: ${!false}
+      then:
+      - log: "Correct!"
+```
 
 To compare a value (or the result of an expression) with multiple
 values, use the `switch` block:
