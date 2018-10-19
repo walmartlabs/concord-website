@@ -11,9 +11,10 @@ Kustomize with the `kustomize` task. It also contains a task, `kubeInventory`,
 for working with the Kubernetes inventory.
 
 The plugin automatically includes the `kustomize` and `kubectl` binaries and
-invokes them as part of your Concord flow as configured.
+invokes them as part of your Concord flow as configured:
 
-__Version used are: kubectl v1.11.3 and kustomize v1.0.8.__
+- __kubectl v1.11.3__
+- __kustomize v1.0.8.__
 
 - [Usage](#usage)
 - [Parameters](#parameters)
@@ -33,9 +34,9 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins:kube:{{ site.concord_plugins_version }}
 ```
 
-This adds the [Kubectl task](#kubectl-task) and the
-[Kustomize task]((#kustomize-task) to the classpath and allows you to invoke the
-tasks in a flow.
+This adds the [Kubectl task](#kubectl-task), [Kustomize task]((#kustomize-task)
+and the [KubeInventory task](#kubeinventory-task)to the classpath and allows you
+to invoke the tasks in a flow.
 
 Typically this involves connecting to a cluster or namespace and then applying
 your configuration.
@@ -66,22 +67,23 @@ following sections:
 - `action`: the action to perform, defaults to `apply`.
 - `admin`: connect as cluster administrator or not, defaults to `false`.
 - `adminSecretsPassword`: the password for getting admin secrets from concord.
-- `dir`: The directory where the Kubernetes manifests are, defaults to `k8s`.
-- `namespace`: the namespace to apply the kubectl manifests.
-- `namespaceSecretsPassword`: the password for getting namespace secrets from concord.
+- `dir`: The directory where the Kubernetes manifests are, defaults to `k8s` for
+  kubectl and `k7e` for kustomize.
+- `namespace`: the namespace to apply the kubectl manifests to.
+- `namespaceSecretsPassword`: the namespace password.
 - `target`: query object for selecting clusters. Commonly used values are:
     `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
     `cluster_id: <an_id>` targets a single cluster, while a `provider: azure`
     targets every azure cluster in the inventory.
 
-
-When the application is deployed all cluster variables from the inventory are
+When the application is deployed, all cluster variables from the inventory are
 replaced in the yaml files. The most useful is `${cluster.ingress}`, but
 other variables from the inventory may be useful too. Find the variables for
-your cluster with `sledge get cluster --cluster_id <my-cluster-id>`
+your cluster with `sledge get cluster --cluster_id <my-cluster-id>`.
+
+Example data from inventory:
 
 ```
-# Example data from inventory.
 {
   "ingress": "lb-node.cluster1.cloud.s05584.us.wal-mart.com",
   "apiServer": "lb-master.cluster1.cloud.s05584.us.wal-mart.com",
@@ -95,10 +97,8 @@ your cluster with `sledge get cluster --cluster_id <my-cluster-id>`
   "cluster_id": "us_us05584c1",
   "cluster_seq": "cluster1",
   "team": "Stores",
-  ...
 }
 ```
-
 
 <a name="#kubectl-task"/>
 
@@ -113,7 +113,7 @@ and
 [`delete`](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#bulk-operations-in-kubectl).
 
 
-### Applying ./k8s directory to All Azure Clusters as Administrator
+### Applying `k8s` directory to All Azure Clusters as Administrator
 
 ```
 kubectl-apply-as-admin:
@@ -121,12 +121,12 @@ kubectl-apply-as-admin:
   - task: kubectl
     in:
       admin: true
-      adminSecretsPassword: ${crypto.decryptString("4d1+ruCra6CLBboT7Wx5mw==")}
+      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       target:
         provider: azure
 ```
 
-### Applying ./manifests Directory to a Single Cluster and Namespace
+### Applying `manifests` Directory to a Single Cluster and Namespace
 
 ```
 kubectl-apply-to-namespace:
@@ -134,15 +134,15 @@ kubectl-apply-to-namespace:
   - task: kubectl
     in:
       admin: false
-      adminSecretsPassword: ${crypto.decryptString("4d1+6CLBboT7Wx5mw==")}
+      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       dir: manifests
-      namespaceSecretsPassword: ${crypto.decryptString("666+ruBboT7Wx5mw==")}
+      namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
       target:
         cluster_id: my_cluster
 ```
 
-### Deleting All Resources in ./k8s Directory to a Single Cluster and Namespace
+### Deleting All Resources in `k8s` Directory to a Single Cluster and Namespace
 
 ```
 kubectl-delete-from-namespace:
@@ -151,9 +151,8 @@ kubectl-delete-from-namespace:
     in:
       action: delete
       admin: false
-      adminSecretsPassword: ${crypto.decryptString("4d1+6CLBboT7Wx5mw==")}
-      dir: manifests
-      namespaceSecretsPassword: ${crypto.decryptString("666+ruBboT7Wx5mw==")}
+      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
+      namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
       target:
         cluster_id: my_cluster
@@ -175,7 +174,7 @@ and
 [delete](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#bulk-operations-in-kubectl).
 
 
-### Applying ./k7e directory to All Azure Clusters as Administrator
+### Applying `k7e` directory to All Azure Clusters as Administrator
 
 ```
 kustomize-apply-as-admin:
@@ -183,12 +182,12 @@ kustomize-apply-as-admin:
   - task: kustomize
     in:
       admin: true
-      adminSecretsPassword: ${crypto.decryptString("4d1+ruCra6CLBboT7Wx5mw==")}
+      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       target:
         provider: azure
 ```
 
-### Applying ./manifests Directory to a Single Cluster and Namespace
+### Applying `manifests` Directory to a Single Cluster and Namespace
 
 ```
 kustomize-apply-to-namespace:
@@ -196,15 +195,15 @@ kustomize-apply-to-namespace:
   - task: kustomize
     in:
       admin: false
-      adminSecretsPassword: ${crypto.decryptString("4d1+6CLBboT7Wx5mw==")}
+      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       dir: manifests
-      namespaceSecretsPassword: ${crypto.decryptString("666+ruBboT7Wx5mw==")}
+      namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
       target:
         cluster_id: my_cluster
 ```
 
-### Deleting All Resources in ./k8s Directory to a Single Cluster and Namespace
+### Deleting All Resources in `k7e` Directory to a Single Cluster and Namespace
 
 ```
 kustomize-delete-from-namespace:
@@ -213,18 +212,18 @@ kustomize-delete-from-namespace:
     in:
       action: delete
       admin: false
-      adminSecretsPassword: ${crypto.decryptString("4d1+6CLBboT7Wx5mw==")}
-      dir: manifests
-      namespaceSecretsPassword: ${crypto.decryptString("666+ruBboT7Wx5mw==")}
+      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
+      namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
       target:
         cluster_id: my_cluster
 ```
 
+<a name="kubeinventory-task"/> 
 
-# KubeInventory Task
+## KubeInventory Task
 
-The `kubeInventory` task is used for getting Kubernetes specific inventories
+The `kubeInventory` task is used for getting Kubernetes specific inventory data
 from Concord. It supports two inventories, `clusters` and `infras`.
 
 - `kubeInventory.clusters(target)` returns information about all clusters that
@@ -235,7 +234,7 @@ from Concord. It supports two inventories, `clusters` and `infras`.
     match the target. It should typically be used with a target that returns
     hosts for a single cluster, such as `target.cluster_id`.
 
-## Parameters
+### Parameters
 
 - `target`: query object for selecting clusters. Commonly used values are:
     `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
@@ -243,7 +242,7 @@ from Concord. It supports two inventories, `clusters` and `infras`.
     targets every azure cluster in the inventory.
 
 
-## Example queries
+### Example queries
 
 ```
 inventory-clusters:
