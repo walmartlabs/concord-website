@@ -5,9 +5,14 @@ Concord.
 
 ## Build
 
-Building and publishing are the same as for the
-[reference site](http://reference.walmart.com/docs/getting-started/)
+```
+gem install bundler
+bundle install
+./run.sh
+```
 
+More information about building and publishing can be found at the
+[reference site](http://reference.walmart.com/docs/getting-started/)
 
 ## CI
 
