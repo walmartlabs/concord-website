@@ -81,7 +81,7 @@ nav:
         context: /docs/plugins/jira
       - page: Key Value
         context: /docs/plugins/key-value
-      - page: Kubectl and Kustomize
+      - page: Kubectl, Kustomize and KubeInventory
         context: /docs/plugins/kube
       - page: LDAP
         context: /docs/plugins/ldap

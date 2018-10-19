@@ -1,13 +1,14 @@
 ---
 layout: wmt/docs
-title:  Kubectl and Kustomize Task
+title:  Kube Tasks, Kubectl, Kustomize and KubeInventory
 side-navigation: wmt/docs-navigation.html
 ---
 
 # {{ page.title }}
 
 The `kube` plugin supports usage of Kubectl with the `kubectl` task and
-Kustomize with the `kustomize` task.
+Kustomize with the `kustomize` task. It also contains a task, `kubeInventory`,
+for working with the Kubernetes inventory.
 
 The plugin automatically includes the `kustomize` and `kubectl` binaries and
 invokes them as part of your Concord flow as configured.
@@ -18,6 +19,7 @@ __Version used are: kubectl v1.11.3 and kustomize v1.0.8.__
 - [Parameters](#parameters)
 - [Kubectl Task](#kubectl-task)
 - [Kustomize Task](#kustomize-task)
+- [KubeInventory Task](#kubeinventory-task)
 
 
 ## Usage
@@ -219,3 +221,52 @@ kustomize-delete-from-namespace:
         cluster_id: my_cluster
 ```
 
+
+# KubeInventory Task
+
+The `kubeInventory` task is used for getting Kubernetes specific inventories
+from Concord. It supports two inventories, `clusters` and `infras`.
+
+- `kubeInventory.clusters(target)` returns information about all clusters that
+    match the target. It can be used to work with multiple clusters
+    (`target.provider`), or a single cluster (`target.cluster_id`).
+
+- `kubeInventory.infras(target)` returns information about the hosts that
+    match the target. It should typically be used with a target that returns
+    hosts for a single cluster, such as `target.cluster_id`.
+
+## Parameters
+
+- `target`: query object for selecting clusters. Commonly used values are:
+    `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
+    `cluster_id: <an_id>` targets a single cluster, while a `provider: azure`
+    targets every azure cluster in the inventory.
+
+
+## Example queries
+
+```
+inventory-clusters:
+  - log: "Running inventory clusters"
+  - expr: ${kubeInventory.clusters(target)}
+    out: clusters
+  - log: "Clusters: ${clusters}"
+
+inventory-infras:
+  - log: "Running inventory infras"
+  - log: "Target ${target}"
+  - expr: ${kubeInventory.infras(target)}
+    out: infras
+  - log: "Infras: ${infras}"
+
+inventory-execute:
+  - log: "Running inventory execute"
+  - task: kubeInventory
+    in:
+      target:
+        provider: azure
+      name: clusters
+    out:
+      clusters: ${items}
+  - log: "Clusters ${clusters}"
+```
