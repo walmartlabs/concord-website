@@ -21,7 +21,8 @@ member of the channel receiving the messages.
 ## Usage
 
 A message `text` can be sent to a specific channel identified by a `channelId`
-with the long syntax or you can use the `call` method.
+with the long syntax or you can use the `call` method. The message sender name can be 
+changed with `username`.
 
 ```yaml
 flows:
@@ -29,6 +30,7 @@ flows:
     - task: slack
       in:
         channelId: "exampleId"
+        username: "anyCustomString"
         text: "Starting execution on Concord"
     - log: "Default flow running"
     - ${slack.call("exampleId", "Another message")}
