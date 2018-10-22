@@ -108,7 +108,7 @@ A DELETE request can be used to removes a repository.
 <a name="validate-repository"/>
 ## Validate a Repository
 
-An existing repository can be validated with a POST request.
+An existing repository can be validated with a POST request. Validate api call will validate concord.yml file syntax.
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/repository/{repositoryName}/validate`
 * **Method** `POST`
@@ -131,7 +131,7 @@ An existing repository can be validated with a POST request.
 <a name="refresh-repository"/>
 ## Refresh a Repository
 
-An existing repository can be refreshed with a POST request. This will clear the concord repository cache.
+An existing repository can be refreshed with a POST request. Refresh the repository api call will clear concord local cache of the repository and gets the latest from user's defined repository link.
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/repository/{repositoryName}/refresh`
 * **Method** `POST`
