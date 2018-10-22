@@ -30,7 +30,7 @@ flows:
     - task: slack
       in:
         channelId: "exampleId"
-        username: "exampleUser"
+        username: "anyCustomString"
         text: "Starting execution on Concord"
     - log: "Default flow running"
     - ${slack.call("exampleId", "Another message")}
