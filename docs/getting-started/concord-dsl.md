@@ -746,6 +746,9 @@ checkpoint's step. For example, if the process is restored using `first`
 checkpoint, all steps starting from `Continuing the process...`
 message and further are executed.
 
+Only process initiators, administrators and users with `WRITER` access level to
+the process' project can restore checkpoints with the API or the user console.
+
 **Note**: files created during the process' execution are not saved during the
 checkpoint creation.
 
