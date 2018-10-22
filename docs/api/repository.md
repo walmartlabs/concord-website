@@ -131,7 +131,7 @@ An existing repository can be validated with a POST request.
 <a name="refresh-repository"/>
 ## Refresh a Repository
 
-An existing repository can be refreshed with a POST request.
+An existing repository can be refreshed with a POST request. This will clear the concord repository cache.
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/repository/{repositoryName}/refresh`
 * **Method** `POST`
