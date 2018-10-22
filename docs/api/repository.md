@@ -12,6 +12,8 @@ a number of operations on the project specific repositories:
 - [Create a Repository](#create-repository)
 - [Update a Repository](#update-repository)
 - [Delete a Repository](#delete-repository)
+- [Validate a Repository](#validate-repository)
+- [Refresh a Repository](#refresh-repository)
 
 <a name="create-repository"/>
 ## Create a Repository
@@ -102,3 +104,48 @@ A DELETE request can be used to removes a repository.
     }
     ```
 
+
+<a name="validate-repository"/>
+## Validate a Repository
+
+An existing repository can be validated with a POST request.
+
+* **URI** `/api/v1/org/{orgName}/project/{projectName}/repository/{repositoryName}/validate`
+* **Method** `POST`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "result": "VALIDATED",
+      "ok": true
+    }
+    ```
+    
+    
+<a name="refresh-repository"/>
+## Refresh a Repository
+
+An existing repository can be refreshed with a POST request.
+
+* **URI** `/api/v1/org/{orgName}/project/{projectName}/repository/{repositoryName}/refresh`
+* **Method** `POST`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "result": "UPDATED",
+      "ok": true
+    }
+    ```
