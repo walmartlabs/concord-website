@@ -53,7 +53,7 @@ parameter like so:
 ```
 java ... -Dollie.conf=/opt/concord/conf/server.conf com.walmartlabs.concord.server.Main
 ```
-When using docker it can be passed as `CFG_FILE` environment variable.
+When using Docker it can be passed as `CONCORD_CFG_FILE` environment variable.
 
 Here's a complete example of the server configuration file including the
 default values. All parameters are optional unless specified:
@@ -156,6 +156,15 @@ concord-server {
                 maxArchiveAge = 1209600000
             }
         }
+    }
+
+    queue {
+        # maximum rate at which processes are allowed to start (proc/sec)
+        # zero or a negative value disables the rate limiting
+        rateLimit = 5
+
+        # maximum time to wait if the process start was rate limited (ms)
+        maxRateTimeout = 10000
     }
 
     # audit logging
@@ -273,6 +282,11 @@ concord-server {
 
         # use GIT's shallow clone
         shallowClone = true
+
+        httpLowSpeedLimit = 1
+        httpLowSpeedTime = 600
+        sshTimeoutRetryCount = 1
+        sshTimeout = 600
     }
 
     # GitHub integration
