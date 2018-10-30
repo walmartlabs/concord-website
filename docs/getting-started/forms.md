@@ -150,7 +150,7 @@ provide additional data.
 
 ## Custom Error Messages
 
-While Concord provides default error messages for form fields, the error 
+While Concord provides default error messages for form field validation, the error 
 text that displays can be customized . With a form created from your YAML 
 file, this can be accomplished with the addition of a `locale.properties` 
 file in the same directory location.
@@ -167,21 +167,21 @@ The error types that can be customized are:
 - `valueNotAllowed`
 
 To customize the same error message for all fields, the syntax is
-simply the `error type:customized error`. For example, a `locale.properties` 
-file that looks like this would flag all fields empty after submission with
-the error 'Required field':
+simply the `error type:customized error`. A `locale.properties` 
+file that looks like the following example flags all fields empty 
+after submission with the error 'Required field':
 ```
 invalidCardinality=Required field
 ```
 
 For customizing specific fields in a form, use the format `fieldname.error type=custom 
-message`. In a form to collect a name, phone number, and an optional email, the
-`locale.properties` file could be set up to look like the below to require a name and
-phone number, and enforce a specific pattern for the phone number (specified in YAML).
+message`. In a form to collect a name, phone number, and an optional email, the following
+`locale.properties` file requires a name and phone number, and enforces a specific pattern 
+for the phone number (specified in YAML).
 ```
 username.invalidCardinality=Please enter your username
 phonenumber.invalidCardinality=Please enter your phone number
-phonenumber.doesntMatchPattern=Please enter your phone number the the format ###-###-####
+phonenumber.doesntMatchPattern=Please enter your phone number with the format ###-###-####
 ```
 
 <a name="custom"/>
