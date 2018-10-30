@@ -14,7 +14,7 @@ HTML/CSS/JS/etc resources](#custom-forms).
 - [Form declaration](#declaration)
 - [Form fields](#fields)
 - [Using a form in a flow](#using)
-- [Custom Error Messages](#error)
+- [Custom error messages](#error)
 - [Custom forms](#custom)
 - [Accessing form data](#access)
 - [File upload](#upload)
