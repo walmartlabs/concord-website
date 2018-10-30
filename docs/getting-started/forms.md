@@ -156,15 +156,15 @@ created from your YAML file, this can be accomplished with the addition
 of a `locale.properties` file in the same directory location.
 
 The error types that can be customized are:
-`invalidCardinality`
-`expectedString`
-`expectedInteger`
-`expectedDecimal`
-`expectedBoolean`
-`doesntMatchPattern`
-`integerRangeError`
-`decimalRangeError`
-`valueNotAllowed`
+- `invalidCardinality`
+- `expectedString`
+- `expectedInteger`
+- `expectedDecimal`
+- `expectedBoolean`
+- `doesntMatchPattern`
+- `integerRangeError`
+- `decimalRangeError`
+- `valueNotAllowed`
 
 To customize the same error message for all fields, the syntax is
 simply the `error type:customized error`. For example, a `locale.properties` 
