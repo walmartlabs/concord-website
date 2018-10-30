@@ -147,6 +147,7 @@ Supported only for custom (with branding) forms;
 provide additional data.
 
 <a name="error"/>
+
 ## Custom Error Messages
 
 While Concord provides default error messages for fields, the text that
