@@ -150,10 +150,10 @@ provide additional data.
 
 ## Custom Error Messages
 
-While Concord provides default error messages for fields, the text that
-displays can be modified to be more readily understood. With a form
-created from your YAML file, this can be accomplished with the addition
-of a `locale.properties` file in the same directory location.
+While Concord provides default error messages for form fields, the error 
+text that displays can be customized . With a form created from your YAML 
+file, this can be accomplished with the addition of a `locale.properties` 
+file in the same directory location.
 
 The error types that can be customized are:
 - `invalidCardinality`
