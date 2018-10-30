@@ -46,7 +46,7 @@ flows:
   - var(pom = "-DpomFile=pom.xml")
   - var(file = "-Dfile=_site/site.zip")
   - var(url = "-Durl=https://repository.walmart.com/content/repositories/labs_snapshots")
-  - var(id = "-DrepositoryId=pangaea_releases")
+  - var(id = "-DrepositoryId=proximity")
   - (name Deploy archive) mvn -B deploy:deploy-file ${pom} ${file} ${url} ${id}
 
   sonar:
