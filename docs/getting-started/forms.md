@@ -14,6 +14,7 @@ HTML/CSS/JS/etc resources](#custom-forms).
 - [Form declaration](#declaration)
 - [Form fields](#fields)
 - [Using a form in a flow](#using)
+- [Custom Error Messages](#error)
 - [Custom forms](#custom)
 - [Accessing form data](#access)
 - [File upload](#upload)
@@ -144,6 +145,43 @@ this form and the rest of the process will continue in the background.
 Supported only for custom (with branding) forms;
 - `values`: additional values, to override default form values or to
 provide additional data.
+
+<a name="error"/>
+## Custom Error Messages
+
+While Concord provides default error messages for fields, the text that
+displays can be modified to be more readily understood. With a form
+created from your YAML file, this can be accomplished with the addition
+of a `locale.properties` file in the same directory location.
+
+The error types that can be customized are:
+`invalidCardinality`
+`expectedString`
+`expectedInteger`
+`expectedDecimal`
+`expectedBoolean`
+`doesntMatchPattern`
+`integerRangeError`
+`decimalRangeError`
+`valueNotAllowed`
+
+To customize the same error message for all fields, the syntax is
+simply the `error type:customized error`. For example, a `locale.properties` 
+file that looks like this would flag all fields empty after submission with
+the error 'Required field':
+```
+invalidCardinality=Required field
+```
+
+For customizing specific fields in a form, use the format `fieldname.error type=custom 
+message`. In a form to collect a name, phone number, and an optional email, the
+`locale.properties` file could be set up to look like the below to require a name and
+phone number, and enforce a specific pattern for the phone number (specified in YAML).
+```
+username.invalidCardinality=Please enter your username
+phonenumber.invalidCardinality=Please enter your phone number
+phonenumber.doesntMatchPattern=Please enter your phone number the the format ###-###-####
+```
 
 <a name="custom"/>
 
