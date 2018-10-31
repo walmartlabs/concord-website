@@ -17,7 +17,7 @@ interaction with these applications. This makes the HTTP task a very powerful
 tool to integrate Concord with applications that do not have a custom
 integration with Concord via a specific task.
 
-The HTTP task executes RESTful requests using a HTTP `GET`, `PUT` or `POST` method
+The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `POST`, or `DELETE` method
 and returns [HTTP response](#http-task-response) objects. The response object
 can be stored in an `out` parameter for later usage.
 
@@ -192,6 +192,20 @@ Following are examples that illustrate the syntax usage for the HTTP task.
 - if: ${jsonResponse.success}
   then:
    - log: "Response received: ${jsonResponse.content}"
+```
+
+### Full Syntax for 'DELETE' Request
+
+```yaml
+- task: http
+  in:
+    method: DELETE
+    url: "https://api.example.com:port/path/endpoint"
+    response: string
+    out: response
+  - if: ${response.success}
+    then:
+      - log: "Response received: ${response.content}"
 ```
 
 ### Full Syntax for 'POST' Request
