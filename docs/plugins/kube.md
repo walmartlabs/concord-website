@@ -45,26 +45,42 @@ When the plugin runs it does the following.
 
 - It finds the relevant clusters via the `target` parameter.
 - It finds the relevant keys and tokens for each cluster.
+- It replaces all occurrences of `${namespace}` in the files in `dir`.
 - It replaces all occurrences of cluster variables, such as
-  `${cluster.ingress}`, in the yaml-files.
+  `${cluster.ingress}`, in the files in `dir`
 
 Then the `kubectl` task calls `kubectl <action> -f <dir>` on all clusters:
 
-- `action` is apply (default) or delete
-- `dir` is a directory holding your manifests (default is `k8s`)
+- `action` is `apply` (default) or `delete`, but it can also be any arbitrary
+    `kubectl` command. When action is something other than `apply` or `delete`, `-f <dir>` is not added to the command.
+- `dir` is a directory holding your manifests (default is `k8s`), only used if
+    action is `apply` or `delete`.
+- `multi` must be set to `true` if you want to run this task in more than
+    one cluster. This is to prevent running commands on multiple clusters by
+    mistake.
+
+  `kubectl` also returns data in two variables, `${results}`, a list of
+  results from all clusters, and `${result}`, the result from the first
+  cluster. If the data returned from `kubectl` is JSON, it will be converted to
+  an Object that can be manipulated in Concord.
 
 The `kustomize` task on the other hand calls 
 `kustomize build <dir> | kubectl <action> -f -` on all clusters:
 
-- `action` is apply (default) or delete.
+- `action` is `apply` (default) or `delete`.
 - `dir` is a directory holding your manifests (default is `k7e`).
+- `multi` must be set to `true` if you want to run this task in more than
+    one cluster. This is to prevent running commands on multiple clusters by
+    mistake.
 
 ## Parameters
 
 All parameters (sorted alphabetically). Usage documentation can be found in the
 following sections:
 
-- `action`: the action to perform, defaults to `apply`.
+- `action`: the action to perform, defaults to `apply`. For `kubectl` it may
+    be an arbitrary `kubectl` command such as `get pods -o json`. For
+    `kustomize`, it must be `apply` or `delete`.
 - `admin`: connect as cluster administrator or not, defaults to `false`.
 - `adminSecretsPassword`: the password for getting admin secrets from concord.
 - `dir`: The directory where the Kubernetes manifests are, defaults to `k8s` for
@@ -75,6 +91,8 @@ following sections:
     `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
     `cluster_id: <an_id>` targets a single cluster, while a `provider: azure`
     targets every azure cluster in the inventory.
+- `multi` allow the target to hit more than one cluster. Prevents running
+    commands on multiple clusters by mistake.
 
 When the application is deployed, all cluster variables from the inventory are
 replaced in the yaml files. The most useful is `${cluster.ingress}`, but
@@ -124,6 +142,7 @@ kubectl-apply-as-admin:
       adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       target:
         provider: azure
+      multi: true
 ```
 
 ### Applying `manifests` Directory to a Single Cluster and Namespace
@@ -142,7 +161,67 @@ kubectl-apply-to-namespace:
         cluster_id: my_cluster
 ```
 
-### Deleting All Resources in `k8s` Directory to a Single Cluster and Namespace
+### Query Cluster, If a Namespace Exists
+
+```
+kubectl-query-for-existing-namespace:
+  - log: "Running kubectl-query-for-existing-namespace"
+  - task: kubectl
+    in:
+      admin: true
+      adminSecretsPassword: Kube4567
+      target:
+        cluster_id: my-cluster
+      action: "get namespace tapir"
+    out:
+      found: true
+    error:
+      - log: "Namespace exists"
+      - set:
+          found: false
+  - log: "found ${found}"
+```
+
+### Query Cluster for All Pods in a Namespace
+
+```
+kubectl-query-json:
+  - log: "Get pods from namespace tapir"
+  - task: kubectl
+    in:
+      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
+      namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
+      namespace: tapir
+      target:
+        cluster_id: my-cluster
+      action: "get pods -o json"
+    out:
+      cluster: ${result}
+  - call: list-pod-name
+    withItems: ${cluster.items}
+```
+
+### Query All Azure Clusters for All Namespaces
+
+```
+kubectl-query-json:
+  - log: "Get namespaces from all azure clusters"
+  - task: kubectl
+    in:
+      admin: true
+      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
+      target:
+        provider: azure
+      multi: true
+      action: "get namespaces -o json"
+    out:
+      clusters: ${results}
+  - call: list-namespaces
+    withItems: ${clusters}
+```
+
+
+### Deleting All Resources in `k8s` Directory in a Single Cluster and Namespace
 
 ```
 kubectl-delete-from-namespace:
