@@ -303,6 +303,7 @@ Retrieve a list of processes.
 * **URI** `/api/v1/process`
 * **Query parameters**
     - `projectId`: filter by the project's ID;
+    - `afterCreatedAt`: limit by date, ISO-8601 string;
     - `beforeCreatedAt`: limit by date, ISO-8601 string;
     - `tags`: filter by a tag, repeat the parameter to filter by multiple tags;
     - `limit`: maximum number of records to return.
