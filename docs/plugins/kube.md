@@ -49,29 +49,17 @@ When the plugin runs it does the following.
 - It replaces all occurrences of cluster variables, such as
   `${cluster.ingress}`, in the files in `dir`
 
-Then the `kubectl` task calls `kubectl <action> -f <dir>` on all clusters:
-
-- `action` is `apply` (default) or `delete`, but it can also be any arbitrary
-    `kubectl` command. When action is something other than `apply` or `delete`, `-f <dir>` is not added to the command.
-- `dir` is a directory holding your manifests (default is `k8s`), only used if
-    action is `apply` or `delete`.
-- `multi` must be set to `true` if you want to run this task in more than
-    one cluster. This is to prevent running commands on multiple clusters by
-    mistake.
-
-  `kubectl` also returns data in two variables, `${results}`, a list of
-  results from all clusters, and `${result}`, the result from the first
-  cluster. If the data returned from `kubectl` is JSON, it will be converted to
-  an Object that can be manipulated in Concord.
-
+Then the `kubectl` task calls `kubectl <action> -f <dir>` on all clusters.
 The `kustomize` task on the other hand calls 
 `kustomize build <dir> | kubectl <action> -f -` on all clusters:
 
-- `action` is `apply` (default) or `delete`.
-- `dir` is a directory holding your manifests (default is `k7e`).
-- `multi` must be set to `true` if you want to run this task in more than
-    one cluster. This is to prevent running commands on multiple clusters by
-    mistake.
+The `kubectl` action returns data in two variables:
+
+- `${results}`, a list of results from all clusters.
+- `${result}`, the result from the first cluster. 
+
+If the data returned from `kubectl` is JSON, it is converted to an object that
+can be used and manipulated in Concord.
 
 ## Parameters
 
@@ -84,15 +72,17 @@ following sections:
 - `admin`: connect as cluster administrator or not, defaults to `false`.
 - `adminSecretsPassword`: the password for getting admin secrets from concord.
 - `dir`: The directory where the Kubernetes manifests are, defaults to `k8s` for
-  kubectl and `k7e` for kustomize.
+  kubectl and `k7e` for kustomize. It is only used if the action is `apply` or
+  `delete`.
 - `namespace`: the namespace to apply the kubectl manifests to.
 - `namespaceSecretsPassword`: the namespace password.
 - `target`: query object for selecting clusters. Commonly used values are:
     `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
     `cluster_id: <an_id>` targets a single cluster, while a `provider: azure`
     targets every azure cluster in the inventory.
-- `multi` allow the target to hit more than one cluster. Prevents running
-    commands on multiple clusters by mistake.
+- `multi` must be set to `true`, if you want to run this task in more than
+    one cluster. This is to prevent running commands on multiple clusters by
+    mistake.
 
 When the application is deployed, all cluster variables from the inventory are
 replaced in the yaml files. The most useful is `${cluster.ingress}`, but
@@ -176,10 +166,10 @@ kubectl-query-for-existing-namespace:
     out:
       found: true
     error:
-      - log: "Namespace exists"
+      - log: "Namespace does not exist."
       - set:
           found: false
-  - log: "found ${found}"
+  - log: "Namespace tapir found: ${found}"
 ```
 
 ### Query Cluster for All Pods in a Namespace
@@ -239,7 +229,7 @@ kubectl-delete-from-namespace:
 
 <a name="#kustomize-task"/>
 
-# Kustomize Task
+## Kustomize Task
 
 Concord supports running the
 [kustomize](https://github.com/kubernetes-sigs/kustomize#kustomize)
