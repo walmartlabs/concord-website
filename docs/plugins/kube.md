@@ -34,7 +34,7 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins:kube:{{ site.concord_plugins_version }}
 ```
 
-This adds the [Kubectl task](#kubectl-task), [Kustomize task]((#kustomize-task)
+This adds the [Kubectl task](#kubectl-task), [Kustomize task](#kustomize-task)
 and the [KubeInventory task](#kubeinventory-task)to the classpath and allows you
 to invoke the tasks in a flow.
 
@@ -48,9 +48,8 @@ When the plugin runs it does the following.
 - It replaces all occurrences of `${namespace}` in the files in `dir`.
 - It replaces all occurrences of cluster variables, such as
   `${cluster.ingress}`, in the files in `dir`
-
-Then the `kubectl` task calls `kubectl <action> -f <dir>` on all clusters.
-The `kustomize` task on the other hand calls 
+- Then the `kubectl` task calls `kubectl <action> -f <dir>` on all clusters.
+- The `kustomize` task on the other hand calls 
 `kustomize build <dir> | kubectl <action> -f -` on all clusters:
 
 The `kubectl` action returns data in two variables:
@@ -58,8 +57,8 @@ The `kubectl` action returns data in two variables:
 - `${results}`, a list of results from all clusters.
 - `${result}`, the result from the first cluster. 
 
-If the data returned from `kubectl` is JSON, it is converted to an object that
-can be used and manipulated in Concord.
+If the data returned from `kubectl` is using JSON as format, it is converted to
+an object automatically and the values can be used and manipulated in Concord.
 
 ## Parameters
 
@@ -115,11 +114,11 @@ Example data from inventory:
 Concord supports running the
 [kubectl](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 command line tool for working with Kubernetes clusters with the `kubectl` task.
-The task only supports two actions
+The task supports actions
 [`apply`](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply)
-and 
+and
 [`delete`](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#bulk-operations-in-kubectl).
-
+directly. Any other command submitted as action is simply forwarded.
 
 ### Applying `k8s` directory to All Azure Clusters as Administrator
 
