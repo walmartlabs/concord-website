@@ -191,7 +191,7 @@ flows:
   - task: concord
     in:
       action: fork
-      jobs:
+      forks:
       - entryPoint: pickAColor
         arguments:
           color: "red"
