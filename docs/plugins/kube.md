@@ -14,11 +14,13 @@ The plugin automatically includes the `kustomize` and `kubectl` binaries and
 invokes them as part of your Concord flow as configured:
 
 - __kubectl v1.11.3__
+- __helm 2.10.0__
 - __kustomize v1.0.8.__
 
 - [Usage](#usage)
 - [Parameters](#parameters)
 - [Kubectl Task](#kubectl-task)
+- [Helm Task](#helm-task)
 - [Kustomize Task](#kustomize-task)
 - [KubeInventory Task](#kubeinventory-task)
 
@@ -52,6 +54,8 @@ Then the `kubectl` task calls `kubectl <action> -f <dir>` on all clusters:
 
 - `action` is apply (default) or delete
 - `dir` is a directory holding your manifests (default is `k8s`)
+
+The `helm` task will run `helm upgrade` commend with `--install` option.
 
 The `kustomize` task on the other hand calls 
 `kustomize build <dir> | kubectl <action> -f -` on all clusters:
@@ -157,6 +161,41 @@ kubectl-delete-from-namespace:
       target:
         cluster_id: my_cluster
 ```
+
+<a name="#helm-task">
+
+# helm Task
+
+Concord supports management of kubernetes application using [Helm](https://helm.sh/). 
+Helm has two parts: a client (helm) and a server (tiller). Concord host will run helm client. This task requires tiller install in kubernetes namespace.
+
+### Helm task usage
+
+```
+  helm:
+    - log: "Running Helm Upgrade"
+    - task: helm
+      in:
+        namespace: my-namespace
+        namespaceSecretsPassword: my-namespace-password
+        helmchart: repo/helmchart
+        appname: my-app
+        target:
+          cluster_id: us-central_dev
+        config:
+          key1: value1
+          Key2: value2
+          ...
+```
+
+### Parameters
+
+- `helmchart`: is the name of the remote helm chart. By default configured to get walmart internal [helm repo](https://repository.walmart.com/repository/helm-hosted/).
+- `config`: section can be used to add multilpe key value which can be substituted in helm charts
+- `appname`: is used to derive helm release name
+
+Additional helm values file can be added in `k8shelm` Directory. This file will be specified in `--values` option
+
 
 <a name="#kustomize-task"/>
 
