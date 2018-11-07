@@ -90,7 +90,10 @@ flows:
 ### File Parameter
 
 For file parameters, the value details the path to a file in the Concord
-project in quotes and prefixed with `@`:
+project in quotes and prefixed with `@`. The file parameter field `File location`
+on your job configure in looper must be the same as the parameter name here.
+For the example below that would mean the `File location` in looper should 
+be set to `some_file_parameter`:
 
 ```yaml
 flows:
