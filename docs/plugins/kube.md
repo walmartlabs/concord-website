@@ -70,6 +70,7 @@ following sections:
     `kustomize`, it must be `apply` or `delete`.
 - `admin`: connect as cluster administrator or not, defaults to `false`.
 - `adminSecretsPassword`: the password for getting admin secrets from concord.
+    Only required when `admin` is `true`
 - `dir`: The directory where the Kubernetes manifests are, defaults to `k8s` for
   kubectl and `k7e` for kustomize. It is only used if the action is `apply` or
   `delete`.
@@ -142,7 +143,6 @@ kubectl-apply-to-namespace:
   - task: kubectl
     in:
       admin: false
-      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       dir: manifests
       namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
@@ -178,7 +178,6 @@ kubectl-query-json:
   - log: "Get pods from namespace tapir"
   - task: kubectl
     in:
-      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
       target:
@@ -219,7 +218,6 @@ kubectl-delete-from-namespace:
     in:
       action: delete
       admin: false
-      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
       target:
@@ -263,7 +261,6 @@ kustomize-apply-to-namespace:
   - task: kustomize
     in:
       admin: false
-      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       dir: manifests
       namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
@@ -280,7 +277,6 @@ kustomize-delete-from-namespace:
     in:
       action: delete
       admin: false
-      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       namespace: tapir
       target:
