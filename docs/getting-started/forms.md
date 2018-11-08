@@ -48,9 +48,9 @@ Forms must contain one or more fields:
 ```yaml
 forms:
   myForm:
-  - fullName: { label: "Name", type: "string", pattern: ".* .*" }
+  - fullName: { label: "Name", type: "string", pattern: ".* .*", readonly: true, placeholder: "Place name here" }
   - age: { label: "Age", type: "int", min: 21, max: 100 }
-  - favouriteColour: { label: "Favourite colour", type: "string", allow: ["gray", "grey"] }
+  - favouriteColour: { label: "Favourite colour", type: "string", allow: ["gray", "grey"], search: true }
   - languages: { label: "Preferred languages", type: "string+", allow: "${locale.languages()}" }
   - password: { label: "Password", type: "string", inputType: "password" }
   - rememberMe: { label: "Remember me", type: "boolean" }
@@ -78,11 +78,19 @@ Supported types of fields and their options:
   - `pattern`: (optional) a regular expression to check the value.
   - `inputType`: (optional) specifies the `type` of html `<input>`
   element to display e.g. `text`, `button`, `checkbox` and others.
+  - `readonly`: (optional) specifies that an input field is read-only.
+  - `placeholder`: (optional) specifies a short hint that describes the expected value of an input field.
+  - `search`: (optional) allows user to type and search item in dropdown input
 - `int`: an integer value
   - `min`, `max`: (optional) value bounds.
+  - `readonly`: (optional) specifies that an input field is read-only.
+  - `placeholder`: (optional) specifies a short hint that describes the expected value of an input field.
 - `decimal`: a decimal value
   - `min`, `max`: (optional) value bounds.
+  - `readonly`: (optional) specifies that an input field is read-only.
+  - `placeholder`: (optional) specifies a short hint that describes the expected value of an input field.
 - `boolean`: a boolean value, `true` or `false`;
+  - `readonly`: (optional) specifies that an input field is read-only.
 - `file`: a file upload field, the submitted file is stored as a file in the
 process' workspace. Find more tips in our [dedicated section](#upload).
 
