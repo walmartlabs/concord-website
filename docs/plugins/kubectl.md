@@ -88,7 +88,7 @@ your cluster with `sledge get cluster --cluster_id <my-cluster-id>`.
 
 Example data from inventory:
 
-```
+```json
 {
   "ingress": "lb-node.cluster1.cloud.s05584.us.wal-mart.com",
   "apiServer": "lb-master.cluster1.cloud.s05584.us.wal-mart.com",
@@ -117,7 +117,7 @@ directly. Any other command submitted as action is simply forwarded.
 
 ### Applying `k8s` directory to All Azure Clusters as Administrator
 
-```
+```yaml
 kubectl-apply-as-admin:
   - log: "Running kubectl apply as admin"
   - task: kubectl
@@ -131,7 +131,7 @@ kubectl-apply-as-admin:
 
 ### Applying `manifests` Directory to a Single Cluster and Namespace
 
-```
+```yaml
 kubectl-apply-to-namespace:
   - log: "Running kubectl apply as namespace user"
   - task: kubectl
@@ -146,7 +146,7 @@ kubectl-apply-to-namespace:
 
 ### Query Cluster, If a Namespace Exists
 
-```
+```yaml
 kubectl-query-for-existing-namespace:
   - log: "Running kubectl-query-for-existing-namespace"
   - task: kubectl
@@ -167,7 +167,7 @@ kubectl-query-for-existing-namespace:
 
 ### Query Cluster for All Pods in a Namespace
 
-```
+```yaml
 kubectl-query-json:
   - log: "Get pods from namespace tapir"
   - task: kubectl
@@ -185,7 +185,7 @@ kubectl-query-json:
 
 ### Query All Azure Clusters for All Namespaces
 
-```
+```yaml
 kubectl-query-json:
   - log: "Get namespaces from all azure clusters"
   - task: kubectl
@@ -205,7 +205,7 @@ kubectl-query-json:
 
 ### Deleting All Resources in `k8s` Directory in a Single Cluster and Namespace
 
-```
+```yaml
 kubectl-delete-from-namespace:
   - log: "Running kubectl delete as namespace user"
   - task: kubectl

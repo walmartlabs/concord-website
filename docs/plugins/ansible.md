@@ -76,8 +76,7 @@ some of the variables that are usually available such as `ansible_default_ipv4`.
 The parameters can be overridden in your own Ansible task invocation as
 described in [Configuring Ansible](#configuring-ansible):
 
-
-```
+```yaml
 - task: ansible
   in:
     config:
@@ -266,7 +265,7 @@ ansible-playbook --user=app --private-key temporaryKeyFile ...
 Upload a [Windows Credential (Group Var)](https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html#ntlm) as a file secret via the UI or [api](#group-vars). 
 
 Example file contents:
-```
+```yaml
 ansible_user: AutomationUser@SUBDOMAIN.DOMAIN.COM
 ansible_password: yourpasshere
 ansible_port: 5985
@@ -490,7 +489,7 @@ execution back to the Concord process context with the `outVars` parameters
 The Ansible playbook has to use the `register` statement to make the variable 
 available.
 
-```yml
+```yaml
 - hosts: local
   tasks:
   - debug:
@@ -503,7 +502,7 @@ In the example above, the `myVar` variable saves a map of host -> value elements
 If there was a single host 127.0.0.1 in the ansible execution, then the `myVar` 
 looks like the following snippet:
 
-```
+```json
 {
    "127.0.0.1": {
       "msg": "Hi there!",

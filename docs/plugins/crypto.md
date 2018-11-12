@@ -35,7 +35,6 @@ A full example adds a key via the REST API:
 
 ```
 $ curl -u yourusername -F storePassword="myKeyPassword" -F name=myKey -F type=key_pair http://localhost:8001/api/1/org/Default/secret
-
 {
   "id" : "...",
   "result" : "CREATED",
@@ -80,7 +79,7 @@ A "plain" secret is a single encrypted value, which is stored using
 the REST API or the UI and retrieved using the
 `crypto.exportAsString` method:
     
-```
+```bash
 $ curl -u myusername -F name=mySecret -F type=data -F data="my value" -F storePassword="myPassword" http://localhost:8001/api/v1/org/Default/secret
 ```
 
@@ -110,7 +109,7 @@ Concord Console.
 Alternatively, the REST API can be used to encrypt the value using the the project specific key
 and the `encrypt` context:
 
-```
+```bash
 curl -u myusername \
 -H 'Content-Type: text/plain' \
 -d 'my secret value' \
