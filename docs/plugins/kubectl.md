@@ -1,28 +1,29 @@
 ---
 layout: wmt/docs
-title:  Kube Tasks, Kubectl, Kustomize and KubeInventory
+title:  KubeCtl Task
 side-navigation: wmt/docs-navigation.html
 ---
 
 # {{ page.title }}
 
-The `kube` plugin supports usage of Kubectl with the `kubectl` task and
-Kustomize with the `kustomize` task. It also contains a task, `kubeInventory`,
-for working with the Kubernetes inventory.
 
-The plugin automatically includes the `kustomize` and `kubectl` binaries and
-invokes them as part of your Concord flow as configured:
+Concord supports running the
+[kubectl](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+command line tool for working with Kubernetes clusters with the `kubectl` task.
 
-- __kubectl v1.11.3__
-- __helm 2.10.0__
-- __kustomize v1.0.8.__
+The `kube` plugin bundles a number of Kubernetes-related tasks.
+
+- [KubeCtl](#usage)
+- [Kustomize](./kustomize.html)
+- [KubeInventory](./kube-inventory.html)
+- [Helm](./helm.html)
+
+The plugin automatically includes the `kubectl` binary - __kubectl v1.11.3__.
 
 - [Usage](#usage)
 - [Parameters](#parameters)
-- [Kubectl Task](#kubectl-task)
-- [Helm Task](#helm-task)
-- [Kustomize Task](#kustomize-task)
-- [KubeInventory Task](#kubeinventory-task)
+- [Examples](#examples)
+
 
 
 ## Usage
@@ -36,9 +37,7 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins:kube:{{ site.concord_plugins_version }}
 ```
 
-This adds the [Kubectl task](#kubectl-task), [Kustomize task](#kustomize-task)
-and the [KubeInventory task](#kubeinventory-task)to the classpath and allows you
-to invoke the tasks in a flow.
+This adds all tasks to the classpath and allows you to invoke them in any flow.
 
 Typically this involves connecting to a cluster or namespace and then applying
 your configuration.
@@ -115,13 +114,10 @@ Example data from inventory:
 }
 ```
 
-<a name="#kubectl-task"/>
+<a name="#examples">
 
-## Kubectl Task
+## Examples
 
-Concord supports running the
-[kubectl](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
-command line tool for working with Kubernetes clusters with the `kubectl` task.
 The task supports actions
 [`apply`](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply)
 and
