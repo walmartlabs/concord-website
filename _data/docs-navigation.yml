@@ -75,14 +75,20 @@ nav:
         context: /docs/plugins/docker
       - page: Git and GitHub
         context: /docs/plugins/git
+      - page: Helm
+        context: /docs/plugins/helm
       - page: HTTP
         context: /docs/plugins/http
       - page: Jira
         context: /docs/plugins/jira
       - page: Key Value
         context: /docs/plugins/key-value
-      - page: Kubectl, Kustomize and KubeInventory
-        context: /docs/plugins/kube
+      - page: Kubectl
+        context: /docs/plugins/kubectl
+      - page: KubeInventory
+        context: /docs/plugins/kube-inventory
+      - page: Kustomize
+        context: /docs/plugins/kustomize
       - page: LDAP
         context: /docs/plugins/ldap
       - page: Looper
