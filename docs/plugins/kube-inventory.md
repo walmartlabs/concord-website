@@ -35,7 +35,16 @@ On its own the task supports two operations:
 
 ## Parameters
 
-tbd - which ones are there? 
+The `kubeInventory` task uses the following parameters from 
+[the kube plugin and its kubectl task](./kubectl.html#).
+
+
+
+In addition, the following inventory-specific parameters are supported. 
+
+- target
+- target.provider
+- name
 
 <a name="#examples">
 
