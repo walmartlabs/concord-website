@@ -58,7 +58,7 @@ directory is specified in the `--values` option of the helm command.
 
 The example snippet below requires a working tiller installation on the
 `example` namespace. It runs the `repo/example-helmchart` helm chart against
-the cluster `us-central_dev` in the `example namespace.
+the cluster `us-central_dev` in the `example` namespace.
 
 ```
   helm:
@@ -73,7 +73,6 @@ the cluster `us-central_dev` in the `example namespace.
           cluster_id: us-central_dev
         config:
           key1: value1
-          Key2: value2
-          ...
+          key2: value2
 ```
 

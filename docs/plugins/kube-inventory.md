@@ -38,18 +38,19 @@ On its own the task supports two operations:
 The `kubeInventory` task uses the following parameters from 
 [the kube plugin and its kubectl task](./kubectl.html#).
 
-
+- `target`
 
 In addition, the following inventory-specific parameters are supported. 
 
-- target
-- target.provider
-- name
+- `name`
 
 <a name="#examples">
 
 ## Examples
 
+The inventory allows global read access.
+
+Retrieve all clusters for a specified target:
 
 ```
 inventory-clusters:
@@ -57,14 +58,22 @@ inventory-clusters:
   - expr: ${kubeInventory.clusters(target)}
     out: clusters
   - log: "Clusters: ${clusters}"
+```
 
+Retrieve all infras for a specified target:
+
+```
 inventory-infras:
   - log: "Running inventory infras"
   - log: "Target ${target}"
   - expr: ${kubeInventory.infras(target)}
     out: infras
   - log: "Infras: ${infras}"
+```
 
+Retrieve all clusters deployed on the azure provider.
+
+```
 inventory-execute:
   - log: "Running inventory execute"
   - task: kubeInventory
