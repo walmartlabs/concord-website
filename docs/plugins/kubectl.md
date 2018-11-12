@@ -1,27 +1,27 @@
 ---
 layout: wmt/docs
-title:  Kube Tasks, Kubectl, Kustomize and KubeInventory
+title:  KubeCtl Task
 side-navigation: wmt/docs-navigation.html
 ---
 
 # {{ page.title }}
 
-The `kube` plugin supports usage of Kubectl with the `kubectl` task and
-Kustomize with the `kustomize` task. It also contains a task, `kubeInventory`,
-for working with the Kubernetes inventory.
+Concord supports running the
+[kubectl](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+command line tool for working with Kubernetes clusters with the `kubectl` task.
 
-The plugin automatically includes the `kustomize` and `kubectl` binaries and
-invokes them as part of your Concord flow as configured:
+The `kube` plugin bundles a number of Kubernetes-related tasks.
 
-- __kubectl v1.11.3__
-- __kustomize v1.0.8.__
+- [KubeCtl](#usage)
+- [Kustomize](./kustomize.html)
+- [KubeInventory](./kube-inventory.html)
+- [Helm](./helm.html)
+
+The plugin automatically includes the `kubectl` binary - __kubectl v1.11.3__.
 
 - [Usage](#usage)
 - [Parameters](#parameters)
-- [Kubectl Task](#kubectl-task)
-- [Kustomize Task](#kustomize-task)
-- [KubeInventory Task](#kubeinventory-task)
-
+- [Examples](#examples)
 
 ## Usage
 
@@ -34,9 +34,7 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins:kube:{{ site.concord_plugins_version }}
 ```
 
-This adds the [Kubectl task](#kubectl-task), [Kustomize task](#kustomize-task)
-and the [KubeInventory task](#kubeinventory-task)to the classpath and allows you
-to invoke the tasks in a flow.
+This adds all tasks to the classpath and allows you to invoke them in any flow.
 
 Typically this involves connecting to a cluster or namespace and then applying
 your configuration.
@@ -49,8 +47,6 @@ When the plugin runs it does the following.
 - It replaces all occurrences of cluster variables, such as
   `${cluster.ingress}`, in the files in `dir`
 - Then the `kubectl` task calls `kubectl <action> -f <dir>` on all clusters.
-- The `kustomize` task on the other hand calls 
-`kustomize build <dir> | kubectl <action> -f -` on all clusters:
 
 The `kubectl` action returns data in two variables:
 
@@ -79,7 +75,8 @@ following sections:
 - `target`: query object for selecting clusters. Commonly used values are:
     `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
     `cluster_id: <an_id>` targets a single cluster, while a `provider: azure`
-    targets every azure cluster in the inventory.
+    targets every azure cluster in the inventory. The data is retrieved by the
+    [KubeInventory task](./kube-inventory.html).
 - `multi` must be set to `true`, if you want to run this task in more than
     one cluster. This is to prevent running commands on multiple clusters by
     mistake.
@@ -108,13 +105,10 @@ Example data from inventory:
 }
 ```
 
-<a name="#kubectl-task"/>
+<a name="#examples">
 
-## Kubectl Task
+## Examples
 
-Concord supports running the
-[kubectl](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
-command line tool for working with Kubernetes clusters with the `kubectl` task.
 The task supports actions
 [`apply`](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply)
 and
@@ -224,112 +218,4 @@ kubectl-delete-from-namespace:
         cluster_id: my_cluster
 ```
 
-<a name="#kustomize-task"/>
 
-## Kustomize Task
-
-Concord supports running the
-[kustomize](https://github.com/kubernetes-sigs/kustomize#kustomize)
-command line tool for working with Kubernetes clusters with the `kustomize`
-task. Kustomize works by transforming the kustomize files and then applying them
-to the cluster with `kubectl`.
-
-The task only supports two actions
-[apply](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply)
-and 
-[delete](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#bulk-operations-in-kubectl).
-
-
-### Applying `k7e` directory to All Azure Clusters as Administrator
-
-```
-kustomize-apply-as-admin:
-  - log: "Running kustomize apply as admin"
-  - task: kustomize
-    in:
-      admin: true
-      adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
-      target:
-        provider: azure
-```
-
-### Applying `manifests` Directory to a Single Cluster and Namespace
-
-```
-kustomize-apply-to-namespace:
-  - log: "Running kustomize apply as namespace user"
-  - task: kustomize
-    in:
-      admin: false
-      dir: manifests
-      namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
-      namespace: tapir
-      target:
-        cluster_id: my_cluster
-```
-
-### Deleting All Resources in `k7e` Directory to a Single Cluster and Namespace
-
-```
-kustomize-delete-from-namespace:
-  - log: "Running kustomize delete as namespace user"
-  - task: kustomize
-    in:
-      action: delete
-      admin: false
-      namespaceSecretsPassword: ${crypto.decryptString("encryptedPwd")}
-      namespace: tapir
-      target:
-        cluster_id: my_cluster
-```
-
-<a name="kubeinventory-task"/> 
-
-## KubeInventory Task
-
-The `kubeInventory` task is used for getting Kubernetes specific inventory data
-from Concord. It supports two inventories, `clusters` and `infras`.
-
-- `kubeInventory.clusters(target)` returns information about all clusters that
-    match the target. It can be used to work with multiple clusters
-    (`target.provider`), or a single cluster (`target.cluster_id`).
-
-- `kubeInventory.infras(target)` returns information about the hosts that
-    match the target. It should typically be used with a target that returns
-    hosts for a single cluster, such as `target.cluster_id`.
-
-### Parameters
-
-- `target`: query object for selecting clusters. Commonly used values are:
-    `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
-    `cluster_id: <an_id>` targets a single cluster, while a `provider: azure`
-    targets every azure cluster in the inventory.
-
-
-### Example queries
-
-```
-inventory-clusters:
-  - log: "Running inventory clusters"
-  - expr: ${kubeInventory.clusters(target)}
-    out: clusters
-  - log: "Clusters: ${clusters}"
-
-inventory-infras:
-  - log: "Running inventory infras"
-  - log: "Target ${target}"
-  - expr: ${kubeInventory.infras(target)}
-    out: infras
-  - log: "Infras: ${infras}"
-
-inventory-execute:
-  - log: "Running inventory execute"
-  - task: kubeInventory
-    in:
-      target:
-        provider: azure
-      name: clusters
-    out:
-      clusters: ${items}
-  - log: "Clusters ${clusters}"
-```
