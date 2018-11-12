@@ -52,7 +52,7 @@ The inventory allows global read access.
 
 Retrieve all clusters for a specified target:
 
-```
+```yaml
 inventory-clusters:
   - log: "Running inventory clusters"
   - expr: ${kubeInventory.clusters(target)}
@@ -62,7 +62,7 @@ inventory-clusters:
 
 Retrieve all infras for a specified target:
 
-```
+```yaml
 inventory-infras:
   - log: "Running inventory infras"
   - log: "Target ${target}"
@@ -73,7 +73,7 @@ inventory-infras:
 
 Retrieve all clusters deployed on the azure provider.
 
-```
+```yaml
 inventory-execute:
   - log: "Running inventory execute"
   - task: kubeInventory

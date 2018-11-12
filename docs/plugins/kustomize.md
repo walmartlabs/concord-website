@@ -45,7 +45,7 @@ The `dir` parameters defaults to `k7e` for kustomize.
 
 ### Applying `k7e` directory to All Azure Clusters as Administrator
 
-```
+```yaml
 kustomize-apply-as-admin:
   - log: "Running kustomize apply as admin"
   - task: kustomize
@@ -58,7 +58,7 @@ kustomize-apply-as-admin:
 
 ### Applying `manifests` Directory to a Single Cluster and Namespace
 
-```
+```yaml
 kustomize-apply-to-namespace:
   - log: "Running kustomize apply as namespace user"
   - task: kustomize
@@ -73,7 +73,7 @@ kustomize-apply-to-namespace:
 
 ### Deleting All Resources in `k7e` Directory to a Single Cluster and Namespace
 
-```
+```yaml
 kustomize-delete-from-namespace:
   - log: "Running kustomize delete as namespace user"
   - task: kustomize

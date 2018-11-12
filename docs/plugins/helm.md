@@ -60,7 +60,7 @@ The example snippet below requires a working tiller installation on the
 `example` namespace. It runs the `repo/example-helmchart` helm chart against
 the cluster `us-central_dev` in the `example` namespace.
 
-```
+```yaml
   helm:
     - log: "Running Helm Upgrade"
     - task: helm

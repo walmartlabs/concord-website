@@ -23,7 +23,7 @@ configuration:
 
 The above invocation is equivalent to running
 
-```
+```bash
 docker run -i --rm \
 -v /path/to/process/workDir:/workspace \
 docker.prod.walmart.com/walmartlabs/concord-base \

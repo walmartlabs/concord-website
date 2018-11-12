@@ -124,7 +124,7 @@ The variables such as `organization`, `apiKey`, `email` and others can be added 
 the `booConfig` or the 'in` parameters and are passed in a substituted for
 execution of Boo.
 
-```
+```yaml
 configuration:
   arguments:
     booConfig:
