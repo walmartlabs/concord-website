@@ -218,6 +218,10 @@ The script is automatically marked as executable and passed directly to
 
 ## Authentication with Secrets
 
+</a>
+
+### Linux / SSH
+
 The Ansible task can use a key managed as a secret by Concord, that you have
 created  or uploaded  via the user interface or the
 [REST API](../api/secret.html) to connect to the target servers.
@@ -256,6 +260,22 @@ equivalent Ansible command is
 ```
 ansible-playbook --user=app --private-key temporaryKeyFile ...
 ```
+
+### Windows
+
+Upload a [Windows Credential (Group Var)](https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html#ntlm) as a file secret via the UI or [api](#group-vars). 
+
+Example file contents:
+```
+ansible_user: AutomationUser@SUBDOMAIN.DOMAIN.COM
+ansible_password: yourpasshere
+ansible_port: 5985
+ansible_connection: winrm
+ansible_winrm_server_cert_validation: ignore
+ansible_winrm_transport: ntlm
+```
+
+Export this secret as a [Group Var](#group-vars) for an inventory group containing the windows hosts.
 
 ## Ansible Vault
 
@@ -413,6 +433,8 @@ Currently, only simple string value secrets are supported.
 
 See also [the example](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/secret_lookup)
 project.
+
+<a name="group-vars"/>
 
 ## Group Vars
 
