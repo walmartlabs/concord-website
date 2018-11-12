@@ -25,9 +25,6 @@ which includes the helm binary - __helm 2.10.0__.
 To be able to use the `helm` task in a Concord flow, the
 [`kube` plugin must be added as a dependency](./kubectl.html#usage).
 
-This adds the [Kubectl task](#kubectl-task), [Kustomize task](#kustomize-task)
-and the [KubeInventory task](#kubeinventory-task)to the classpath and allows you
-to invoke the tasks in a flow.
 
 Typically this involves connecting to a cluster or namespace and then applying
 your configuration.
