@@ -6,7 +6,6 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-
 Concord supports running the
 [kubectl](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 command line tool for working with Kubernetes clusters with the `kubectl` task.
@@ -23,8 +22,6 @@ The plugin automatically includes the `kubectl` binary - __kubectl v1.11.3__.
 - [Usage](#usage)
 - [Parameters](#parameters)
 - [Examples](#examples)
-
-
 
 ## Usage
 
@@ -50,18 +47,11 @@ When the plugin runs it does the following.
 - It replaces all occurrences of cluster variables, such as
   `${cluster.ingress}`, in the files in `dir`
 - Then the `kubectl` task calls `kubectl <action> -f <dir>` on all clusters.
-- The `kustomize` task on the other hand calls 
-`kustomize build <dir> | kubectl <action> -f -` on all clusters:
 
 The `kubectl` action returns data in two variables:
 
 - `${results}`, a list of results from all clusters.
 - `${result}`, the result from the first cluster. 
-
-The `helm` task runs run `helm upgrade` commend with `--install` option.
-
-The `kustomize` task on the other hand calls 
-`kustomize build <dir> | kubectl <action> -f -` on all clusters:
 
 If the data returned from `kubectl` is using JSON as format, it is converted to
 an object automatically and the values can be used and manipulated in Concord.
@@ -85,7 +75,8 @@ following sections:
 - `target`: query object for selecting clusters. Commonly used values are:
     `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
     `cluster_id: <an_id>` targets a single cluster, while a `provider: azure`
-    targets every azure cluster in the inventory.
+    targets every azure cluster in the inventory. The data is retrieved by the
+    [KubeInventory task](./kube-inventory.html).
 - `multi` must be set to `true`, if you want to run this task in more than
     one cluster. This is to prevent running commands on multiple clusters by
     mistake.

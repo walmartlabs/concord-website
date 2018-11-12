@@ -13,7 +13,7 @@ task. Kustomize works by transforming the kustomize files and then applying them
 to the cluster with `kubectl`.
 
 The `kustomize` task is available as part of the [`kube` plugin](./kubectl.html),
-which includes the helm binary - __kustomize v1.0.8__.
+which includes the kustomize binary - __kustomize v1.0.8__.
 
 - [Usage](#usage)
 - [Parameters](#parameters)
