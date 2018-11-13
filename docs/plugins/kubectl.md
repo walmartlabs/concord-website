@@ -72,38 +72,11 @@ following sections:
   `delete`.
 - `namespace`: the namespace to apply the kubectl manifests to.
 - `namespaceSecretsPassword`: the namespace password.
-- `target`: query object for selecting clusters. Commonly used values are:
-    `cluster_id`, `cluster_seq`, `country`, `profile`, `provider`, and `site`.
-    `cluster_id: <an_id>` targets a single cluster, while a `provider: azure`
-    targets every azure cluster in the inventory. The data is retrieved by the
+- `target`: query object for selecting clusters as retrieved by the
     [KubeInventory task](./kube-inventory.html).
 - `multi` must be set to `true`, if you want to run this task in more than
     one cluster. This is to prevent running commands on multiple clusters by
     mistake.
-
-When the application is deployed, all cluster variables from the inventory are
-replaced in the yaml files. The most useful is `${cluster.ingress}`, but
-other variables from the inventory may be useful too. Find the variables for
-your cluster with `sledge get cluster --cluster_id <my-cluster-id>`.
-
-Example data from inventory:
-
-```json
-{
-  "ingress": "lb-node.cluster1.cloud.s05584.us.wal-mart.com",
-  "apiServer": "lb-master.cluster1.cloud.s05584.us.wal-mart.com",
-  "name": "us05584c1",
-  "site": "05584US",
-  "zone": "vsh01.s05584.us",
-  "region": "edge",
-  "country": "us",
-  "profile": "labs",
-  "provider": "vmware",
-  "cluster_id": "us_us05584c1",
-  "cluster_seq": "cluster1",
-  "team": "Stores",
-}
-```
 
 <a name="#examples">
 
