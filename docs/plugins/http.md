@@ -65,7 +65,10 @@ All parameters sorted in alphabetical order.
    in [Request type](#request-type);
 - `response`: type of response data `string`, `json`, or `file` received from
   the endpoint, details in [Response type](#response-type);
-- `url`: complete URL in string for HTTP request
+- `url`: complete URL in string for HTTP request;
+- `connectTimeout`: connection timeout (in ms). Default value is 30000 ms;
+- `socketTimeout`: socket timeout (in ms). Maximum time of inactivity between
+two data packets. Default value is `-1` (uses the system's default value).
 
 ### Basic Authentication
 
