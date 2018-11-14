@@ -17,9 +17,9 @@ interaction with these applications. This makes the HTTP task a very powerful
 tool to integrate Concord with applications that do not have a custom
 integration with Concord via a specific task.
 
-The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `POST`, or `DELETE` method
-and returns [HTTP response](#http-task-response) objects. The response object
-can be stored in an `out` parameter for later usage.
+The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `POST`, or
+`DELETE` method and returns [HTTP response](#http-task-response) objects. The
+response object can be stored in an `out` parameter for later usage.
 
 - [Usage and Configuration](#usage)
 - [Examples](#examples)
@@ -66,9 +66,10 @@ All parameters sorted in alphabetical order.
 - `response`: type of response data `string`, `json`, or `file` received from
   the endpoint, details in [Response type](#response-type);
 - `url`: complete URL in string for HTTP request;
-- `connectTimeout`: connection timeout (in ms). Default value is 30000 ms;
-- `socketTimeout`: socket timeout (in ms). Maximum time of inactivity between
-two data packets. Default value is `-1` (uses the system's default value).
+- `connectTimeout`: HTTP connection timeout in ms. Default value is 30000 ms.
+- `socketTimeout`: socket timeout in ms, which is the maximum time of inactivity
+between two data packets. Default value is `-1`, which means that the system's
+default value is used.
 
 ### Basic Authentication
 
