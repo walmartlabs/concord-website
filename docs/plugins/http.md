@@ -68,8 +68,9 @@ All parameters sorted in alphabetical order.
 - `url`: complete URL in string for HTTP request;
 - `connectTimeout`: HTTP connection timeout in ms. Default value is 30000 ms.
 - `socketTimeout`: socket timeout in ms, which is the maximum time of inactivity
-between two data packets. Default value is `-1`, which means that the system's
-default value is used.
+between two data packets. Default value is `-1`, which means that the default
+value of the Java Runtime Environment running the process is used - common value
+is 60000 ms.
 
 ### Basic Authentication
 
