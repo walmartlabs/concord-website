@@ -13,7 +13,7 @@ task Concord is capable of running the helm client and therefore interact with
 `tiller` in a Kubernetes cluster or namespace.
 
 The `helm` task is available as part of the [`kube` plugin](./kubectl.html),
-which includes the helm binary - __helm 2.10.0__.
+which includes the helm binary - __helm 2.11.0__.
 
 - [Usage](#usage)
 - [Parameters](#parameters)
