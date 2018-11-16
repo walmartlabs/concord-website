@@ -49,8 +49,8 @@ In addition, the following helm-specific parameters are supported.
   the default, built-in repository at
   [https://kubernetes-charts.storage.googleapis.com](https://kubernetes-charts.storage.googleapis.com).
   An additional repository can be configured in the global configuration.
-  If the chart starts with `./`, the chart will be treated as a project local
-  chart and will be installed from the project filesystem.
+  If the chart starts with `./`, the chart is treated as a project local
+  chart and is installed from the project filesystem.
 - `values`: a section of multiple key value pairs. The values are substituted
   in helm charts before execution as `--set key='value'`
 - `valuesFile`: a file with with properties that are used by helm. It's the
@@ -60,58 +60,54 @@ In addition, the following helm-specific parameters are supported.
 
 ## Examples
 
-The example snippet below requires a working tiller installation on the
-`example` namespace. It runs the `repo/example-helmchart` helm chart against
-the cluster `us-central_dev` in the `example` namespace.
+The example snippets below requires a working tiller installation on the
+`example` namespace.
+
+helm as administrator:
 
 ```yaml
-  helm-admin:
-    - log: "Running Helm Upgrade as admin"
     - task: helm
       in:
         admin: true
         adminSecretsPassword: Kube4567
         target:
-          cluster_id: 'anders'
-        chart: wmt/webapp-basic
-        appname: my-webapp
+          cluster_id: 'us-central_dev'
+        chart: repo/example-app
+        appname: example-app
         values:
-          imageRepository: hub.docker.prod.walmart.com
-          imageRootPath: /andersjanmyr
+          imageRepository: hub.example.com
+          imageRootPath: /example
           imageName: counter
+```
+          
+Helm usage with namespace configuration and values file:
 
-  helm-namespace:
-    - log: "Running Helm Upgrade as admin"
+```yaml
     - task: helm
       in:
         namespaceSecretsPassword: Kube1234
-        namespace: tapir
+        namespace: example
         target:
-          cluster_id: 'anders'
-        chart: wmt/webapp-basic
-        appname: my-webapp
-        valuesFile: dingo.text
+          cluster_id: 'us-central_dev'
+        chart: repo/example-app
+        appname: example-app
+        valuesFile: config.txt
         values:
           imageRepository: hub.docker.prod.walmart.com
           imageRootPath: /andersjanmyr
           imageName: counter
+```
 
-  helm-local-chart
+Helm usage of a local `example` chart from the Concord project repository:
+
+```yaml
     - task: helm
       in:
         target:
-          cluster_id: 'anders'
+          cluster_id: 'us_central_dev'
         admin: true
         adminSecretsPassword: ${secrets_password}
         namespace: auth
-        chart: ./charts/wce-dex
-        appname: my-webapp
-        values:
-          ingress_url: ${ item.ingress }
-          api_server: ${ item.apiServer }
-          ingress_tls_cert: ${ tls_key }
-          ingress_tls_key: ${ tls_cert }
-          ldap_bind_user: CN=Kubernetes ManagedServices\,OU=Process IDs\,OU=Service Accounts\,DC=homeoffice\,DC=Wal-Mart\,DC=com
-          ldap_bind_pw: ${ldap_password}
+        chart: ./charts/example
+        appname: example
 ```
-
