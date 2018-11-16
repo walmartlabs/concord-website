@@ -14,12 +14,10 @@ bundle install
 More information about building and publishing can be found at the
 [reference site](http://reference.walmart.com/docs/getting-started/)
 
-## CI
+## Project Information
 
-This site uses Looper's automatic CI build and deployment for its master branch:
-[Looper build](https://ci.walmart.com/job/SDE-Docs-Training/job/concord-site/)
-
-[![Build Status](https://ci.walmart.com/buildStatus/icon?job=SDE-Docs-Training/concord-site)](https://ci.walmart.com/job/SDE-Docs-Training/concord-site)
+- [![Build Status](https://ci.walmart.com/buildStatus/icon?job=SDE-Docs-Training/concord-site)](https://ci.walmart.com/job/SDE-Docs-Training/concord-site)
+- [Hygieia Quality Dashboard](https://hygieia.walmart.com/#/dashboard/5ab0594c867b6e4f858f0661)
 
 ## Project Quality
 
