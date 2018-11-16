@@ -204,7 +204,7 @@ flows:
   - call: anotherFlow
   
   test:
-  - log" "Starting test"
+  - log: "Starting test"
 ```
 
 <!--- vertical -->
