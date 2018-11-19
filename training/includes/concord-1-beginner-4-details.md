@@ -421,7 +421,7 @@ triggers:
 ```
 flows:
   default:
-  - log: "${foo}
+  - log: "${foo}"
 
 configuration
   arguments:
