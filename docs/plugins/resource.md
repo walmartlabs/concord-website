@@ -7,17 +7,13 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 The `resource` task provides methods to persist data to a file in the scope of a
-process. This data can be read back for later use in the same process. The
-`resource` task supports `json` and `string` formats.
+process as well as to load data from files. The `resource` task supports JSON,
+YAML and `string` formats.
 
 The task is provided automatically by Concord and does not require any
 external dependencies.
 
-<a name="usage"/>
-
-## Usage
-
-### Reading a resource
+## Reading a Resource
 
 The `asJson` method of the `resource` task can read a JSON-file resource and
 create a `json` object.
@@ -38,7 +34,9 @@ the content.
 - log: ${resource.asString(sample-file.txt)}
 ```
 
-### Writing a Resource
+The ``asYaml` method supports reading files using the YAML format.
+
+## Writing a Resource
 
 The `writeAsJson` method of the `resource` task can write a JSON object into a
 JSON-file resource.
@@ -60,6 +58,8 @@ The `writeAsString` method is used to write a file with `string` content.
 - log: ${resource.writeAsString('test string')} 
 ```
 
-The `writeAsJson` and `writeAsString` methods return path of the newly created
-file as result. These values can be stored in a variable later be used to read
-content back into the process with the read methods.
+The `writeAsYaml` method supports the YAML format.
+
+The `writeAs*` methods return the path of the newly created file as
+result. These values can be stored in a variable later be used to read content
+back into the process with the read methods.
