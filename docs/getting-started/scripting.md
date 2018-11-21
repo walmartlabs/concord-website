@@ -154,16 +154,27 @@ the version `mvn://org.codehaus.groovy:groovy-all:pom:2.5.2`.
 configuration:
   dependencies:
   - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
-
 flows:
   default:
   - script: groovy
     body: |
       def x = 2 * 3
       execution.setVariable("result", x)
-
   - log: ${result}
 ```
+
+The following example uses some standard Java APIs to create a date value in the
+desired format.
+
+```yaml
+- script: groovy
+   body: |
+     def dateFormat = new java.text.SimpleDateFormat('yyyy-MM-dd')
+     execution.setVariable("businessDate", dateFormat.format(new Date()))
+- log: "Today is ${businessDate}"
+```
+
+
 
 ## Python
 

@@ -385,6 +385,29 @@ Note:
 
 <!--- vertical -->
 
+## Groovy Example
+
+Dependency:
+
+```
+configuration:
+  dependencies:
+  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+```
+  
+Inline script:
+
+```
+- script: groovy
+   body: |
+     def dateFormat = new java.text.SimpleDateFormat('yyyy-MM-dd')
+     execution.setVariable("businessDate", dateFormat.format(new Date()))
+- log: "Today is ${businessDate}"
+```
+
+
+<!--- vertical -->
+
 ## Triggers
 
 Kick off flow based on events.
