@@ -72,7 +72,7 @@ The `slackChannel` task uses following input parameters
 <a name="create"/>
 ## Create a channel
 
-The `slackChannel` task can be used to create a new channel with the `create` action.
+This `slackChannel` task can be used to create a new channel with the `create` action.
 
 ```yaml
 flows:
@@ -87,7 +87,7 @@ flows:
 <a name="archive"/>
 ## Archive a channel
 
-The `slackChannel` task can be used to archive an existing channel with the `archive` action.
+This `slackChannel` task can be used to archive an existing channel with the `archive` action.
 
 ```yaml
 flows:
@@ -104,7 +104,7 @@ The `channelId` can be seen in the URL of the channel  e.g. `C7HNUMYQ1`
 <a name="createPriv"/>
 ## Create a group
 
-The `slackChannel` task can be used to create a group with the `createGroup` action.
+This `slackChannel` task can be used to create a group with the `createGroup` action.
 
 ```yaml
 flows:
@@ -119,7 +119,7 @@ flows:
 <a name="archivePriv"/>
 ## Archive a group
 
-The `slackChannel` task can be used to archive a group with the `archiveGroup` action.
+This `slackChannel` task can be used to archive an existing group with the `archiveGroup` action.
 
 ```yaml
 flows:
