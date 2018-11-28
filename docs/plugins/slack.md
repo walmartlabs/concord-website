@@ -1,24 +1,29 @@
 ---
 layout: wmt/docs
-title:  Slack Task
+title:  Slack Tasks
 side-navigation: wmt/docs-navigation.html
 ---
 
 # {{ page.title }}
 
-The `slack` task supports posting messages on a channel of the
-[Slack](https://slack.com/) messaging platform.
+The `slack` plugin supports interaction with the [Slack](https://slack.com/)
+messaging platform.
+
+- posting messages to a channel with the [slack task](#slack)
+- working with channels and groups with the [slackChannel tast](#slack-channel)
 
 ## Configuration
 
-This task is provided automatically by Concord and the target Slack server
+This slack plugin is provided automatically by Concord and the target Slack server
 instance has to be
 [configured as part of the server installation](../getting-started/configuration.html#slack).
 
 The bot user created for the API token configuration e.g. `concord` has to be a
 member of the channel receiving the messages.
 
-## Usage
+<a name="slack"/>
+
+## Slack Task
 
 A message `text` can be sent to a specific channel identified by a `channelId`
 with the long syntax or you can use the `call` method.
@@ -43,34 +48,34 @@ Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
 
-# Slack Channel Task
+## Slack Channel Task
 
 The `slackChannel` task supports creating and archiving channels and groups of the
 [Slack](https://slack.com/) messaging platform.
 
-## Configuration
-
-This task is provided automatically by Concord and the target Slack server
-instance has to be
-[configured as part of the server installation](../getting-started/configuration.html#slack).
-
-
-Possible operations are: 
+Possible operations are:
 
 - [Create a channel](#create)
 - [Archive a channel](#archive)
-- [Create a group](#createGroup)
-- [Archive a group](#archiveGroup)
+- [Create a group](#create-group)
+- [Archive a group](#archive-group)
 
 The `slackChannel` task uses following input parameters
 
-- `action`: Required - the name of the operation to perform.
-- `channelName`: Required - the name of the slack channel that you want to create
-- `channelId`: Required - the id of the slack channel that you want to archive
-- `apiToken` Required - the [slack API token](https://api.slack.com/custom-integrations/legacy-tokens) for authentication and       authorization,typically this should be provided via usage of the [Crypto task](./crypto.html).
+- `action`: required, the name of the operation to perform `create`, `archive`,
+  `createGroup` or `archiveGroup`
+- `channelName` the name of the slack channel or group you want to create,
+  required for `create` and `createGroup` that you want to create or
+- `channelId`: the id of the slack channel that you want to archive, required
+  for `archive` and `archiveGroup`
+- `apiToken`: required, the
+  [slack API token](https://api.slack.com/custom-integrations/legacy-tokens) for
+  authentication and authorization. The owner of the token as has to have
+  sufficient access rights to create or archive channels and groups. Typically
+  this should be provided via usage of the [Crypto task](./crypto.html).
 
 <a name="create"/>
-## Create a channel
+### Create a Channel
 
 This `slackChannel` task can be used to create a new channel with the `create` action.
 
@@ -85,9 +90,10 @@ flows:
 ```
 
 <a name="archive"/>
-## Archive a channel
+### Archive a Channel
 
-This `slackChannel` task can be used to archive an existing channel with the `archive` action.
+This `slackChannel` task can be used to archive an existing channel with the
+`archive` action.
 
 ```yaml
 flows:
@@ -101,10 +107,11 @@ flows:
 
 The `channelId` can be seen in the URL of the channel  e.g. `C7HNUMYQ1`
 
-<a name="createPriv"/>
-## Create a group
+<a name="create-group"/>
+### Create a Group
 
-This `slackChannel` task can be used to create a group with the `createGroup` action.
+This `slackChannel` task can be used to create a group with the `createGroup`
+action.
 
 ```yaml
 flows:
@@ -116,10 +123,11 @@ flows:
       apiToken: mySlackApiToken
 ```
 
-<a name="archivePriv"/>
-## Archive a group
+<a name="archive-group"/>
+### Archive a Group
 
-This `slackChannel` task can be used to archive an existing group with the `archiveGroup` action.
+This `slackChannel` task can be used to archive an existing group with the
+`archiveGroup` action.
 
 ```yaml
 flows:
