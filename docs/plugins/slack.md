@@ -59,8 +59,8 @@ Possible operations are:
 
 - [Create a channel](#create)
 - [Archive a channel](#archive)
-- [Create a private channel](#createGroup)
-- [Archive a private channel](#archiveGroup)
+- [Create a group (private channel)](#createGroup)
+- [Archive a group (private channel)](#archiveGroup)
 
 The `slackChannel` task uses following input parameters
 
