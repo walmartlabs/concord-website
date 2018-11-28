@@ -59,8 +59,8 @@ Possible operations are:
 
 - [Create a channel](#create)
 - [Archive a channel](#archive)
-- [Create a private channel](#createPriv)
-- [Archive a private channel](#archivePriv)
+- [Create a private channel](#createGroup)
+- [Archive a private channel](#archiveGroup)
 
 The `slackChannel` task uses following input parameters
 
@@ -111,7 +111,7 @@ flows:
   default:
   - task: slackChannel
     in:
-      action: createPriv
+      action: createGroup
       channelName: myChannelName
       apiToken: mySlackApiToken
 ```
@@ -126,7 +126,7 @@ flows:
   default:
   - task: slackChannel
     in:
-      action: archivePriv
+      action: archiveGroup
       channelId: C7HNUMYQ1
       apiToken: mySlackApiToken
 ```
