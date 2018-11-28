@@ -74,6 +74,7 @@ The `slackChannel` task uses following input parameters
   sufficient access rights to create or archive channels and groups. Typically
   this should be provided via usage of the [Crypto task](./crypto.html).
 
+
 <a name="create"/>
 ### Create a Channel
 
@@ -87,7 +88,11 @@ flows:
       action: create
       channelName: myChannelName
       apiToken: mySlackApiToken
+  - log: "Channel ID: ${slackChannelId}"
 ```
+
+The identifier of the created channel is available in the context after the
+successful task execution output variable as `slackChannelId`.
 
 <a name="archive"/>
 ### Archive a Channel
@@ -121,7 +126,11 @@ flows:
       action: createGroup
       channelName: myChannelName
       apiToken: mySlackApiToken
+  - log: "Group ID: ${slackChannelId}"
 ```
+
+The identifier of the created group is available in the context after the
+successful task execution output variable as `slackChannelId`.
 
 <a name="archive-group"/>
 ### Archive a Group
