@@ -45,7 +45,7 @@ configure the icon to use for the post.
 
 # Slack Channel Task
 
-The `slackChannel` task supports creating and archiving regular as well as private channels of the
+The `slackChannel` task supports creating and archiving channels and groups of the
 [Slack](https://slack.com/) messaging platform.
 
 ## Configuration
@@ -59,8 +59,8 @@ Possible operations are:
 
 - [Create a channel](#create)
 - [Archive a channel](#archive)
-- [Create a group (private channel)](#createGroup)
-- [Archive a group (private channel)](#archiveGroup)
+- [Create a group](#createGroup)
+- [Archive a group](#archiveGroup)
 
 The `slackChannel` task uses following input parameters
 
@@ -102,9 +102,9 @@ flows:
 The `channelId` can be seen in the URL of the channel  e.g. `C7HNUMYQ1`
 
 <a name="createPriv"/>
-## Create a private channel
+## Create a group
 
-The `slackChannel` task can be used to create a private channel with the `createPriv` action.
+The `slackChannel` task can be used to create a group with the `createGroup` action.
 
 ```yaml
 flows:
@@ -117,9 +117,9 @@ flows:
 ```
 
 <a name="archivePriv"/>
-## Archive a private channel
+## Archive a group
 
-The `slackChannel` task can be used to archive a private channel with the `archivePriv` action.
+The `slackChannel` task can be used to archive a group with the `archiveGroup` action.
 
 ```yaml
 flows:
