@@ -655,14 +655,14 @@ configuration:
 
 <a name="retry-task"/>
 
-## Retry Tasks
+### Retry Tasks
 
 The `retry` attribute inside a task is used to restart the task automatically
 in case of errors or failures. Users can define the number of times the task can
 be re-tried and a delay for each retry. If not specified, the default value
 for the delay is 5 seconds.
 
-The `times` parameter defines the number of times a task can be `retry` and
+The `times` parameter defines the number of times a task can be retried and
 `delay` specifies the time span after which it retries the task in case of
 errors. The delay time is always in seconds.
 
@@ -766,7 +766,7 @@ each process and available for usage.
 
 <a name="checkpoints">
 
-## Checkpoints
+### Checkpoints
 
 A checkpoint is a point defined within a flow at which the process state is
 persisted in Concord. This process state can subsequently be restored and
