@@ -32,7 +32,8 @@ parameter to the path of your local `server.conf`. Check the
 [Server Configuration File](./configuration.html#server-cfg-file) for details.
 
 Here's an example of the Server's launch configuration in Intellij IDEA:
-![Server](/assets/img/screenshots/server-launch-cfg.png)
+
+![Launch Config](/assets/img/screenshots/server-launch-cfg.png)
 
 To start the UI, please refer to the console's readme file.
 

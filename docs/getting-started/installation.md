@@ -23,9 +23,9 @@ the [quick start tips](./quickstart.html).
 
 ### Docker
 
-If you do not already have Docker installed, see https://www.docker.com/ to
-obtain Docker. You can install Docker through various methods that are outside
-the scope of this document.
+If you do not already have Docker installed, find binaries and instructions 
+on the [Docker website](https://www.docker.com/). You can install Docker through
+various methods that are outside the scope of this document.
 
 ### Referencing a Private Docker Registry
 
@@ -37,7 +37,7 @@ on `docker.myorg.com` this command:
 docker run ... walmartlabs/concord-agent
 ```
 
-would be run as:
+has to be run as:
 
 ```
 docker run ... docker.myorg.com/walmartlabs/concord-agent
