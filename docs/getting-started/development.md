@@ -17,7 +17,7 @@ will try to connect to `localhost:5432` using username `postgres`, password
 The easiest way to get the database up and running is to use an official
 Docker image:
 ```
-docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' library/postgres
+docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' library/postgres:10.4
 ```
 
 ## Running from an IDE
@@ -27,11 +27,12 @@ following main classes:
 - concord-server: `com.walmartlabs.concord.server.Main`
 - concord-agent: `com.walmartlabs.concord.agent.Main`
 
-To use predefined project templates, the server must be started with `DEPS_STORE_DIR`
-environment variable pointing to the `server/impl/target/deps` directory.
+The server requires a configuration file to start. Set `ollie.conf` JVM
+parameter to the path of your local `server.conf`. Check the
+[Server Configuration File](./configuration.html#server-cfg-file) for details.
 
-To use LDAP authentication set `LDAP_CFG` environment variable pointing to a [LDAP
-configuration file](./configuration.html#ldap).
+Here's an example of the Server's launch configuration in Intellij IDEA:
+![Server](/assets/img/screenshots/server-launch-cfg.png)
 
 To start the UI, please refer to the console's readme file.
 
@@ -96,22 +97,47 @@ All JAR files are signed using a GPG key. Pass phrase for a key must be configur
 - squash and rebase your commits;
 - wait for CI checks to pass.
 
+<a name="oldap">
 ## Using OpenLDAP for Authentication
 
-1. start the OpenLDAP sever. The easiest way is to use Docker:
+Assuming that Concord Server is already running in a `server` container.
+
+1. update the `ldap` section in the Concord Server's configuration file:
+   ````
+   $ cat server.conf
+   ...
+   ldap {
+       url = "ldap://localhost:389"
+       searchBase = "dc=example,dc=org"
+       principalSearchFilter = "(cn={0})"
+       userSearchFilter = "(cn=*{0}*)"
+       usernameProperty = "cn"
+       systemUsername = "cn=admin,dc=example,dc=org"
+       systemPassword = "admin"
+   }
+   ...
    ```
-   $ docker run --rm --name oldap -p 1389:389 osixia/openldap
+   
+2. Restart the server with the OpenLDAP container linked:
+   ```bash
+   docker restart server
+   ```
+
+3. start the OpenLDAP server. The easiest way is to use Docker:
+   ```bash
+   docker run -d --name oldap --network=container:server osixia/openldap
+   ```
+   
+   Check the container's logs:
+   ```
    ...
    5a709dd5 slapd starting
    ...
    ```
 
-   Note: if you want your data to persist, you need to start the server
-   as a daemon (using `-d` option).
-
-2. create a user's LDIF file:
+4. create a user's LDIF file:
    ```
-   $ cat /tmp/new-user.ldif
+   $ cat myuser.ldif
    dn: cn=myuser,dc=example,dc=org
    cn: myuser
    objectClass: top
@@ -124,31 +150,11 @@ All JAR files are signed using a GPG key. Pass phrase for a key must be configur
 
    This creates a new user `myuser` with the password `q1`.
 
-3. import the LDIF file:
+5. import the LDIF file:
    ```
-   $ cat /tmp/new-user.ldif | docker exec -i oldap ldapadd -x -D "cn=admin,dc=example,dc=org" -w admin
+   $ cat myuser.ldif | docker exec -i oldap ldapadd -x -D "cn=admin,dc=example,dc=org" -w admin
    
    adding new entry "cn=myuser,dc=example,dc=org"
-   ```
-
-4. create the Concord's LDAP configuration file:
-   ```
-   $ cat /opt/concord/conf/oldap.properties
-   url=ldap://localhost:1389
-   searchBase=dc=example,dc=org
-   principalSearchFilter=(cn={0})
-   usernameProperty=cn
-   systemUsername=cn=admin,dc=example,dc=org
-   systemPassword=admin
-   ```
-
-5. start the Concord's server using the created LDAP configuration
-file:
-
-   ```
-   LDAP_CFG=/opt/concord/conf/oldap.properties
-   ...
-   11:21:36.873 [main] [INFO ] c.w.c.server.cfg.LdapConfiguration - init -> using external LDAP configuration: /opt/concord/conf/oldap.properties
    ```
 
 6. use `myuser` and `q1` to authenticate in the Console:
