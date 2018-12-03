@@ -136,22 +136,22 @@ flows:
 triggers:
 - github:
     type: push
-    project: "myProject"
-    repository: "myRepository"
     useInitiator: true
     entryPoint: onPush
 ```
 
 The `event` object provides the following attributes
 
-- `type` - Notifications type to bind with respective event notification. Possible values can be `push` and `pull_request`. 
-If not specified, the `type` is set to `push` by default.
-- `status` - for `pull_request` notifications only, with possible values of `opened` or `closed`
-- `project` and `repository` - the name of the Concord project and
-repository which were updated in GitHub
-- `author` - GitHub user, the author of the commit
-- `branch` - the GIT repository's branch
-- `commitId` - ID of the commit which triggered the notification
+- `type` - Notifications type to bind with respective event notification.
+Possible values can be `push` and `pull_request`. If not specified, the `type`
+is set to `push` by default;
+- `status` - for `pull_request` notifications only, with possible values of
+`opened` or `closed`
+- `project` and `repository` - the name of the Concord project and repository
+which were updated in GitHub. By default the current project/repository is triggered;
+- `author` - GitHub user, the author of the commit;
+- `branch` - the GIT repository's branch;
+- `commitId` - ID of the commit which triggered the notification;
 - `useInitiator` - process initiator is set to `author` when this attribute is marked as `true`
 
 The connection to the GitHub deployment needs to be 
