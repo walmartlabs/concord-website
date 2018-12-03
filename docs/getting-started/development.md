@@ -118,7 +118,7 @@ Assuming that Concord Server is already running in a `server` container.
    ...
    ```
    
-2. Restart the server with the OpenLDAP container linked:
+2. Restart the server if it was running:
    ```bash
    docker restart server
    ```

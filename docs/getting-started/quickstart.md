@@ -28,8 +28,8 @@ the content.
 Start with the following steps:
 
 - Create the repository in your Git management sytem, such as GitHub, using the
-  user interface
-- Clone the repository to your local workstation
+  user interface;
+- Clone the repository to your local workstation.
 
 <a name="add-concord-file"/>
 ## Add the Concord File
@@ -51,10 +51,11 @@ The `default` flow in the example simply outputs a message to the process log.
 In order to grant Concord access to the Git repository via SSH, you need to
 create a new key on the Concord server.
 
-- Log into the Concord Console user interface
-- Select _Create new_ under _Secrets_ in the navigation panel
-- Provide a string e.g. `mykey` as _Concord ID_ under the _Generate a new key pair_ title
-- Press _Create_
+- Log into the Concord Console user interface;
+- Navigate to _Organizations_ &rarr; _Default_ organization &rarr; _Secrets_;
+- Select _New secret_ on the toolbar;
+- Provide a string e.g. `mykey` as _Name_ and select _Generate a new key pair_ as _Type_;
+- Press _Create_.
 
 The user interface shows the public key of the generated key similar to
 `ssh-rsa ABCXYZ... concord-server`. This value has to be added as an authorized deploy
@@ -70,15 +71,16 @@ Alternatively the key can be
 
 Now you can create a new project in the Concord Console.
 
-- Log into the Concord Console user interface
-- Select _New project_ under _Organizations > Default > Projects_ in the navigation panel
-- Provide a _Name_ for the project e.g. 'myproject'
-- Click the _Create_ button
-- Under 'Repositories' tab, select _Add repository_
-- Provide a _Name_ for the repository e.g. 'myrepository'
-- Select the _Custom authentication_ button
-- Select the _Secret_ created earlier using the name e.g. `exampleSecretKey`
-- Use the SSH URL for the repository in the _URL_ field
+- Log into the Concord Console user interface;
+- Navigate to _Organizations_ &rarr; _Default_ organization &rarr; _Projects_;
+- Select _New project_ on the toolbar;
+- Provide a _Name_ for the project e.g. 'myproject';
+- Click the _Create_ button;
+- Under 'Repositories' tab, select _Add repository_;
+- Provide a _Name_ for the repository e.g. 'myrepository';
+- Select the _Custom authentication_ button;
+- Select the _Secret_ created earlier using the name e.g. `mykey`;
+- Use the SSH URL for the repository in the _URL_ field e.g. `git@github.com:me/myrepo.git`;
 
 If global authentication/trust between your GitHub repositories and the Concord
 server is configured, you can simply use the HTTPS URL for the repository in the
@@ -92,10 +94,10 @@ Alternatively you can
 
 Everything is ready to kick off an execution of the flow - a process:
 
-- Locate the repository for the project
-- Press on the three dots for the repository on the right
-- Press on the _Run_ button
-- Confirm to start the process by clicking on _Yes_ in the dialog
+- Locate the repository for the project;
+- Press on the three dots for the repository on the right;
+- Press on the _Run_ button;
+- Confirm to start the process by clicking on _Yes_ in the dialog;
 
 A successful process execution results a message such as:
 
@@ -112,9 +114,9 @@ provides access to the log, forms and more. Note how the log message
 
 Alternatively the process can be accessed via the queue:
 
-- Click on the _Processes_ tab
-- Click on the _Instance ID_ value of the specific process
-- Press on the _Log_ tab to inspect the log
+- Click on the _Processes_ tab;
+- Click on the _Instance ID_ value of the specific process;
+- Press on the _Log_ tab to inspect the log.
 
 Alternatively the process can be started via the
 [Process REST API](../api/process.html).
@@ -126,13 +128,13 @@ Congratulations, your first process flow execution completed successfully!
 
 You can now learn more about flows and perform tasks such as
 
-- Add a [form](./forms.html) to capture user input
-- Using [variables](./concord-dsl.html#setting-variables)
-- [Groups of steps](./concord-dsl.html#groups-of-steps)
-- Add [conditional expressions](./concord-dsl.html#conditional-expressions)
-- [Calling other flows](./concord-dsl.html#calling-other-flows)
-- Work with [Ansible](../plugins/ansible.html), [Jira](../plugins/jira.html) and [other](../plugins/) tasks
-- Maybe even implement your own task
+- Add a [form](./forms.html) to capture user input;
+- Using [variables](./concord-dsl.html#setting-variables);
+- [Groups of steps](./concord-dsl.html#groups-of-steps);
+- Add [conditional expressions](./concord-dsl.html#conditional-expressions);
+- [Calling other flows](./concord-dsl.html#calling-other-flows);
+- Work with [Ansible](../plugins/ansible.html), [Jira](../plugins/jira.html) and [other](../plugins/) tasks;
+- Maybe even [implement your own task](./tasks.html#create-task)
 
 and much more. Have a look at all the documentation about the
 [Concord DSL](./concord-dsl.html), [forms](./forms.html),
