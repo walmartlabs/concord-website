@@ -11,7 +11,6 @@ too complex to express with the Concord DSL and EL in YAML directly. They are
 _plugins_ of Concord.
 
 - [Using Tasks](#use-task)
-- [Retry Tasks](#retry-task)
 - [Creating Tasks](#create-task)
 
 <a name="use-task"/>
@@ -74,52 +73,6 @@ flows:
         - log: something bad happened
 ```
 
-<a name="retry-task"/>
-## Retry Tasks
-
-The `retry` attribute inside a task is used to restart the task automatically
-in case of errors or failures. Users can define the number of times the task can
-be re-tried and a delay for each retry. If not specified, the default value
-for the delay is 5 seconds.
-
-The `times` parameter defines the number of times a task can be `retry` and
-`delay` specifies the time span after which it retries the task in case of
-errors. The delay time is always in seconds.
-
-For example the below section executes the `myTask` using the provided `in`
-parameters.  In case of errors, the task retries up to 3 times with 3
-seconds delay each. Additional parameters for the retry are supplied in the
-`in` block.
-
-```yaml
-- task: myTask
-  in:
-    ...
-  retry:
-    in:
-      ...additional parameters...
-    times: 3
-    delay: 3
-```
-
-The default `in` and `retry` variables with the same values are overwritten.
-
-In the example below the value of `someVar` is overwritten to 321 in the
-`retry` block..
-
-
-```yaml
-- task: myTask
-  in:
-    someVar:
-      nestedValue: 123
-  retry:
-    in:
-      someVar:
-        nestedValue: 321
-        newValue: "hello"
-```
-
 <a name="create-task"/>
 ## Creating Tasks
 
@@ -132,15 +85,13 @@ It Task interface is provided by the `concord-sdk` module:
 <dependency>
   <groupId>com.walmartlabs.concord</groupId>
   <artifactId>concord-sdk</artifactId>
-  <version>0.50.0</version>
+  <version>0.98.0</version>
   <scope>provided</scope>
 </dependency>
 ```
 
-It is recommended to distribute tasks as _fat_ JARs, i.e. to include all
-necessary dependencies in a single archive. However, some dependencies should be
-excluded from the final JAR or marked as `provided` in the POM file:
-
+Some dependencies are provided by the runtime. It is recommended to mark them
+as `provided` in the POM file:
 - `com.fasterxml.jackson.core/*`
 - `javax.inject/javax.inject`
 - `org.slf4j/slf4j-api`
@@ -210,6 +161,9 @@ flows:
 ```
 
 This form allows use of `in` and `out` variables and error-handling blocks.
+
+The `task` syntax is recommended for most use cases, especially when dealing
+with multiple input parameters.
 
 If a task contains method `call` with one or more arguments, it can
 be called using the _short_ form:

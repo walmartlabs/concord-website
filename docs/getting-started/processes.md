@@ -10,8 +10,8 @@ A process represents an execution of a Concord project using one of the
 defined process definitions and additional supplied resources.
 
 - [Structure](#structure)
-- [Project file](#project-file)
-- [Request data](#request-data)
+- [Project Files](#project-files)
+- [Request Data](#request-data)
 - [Provided Variables](#variables) 
 - [Output Variables](#output-variables)
 - [Execution](#execution)
@@ -23,8 +23,7 @@ Console expects the following structure of a process working directory:
 
 - `concord.yml`: the [project file](#project-file) containing the main project
 information and declarations;
-- `flows`: directories containing `.yml` process and form definitions;
-- `profiles`: directory containing profiles;
+- `concord/*.yml`: directory containing extra Concord YAML files;
 - `lib`: directory for additional runtime dependencies.
 
 Anything else will be copied as-is and will be available for a process. The
@@ -33,8 +32,8 @@ plugins can require other files to be present in a payload.
 The same structure should be used when storing your project in a git repository.
 Concord simply clones the repository into the process execution space.
 
-<a name="project-file"/>
-## Project File
+<a name="project-files"/>
+## Project Files
 
 A payload archive can contain the Concord file `concord.yml`. It uses the
 [Concord DSL](./concord-dsl.html). This file will be loaded first and can

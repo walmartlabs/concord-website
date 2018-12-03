@@ -148,8 +148,6 @@ e.g. `mvn://org.codehaus.groovy:groovy-all:2.4.12`. Versions 2.5.0 and higher
 use pom packaging, which has to be added to the dependency declaration before
 the version `mvn://org.codehaus.groovy:groovy-all:pom:2.5.2`.
 
-
-
 ```yaml
 configuration:
   dependencies:
@@ -174,8 +172,6 @@ desired format.
 - log: "Today is ${businessDate}"
 ```
 
-
-
 ## Python
 
 Python scripts can be executed using the [Jython](http://www.jython.org/)
@@ -199,6 +195,9 @@ flows:
 
   - log: ${result}
 ```
+
+Note that `pip` and 3rd-party modules with native dependencies are not
+supported.
 
 ## Ruby
 
