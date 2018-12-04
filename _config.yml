@@ -11,11 +11,10 @@ url: http://concord.walmart.com
 logo: /assets/img/logo.png
 description: "Concord is a workflow server."
 source_url: https://gecgithub01.walmart.com/devtools/concord-website/tree/master/
-crossSite: true
+crossSite: false
 collapseNavDocs: true
 display-search-in-header: true
 custom-footer: false
-crossSite: true
 contribute: true
 edit-on-github: true
 matomo-analytics: true
@@ -37,12 +36,6 @@ navigation:
   - title: ABOUT
     url: /about.html
     context: /about
-
-cross-site:
- - title: Strati
-   url: http://strati.walmart.com
- - title: Software Delivery and Enablement SDE
-   url: http://sde.walmart.com
 
 defaults:
   -
@@ -84,6 +77,13 @@ kramdown:
   hard_wrap: false
 
 exclude:
+  - ".*"
+  - "Gemf*"
+  - "pom.xml"
   - "*.sh"
   - "wmt-release*"
+  - "README.md"
+  - "publish.sh"
+  - "sonar*"
   - "vendor"
+
