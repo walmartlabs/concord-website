@@ -84,6 +84,13 @@ kramdown:
   hard_wrap: false
 
 exclude:
+  - ".*"
+  - "Gemf*"
+  - "pom.xml"
   - "*.sh"
   - "wmt-release*"
+  - "README.md"
+  - "publish.sh"
+  - "sonar*"
   - "vendor"
+
