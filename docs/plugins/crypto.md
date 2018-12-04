@@ -77,7 +77,7 @@ The expression returns a map with two keys:
 - `username` - username part
 - `password` - password part
 
-You can use can store the return value in a variable:
+You can store the return value in a variable:
 ```yaml
 - expr: ${crypto.exportCredentials('Default', 'myCredentials', null)}
   out: myCreds
