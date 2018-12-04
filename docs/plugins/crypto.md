@@ -68,9 +68,31 @@ Credentials, so username and password pairs, can be exported with:
 - ${crypto.exportCredentials('Default', 'myCredentials', 'myPassword')}
 ```
 
+If it's a non password-protected secret, use `null` instead of password:
+```yaml
+- ${crypto.exportCredentials('Default', 'myCredentials', null)}
+```
+
 The expression returns a map with two keys:
 - `username` - username part
 - `password` - password part
+
+You can store the return value in a variable:
+```yaml
+- expr: ${crypto.exportCredentials('Default', 'myCredentials', null)}
+  out: myCreds
+
+- log: "Username: ${myCreds.username}"
+- log: "Password: ${myCreds.password}"
+```
+
+Or use it directly. For example, in a `http` task call:
+```yaml
+- task: http
+  in:
+    auth: ${crypto.exportCredentials('Default', 'myCredentials', null)}
+  # ...
+```
 
 <a name="plain"/>
 ## Exporting Plain Secrets
