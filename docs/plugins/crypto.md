@@ -97,19 +97,6 @@ Alternatively, the `crypto` task provides a method to export plain secrets as fi
 The method returns a path to the temporary file containing the
 exported secret.
 
-**NOTE:** _if you choose to encrypt with the server's key and forego a password
-you must include a null value in place of the password argument or the command
-will fail_
-
-```yaml
-# demonstrating behavior of null or missing password
-# to decrypt the secret passwordless_secret
-flows:
-  default:
-  - log: "With NULL: ${crypto.exportAsString('SDE', 'passwordless_secret', null)}"
-  - log: "Without NULL: ${crypto.exportAsString('SDE', 'passwordless_secret')}"
-```
-
 <a name="encrypting"/>
 ## Encrypting and Decrypting Values
 
