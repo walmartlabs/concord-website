@@ -4,6 +4,7 @@ envs:
       oneops.organization: devtools
       oneops.assembly: website
       oneops.environment: prod-concord
+      concordApiKey: ENC[7Jzqyu/vmU2HubzR4yX1UBxIgrLi7tZvTTuu3Q8/+XI=]
 
 tools:
   jdk: 8
@@ -19,11 +20,23 @@ flows:
     - call: buildSiteArchive
     - call: deployArchive
     - exposeVars(maven)
-    - oneops.environmentVariableUpdate(platform = 'webserver', component = 'artifact', variables = { SITE_VERSION = '${MAVEN_VERSION}' })
-    - oneops.environmentCommitAndDeploy(platform = 'webserver')
+    # - oneops.environmentVariableUpdate(platform = 'webserver', component = 'artifact', variables = { SITE_VERSION = '${MAVEN_VERSION}' })
+    # - oneops.environmentCommitAndDeploy(platform = 'webserver')
+    - call: oneOpsDeploy
     - call: sonar
     finally:
     - (name Publish to Hygieia) hygieia.publishBuild()
+
+  oneOpsDeploy:
+    - concord.start:
+        apiKey: ${concordApiKey}
+        org: SDE
+        project: sde-docs-training
+        repo: websites-pipeline
+        entryPoint: default
+        arguments:
+          oneOpsConfig:
+            env: "${oneops.environment}"
 
   checkVersions:
   - (name JDK/Maven version) mvn -v
