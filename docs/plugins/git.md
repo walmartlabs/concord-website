@@ -18,6 +18,7 @@ task.
   - [Merge Branches](#merge)
 - [GitHub Task](#github-task)
   - [Create and Merge a Pull Request](#pr)
+  - [Close a Pull Request](#closePR)
   - [Create a Tag](#tag)
   - [Merge Branches](#github-merge)
   
@@ -296,6 +297,27 @@ flows:
   - task: github
     in:
       action: mergePr
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      prId: ${myPrId}
+```
+
+<a name="closePR"/>
+## Close a Pull Request
+
+The `closePR` action can be used to close a pull request. The pull request
+identifier has to be known to perform the action. It can be available from a
+form value, an external invocation of the process or as output parameter from
+the `createPr` action. The example below uses the pull request identifier `myPrId`,
+that was populated with a value in the `createPr` action above.
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: closePR
       accessToken: myGitToken
       org: myOrg
       repo: myRepo
