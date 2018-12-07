@@ -1,8 +1,6 @@
 envs:
   global:
     variables:
-      oneops.organization: devtools
-      oneops.assembly: website
       oneops.environment: prod-concord
       concordApiKey: ***REMOVED***
 
@@ -19,9 +17,6 @@ flows:
     - call: rubyConfiguration
     - call: buildSiteArchive
     - call: deployArchive
-    - exposeVars(maven)
-    # - oneops.environmentVariableUpdate(platform = 'webserver', component = 'artifact', variables = { SITE_VERSION = '${MAVEN_VERSION}' })
-    # - oneops.environmentCommitAndDeploy(platform = 'webserver')
     - call: oneOpsDeploy
     - call: sonar
     finally:
