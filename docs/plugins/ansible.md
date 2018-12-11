@@ -120,6 +120,7 @@ following sections:
 - `skipTags`: string, a comma-separated list or an array of
   [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html) to skip;
 - `saveRetryFile`: file name for the retry file, see [Retry and Limit Files](#retry-limit)
+- `syntaxCheck`: boolean, perform a syntax check on the playbook, but do not execute it
 - `vaultPassword`: string, password to use with [Ansible Vault](#ansible-vault).
 - `verbose`: integer, increase log
   [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4
