@@ -88,7 +88,9 @@ and
 [`delete`](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#bulk-operations-in-kubectl).
 directly. Any other command submitted as action is simply forwarded.
 
-### Applying `k8s` directory to All Azure Clusters except `eastus-lab-tapir` and `prod` as Administrator
+### Applying `k8s` directory to All Azure Clusters as Administrator
+
+Exclude cluster with `cluster_id=eastus-lab-tapir` or `profile=prod`
 
 ```yaml
 kubectl-apply-as-admin:
@@ -159,7 +161,9 @@ kubectl-query-json:
     withItems: ${cluster.items}
 ```
 
-### Query All Azure Dev and Lab Clusters Except for Site westus in All Namespaces
+### Query All Azure Dev and Lab Clusters in All Namespaces
+
+Exclude clusters where `site=westus`.
 
 ```yaml
 kubectl-query-json:
