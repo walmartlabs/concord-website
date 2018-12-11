@@ -60,9 +60,6 @@ In addition, the following helm-specific parameters are supported.
 
 ## Examples
 
-The example snippets below requires a working tiller installation on the
-`example` namespace.
-
 helm as administrator:
 
 ```yaml
@@ -71,7 +68,8 @@ helm as administrator:
         admin: true
         adminSecretsPassword: Kube4567
         target:
-          cluster_id: 'us-central_dev'
+          - cluster_id: 'us-central_dev'
+          - cluster_id: 'uswest-dev-c1'
         chart: repo/example-app
         appname: example-app
         values:
@@ -79,7 +77,29 @@ helm as administrator:
           imageRootPath: /example
           imageName: counter
 ```
-          
+
+Helm usage of a local `example` chart from the Concord project repository:
+
+```yaml
+    - task: helm
+      in:
+        target:
+          provider: azure
+          profile: [ dev, lab ]
+        except:
+          - cluster_id
+              - uswest-lab-tapir
+              - uswest-dev-tapir
+        admin: true
+        adminSecretsPassword: ${secrets_password}
+        namespace: auth
+        chart: ./charts/example
+        appname: example
+```
+
+The example snippet below requires a working tiller installation on the
+`example` namespace.
+
 Helm usage with namespace configuration and values file:
 
 ```yaml
@@ -96,18 +116,4 @@ Helm usage with namespace configuration and values file:
           imageRepository: hub.docker.prod.walmart.com
           imageRootPath: /andersjanmyr
           imageName: counter
-```
-
-Helm usage of a local `example` chart from the Concord project repository:
-
-```yaml
-    - task: helm
-      in:
-        target:
-          cluster_id: 'us_central_dev'
-        admin: true
-        adminSecretsPassword: ${secrets_password}
-        namespace: auth
-        chart: ./charts/example
-        appname: example
 ```
