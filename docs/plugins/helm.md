@@ -68,7 +68,7 @@ helm as administrator:
         admin: true
         adminSecretsPassword: Kube4567
         target:
-          - cluster_id: 'us-central_dev'
+          - cluster_id: 'uscentral-dev-c1'
           - cluster_id: 'uswest-dev-c1'
         chart: repo/example-app
         appname: example-app
@@ -108,7 +108,7 @@ Helm usage with namespace configuration and values file:
         namespaceSecretsPassword: Kube1234
         namespace: example
         target:
-          cluster_id: 'us-central_dev'
+          cluster_id: 'uscentral-dev-c1'
         chart: repo/example-app
         appname: example-app
         valuesFile: config.txt
