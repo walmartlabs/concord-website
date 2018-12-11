@@ -7,7 +7,7 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 The `kubeInventory` task is used for getting Kubernetes-specific inventory
-data from Concord. 
+data from Concord.
 
 - [Usage](#usage)
 - [Parameters](#parameters)
@@ -19,7 +19,7 @@ To be able to use the `kubeInventory` task in a Concord flow, the
 [`kube` plugin must be added as a dependency](./kubectl.html#usage).
 
 It is used automatically by the kubectl task, the kustomize task and the helm
-task as part of they initial setup, before running the actual commands. 
+task as part of they initial setup, before running the actual commands.
 
 On its own the task supports two operations:
 
@@ -70,7 +70,7 @@ in the following example:
 }
 ```
 
-As a result a target of 
+As a result a target of
 
 ```yaml
 target:
@@ -81,14 +81,10 @@ returns all clusters using a provider of `azure` and a country of `us`.
 
 Commonly used values are `cluster_id`, `cluster_seq`, `country`, `profile`,
 `provider`, and `site`. `cluster_id: <an_id>` targets a single cluster,
-while a `provider: azure` targets every azure cluster in the inventory. 
-
-When the application is deployed, all cluster variables from the inventory are
-replaced in the yaml files. The most useful is `${cluster.ingress}`, but
-other variables from the inventory may be useful too. 
+while a `provider: azure` targets every azure cluster in the inventory.
 
 A host can be queried from the infras section and includes the following
-parameters: 
+parameters:
 
 ```json
 {
