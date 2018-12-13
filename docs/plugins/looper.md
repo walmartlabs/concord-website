@@ -44,7 +44,8 @@ All parameters sorted in alphabetical order.
   is used
 - `call`: name of a specific flow to use for the execution of the Looper job, if
   not provided `default` flow is used
-- `jobName`: name of the job on the Looper server
+- `jobName`: name of the job on the Looper server, if your job is located in a folder
+  use `myfolder/job/myjob` as the jobName value
 - `parameters`: Parameters to pass, the job has to be configured as
   parameterized job, details in
   [Calling Parameterized Job](#calling-parameterized-job);
