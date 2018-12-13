@@ -5,7 +5,7 @@ Concord.
 
 ## Build
 
-test1
+test2
 
 ```
 gem install bundler
