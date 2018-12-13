@@ -400,11 +400,11 @@ concord-agent {
 
     # unique ID of the agent
     # generated on start if not specified
-    # id = "..."
+    id = "..."
 
     # path to the capabilities JSON file
     # optional
-    # capabilities = "/path/to/capabilities.json"
+    capabilities = "/path/to/capabilities.json"
 
     # directory to cache dependencies
     dependencyCacheDir = "/tmp/agent/depsCacheDir"
@@ -428,7 +428,7 @@ concord-agent {
     workersCount = 3
 
     # path to a JRE, used in process containers
-    javaPath = null
+    javaPath = "..."
 
     # interval between new payload requests
     pollInterval = "2 seconds"
@@ -458,14 +458,14 @@ concord-agent {
         retryInterval = "30 seconds"
 
         # User-Agent header to use with API requests
-        userAgent = null
+        # userAgent = "..."
 
         # interval between WS ping requests
         maxWebSocketInactivity = "2 minutes"
 
-        # API key to use
+        # (required) API key to use
         # as defined in server/db/src/main/resources/com/walmartlabs/concord/server/db/v0.69.0.xml
-        apiKey = "O+JMYwBsU797EKtlRQYu+Q"
+        apiKey = "..."
     }
 
     docker {
@@ -486,7 +486,7 @@ concord-agent {
     }
 
     git {
-        # oauth = "..."
+        oauth = "..."
 
         # use GIT's shallow clone
         shallowClone = true
@@ -503,12 +503,6 @@ concord-agent {
 
         securityManagerEnabled = false
         javaCmd = "java"
-    }
-
-    development {
-    }
-
-    production {
     }
 }
 ```
