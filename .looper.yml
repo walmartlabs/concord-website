@@ -8,6 +8,10 @@ tools:
   jdk: 8
   maven: 3.5.4
   sonarscanner: 3.0.3.778
+  
+triggers:
+- push: disabled
+- pr: disabled
 
 flows:
   default:
