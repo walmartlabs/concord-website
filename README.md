@@ -23,11 +23,6 @@ More information about building and publishing can be found at the
 
 [Insights dashboard](http://hygieia.walmart.com/#/dashboard/59a4b22dad53334f88c9989f)
 
-## Issues
-
-Please file issues in [JIRA](https://jira.walmart.com/)
-for the `SDE - Concord (STRDTORC)` project. Use the label `documentation`.
-
 ## Contribute
 
 Feel free to submit pull requests at
