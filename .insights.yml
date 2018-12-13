@@ -1,7 +1,6 @@
 ---
 team:
   - id: "19740"
-# SDE doc and training team, see https://teamrosters.walmart.com/app/#/search?teams=19740
 product:
   - {}
 # product entry left empty on purpose, no troux entry desired
