@@ -7,7 +7,7 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 The `looper` task allows users to trigger build jobs on a
-[Looper](https://looper.walmart.com) continuous integration server as a step of
+Looper continuous integration server as a step of
 a flow.
 
 <a name="usage"/>

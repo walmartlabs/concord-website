@@ -322,10 +322,10 @@ flows:
   default:
   - task: ansible
     in:
-      dockerImage: "docker.prod.walmart.com/walmartlabs/concord-ansible"
+      dockerImage: "docker.example.com/walmartlabs/concord-ansible"
 ```
 
-We recommend using `docker.prod.walmart.com/walmartlabs/concord-ansible`
+We recommend using `docker.example.com/walmartlabs/concord-ansible`
 as a base for your custom Docker images.
 
 Please refer to our
@@ -439,7 +439,7 @@ omitted. Concord will automatically use the name of the project's organization:
 
 Currently, only simple string value secrets are supported.
 
-See also [the example](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/secret_lookup)
+See also [the example]({{ site.source_url }}examples/secret_lookup)
 project.
 
 <a name="group-vars"/>
