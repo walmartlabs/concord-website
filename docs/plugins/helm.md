@@ -113,7 +113,7 @@ Helm usage with namespace configuration and values file:
         appname: example-app
         valuesFile: config.txt
         values:
-          imageRepository: hub.docker.prod.walmart.com
+          imageRepository: hub.docker.example.com
           imageRootPath: /andersjanmyr
           imageName: counter
 ```

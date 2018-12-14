@@ -41,8 +41,8 @@ Note:
 
 Note: 
 - describe each a bit
-- https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins/tasks
-- https://gecgithub01.walmart.com/devtools/concord-plugins/tree/master/tasks
+- https://github.com/walmartlabs/concord/tree/master/plugins/tasks
+- https://github.com/walmartlabs/concord-plugins/tree/master/tasks
 
 <!--- vertical -->
 
@@ -265,8 +265,8 @@ Let explore some in source and examples!
 And more are on the way.
 
 Note:
-- https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins
-- https://gecgithub01.walmart.com/devtools/concord/tree/master/examples
+- https://github.com/walmartlabs/concord/tree/master/plugins
+- https://github.com/walmartlabs/concord/tree/master/examples
 
 <!--- vertical -->
 

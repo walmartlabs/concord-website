@@ -13,7 +13,7 @@ Concord supports running docker images within a process flow.
 ```yaml
 flows:
   default:
-  - docker: docker.prod.walmart.com/walmartlabs/concord-base
+  - docker: docker.example.com/walmartlabs/concord-base
     cmd: echo '${greeting}'
 
 configuration:
@@ -26,7 +26,7 @@ The above invocation is equivalent to running
 ```bash
 docker run -i --rm \
 -v /path/to/process/workDir:/workspace \
-docker.prod.walmart.com/walmartlabs/concord-base \
+docker.example.com/walmartlabs/concord-base \
 echo 'Hello, world!'
 ```
 
@@ -41,7 +41,7 @@ Additional environment variables can be specified using `env` parameter:
 ```yaml
 flows:
   default:
-  - docker: docker.prod.walmart.com/walmartlabs/concord-base
+  - docker: docker.example.com/walmartlabs/concord-base
     cmd: echo $GREETING
     env:
       GREETING: "Hello, ${name}!"
@@ -63,7 +63,7 @@ Additional `/etc/hosts` lines can be specified using `hosts` parameter:
 ```yaml
 flows:
   default:
-  - docker: docker.prod.walmart.com/walmartlabs/concord-base
+  - docker: docker.example.com/walmartlabs/concord-base
     cmd: echo '${greeting}'
     hosts:
       - foo:10.0.0.3

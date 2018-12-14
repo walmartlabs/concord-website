@@ -1,5 +1,4 @@
 GEM
-  remote: https://repository.walmart.com/content/repositories/rubygems/
   specs:
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
