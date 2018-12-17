@@ -52,8 +52,10 @@ In addition, the following helm-specific parameters are supported.
   An additional repository can be configured in the global configuration.
   If the chart starts with `./`, the chart is treated as a project local
   chart and is installed from the project filesystem.
-- `debug`: sets the `helm --debug` flag. [Helm docs](https://github.com/helm/helm/blob/master/docs/helm/helm_upgrade.md#options-inherited-from-parent-commands)
-- `force`: sets the `helm --force` flag.  [Helm docs](https://github.com/helm/helm/blob/master/docs/helm/helm_upgrade.md#options)
+- `debug`: sets the `helm --debug` flag. More information is available in the
+  [Helm docs](https://github.com/helm/helm/blob/master/docs/helm/helm_upgrade.md#options-inherited-from-parent-commands).
+- `force`: sets the `helm --force` flag. More information is available in the
+  [Helm docs](https://github.com/helm/helm/blob/master/docs/helm/helm_upgrade.md#options).
 - `values`: a section of multiple key value pairs. The values are substituted
   in helm charts before execution as `--set key='value'`
 - `valuesFile`: a file with with properties that are used by helm. It's the
