@@ -79,9 +79,11 @@ following sections:
 - `multi`: must be set to `true`, if you want to run this task in more than
     one cluster. This is to prevent running commands on multiple clusters by
     mistake.
-- `fail`: Configures when the flow will fail when working with multiple
-    clusters. Possible values are `immediately` - fails on first error (default), `after` - fails after all clusters have run (if an error occurred),
-    and `never` - ignores all errors and the task succeeds.
+- `fail`: Configures how the flow fails when working with multiple clusters.
+   Possible values are
+    - `immediately` fails on first error (default),
+    - `after` fails after all clusters have run, if an error occurred.
+    - `never` ignores all errors and the task succeeds.
 
 <a name="#examples">
 
