@@ -101,6 +101,8 @@ nav:
         context: /docs/plugins/slack
       - page: SMTP
         context: /docs/plugins/smtp
+      - page: Tekton
+        context: /docs/plugins/tekton
   - title: Templates
     id: templates
     collapse: /docs/templates

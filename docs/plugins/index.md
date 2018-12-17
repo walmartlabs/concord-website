@@ -21,26 +21,29 @@ use in the workflow execution.
         <li><a href="./crypto.html">Crypto</a></li>
         <li><a href="./docker.html">Docker</a></li>
         <li><a href="./git.html">Git and GitHub</a></li>
-        <li><a href="./helm.html">Helm</a></li>
-        <li><a href="./http.html">HTTP</a></li>
-        <li><a href="./jira.html">Jira</a></li>
       </ul>
     </div>
     <div class="col-md-4">
       <ul>
+        <li><a href="./helm.html">Helm</a></li>
+        <li><a href="./http.html">HTTP</a></li>
+        <li><a href="./jira.html">Jira</a></li>
         <li><a href="./key-value.html">Key Value</a></li>
         <li><a href="./kube-inventory.html">KubeInventory</a></li>
         <li><a href="./kubectl.html">Kubectl</a></li>
         <li><a href="./kustomize.html">Kustomize</a></li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <ul> 
         <li><a href="./ldap.html">LDAP</a></li>
         <li><a href="./looper.html">Looper</a></li>
         <li><a href="./oneops.html">OneOps</a></li>
         <li><a href="./resource.html">Resource</a></li>
         <li><a href="./slack.html">Slack</a></li>
         <li><a href="./smtp.html">SMTP</a></li>
+        <li><a href="./tekton.html">Tekton</a></li>
       </ul>
-    </div>
-    <div class="col-md-4">
     </div>
   </div>
 </div>
