@@ -61,7 +61,7 @@ operations:
   repository on the remote server.
 - `auth`: Required if `url` is of type HTTPS, details in [Basic authentication](#basic-authentication)
 
- Following is an example showing the common parameters with private key based authentication:
+Following is an example showing the common parameters with private key based authentication:
 
 ```yaml
 flows:
