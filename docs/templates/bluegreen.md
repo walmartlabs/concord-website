@@ -34,7 +34,7 @@ configuration:
 or directly:
 ```yaml
 configuration:
-  template: "https://repository.walmart.com/content/repositories/devtools/com/walmartlabs/concord/templates/concord-template-bluegreen/0.0.3/concord-template-bluegreen-0.0.3.jar"
+  template: "https://repository.example.com/content/repositories/main/com/walmartlabs/concord/templates/concord-template-bluegreen/0.0.3/concord-template-bluegreen-0.0.3.jar"
 ```
 
 Set the necessary process arguments:

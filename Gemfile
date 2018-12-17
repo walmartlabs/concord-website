@@ -1,5 +1,3 @@
-source "https://repository.walmart.com/content/repositories/rubygems/"
-
 ruby RUBY_VERSION
 
 gem "jekyll", "3.4.1"

@@ -87,8 +87,7 @@ Note:
 - Or Ansible deployment
 
 Note:
-- https://gecgithub01.walmart.com/devtools/concord-cd-example
-- https://ci.walmart.com/job/concord-cd-example/
+- concord-cd-example
 
 <!--- vertical -->
 
@@ -184,8 +183,8 @@ flows:
 - Ansible playbook adds software and config
 
 Note:
-- https://gecgithub01.walmart.com/devtools/concord-pipeline
-- https://gecgithub01.walmart.com/vn0xxv4/concord-oneops-ansible-example
+- concord-pipeline git repo
+- concord-oneops-ansible-example git repo
 
 <!--- vertical -->
 
