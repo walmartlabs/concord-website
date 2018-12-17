@@ -14,9 +14,11 @@ necessary.
 
 ## Examples
 
-- [process_from_a_process](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/process_from_a_process) - starting a new subprocess from a flow using a payload archive;
-- [fork](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork) - starting a subprocess;
-- [fork_join](https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/fork_join) - starting multiple subprocesses and waiting for completion.
+- [process_from_a_process]({{ site.source_url }}examples/process_from_a_process) 
+- starting a new subprocess from a flow using a payload archive;
+- [fork]({{ site.source_url }}examples/fork) - starting a subprocess;
+- [fork_join]({{ site.source_url }}examples/fork_join)
+- starting multiple subprocesses and waiting for completion.
 
 ## Parameters
 

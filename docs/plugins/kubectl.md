@@ -90,6 +90,8 @@ directly. Any other command submitted as action is simply forwarded.
 
 ### Applying `k8s` directory to All Azure Clusters as Administrator
 
+Exclude cluster with `cluster_id=eastus-lab-tapir` or `profile=prod`
+
 ```yaml
 kubectl-apply-as-admin:
   - log: "Running kubectl apply as admin"
@@ -99,6 +101,9 @@ kubectl-apply-as-admin:
       adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       target:
         provider: azure
+      except:
+        - cluster_id: eastus-lab-tapir
+        - profile: prod
       multi: true
 ```
 
@@ -156,7 +161,9 @@ kubectl-query-json:
     withItems: ${cluster.items}
 ```
 
-### Query All Azure Clusters for All Namespaces
+### Query All Azure Dev and Lab Clusters in All Namespaces
+
+Exclude clusters where `site=westus`.
 
 ```yaml
 kubectl-query-json:
@@ -167,6 +174,9 @@ kubectl-query-json:
       adminSecretsPassword: ${crypto.decryptString("encryptedPwd")}
       target:
         provider: azure
+        profile: [ dev, lab ]
+      except:
+        site: westus
       multi: true
       action: "get namespaces -o json"
     out:

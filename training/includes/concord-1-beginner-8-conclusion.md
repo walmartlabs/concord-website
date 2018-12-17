@@ -21,7 +21,7 @@
 
 ## Next
 
-- Learn more from the [documentation](http://concord.walmart.com)
+- Learn more from the [documentation](https://concord.walmartlabs.com)
 - Talk to the team on chat
 - Request features and improvements
 

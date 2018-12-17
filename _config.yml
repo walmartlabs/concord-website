@@ -10,7 +10,7 @@ domain: concord.walmart.com
 url: http://concord.walmart.com
 logo: /assets/img/logo.png
 description: "Concord is a workflow server."
-source_url: https://gecgithub01.walmart.com/devtools/concord-website/tree/master/
+source_url: https://github.com/walmartlabs/concord-website/tree/master/
 crossSite: false
 collapseNavDocs: true
 display-search-in-header: true
@@ -20,8 +20,8 @@ edit-on-github: true
 matomo-analytics: true
 matomo-site-id: 11
 
-concord_source: "https://gecgithub01.walmart.com/devtools/concord/"
-concord_plugins_source: "https://gecgithub01.walmart.com/devtools/concord-plugins/"
+concord_source: "https://github.com/walmartlabs/concord/"
+concord_plugins_source: "https://github.com/walmartlabs/concord-plugins/"
 concord_plugins_version: "0.74.0"
 concord_core_version: "0.99.0"
 concord_ansible_version: "2.6.7"
@@ -53,18 +53,12 @@ excerpt_separator: <!--more-->
 
 
 authors:
-  team:
-    name: The Team
-    web: /about
   ibodrov:
     name: Ivan Bodrov
-    web: http://sde.walmart.com/about-us.html#ibodrov
-  jvanzyl:
-    name: Jason van Zyl
-    web: http://sde.walmart.com/about-us.html#jvanzyl
+    web:
   mmoser:
     name: Manfred Moser
-    web: http://sde.walmart.com/about-us.html#mmoser
+    web:
 
 
 # -------
