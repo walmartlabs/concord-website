@@ -47,7 +47,9 @@ Concord server.
 The `git` task uses a number of input parameters that are common for all
 operations:
 
-- `url`: Required - the SSH URL of git repository
+- `url`: Required - the SSH or HTTPS URL of git repository
+  - `auth`: Required for HTTPS `url` values, details in [Basic authentication](#basic-authentication)
+  - `privateKey`: Required for SSH `url` values.
 - `workingDir`: Required - the name of the directory inside the process space on
   the Concord server into which the git repository is cloned before any
   operation is performed.
@@ -59,7 +61,7 @@ operations:
   [secret](../api/secret.html) used for the SSH connection to the git 
   repository on the remote server.
 
-Following is an example showing the common parameters:
+Following is an example showing the common parameters with private key based authentication:
 
 ```yaml
 flows:
@@ -72,6 +74,39 @@ flows:
       privateKey:
         org: myOrg
         secretName: mySecret
+```
+
+<a name="basic-authentication"/>
+
+### Basic Authentication
+
+The `auth` parameter is required when a private git repository is accessed with
+HTTPS `url`. It must contain a `basic` nested element which contains either the
+`token` element or the `username` and `password` elements.
+
+Following example shows the common parameters with basic authentication using
+`username` & `password`:
+
+```yaml
+flows:
+  default:
+  - task: git
+    in:
+      action: actionName
+      url: "https://git.example.com/example-org/git-project.git"
+      workingDir: "git-project"
+      auth:
+        basic:
+          username: any_username
+          password: any_password
+```
+
+Here is an example of using basic authentication with `token`:
+
+```yaml
+auth:
+  basic:
+    token: base64_encoded_auth_token
 ```
 
 <a name="clone"/>
