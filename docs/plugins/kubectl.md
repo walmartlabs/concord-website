@@ -62,8 +62,10 @@ All parameters (sorted alphabetically). Usage documentation can be found in the
 following sections:
 
 - `action`: the action to perform, defaults to `apply`. For `kubectl` it may
-    be an arbitrary `kubectl` command such as `get pods -o json`. For
-    `kustomize`, it must be `apply` or `delete`.
+    be an arbitrary `kubectl` command such as `get pods -o json`. It also
+    supports pipes and nested `kubectl` commands such as `get ns tapir &&
+    kubectl -n tapir get pods -o json` (note no initial `kubectl`).
+    For `kustomize`, action must be `apply` or `delete`.
 - `admin`: connect as cluster administrator or not, defaults to `false`.
 - `adminSecretsPassword`: the password for getting admin secrets from concord.
     Only required when `admin` is `true`
@@ -74,9 +76,14 @@ following sections:
 - `namespaceSecretsPassword`: the namespace password.
 - `target`: query object for selecting clusters as retrieved by the
     [KubeInventory task](./kube-inventory.html).
-- `multi` must be set to `true`, if you want to run this task in more than
+- `multi`: must be set to `true`, if you want to run this task in more than
     one cluster. This is to prevent running commands on multiple clusters by
     mistake.
+- `fail`: Configures how the flow fails when working with multiple clusters.
+   Possible values are
+    - `immediately` fails on first error (default),
+    - `after` fails after all clusters have run, if an error occurred.
+    - `never` ignores all errors and the task succeeds.
 
 <a name="#examples">
 
@@ -105,6 +112,7 @@ kubectl-apply-as-admin:
         - cluster_id: eastus-lab-tapir
         - profile: prod
       multi: true
+      fail: after # Apply to all clusters and fail after if anything fails
 ```
 
 ### Applying `manifests` Directory to a Single Cluster and Namespace
