@@ -62,8 +62,10 @@ All parameters (sorted alphabetically). Usage documentation can be found in the
 following sections:
 
 - `action`: the action to perform, defaults to `apply`. For `kubectl` it may
-    be an arbitrary `kubectl` command such as `get pods -o json`. For
-    `kustomize`, it must be `apply` or `delete`.
+    be an arbitrary `kubectl` command such as `get pods -o json`. It also
+    supports pipes and nested `kubectl` commands such as `get ns tapir &&
+    kubectl -n tapir get pods -o json` (note no initial `kubectl`).
+    For `kustomize`, action must be `apply` or `delete`.
 - `admin`: connect as cluster administrator or not, defaults to `false`.
 - `adminSecretsPassword`: the password for getting admin secrets from concord.
     Only required when `admin` is `true`
