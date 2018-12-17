@@ -40,6 +40,7 @@ The `helm` task uses the following parameters from
 - `namespaceSecretsPassword`
 - `multi`
 - `target`
+- `fail`
 
 In addition, the following helm-specific parameters are supported.
 
@@ -70,6 +71,8 @@ helm as administrator:
         target:
           - cluster_id: 'uscentral-dev-c1'
           - cluster_id: 'uswest-dev-c1'
+        multi: true
+        fail: after
         chart: repo/example-app
         appname: example-app
         values:
@@ -90,6 +93,8 @@ Helm usage of a local `example` chart from the Concord project repository:
           - cluster_id
               - uswest-lab-tapir
               - uswest-dev-tapir
+        multi: true
+        fail: after
         admin: true
         adminSecretsPassword: ${secrets_password}
         namespace: auth
