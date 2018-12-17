@@ -47,19 +47,19 @@ Concord server.
 The `git` task uses a number of input parameters that are common for all
 operations:
 
-- `url`: Required - the SSH or HTTP URL of git repository
+- `url`: Required - the SSH or HTTPS URL of git repository
+  - `auth`: Required for HTTPS `url` values, details in [Basic authentication](#basic-authentication)
+  - `privateKey`: Required for SSH `url` values.
 - `workingDir`: Required - the name of the directory inside the process space on
   the Concord server into which the git repository is cloned before any
   operation is performed.
 - `action`: Required - the name of the operation to perform.
-- `privateKey`: Required if `url` is of type SSH
 - `org` of the `privateKey` parameter: Optional - the name of the organization
   in Concord org where the secret can be located, if not specified defaults to
   `Default`.
 - `secretName` of the `privateKey` parameter: Required - the name of the Concord
   [secret](../api/secret.html) used for the SSH connection to the git 
   repository on the remote server.
-- `auth`: Required if `url` is of type HTTPS, details in [Basic authentication](#basic-authentication)
 
 Following is an example showing the common parameters with private key based authentication:
 
@@ -77,13 +77,15 @@ flows:
 ```
 
 <a name="basic-authentication"/>
+
 ### Basic Authentication
 
-The `auth` parameter is required when private git repository is accessed with HTTP `url`.
-It must contain `basic` nested element which contains either the `token` element or the `username` and
-`password` elements
+The `auth` parameter is required when a private git repository is accessed with
+HTTPS `url`. It must contain a `basic` nested element which contains either the
+`token` element or the `username` and `password` elements.
 
-Following example shows the common parameters with basic authentication using `username` & `password`:
+Following example shows the common parameters with basic authentication using
+`username` & `password`:
 
 ```yaml
 flows:
@@ -99,7 +101,6 @@ flows:
           password: any_password
 ```
 
-
 Here is an example of using basic authentication with `token`:
 
 ```yaml
@@ -107,7 +108,6 @@ auth:
   basic:
     token: base64_encoded_auth_token
 ```
-
 
 <a name="clone"/>
 ### Clone a Repository
