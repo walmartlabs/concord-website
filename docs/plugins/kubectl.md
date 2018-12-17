@@ -74,9 +74,12 @@ following sections:
 - `namespaceSecretsPassword`: the namespace password.
 - `target`: query object for selecting clusters as retrieved by the
     [KubeInventory task](./kube-inventory.html).
-- `multi` must be set to `true`, if you want to run this task in more than
+- `multi`: must be set to `true`, if you want to run this task in more than
     one cluster. This is to prevent running commands on multiple clusters by
     mistake.
+- `fail`: Configures when the flow will fail when working with multiple
+    clusters. Possible values are `immediately` - fails on first error (default), `after` - fails after all clusters have run (if an error occurred),
+    and `never` - ignores all errors and the task succeeds.
 
 <a name="#examples">
 
@@ -105,6 +108,7 @@ kubectl-apply-as-admin:
         - cluster_id: eastus-lab-tapir
         - profile: prod
       multi: true
+      fail: after # Apply to all clusters and fail after if anything fails
 ```
 
 ### Applying `manifests` Directory to a Single Cluster and Namespace
