@@ -18,6 +18,7 @@ task.
   - [Merge Branches](#merge)
 - [GitHub Task](#github-task)
   - [Create and Merge a Pull Request](#pr)
+  - [Comment on a Pull Request](#commentPR)
   - [Close a Pull Request](#closePR)
   - [Create a Tag](#tag)
   - [Merge Branches](#github-merge)
@@ -341,12 +342,16 @@ flows:
 <a name="commentPR">
 ## Comment on a Pull Request
 
-The `commentPR` action can be used to comment on a pull request. The pull request
-identifier has to be known to perform the action. It can be available from a
-form value, an external invocation of the process or as output parameter from
-the `createPr` action. The example below uses the pull request identifier `myPrId`,
-that was populated with a value in the `createPr` action above. `prComment` is the
-string that will be posted to the pull request as a comment. 
+The `commentPR` action can be used to add a comment to a pull request.
+
+The pull request identifier has to be known to perform the action. It can be
+available from a form value, an external invocation of the process or as output
+parameter from the `createPr` action.
+
+The example below uses the pull request identifier `myPrId`, that was populated
+with a value in the `createPr` action above. `prComment` is the string that is
+posted to the pull request as a comment. The `accessToken` used determines the
+user adding the comment.
 
 ```yaml
 flows:
