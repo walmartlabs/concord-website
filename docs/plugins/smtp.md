@@ -146,5 +146,5 @@ flows:
         message: "My message"
 ```
 
-Consider using a global variable to store the parameters in case multiple `smtp`
-invocations.
+Consider using a global variable to store the parameters in case of multiple
+`smtp` invocations.
