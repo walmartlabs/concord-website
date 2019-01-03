@@ -18,6 +18,7 @@ The following configuration details are available:
 - [Common Environment Variables](#common-environment-variables)
 - [Server Configuration File](#server-cfg-file)
 - [Server Environment Variables](#server-environment-variables)
+- [Agent Configuration File](#agent-cfg-file)
 - [Process Runtime Variables](#process-runtime-variables)
 - [Default Process Variables](#default-process-variables)
 
@@ -381,6 +382,132 @@ All parameters are optional.
 | Variable       | Description                                  | Default value |
 |----------------|----------------------------------------------|---------------|
 | SECURE_COOKIES | Enable `secure` attribute on server cookies. | false         |
+
+<a name="agent-cfg-file"/>
+## Agent Configuration File
+
+The path to the configuration file must be passed via `ollie.conf` JVM
+parameter like so:
+```
+java ... -Dollie.conf=/opt/concord/conf/server.conf com.walmartlabs.concord.agent.Main
+```
+When using Docker it can be passed as `CONCORD_CFG_FILE` environment variable.
+
+Here's a complete example of the agent configuration file including the
+default values. All parameters are optional unless specified:
+```
+concord-agent {
+
+    # unique ID of the agent
+    # generated on start if not specified
+    id = "..."
+
+    # path to the capabilities JSON file
+    # optional
+    capabilities = "/path/to/capabilities.json"
+
+    # directory to cache dependencies
+    dependencyCacheDir = "/tmp/agent/depsCacheDir"
+
+    # directory to store process dependency lists
+    dependencyListsDir = "/tmp/agent/dependencyListsDir"
+
+    # directory to store the process payload
+    # created automatically if not specified
+    # payloadDir = "/tmp/payload"
+
+    # directory to store the process logs
+    # created automatically if not specified
+    # logDir = /tmp/logs"
+
+    # maximum delay between log chunks
+    # determines how ofter the logs are send back to the server
+    logMaxDelay = "2 seconds"
+
+    # maximum number of concurrent processes
+    workersCount = 3
+
+    # path to a JRE, used in process containers
+    javaPath = "..."
+
+    # interval between new payload requests
+    pollInterval = "2 seconds"
+
+    # JVM prefork settings
+    prefork {
+        # maximum time to keep a preforked JVM
+        maxAge = "30 seconds"
+        # maximum number of preforks
+        maxCount = 3
+    }
+
+    # server connection settinss
+    server {
+        apiBaseUrl = "http://localhost:8001"
+        apiBaseUrl = ${?SERVER_API_BASE_URL}
+
+        websockerUrl = "ws://localhost:8001/websocket"
+        websockerUrl = ${?SERVER_WEBSOCKET_URL}
+
+        verifySsl = false
+
+        connectTimeout = "30 seconds"
+        readTimeout = "1 minute"
+
+        retryCount = 5
+        retryInterval = "30 seconds"
+
+        # User-Agent header to use with API requests
+        # userAgent = "..."
+
+        # interval between WS ping requests
+        maxWebSocketInactivity = "2 minutes"
+
+        # (required) API key to use
+        # as defined in server/db/src/main/resources/com/walmartlabs/concord/server/db/v0.69.0.xml
+        apiKey = "..."
+    }
+
+    docker {
+        host = "tcp://127.0.0.1:2375"
+        host = ${?DOCKER_HOST}
+
+        orphanSweeperEnabled = false
+        orphanSweeperPeriod = "15 minutes"
+    }
+
+    repositoryCache {
+        # directory to store the local repo cache
+        # created automatically if not specified
+        # cacheDir = "/tmp/concord/repos"
+
+        # timeout for checkout operations (ms)
+        lockTimeout = "3 minutes"
+    }
+
+    git {
+        oauth = "..."
+
+        # use GIT's shallow clone
+        shallowClone = true
+
+        httpLowSpeedLimit = 1
+        httpLowSpeedTime = 600
+        sshTimeoutRetryCount = 1
+        sshTimeout = 600
+    }
+
+    runner {
+        path = null
+        path = ${?RUNNER_PATH}
+
+        securityManagerEnabled = false
+        javaCmd = "java"
+    }
+}
+```
+
+The configuration file is optional for local development.
 
 ## Process Runtime Variables
 
