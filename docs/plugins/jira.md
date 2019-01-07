@@ -15,6 +15,7 @@ The `jira` task supports operations on the popluar issue tracking system
 Possible operations are: 
 
 - [Create an Issue](#createIssue)
+- [Update an Issue](#updateIssue)
 - [Add a comment](#addComment)
 - [Transition an Issue](#transitionIssue)
 - [Delete an Issue](#deleteIssue)
@@ -121,6 +122,34 @@ Additional parameters to use are:
 - `requestorUid` - identifier of the user account to be used as the requestor
 - `customFieldsTypeKv` - list of custom fields of type key->value
 - `customFieldsTypeFieldAttr` - list of custom fields of type fieldAttribute
+
+<a name="updateIssue"/>
+## Update an Issue
+
+The JIRA task can be used to update an issue with the `updateIssue` action.
+
+```yaml
+flows:
+  default:
+  - task: jira
+    in:
+      action: updateIssue
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      issueKey: "MYISSUEKEY"
+      fields:
+        summary: "mySummary123"
+        description: "myDescription123"
+        assignee:
+          name: "vn0tj0b"
+```
+
+Additional parameters to use are:
+
+- `issueKey` - the identifier of the issue
+- `summary` - summary text
+- `description` - description text
+- `assignee` -  name of the assignee of issue
 
 <a name="addComment"/>
 ## Add a comment
