@@ -13,47 +13,41 @@ data from Concord.
 - [Parameters](#parameters)
 - [Examples](#examples)
 
-<a name="usage">
 ## Usage
 
-To be able to use the tasks in a Concord flow, the `secrets` plugin must be added
-as a [dependency](../getting-started/concord-dsl.html#dependencies):
+To be able to use the tasks in a Concord flow, the `concord-tasks` plugin must
+be added as a [dependency](../getting-started/concord-dsl.html#dependencies):
 
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:secrets-tasks:{{ site.concord_version }}
+  - mvn://com.walmartlabs.concord.plugins.basic:concord-tasks:{{ site.concord_core_version }}
 ```
 
 This adds the task to the classpath and allows you to invoke it in any flow.
 
-Supported `action`s are `get` (default), `create`, `validate`, `update` and `delete`.
+Supported `action`s are `GET` (default), `CREATE`, `VALIDATE`, `REPLACE` and `DELETE`. *`REPLACE` will first delete the secret and then create it again.*
 
-All actions except `delete` returns a result that can be used in the flow.
+All actions except `DELETE` returns a result that can be used in the flow.
 
-- `create` -> `${result}`: the newly created secrets data.
-- `get` -> `${result}`: the value of the secret.
-- `validate, update` -> `${result}`: A validation status (one of `ok`,
-    `missing`, `invalid`, and `notOwned`).
+- `CREATE` -> `${result}`: the newly created secrets data.
+- `GET` -> `${result}`: the value of the secret.
+- `VALIDATE, REPLACE` -> `${result}`: A validation status (one of `OK`,
+    `MISSING`, `INVALID`, and `NOT_OWNED`).
 
-<a name="parameters">
 ## Parameters
 
 ### Common Parameters
 
-* `action` (optional) - The action, one of `get` (default), `create`, `validate`,
-    `update` and `delete`.
+* `action` (optional) - The action, one of `GET` (default), `CREATE`,
+    `VALIDATE`, `UPDATE` and `DELETE`.  *`REPLACE` will first delete the secret
+    and then create it again.*
 * `name` (required) - The name of the secret.
 * `storePassword` (optional) The password the secret will be encrypted with. If
     left bland the secret will be readable without a password.
 
 ### Parameters for Create
 
-* `action` (optional) - The action, one of `get` (default), `create`, `validate`,
-    `update` and `delete`.
-* `name` (required) - The name of the secret.
-* `storePassword` (optional) The password the secret will be encrypted with. If
-    left bland the secret will be readable without a password.
 * `data` (required) - The data for the secret.
 
 ### Parameters for Update
@@ -66,7 +60,6 @@ All actions except `delete` returns a result that can be used in the flow.
 * `skipValidation` (optional) - Allow deleting a secret without giving
     a password, defaults to false.
 
-<a name="examples">
 ## Examples
 
 Create a secret.
@@ -76,7 +69,7 @@ Create a secret.
     - log: "Create secret"
     - task: secrets
       in:
-        action: create
+        action: CREATE
         name: anders-test-secret
         data: anders-test-value
         storePassword: Dingo1234
@@ -102,7 +95,7 @@ Validate a secret exists
     - log: "Validate secret"
     - task: secrets
       in:
-        action: validate
+        action: VALIDATE
         name: anders-test-secret
         storePassword: Dingo1234
     - log: "Validate Result: ${result}"
@@ -110,14 +103,14 @@ Validate a secret exists
       then:
         - throw: "Expected 'ok', got ${result}"
 ```
-Update a secret's password.
+Replace a secret's password.
 
 ```yaml
-  update-secret-password:
-    - log: "Update secret password"
+  replace-secret-password:
+    - log: "Replace secret password"
     - task: secrets
       in:
-        action: update
+        action: UPDATE
         name: anders-test-secret
         storePassword: Dingo1234
         newStorePassword: Tapir1234
@@ -129,7 +122,7 @@ Delete a secret without knowing the `storePassword`.
     - log: "Delete secret"
     - task: secrets
       in:
-        action: delete
+        action: DELETE
         name: anders-test-secret2
         skipValidation: true
 ```
