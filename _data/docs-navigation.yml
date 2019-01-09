@@ -97,6 +97,8 @@ nav:
         context: /docs/plugins/oneops
       - page: Resource
         context: /docs/plugins/resource
+      - page: Secrets
+        context: /docs/plugins/secrets
       - page: Slack
         context: /docs/plugins/slack
       - page: SMTP
