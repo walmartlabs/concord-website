@@ -6,8 +6,8 @@
 
 id: walmart
 name: Concord
-domain: concord.walmart.com
-url: http://concord.walmart.com
+domain: concord.walmartlabs.com
+url: https://concord.walmartlabs.com
 logo: /assets/img/logo.png
 description: "Concord is a workflow server."
 source_url: https://github.com/walmartlabs/concord-website/tree/master/
@@ -23,8 +23,8 @@ matomo-site-id: 11
 concord_source: "https://github.com/walmartlabs/concord/"
 concord_plugins_source: "https://github.com/walmartlabs/concord-plugins/"
 concord_plugins_version: "0.78.0"
-concord_core_version: "1.2.0"
-concord_ansible_version: "2.6.7"
+concord_core_version: "1.2.2"
+concord_ansible_version: "2.6.10"
 
 navigation:
   - title: DOCS
