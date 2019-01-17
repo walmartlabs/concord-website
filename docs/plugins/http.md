@@ -17,7 +17,7 @@ interaction with these applications. This makes the HTTP task a very powerful
 tool to integrate Concord with applications that do not have a custom
 integration with Concord via a specific task.
 
-The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `POST`, or
+The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `PATCH`, `POST`, or
 `DELETE` method and returns [HTTP response](#http-task-response) objects. The
 response object can be stored in an `out` parameter for later usage.
 
@@ -59,7 +59,7 @@ All parameters sorted in alphabetical order.
   [Basic authentication](#basic-authentication);
 - `body`: the request body, details in [Body](#body);
 - `headers`: add additional headers, details in [Headers](#headers)
-- `method`: HTTP request method, either `POST`, `PUT`, `GET`, or `DELETE`
+- `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or `DELETE`
 - `out`: variable to store the [HTTP response](#http-task-response) object
 - `request`: type of request data `string`, `json`, or `file`, details available
    in [Request type](#request-type);
@@ -103,7 +103,7 @@ causes an `UnauthorizedException` error.
 
 ### Body
 
-The HTTP method type `POST` and `PUT` requires a `body` parameter that contains a complex
+The HTTP method type `POST`, `PUT` and `PATCH` requires a `body` parameter that contains a complex
 object (map), json sourced from a file, or raw string.
 
 
@@ -185,12 +185,12 @@ Objects returned by the HTTP task contain the following fields:
 
 Following are examples that illustrate the syntax usage for the HTTP task.
 
-### Full Syntax for 'GET' Request
+#### Full Syntax for GET or DELETE Requests
 
 ```yaml
 - task: http
   in:
-    method: GET
+    method: GET # or DELETE
     url: "https://api.example.com:port/path/endpoint"
     response: json
     out: jsonResponse
@@ -199,70 +199,16 @@ Following are examples that illustrate the syntax usage for the HTTP task.
    - log: "Response received: ${jsonResponse.content}"
 ```
 
-### Full Syntax for 'DELETE' Request
-
-```yaml
-- task: http
-  in:
-    method: DELETE
-    url: "https://api.example.com:port/path/endpoint"
-    response: string
-    out: response
-  - if: ${response.success}
-    then:
-      - log: "Response received: ${response.content}"
-```
-
-### Full Syntax for 'POST' Request
-
-Using map for the body:
-
-```yaml
-- task: http
-  in:
-    request: json
-    method: POST
-    url: "https://api.example.com:port/path/post_endpoint"
-    body: 
-      userObj:
-        name: concord
-    response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
-  then:
-   - log: "Response received: ${jsonResponse.content}"
-```
-
-Using raw JSON for the body:
-
-```yaml
-- task: http
-  in:
-    request: json
-    method: POST
-    url: "https://api.example.com:port/path/post_endpoint"
-    body: "{ 
-             \"myObject\": 
-               { \"nestedVar\": 123 
-               } 
-           }"
-    response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
-  then:
-   - log: "Response received: ${jsonResponse.content}"
-```
-
-### Full Syntax for 'PUT' Request
+#### Full Syntax for POST, PATCH or PUT Requests
 
 Using a YAML object for the body:
 
 ```yaml
 - task: http
   in:
-    method: PUT
-    url: "https://api.example.com:port/path/put_endpoint"
     request: json
+    method: POST # or PATCH or PUT
+    url: "https://api.example.com:port/path/endpoint"
     body: 
       userObj:
         name: concord
@@ -278,9 +224,9 @@ Using raw JSON for the body:
 ```yaml
 - task: http
   in:
-    method: PUT
-    url: "https://api.example.com:port/path/put_endpoint"
     request: json
+    method: POST # `PATCH`, `PUT`
+    url: "https://api.example.com:port/path/endpoint"
     body: |
       { 
         "myObject": {
@@ -294,7 +240,7 @@ Using raw JSON for the body:
    - log: "Response received: ${jsonResponse.content}"
 ```
 
-### Full Syntax for Secure Request
+#### Full Syntax for Secure Request
 
 Using Basic Authentication with an existing value:
 

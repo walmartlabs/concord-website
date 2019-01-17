@@ -37,8 +37,10 @@ flows:
         username: "anyCustomString"
         iconEmoji: ":information_desk_person:"
         text: "Starting execution on Concord"
-    - log: "Default flow running"
-    - ${slack.call("exampleId", "Another message")}
+
+    - if: "${!result.ok}"
+      then:
+        - log: "Error while sending a message: ${result.error}"
 ```
 
 The `channelId` can be seen in the URL of the channel or alternatively the name
@@ -47,6 +49,10 @@ of the channel can be used e.g. `C7HNUMYQ1` and `my-project-channel`.
 Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
+
+The task returns a `result` object with two fields:
+- `ok` - `true` if the operation succeeded;
+- `error` - error message if the operation failed.
 
 ## Slack Channel Task
 
