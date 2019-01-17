@@ -51,7 +51,7 @@ can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
 
 The task returns a `result` object with two fields:
-- `ok` - `true/` if the operation succeeded;
+- `ok` - `true` if the operation succeeded;
 - `error` - error message if the operation failed.
 
 ## Slack Channel Task
