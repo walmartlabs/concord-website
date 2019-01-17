@@ -6,7 +6,7 @@
 
 id: walmart
 name: Concord
-domain: concord.walmart.com
+domain: concord.walmartlabs.com
 url: https://concord.walmartlabs.com
 logo: /assets/img/logo.png
 description: "Concord is a workflow server."
