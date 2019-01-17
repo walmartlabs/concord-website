@@ -13,7 +13,7 @@ Concord supports running docker images within a process flow.
 ```yaml
 flows:
   default:
-  - docker: docker.example.com/walmartlabs/concord-base
+  - docker: library/alpine
     cmd: echo '${greeting}'
 
 configuration:
@@ -26,11 +26,19 @@ The above invocation is equivalent to running
 ```bash
 docker run -i --rm \
 -v /path/to/process/workDir:/workspace \
-docker.example.com/walmartlabs/concord-base \
+library/alpine \
 echo 'Hello, world!'
 ```
 
 The current process' working directory is mounted as `/workspace`.
+
+**Note:** if your Dockerfile's `WORKDIR` will be overwritten to `/workspace`.
+Depending on your setup, you may need to change to a different working
+directory:
+```yaml
+- docker: library/alpine
+  cmd: cd /usr/ && echo "I'm in $PWD"
+``` 
 
 The container is automatically removed when the called command is complete.
 
@@ -41,7 +49,7 @@ Additional environment variables can be specified using `env` parameter:
 ```yaml
 flows:
   default:
-  - docker: docker.example.com/walmartlabs/concord-base
+  - docker: library/alpine
     cmd: echo $GREETING
     env:
       GREETING: "Hello, ${name}!"
@@ -63,7 +71,7 @@ Additional `/etc/hosts` lines can be specified using `hosts` parameter:
 ```yaml
 flows:
   default:
-  - docker: docker.example.com/walmartlabs/concord-base
+  - docker: library/alpine
     cmd: echo '${greeting}'
     hosts:
       - foo:10.0.0.3
@@ -85,7 +93,7 @@ executed using the `concord` user equivalent to a run command like `docker run
 -u concord ... myImage`.  The user is created automatically with UID `456`.
 
 As a result any operations in the docker container that require root access,
-such as installing packages, is not supported on Concord. If required, ensure
+such as installing packages, are not supported on Concord. If required, ensure
 that the relevant package installation and other tasks are performed as part of
 your initial container image build and published to the registry from which
 Concord retrieves the image.
