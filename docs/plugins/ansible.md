@@ -439,7 +439,7 @@ omitted. Concord will automatically use the name of the project's organization:
 
 Currently, only simple string value secrets are supported.
 
-See also [the example]({{ site.source_url }}examples/secret_lookup)
+See also [the example]({{ site.concord_source }}tree/master/examples/secret_lookup)
 project.
 
 <a name="group-vars"/>
