@@ -21,6 +21,7 @@ HTML/CSS/JS/etc resources](#custom-forms).
 - [Shared resources](#shared)
 - [User access](#user)
 - [Restricting forms](#restriction)
+- [Dynamic forms](#dynamic)
 - [Examples](#examples)
 
 <a name="declaration"/>
@@ -38,6 +39,10 @@ forms:
 The name of a form (in this example it's `myForm`) can be used to
 [call a form](#calling-a-form) from a process. Also, it will be used
 as a name of an object which will store the values of the fields.
+
+Such form definitions can be reused multiple times in the same process.
+
+Form fields can also be defined dynamically in runtime, see [Dynamic Forms](#dynamic).
 
 <a name="fields"/>
 
@@ -152,7 +157,8 @@ Supported options:
 this form and the rest of the process will continue in the background.
 Supported only for custom (with branding) forms;
 - `values`: additional values, to override default form values or to
-provide additional data.
+provide additional data;
+- `fields`: allows defining the form fields in runtime, see [Dynamic Forms](#dynamic).
 
 <a name="error"/>
 
@@ -458,6 +464,36 @@ flows:
 forms:
   approvalForm:
   - approved: { type: boolean }
+```
+
+<a name="dynamic"/>
+
+## Dynamic Forms
+
+Form fields can be declared in runtime, without creating a form definition. Here's a complete example:
+```yaml
+flows:
+  default:
+  - form: myForm
+    fields:
+    - firstName: {type: "string"}
+    - lastName: {type: "string"}
+  - log: "Hello, ${myForm.firstName} ${myForm.lastName}"
+```
+
+The `fields` parameter expects a list of form field definitions just like the regular `forms` section.
+Th list of fields can be stored as a variable and referenced using an expression:
+```yaml
+configuration:
+  arguments:
+    myFormFields:
+    - firstName: {type: "string"}
+    - lastName: {type: "string"}
+
+flows:
+  default:
+  - form: myForm
+    fields: ${myFormFields}
 ```
 
 <a name="examples"/>
