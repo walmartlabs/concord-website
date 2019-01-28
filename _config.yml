@@ -17,7 +17,7 @@ display-search-in-header: true
 custom-footer: false
 contribute: true
 edit-on-github: true
-matomo-analytics: true
+matomo-analytics: false
 matomo-site-id: 11
 
 concord_source: "https://github.com/walmartlabs/concord/"
@@ -80,4 +80,3 @@ exclude:
   - "publish.sh"
   - "sonar*"
   - "vendor"
-
