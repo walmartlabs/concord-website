@@ -111,7 +111,7 @@ Additional field types will be added in the next versions.
 <a name="default"/>
 ### Default variables:
 
-These variables are availeble with form by default.
+These variables are available with form by default.
 Value stored in `Default variables` can be accessed like other form variables, e.g. `myForm.variableName`
 
 - `submittedBy`: contains the information of user who submitted the form.
