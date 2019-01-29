@@ -42,7 +42,8 @@ as a name of an object which will store the values of the fields.
 
 Such form definitions can be reused multiple times in the same process.
 
-Form fields can also be defined dynamically in runtime, see [Dynamic Forms](#dynamic).
+Form fields can also be defined
+[dynamically during the runtime of the process](#dynamic).
 
 <a name="fields"/>
 
@@ -470,7 +471,9 @@ forms:
 
 ## Dynamic Forms
 
-Form fields can be declared in runtime, without creating a form definition. Here's a complete example:
+Form fields can be declared directly at the form usage step, without creating a
+form definition. Here's a complete example:
+
 ```yaml
 flows:
   default:
@@ -481,15 +484,16 @@ flows:
   - log: "Hello, ${myForm.firstName} ${myForm.lastName}"
 ```
 
-The `fields` parameter expects a list of form field definitions just like the regular `forms` section.
-Th list of fields can be stored as a variable and referenced using an expression:
+The `fields` parameter expects a list of form field definitions just like the
+regular `forms` section. The list of fields can be stored as a variable and
+referenced using an expression:
+
 ```yaml
 configuration:
   arguments:
     myFormFields:
     - firstName: {type: "string"}
     - lastName: {type: "string"}
-
 flows:
   default:
   - form: myForm
