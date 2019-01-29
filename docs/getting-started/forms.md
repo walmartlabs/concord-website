@@ -503,7 +503,9 @@ flows:
 ```
 
 With the usage of a [script](./scripting), the fields can be set dynamically at
-process runtime, resulting in a dynamic form.
+process runtime, resulting in a dynamic form. A number of examples are available
+in the
+[dynamic_form_fields project]({{site.concord_source}}tree/master/examples/dynamic_form_fields).
 
 <a name="examples"/>
 
