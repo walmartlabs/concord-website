@@ -13,7 +13,7 @@ HTML/CSS/JS/etc resources](#custom-forms).
 
 - [Form declaration](#declaration)
 - [Form fields](#fields)
-- [Provided form variable](#default)
+- [Form submitter](#submitter)
 - [Using a form in a flow](#using)
 - [Custom error messages](#error)
 - [Custom forms](#custom)
@@ -114,19 +114,23 @@ quantifier to the type:
 
 Additional field types will be added in the next versions.
 
-<a name="default"/>
-### Provided Form Variable
+<a name="submitter"/>
 
-Concord automatically provides `submittedBy` variable after form submission.
-This can be accessed using the form name like other form variables,
-e.g., if the form’s name is myForm,
-then the value of the field will be stored in myForm.submittedBy variable.
+### Form Submitter
 
-- `submittedBy`: information about the user who has submitted the form
-  - `submittedBy.username`: login, string;
-  - `submittedBy.displayName`: printable name, string;
-  - `submittedBy.groups`: list of user's groups;
-  - `submittedBy.attributes`: other LDAP attribute
+Concord can optionally store the form submitter's data in a `submittedBy`
+variable. It can be enabled using `saveSubmittedBy` form call option:
+```yaml
+flows:
+  default:
+  - form: myForm
+    saveSubmittedBy: true
+    
+  - log: "Hello, ${myForm.submittedBy.displayName}"
+```
+
+The variable has the same structure as `${initiator}` or `${currentUser}`
+(see [Provided Variables](./processes.html#variables) section).
 
 <a name="using"/>
 
