@@ -99,10 +99,6 @@ instance of `com.walmartlabs.concord.sdk.Context`;
   - `projectInfo.repoCommitAuthor` - the repository's last commit author;
   - `projectInfo.repoCommitMessage` - the repository's last commit message.
 
-Concord forms provide some built-in variables. These variables can be accessed with form name
-like other [form field](./forms.html#form-fields) variables.
-  - `submittedBy` - contains user information who submitted the form. `SubmittedBy` has same structure as `initiator`.
-
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 
 Availability of other variables and "beans" depends on the installed Concord
