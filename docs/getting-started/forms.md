@@ -13,7 +13,6 @@ HTML/CSS/JS/etc resources](#custom-forms).
 
 - [Form declaration](#declaration)
 - [Form fields](#fields)
-- [Form variables](#default)
 - [Using a form in a flow](#using)
 - [Custom error messages](#error)
 - [Custom forms](#custom)
@@ -108,13 +107,7 @@ quantifier to the type:
 
 Additional field types will be added in the next versions.
 
-<a name="default"/>
-### Default variables:
-
-These variables are available with form by default.
-Value stored in `Default variables` can be accessed like other form variables, e.g. `myForm.variableName`
-
-- `submittedBy`: contains the information of user who submitted the form.
+Forms automatically provide some built-in [variables](./processes.html#variables).
 
 <a name="using"/>
 
