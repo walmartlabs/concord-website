@@ -74,6 +74,7 @@
   </span>
 </div>
 
+<!--- vertical -->
 
 ## Other Features and Characteristics
 
