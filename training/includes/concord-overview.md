@@ -107,6 +107,29 @@ No target restrictions.
 
 <!--- vertical -->
 
+# Concord DSL Example
+
+`concord.yml` file in git repository:
+
+```
+configuration:
+  dependencies:
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:
+  arguments:
+    name: "Example"
+flows:
+  default:
+  - log: "Process ${name} kicked off by ${initiator.displayName}"
+  - task: ansible
+    in:
+      playbook: playbook/hello.yml
+  ....
+```
+
+Lots more available in examples folder in source.
+
+<!--- vertical -->
+
 ## Use Case: Ansible at Walmart
 
 Multiple large scale success stories:
