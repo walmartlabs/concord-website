@@ -1,8 +1,11 @@
 # Concord Overview
 
+> Orchestrate more. Live better.
+
 - Workflow orchestration      <!-- .element: class="fragment" -->
 - Continuous delivery         <!-- .element: class="fragment" -->
 - Continuous deployment       <!-- .element: class="fragment" -->
+- Process automation          <!-- .element: class="fragment" -->
 
 <!--- vertical -->
 
@@ -103,9 +106,30 @@ No target restrictions.
 
 <!--- vertical -->
 
-## Use Case: Ansible
+## Use Case: Ansible at Walmart
 
-TBD
+Multiple large scale success stories:
+
+- Walmart Pharmacy, Pharmacy, and Tire and Lube Express
+- Approx. 3000 to over 5000 stores each
+- Mixture of Linux, Windows server and Windows workstations
+- Each controlled by playbooks
+- Runs hit between 5k and 65k endpoints
+- Less than 1% failure rate
+
+<!--- vertical -->
+
+## Use Case: Managed Services at Walmart
+
+Full provisioning and deployment of cloud application:
+
+- User requests e.g. managed database via Concord form
+- Slack and email notification
+- JIRA ticket creation
+- Cloud application created in OneOps PaaS
+- Configuration customized and application deployed
+- Requestor updated with access details in JIRA ticket
+- Metrics and more is all hooked up
 
 <!--- vertical -->
 
