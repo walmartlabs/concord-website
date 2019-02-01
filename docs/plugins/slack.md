@@ -10,7 +10,7 @@ The `slack` plugin supports interaction with the [Slack](https://slack.com/)
 messaging platform.
 
 - posting messages to a channel with the [slack task](#slack)
-- working with channels and groups with the [slackChannel tast](#slack-channel)
+- working with channels and groups with the [slackChannel task](#slack-channel)
 
 ## Configuration
 
