@@ -52,8 +52,8 @@
 
 ## Plugins
 
-<div>
-  <span id="left">
+<div class="two-columns">
+  <div>
     <ul>
       <li>Ansible</li>
       <li>HTTP/REST</li>
@@ -62,8 +62,8 @@
       <li>Slack</li>
       <li>Email</li>
     </ul>
-  </span>
-  <span id="right">
+  </div>
+  <div>
     <ul>
       <li>JIRA</li>
       <li>OneOps</li>
@@ -71,7 +71,7 @@
       <li>Docker</li>
       <li>Kubectl/Helm...</li>
     </ul>
-  </span>
+  </div>
 </div>
 
 <!--- vertical -->
