@@ -66,6 +66,7 @@ The `entryPoint` parameter defines the flow to be used. The
 used to start a process. If not set, a `default` profile will be used.
 
 <a name="variables"/>
+
 ## Provided Variables
 
 Concord automatically provides several built-in variables upon process

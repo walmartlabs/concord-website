@@ -13,6 +13,7 @@ HTML/CSS/JS/etc resources](#custom-forms).
 
 - [Form declaration](#declaration)
 - [Form fields](#fields)
+- [Form submitter](#submitter)
 - [Using a form in a flow](#using)
 - [Custom error messages](#error)
 - [Custom forms](#custom)
@@ -112,6 +113,24 @@ quantifier to the type:
 - zero or more values: `string*`.
 
 Additional field types will be added in the next versions.
+
+<a name="submitter"/>
+
+### Form Submitter
+
+Concord can optionally store the form submitter's data in a `submittedBy`
+variable. It can be enabled using `saveSubmittedBy` form call option:
+```yaml
+flows:
+  default:
+  - form: myForm
+    saveSubmittedBy: true
+    
+  - log: "Hello, ${myForm.submittedBy.displayName}"
+```
+
+The variable has the same structure as `${initiator}` or `${currentUser}`
+(see [Provided Variables](./processes.html#variables) section).
 
 <a name="using"/>
 
