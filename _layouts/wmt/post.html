@@ -13,17 +13,21 @@ layout: wmt/default
           <li>
             {% for author in page.authors %}
                {% assign current = site.authors[author] %}
+                 {% if current.web == nil %}
+                   {{ current.name }}
+                  {% else %}
                     <a href="{{ current.web }}">{{ current.name }}</a>
+                  {% endif %}
                     {% unless forloop.last %}
                     ,
                     {% endunless%}
                {% endfor %}
           </li>
-          <li><i class="icon-calendar" style="display:none;"></i> {{ page.date | date_to_string }}</li>
-          <li>
-          <i class="icon-tags" style="display:none;"></i>
-          {% for tag in page.tags%}
-          <a href="#">{{tag}}</a>
+          <li>{{ page.date | date_to_string }}</li>
+          <li style="text-transform:capitalize;">
+          {% for tag in page.tags %}
+            {% capture tag_name %}{{ tag }}{% endcapture %}
+            <a href="/blog/tagarchive.html#{{ tag_name }}">{{ tag_name | replace:'-',' ' }}</a>&nbsp;&nbsp;
           {% endfor %}
           </li>
         </ul>
