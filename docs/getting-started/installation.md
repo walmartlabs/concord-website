@@ -180,8 +180,11 @@ $ docker logs agent
 docker run -d -p 8080:8080 \
 --name console \
 --link server \
+-v "/path/to/repo/docker-images/console.conf:/opt/concord/console/nginx/app.conf:ro" \
 walmartlabs/concord-console
 ```
+
+Replace `/path/to/repo` with your path to the Concord's repository. 
 
 The console is available on [http://localhost:8080](http://localhost:8080).
 Try logging in using your AD/LDAP credentials.
