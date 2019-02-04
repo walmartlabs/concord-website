@@ -11,7 +11,7 @@ The site is available at
 ```
 gem install bundler
 bundle install
-./run.sh
+./native-launch.sh
 ```
 
 ## Contribute
