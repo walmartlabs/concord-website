@@ -50,6 +50,29 @@
 
 <!--- vertical -->
 
+# Concord DSL Example
+
+`concord.yml` file in git repository:
+
+```
+configuration:
+  dependencies:
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:
+  arguments:
+    name: "Example"
+flows:
+  default:
+  - log: "Process ${name} kicked off by ${initiator.displayName}"
+  - task: ansible
+    in:
+      playbook: playbook/hello.yml
+  ....
+```
+
+Lots more available in examples folder in source.
+
+<!--- vertical -->
+
 ## Plugins
 
 <div class="two-columns">
@@ -107,29 +130,6 @@ No target restrictions.
 
 <!--- vertical -->
 
-# Concord DSL Example
-
-`concord.yml` file in git repository:
-
-```
-configuration:
-  dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:
-  arguments:
-    name: "Example"
-flows:
-  default:
-  - log: "Process ${name} kicked off by ${initiator.displayName}"
-  - task: ansible
-    in:
-      playbook: playbook/hello.yml
-  ....
-```
-
-Lots more available in examples folder in source.
-
-<!--- vertical -->
-
 ## Use Case: Ansible at Walmart
 
 Multiple large scale success stories:
@@ -158,7 +158,7 @@ Full provisioning and deployment of cloud application:
 
 <!--- vertical -->
 
-## Use Case: Release Management
+## Use Case: Release Management 
 
 Multi-stage zero downtime deployment:
 
@@ -173,6 +173,8 @@ Multi-stage zero downtime deployment:
   - Controlled release roll out to clouds
   - Automated smoke test verification
 - Final success notifications
+
+Numerous projects at Walmart use this with different deployment cloud platforms.
 
 <!--- vertical -->
 
