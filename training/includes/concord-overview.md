@@ -151,9 +151,28 @@ Full provisioning and deployment of cloud application:
 - Slack and email notification
 - JIRA ticket creation
 - Cloud application created in OneOps PaaS
-- Configuration customized and application deployed
+- Application configuration is customized and applied
+- Application deployed and started
 - Requestor updated with access details in JIRA ticket
 - Metrics and more is all hooked up
+
+<!--- vertical -->
+
+## Use Case: Release Management
+
+Multi-stage zero downtime deployment:
+
+- Looper CI builds new release binary
+- Concord flow is kicked off
+- Deployment to QA environment
+- Run of a number of tests and verifications on QA
+- Slack and email notification to release approvers
+- Concord form requires sign in and is used as final manual release gate
+- Concord manages zero downtime deployment to production
+  - Status changes of multiple clouds
+  - Controlled release roll out to clouds
+  - Automated smoke test verification
+- Final success notifications
 
 <!--- vertical -->
 
