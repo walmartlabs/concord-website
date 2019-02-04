@@ -1,0 +1,45 @@
+---
+layout: wmt/default
+---
+
+<div class="row blog-page">
+  <div class="col-md-8">
+    {% include wmt/breadcrumbs.html %}
+    <!-- Blog Entry -->
+    <div class="blog margin-bottom-30">
+      {% if page.image == null %}
+      <h1>{{ page.title }}</h1>
+      {% else %}
+      <img src="{{page.image}}" class="img-responsive margin-bottom-10" alt="{{page.title}}" />
+      {% endif %}
+
+      <div class="blog-post-tags" style="border:none;">
+      {% for post in site.posts %}
+      {% assign currentdate = post.date | date: "%Y" %}
+      {% if currentdate != date %}
+      <div class="margin-bottom-10">&nbsp;</div>
+      <div class="headline">
+        <h2 id="y{{currentdate}}">{{ currentdate }}</h2>
+      </div>
+      {% assign date = currentdate %}
+      {% endif %}
+
+      <p>
+      <a href="{{ post.url }}">{{ post.title}}</a> - {{ post.date | date: "%-d %B, %Y" }} - by  
+      {% for author in post.authors %}{% assign current = site.authors[author] %}<a href="{{ current.web }}">{{ current.name }}</a>
+      {% unless forloop.last %},{% endunless%}
+      {% endfor %}
+      </p>
+
+      {% endfor %}
+      </div>
+    </div>
+
+    <div class="margin-bottom-30">&nbsp;</div>
+  <!-- End Blog Entry -->
+  </div><!-- END col-md-8 -->
+  <div class="col-md-1"></div><!-- END spacer div -->
+  <div class="col-md-3">
+    {% include blog-right-column.html %}
+  </div><!-- END col-md-3 -->
+</div><!-- END row -->
