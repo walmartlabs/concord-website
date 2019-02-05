@@ -57,7 +57,7 @@
 ```
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:1.4.0
   arguments:
     name: "Example"
 flows:
