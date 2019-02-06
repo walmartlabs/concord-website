@@ -622,13 +622,9 @@ In both cases, the server starts a \"child\" process with a copy of
 the original process state and uses `onCancel` or `onFailure` as an
 entry point.
 
-**Note**: If a process was never suspended (e.g. had no forms or no
-forms were submitted), then `onCancel`/`onFailures` receive a
-copy of the initial state of a process, which was created when the
-original process was started by the server.
-
-This means that no changes in the process state before suspension
-will be visible to the \"child\" processes:
+**Note**: `onCancel` and `onFailure` handlers receive the last known
+state of the parent process' variables. This means that changes in
+the process state will be visible to the \"child\" processes:
 
 ```yaml
 flows:
@@ -641,17 +637,43 @@ flows:
   - log: "The default flow got ${myVar}"
 
   # ...and then crash the process
-  - ${misc.throwBpmnError('Boom!')}
+  - throw: "Boom!"
 
   onFailure:
-  # will log "I've got abc"
-  - log: "And I've got ${myVar}"
+  # will log "I've got xyz"
+  - log: "I've got ${myVar}"
 
 configuration:
   arguments:
     # original value
     myVar: "abc"
 ```
+
+In addition, `onFailure` flow receives `lastError` variable which
+contains the parent process' last (unhandled) error:
+
+```yaml
+flows:
+  default:
+  - throw: "Kablam!"
+        
+  onFailure:
+  - log: "${lastError.cause}"
+``` 
+
+Nested data is also supported:
+```yaml
+flows:
+  default:
+  - throw:
+      myCause: "I wanted to"
+      whoToBlame:
+        mainCulpit: "${currentUser.username}"
+        
+  onFailure:
+  - log: "The parent process failed because ${lastError.cause.payload.myCause}."
+  - log: "And ${lastError.cause.payload.whoToBlame.mainCulpit} is responsible for it!"
+```  
 
 <a name="retry-task"/>
 
