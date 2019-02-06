@@ -25,6 +25,7 @@ response object can be stored in an `out` parameter for later usage.
 - [Examples](#examples)
 
 <a name="usage"/>
+
 ## Usage and Configuration
 
 As with all tasks you can invoke the HTTP task with a short inline syntax or 
@@ -59,6 +60,8 @@ All parameters sorted in alphabetical order.
   [Basic authentication](#basic-authentication);
 - `body`: the request body, details in [Body](#body);
 - `headers`: add additional headers, details in [Headers](#headers)
+- `ignoreErrors`: instead of throwing exceptions on unauthorized requests, return
+  the result object with the error
 - `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or `DELETE`
 - `out`: variable to store the [HTTP response](#http-task-response) object
 - `request`: type of request data `string`, `json`, or `file`, details available
