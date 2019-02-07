@@ -33,7 +33,7 @@ process flows, configuration, forms and other aspects:
   - [Setting variables](#set-step)
   - [Checkpoints](#checkpoints)
 - [Named Profiles in `profiles`](#profiles)
-- [Concord Folder in `workspace`](#concord-folder)
+- [Separate Concord Folder Usage](#concord-folder)
 
 Some features are more complex and you can find details in separate documents:
 
@@ -878,42 +878,45 @@ In this example, values from `b` are merged with the result of the merge
 of `a` and the default configuration.
 
 <a name="concord-folder"/>
-## Concord Folder in `workspace`
+## Separate Concord Folder Usage
 
-Concord supports loading of additional [YAML](http://www.yaml.org/) files from the
-`concord` directory of the payload.
-These files have the same structure as the main `concord.yml`.
-`Concord` directory is designed to replace the `flows` and `profiles` directories.
+The default use case with the Concord DSL is to maintain everything in the one
+`concord.yml` file. The usage of a `concord` folder and files within it allows
+you to reduce the individual file sizes.
 
-The files from a `concord` directory are loaded first in alphabetical order,
-the main `concord.yml` will override any configuration values, flows, forms or profiles.
+
+`./concord/test.yml`:
 
 ```yaml
-# ./concord/test.yml
 configuration:
   arguments:
     nested:
       name: "stranger"
-
 flows:
   default:
   - log: "Hello, ${nested.name}!"
- 
-# ./concord.yml
+```
+  
+`./concord.yml`:
+
+```yaml
 configuration:
   arguments:
     nested:
       name: "Concord"
 ```
 
-The above example will print out `Hello, Concord!`.
+The above example printss out `Hello, Concord!`, when running the default flow.
 
 Concord folder merge rules:
+
 - Files are loaded in alphabetical order, including subdirectories.
-- Flows and forms with the same names will be overridden by their counterpart
-from the files loaded previously.
-- All triggers from all files will be added together.  If there are multiple trigger definitions
-across several files, the resulting project will contain all of them.
-- Configuration values will be merged.  The values from the last loaded file will override the
-values from the files loaded before it.
-- Profiles with flows, forms and configuration values will be merged according to the rules above.
+- Flows and forms with the same names are overridden by their counterpart from
+  the files loaded previously.
+- All triggers from all files are added together. If there are multiple trigger
+  definitions across several files, the resulting project contains all of
+  them.
+- Configuration values are merged. The values from the last loaded file override
+  the values from the files loaded earlier.
+- Profiles with flows, forms and configuration values are merged according to
+  the rules above.
