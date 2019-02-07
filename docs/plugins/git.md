@@ -61,6 +61,9 @@ operations:
 - `secretName` of the `privateKey` parameter: Required - the name of the Concord
   [secret](../api/secret.html) used for the SSH connection to the git 
   repository on the remote server.
+- `ignoreErrors`: instead of throwing exceptions on operation failure, returns
+  the result object with the error, if set to `true`.
+- `out`: variable to store the [Git task response](#response).
 
 Following is an example showing the common parameters with private key based authentication:
 
@@ -110,6 +113,17 @@ auth:
     token: base64_encoded_auth_token
 ```
 
+<a name="response"/>
+### Git Task Response
+
+The `git` task returns a result object with following fields:
+
+- `ok`: `true` if the operation succeeded.
+- `status`: `NO_CHANGES` if repository is clean, otherwise returns `SUCCESS` or
+`FAILURE` if operation successful or failed respectively.
+- `error`: error message if operation failed.
+
+
 <a name="clone"/>
 ### Clone a Repository
 
@@ -131,6 +145,12 @@ flows:
         org: myOrg
         secretName: mySecret
       baseBranch: feature-a
+      out: response
+      ignoreErrors: true
+
+  - if: "${!response.ok}"
+      then:
+       - log: "Clone action failed: ${response.error}"
 ```
 
 The `baseBranch` parameter is optional and specifies the name of the branch to
@@ -159,6 +179,11 @@ action, so make sure `clone` action is performed first.
       commitUsername: myUserId
       commitEmail: myEmail
       pushChanges: true
+      out: response
+
+- if: "${response.ok}"
+      then:
+       - log: "Commit action completed successfully."
 ```
 
 The `baseBranch` parameter is mandatory and specifies the name of the branch to
@@ -199,6 +224,11 @@ flows: default:
       baseBranch: master
       newBranch: feature-b
       pushBranch: true
+      out: response
+
+  - if: "${response.ok}"
+        then:
+         - log: "Create-branch action completed successfully."
 ```
 
 <a name="merge"/>
@@ -228,6 +258,11 @@ flows:
         secretName: mySecret
       sourceBranch: feature-a
       destinationBranch: master
+      out: response
+
+  - if: "${response.ok}"
+          then:
+           - log: "Merge action completed successfully."
 ```
 
 We recommend using the [merge action of the GitHub task](#github-merge) to merge
