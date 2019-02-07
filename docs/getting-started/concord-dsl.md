@@ -618,13 +618,13 @@ flows:
   - log: "Yep, we just did"
 ```
 
-In both cases, the server starts a \"child\" process with a copy of
+In both cases, the server starts a _child_ process with a copy of
 the original process state and uses `onCancel` or `onFailure` as an
 entry point.
 
-**Note**: `onCancel` and `onFailure` handlers receive the last known
+__Note__: `onCancel` and `onFailure` handlers receive the last known
 state of the parent process' variables. This means that changes in
-the process state will be visible to the \"child\" processes:
+the process state are visible to the _child_ processes:
 
 ```yaml
 flows:
