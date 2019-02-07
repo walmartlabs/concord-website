@@ -33,6 +33,7 @@ process flows, configuration, forms and other aspects:
   - [Setting variables](#set-step)
   - [Checkpoints](#checkpoints)
 - [Named Profiles in `profiles`](#profiles)
+- [Separate Concord Folder Usage](#concord-folder)
 
 Some features are more complex and you can find details in separate documents:
 
@@ -875,3 +876,47 @@ $ curl ... -F activeProfiles=a,b http://concord.example.com/api/v1/process
 
 In this example, values from `b` are merged with the result of the merge
 of `a` and the default configuration.
+
+<a name="concord-folder"/>
+## Separate Concord Folder Usage
+
+The default use case with the Concord DSL is to maintain everything in the one
+`concord.yml` file. The usage of a `concord` folder and files within it allows
+you to reduce the individual file sizes.
+
+
+`./concord/test.yml`:
+
+```yaml
+configuration:
+  arguments:
+    nested:
+      name: "stranger"
+flows:
+  default:
+  - log: "Hello, ${nested.name}!"
+```
+  
+`./concord.yml`:
+
+```yaml
+configuration:
+  arguments:
+    nested:
+      name: "Concord"
+```
+
+The above example printss out `Hello, Concord!`, when running the default flow.
+
+Concord folder merge rules:
+
+- Files are loaded in alphabetical order, including subdirectories.
+- Flows and forms with the same names are overridden by their counterpart from
+  the files loaded previously.
+- All triggers from all files are added together. If there are multiple trigger
+  definitions across several files, the resulting project contains all of
+  them.
+- Configuration values are merged. The values from the last loaded file override
+  the values from the files loaded earlier.
+- Profiles with flows, forms and configuration values are merged according to
+  the rules above.
