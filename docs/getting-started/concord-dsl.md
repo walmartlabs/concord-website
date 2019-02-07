@@ -12,6 +12,7 @@ readable format [YAML](http://www.yaml.org/) and defines all your workflow
 process flows, configuration, forms and other aspects:
 
 - [Example](#example)
+- [Concord Folder in `repository`](#concord-folder)
 - [Project Configuration in `configuration`](#configuration)
   - [Entry Point](#entry-point)
   - [Dependencies](#dependencies)
@@ -79,6 +80,47 @@ In this example:
 
 The actual task names and their required parameters may differ. Please refer to
 the [task documentation](./tasks.html) and the specific task used for details.
+
+<a name="concord-folder"/>
+## Concord Folder in `repository`
+
+Concord supports loading of additional [YAML](http://www.yaml.org/) files from the
+`concord` directory of the payload.
+These files have the same structure as the main `concord.yml`.
+`Concord` directory is designed to replace the `flows` and `profiles` directories.
+
+The files from a `concord` directory are loaded first in alphabetical order,
+the main `concord.yml` will override any configuration values, flows, forms or profiles.
+
+```yaml
+# ./concord/test.yml
+configuration:
+  arguments:
+    nested:
+      name: "stranger"
+
+flows:
+  default:
+  - log: "Hello, ${nested.name}!"
+ 
+# ./concord.yml
+configuration:
+  arguments:
+    nested:
+      name: "Concord"
+```
+
+The above example will print out `Hello, Concord!`.
+
+Concord folder merge rules:
+- Files are loaded in alphabetical order, including subdirectories.
+- Flows and forms with the same names will be overridden by their counterpart
+from the files loaded previously.
+- All triggers from all files will be added together.  If there are multiple trigger definitions
+across several files, the resulting project will contain all of them.
+- Configuration values will be merged.  The values from the last loaded file will override the
+values from the files loaded before it.
+- Profiles with flows, forms and configuration values will be merged according to the rules above.
 
 <a name="configuration"/>
 ## Project Configuration in `configuration`
