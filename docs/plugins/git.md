@@ -61,6 +61,7 @@ operations:
 - `secretName` of the `privateKey` parameter: Required - the name of the Concord
   [secret](../api/secret.html) used for the SSH connection to the git 
   repository on the remote server.
+- `ignoreErrors`: instead of throwing exceptions on operation failure, returns the result object with the error if it sets to `true`
 - `out`: varable to store the [Git task response](#response).
 
 Following is an example showing the common parameters with private key based authentication:
@@ -114,7 +115,7 @@ auth:
 <a name="response"/>
 ### Git Task Response
 
-Git task returns response object with following fields.
+Git task returns result object with following fields.
 - `ok`: `true` if the operation succeeded.
 - `status`: `NO_CHANGES` if repository is clean, otherwise returns `SUCCESS` or
 `FAILURE` if operation successful or failed respectively.
@@ -128,6 +129,7 @@ flows:
       action: actionName
       url: "git@git.example.com:example-org/git-project.git"
       workingDir: "git-project"
+      ignoreErrors: true
       out: response
       privateKey:
         org: myOrg
