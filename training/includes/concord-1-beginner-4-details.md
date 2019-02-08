@@ -27,7 +27,9 @@ Project global settings in `configuration`:
 - `dependencies:`
 - `arguments:`
 - `template:`
+- `processTimeout:`
 - `debug:`
+
 
 Note:
 - explain in next slides
@@ -101,6 +103,19 @@ What other Concord DSL configuration to reuse.
   - Scripts
   - Forms 
   - Profiles
+
+<!--- vertical -->
+
+## Process Timeout
+
+Set overall allowed time for process execution.
+
+```yaml
+configuration:
+  processTimeout: PT1H
+```
+
+Use [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) duration format.
 
 <!--- vertical -->
 
@@ -292,6 +307,7 @@ flows:
 - `default`
 - `onCancel`
 - `onFailure`
+- `onTimeout`
 
 <!--- vertical -->
 

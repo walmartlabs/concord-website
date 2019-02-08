@@ -17,6 +17,7 @@ process flows, configuration, forms and other aspects:
   - [Dependencies](#dependencies)
   - [Template](#template)
   - [Arguments](#arguments)
+  - [Process Timeout](#timeout)
   - [Debug](#debug)
 - [Process Definitions in `flows:`](#flows)
   - [Entry points](#entry-points)
@@ -236,6 +237,36 @@ configuration:
 A variable's value can be [defined or modified with the set step](#set-step) and a
 [number of variables](./processes.html#variables) are automatically set in each
 process and available for usage.
+
+<a name="timeout"/>
+
+### Process Timeout
+
+You can specify the maximum amount of time the process can spend in the running
+state with the `processTimeout` configuration. It can be useful to set
+specific SLAs for deployment jobs or to use it as a global timeout:
+
+```yaml
+configuration:
+  processTimeout: "PT1H"
+flows:
+  default:
+  # a long running process
+```
+
+In the example above, if the process runs for more than 1 hour it is
+automatically cancelled and marked as _timed out_.
+
+The parameter accepts duration in the
+[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+
+A special `onTimeout` flow can be used to handle such processes:
+
+```yaml
+flows:
+  onTimeout:
+  - log: "I'm going to run when my parent process times out"
+```
 
 ### Debug
 
