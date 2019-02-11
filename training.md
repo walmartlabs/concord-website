@@ -15,9 +15,8 @@ information about the slides can be found in the
 
 ## Concord Overview
 
-Learn about the features and benefits of Concord.
-
-> Check out the [slides](./training/concord-overview.html)
+Learn about the features, benefits and use cases of Concord from our
+[overview presentation](./training/concord-overview.html).
 
 ## Concord User Training: Level 1 - Beginner
 
