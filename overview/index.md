@@ -1,10 +1,7 @@
 ---
-layout: wmt/icon
-title:  About Us
-icon: /assets/wmt/img/icons/light/icon-info.png
+layout: wmt/project
+title:  About Concord
 ---
-
-# About Concord
 
 Concord is a workflow server. It is the orchestration engine that connects
 different systems together using scenarios and plugins created by
@@ -24,3 +21,4 @@ few specific examples of how Concord is used and tasks it performs:
 
 Find out more details in the [Concord documentation](./docs/) and in our
 [training material](./training.html).
+

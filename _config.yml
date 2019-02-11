@@ -27,15 +27,29 @@ concord_core_version: "1.6.0"
 concord_ansible_version: "2.6.10"
 
 navigation:
+  - title: OVERVIEW
+    url: /overview/index.html
+    context: /overview/
   - title: DOCS
     url: /docs/index.html
     context: /docs/
   - title: TRAINING
     url: /training.html
     context: /training
-  - title: ABOUT
-    url: /about.html
-    context: /about
+
+projects:
+ - title: About Concord
+   url: /overview/index.html
+ - title: Benefits
+   url: /overview/benefits.html
+ - title: Case Study - Ansible at Scale
+   url: /overview/case-study-ansible.html
+ - title: Case Study - Managed Services
+   url: /overview/case-study-managed-services.html
+ - title: Case Study - Continuous Deployment
+   url: /overview/case-study-cd.html
+ - title: Code & Contribute
+   url: /overview/contribute.html
 
 defaults:
   -
