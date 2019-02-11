@@ -9,7 +9,7 @@ of Ansible playbooks at Walmart.
 Numerous success stories at Walmart have proven Concord to be a first class tool
 for Ansible users.
 
-Following are some characteristics: 
+Following are some characteristics:
 
 - Large scale usage for Walmart Pharmacy, Pharmacy, and Tire and Lube Express
 - Approximately scaled to 3000 to over 5000 stores for each scenario
