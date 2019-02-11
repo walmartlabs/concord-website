@@ -19,6 +19,7 @@ few specific examples of how Concord is used and tasks it performs:
 - Automatically create issues
 - Notify process-related parties via email and messaging
 
-Find out more details in the [Concord documentation](./docs/) and in our
-[overview and user training material](./training.html).
+Find out more details such as benefits and use cases in the overview section,
+learn about installing and using Concordi from the [documentation](./docs/index.html) and
+check out our [overview and user training material](./training.html).
 
