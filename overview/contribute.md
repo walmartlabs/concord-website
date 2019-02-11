@@ -24,10 +24,10 @@ Please file issues on the relevant code repository on GitHub.
 
 Contributions are accepted as pull requests on the relevant repository.
 
-Contributors are required to sign our by Contributor License Agreement
-(the “CLA”). Each pull request is automatically verified, against the list
-of contributors that have signed the CLA. If not, you are required to sign the
-CLA for the contribution to be reviewed and merged.
+Contributors are required to sign our Contributor License Agreement. Each pull
+request is automatically verified, against the list of contributors who have
+signed the CLA. If not, you are required to sign the CLA for the contribution to
+be reviewed and merged.
 
 Further details are available in the
 [Walmart CLA repository](https://github.com/walmartlabs/walmart-cla/).
