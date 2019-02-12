@@ -33,6 +33,8 @@ nav:
     id: console
     collapse: /docs/console
     subfolderitems:
+      - page: Overview
+        context: /docs/console/index
       - page: Orgs
         context: /docs/console/orgs
       - page: Project
