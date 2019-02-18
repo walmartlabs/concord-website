@@ -116,47 +116,6 @@ concord-server {
 
         # list of state files that must be encrypted before storing
         secureFiles: ["_main.json"]
-
-        # process state archive
-        archive {
-            enabled = false
-
-            # the archival task's period (ms)
-            period = 60000
-
-            # maximum time after which the entry will be considered "stalled" (ms)
-            stalledAge = 3600000
-
-            # maximum process age after which it is moved to the archive (ms)
-            processAge = 86400000
-
-            # maximum parallelism of upload operations
-            uploadThreads = 4
-
-            # max age of an archive (ms), disabled if 0
-            maxArchiveAge = 1209600000
-        }
-
-        # process checkpoints
-        checkpoints {
-        
-            # process checkpoints archive            
-            archive {
-                enabled = false
-
-                # the archival task's period (ms)
-                period = 60000
-
-                # maximum time after which the entry will be considered "stalled" (ms)
-                stalledAge = 3600000
-
-                # maximum parallelism of upload operations
-                uploadThreads = 4
-
-                # max age of an archive (ms), disabled if 0
-                maxArchiveAge = 1209600000
-            }
-        }
     }
 
     queue {
