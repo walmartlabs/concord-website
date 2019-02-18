@@ -203,6 +203,7 @@ concord-server {
     # secrets and encryption
     secretStore {
         # default store to use. See below for store configuration sections
+        # case insensitive
         default = concord
 
         # maximum allowed size of binary secrets (bytes)
@@ -219,24 +220,6 @@ concord-server {
         # default DB store
         concord {
             enabled = true
-        }
-
-        # support for storing secret's binaries in Keywhiz
-        keywhiz {
-            enabled = false
-            
-            # automation API URL 
-            url = "https://localhost:4444"
-            
-            # SSL authentication
-            trustStore = "/path/to/trustStore.p12"
-            trustStorePassword = "..."            
-            keyStore = "/path/to/keystore.p12"
-            keyStorePassword = "..."
-            
-            connectTimeout = 5000
-            soTimeout = 5000
-            connectionRequestTimeout = 5000
         }
     }
 
@@ -313,27 +296,6 @@ concord-server {
 
         # use webhooks to refresh the repo cache
         cacheEnabled = false
-    }
-
-    # S3 support for process state and checkpoint archives
-    s3 {
-        enabled = false
-
-        # list of S3-compatible endpoints
-        destinations: [
-            {
-                url: "http://localhost:9090",
-                accessKey: "a",
-                secretKey: "b",
-                bucketName: "archive"
-            },
-            {
-                url: "http://localhost:9091",
-                accessKey: "a",
-                secretKey: "b",
-                bucketName: "archive"
-            }
-        ]
     }
 }
 ```
