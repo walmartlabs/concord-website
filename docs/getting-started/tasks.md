@@ -76,16 +76,15 @@ flows:
 <a name="create-task"/>
 ## Creating Tasks
 
-Tasks must implement `com.walmartlabs.concord.sdk.Task` Java interface and
-provides a `call(...)` method сan be called in a Concord flow.
+Tasks must implement `com.walmartlabs.concord.sdk.Task` Java interface.
 
-It Task interface is provided by the `concord-sdk` module:
+The Task interface is provided by the `concord-sdk` module:
 
 ```xml
 <dependency>
   <groupId>com.walmartlabs.concord</groupId>
   <artifactId>concord-sdk</artifactId>
-  <version>0.98.0</version>
+  <version>1.8.0</version>
   <scope>provided</scope>
 </dependency>
 ```
