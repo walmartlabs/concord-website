@@ -45,6 +45,37 @@ Creates a new API key for a user.
   curl -u myLdapUser -H "Content-Type: application/json" -d '{ "username": "myLdapUser" }' http://localhost:8001/api/v1/apikey
   ```
 
+<a name="list-keys"/>
+## List Existing API keys
+
+Lists any existing API keys for the user. Only returns metadata, not actual keys.
+
+* **URI** `/api/v1/apikey`
+* **Method** `GET`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [
+      {
+        "id" : "2505acba-314d-11e9-adf9-0242ac110002",
+        "name" : "key#1"
+      }, {
+        "id" : "efd12c7a-3162-11e9-b9c0-0242ac110002",
+        "name" : "myCustomApiKeyName"
+      }
+    ]
+    ```
+* **Example**
+  ```
+  curl -u myLdapUser -H "Content-Type: application/json" http://localhost:8001/api/v1/apikey
+  ```
+
 <a name="delete-key"/>
 ## Delete an existing API key
 
