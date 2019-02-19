@@ -48,7 +48,7 @@ Creates a new API key for a user.
 <a name="list-keys"/>
 ## List Existing API keys
 
-Lists any existing API keys for the user.
+Lists any existing API keys for the user. Only returns metadata, not actual keys.
 
 * **URI** `/api/v1/apikey`
 * **Method** `GET`
