@@ -20,7 +20,7 @@ To be able to use the task in a Concord flow, it must be added as a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:looper-task:{{ site.concord_plugins_version }}
+  - mvn://com.walmartlabs.concord.plugins:looper-task:{{ site.concord_plugins_walmart_version }}
 ```
 
 This adds the task to the classpath and allows you to invoke the task in a flow:

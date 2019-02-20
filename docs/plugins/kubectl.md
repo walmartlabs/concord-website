@@ -31,7 +31,7 @@ as a [dependency](../getting-started/concord-dsl.html#dependencies):
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:kube:{{ site.concord_plugins_version }}
+  - mvn://com.walmartlabs.concord.plugins:kube:{{ site.concord_plugins_walmart_version }}
 ```
 
 This adds all tasks to the classpath and allows you to invoke them in any flow.
