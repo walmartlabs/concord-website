@@ -13,7 +13,7 @@ time the flow runs.
 The task is provided automatically by Concord and does not require any
 external dependencies.
 
-## Date format examples
+## Usage
 
 The current date as a java.util.Date object ...
 
