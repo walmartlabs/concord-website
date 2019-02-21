@@ -15,32 +15,32 @@ external dependencies.
 
 ## Usage
 
-The current date as a java.util.Date object ...
+The current date as a `java.util.Date` object:
 
 ```yaml
-${datetime.current()} - current date as java.util.Date object
+${datetime.current()} 
 ```
 
-The current date as a formatted string with a pattern ...
+The current date as a formatted string with a pattern: 
 
 ```yaml
-${datetime.current('pattern')} - current date as formatted String with pattern
+${datetime.current('pattern')} 
 ```
 
-An example of this is as follows ...
+An example of this is as follows. Pattern syntax should follow [standard java date patterns](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html).
 
 ```yaml
 ${datetime.current('dd.MM.yyy')}
 ```
 
-The current date formatted into a date/time string ...
+The current date formatted into a date/time string:
 
 ```yaml
-${datetime.format(datetime, 'pattern')} - formats a date into a date/time string
+${datetime.format(datetime, 'pattern')} 
 ```
 
-Parse dateStr string to java.util.Date object ...
+Parse dateStr string to java.util.Date object:
 
 ```yaml
-${datetime.parse(dateStr, 'pattern')} - parse dateStr string to java.util.Date object
+${datetime.parse(dateStr, 'pattern')} 
 ```
