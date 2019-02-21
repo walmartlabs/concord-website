@@ -192,7 +192,7 @@ flows:
   default:
   - task: slack
     in:
-      channelId: "you-channel"
+      channelId: "your-channel"
       text: "Starting execution on Concord"
 ```
 
@@ -218,6 +218,7 @@ flows:
   - task: concord
     in:
       action: start
+      org: Default
       project: myProject
       repository: myRepo
 ```

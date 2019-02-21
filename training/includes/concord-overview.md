@@ -134,7 +134,7 @@ No target restrictions.
 
 Multiple large scale success stories:
 
-- Walmart Pharmacy, Pharmacy, and Tire and Lube Express
+- Walmart Pharmacy, Optical, and Tire and Lube Express
 - Approx. 3000 to over 5000 stores each
 - Mixture of Linux, Windows server and Windows workstations
 - Each controlled by playbooks
