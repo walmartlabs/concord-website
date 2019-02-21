@@ -13,15 +13,15 @@ time the flow runs.
 The task is provided automatically by Concord and does not require any
 external dependencies.
 
-## Date formats
+## Date format examples
 
-### The current date as a java.util.Date object ...
+The current date as a java.util.Date object ...
 
 ```yaml
 ${datetime.current()} - current date as java.util.Date object
 ```
 
-### The current date as a formatted string with a pattern ...
+The current date as a formatted string with a pattern ...
 
 ```yaml
 ${datetime.current('pattern')} - current date as formatted String with pattern
@@ -33,13 +33,13 @@ An example of this is as follows ...
 ${datetime.current('dd.MM.yyy')}
 ```
 
-### The current date formatted into a date/time string ...
+The current date formatted into a date/time string ...
 
 ```yaml
 ${datetime.format(datetime, 'pattern')} - formats a date into a date/time string
 ```
 
-### Parse dateStr string to java.util.Date object ...
+Parse dateStr string to java.util.Date object ...
 
 ```yaml
 ${datetime.parse(dateStr, 'pattern')} - parse dateStr string to java.util.Date object
