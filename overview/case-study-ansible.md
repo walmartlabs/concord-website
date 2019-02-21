@@ -11,7 +11,7 @@ for Ansible users.
 
 Following are some characteristics:
 
-- Large scale usage for Walmart Pharmacy, Pharmacy, and Tire and Lube Express
+- Large scale usage for Walmart Pharmacy, Optical, and Tire and Lube Express
 - Approximately scaled to 3000 to over 5000 stores for each scenario
 - Each store contains up to a dozen endpoints
 - Endpoints are a mixture of Linux, Windows server and Windows workstation
