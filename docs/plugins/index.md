@@ -19,6 +19,7 @@ use in the workflow execution.
         <li><a href="./boo.html">Boo</a></li>
         <li><a href="./concord.html">Concord</a></li>
         <li><a href="./crypto.html">Crypto</a></li>
+        <li><a href="./datetime.html">Datetime</a></li>
         <li><a href="./docker.html">Docker</a></li>
         <li><a href="./git.html">Git and GitHub</a></li>
       </ul>
