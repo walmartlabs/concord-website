@@ -230,13 +230,23 @@ value `1` mark the cloud as primary and `2` for secondary.
 
 ## Variables
 
-The OneOps task can be used to get all platform variables and subsequently
-access them from the returned output:
+The OneOps task can be used to get all platform or global variables and subsequently
+access them from the returned output. These variables can be updated as well using OneOps task.
+
+List platform variables:
 
 ```yaml
 - expr: ${oneops.getPlatformVariables(oneOpsConfig, platform)}
   out: platform_variables1
 - log: "Variable value: ${platform_variables1.testVariable}"
+```
+
+List global variables:
+
+```yaml
+- expr: ${oneops.getGlobalVariables(oneOpsConfig)}
+  out: global_Variables
+- log: "Variable value: ${global_Variables.variableName}"
 ```
 
 You can specify the assembly and environment directly in the call:
@@ -247,6 +257,12 @@ You can specify the assembly and environment directly in the call:
 - log: "Variable value: ${platform_variables2.variableName}"
 ```
 
+```yaml
+- expr: ${oneops.getGlobalVariables(oneOpsConfig, asm, env)}
+  out: global_variables2
+- log: "Variable value: ${global_variables2.variableName}"
+```
+
 If a variable name contains a hyphen, the `get` method can be used to retrieve
 the value:
 
@@ -254,10 +270,16 @@ the value:
 - log: "Variable value: ${platform_variables2.get('variable-name')}"
 ```
 
-Platform variable values can be updated as well:
+Update platform variable:
 
 ```yaml
 - ${oneops.updatePlatformVariable(oneOpsConfig, platform, key, value)}
+```
+
+Update global variable:
+
+```yaml
+- ${oneops.updateGlobalVariable(oneOpsConfig, key, value)}
 ```
 
 <a name="tags"/>
