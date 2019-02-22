@@ -71,6 +71,8 @@ nav:
         context: /docs/plugins/concord
       - page: Crypto
         context: /docs/plugins/crypto
+      - page: Datetime
+        context: /docs/plugins/datetime
       - page: Docker
         context: /docs/plugins/docker
       - page: Git and GitHub
