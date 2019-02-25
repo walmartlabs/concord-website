@@ -12,6 +12,7 @@ replacing the usage of user credentials for authentication.
 The REST API provides support for a number of operations:
 
 - [Create a New API Key](#create-key)
+- [List Existing API keys](#list-keys)
 - [Delete an Existing API Key](#delete-key)
 
 <a name="create-key"/>
