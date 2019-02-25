@@ -307,6 +307,7 @@ Retrieve a list of processes.
     - `beforeCreatedAt`: limit by date, ISO-8601 string;
     - `tags`: filter by a tag, repeat the parameter to filter by multiple tags;
     - `limit`: maximum number of records to return.
+    - `offset`: starting index from which to return
 * **Method** `GET`
 * **Body**
     none
