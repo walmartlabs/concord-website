@@ -39,7 +39,7 @@ The current date formatted into a date/time string:
 ${datetime.format(datetime, 'pattern')} 
 ```
 
-Parse dateStr string to java.util.Date object:
+Parse dateStr string to `java.util.Date` object:
 
 ```yaml
 ${datetime.parse(dateStr, 'pattern')} 
