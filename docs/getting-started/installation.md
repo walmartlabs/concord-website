@@ -23,7 +23,7 @@ the [quick start tips](./quickstart.html).
 
 ### Docker
 
-If you do not already have Docker installed, find binaries and instructions 
+If you do not already have Docker installed, find binaries and instructions
 on the [Docker website](https://www.docker.com/). You can install Docker through
 various methods that are outside the scope of this document.
 
@@ -56,6 +56,7 @@ Concord uses [PostgreSQL](https://www.postgresql.org/) version 10.4 or higher:
 ```bash
 docker run -d \
 -e 'POSTGRES_PASSWORD=q1' \
+-p 5432:5432 \
 --name db \
 library/postgres:10.4
 ```
@@ -67,10 +68,10 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 c3b438edc980        postgres:10.4       "docker-entrypoint.s…"   3 seconds ago       Up 1 second         5432/tcp            db
 
 $ psql -U postgres -h localhost -p 5432 postgres
-Password for user postgres: (enter "q1") 
+Password for user postgres: (enter "q1")
 
 postgres=# select 1;
- ?column? 
+ ?column?
 ----------
         1
 (1 row)
@@ -114,7 +115,7 @@ Make sure that the `db` section contains the same password you speficied on
 The `secretStore` parameters define the keys that are used
 to encrypt user secrets. The keys must be base64-encoded:
 ```bash
-$ echo -ne "q1" | base64 
+$ echo -ne "q1" | base64
 cTE=
 ```
 
@@ -184,7 +185,7 @@ docker run -d -p 8080:8080 \
 walmartlabs/concord-console
 ```
 
-Replace `/path/to/repo` with your path to the Concord's repository. 
+Replace `/path/to/repo` with your path to the Concord's repository.
 
 The console is available on [http://localhost:8080](http://localhost:8080).
 Try logging in using your AD/LDAP credentials.
