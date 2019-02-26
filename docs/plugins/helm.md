@@ -29,6 +29,10 @@ The `helm` task follows the same process as the `kubectl` task and
 runs a `helm upgrade` command with `--install` option into all cluster or
 namespaces.
 
+Other features available, apart from `upgrade`, to perform 
+various actions on deployed application in Kubernetes 
+using Helm include `rollback`, `delete`, `history`.
+
 ## Parameters
 
 The `helm` task uses the following parameters from
