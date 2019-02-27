@@ -86,8 +86,11 @@ instance of `com.walmartlabs.concord.sdk.Context`;
 - `currentUser`: information about the current user. Has the same structure
   as `initiator`;
 - `requestInfo`: additional request data:
-  - `requestInfo.query`: query parameters of a request made using user-facing 
+  - `requestInfo.query`: query parameters of a request made using user-facing
     endpoints (e.g. the portal API);
+  - `requestInfo.ip`: client IP address
+  - `requestInfo.headers`: headers of request.
+
 - `projectInfo`: project's data:
   - `projectInfo.orgId` - the ID of the project's organization;
   - `projectInfo.orgName` - the name of the project's organization;
