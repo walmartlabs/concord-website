@@ -88,8 +88,8 @@ instance of `com.walmartlabs.concord.sdk.Context`;
 - `requestInfo`: additional request data:
   - `requestInfo.query`: query parameters of a request made using user-facing
     endpoints (e.g. the portal API);
-  - `requestInfo.ip`: client IP address
-  - `requestInfo.headers`: headers of request.
+  - `requestInfo.ip`: client IP address, where from request is generated.
+  - `requestInfo.headers`: headers of request made using user-facing endpoints.
 
 - `projectInfo`: project's data:
   - `projectInfo.orgId` - the ID of the project's organization;
