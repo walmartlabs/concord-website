@@ -48,7 +48,7 @@ The `helm` task uses the following parameters from
 
 In addition, the following helm-specific parameters are supported.
 
-- `appname`: a name for the application, it is is used to derive a helm release
+- `appname`: a name for the application, it is used to derive a helm release
   name
 - `chart`: the name of the  helm chart to use. The chart is retrieved from
   the default, built-in repository at
