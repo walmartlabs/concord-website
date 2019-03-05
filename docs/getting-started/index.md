@@ -14,7 +14,10 @@ to call workflow scenarios. Execution of the processes is managed in isolated
 environments for each flow in a cluster of so-called agents.
 
 The [Concord Console](#concord-console) is a web-based user interface for
-managing and monitoring the server.
+managing and monitoring the server. It provides features for users to login and
+work with projects, secrets, processes and other entities. Find out more about
+using it in the
+[dedicated documentation section about the Concord Console](../console/index.html).
 
 [Concord Concepts](#concord-concepts) explains more about the components that
 are managed and executed by Concord:
@@ -50,12 +53,6 @@ itself.
 The executions of workflows are performed by the agents. Each agent is a
 standalone Java application that receives and executes
 a [payload](#payload) sent by the server.
-
-## Concord Console
-
-The console is a web application for managing and monitoring the server. It
-provides features for users to login and work with projects, secrets, processes
-and other entities.
 
 ## Concord Concepts
 
