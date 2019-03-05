@@ -10,3 +10,4 @@ linkcheck-results.log
 vendor
 .jekyll-metadata
 .arcconfig
+.classpath
