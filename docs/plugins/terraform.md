@@ -51,9 +51,9 @@ a previously created plan file. The path must be relative to the process'
 - `extraEnv` - key-value pairs, extra environment variables provided to
 the `terraform` process;
 - `extraVars` - [variables](#variables) provided to the `terraform` process;
-- `ignoreErrors` - boolean value, if `true` any errors occurred during the
+- `ignoreErrors` - boolean value, if `true` any errors that occur during the
 execution will be ignored and stored in the `result` variable;
-- `stateId` - string value, the name of a state file to use. If not set,
+- `stateId` - string value, the name of a state file to use. If not set, the
 `${projectName}_${repoName}` template is used automatically.
 
 <a name="planning"/>
@@ -85,7 +85,7 @@ The output is stored in a `result` variable that has the following structure:
 in the enviroment;
 - `output` - string value, output of `terraform plan` (stdout);
 - `planPath` - string value, path to the created plan file. The plugin stored
-such files as process attachments so they "survive" suspending/resuming the
+such files as process attachments so they \"survive\" suspending/resuming the
 process or restoring from a
 [checkpoint](../getting-started/concord-dsl.html#checkpoints). The path is
 relative to the process' `${workDir}`;
@@ -99,7 +99,7 @@ etc.
 
 ## Applying the Changes
 
-The `apply` action executed `terraform apply` in the process' working
+The `apply` action executes `terraform apply` in the process' working
 directory, in a directory specified in `dirOrPlan` parameter or using a
 previously created plan file:
 
@@ -135,7 +135,7 @@ structure:
 ## Input Variables
 
 [Input variables](https://www.terraform.io/docs/configuration/variables.html)
-can be specified using `extraVars` parameter:
+can be specified using the `extraVars` parameter:
 ```yaml
 - task: terraform
   in:
@@ -150,7 +150,7 @@ The `extraVars` parameter expects regular `java.util.Map<String, Object>`
 objects and supports all JSON-compatible data structures (nested objects,
 lists, etc).
 
-Specifying `extraVars` is an equivalent of running `terraform plan -var-file=/path/to/file.json`.
+Specifying `extraVars` is the equivalent of running `terraform plan -var-file=/path/to/file.json`.
 
 <a name="env"/>
 
@@ -177,11 +177,11 @@ By default Concord provides its own
 [http backend](https://www.terraform.io/docs/backends/types/http.html).
 
 The data is stored in Concord Inventory. Terraform uses previously saved data
-to calculate necessary changes to the environment and stored the updated state
+to calculate necessary changes to the environment and stores the updated state
 whenever changes are made.
 
-If your Terraform configuration uses another backend then the default backend
-must be disabled:
+If your Terraform configuration uses a backend other then the `default` backend,
+then you must disable the `default` backend:
 ```yaml
 - task: terraform
   in:
