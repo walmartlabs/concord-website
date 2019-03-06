@@ -69,7 +69,7 @@ or in a directory specified in `dirOrPlan` parameter:
   in:
     action: plan
     
-# run `terraform plan` in a specific directory:
+# run `terraform plan` in a specific directory
 - task: terraform
   in:
     action: plan
@@ -109,13 +109,13 @@ previously created plan file:
   in:
     action: apply
     
-# run `terraform apply` in a specific directory:
+# run `terraform apply` in a specific directory
 - task: terraform
   in:
     action: apply
     dirOrPlan: "myTFStuff"
     
-# run `terraform apply` using a plan file:
+# run `terraform apply` using a plan file
 - task: terraform
   in:
     action: apply
