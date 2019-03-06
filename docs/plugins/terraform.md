@@ -1,0 +1,197 @@
+---
+layout: wmt/docs
+title:  Terraform Task
+side-navigation: wmt/docs-navigation.html
+---
+
+# {{ page.title }}
+
+Concord supports interaction with the infrastructure provisioning tool
+[Terraform](https://www.terraform.io/) with the `terraform` task as part of any
+flow.
+
+- [Usage](#usage)
+- [Parameters](#parameters)
+- [Planning the Changes](#planning)
+- [Applying the Changes](#applying)
+- [Input Variables](#variables)
+- [Environment Variables](#env)
+- [State Backends](#backends)
+- [Examples](#examples)
+
+## Usage
+
+To be able to use the task in a Concord flow, it must be added as a
+[dependency](../getting-started/concord-dsl.html#dependencies):
+
+```yaml
+configuration:
+  dependencies:
+  - mvn://com.walmartlabs.concord.plugins:terraform-task:{{ site.concord_plugins_version }}
+```
+
+This adds the task to the classpath and allows you to invoke it in any flow.
+
+The task requires the process to run as a part of a Concord project.
+
+## Parameters
+
+- `action` - (mandatory) action to perform:
+  - `plan` - [plan](#planning) the changes;
+  - `apply` - [apply](#applying) the changes with or without using a previously
+  created plan file;
+- `backend` - type of a [state backend](#backends) to use:
+  - `concord` - (default) use the backend provided by Concord;
+  - `none` - use the default file-based backend or the backend configuration
+  provided by the user;
+- `debug` - boolean value, if `true` the plugin logs additional debug information;
+- `dirOrPlan` - string value, path to a directory with `*.tf` files or to
+a previously created plan file. The path must be relative to the process'
+`${workDir}`;
+- `extraEnv` - key-value pairs, extra environment variables provided to
+the `terraform` process;
+- `extraVars` - [variables](#variables) provided to the `terraform` process;
+- `ignoreErrors` - boolean value, if `true` any errors occurred during the
+execution will be ignored and stored in the `result` variable;
+- `stateId` - string value, the name of a state file to use. If not set,
+`${projectName}_${repoName}` template is used automatically.
+
+<a name="planning"/>
+
+## Planning the Changes
+
+The `plan` action executes `terraform plan` in the process' working directory
+or in a directory specified in `dirOrPlan` parameter:
+
+```yaml
+# run `terraform plan` in `${workDir}`
+- task: terraform
+  in:
+    action: plan
+    
+# run `terraform plan` in a specific directory:
+- task: terraform
+  in:
+    action: plan
+    dirOrPlan: "myTFStuff"
+```
+
+The plugin automatically creates the necessary [backend](#backends)
+configuration and runs `terraform init` when necessary.
+
+The output is stored in a `result` variable that has the following structure:
+- `ok` - boolean value, `true` if the execution is successful;
+- `hasChanges` - boolean value, `true` if `terraform plan` detected any changes
+in the enviroment;
+- `output` - string value, output of `terraform plan` (stdout);
+- `planPath` - string value, path to the created plan file. The plugin stored
+such files as process attachments so they "survive" suspending/resuming the
+process or restoring from a
+[checkpoint](../getting-started/concord-dsl.html#checkpoints). The path is
+relative to the process' `${workDir}`;
+- `error` - string value, error of the last `terraform` execution (stderr).
+
+The execution's output (stored as `${result.output}`) can be used to output
+the plan into the process' log, used in an approval form, Slack notification,
+etc.
+
+<a name="applying"/>
+
+## Applying the Changes
+
+The `apply` action executed `terraform apply` in the process' working
+directory, in a directory specified in `dirOrPlan` parameter or using a
+previously created plan file:
+
+```yaml
+# run `terraform apply` in `${workDir}`
+- task: terraform
+  in:
+    action: apply
+    
+# run `terraform apply` in a specific directory:
+- task: terraform
+  in:
+    action: apply
+    dirOrPlan: "myTFStuff"
+    
+# run `terraform apply` using a plan file:
+- task: terraform
+  in:
+    action: apply
+    dirOrPlan: "${result.planPath}" # created by previously executed `plan` action
+```
+
+As with the `plan` action, the plugin automatically runs `terraform init` when necessary.
+
+The action's output is stored in a `result` variable that has the following
+structure:
+- `ok` - boolean value, `true` if the execution is successful;
+- `output` - string value, output of `terraform apply` (stdout);
+- `error` - string value, error of the last `terraform` execution (stderr).
+
+<a name="variables"/>
+
+## Input Variables
+
+[Input variables](https://www.terraform.io/docs/configuration/variables.html)
+can be specified using `extraVars` parameter:
+```yaml
+- task: terraform
+  in:
+    action: plan
+    extraVars:
+      aVar: "someValue"
+      nestedVar:
+        x: 123
+```
+
+The `extraVars` parameter expects regular `java.util.Map<String, Object>`
+objects and supports all JSON-compatible data structures (nested objects,
+lists, etc).
+
+Specifying `extraVars` is an equivalent of running `terraform plan -var-file=/path/to/file.json`.
+
+<a name="env"/>
+
+## Environment Variables
+
+OS-level [environment variables](https://www.terraform.io/docs/commands/environment-variables.html)
+can be specified using `extraEnv` parameter:
+
+```yaml
+- task: terraform
+  in:
+    action: plan
+    extraEnv:
+      HTTPS_PROXY: http://proxy.example.com
+      TF_LOG: TRACE
+```
+
+<a name="backends"/>
+
+## State Backends
+
+By default Concord provides its own
+[state backend](https://www.terraform.io/docs/backends/index.html) based on
+[http backend](https://www.terraform.io/docs/backends/types/http.html).
+
+The data is stored in Concord Inventory. Terraform uses previously saved data
+to calculate necessary changes to the environment and stored the updated state
+whenever changes are made.
+
+If your Terraform configuration uses another backend then the default backend
+must be disabled:
+```yaml
+- task: terraform
+  in:
+    action: plan
+    backend: none
+```
+
+## Examples
+
+- [minimal AWS example](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/minimal)
+- [minimal Azure example](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/azure-minimal)
+- [approval](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/approval) - runs `plan`
+and `apply` actions separately, uses an approval form to gate the changes.
