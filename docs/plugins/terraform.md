@@ -150,7 +150,7 @@ The `extraVars` parameter expects regular `java.util.Map<String, Object>`
 objects and supports all JSON-compatible data structures (nested objects,
 lists, etc).
 
-Specifying `extraVars` is an equivalent of running `terraform plan -var-file=/path/to/file.json`.
+Specifying `extraVars` is an equivalent of running `terraform [action] -var-file=/path/to/file.json`.
 
 <a name="env"/>
 
