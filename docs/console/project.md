@@ -1,13 +1,13 @@
 ---
 layout: wmt/docs
-title:  Projects
+title:  Project
 side-navigation: wmt/docs-navigation.html
 ---
 
-# Projects
+# {{ page.title }} 
 
-Projects allow users to automatically create payloads by pulling files from remote GIT repositories and applying templates.
+A project allows you define an entity within an
+[organization](./organization.html) with access rights, description,
+[secrets](./secret.html) and numerous [repositories](./repository.html).
 
 Projects are created with the Concord Console or by using the REST API.
-
-More info to come...
