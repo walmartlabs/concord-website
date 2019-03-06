@@ -29,6 +29,23 @@ nav:
         context: /docs/getting-started/triggers
       - page: Development
         context: /docs/getting-started/development
+  - title: Console
+    id: console
+    collapse: /docs/console
+    subfolderitems:
+      - page: Overview
+        context: /docs/console/index
+      - page: Organization
+        context: /docs/console/organization
+      - page: Secret
+        context: /docs/console/secret
+      - page: Project
+        context: /docs/console/project
+      - page: Repository
+        context: /docs/console/repository
+      - page: Process
+        context: /docs/console/process
+
   - title: API
     id: api
     collapse: /docs/api

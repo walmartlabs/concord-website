@@ -158,10 +158,10 @@ Assuming that Concord Server is already running in a `server` container.
    adding new entry "cn=myuser,dc=example,dc=org"
    ```
 
-6. use `myuser` and `q1` to authenticate in the Console:
+6. use `myuser` and `q1` to authenticate in the [Concord Console](../console/index.html):
 
-   ![Login](/assets/img/screenshots/oldap-login.png)
+   ![Login](/assets/img/screenshots/login.png)
   
 7. after successful authentication, you should see the UI similar to this: 
 
-   ![Success](/assets/img/screenshots/oldap-success.png)
+   ![Success](/assets/img/screenshots/initial-view.png)
