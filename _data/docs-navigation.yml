@@ -35,16 +35,17 @@ nav:
     subfolderitems:
       - page: Overview
         context: /docs/console/index
-      - page: Orgs
-        context: /docs/console/orgs
+      - page: Organization
+        context: /docs/console/organization
+      - page: Secret
+        context: /docs/console/secret
       - page: Project
         context: /docs/console/project
+      - page: Repository
+        context: /docs/console/repository
       - page: Process
         context: /docs/console/process
-      - page: Repositories
-        context: /docs/console/repositories
-      - page: Secrets
-        context: /docs/console/secrets
+
   - title: API
     id: api
     collapse: /docs/api
