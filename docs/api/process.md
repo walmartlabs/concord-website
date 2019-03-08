@@ -57,6 +57,10 @@ working directory.
     which will be used to run the process;
     - `repoId` or `repo` - ID or name of the repository which
     will be used to run the process;
+    - `repoBranchOrTag` - overrides the configured branch or tag name
+    of the project's repository;
+    - `repoCommitId` - overrides the configured GIT commit ID of the
+    project's repository;
     - `entryPoint` - name of the starting flow;
     - `sync` - enables synchronous execution of a process. The
     request will block until the process is complete;
