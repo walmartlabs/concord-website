@@ -122,6 +122,8 @@ nav:
         context: /docs/plugins/smtp
       - page: Tekton
         context: /docs/plugins/tekton
+      - page: Terraform
+        context: /docs/plugins/terraform
   - title: Templates
     id: templates
     collapse: /docs/templates
