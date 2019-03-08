@@ -39,6 +39,10 @@ organization of the calling process;
 - `payload` - path to a ZIP archive or a directory, the process' payload;
 - `project` - string, name of the process' project;
 - `repo` - string, name of the project's repository to use;
+- `repoBranchOrTag` - string, overrides the configured branch or tag name of
+the project's repository;
+- `repoCommitId` - string, overrides the configured GIT commit ID of the
+project's repository;
 - `startAt` - [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date/time
 value, the process' start time;
 - `sync` - boolean, wait for completion if `true`, defaults to `false`;
