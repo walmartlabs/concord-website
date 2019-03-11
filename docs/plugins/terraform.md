@@ -17,6 +17,7 @@ flow.
 - [Input Variables](#variables)
 - [Environment Variables](#env)
 - [State Backends](#backends)
+- [GIT modules](#git-modules)
 - [Examples](#examples)
 
 ## Usage
@@ -54,7 +55,8 @@ the `terraform` process;
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
 execution will be ignored and stored in the `result` variable;
 - `stateId` - string value, the name of a state file to use. If not set, the
-`${projectName}_${repoName}` template is used automatically.
+`${projectName}_${repoName}` template is used automatically;
+- `gitSsh` - see [GIT modules](#git-modules).
 
 <a name="planning"/>
 
@@ -188,6 +190,41 @@ then you must disable the `default` backend:
     action: plan
     backend: none
 ```
+
+<a name="git-modules"/>
+
+## GIT Modules
+
+Using [Generic GIT repositories](https://www.terraform.io/docs/modules/sources.html#generic-git-repository)
+as modules may require SSH key authentication. The plugin provides a couple ways to
+configure the keys.
+
+Using private key files directly:
+```yaml
+- task: terraform
+  in:
+    gitSsh:
+      privateKeys:
+        - "relative/path/to/a/private/key.file"
+        - "another/private/key.file"
+```
+
+The path must be relative to the process `${workDir}`.
+
+An alternative (and recommended) way is to use Concord [Secrets](../api/secret.html):
+```yaml
+- task: terraform
+  in:
+    gitSsh:
+      secrets:
+        - org: "myOrg" # optional
+          secretName: "myKeyPairSecret"
+          password: "myS3cr3t" # optional
+```
+
+Multiple private key files and Concord Secrets can be used simultaneously.
+
+When running separate `plan` and `apply` actions, only the `plan` part requires the key configuration. 
 
 ## Examples
 
