@@ -325,12 +325,26 @@ of an assembly. You can also commit selected platforms by providing the `include
 - ${oneops.commitAndDeploy(oneOpsConfig, asm, env, ['platform1', 'platform2'])}
 ```
 
-You can also verify if a deployment is currently in progress:
+You can also verify if a deployment is currently in progress or failed:
 
 ```yaml
 - expr: ${oneops.isDeploying(oneOpsConfig, asm, env)}
   out: isDeploying
 ```
+
+```yaml
+- expr: ${oneops.isDeploymentFailed(oneOpsConfig, asm, env)}
+  out: isFailed
+```
+
+Oneops provides a method to wait for completion of the current deployment.
+
+```yaml
+- expr:  ${oneops.waitForActiveDeployment(oneOpsConfig, asm, env, timeout)}
+```
+
+`timeout` - milliseconds, it will wait till completion of deployment if set to less than zero
+otherwise only for specified amount of time.
 
 <a name="source"/>
 
