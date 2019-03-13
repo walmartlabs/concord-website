@@ -343,8 +343,9 @@ Oneops provides a method to wait for completion of the current deployment.
 - expr:  ${oneops.waitForActiveDeployment(oneOpsConfig, asm, env, timeout)}
 ```
 
-`timeout` - milliseconds, it will wait till completion of deployment if set to less than zero
-otherwise only for specified amount of time.
+`timeout` - Number of milliseconds to wait before executing the next step 
+in flow, regardless of deployment completion. If set to less than zero, it will wait for 
+completion of deployment.
 
 <a name="source"/>
 
