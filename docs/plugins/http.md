@@ -73,7 +73,8 @@ All parameters sorted in alphabetical order.
 - `socketTimeout`: socket timeout in ms, which is the maximum time of inactivity
 between two data packets. Default value is `-1`, which means that the default
 value of the Java Runtime Environment running the process is used - common value
-is 60000 ms.
+is 60000 ms;
+- `proxy`: HTTP(s) proxy to use (see the [example](#proxy-example)).
 
 ### Basic Authentication
 
@@ -278,4 +279,16 @@ Using Basic Authentication with a username and a password:
 - if: ${jsonResponse.success}
   then:
    - log: "Response received: ${jsonResponse.content}"
+```
+
+<a name="usage"/>
+
+#### Proxy Usage
+
+```yaml
+- task: http
+  in:    
+    method: GET
+    url: "https://api.example.com:port/path/endpoint"
+    proxy: "http://proxy.example.com:8080"
 ```
