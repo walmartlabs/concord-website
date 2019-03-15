@@ -299,7 +299,7 @@ key/value pairs.
 
 ## Components
 
-The OneOps task provides different methods to perform touch and update actions on components.
+The OneOps task provides methods to perform touch and update actions on component.
 
 <a name="touch"/>
 
@@ -316,7 +316,7 @@ The OneOps task can be used to perform a touch action on a component.
 
 #### Update
 
-The OneOps task can be used to update component attributes.
+The OneOps task can be used to update component's attributes.
 
 ```yaml
 - set:
