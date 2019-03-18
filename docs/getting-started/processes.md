@@ -171,3 +171,6 @@ A process is executed by the Concord Server using the following steps:
 - The payload is created and sent to an agent for execution.
 - Dependencies are downloaded and put on the class-path.
 - The flow configured as entry point is invoked.
+
+To start and manage new processes from within a running process use 
+the [Concord](../plugins/concord.html) task.
