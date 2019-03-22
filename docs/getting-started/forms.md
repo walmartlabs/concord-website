@@ -176,7 +176,7 @@ Supported options:
 
 - `yield`: a boolean value. If `true`, the UI wizard will stop after
 this form and the rest of the process will continue in the background.
-Supported only for custom (with branding) forms;
+Supported only for non-custom (without user HTML) forms;
 - `values`: additional values, to override default form values or to
 provide additional data;
 - `fields`: allows defining the form fields at runtime, see more in the
