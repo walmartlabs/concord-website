@@ -25,16 +25,25 @@ create a `json` object.
       out: jsonObj
     # we can now use it like a simple object
     - log: ${jsonObj.any_key}
-    ```
+```
 
 The `asString` method can read a file resource and create a `string` object with
 the content.
 
 ```yaml
-- log: ${resource.asString(sample-file.txt)}
+- log: ${resource.asString('sample-file.txt')}
 ```
 
-The ``asYaml` method supports reading files using the YAML format.
+The `asYaml` method supports reading files using the YAML format.
+
+```yaml
+- flows:
+    default:
+    - expr: ${resource.asYaml('sample-file.yml')}
+      out: ymlObj
+    # we can now use it like a simple object
+    - log: ${ymlObj.any_key}
+```
 
 ## Writing a Resource
 
