@@ -75,7 +75,9 @@ The following sections describe the available functions in more detail:
     - [Primary vs Secondary](#primary-vs-secondary)
 - [Variables](#variables)
 - [Tags](#tags)
-- [Touch Component](#touch)
+- [Components](#components)
+    - [Touch](#touch)
+    - [Update](#update)
 - [Commit and Deploy](#commit-deploy)
 - [Source Reference](#source)
 
@@ -293,17 +295,37 @@ key/value pairs.
 - expr: ${oneops.getTagsFromAssembly(oneOpsConfig, asm)}
   out: tags
 ```
+<a name="components"/>
 
+## Components
+
+The OneOps task provides methods to perform touch and update actions on component.
 
 <a name="touch"/>
 
-## Touch Component
+#### Touch
 
 The OneOps task can be used to perform a touch action on a component.
 
 ```yaml
 - ${oneops.touchComponent(oneOpsConfig, platform, component)}
 - ${oneops.touchComponent(oneOpsConfig, asm, env, platform, component)}
+```
+
+<a name="update"/>
+
+#### Update
+
+The OneOps task can be used to update component's attributes.
+
+```yaml
+- set:
+    attributes:
+      module_version: 1.0.0
+      name: module-name
+
+- ${oneops.updateComponent(oneOpsConfig, platform, component, attributes)}
+- ${oneops.updateComponent(oneOpsConfig, asm, env, platform, component, attributes)}
 ```
 
 
