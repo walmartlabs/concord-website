@@ -36,4 +36,4 @@ Further details are available in the
 
 Typically all interaction with users is performed with GitHub issues and pull
 requests. Alternatively, you can reach us by email at
-[concord-team@wal-mart.com](mailto:concord-team@wal-mart.com).
+[concord-team@walmartlabs.com](mailto:concord-team@walmartlabs.com).
