@@ -231,27 +231,27 @@ configuration:
 
 ## Best Practices
 
-Here are some of the best practices when creating a new task (plugin).
+Here are some of the best practices when creating a new plugin with one or
+multiple tasks.
 
 ### Environment Defaults
 
 Instead of hard coding parameters like endpoint URLs, credentials and other
-environment-specific values use injectable defaults: 
+environment-specific values, use injectable defaults:
 
 ```java
 @Named("myTask")
 public class MyTask implements Task {
-    
+
     @Override
     public void execute(Context ctx) throws Exception {
         Map<String, Object> defaults = ctx.getVariable("myTaskDefaults");
-        
+
         String value = (String) ctx.getVariable("myVar");
         if (value == null) {
             // fallback to the default value
             value = (String) defaults.get("myVar");
         }
-        
         System.out.println("Got " + value);
     }
 }
@@ -262,12 +262,12 @@ the [Default Process Variables](./configuration.html#default-process-variables)
 file.
 
 The task's default can also be injected using `@InjectVariable`
-annotation - check out the [GitHub task](https://github.com/walmartlabs/concord-plugins/blob/master/tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/GitHubTask.java#L79)
+annotation - check out the [GitHub task]({{ site.source_url }}tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/GitHubTask.java#L79)
 as the example.
 
 ### Full Syntax vs Expressions
 
-There are two ways how the task can be invoked: the `task` call syntax and
+There are two ways how the task can be invoked: the `task`  syntax and
 using expressions. Consider the `task` syntax for tasks with multiple
 parameters and expressions for tasks that return data and should be used inline:
 
@@ -287,7 +287,9 @@ parameters and expressions for tasks that return data and should be used inline:
 
 ### Task Output and Error Handling
 
-Consider storing the task's results in a `result` variable of the following structure:
+Consider storing the task's results in a `result` variable of the following
+structure:
+
 ```yaml
 # successful execution
 result:
@@ -305,6 +307,7 @@ result:
 
 The `ok` parameter allows users to quickly test whether the execution was
 successful or not:
+
 ```yaml
 - task: myTask
 
@@ -315,7 +318,7 @@ successful or not:
 
 By default the task should throw an exception in case of any execution errors
 or invalid input parameters. Consider adding a `ignoreErrors` parameter to
-catch all execution errors (but not the invalid arguments errors) and store
+catch all execution errors, but not the invalid arguments errors, and store
 the appropriate error message and/or the error code in the `result` variable:
 
 ```yaml
@@ -336,30 +339,29 @@ the appropriate error message and/or the error code in the `result` variable:
 ```
 
 Use the standard JRE classes in the task's results. Custom types can cause
-serialization issues when the process suspends (e.g. on a [form](./forms.html)
-call). If you need to return some complex data structure, consider converting it
-to regular Java collections. The runtime provides [Jackson](https://github.com/FasterXML/jackson)
-as the default JSON/YAML library which can also be used to convert arbitrary
-data classes into regular Map's and List's:
+serialization issues when the process suspends, e.g. on a [form](./forms.html)
+call. If you need to return some complex data structure, consider converting it
+to regular Java collections. The runtime provides 
+[Jackson](https://github.com/FasterXML/jackson) as the default JSON/YAML library
+which can also be used to convert arbitrary data classes into regular Map's and
+List's:
 
 ```java
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Named("myTask")
 public class MyTask implements Task {
-    
+
     @Override
     public void execute(Context ctx) throws Exception {
         MyResult result = new MyResult();
-        
         ObjectMapper om = new ObjectMapper();
         ctx.setVariable("result", om.convertValue(result, Map.class));
     }
-    
+
     public static class MyResult implements Serializable {
-        
         boolean ok;
-        String data;                        
+        String data;
     }
 }
 ```
@@ -374,14 +376,14 @@ the dependencies in your task with "mocks":
 @Test
 public void test() throws Exception {
     SomeService someService = mock(SomeService.class);
-    
+
     Map<String, Object> params = new HashMap();
-    params.put("url", "https://httpstat.us/404");   
+    params.put("url", "https://httpstat.us/404");
     Context ctx = new MockContext(params);
-    
+
     MyTask t = new MyTask(someService);
     t.execute(ctx);
-    
+
     assertNotNull(ctx.getVariable("result"));
 }
 ```
@@ -391,13 +393,13 @@ public void test() throws Exception {
 It is possible to test a task using a running Concord instance without
 publishing the task's JAR. Concord automatically adds `lib/*.jar` files from
 [the payload archive](../api/process.html#zip-file) to the process'
-classpath - this mechanism can be used to upload local JAR files and,
+classpath. This mechanism can be used to upload local JAR files and,
 consequently, to test locally-built JARs. Check out the
-[custom_task](https://github.com/walmartlabs/concord/tree/master/examples/custom_task)
-example - it uses Maven to collect all `compile` dependencies of the task
+[custom_task]({{site.source_url}}examples/custom_task)
+example. It uses Maven to collect all `compile` dependencies of the task
 and creates a payload archive with the dependencies and the task's JAR.
 
-**Note:** it is important to use `provided` scope for the dependencies that are
-already included in the runtime. See [Creating Tasks](#create-task) section for the list of
-provided dependencies.
- 
+**Note:** It is important to use `provided` scope for the dependencies that are
+already included in the runtime. See [Creating Tasks](#create-task) section for
+the list of provided dependencies.
+
