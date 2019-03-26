@@ -290,15 +290,17 @@ parameters and expressions for tasks that return data and should be used inline:
 Consider storing the task's results in a `result` variable of the following
 structure:
 
+Successful execution:
+
 ```yaml
-# successful execution
 result:
   ok: true
   data: "the task's output"  
 ```
 
+Failed execution:
+
 ```yaml
-# failed execution
 result:
   ok: false  
   errorCode: 404
@@ -317,19 +319,21 @@ successful or not:
 ```
 
 By default the task should throw an exception in case of any execution errors
-or invalid input parameters. Consider adding a `ignoreErrors` parameter to
-catch all execution errors, but not the invalid arguments errors, and store
+or invalid input parameters. Consider adding the `ignoreErrors` parameter to
+catch all execution errors, but not the invalid arguments errors. Store
 the appropriate error message and/or the error code in the `result` variable:
 
+Throw an exception:
+
 ```yaml
-# throws an exception 
 - task: myTask
   in:
     url: "https://httpstat.us/404"
 ```
 
+Save the error in the `result` variable:
+
 ```yaml
-# saves the error in the `result` variable
 - task: myTask
   in:
     url: "https://httpstat.us/404"
