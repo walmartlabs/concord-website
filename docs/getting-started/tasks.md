@@ -261,14 +261,14 @@ The environment-specific defaults are provided using
 the [Default Process Variables](./configuration.html#default-process-variables)
 file.
 
-The task's default can also be injected using `@InjectVariable`
+The task's defaults can also be injected using the `@InjectVariable`
 annotation - check out the [GitHub task](https://github.com/walmartlabs/concord-plugins/blob/master/tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/GitHubTask.java#L79)
-as the example.
+as an example.
 
 ### Full Syntax vs Expressions
 
-There are two ways how the task can be invoked: the `task` call syntax and
-using expressions. Consider the `task` syntax for tasks with multiple
+There are two ways in which a task can be invoked: the `task` call syntax and
+by using expressions. Consider the `task` syntax for tasks with multiple
 parameters and expressions for tasks that return data and should be used inline:
 
 ```yaml
@@ -314,8 +314,8 @@ successful or not:
 ```
 
 By default the task should throw an exception in case of any execution errors
-or invalid input parameters. Consider adding a `ignoreErrors` parameter to
-catch all execution errors (but not the invalid arguments errors) and store
+or invalid input parameters. Consider adding the `ignoreErrors` parameter to
+catch all execution errors, but not the invalid arguments errors. Store
 the appropriate error message and/or the error code in the `result` variable:
 
 ```yaml
