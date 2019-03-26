@@ -36,7 +36,7 @@ flows:
         channelId: "exampleId"
         username: "anyCustomString"
         iconEmoji: ":information_desk_person:"
-        text: "Starting execution on Concord"
+        text: "Starting execution on Concord, process ID ${txId}"
 
     - if: "${!result.ok}"
       then:
@@ -44,7 +44,15 @@ flows:
 ```
 
 The `channelId` can be seen in the URL of the channel or alternatively the name
-of the channel can be used e.g. `C7HNUMYQ1` and `my-project-channel`.
+of the channel can be used e.g. `C7HNUMYQ1` and `my-project-channel`. To send a
+message to a specific user use `@handle` syntax:
+
+```yaml
+- task: slack
+  in:
+    channelId: "@someone"
+    text: "Hi there!"
+```
 
 Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
