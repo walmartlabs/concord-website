@@ -83,6 +83,17 @@ concord-server {
         maxPoolSize = 10
     }
 
+    # "remember me" cookie support
+    rememberMe {
+        # max age of the "remember me" cookie (sec)
+        maxAge = 1209600 # two weeks
+
+        # default value, change for production (base64)
+        # should be a valid AES key (16, 24 or 32 bytes)
+        # if not set, a new random key will be used
+        # cipherKey = "..."
+    }
+
     # email notifications (API key expiration, etc)
     # not related to notifications send from user flows
     email {
@@ -214,8 +225,26 @@ concord-server {
         userSearchFilter = "(cn=*{0}*)"
         usernameProperty = "cn"
         mailProperty = "mail"
+
+        # used by the Console in the AD/LDAP group search
+        groupSearchFilter = "(cn=*{0}*)"
+        groupNameProperty = "cn"
+        groupDisplayNameProperty = "cn"
+
         systemUsername = "cn=admin,dc=example,dc=org"
         systemPassword = "..."
+    }
+
+    # AD/LDAP group synchronization
+    ldapGroupSync {
+        # interval between runs (seconds)
+        interval = 86400 # one day
+
+        # the number of users fetched at the time
+        fetchLimit = 100
+
+        # minimal age of the record (PostgreSQL interval)
+        minAge = "1 day"
     }
 
     # GIT-related configuration
@@ -259,7 +288,7 @@ concord-server {
 }
 ```
 
-A minimal example suitable for local development:
+A minimal example suitable for local development (assuming [OpenLDAP](./development.html#oldap)):
 ```
 concord-server {
     db {
@@ -277,9 +306,6 @@ concord-server {
     ldap {
         url = "ldap://oldap:389"
         searchBase = "dc=example,dc=org"
-        principalSearchFilter = "(cn={0})"
-        userSearchFilter = "(cn=*{0}*)"
-        usernameProperty = "cn"
         systemUsername = "cn=admin,dc=example,dc=org"
         systemPassword = "admin"
     }
