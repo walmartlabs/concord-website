@@ -94,6 +94,8 @@ nav:
         context: /docs/plugins/docker
       - page: Git and GitHub
         context: /docs/plugins/git
+      - page: Gremlin
+        context: /docs/plugins/gremlin
       - page: Helm
         context: /docs/plugins/helm
       - page: HTTP
