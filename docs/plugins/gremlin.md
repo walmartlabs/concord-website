@@ -51,6 +51,7 @@ parameters that are common for all operations:
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
+- `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
 - `targetType`: Type of clients that should be targeted by the attack. Allowed
   values are `Random` and `Exact`. Default is set to `Exact`
 - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
@@ -187,6 +188,7 @@ parameters that are common for all operations:
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
+- `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
 -  `targetType`: Type of clients that should be targeted by the attack. Allowed
    values are `Random` and `Exact`. Default is set to `Exact`
 - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg. `["client1", "client2"]`
@@ -289,6 +291,7 @@ parameters that are common for all operations:
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
+- `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
 - `targetType`: Type of clients that should be targeted by the attack. Allowed
    values are `Random` and `Exact`. Default is set to `Exact`
 - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
