@@ -6,11 +6,12 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-Concord supports injecting faults into your system using Chaos Engineering tool
-[Gremlin](https://www.gremlin.com/docs/) with the `gremlin` task as part of any
-flow.
+Concord supports injecting faults into your system using the chaos engineering
+tool [Gremlin](https://www.gremlin.com/docs/) with the `gremlin` task as part of
+any flow.
 
-Gremlin plugin offers below categories of attacks to inject faults into your system:
+The gremlin plugin offers below categories of attacks to inject faults into your
+system:
 
 - [Usage](#usage)
 - [Resource](#resource)
@@ -41,23 +42,29 @@ configuration:
 
 ## Resource
 
-The attacks under `Resource` category starves your application of critical resources like CPU, memory, IO, or disk and reveal how your service behaves.
+The attacks under the `Resource` category starve your application of critical
+resources like CPU, memory, IO, or disk and reveal how your service behaves.
 
-The `attacks` under this category uses a number of input parameters that are common for all
-operations:
+The `attacks` configuration under this category uses a number of input
+parameters that are common for all operations:
 
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
--  `targetType`: Type of clients that should be targeted by the attack. Allowed values are `Random` and `Exact`. Default is set to `Exact`
-- `targetList`: Required - when `targetType` is `Exact`. Input is a list eg. `["client1", "client2"]`
-- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value` pair eg. `{ "myTagKey": "myTagValue" }`. More Information about client tags can be found here [Advanced-Configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
+- `targetType`: Type of clients that should be targeted by the attack. Allowed
+  values are `Random` and `Exact`. Default is set to `Exact`
+- `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
+  `["client1", "client2"]`
+- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
+  pair eg. `{ "myTagKey": "myTagValue" }`. More information about client tags
+  can be found in the documentation for [advanced gremlin configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
 
 <a name="cpu"/>
 
 ## CPU
 
-The `cpu` action of the `gremlin` task can be used to generate high load for one or more CPU cores. The following parameter is needed in addition to the general
+The `cpu` action of the `gremlin` task can be used to generate high load for one
+or more CPU cores. The following parameter is needed in addition to the general
 parameters:
 
 - `cores`: Required - The number of CPU cores to hog
@@ -72,15 +79,20 @@ parameters:
     targetType: Random
     targetTags: { "myTagKey": "myTagValue" }
 ```
+
 <a name="memory"/>
 
 ## Memory
 
-The `memory` action of the `gremlin` task can be used to allocate a specific amount of RAM which consumes memory. The following parameters are needed in addition to the general parameters:
+The `memory` action of the `gremlin` task can be used to allocate a specific
+amount of RAM to be consumed. The following parameters are needed in addition to
+the general parameters:
 
-- `unitOption`: Required - Allowed values are GB, MB, PERCENT
-- `memoryUnits`: Required - When `unitOption` is GB/MB. The number of MB/GBs to allocate
-- `memoryPercent`: Required - When `unitOption` is PERCENT. (10 is 10%)
+- `unitOption`: Required - Allowed values are `GB`, `MB`, `PERCENT`
+- `memoryUnits`: Required - When `unitOption` is `GB` or `MB`. The number of MB/GBs to allocate
+- `memoryPercent`: Required - When `unitOption` is `PERCENT`, e.g. 10 is 10%
+
+Example with absolute value usage:
 
 ```yaml
 - task: gremlin
@@ -93,6 +105,9 @@ The `memory` action of the `gremlin` task can be used to allocate a specific amo
     targetType: Random
     targetTags: { "myTagKey": "myTagValue" }
 ```
+
+Example with percent usage:
+
 ```yaml
 - task: gremlin
   in:
@@ -109,8 +124,9 @@ The `memory` action of the `gremlin` task can be used to allocate a specific amo
 
 ## Disk
 
-The `disk` action of the `gremlin` task can be used to write files to disk to fill it to a specific percentage. The following parameters are needed in addition to the general
-parameters:
+The `disk` action of the `gremlin` task can be used to write files to disk to
+fill it to a specific percentage. The following parameters are needed in
+addition to the general parameters:
 
 - `dir`: Required - The root directory to run the disk attack
 - `workers`: The number of disk-write workers to execute. Default is 1
@@ -135,7 +151,9 @@ parameters:
 
 ## IO
 
-The `io` action of the `gremlin` task can be used to put read/write pressure on I/O devices such as hard disks. The following parameters are needed in addition to the general parameters:
+The `io` action of the `gremlin` task can be used to put read/write pressure on
+I/O devices such as hard disks. The following parameters are needed in addition
+to the general parameters:
 
 - `dir`: Required - The root directory to run the io attack
 - `mode`: Required - The io mode to execute [r,w,rw]
@@ -157,24 +175,31 @@ The `io` action of the `gremlin` task can be used to put read/write pressure on 
     targetType: Exact
     targetList: ["client1", "client2"]
 ```
+
 ## State
 
-The attacks under `State` category introduce chaos into your infrastructure so that you can observe how well your service handles it or fails.
+The attacks under the `State` category introduce chaos into your infrastructure,
+so that you can observe how well your service handles it or fails.
 
-The `attacks` under this category uses a number of input parameters that are common for all operations:
+The `attacks` configurations under this category use a number of input
+parameters that are common for all operations:
 
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
--  `targetType`: Type of clients that should be targeted by the attack. Allowed values are `Random` and `Exact`. Default is set to `Exact`
+-  `targetType`: Type of clients that should be targeted by the attack. Allowed
+   values are `Random` and `Exact`. Default is set to `Exact`
 - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg. `["client1", "client2"]`
-- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value` pair eg. `{ "myTagKey": "myTagValue" }`. More Info about client tags can be found here [Advanced-Configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
+- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value` pair eg. `{ "myTagKey": "myTagValue" }`.  More information about target tags
+  can be found in the documentation for [advanced gremlin configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
 
 <a name="shutdown"/>
 
 ## Shutdown
 
-The `shutdown` action of the `gremlin` task can be used to reboot or halt the host operating system to test how your system behaves when losing one or more cluster machines. The following parameters are needed in addition to the general
+The `shutdown` action of the `gremlin` task can be used to reboot or halt the
+host operating system to test how your system behaves when losing one or more
+cluster machines. The following parameters are needed in addition to the general
 parameters:
 
 - `delay`: The number of minutes to delay before shutting down. Default is `1` minute
@@ -195,7 +220,10 @@ parameters:
 
 ## Timetravel
 
-The `timeTravel` action of the `gremlin` task can be used to change the host's system time, which can be used to simulate adjusting to daylight saving time and other time-related events. The following parameters are needed in addition to the general parameters:
+The `timeTravel` action of the `gremlin` task can be used to change the host's
+system time. This can be used to simulate adjusting to daylight saving time and
+other time-related events. The following parameters are needed in addition to
+the general parameters:
 
 - `offset`: The offset (+/-) to the current time (seconds). Default `+5` seconds
 - `ntp`: Disable NTP from correcting systemtime. Default value is set to `false`
@@ -215,17 +243,24 @@ The `timeTravel` action of the `gremlin` task can be used to change the host's s
 
 ## Processkiller
 
-The `processKiller` action of the `gremlin` task can be used to kill a specified process, which can be used to simulate application or dependency crashes. The following parameters are needed in addition to the general parameters:
+The `processKiller` action of the `gremlin` task can be used to kill a specified
+process. This can be used to simulate application or dependency crashes. The
+following parameters are needed in addition to the general parameters:
 
 - `interval`: The number of seconds to delay before kills. Default 5 seconds
 - `process`: Required - The process name to match (allows regex) or the process ID
 - `group`: The group name or ID to match against (name matches only)
 - `user`: The user name or ID to match against (name matches only)
-- `newest`: If set the newest matching process will be killed (name matches only, cannot be used with -o). Default set to `false`
-- `oldest`:If set the oldest matching process will be killed (name matches only, cannot be used with -n).  Default set to `false`
-- `exact`: If set the match must be exact and not just a substring match (name matches only). Default to `false`
-- `killChildren`: If set the processes children will also be killed. Default to `false`
-- `fullMatch`: If set the processes name match will occur against the full command line string that the process was launched with. Default to `false`
+- `newest`: If set the newest matching process will be killed (name matches
+  only, cannot be used with -o). Default set to `false`
+- `oldest`:If set the oldest matching process will be killed (name matches only,
+  cannot be used with -n).  Default set to `false`
+- `exact`: If set the match must be exact and not just a substring match (name
+  matches only). Default to `false`
+- `killChildren`: If set the processes children will also be killed. Default to
+  `false`
+- `fullMatch`: If set the processes name match will occur against the full
+  command line string that the process was launched with. Default to `false`
 
 ```yaml
 task: gremlin
@@ -242,29 +277,45 @@ in:
 
 ## Network
 
-The attacks under `Network` category allow you to see the impact of lost or delayed traffic to your application. Test how your service behaves when you are unable to reach one of your dependencies, internal or external. Limit the impact to only the traffic you want to test by specifying ports, hostnames, and IP addresses.
+The attacks under the `Network` category allow you to see the impact of lost or
+delayed traffic to your application. You can test how your service behaves when
+you are unable to reach one of your dependencies, internal or external. You can
+limit the impact to only the traffic you want to test by specifying ports,
+hostnames, and IP addresses.
 
-The `attacks` under this category uses a number of input parameters that are common for all operations:
+The `attacks` configuration under this category uses a number of input
+parameters that are common for all operations:
 
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
--  `targetType`: Type of clients that should be targeted by the attack. Allowed values are `Random` and `Exact`. Default is set to `Exact`
-- `targetList`: Required - when `targetType` is `Exact`. Input is a list eg. `["client1", "client2"]`
-- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value` pair eg. `{ "myTagKey": "myTagValue" }`. More Info about client tags can be found here [Advanced-Configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
+- `targetType`: Type of clients that should be targeted by the attack. Allowed
+   values are `Random` and `Exact`. Default is set to `Exact`
+- `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
+  `["client1", "client2"]`
+- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
+  pair eg. `{ "myTagKey": "myTagValue" }`.  More information about client tags
+  can be found in the documentation for [advanced gremlin
+  configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
 
 <a name="blackhole"/>
 
 ## Blackhole
 
-The `blackhole` action of the `gremlin` task can be used drop all matching network traffic. The following parameters are needed in addition to the general parameters:
+The `blackhole` action of the `gremlin` task can be used drop all matching
+network traffic. The following parameters are needed in addition to the general
+parameters:
 
 - `ipAddresses`: Required - Impact traffic to these IP addresses
 - `device`: Impact traffic over this network interface
-- `hostnames`: Only impact traffic to these hostnames. Whitelist a host with a leading `^`
-- `egressPorts`: Only impact egress traffic to these destination ports. Ranges work too: `8080-8085`
-- `ingressPorts`: Only impact ingress traffic on these incoming ports. Ranges work too: `8080-8085`
-- `protocol`: Only impact traffic using this IP protocol. Allowed values are TCP, UDP, ICMP. Defaults to all protocols
+- `hostnames`: Only impact traffic to these hostnames. Whitelist a host with a
+  leading `^`
+- `egressPorts`: Only impact egress traffic to these destination ports. Ranges
+  work too: `8080-8085`
+- `ingressPorts`: Only impact ingress traffic on these incoming ports. Ranges
+  work too: `8080-8085`
+- `protocol`: Only impact traffic using this IP protocol. Allowed values are
+  TCP, UDP, ICMP. Defaults to all protocols
 
 ```yaml
 - task: gremlin
@@ -286,17 +337,21 @@ The `blackhole` action of the `gremlin` task can be used drop all matching netwo
 
 ## Latency
 
-The `latency` action of the `gremlin` task can be used to inject latency into all matching egress network traffic. The following parameters are needed in addition to the general parameters:
+The `latency` action of the `gremlin` task can be used to inject latency into
+all matching egress network traffic. The following parameters are needed in
+addition to the general parameters:
 
 - `ipAddresses`: Required - Only impact egress traffic to these IP addresses
 - `device`: Impact traffic over this network interface
-- `hostnames`: Only impact traffic to these hostnames. Whitelist a host with a leading `^`
-- `egressPorts`: Only impact egress traffic to these destination ports
-Ranges work too: `8080-8085`
-- `sourcePorts`: Only impact egress traffic from these source ports
-Ranges work too: `8080-8085`
+- `hostnames`: Only impact traffic to these hostnames. Whitelist a host with a
+  leading `^`
+- `egressPorts`: Only impact egress traffic to these destination ports, ranges
+  are supported with `8080-8085`
+- `sourcePorts`: Only impact egress traffic from these source ports, ranges are
+  suppored with `8080-8085`
 - `delay`: How long to delay egress packets `millis`
-- `protocol`: Only impact traffic using this IP protocol. Allowed values are TCP, UDP, ICMP Defaults to all protocols
+- `protocol`: Only impact traffic using this IP protocol. Allowed values are
+  TCP, UDP, ICMP Defaults to all protocols
 
 ```yaml
 - task: gremlin
@@ -319,18 +374,23 @@ Ranges work too: `8080-8085`
 
 ## Packetloss
 
-The `packetLoss` action of the `gremlin` task can be used to induce packet loss into all matching egress network traffic. The following parameters are needed in addition to the general parameters:
+The `packetLoss` action of the `gremlin` task can be used to induce packet loss
+into all matching egress network traffic. The following parameters are needed in
+addition to the general parameters:
 
 - `ipAddresses`: Required - Only impact traffic to these IP addresses
 - `device`: Impact traffic over this network interface
-- `hostnames`: Only impact traffic to these hostnames. Whitelist a host with a leading `^`
-- `egressPorts`: Only impact egress traffic to these destination ports. 
-Ranges work too: `8080-8085`
-- `sourcePorts`: Only impact egress traffic from these source ports
-Ranges work too: `8080-8085`
+- `hostnames`: Only impact traffic to these hostnames. Whitelist a host with a
+  leading `^`
+- `egressPorts`: Only impact egress traffic to these destination ports, ranges
+  work too: `8080-8085`
+- `sourcePorts`: Only impact egress traffic from these source ports, ranges work
+  too: `8080-8085`
 - `percent`: Percentage of packets to drop (10 is 10%). Default is set to `1`
-- `corrupt`: Corrupt packets instead of simply dropping them. Default is set to `false`
-- `protocol`: Only impact traffic using this IP protocol. Allowed values are TCP, UDP, ICMP Defaults to all protocols
+- `corrupt`: Corrupt packets instead of simply dropping them. Default is set to
+  `false`.
+- `protocol`: Only impact traffic using this IP protocol. Allowed values are
+  TCP, UDP, ICMP Defaults to all protocols
 
 ```yaml
 - task: gremlin
@@ -354,11 +414,14 @@ Ranges work too: `8080-8085`
 
 ## DNS
 
-The `dns` action of the `gremlin` task can be used to block access to DNS servers. The following parameters are needed in addition to the general parameters:
+The `dns` action of the `gremlin` task can be used to block access to DNS
+servers. The following parameters are needed in addition to the general
+parameters:
 
 - `ipAddresses`: Required - Impact traffic to these IP addresses
 - `device`: Impact traffic over this network interface
-- `protocol`: Only impact traffic using this IP protocol. Allowed values are TCP, UDP. Defaults to all protocols
+- `protocol`: Only impact traffic using this IP protocol. Allowed values are
+  TCP, UDP. Defaults to all protocols
 
 ```yaml
 - task: gremlin
