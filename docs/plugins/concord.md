@@ -300,14 +300,14 @@ flows:
   - log: "Done: ${jobs}"
 ```
 
-This can be very useful to reduce the amount of Concord Agents needed: with
-`suspend: true` while the parent process waits for a child process, it doesn't
-consume any resources, including Agent workers. 
+This can be very useful to reduce the amount of Concord agents needed. With
+`suspend: true`, the parent process does not consume any resources including
+agent workers, whil waiting for the child process.
 
 Currently, `suspend` can only be used with the `start` action.
 
 **Note:** Due to the current limitations, files created after the start of
-the parent process won't be preserved. Effectively, the suspend works in the same
+the parent process are not preserved. Effectively, the suspend works in the same
 way as the [forms](../getting-started/forms.html).
 
 <a name="wait-for-completion"/>
