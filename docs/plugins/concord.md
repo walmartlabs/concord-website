@@ -214,7 +214,7 @@ flows:
 
 The IDs of the started processes are stored as `${jobs}` array.
 
-**Note** Due to the current limitations and files created after
+**Note** Due to the current limitations, files created after
 the start of a process cannot be copied to child processes.
 
 <a name="fork-multi"/>
