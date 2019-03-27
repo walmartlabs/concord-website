@@ -300,7 +300,7 @@ flows:
   - log: "Done: ${jobs}"
 ```
 
-This is very useful to reduce the amount of Concord Agents needed: with
+This can be very useful to reduce the amount of Concord Agents needed: with
 `suspend: true` while the parent process waits for a child process, it doesn't
 consume any resources, including Agent workers. 
 
