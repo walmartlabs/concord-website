@@ -46,7 +46,7 @@ All parameters sorted in alphabetical order.
 - `connectTimeout`: connection timeout (seconds), default value is `30`; 
 - `jobName`: name of the job on the Jenkins server, if your job is located in a folder
   use `myfolder/job/myjob` as the jobName value;
-- `jobTimeout`: timeout waiting for the job (in ms). Applies only if `sync: true`;
+- `jobTimeout`: timeout waiting for the job (seconds). Applies only if `sync: true`;
 - `parameters`: Parameters to pass, the job has to be configured as
   parameterized job, details in
   [Calling Parameterized Job](#calling-parameterized-job);
