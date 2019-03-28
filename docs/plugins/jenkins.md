@@ -47,16 +47,17 @@ All parameters sorted in alphabetical order.
 - `jobName`: name of the job on the Jenkins server, if your job is located in a folder
   use `myfolder/job/myjob` as the jobName value;
 - `jobTimeout`: timeout waiting for the job (seconds). Applies only if `sync: true`;
+
 - `parameters`: Parameters to pass, the job has to be configured as
   parameterized job, details in
-  [Calling Parameterized Job](#calling-parameterized-job);
+  [Calling a Parameterized Job](#calling-a-parameterized-job);
 - `readTimeout`: network read timeout (seconds), default value is `30`;
 - `sync`: if `true` the task waits for the Jenkins job to complete;
 - `username`: username to use for the job invocation, it can be omitted if
   Concord provides a default username to use;
 - `writeTimeout`: network write timeout (seconds), default value is `30`.
 
-### Calling Parameterized Job
+### Calling a Parameterized Job
 
 Concord can trigger parameterized jobs on Jenkins. Following is the list of
 supported parameters types.
@@ -68,11 +69,11 @@ supported parameters types.
 - Password parameter.
 
 **Note:** Set the password parameter value as `<DEFAULT>` in order to use the
-default password set in Jenkins job configuration
+default password set in the Jenkins job configuration
 
 From Jenkins's perspective, `String`, `Boolean`, `Choice` and `Password`
 parameters are all simple string `name:value` pairs. Jenkins checks the name of a
-parameter and maps the given value over specified type in Jenkins. Therefore, any
+parameter and maps the given value to the specified type in Jenkins. Therefore, any
 invalid value may result in an exception and a failure to invoke a job.
 
 
