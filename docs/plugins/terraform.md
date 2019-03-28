@@ -11,11 +11,12 @@ Concord supports interaction with the infrastructure provisioning tool
 flow.
 
 - [Usage](#usage)
-- [Parameters](#parameters)
+- [Common Parameters](#common-parameters)
 - [Planning the Changes](#planning)
 - [Applying the Changes](#applying)
 - [Input Variables](#variables)
 - [Environment Variables](#env)
+- [Output Variables](#output)
 - [State Backends](#backends)
 - [GIT modules](#git-modules)
 - [Examples](#examples)
@@ -35,28 +36,27 @@ This adds the task to the classpath and allows you to invoke it in any flow.
 
 The task requires the process to run as a part of a Concord project.
 
-## Parameters
+<a href="common-parameters"/>
+
+## Common Parameters
 
 - `action` - (mandatory) action to perform:
   - `plan` - [plan](#planning) the changes;
   - `apply` - [apply](#applying) the changes with or without using a previously
   created plan file;
+  - `output` - save the [output variables](#output);
 - `backend` - type of a [state backend](#backends) to use:
   - `concord` - (default) use the backend provided by Concord;
   - `none` - use the default file-based backend or the backend configuration
   provided by the user;
 - `debug` - boolean value, if `true` the plugin logs additional debug information;
-- `dirOrPlan` - string value, path to a directory with `*.tf` files or to
-a previously created plan file. The path must be relative to the process'
-`${workDir}`;
 - `extraEnv` - key-value pairs, extra environment variables provided to
 the `terraform` process;
 - `extraVars` - [variables](#variables) provided to the `terraform` process;
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
 execution will be ignored and stored in the `result` variable;
 - `stateId` - string value, the name of a state file to use. If not set, the
-`${projectName}_${repoName}` template is used automatically;
-- `gitSsh` - see [GIT modules](#git-modules).
+`${projectName}_${repoName}` template is used automatically.
 
 <a name="planning"/>
 
@@ -80,6 +80,12 @@ or in a directory specified in `dirOrPlan` parameter:
 
 The plugin automatically creates the necessary [backend](#backends)
 configuration and runs `terraform init` when necessary.
+
+Parameters:
+- `dirOrPlan` - string value, path to a directory with `*.tf` files or to
+a previously created plan file. The path must be relative to the process'
+`${workDir}`;
+ - `gitSsh` - see [GIT modules](#git-modules).
 
 The output is stored in a `result` variable that has the following structure:
 - `ok` - boolean value, `true` if the execution is successful;
@@ -126,11 +132,21 @@ previously created plan file:
 
 As with the `plan` action, the plugin automatically runs `terraform init` when necessary.
 
+Parameters:
+- `dirOrPlan` - string value, path to a directory with `*.tf` files or to
+a previously created plan file. The path must be relative to the process'
+`${workDir}`;
+- `gitSsh` - see [GIT modules](#git-modules).
+- `saveOutput` - boolean value, if `true` the `terraform output` command will
+be automatically executed after the `apply` is completed and the result will
+be saved in the `result` variable.
+
 The action's output is stored in a `result` variable that has the following
 structure:
 - `ok` - boolean value, `true` if the execution is successful;
 - `output` - string value, output of `terraform apply` (stdout);
-- `error` - string value, error of the last `terraform` execution (stderr).
+- `error` - string value, error of the last `terraform` execution (stderr);
+- `data` - map (dict) value, contains the output values. Only if `saveOutput` is `true`.
 
 <a name="variables"/>
 
@@ -168,6 +184,34 @@ can be specified using `extraEnv` parameter:
     extraEnv:
       HTTPS_PROXY: http://proxy.example.com
       TF_LOG: TRACE
+```
+
+<a name="output"/>
+
+## Output Variables
+
+There are two ways how [output](https://www.terraform.io/docs/configuration/outputs.html)
+values can be saved - using the `output` action or by adding `saveOutput` to
+the `apply` action parameters:
+
+```yaml
+- task: terraform
+  in:
+    action: output
+    dir: "myTFStuff" # optional path to *.tf files
+
+# all output values will be saved as a ${result.data} variable
+- log: "${result.data}" 
+```
+
+```yaml
+- task: terraform
+  in:
+    action: apply
+    saveOutput: true
+    # the rest of the parameters are the same as with the regular `apply`
+
+- log: "${result.data}"
 ```
 
 <a name="backends"/>
@@ -231,4 +275,6 @@ When running separate `plan` and `apply` actions, only the `plan` part requires 
 - [minimal AWS example](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/minimal)
 - [minimal Azure example](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/azure-minimal)
 - [approval](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/approval) - runs `plan`
-and `apply` actions separately, uses an approval form to gate the changes.
+and `apply` actions separately, uses an approval form to gate the changes;
+- [output values](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/output) - how
+to save `output` values and use them in the process.
