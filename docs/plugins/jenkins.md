@@ -51,7 +51,7 @@ All parameters sorted in alphabetical order.
   parameterized job, details in
   [Calling Parameterized Job](#calling-parameterized-job);
 - `readTimeout`: network read timeout (seconds), default value is `30`;
-- `sync`: if `true` the task waits for the Jenkins job to complete;
+- `sync`: if `true` the task waits for the Jenkins job to complete (default `true`);
 - `username`: username to use for the job invocation, it can be omitted if
   Concord provides a default username to use;
 - `writeTimeout`: network write timeout (seconds), default value is `30`.
@@ -125,5 +125,5 @@ flows:
   - log: "Build #${jenkinsJob.build} - ${jenkinsJob.status}"
 ```
 
-Note that for the jobs submitted without `sync: true` the build number may not
+Note that for the jobs submitted with `sync: false` the build number may not
 be available.
