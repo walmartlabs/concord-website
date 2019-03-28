@@ -42,14 +42,19 @@ All parameters sorted in alphabetical order.
   default API token to call Jenkins jobs in its global configuration;
 - `baseUrl`: Jenkins server URL, if not provided a configured default Jenkins URL
   is used;
+- `debug`: if `true` enables additional debug output;
+- `connectTimeout`: connection timeout (seconds), default value is `30`; 
 - `jobName`: name of the job on the Jenkins server, if your job is located in a folder
   use `myfolder/job/myjob` as the jobName value;
+- `jobTimeout`: timeout waiting for the job (in ms). Applies only if `sync: true`;
 - `parameters`: Parameters to pass, the job has to be configured as
   parameterized job, details in
   [Calling Parameterized Job](#calling-parameterized-job);
+- `readTimeout`: network read timeout (seconds), default value is `30`;
+- `sync`: if `true` the task waits for the Jenkins job to complete;
 - `username`: username to use for the job invocation, it can be omitted if
   Concord provides a default username to use;
-- `sync`: if `true` the task waits for the Jenkins job to complete.
+- `writeTimeout`: network write timeout (seconds), default value is `30`.
 
 ### Calling Parameterized Job
 
