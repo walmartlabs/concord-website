@@ -100,6 +100,8 @@ nav:
         context: /docs/plugins/helm
       - page: HTTP
         context: /docs/plugins/http
+      - page: Jenkins
+        context: /docs/plugins/jenkins
       - page: Jira
         context: /docs/plugins/jira
       - page: Key Value
