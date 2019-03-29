@@ -41,6 +41,7 @@ configuration:
       asm: myAssembly
       env: myEnvironment
       includePlatforms: ['platform-1', 'platform-2']
+      cancelActiveDeployment: true
 ```
 
 - `baseUrl` - URL of the OneOps server
@@ -328,13 +329,25 @@ The OneOps task can be used to update component's attributes.
 - ${oneops.updateComponent(oneOpsConfig, asm, env, platform, component, attributes)}
 ```
 
+<a name="cancelActiveDeployment"/>
+
+#### Cancel active deployment
+
+The OneOps task can be used to cancel active deployment.
+
+```yaml
+- ${oneops.cancelActiveDeployment(oneOpsConfig)}
+- ${oneops.cancelActiveDeployment(oneOpsConfig, asm, env)}
+```
+
 
 <a name="commit-deploy"/>
 
 ## Commit and Deploy 
 
 The OneOps task can be used to commit as well as deploy a specific environment
-of an assembly. You can also commit selected platforms by providing the `includePlatforms` list.
+of an assembly. You can also commit selected platforms by providing the `includePlatforms` list and cancel the ongoing deployment 
+by providing the `cancelActiveDeployment` boolean flag.
 
 ```yaml
 - ${oneops.commit(oneOpsConfig)}
@@ -345,6 +358,8 @@ of an assembly. You can also commit selected platforms by providing the `include
 - ${oneops.commitAndDeploy(oneOpsConfig)}
 - ${oneops.commitAndDeploy(oneOpsConfig, asm, env)}
 - ${oneops.commitAndDeploy(oneOpsConfig, asm, env, ['platform1', 'platform2'])}
+- ${oneops.commitAndDeploy(oneOpsConfig, asm, env, cancelActiveDeployment)}
+- ${oneops.commitAndDeploy(oneOpsConfig, asm, env, ['platform1', 'platform2'], cancelActiveDeployment)}
 ```
 
 You can also verify if a deployment is currently in progress or failed:
