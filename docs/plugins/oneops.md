@@ -331,9 +331,9 @@ The OneOps task can be used to update component's attributes.
 
 <a name="cancelActiveDeployment"/>
 
-#### Cancel active deployment
+#### Cancelling Active Deployments
 
-The OneOps task can be used to cancel active deployment.
+The OneOps task can be used to cancel an active deployment.
 
 ```yaml
 - ${oneops.cancelActiveDeployment(oneOpsConfig)}
@@ -346,8 +346,9 @@ The OneOps task can be used to cancel active deployment.
 ## Commit and Deploy 
 
 The OneOps task can be used to commit as well as deploy a specific environment
-of an assembly. You can also commit selected platforms by providing the `includePlatforms` list and cancel the ongoing deployment 
-by providing the `cancelActiveDeployment` boolean flag.
+of an assembly. You can also commit selected platforms by providing the `includePlatforms` 
+list and cancel the ongoing deployment by providing the `cancelActiveDeployment` 
+boolean flag.
 
 ```yaml
 - ${oneops.commit(oneOpsConfig)}
