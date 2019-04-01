@@ -126,7 +126,7 @@ Links an existing policy to an organization, project or a specific user.
     ```
     
     All parameters are optional. If all parameters are omitted (or `null`) then
-    the policy will become system-wide.
+    the policy becomes a system-wide policy.
 * **Success response**
 
     ```
