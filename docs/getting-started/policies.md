@@ -21,7 +21,7 @@ specific project or to a user.
 Policies can be created using the [Policy API](../api/policy.html). Currently,
 only the users with the administrator role can create or link policies.
 
-Policies can inherent other policies - in this case the parent policies will be
+Policies can inherent other policies - in this case the parent policies are
 applied first, going from the \"oldest\" ancestors to the latest link.
 
 ## Document Format
@@ -60,17 +60,18 @@ Here's the list of currently supported rules:
 [Ansible](../plugins/ansible.html) plays;
 - [dependency](#dependency-rule) - applies rules to process dependencies;
 - [entity](#entity-rule) - controls creation or update of entities
-(organizations, projects and secrets);
+  such as organizations, projects and secrets;
 - [file](#file-rule) - applies to process files;
 - [processCfg](#process-configuration-rule) - allows changing the process'
-`configuration` values;
+  `configuration` values;
 - [queue](#queue-rule) - controls the process queue behaviour;
 - [task](#task-rule) - applies rules to flow tasks;
 - [workspace](#workspace-rule) - controls the size of the workspace.
 
 ## Ansible Rule
 
-Ansible rules allow to control the execution of [Ansible](../plugins/ansible.html) plays.
+Ansible rules allow you to control the execution of
+[Ansible](../plugins/ansible.html) plays.
 
 The syntax:
 
@@ -87,10 +88,9 @@ The syntax:
 }
 ```
 
-The `action` attribute defines the name of the Ansible step and `params` object
-is matched with the step's input parameters. The error message can be specified
-using the `msg` attribute.
-
+The `action` attribute defines the name of the Ansible step and the `params`
+object is matched with the step's input parameters. The error message can be
+specified using the `msg` attribute.
 
 For example, to forbid a certain URI from being used in the Ansible's
 [get_url](https://docs.ansible.com/ansible/2.6/modules/get_url_module.html)
@@ -115,8 +115,9 @@ step:
 }
 ```
 
-If someone tries to use the forbidden URL in their `get_url`, they will see a
-message like so:
+If someone tries to use the forbidden URL in their `get_url`, they see a
+message in the process log:
+
 ```
 ANSIBLE:  [ERROR]: Task 'get_url (get_url)' is forbidden by the task policy: Found a
 ANSIBLE: forbidden URL
@@ -145,13 +146,15 @@ allows users to create context-aware Ansible policies:
 }
 ```
 
-**Note:** the `artifact_url` from the example above is not a standard [maven_artifact](https://docs.ansible.com/ansible/2.6/modules/maven_artifact_module.html)
+**Note:** the `artifact_url` from the example above is not a standard
+[maven_artifact](https://docs.ansible.com/ansible/2.6/modules/maven_artifact_module.html)
 step's parameter. It is created dynamically from the supplied values of
 `repository_url`, `group_id`, `artifact_id`, etc.
 
 ## Dependency Rule
 
-Dependency rules provide a way to control which process dependencies are allowed to use.
+Dependency rules provide a way to control which process dependencies are allowed
+for use.
 
 The syntax:
 
@@ -173,7 +176,8 @@ The attributes:
 - `fromVersion` and `toVersion` - define the version range (only for `mvn`
 dependencies).
 
-For example, restricting a specific version range of a plugin can be done like so:
+For example, restricting a specific version range of a plugin can be done like
+so:
 
 ```json
 {
@@ -191,9 +195,9 @@ For example, restricting a specific version range of a plugin can be done like s
 ```
 
 In this example, all versions of the `ansible-tasks` dependency lower than
-`1.13.1` will be rejected.
+`1.13.1` are rejected.
 
-Another example: warn users every time they are trying to use non-`mvn`
+Another example, warn users every time they are trying to use non-`mvn`
 dependencies:
 
 ```json
@@ -211,8 +215,9 @@ dependencies:
 
 ## Entity Rule
 
-Entity rules control the creation or update of Concord [Organizations](../api/org.html),
-[Projects](../api/project.html) and [Secrets](../api/secret.html).
+Entity rules control the creation or update of Concord
+[organizations](../api/org.html), [projects](../api/project.html) and
+[secrets](../api/secret.html).
 
 The syntax:
 
@@ -228,11 +233,13 @@ The syntax:
 ```
 
 The currently supported `entity` types are:
+
 - `org`
 - `project`
 - `secret`
 
 Available actions:
+
 - `create`
 - `update`
 
@@ -259,27 +266,28 @@ and the entity's owner attributes:
 ``` 
 
 Different types of entities provide different sets of attributes:
-- `org`:
-    - `id` - organization ID (UUID, optional);
-    - `name` - organization name;
-    - `meta` - metadata (JSON object, optional);
-    - `cfg` - configuration (JSON object, optional).
-- `project`:
-    - `id` - project ID (UUID, optional);
-    - `name` - project name;
-    - `orgId` - the project's organization ID (UUID);
-    - `orgName` - the project's organization name;
-    - `visibility` - the project's visibility (`PUBLIC` or `PRIVATE`);
-    - `meta` - metadata (JSON object, optional);
-    - `cfg` - configuration (JSON object, optional).
-- `secret`:
-    - `name` - project name;
-    - `orgId` - the secrets's organization ID (UUID);
-    - `type` - the secret's type;
-    - `visibility` - the secret's visibility (`PUBLIC` or `PRIVATE`, optional);
-    - `storeType` - the secret's store type (optional).
 
-For example, to restrict creation of projects in the Default organization use:
+- `org`:
+  - `id` - organization ID (UUID, optional);
+  - `name` - organization name;
+  - `meta` - metadata (JSON object, optional);
+  - `cfg` - configuration (JSON object, optional).
+- `project`:
+  - `id` - project ID (UUID, optional);
+  - `name` - project name;
+  - `orgId` - the project's organization ID (UUID);
+  - `orgName` - the project's organization name;
+  - `visibility` - the project's visibility (`PUBLIC` or `PRIVATE`);
+  - `meta` - metadata (JSON object, optional);
+  - `cfg` - configuration (JSON object, optional).
+- `secret`:
+  - `name` - project name;
+  - `orgId` - the secrets's organization ID (UUID);
+  - `type` - the secret's type;
+  - `visibility` - the secret's visibility (`PUBLIC` or `PRIVATE`, optional);
+  - `storeType` - the secret's store type (optional).
+
+For example, to restrict creation of projects in the `Default` organization use:
 
 ```json
 {
@@ -337,6 +345,7 @@ The syntax:
 ```
 
 The attributes:
+
 - `maxSize` - maximum size of a file (`G` for gigabytes, `M` - megabytes, etc);
 - `type` - `file` or `dir`;
 - `names` - filename patterns (regular expressions).
@@ -425,13 +434,14 @@ The syntax:
 ```
 
 The attributes:
+
 - `concurrent` - controls the number of concurrently running processes:
-    - `maxPerOrg` - max number of running processes per organization;
-    - `maxPerProject` - max number of running processes per project;
+  - `maxPerOrg` - max number of running processes per organization;
+  - `maxPerProject` - max number of running processes per project;
 - `process`, `processPerOrg`, `processPerProject` - controls the maximum number
 of processes for a specific status (see below);
 - `forkDepth` - the maximum allowed depth of process forks, i.e. how many
-"ancestors" a process can have. Can be used to prevent "fork bombs";
+_ancestors_ a process can have. Can be used to prevent "fork bombs";
 - `processTimeout` - limits the maximum allowed value of the
 [processTimeout parameter](./concord-dsl.html#timeout).
 
@@ -493,19 +503,21 @@ The syntax:
 ```
 
 The attributes:
+
 - `taskName` - name of the task (as in the task's `@Named` annotation);
 - `method` - the task's method name;
 - `params` - list of the task's parameters to match.
 
 The `params` attribute accepts a list of parameter definitions:
+
 - `name` - name of the parameter in the process' `Context`;
 - `index` - index of the parameter in the method's signature;
 - `values` - a list of values to trigger on;
 - `protected` - if `true` the parameter will be treated as a protected
 variable.
 
-For example, if there's a need to disable a specific task based on some
-variable in the process' context, it can be achieved with a policy like so:
+For example, if there is a need to disable a specific task based on some
+variable in the process' context, it can be achieved with a policy:
 
 ```json
 {
@@ -533,7 +545,7 @@ variable in the process' context, it can be achieved with a policy like so:
 ```
 
 In this example, because the Ansible's plugin method `execute` accepts
-a `Context`, the policy executor will look for a `gatekeeperResult` in
+a `Context`, the policy executor looks for a `gatekeeperResult` in
 the process' context.
 
 ## Workspace Rule
@@ -552,12 +564,14 @@ The syntax:
 ```
 
 The attributes:
+
 - `maxSizeInBytes` - maximum allowed size of the workspace minus the
 `ignoredFiles` (in bytes);
 - `ignoredFiles` - list of filename patterns (regular expressions). The
 matching files will be excluded from the total size calculation.
 
 Example:
+
 ```json
 {
   "workspace": {
