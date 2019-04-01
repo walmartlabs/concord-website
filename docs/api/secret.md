@@ -218,10 +218,6 @@ Retrieves metadata of an existing secret.
     }
     ```
 
-After successful authentication with the prompted password, the server 
-creates and stores the value as a secret. It can subsequently be used within
-your Concord flows.
-
 <a name="get-key"/>
 ## Get Public SSH Key of Secret
 
