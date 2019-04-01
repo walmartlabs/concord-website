@@ -22,7 +22,7 @@ Policies can be created using the [Policy API](../api/policy.html). Currently,
 only the users with the administrator role can create or link policies.
 
 Policies can inherent other policies - in this case the parent policies will be
-applied first, going from the "oldest" ancestors to the latest link.
+applied first, going from the \"oldest\" ancestors to the latest link.
 
 ## Document Format
 
