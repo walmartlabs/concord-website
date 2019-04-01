@@ -151,7 +151,7 @@ step's parameter. It is created dynamically from the supplied values of
 
 ## Dependency Rule
 
-Dependency rules provide a way to control which process dependencies are allowed to use.
+Dependency rules provide a way to control which process dependencies are allowed to be used.
 
 The syntax:
 
