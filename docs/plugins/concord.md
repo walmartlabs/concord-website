@@ -16,6 +16,7 @@ necessary.
 - [Parameters](#parameters)
 - [Starting a Process using a Payload Archive](#start-payload)
 - [Starting a Process using an Existing Project](#start-project)
+- [Starting an External Process](#start-external)
 - [Scheduling a Process](#start-schedule)
 - [Specifying Profiles](#start-profiles)
 - [Output Variables](#start-outvars)
@@ -27,7 +28,6 @@ necessary.
 - [Handling Cancellation and Failures](#handle-onfailure)
 - [Cancelling Processes](#cancel)
 - [Tagging Subprocesses](#tags)
-- [Connection Parameters](#connection-params)
 
 ## Examples
 
@@ -42,7 +42,7 @@ necessary.
 All parameter sorted alphabetically. Usage documentation can be found in the
 following sections:
 
-- `action` - string, name of the action (`start`, `fork`, `kill`);
+- `action` - string, name of the action (`start`, `startExternal`, `fork`, `kill`);
 - `activeProfiles` - list of string values, profiles to activate; 
 - `arguments` - input arguments of the starting processes;
 - `disableOnCancel` - boolean, disable `onCancel` flow in forked processes;
@@ -88,7 +88,7 @@ The ID of the started process is stored as the first element of `${jobs}` array:
 - log: "I've started a new process: ${jobs[0]}"
 ```
 
-<a name="start-project"/>
+
 
 ## Starting a Process using an Existing Project
 
@@ -122,6 +122,29 @@ flows:
 
 The process is started using the resources provided by the specified archive, 
 project and repository.
+
+<a name="start-external"/>
+
+## Starting an External Process
+
+To start a process on an external Concord instance use the `startExternal` action:
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      baseUrl: http://another.concord.example.com:8001
+      apiKey: "myApiKey"
+      action: startExternal
+      project: myProject
+      repo: myRepo
+```
+
+Connection parameters can be overridden using the following keys:
+- `baseUrl` - Concord REST API endpoint. Defaults to the current
+  server's API endpoint address;
+- `apiKey` - user's REST API key.
 
 <a name="start-schedule"/>
 
@@ -418,27 +441,4 @@ flows:
     in:
       action: kill
       instanceId: "${concord.listSubprocesses(parentInstanceId, 'someTag')}"
-```
-
-<a name="connection-params"/>
-
-## Connection Parameters
-
-By default, the task uses the same Concord instance and user that
-started the flow.
-
-Connection parameters can be overridden using the following keys:
-- `baseUrl` - Concord REST API endpoint. Defaults to the current
-  server's API endpoint address;
-- `apiKey` - user's REST API key.
-
-For example:
-
-```yaml
-flows:
-  default:
-  - task: concord
-    in:
-      baseUrl: "http://concord.example.com:8001"
-      apiKey: "lzfJQL4u2gsH7toQveFYSQ"
 ```
