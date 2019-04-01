@@ -25,6 +25,8 @@ nav:
         context: /docs/getting-started/tasks
       - page: Organizations and Teams
         context: /docs/getting-started/orgs
+      - page: Policies
+        context: /docs/getting-started/policies
       - page: Triggers
         context: /docs/getting-started/triggers
       - page: Development
