@@ -279,6 +279,48 @@ Different types of entities provide different sets of attributes:
     - `visibility` - the secret's visibility (`PUBLIC` or `PRIVATE`, optional);
     - `storeType` - the secret's store type (optional).
 
+For example, to restrict creation of projects in the Default organization use:
+
+```json
+{
+   "entity": {
+      "deny": [
+         {
+            "msg": "project in default org are disabled",
+            "action": "create",
+            "entity": "project",
+            "conditions":{
+               "entity": {
+                  "orgId": "0fac1b18-d179-11e7-b3e7-d7df4543ed4f"
+               }
+            }
+         }
+      ]
+   }
+}
+``` 
+
+To prevent users with a specific AD/LDAP group from creating any new entities:
+
+```json
+{
+   "entity": {
+      "deny":[  
+         {
+            "action": ".*",
+            "entity": ".*",
+            "conditions": {
+               "owner": {
+               	  "userType": "LDAP",
+               	  "groups": ["CN=SomeGroup,.*"]
+               } 
+            }
+         }
+      ]
+   }
+}
+```
+
 ## File Rule
 
 The file rules control the types and sizes of files that are allowed in
