@@ -18,7 +18,7 @@ for the process queue, etc.
 Policies can be applied system-wide as well as linked to an organization, a
 specific project or to a user.
 
-Policies can be created using [the Policy API](../api/policy.html). Currently,
+Policies can be created using the [Policy API](../api/policy.html). Currently,
 only the users with the administrator role can create or link policies.
 
 Policies can inherent other policies - in this case the parent policies will be
