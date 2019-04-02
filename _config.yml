@@ -4,7 +4,7 @@
 # Any variable here is referenced in layouts/pages as {{site.XXX}} so something like {{site.googleId}}
 # ----------------------------------------------------------------------------------------------------------------------
 
-id: walmart
+id: concord
 name: Concord
 domain: concord.walmartlabs.com
 url: https://concord.walmartlabs.com
