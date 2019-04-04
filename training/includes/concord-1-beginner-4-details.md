@@ -51,11 +51,11 @@ What flow to start with.
 - Added to execution classpath
 - Used for scripting and tasks
 
-```
+```yaml
 configuration:
   dependencies:
   - "mvn://org.codehaus.groovy:groovy-all:2.4.14"
-  - "mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.89.0"
+  - "mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:1.6.0"
 ```
 
 Note:
@@ -67,7 +67,7 @@ Note:
 
 Sets global default values for variables
 
-```
+```yaml
 configuration:
   arguments:
     name: "Example"
@@ -83,7 +83,7 @@ configuration:
 
 Variable usage:
 
-```
+```yaml
 flows:
   default:
   - log: "Project name: ${name}"
@@ -134,7 +134,7 @@ configuration:
 
 Sequence of steps define a workflow.
 
-```
+```yaml
 flows:
   default:
   - log: "foo"
@@ -156,7 +156,7 @@ Note:
 - Step type and parameters
 - Expression
 
-```
+```yaml
 flows:
   default:
   - log: "My first log message"
@@ -211,7 +211,7 @@ flows:
 
 Just use the flow name or `call`:
 
-```
+```yaml
 flows:
   default:
   - log: "Calling test next"
@@ -228,7 +228,7 @@ flows:
 
 Use call with items:
 
-```
+```yaml
   default:
   - call: deployToClouds
     withItems:
@@ -251,7 +251,7 @@ Use call with items:
 - Values in profile
 - `set` step
 
-```
+```yaml
 - set:
     foo: 1
 - log: "foo is ${foo}"
@@ -261,7 +261,7 @@ Use call with items:
 
 ## If Then Else
 
-```
+```yaml
 flows:
   default:
   - if: ${myVar > 0}
@@ -275,7 +275,7 @@ flows:
 
 ## Switch Case
 
-```
+```yaml
 flows:
   default:
   - switch: ${myVar}
@@ -321,7 +321,7 @@ flows:
 
 ## Forms Definition
 
-```
+```yaml
 forms:
   survey:
   - book: { label: "What book are you currently reading?", type: "string" }
@@ -333,7 +333,7 @@ forms:
 
 Called in flows and creates variables:
 
-```
+```yaml
 flows:
   default:
   - form: survey
@@ -385,7 +385,7 @@ more about tasks in a sec
 
 ## Scripting Example
 
-```
+```yaml
 flows:
   default:
   - script: js
@@ -405,7 +405,7 @@ Note:
 
 Dependency:
 
-```
+```yaml
 configuration:
   dependencies:
   - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
@@ -413,7 +413,7 @@ configuration:
   
 Inline script:
 
-```
+```yaml
 - script: groovy
    body: |
      def dateFormat = new java.text.SimpleDateFormat('yyyy-MM-dd')
@@ -428,16 +428,16 @@ Inline script:
 
 Kick off flow based on events.
 
-- OneOps
-- GitHub
 - Scheduled
+- GitHub
 - Generic
+- OneOps
 
 <!--- vertical -->
 
 ## Trigger Example
 
-```
+```yaml
 flows:
   onDeployment:
   - log: "OneOps has completed a deployment: ${event}"
@@ -457,7 +457,7 @@ triggers:
 
 ## Profile Example
 
-```
+```yaml
 flows:
   default:
   - log: "${foo}"
@@ -465,7 +465,7 @@ flows:
 configuration
   arguments:
     foo: "bar"
-    
+
 profiles:
   myProfile:
     configuration:

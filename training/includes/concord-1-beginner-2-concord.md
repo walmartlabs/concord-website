@@ -39,10 +39,8 @@ Specific software designed for workflow orchestration
 - REST API
 - Web-based user interface
 - Numerous plugins
-- Developed by SDE team at Walmart Labs
-
-Note:
-- open source in future
+- Developed by Strati team at Walmart Labs
+- Open source
 
 <!--- vertical -->
 
@@ -50,8 +48,9 @@ Note:
 
 - Support complex software development procedures
 - Orchestrate CI/CD builds and deployments
-- Provision infrastructure in a public or private cloud
+- Provision infrastructure in a public or private cloud with Terraform
 - Execute Ansible playbooks and deploy applications
+- RUn chaos tests with gremlin
 - Orchestrate steps in business processes
 
 <!--- vertical -->
@@ -69,6 +68,7 @@ Note:
 - Main engine and storage
   - user access
   - secrets
+  - organizations
   - projects
   - repositories
   - key/value pairs
@@ -83,9 +83,10 @@ Receives and processes user requests to call workflow scenarios.
 
 Web-based user interface for Concord Server:
 
+- Organizations
 - Projects and repositories
 - Secrets
-- Processes
+- Processes including logs, forms, ...
 
 <!--- vertical -->
 
