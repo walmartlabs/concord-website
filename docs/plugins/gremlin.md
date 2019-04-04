@@ -28,6 +28,7 @@ system:
   - [Latency](#latency)
   - [Packetloss](#packetLoss)
   - [DNS](#dns)
+- [Halt](#halt)
 
 ## Usage
 
@@ -438,3 +439,24 @@ parameters:
     targetType: Random
     targetTags: { "myTagKey": "myTagValue" }
 ```
+
+## Halt
+
+The `halt` action of the `gremlin` task can be used to idempotently halt the
+specified active attack.
+
+- `action`: Required `halt` - The name of the operation to perform.
+- `apiKey`: Required - Gremlin API Key
+- `attackGuid`: Required - GUID of the attack.
+
+```yaml
+- task: gremlin
+  in:
+    action: halt
+    apiKey: myApiKey
+    attackGuid: attackGuid
+```
+
+The performed `halt` action is identical to a manual usage of the
+[Gremlin app](https://app.gremlin.com) with the `halt` button against the
+specified active attack.

@@ -124,3 +124,33 @@ flows:
 
 Note that for the jobs submitted without `sync: true` the build number may not
 be available.
+
+The `looperJob` variable also contains the Looper job's `env` values. For
+example:
+
+```yaml
+# .looper.yml
+envs:
+  global:
+    variables:
+      msg: "world"
+
+flows:
+  default:
+    - var(msg = 'Hello from Looper')
+    - shell: echo $msg
+```
+```yaml
+# concord.yml
+flows:
+  default:
+    - task: looper
+      in:
+        ...
+        sync: true
+
+    - log: "${looperJob.envs.msg}" # prints out "Hello from Looper"
+```
+
+**Note:** only the global variables declared in the `envs` section are
+returned.
