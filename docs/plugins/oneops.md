@@ -203,14 +203,14 @@ platform in an environment.
 As a results clouds `variable` contains a list of all clouds identifiers, which
 can subsequently used for [scaling](#scaling) and other operations.
 
-OneOps also provides a method to retrieve all the active clouds.
+OneOps task also provides a method to retrieve all the active clouds.
 
 ```yaml
 - ${oneops.getClouds(oneOpsConfig)}
 - ${oneops.getClouds(oneOpsConfig, activeOnly)}
 ```
 
-`activeOnly` - boolean value, retrieve all active clouds;
+`activeOnly` - boolean value, if `true` retrieve all active clouds;
 
 <a name="zones"/>
 
