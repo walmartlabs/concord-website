@@ -11,7 +11,7 @@
 - Create `concord.yml` file in root
 - Commit and push
 
-```
+```yaml
 flows:
   default:
   - log: "Hello Concord"
@@ -48,11 +48,13 @@ Note:
 To allow Concord access to the repository:
 
 - Login to Concord Console
+- Default organization
 - Secrets, Create New Key Pair
   - Visibility public/private
-  - No password
+  - No password, server key
 - Get public key
 - Add to GitHub repository configuration
+  - Deploy keys
 
 Note:
 - Demo it
@@ -65,6 +67,7 @@ Note:
 ## Creating a Project
 
 - Login to Concord Console
+- Select organization
 - New Project
 - Add Repository
 - Use Secret/Deploy Key
@@ -101,7 +104,7 @@ Demo it
 
 - Concord Server clones/updates project repository
 - Prepares for execution
-- Runs workflow on Concord cluster
+- Runs workflow on Concord Server agent
 
 Note:
 talk a bit about what these steps include such as separate JVM, classpath, ...

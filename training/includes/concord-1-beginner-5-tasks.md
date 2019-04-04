@@ -37,7 +37,9 @@ Note:
 - JIRA
 - Slack
 - SMTP
-- Teamrosters
+- Terraform
+- Git and GitHub
+- and others
 
 Note: 
 - describe each a bit
@@ -50,7 +52,7 @@ Note:
 
 Invocation with input, output and error capture:
 
-```
+```yaml
 flows:
   default:
   - task: myTask
@@ -80,7 +82,7 @@ flows:
 
 Simple task to add log output support via task `call` method:
 
-```
+```yaml
 flows:
   default:
   - log: "My message"
@@ -96,7 +98,7 @@ any task implements call
 
 Via other method e.g. `info`
 
-```
+```yaml
 - ${log.info("mylog", "logging an warn message")}
 ```
 
@@ -117,7 +119,7 @@ Method names differ for each task!
 
 ## Key Value Tasks Examples
 
-```
+```yaml
 flows:
   default
   - ${kv.putString("key", "value")}
@@ -134,7 +136,7 @@ flows:
 - Access to secrets
   - keys
   - credentials
-- Encrypt secret 
+- Encrypt secret
   - in project settings in Concord Console
   - or with REST API
 - Decrypt in flow with task
@@ -151,10 +153,10 @@ Send emails!
 
 First configure:
 
-```
+```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.89.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:1.6.0
 ```
 
 <!--- vertical -->
@@ -163,7 +165,7 @@ configuration:
 
 And send the email:
 
-```
+```yaml
 flows:
   default:
   - task: smtp
@@ -187,7 +189,7 @@ Message to slack channel:
 - add bot to channel
 - and use it
 
-```
+```yaml
 flows:
   default:
   - task: slack
@@ -212,7 +214,7 @@ Work with other Concord processes
 
 ## Concord Task Example
 
-```
+```yaml
 flows:
   default:
   - task: concord
@@ -259,9 +261,12 @@ Let explore some in source and examples!
 
 - Git
 - GitHub
+- Gremlin
 - JIRA
 - Locale
 - Automaton
+- Datetime
+- Terraform
 
 And more are on the way.
 
