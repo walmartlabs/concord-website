@@ -11,6 +11,7 @@ Concord interacts with
 - Looper
 - OneOps
 - Ansible
+- Terraform
 - Proximity
 - JIRA
 - Slack
@@ -117,7 +118,7 @@ Managed Service at Walmart implements that for Cassandra, CloudRDBMS and others.
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.89.0
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:1.6.0
 flows:
   default:
   - task: ansible
@@ -148,7 +149,7 @@ Configuration:
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:0.56.0
+  - mvn://com.walmartlabs.concord.plugins:oneops-tasks:1.6.0
 configuration:
   arguments:
     oneOpsConfig:
