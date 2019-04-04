@@ -67,6 +67,9 @@ flows:
 The following sections describe the available functions in more detail:
 
 - [Get IP Numbers](#ip)
+- [Get Environments](#environments)
+- [Get Platforms](#platforms)
+- [Get Zones](#zones)
 - [Instances](#instances)
 - [Clouds](#clouds)
 - [Scaling](#scaling)
@@ -149,6 +152,38 @@ Typically, primary clouds have priority value `1` and secondary - `2`:
     mySecondaryIPs: ${oneops.getIPsByCloudPriority(oneOpsConfig, platform, 2)}
 ```
 
+<a name="environments"/>
+
+## Get Environments
+
+The OneOps task can be used to list environments for a specific assembly
+
+```yaml
+- ${oneops.getEnvironments(oneOpsConfig)}
+- ${oneops.getEnvironments(oneOpsConfig, asm)}
+```
+
+<a name="platforms"/>
+
+## Get Platforms
+
+The OneOps task can be used to list platforms for a specific environment
+
+```yaml
+- ${oneops.getPlatforms(oneOpsConfig)}
+- ${oneops.getPlatforms(oneOpsConfig, asm, env)}
+```
+
+<a name="zones"/>
+
+## Get Zones
+
+The OneOps task can be used to list zones for a specific cloud
+
+```yaml
+- ${oneops.getZones(oneOpsConfig, cloudName)}
+```
+
 <a name="instances"/>
 
 ## Instances
@@ -177,6 +212,15 @@ platform in an environment.
 
 As a results clouds `variable` contains a list of all clouds identifiers, which
 can subsequently used for [scaling](#scaling) and other operations.
+
+OneOps also provides a method to retrieve all the active clouds.
+
+```yaml
+- ${oneops.getClouds(oneOpsConfig)}
+- ${oneops.getClouds(oneOpsConfig, activeOnly)}
+```
+
+`activeOnly` - boolean value, retrieve all active clouds;
 
 <a name="scaling"/>
 
