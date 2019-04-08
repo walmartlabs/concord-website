@@ -22,6 +22,7 @@ task.
   - [Close a Pull Request](#closePR)
   - [Create a Tag](#tag)
   - [Merge Branches](#github-merge)
+  - [Fork a Repo](#fork)
   
 <a name="usage"/>
 ## Usage
@@ -487,4 +488,30 @@ flows:
       head: ${gitHubBranchName}
       commitMessage: "Automated merge performed by Concord flow."
 ```
+<a name="fork"/>
 
+## Fork
+
+The `forkRepo` action can be used to fork a git repository on GitHub. By
+default, the `repo` is forked into your personal account asscociated with the
+`accessToken`.
+
+The following parameters are needed in addition to the general parameters:
+
+- `org`: Required, name of GitHub organization where your repository is located
+- `repo`: Required, name of GitHub repository that you want to fork
+- `targetOrg`: optional, if a value is specified the repository is forked into
+  specified organization, otherwise the target is the personal space of the user
+  specified with the `accessToken`
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: forkRepo
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      targetOrg: myforkToOrg
+```
