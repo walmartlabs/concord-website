@@ -159,18 +159,35 @@ Any value type that can be represented as JSON is supported.
 <a name="execution"/>
 ## Execution
 
-A process is executed by the Concord Server using the following steps: 
+Typically, a process is executed by the Concord Server using the following steps: 
 
-- Project repository data is cloned or updated.
-- Binary payload from the process invocation is added to the workspace.
-- Configuration from the project is used.
-- Configuration from project.yml is merged.
-- Configuration from an uploaded JSON file is merged.
-- Configuration from request parameters and selected profiles is applied.
-- Templates are downloaded and applied.
-- The payload is created and sent to an agent for execution.
-- Dependencies are downloaded and put on the class-path.
-- The flow configured as entry point is invoked.
+- project repository data is cloned or updated;
+- binary payload from the process invocation is added to the workspace;
+- configuration from the project is used;
+- configuration from project.yml is merged;
+- configuration from an uploaded JSON file is merged;
+- configuration from request parameters and selected profiles is applied;
+- templates are downloaded and applied;
+- the payload is created and sent to an agent for execution;
+- dependencies are downloaded and put on the class-path;
+- the flow configured as entry point is invoked.
 
 To start and manage new processes from within a running process use 
 the [Concord](../plugins/concord.html) task.
+
+During its life, a process can go though various statuses:
+- `PREPARING` - the process start request is being processes. During this
+status, Server prepares the initial process state;
+- `ENQUEUED` - the process is ready to be picked up by one of the Agents;
+- `STARTING` - the process was dispatched to an Agent and is being prepared to
+start on the Agent's side;
+- `RUNNING` - the process is running;
+- `SUSPENDED` - the process is waiting for an external event (e.g. a form);
+- `RESUMING` - the Server received the event the process was waiting for and
+now prepares the process' resume state;
+- `FINISHED` - final status, the process was completed successfully. Or, at
+least, all process-level errors were handled in the process itself;
+- `FAILED` - the process failed with an unhandled error;
+- `CANCELLED` - the process was cancelled by a user;
+- `TIMED_OUT` - the process exceeded its
+[execution time limit](./concord-dsl.html#process-timeout).
