@@ -3,7 +3,7 @@ nav:
     id: getting-started
     collapse: /docs/getting-started
     subfolderitems:
-      - page: Introduction
+      - page: Overview
         context: /docs/getting-started/index
       - page: Installation
         context: /docs/getting-started/installation
