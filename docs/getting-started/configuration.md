@@ -331,6 +331,7 @@ All parameters are optional.
 | SECURE_COOKIES | Enable `secure` attribute on server cookies. | false         |
 
 <a name="agent-cfg-file"/>
+
 ## Agent Configuration File
 
 The path to the configuration file must be passed via `ollie.conf` JVM
