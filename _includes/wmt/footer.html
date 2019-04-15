@@ -20,7 +20,10 @@
               {% endif %}
             </div>
             <div class="col-md-4">
-              <img src="{{site.context}}/assets/wmt/img/logos/walmart-labs-wht.png" class="img-responsive" width="150px" align="right" style="padding-top:10px;"/>
+              {% if site.footer-image.size < 1 %}
+                {% assign site.footer-image = "/assets/wmt/img/logos/walmart-labs-wht.png" %}
+              {% endif %}
+              <img src="{{site.footer-image}}" class="img-responsive" width="150px" align="right" style="padding-top:10px;"/>
             </div>
           </div>
         </div>
