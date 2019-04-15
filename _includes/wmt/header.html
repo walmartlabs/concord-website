@@ -42,7 +42,7 @@
             <li class="{{current}}">
                 {% if link.subnavigation != null %}
                 <a href="{{ link.url }}" id="{{ link.id }}" data-toggle="dropdown">{{ link.title }}</a>
-                <ul class="dropdown-menu" aria-labelledby="{{ link.id }}">
+                <ul class="dropdown-menu {% if link.multicol == true %}multicol{% endif %}" role="menu" aria-labelledby="{{ link.id }}">
                 {% for sublink in link.subnavigation %}
                   <li><a href="{{ sublink.url }}">{{ sublink.title }}</a></li>
                 {% endfor %}
