@@ -252,14 +252,27 @@ td.code {
     text-align: right; }
 
 blockquote {
-    background: #f0f0f0;
-    border-left: 5px solid #666666;
-    padding: 20px 20px 15px;
-    margin-top: 30px; }
+  background: #f0f0f0;
+  border-left: 5px solid #666666;
+  padding: 20px 20px 15px;
+  margin-top: 30px; }
 
 .breadcrumbs p {
-    font-size: 11px;
-    margin-top:12px; }
+  font-size: 11px;
+  margin-top:12px; }
+
+/* ------------------------------ MODAL IMAGES ------------------------------ */
+
+button.button-img {
+  border: none;
+  background: none; }
+
+.modal-content {
+  margin: auto;
+  top: 50px;
+  width: 50%;
+  height: auto;
+  padding: 50px; }
 
 /* ------------------------------ MARGIN BOTTOM ------------------------------ */
 
@@ -397,7 +410,7 @@ ul.dropdown-menu li {
 
 .dropdown-menu > li > a {
     display: block;
-    padding: 3px 20px;
+    padding: 5px 10px;
     clear: both;
     font-weight: normal;
     line-height: 1.42857143;
