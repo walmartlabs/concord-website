@@ -84,10 +84,6 @@ nav:
     subfolderitems:
       - page: Ansible
         context: /docs/plugins/ansible
-      - page: Automaton
-        context: /docs/plugins/automaton
-      - page: Boo
-        context: /docs/plugins/boo
       - page: Concord
         context: /docs/plugins/concord
       - page: Crypto
@@ -100,8 +96,6 @@ nav:
         context: /docs/plugins/git
       - page: Gremlin
         context: /docs/plugins/gremlin
-      - page: Helm
-        context: /docs/plugins/helm
       - page: HTTP
         context: /docs/plugins/http
       - page: Jenkins
@@ -110,26 +104,14 @@ nav:
         context: /docs/plugins/jira
       - page: Key Value
         context: /docs/plugins/key-value
-      - page: Kubectl
-        context: /docs/plugins/kubectl
-      - page: KubeInventory
-        context: /docs/plugins/kube-inventory
-      - page: Kustomize
-        context: /docs/plugins/kustomize
       - page: LDAP
         context: /docs/plugins/ldap
-      - page: Looper
-        context: /docs/plugins/looper
-      - page: OneOps
-        context: /docs/plugins/oneops
       - page: Resource
         context: /docs/plugins/resource
       - page: Slack
         context: /docs/plugins/slack
       - page: SMTP
         context: /docs/plugins/smtp
-      - page: Tekton
-        context: /docs/plugins/tekton
       - page: Terraform
         context: /docs/plugins/terraform
   - title: Templates
