@@ -169,7 +169,7 @@ Types supported currently:
 
 ### Response Type
 
-`response` is a mandatory parameter that maps to the `ACCEPT` header of the HTTP
+`response` is an optional parameter that maps to the `ACCEPT` header of the HTTP
 request.
 
 Types supported currently:
