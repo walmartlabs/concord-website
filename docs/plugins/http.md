@@ -75,6 +75,8 @@ between two data packets. Default value is `-1`, which means that the default
 value of the Java Runtime Environment running the process is used - common value
 is 60000 ms;
 - `proxy`: HTTP(s) proxy to use (see the [example](#proxy-usage)).
+- `requestTimeout`: request timeout in ms, which is the maximum time spent 
+waiting for the response.
 
 ### Basic Authentication
 
