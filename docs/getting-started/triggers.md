@@ -211,7 +211,7 @@ You can use any of the TZ values from the
 
 Each trigger execution receives an `event` object with the properties `event.fireAt`
 and `event.spec` as well as any additional arguments supplied in the
-configuration: 
+configuration (e.g. `arguments` or `activeProfiles`): 
 
 ```yaml
 flows:
@@ -221,6 +221,8 @@ triggers:
 - cron:
     spec: "* 12 * * *"
     entryPoint: eventOutput
+    activeProfiles:
+    - myProfile
     arguments:
       name: "Concord"
 ```
