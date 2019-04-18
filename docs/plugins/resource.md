@@ -72,3 +72,24 @@ The `writeAsYaml` method supports the YAML format.
 The `writeAs*` methods return the path of the newly created file as
 result. These values can be stored in a variable later be used to read content
 back into the process with the read methods.
+
+## Pretty Format
+
+The `prettyPrintJson` method of the `resource` task allows you to create a
+version of a JSON string or an object, that is better readable in a log or other
+output.
+
+```yaml
+- log: ${resource.prettyPrintJson('{"testKey":"testValue"}')}
+```
+
+```yaml
+- flows:
+    default:
+    - set:
+       newObj:
+        name: testName
+        type: testType
+    - log: ${resource.prettyPrintJson(newObj)}  
+```
+
