@@ -123,6 +123,11 @@ Additional parameters to use are:
 - `customFieldsTypeKv` - list of custom fields of type key->value
 - `customFieldsTypeFieldAttr` - list of custom fields of type fieldAttribute
 
+> To see possible values for custom fields we recommend to use the `issue` endpoint
+> of the API and inspect the return object of an existing ticket e.g.
+> https:https://jira.example.com/rest/api/2/issue/issueId
+
+
 <a name="updateIssue"/>
 ## Update an Issue
 
