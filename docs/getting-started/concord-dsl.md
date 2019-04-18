@@ -848,10 +848,27 @@ checkpoint's step. For example, if the process is restored using `first`
 checkpoint, all steps starting from `Continuing the process...`
 message and further are executed.
 
+Checkpoint names can contain expressions:
+```yaml
+configuration:
+  arguments:
+    checkpointSuffix: "checkpoint"
+
+flows:
+  default:
+  - log: "Before the checkpoint"
+  - checkpoint: "first_${checkpointSuffix}"
+  - log: "After the checkpoint"
+```
+
+Checkpoint names must start with a (latin) letter or a digit, can contain
+underscores `_`, `@`, dots `.`, minus signs `-` and tildes `~`. The length must
+be between 2 and 128 characters.
+
 Only process initiators, administrators and users with `WRITER` access level to
 the process' project can restore checkpoints with the API or the user console.
 
-**Note**: files created during the process' execution are not saved during the
+**Note:** files created during the process' execution are not saved during the
 checkpoint creation.
 
 <a name="profiles"/>
