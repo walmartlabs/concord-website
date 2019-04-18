@@ -102,6 +102,7 @@ following sections:
   script. See also [Dynamic inventories](#dynamic-inventories) section;
 - `extraEnv`: JSON object, additional environment variables
 - `extraVars`: JSON object, used as `--extra-vars`
+- `extraVarsFiles`: list of strings, paths to extra variables files 
 - `groupVars`: configuration for exporting secrets as Ansible [group_vars](#group-vars) files;
 - `inventory`: JSON object, an inventory data specifying
   [a static, inline inventories](#inline-inventories)section;
