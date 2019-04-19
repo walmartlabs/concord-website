@@ -67,6 +67,12 @@ To set a variable, you need to use `execution#setVariable` method:
     execution.setVariable("myVar", "Hello!");
 ```
 
+**Note:** not every data structure of supported scripting languages
+is directly compatible with the Concord runtime. The values exposed to the flow
+via `execution.setVariable` must be serializable in order to work correctly
+with forms or when the process suspends. Refer to the specific language section
+for more details.
+
 <a name="tasks">
 
 ## Using Concord Tasks
@@ -137,6 +143,25 @@ function doSomething(i) {
 execution.setVariable("result", doSomething(2));
 ```
 
+### Compatibility
+
+JavaScript objects must be converted to regular Java `Map` instances to be
+compatible with the Concord runtime:
+```yaml
+flows:
+  default:
+    - script: js
+      body: |
+        var x = {a: 1};
+
+        var HashMap = Java.type('java.util.HashMap');
+        execution.setVariable('x', new HashMap(x));
+
+    - log: "${x.a}"
+```
+
+Alternatively, a `HashMap` instance can be used directly in the JS code.
+
 ## Groovy
 
 Groovy is another compatible engine that is fully-supported in Concord. It
@@ -170,6 +195,26 @@ desired format.
      def dateFormat = new java.text.SimpleDateFormat('yyyy-MM-dd')
      execution.setVariable("businessDate", dateFormat.format(new Date()))
 - log: "Today is ${businessDate}"
+```
+
+### Compatibility
+
+Groovy's `LazyMap` are not serializable and must be converted to regular Java
+Maps:
+```yaml
+configuration:
+  dependencies:
+    - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+
+flows:
+  default:
+    - script: groovy
+      body: |
+        def x = new groovy.json.JsonSlurper().parseText('{"a": 123}') // produces a LazyMap instance
+        
+        execution.setVariable('x', new java.util.HashMap(x))
+
+    - log: "${x.a}"
 ```
 
 ## Python
