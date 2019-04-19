@@ -23,8 +23,11 @@ task.
   - [Create a Tag](#tag)
   - [Merge Branches](#github-merge)
   - [Fork a Repo](#fork)
+  - [Get Branch List](#getBranchList)
+  - [Get Tag List](#getTagList)
   
 <a name="usage"/>
+
 ## Usage
 
 To be able to use the plugin in a Concord flow, it must be added as a
@@ -40,6 +43,7 @@ This adds the Git plugin to the classpath and allows you to invoke the
 [Git task](#git-task) or the [GitHub task](#github-task).
 
 <a name="git"/>
+
 ## Git Task
 
 The `git` task allows users to trigger git operations as a step of a flow. The
@@ -83,7 +87,7 @@ flows:
 
 <a name="basic-authentication"/>
 
-### Basic Authentication
+## Basic Authentication
 
 The `auth` parameter is required when a private git repository is accessed with
 HTTPS `url`. It must contain a `basic` nested element which contains either the
@@ -115,6 +119,7 @@ auth:
 ```
 
 <a name="response"/>
+
 ### Git Task Response
 
 The `git` task returns a result object with following fields:
@@ -124,8 +129,8 @@ The `git` task returns a result object with following fields:
 `FAILURE` if operation successful or failed respectively.
 - `error`: error message if operation failed.
 
-
 <a name="clone"/>
+
 ### Clone a Repository
 
 The `clone` action of the `git` task can be used to clone a git repository into
@@ -159,6 +164,7 @@ use check out after the clone operation. If not provided, the default branch of
 the repository is used - typically called `master`.
 
 <a name="commit-push"/>
+
 ### Commit and Push Changes
 
 The `commit` action of the `git` task can be used to commit your changes made on
@@ -193,8 +199,8 @@ commit operataion. The `pushChanges` parameter is optional and defaults to
 `false`, when omitted. The `commitUsername` and `commitEmail` are mandatory
 parameters to capture committer details.
 
-
 <a name="branch"/>
+
 ## Create and Push a New Branch
 
 The `createBranch` action of the `git` task allows the creation of a new
@@ -233,6 +239,7 @@ flows: default:
 ```
 
 <a name="merge"/>
+
 ## Merge Branches
 
 The `merge` action of the `git` task can be used to merge branches using the
@@ -271,8 +278,9 @@ branches in large repositories, since no local cloning is required and the
 action is therefore completed faster.
 
 <a name="github"/>
+
 ## GitHub Task
-      
+
 The `github` task of the git plugin allows you to trigger git operations on a
 git repository hosted on [GitHub.com](https://github.com/) or a GitHub
 Enterprise server as a step of a flow.
@@ -321,7 +329,8 @@ flows:
 Examples below take advantage of a globally configured `apiUrl`.
 
 <a name="pr"/>
-## Create and Merge a Pull Request 
+
+## Create and Merge a Pull Request
 
 The `createPr` and `mergePr` actions of the `github` task allow the creation and
 merging a pull request in GitHub. Executed one after another, the tasks can be
@@ -338,7 +347,6 @@ The following parameters are needed by the `createPr` action:
 
 The example below creates a pull request to merge the changes from branch
 `feature-a` into the `master` branch:
-
 
 ```yaml
 flows:
@@ -376,6 +384,7 @@ flows:
 ```
 
 <a name="commentPR">
+
 ## Comment on a Pull Request
 
 The `commentPR` action can be used to add a comment to a pull request.
@@ -403,6 +412,7 @@ flows:
 ```
 
 <a name="closePR"/>
+
 ## Close a Pull Request
 
 The `closePR` action can be used to close a pull request. The pull request
@@ -424,6 +434,7 @@ flows:
 ```
 
 <a name="tag"/>
+
 ## Create a Tag
 
 The `createTag` action of the `github` task can create a tag based on a specific
@@ -456,6 +467,7 @@ flows:
 ```
 
 <a name="github-merge"/>
+
 ## Merge Branches
 
 The `merge` action of the `github` task can merge two branches of a repository
@@ -488,6 +500,7 @@ flows:
       head: ${gitHubBranchName}
       commitMessage: "Automated merge performed by Concord flow."
 ```
+
 <a name="fork"/>
 
 ## Fork
@@ -514,4 +527,54 @@ flows:
       org: myOrg
       repo: myRepo
       targetOrg: myforkToOrg
+```
+
+<a name="getBranchList"/>
+
+## GetBranchList
+
+The `getBranchList` action can be used to get the list of  branches of a GitHub
+repository. The output of the action is stored in a variable `branchList`. It
+can used at later point in the flow
+
+The following parameters are needed in addition to the general parameters:
+
+- `org`: Required, name of GitHub organization where your repository is located
+- `repo`: Required, name of GitHub repository for which you want to get the
+  branch list
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: getBranchList
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+```
+
+<a name="getTagList"/>
+
+## GetTagList
+
+The `getTagList` action can be used to get the  list of tags of a GitHub
+repository. The output of the action is stored in a variable `tagList`. It can
+used at later point in the flow.
+
+The following parameters are needed in addition to the general parameters:
+
+- `org`: Required, name of GitHub organization where your repository is located
+- `repo`: Required, name of GitHub repository for which you want to get the tag
+  list
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: getTagList
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
 ```
