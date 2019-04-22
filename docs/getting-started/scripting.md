@@ -67,11 +67,11 @@ To set a variable, you need to use `execution#setVariable` method:
     execution.setVariable("myVar", "Hello!");
 ```
 
-**Note:** not every data structure of supported scripting languages
-is directly compatible with the Concord runtime. The values exposed to the flow
-via `execution.setVariable` must be serializable in order to work correctly
-with forms or when the process suspends. Refer to the specific language section
-for more details.
+> Note that  not every data structure of supported scripting languages is
+> directly compatible with the Concord runtime. The values exposed to the flow
+> via `execution.setVariable` must be serializable in order to work correctly
+> with forms or when the process suspends. Refer to the specific language
+> section for more details.
 
 <a name="tasks">
 
@@ -87,9 +87,11 @@ Scripts can retrieve and invoke all tasks available for flows by name:
 ```
 
 <a name="external-scripts">
+
 ## External scripts
 
 Scripts can be automatically retrieved from an external server:
+
 ```yaml
 - script: "http://localhost:8000/myScript.groovy"
 ```
@@ -147,20 +149,19 @@ execution.setVariable("result", doSomething(2));
 
 JavaScript objects must be converted to regular Java `Map` instances to be
 compatible with the Concord runtime:
+
 ```yaml
 flows:
   default:
     - script: js
       body: |
         var x = {a: 1};
-
         var HashMap = Java.type('java.util.HashMap');
         execution.setVariable('x', new HashMap(x));
-
     - log: "${x.a}"
 ```
 
-Alternatively, a `HashMap` instance can be used directly in the JS code.
+Alternatively, a `HashMap` instance can be used directly in the JavaScript code.
 
 ## Groovy
 
@@ -201,6 +202,7 @@ desired format.
 
 Groovy's `LazyMap` are not serializable and must be converted to regular Java
 Maps:
+
 ```yaml
 configuration:
   dependencies:
@@ -211,9 +213,7 @@ flows:
     - script: groovy
       body: |
         def x = new groovy.json.JsonSlurper().parseText('{"a": 123}') // produces a LazyMap instance
-        
         execution.setVariable('x', new java.util.HashMap(x))
-
     - log: "${x.a}"
 ```
 
@@ -224,7 +224,6 @@ runtime. It requires the addition of a dependency to
 [jython-standalone](https://repo1.maven.org/maven2/org/python/jython-standalone)
 located in the Central Repository or on another server and the identifier
 `python`.
-
 
 ```yaml
 configuration:
@@ -251,7 +250,6 @@ runtime. It requires the addition of a dependency to
 [jruby](https://repo1.maven.org/maven2/org/jruby/jruby)
 located in the Central Repository or on another server and the identifier
 `ruby`.
-
 
 ```yaml
 configuration:
