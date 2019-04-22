@@ -3,12 +3,12 @@ layout: null
 ---
 [{% for page in site.pages %}
 {% if page.title != nil and page.searchindex != false %} {
-  "title": "{{ page.title | escape }}",
+  "title": "{{ page.title | escape_once }}",
   "url": "{{ site.baseurl }}{{ page.url }}",
   "content": "{{ page.content | strip_html | strip_newlines | remove_chars | escape }}"
  },{% endif %}{% endfor %}
 {% for post in site.posts %}{
-  "title": "{{ post.title | escape }}",
+  "title": "{{ post.title | escape_once }}",
   "url": "{{ site.baseurl }}{{ post.url }}",
   "date": "{{ post.date }}",
   "content": "{{ post.content | strip_html | strip_newlines | remove_chars | escape }}"
