@@ -863,7 +863,7 @@ flows:
 
 Checkpoint names must start with a (latin) letter or a digit, can contain
 underscores `_`, `@`, dots `.`, minus signs `-` and tildes `~`. The length must
-be between 2 and 128 characters.
+be between 3 and 128 characters.
 
 Only process initiators, administrators and users with `WRITER` access level to
 the process' project can restore checkpoints with the API or the user console.
