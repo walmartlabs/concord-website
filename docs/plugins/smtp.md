@@ -59,6 +59,9 @@ flows:
         message: "My message"
 ```
 
+To send an email to the process initiator, you can use the
+attribute `initiator.attributes.mail`.
+
 ## Message Template
 
 Concord supports the use of a separate file for longer email messages. As an
