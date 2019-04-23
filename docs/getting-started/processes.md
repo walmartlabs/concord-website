@@ -82,7 +82,7 @@ instance of `com.walmartlabs.concord.sdk.Context`;
   - `initiator.username`: login, string;
   - `initiator.displayName`: printable name, string;
   - `initiator.groups`: list of user's groups;
-  - `initiator.attributes`: other LDAP attributes;
+  - `initiator.attributes`: other LDAP attributes; for example `initiator.attributes.mail` contains the email address.
 - `currentUser`: information about the current user. Has the same structure
   as `initiator`;
 - `requestInfo`: additional request data:
