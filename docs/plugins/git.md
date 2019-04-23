@@ -25,6 +25,7 @@ task.
   - [Fork a Repo](#fork)
   - [Get Branch List](#getBranchList)
   - [Get Tag List](#getTagList)
+  - [Get Latest Commit SHA](#getLatestSHA)
   
 <a name="usage"/>
 
@@ -577,4 +578,28 @@ flows:
       accessToken: myGitToken
       org: myOrg
       repo: myRepo
+```
+
+<a name="getLatestSHA"/>
+
+## GetLatestSHA
+
+The `getLatestSHA` action can be used to get the SHA Id of latest commit for a given branch. By default gets the SHA from `master` branch. The output of the action is stored in a variable `latestCommitSHA`. It can used at later point in the flow.
+
+The following parameters are needed in addition to the general parameters:
+
+- `org`: Required, name of GitHub organization where your repository is located
+- `repo`: Required, name of GitHub repository
+- `branch`: name of Github branch from which you want to get the latest commit SHA. Defaults to `master`
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: getLatestSHA
+      accessToken: myGitToken
+      org: myOrg
+      repo: myRepo
+      branch: myBranch
 ```
