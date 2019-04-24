@@ -584,13 +584,17 @@ flows:
 
 ## GetLatestSHA
 
-The `getLatestSHA` action can be used to get the SHA Id of latest commit for a given branch. By default gets the SHA from `master` branch. The output of the action is stored in a variable `latestCommitSHA`. It can used at later point in the flow.
+The `getLatestSHA` action can be used to get the SHA identifier of latest commit
+for a given branch. By default, it gets the SHA from the `master` branch. The
+output of the action is stored in the variable `latestCommitSHA`. It can used at
+later point in the flow.
 
 The following parameters are needed in addition to the general parameters:
 
 - `org`: Required, name of GitHub organization where your repository is located
 - `repo`: Required, name of GitHub repository
-- `branch`: name of Github branch from which you want to get the latest commit SHA. Defaults to `master`
+- `branch`: name of Github branch from which you want to get the latest commit
+  SHA. Defaults to `master`
 
 ```yaml
 flows:
