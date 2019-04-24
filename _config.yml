@@ -23,7 +23,6 @@ matomo-site-id: 11
 concord_source: "https://github.com/walmartlabs/concord/"
 concord_plugins_source: "https://github.com/walmartlabs/concord-plugins/"
 concord_plugins_version: "1.9.0"
-concord_plugins_walmart_version: "1.10.0"
 concord_core_version: "1.16.1"
 concord_ansible_version: "2.6.16"
 
