@@ -227,8 +227,6 @@ The script is automatically marked as executable and passed directly to
 
 ## Authentication with Secrets
 
-</a>
-
 ### Linux / SSH
 
 The Ansible task can use a key managed as a secret by Concord, that you have
