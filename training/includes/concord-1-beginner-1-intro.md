@@ -39,19 +39,6 @@ Note:
 
 <!--- vertical -->
 
-## Instructors
-
-Who is teaching today?
-
-Note:
-- introduce yourself
-- and other teachers or helpers
-- tech background (developer, ops, ...)
-- maybe show yourself via video for a bit
-- keep it short!
-
-<!--- vertical -->
-
 ## Course Mechanics
 
 - Three one hour long sessions with breaks
@@ -77,14 +64,6 @@ but pay attention! <!-- .element: class="fragment" -->
 - Learn by example usage
 - Talk _theory_ only as needed
 - Emphasize demos over talk
-
-<!--- vertical -->
-
-## Please Interrupt Me
-
-- Speak up
-- Ask on chat
-- There is time for questions
 
 <!--- vertical -->
 
