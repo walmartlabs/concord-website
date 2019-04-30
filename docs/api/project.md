@@ -112,7 +112,7 @@ Updates parameters of an existing project.
     An empty value must be specified in order to remove a project's value:
     e.g. an empty `repositories` object to remove all repositories from a project.
 
-    See also: [project configuration](#project-configuration)
+    See also: [project configuration](#get-project-configuration).
 * **Success response**
     ```
     Content-Type: application/json
