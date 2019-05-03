@@ -65,7 +65,7 @@ This method is suitable only for local development.
 
 To skip NPM-related tasks when building the project:
 ```
-./mvnw clean install -DskipTests -DskipNpmInstall -DskipNpmBuild
+./mvnw clean install -DskipTests -DskipNpm
 ```
 
 ## Making a Release
