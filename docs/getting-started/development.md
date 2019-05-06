@@ -22,9 +22,11 @@ docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' library/postgres:
 
 ## Running from an IDE
 
+You need to [build](#building) the project before you can load it into an IDE.
+
 It is possible to start the server and an agent directly from an IDE using the
 following main classes:
-- concord-server: `com.walmartlabs.concord.server.Main`
+- concord-server: `com.walmartlabs.concord.server.dist.Main`
 - concord-agent: `com.walmartlabs.concord.agent.Main`
 
 The server requires a configuration file to start. Set `ollie.conf` JVM
