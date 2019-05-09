@@ -44,6 +44,9 @@ The `taurus` task uses a number of input parameters
 - `useFakeHome`: boolean value, sets up a fake `${HOME}` to avoid using the
   system's one. Default set to `true`.
 
+The following example performs a `run` action with Taurus using the `test.yml`
+configuration file:
+
 ```yaml
 flows:
   default:
@@ -51,7 +54,7 @@ flows:
     in:
       action: run
       configs:
-        - test.yml 
+        - test.yml
   - log: "Taurus output: ${result.stdout}"
 ```
 
