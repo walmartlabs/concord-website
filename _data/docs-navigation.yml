@@ -47,7 +47,6 @@ nav:
         context: /docs/console/repository
       - page: Process
         context: /docs/console/process
-
   - title: API
     id: api
     collapse: /docs/api
@@ -112,6 +111,8 @@ nav:
         context: /docs/plugins/slack
       - page: SMTP
         context: /docs/plugins/smtp
+      - page: Taurus
+        context: /docs/plugins/taurus
       - page: Terraform
         context: /docs/plugins/terraform
   - title: Templates
