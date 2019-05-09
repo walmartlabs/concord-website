@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  Gremlin Task
+title:  Taurus Task
 side-navigation: wmt/docs-navigation.html
 ---
 
