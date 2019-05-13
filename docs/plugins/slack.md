@@ -73,6 +73,8 @@ Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
 
+New optional field `ts` can be used for creating replies. Avoid using a reply's `ts` value; use it's parent instead.
+
 The task returns a `result` object with three fields:
 - `ok` - `true` if the operation succeeded;
 - `error` - error message if the operation failed.
