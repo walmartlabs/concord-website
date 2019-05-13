@@ -91,12 +91,12 @@ All parameter sorted alphabetically. Usage documentation can be found in the
 following sections:
 
 - `config`: JSON object, used to create an
+  [Ansible configuration](#configuring-ansible);
 - `check`: boolean, when set to true Ansible does not make any changes; instead
   it tries to predict some of the changes that may occur. Check
   [the official documentation](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_checkmode.html)
   for more details
 - `debug`: boolean, enables additional debug logging;
-[Ansible configuration](#configuring-ansible);
 - `dockerImage`: optional configuration to specify
 - `dynamicInventoryFile`: string, path to a dynamic inventory
   script. See also [Dynamic inventories](#dynamic-inventories) section;
