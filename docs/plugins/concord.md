@@ -19,6 +19,7 @@ necessary.
 - [Starting an External Process](#start-external)
 - [Scheduling a Process](#start-schedule)
 - [Specifying Profiles](#start-profiles)
+- [File Attachments](#start-attachments)
 - [Output Variables](#start-outvars)
 - [Forking a Process](#fork)
 - [Forking Multiple Instances](#fork-multi)
@@ -65,7 +66,8 @@ value, the process' start time;
 - `suspend` - boolean, if `true` and `sync` is enabled the process [suspends](#start-suspend)
 waiting for the child process to complete (only for `action: "start"`); 
 - `sync` - boolean, wait for completion if `true`, defaults to `false`;
-- `tags` - list of string values, the process' tags.
+- `tags` - list of string values, the process' tags;
+- `attachments` - list of file attachments;
 
 <a name="start-payload"/>
 
@@ -186,6 +188,32 @@ flows:
 ```
 
 The parameter accepts either a YAML array or a comma-separated string value.
+
+<a name="start-attachments"/>
+
+## File Attachments
+
+To start a process with file attachments, use the `attachments` parameter. An
+attachment can be a single path to a file, or a map which specifies a source
+and destination filename for the file. If the attachment is a single path, the
+file will be placed in the root directory of the new process with the same name.
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      ...
+      attachments:
+      - ${workDir}/someDir/myFile.txt
+      - src: anotherFile.json
+        dest: someFile.json
+```
+
+This is equivalent to the curl command:
+```
+curl ... -F myFile.txt=@${workDir}/someDir/myFile.txt -F someFile.json=@anotherFile.json ...
+```
 
 <a name="start-outvars"/>
 
