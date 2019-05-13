@@ -153,6 +153,14 @@ The value of `data` field can be used as a process variable by adding it as an
 attribute in the Concord file, in the project's configuration or can be supplied 
 to a specific process execution in the  request JSON.
 
+A value can also be encrypted within a Concord Process with the `encryptString`
+method of the `crypto` task:
+
+```yaml
+- expr: ${crypto.encryptString('MyOrg', 'MyProject', 'my secret value')}
+  out: encryptedValue
+```
+
 A value can be encrypted and decrypted only by the same server.
 
 To decrypt the previously encrypted value:
