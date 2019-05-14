@@ -32,7 +32,6 @@ process flows, configuration, forms and other aspects:
   - [Retry Tasks](#retry-task)
   - [Throwing exceptions](#throw-step)
   - [Setting variables](#set-step)
-  - [Checkpoints](#checkpoints)
 - [Named Profiles in `profiles`](#profiles)
 - [Separate Concord Folder Usage](#concord-folder)
 
@@ -863,7 +862,12 @@ flows:
 
 Checkpoint names must start with a (latin) letter or a digit, can contain
 underscores `_`, `@`, dots `.`, minus signs `-` and tildes `~`. The length must
-be between 3 and 128 characters.
+be between 3 and 128 characters. Here's the regular expression used for
+validation:
+
+```
+^[0-9a-zA-Z][0-9a-zA-Z_@.\\-~ ]{1,128}$
+```
 
 Only process initiators, administrators and users with `WRITER` access level to
 the process' project can restore checkpoints with the API or the user console.
