@@ -861,9 +861,9 @@ flows:
 ```
 
 Checkpoint names must start with a (latin) letter or a digit, can contain
-underscores `_`, `@`, dots `.`, minus signs `-` and tildes `~`. The length must
-be between 3 and 128 characters. Here's the regular expression used for
-validation:
+whitespace, underscores `_`, `@`, dots `.`, minus signs `-` and tildes `~`.
+The length must be between 2 and 128 characters. Here's the regular expression
+used for validation:
 
 ```
 ^[0-9a-zA-Z][0-9a-zA-Z_@.\\-~ ]{1,128}$
