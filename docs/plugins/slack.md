@@ -41,15 +41,13 @@ flows:
     - if: "${!result.ok}"
       then:
         - log: "Error while sending a message: ${result.error}"
-    - set:
-        mainMessageTS: ${result.ts}
     
     ...
     
     - task: slack
       in:
         channelId: "exampleId"
-        ts: ${mainMessageTS}
+        ts: ${result.ts}
         username: "anyCustomString"
         iconEmoji: ":information_desk_person:"
         text: "Execution on Concord for process ID ${txId} completed."
