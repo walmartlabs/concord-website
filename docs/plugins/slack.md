@@ -41,6 +41,16 @@ flows:
     - if: "${!result.ok}"
       then:
         - log: "Error while sending a message: ${result.error}"
+    
+    ...
+    
+    - task: slack
+      in:
+        channelId: "exampleId"
+        ts: ${result.ts}
+        username: "anyCustomString"
+        iconEmoji: ":information_desk_person:"
+        text: "Execution on Concord for process ID ${txId} completed."
 ```
 
 The `channelId` can be seen in the URL of the channel or alternatively the name
@@ -61,9 +71,12 @@ Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
 
-The task returns a `result` object with two fields:
+New optional field `ts` can be used for creating replies. Avoid using a reply's `ts` value; use it's parent instead.
+
+The task returns a `result` object with three fields:
 - `ok` - `true` if the operation succeeded;
 - `error` - error message if the operation failed.
+- `ts` -  Timestamp ID where the message was posted, can be used, in the following slack task of posting message, to make the message a reply. 
 
 ## Slack Channel Task
 
