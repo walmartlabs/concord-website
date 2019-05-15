@@ -167,7 +167,7 @@ This trigger fires when someone pushes to a development branch with a name start
       deleted: false
 ```
 
-This will trigger will only fire on pull requests that have the label 'bug':
+This trigger will only fire on pull requests that have the label 'bug':
 ```yaml
 - github:
     type: pull_request
@@ -179,7 +179,7 @@ This will trigger will only fire on pull requests that have the label 'bug':
         - { name: "bug" }
 ```
 
-This trigger fires when someone push/merges into master but will ignores pushes by `jenkinspan` 
+This trigger fires when someone push/merges into master but will ignore pushes by `jenkinspan` 
 and `anothersvc`:
 ```yaml
 - github: 
