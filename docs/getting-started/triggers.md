@@ -154,9 +154,10 @@ which were updated in GitHub. By default the current project/repository is trigg
 - `commitId` - ID of the commit which triggered the notification;
 - `useInitiator` - process initiator is set to `author` when this attribute is marked as `true`
 
+The following example trigger fires when someone pushes to a development branch
+with a name starting with `dev-`, e.g. `dev-my-feature`, `dev-bugfix`, and
+ignores pushes on branch deletes:
 
-This trigger fires when someone pushes to a development branch with a name starting with 'dev-' 
-(e.g. dev-my-feature, dev-bugfix) and ignores pushes on branch deletes:
 ```yaml
 - github:
     type: push
@@ -167,7 +168,8 @@ This trigger fires when someone pushes to a development branch with a name start
       deleted: false
 ```
 
-This trigger will only fire on pull requests that have the label 'bug':
+The next example trigger only fires on pull requests that have the label `bug`:
+
 ```yaml
 - github:
     type: pull_request
@@ -179,8 +181,9 @@ This trigger will only fire on pull requests that have the label 'bug':
         - { name: "bug" }
 ```
 
-This trigger fires when someone push/merges into master but will ignore pushes by `jenkinspan` 
-and `anothersvc`:
+The following example trigger fires when someone pushes/merges into master, but
+ignores pushes by `jenkinspan` and `anothersvc`:
+
 ```yaml
 - github: 
     type: push
@@ -190,7 +193,7 @@ and `anothersvc`:
     author: '^(?!.*(jenkinspan|anothersvc)).*$'
 ```
 
-The connection to the GitHub deployment needs to be 
+The connection to the GitHub deployment needs to be
 [configured globally](./configuration.html#github).
 
 <a name="scheduled"/>
@@ -268,6 +271,7 @@ operations,  batch reporting or processing and other repeating task that are
 automated via a Concord flow.
 
 <a name="generic"/>
+
 ## Generic Triggers
 
 You can configure generic triggers to respond to events that are configured to
