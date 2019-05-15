@@ -41,9 +41,9 @@ flows:
     - if: "${!result.ok}"
       then:
         - log: "Error while sending a message: ${result.error}"
-    
+
     ...
-    
+
     - task: slack
       in:
         channelId: "exampleId"
@@ -64,19 +64,22 @@ message to a specific user use `@handle` syntax:
     text: "Hi there!"
 ```
 
-**Note:** `@handle` works only for users that didn't change "Display Name" in
-their Slack profiles.
+Not that `@handle` works only for users that did not change their _Display Name_
+in their Slack profiles.
 
 Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
 
-New optional field `ts` can be used for creating replies. Avoid using a reply's `ts` value; use it's parent instead.
-
 The task returns a `result` object with three fields:
+
 - `ok` - `true` if the operation succeeded;
 - `error` - error message if the operation failed.
-- `ts` -  Timestamp ID where the message was posted, can be used, in the following slack task of posting message, to make the message a reply. 
+- `ts` -  Timestamp ID of the message that was posted, can be used, in the
+  following slack task of posting message, to make the message a reply.
+
+The optional field from the result object `ts` can be used to create
+a thread and reply. Avoid using a reply's `ts` value; use it's parent instead.
 
 ## Slack Channel Task
 
