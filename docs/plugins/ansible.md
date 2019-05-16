@@ -90,6 +90,14 @@ described in [Configuring Ansible](#configuring-ansible):
 All parameter sorted alphabetically. Usage documentation can be found in the
 following sections:
 
+- `auth`: SSH authentication parameters to use to connect to the target servers:
+- `auth.privateKey`: private key parameters;
+- `auth.privateKey.user`: string, username to connect to target servers;
+- `auth.privateKey.secret`: Concord secret parameters for SSH key;
+- `auth.privateKey.secret.org`: string, organization name;
+- `auth.privateKey.secret.name`: string, secret name;
+- `auth.privateKey.secret.password`: string, secret password;
+- `auth.privateKey.path`: string, path to the SSH key located in process working directory;
 - `config`: JSON object, used to create an
   [Ansible configuration](#configuring-ansible);
 - `check`: boolean, when set to true Ansible does not make any changes; instead
@@ -112,9 +120,6 @@ following sections:
   argument of `ansible-playbook` command. Check [the official
   documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
   for more details;
-- `privateKey`: path to a privateKey file or with nested `org`, `secretName` and `password`
-  the name of a Concord secret SSH key to use to connect to the target servers;
-- `user`: string, username to connect to target servers;
 - `retry`: retry flag, see [Retry and Limit Files](#retry-limit)
 - `tags`: string, a comma-separated list or an array of
   [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
@@ -253,11 +258,13 @@ flows:
   default:
   - task: ansible
     in:
-      user: app
-      privateKey:
-        org: "myOrg" # optional
-        secretName: mySecret
-        password: mySecretPassword # optional
+      auth:
+        privateKey:
+          user: "app"
+          secret:
+            org: "myOrg" # optional
+            name: "mySecret"
+            password: mySecretPassword # optional
 ```
 
 This exports the key with the provided username and password to the filesystem
