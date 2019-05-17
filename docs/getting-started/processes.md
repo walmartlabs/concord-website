@@ -72,8 +72,8 @@ used to start a process. If not set, a `default` profile will be used.
 Concord automatically provides several built-in variables upon process
 execution in addition to the defined [variables](./concord-dsl.html#variables):
 
-- `context`:a reference to a context variables map of a current execution,
-instance of `com.walmartlabs.concord.sdk.Context`;
+- `execution` or `context`: a reference to a context variables map of a current execution,
+instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs/concord/blob/master/sdk/src/main/java/com/walmartlabs/concord/sdk/Context.java);
 - `txId`: unique identifier of a current execution;
 - `tasks`: allows access to available tasks (for example:
   `${tasks.get('oneops')}`);
