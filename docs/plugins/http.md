@@ -59,9 +59,10 @@ All parameters sorted in alphabetical order.
 - `auth`: authentication used for secure endpoints, details in 
   [Basic authentication](#basic-authentication);
 - `body`: the request body, details in [Body](#body);
+- `debug`: boolean, output the request and response data in the logs
 - `headers`: add additional headers, details in [Headers](#headers)
-- `ignoreErrors`: instead of throwing exceptions on unauthorized requests, return
-  the result object with the error
+- `ignoreErrors`: boolean, instead of throwing exceptions on unauthorized requests, 
+  return the result object with the error
 - `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or `DELETE`
 - `out`: variable to store the [HTTP response](#http-task-response) object
 - `request`: type of request data `string`, `json`, or `file`, details available
