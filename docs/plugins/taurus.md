@@ -41,6 +41,7 @@ The `taurus` task uses a number of input parameters
 - `verbose`: boolean value, if `true` prints all logging messages to console.
   Defaults to `false`. Cannot be used if `quiet` set to `true`
 - `proxy`: string value, used for Taurus-based requests.
+- `downloadPlugins`: boolean value, defaults to `false` and completely offline work. If `true` tries to download JMeter plugins at runtime.
 
 The following example performs a `run` action with Taurus using the `test.yml`
 configuration file:
