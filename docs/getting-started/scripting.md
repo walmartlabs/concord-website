@@ -67,7 +67,7 @@ To set a variable, you need to use `execution#setVariable` method:
     execution.setVariable("myVar", "Hello!");
 ```
 
-> Note that  not every data structure of supported scripting languages is
+> Note that not every data structure of supported scripting languages is
 > directly compatible with the Concord runtime. The values exposed to the flow
 > via `execution.setVariable` must be serializable in order to work correctly
 > with forms or when the process suspends. Refer to the specific language
