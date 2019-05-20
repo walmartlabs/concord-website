@@ -32,7 +32,7 @@ echo 'Hello, world!'
 
 The current process' working directory is mounted as `/workspace`.
 
-__Note:__ Your Dockerfile's `WORKDIR` is overwritten to `/workspace`. Depending
+**Note:** Your Dockerfile's `WORKDIR` is overwritten to `/workspace`. Depending
 on your setup, you may need to change to a different working directory:
 
 ```yaml
