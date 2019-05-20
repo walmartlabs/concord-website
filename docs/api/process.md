@@ -235,11 +235,16 @@ Forcefully stops the process.
 
 Returns the current status of a process.
 
-* **URI** `/api/v1/process/${instanceId}`
+**Note**: this is a `v2` endpoint.
+
+* **URI** `/api/v2/process/${instanceId}`
 * **Method** `GET`
 * **Headers** `Authorization`
 * **Parameters**
     ID of a process: `${instanceId}`
+* **Query parameters**
+    - `include`: additional entries to return (`checkpoints`, `childrenIds`,
+      `history`), repeat the parameter to include multiple additional entries;
 * **Body**
     none
 * **Success response**
@@ -304,14 +309,27 @@ Downloads a process' attachment.
 
 Retrieve a list of processes.
 
-* **URI** `/api/v1/process`
+**Note**: this is a `v2` endpoint.
+
+* **URI** `/api/v2/process`
 * **Query parameters**
+    - `orgId`: filter by the organization's ID;
+    - `orgName`: filter by the organization's name;
     - `projectId`: filter by the project's ID;
+    - `projectName`: filter by the project's name, requires `orgId` or
+      `orgName`;
     - `afterCreatedAt`: limit by date, ISO-8601 string;
     - `beforeCreatedAt`: limit by date, ISO-8601 string;
     - `tags`: filter by a tag, repeat the parameter to filter by multiple tags;
-    - `limit`: maximum number of records to return.
-    - `offset`: starting index from which to return
+    - `status`: filter by the process status;
+    - `initiator`: filter by the initiator's username (starts with the
+      specified string);
+    - `parentInstanceId`: filter by the parent's process ID;
+    - `include`: additional entries to return (`checkpoints`, `childrenIds`,
+      `history`), repeat the parameter to include multiple additional entries;
+    - `limit`: maximum number of records to return;
+    - `offset`: starting index from which to return;
+    - `meta.[paramName]`: filter by the process metadata's value `paramName`.
 * **Method** `GET`
 * **Body**
     none
