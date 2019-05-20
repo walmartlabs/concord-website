@@ -90,14 +90,17 @@ described in [Configuring Ansible](#configuring-ansible):
 All parameter sorted alphabetically. Usage documentation can be found in the
 following sections:
 
-- `auth`: SSH authentication parameters to use to connect to the target servers:
-- `auth.privateKey`: private key parameters;
-- `auth.privateKey.user`: string, username to connect to target servers;
-- `auth.privateKey.secret`: Concord secret parameters for SSH key;
-- `auth.privateKey.secret.org`: string, organization name;
-- `auth.privateKey.secret.name`: string, secret name;
-- `auth.privateKey.secret.password`: string, secret password;
-- `auth.privateKey.path`: string, path to the SSH key located in process working directory;
+- `auth`: authentication parameters:
+  - `privateKey`: private key parameters;
+    - `path`: string, path to a private key file located in the process's working directory;
+    - `user`: string, remote username;
+    - `secret`: parameters of the SSH key pair stored as a Concord secret
+      - `org`: string, the secret's organization name;
+      - `name`: string, the secret's name;
+      - `password`: string, the secret's password (optional);
+  - `krb5`: Kerberos 5 authentication:
+    - `user`: AD username;
+    - `password`: AD password.
 - `config`: JSON object, used to create an
   [Ansible configuration](#configuring-ansible);
 - `check`: boolean, when set to true Ansible does not make any changes; instead
@@ -274,6 +277,17 @@ equivalent Ansible command is
 ```
 ansible-playbook --user=app --private-key temporaryKeyFile ...
 ```
+
+Alternatively, it is possible to specify the private key file directly:
+```
+- task: ansible
+  in:
+    auth:
+      privateKey:
+        path: "private.key"       
+```
+
+The `path` must be relative to the current process' working directory.
 
 ### Windows
 
