@@ -22,8 +22,8 @@ The following configuration details are available:
 - [Process Runtime Variables](#process-runtime-variables)
 - [Default Process Variables](#default-process-variables)
 
-
 <a name="common-environment-variables"/>
+
 ## Common Environment Variables
 
 <a name="dependencies"/>
@@ -34,6 +34,7 @@ The following configuration details are available:
 | CONCORD_MAVEN_CFG  | Path to a JSON file                   | _empty_       |
 
 Expected format of the configuration file:
+
 ```json
 {
   "repositories": [
@@ -47,6 +48,7 @@ Expected format of the configuration file:
 ```
 
 <a name="server-cfg-file"/>
+
 ## Server Configuration File
 
 Concord Server uses [Typesafe Config](https://github.com/lightbend/config)
@@ -54,16 +56,19 @@ format for its configuration files.
 
 The path to the configuration file must be passed via `ollie.conf` JVM
 parameter like so:
-```
+
+```bash
 java ... -Dollie.conf=/opt/concord/conf/server.conf com.walmartlabs.concord.server.Main
 ```
+
 When using Docker it can be passed as `CONCORD_CFG_FILE` environment variable.
 
 The complete configuration file for the Server can be found in
 [the source code repository](https://github.com/walmartlabs/concord/blob/master/server/dist/src/main/resources/concord-server.conf).
 
 A minimal example suitable for local development (assuming [OpenLDAP](./development.html#oldap)):
-```
+
+```json
 concord-server {
     db {
         appPassword = "q1"
@@ -87,6 +92,7 @@ concord-server {
 ```
 
 <a name="server-environment-variables"/>
+
 ## Server Environment Variables
 
 All parameters are optional.
@@ -112,13 +118,15 @@ format for its configuration files.
 
 The path to the configuration file must be passed via `ollie.conf` JVM
 parameter like so:
-```
+
+```bash
 java ... -Dollie.conf=/opt/concord/conf/server.conf com.walmartlabs.concord.agent.Main
 ```
+
 When using Docker it can be passed as `CONCORD_CFG_FILE` environment variable.
 
 The complete configuration file for the Agent can be found in
-[the source code repository](https://github.com/walmartlabs/concord/blob/master/agent/src/main/resources/concord-agent.conf).
+[the source code repository]({{ site.source_url}agent/src/main/resources/concord-agent.conf).
 
 The configuration file is optional for local development.
 
@@ -137,7 +145,6 @@ execution. All parameters are optional.
 | AGENT_JAVA_CMD    | Path to `java` executable.                      | `java`                      |
 | DEPS_CACHE_DIR    | Path to a directory for the dependency cache.   | _a new temporary directory_ |
 
-
 ## Default Process Variables
 
 As a Concord administrator, you can set default variable values that
@@ -154,7 +161,7 @@ processes. As a result, project authors do not need to specify the SMTP server
 configuration in their
 own `concord.yml`.
 
-```
+```yml
 smtpParams:
   host: "smtp.example.com"
   port: 25
