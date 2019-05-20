@@ -126,7 +126,7 @@ java ... -Dollie.conf=/opt/concord/conf/server.conf com.walmartlabs.concord.agen
 When using Docker it can be passed as `CONCORD_CFG_FILE` environment variable.
 
 The complete configuration file for the Agent can be found in
-[the source code repository]({{ site.source_url}agent/src/main/resources/concord-agent.conf).
+[the source code repository]({{ site.concord_source}}tree/master/agent/src/main/resources/concord-agent.conf).
 
 The configuration file is optional for local development.
 
