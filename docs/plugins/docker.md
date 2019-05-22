@@ -10,6 +10,8 @@ side-navigation: wmt/docs-navigation.html
 
 Concord supports running docker images within a process flow.
 
+Short syntax:
+
 ```yaml
 flows:
   default:
@@ -21,7 +23,22 @@ configuration:
     greeting: "Hello, world!"
 ```
 
-The above invocation is equivalent to running
+Using the `task` syntax:
+
+```yaml
+flows:
+  default:
+  - task: docker
+    in:
+      image: library/alpine
+      cmd: echo '${greeting}'
+
+configuration:
+  arguments:
+    greeting: "Hello, world!"
+```
+
+The above invocations are equivalent to running
 
 ```bash
 docker run -i --rm \
