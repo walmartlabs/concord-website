@@ -21,6 +21,21 @@ configuration:
     greeting: "Hello, world!"
 ```
 
+Using task syntax:
+
+```yaml
+flows:
+  default:
+  - task: docker
+    in:
+      image: library/alpine
+      cmd: echo '${greeting}'
+
+configuration:
+  arguments:
+    greeting: "Hello, world!"
+```
+
 The above invocation is equivalent to running
 
 ```bash
