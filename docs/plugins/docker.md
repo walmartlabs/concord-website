@@ -21,7 +21,7 @@ configuration:
     greeting: "Hello, world!"
 ```
 
-Using task syntax:
+Using task:
 
 ```yaml
 flows:
