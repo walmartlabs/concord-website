@@ -19,9 +19,11 @@ The REST API provides support for a number of operations:
 - [Retrieve a Process Log](#log)
 - [Download an Attachment](#download-attachment)
 - [List Processes](#list)
-
+- [Process Events](#process-events)
+  - [List events](#list-events)
 
 <a name="start"/>
+
 ## Start a Process
 
 The best approach to start a process is to execute a flow defined in the Concord
@@ -121,6 +123,7 @@ curl ... -F startAt='2018-03-15T15:25:00-05:00' https://concord.example.com/api/
 ```
 
 <a name="form-data"/>
+
 ### Form Data
 
 Concord accepts `multipart/form-data` requests to start a process. 
@@ -148,6 +151,7 @@ curl ... -F "myFile.txt=@myFile.txt;type=application/octet-stream" \
 ```
 
 <a name="zip-file"/>
+
 ### ZIP File
 
 If no project exists in Concord, a ZIP file with flow definition and related
@@ -186,6 +190,7 @@ The response should look like:
 ```
 
 <a name="browser"/>
+
 ### Browser Link
 
 You can start a new process in Concord via simply accessing a URL in a browser.
@@ -216,6 +221,7 @@ walks a user through all process' forms and intermediate pages.
 
 
 <a name="stop"/>
+
 ## Stop a Process
 
 Forcefully stops the process.
@@ -231,6 +237,7 @@ Forcefully stops the process.
     Empty body.
 
 <a name="status"/>
+
 ## Getting the Status of a Process
 
 Returns the current status of a process.
@@ -266,6 +273,7 @@ Returns the current status of a process.
     ```
 
 <a name="log"/>
+
 ## Retrieve a Process Log
 
 Downloads the log file of a process.
@@ -305,6 +313,7 @@ Downloads a process' attachment.
     ```
 
 <a name="list"/>
+
 ## List Processes
 
 Retrieve a list of processes.
@@ -342,5 +351,47 @@ Retrieve a list of processes.
     [
       { "instanceId": "...", "status": "...", ... },
       { "instanceId": "...", ... }
+    ]
+    ```
+
+## Process Events
+
+### List Events
+
+Retrieve a list of events.
+
+* **URI** `/api/v1/process/${instanceId}/event`
+* **Parameters**
+    ID of a process: `${instanceId}`
+* **Query parameters**
+    - `type`: event type;
+    - `after`: limit by date, ISO-8601 string;
+    - `eventCorrelationId`: correlation ID of the event (e.g. a task call);
+    - `eventPhase`: for multi-phase events (e.g. a task call - `PRE` or
+      `POST`);
+    - `includeAll`: if `true` additional, potentially sensitive, data is
+      returned (e.g. task call parameters);
+    - `limit`: maximum number of records to return.
+* **Method** `GET`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [
+      {
+        "id" : "eba7360e-790a-11e9-a33e-fa163e7ef419",
+        "eventType" : "PROCESS_STATUS",
+        "data" : {"status": "PREPARING"},
+        "eventDate" : "2019-05-18T01:19:02.172Z"
+      }, {
+        "id" : "ebfabd24-790a-11e9-a33e-fa163e7ef419",
+        "eventType" : "PROCESS_STATUS",
+        "data" : {"status": "ENQUEUED"},
+        "eventDate" : "2019-05-18T01:19:02.720Z"
+      }
     ]
     ```
