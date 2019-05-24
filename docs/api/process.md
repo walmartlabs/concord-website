@@ -254,14 +254,14 @@ Returns the current status of a process.
 
     ```json
     {
-    "instanceId" : "45beb7c7-6aa2-40e4-ba1d-488f78700ab7",
-    "parentInstanceId" : "b82bb6c7-f184-405e-ae08-68b62125c8be",
-    "projectName" : "myProject2",
-    "createdAt" : "2017-07-19T16:31:39.331+0000",
-    "initiator" : "admin",
-    "lastUpdatedAt" : "2017-07-19T16:31:40.493+0000",
-    "status" : "FAILED",
-    "childrenIds":["d4892eab-f75d-43a2-bb26-20903ffa10d8","be79ee81-78db-4afa-b207-d361a417e892","d5a35c8f-faba-4b9d-b957-ca9c31bf2a39"]
+      "instanceId" : "45beb7c7-6aa2-40e4-ba1d-488f78700ab7",
+      "parentInstanceId" : "b82bb6c7-f184-405e-ae08-68b62125c8be",
+      "projectName" : "myProject2",
+      "createdAt" : "2017-07-19T16:31:39.331+0000",
+      "initiator" : "admin",
+      "lastUpdatedAt" : "2017-07-19T16:31:40.493+0000",
+      "status" : "FAILED",
+      "childrenIds":["d4892eab-f75d-43a2-bb26-20903ffa10d8","be79ee81-78db-4afa-b207-d361a417e892","d5a35c8f-faba-4b9d-b957-ca9c31bf2a39"]
     }
     ```
 
