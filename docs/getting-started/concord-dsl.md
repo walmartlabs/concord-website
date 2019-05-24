@@ -12,13 +12,14 @@ readable format [YAML](http://www.yaml.org/) and defines all your workflow
 process flows, configuration, forms and other aspects:
 
 - [Example](#example)
-- [Project Configuration in `configuration`](#configuration)
+- [Process Configuration in `configuration`](#configuration)
   - [Entry Point](#entry-point)
   - [Dependencies](#dependencies)
   - [Template](#template)
   - [Arguments](#arguments)
   - [Process Timeout](#timeout)
   - [Debug](#debug)
+  - [Metadata](#metadata)
 - [Process Definitions in `flows:`](#flows)
   - [Entry points](#entry-points)
   - [Execution steps](#execution-steps)
@@ -82,7 +83,7 @@ The actual task names and their required parameters may differ. Please refer to
 the [task documentation](./tasks.html) and the specific task used for details.
 
 <a name="configuration"/>
-## Project Configuration in `configuration`
+## Process Configuration in `configuration`
 
 Overall configuration for the project and process executions are contained in the
 `configuration:` top level element of the Concord file:
@@ -277,6 +278,64 @@ configuration:
   debug: true
 ```
 
+### Metadata
+
+Flows can expose internal variables as process metadata. Such metadata can be
+retrieved using the [API](../api/process.html#status) or displayed in the process
+list in [Concord Console](../console/process.html#metadata).
+
+```yaml
+configuration:
+  meta:
+    myValue: "n/a" # initial value
+
+flows:
+  default:
+  - set:
+      myValue: "hello!"
+```
+
+After each step, Concord will send the updated value back to the Server:
+
+```
+$ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c | jq '.meta.myValue'
+"hello!"
+```
+
+Nested variables and forms are also supported:
+
+```yaml
+configuration:
+  meta:
+    nested.value: "n/a"
+    
+flows:
+  default:
+  - set:
+      nested:
+        value: "hello!"
+```
+
+The value will be stored under the `nested.value` key:
+
+```
+$ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c | jq '.meta.["nested.value"]'
+"hello!"
+```
+
+Example with a form:
+
+```yaml
+configuration:
+  meta:
+    myForm.myValue: "n/a"
+
+flows:
+  default:
+  - form: myForm
+    fields:
+    - myValue: { type: "string" }
+```
 
 <a name="flows"/>
 
