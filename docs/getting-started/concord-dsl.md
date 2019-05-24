@@ -298,9 +298,9 @@ flows:
       myValue: "hello!"
 ```
 
-After each step, Concord will send the updated value back to the Server:
+After each step, Concord sends the updated value back to the server:
 
-```
+```bash
 $ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c | jq '.meta.myValue'
 "hello!"
 ```
@@ -311,7 +311,7 @@ Nested variables and forms are also supported:
 configuration:
   meta:
     nested.value: "n/a"
-    
+
 flows:
   default:
   - set:
@@ -319,9 +319,9 @@ flows:
         value: "hello!"
 ```
 
-The value will be stored under the `nested.value` key:
+The value is stored under the `nested.value` key:
 
-```
+```bash
 $ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c | jq '.meta.["nested.value"]'
 "hello!"
 ```
