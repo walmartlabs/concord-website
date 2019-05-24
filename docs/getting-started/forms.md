@@ -145,6 +145,24 @@ flows:
   - log: "Hello, ${myForm.myField}"
 ```
 
+Expressions can also be used in form calls:
+
+```yaml
+configuration:
+  arguments:
+    formNameVar: "myForm"
+
+flows:
+  default:
+  - form: ${formNameVar}
+  - log: "Hello, ${myForm.name}"
+  - log: "Hello, ${context.getVariable(formNameVar).name}"
+
+forms:
+  myForm:
+    - name: { type: "string" }
+```
+
 Forms will be pre-populated with values if the current context
 contains a map object, stored under the form's name. E.g. if the
 context has a map object

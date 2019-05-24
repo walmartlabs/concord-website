@@ -15,8 +15,10 @@ defined process definitions and additional supplied resources.
 - [Provided Variables](#variables) 
 - [Output Variables](#output-variables)
 - [Execution](#execution)
+- [Process Events](#process-events)
 
 <a name="structure"/>
+
 ## Structure
 
 Console expects the following structure of a process working directory:
@@ -41,6 +43,7 @@ contain general configuration, process flow definitions, forms, profiles and
 more.
 
 <a name="request-data"/>
+
 ## Request Data
 
 A payload's `_main.json` file is either supplied by users or created by the
@@ -116,7 +119,7 @@ Concord has the ability to return process data when a process completes.
 The names or returned variables should be declared when a process starts
 using `multipart/form-data` parameters:
 
-```
+```bash
 $ curl ... -F sync=true -F out=myVar1 http://concord.example.com/api/v1/process
 {
   "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b",
@@ -137,7 +140,7 @@ configuration:
 
 It is also possible to retrieve a nested value:
 
-```
+```bash
 $ curl ... -F sync=true -F out=a.b.c http://concord.example.com/api/v1/process
 ```
 
@@ -148,7 +151,7 @@ When a process starts in synchronous mode (`sync=true`), the data is
 returned in the response. For asynchronous processes, the output variables data
 can be retrieved with an API call:
 
-```
+```bash
 $ curl ... http://localhost:8001/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
 
 {"myVar1":"my value"}
@@ -157,6 +160,7 @@ $ curl ... http://localhost:8001/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059c
 Any value type that can be represented as JSON is supported.
 
 <a name="execution"/>
+
 ## Execution
 
 Typically, a process is executed by the Concord Server using the following steps: 
@@ -164,7 +168,7 @@ Typically, a process is executed by the Concord Server using the following steps
 - project repository data is cloned or updated;
 - binary payload from the process invocation is added to the workspace;
 - configuration from the project is used;
-- configuration from project.yml is merged;
+- configuration from `project.yml` is merged;
 - configuration from an uploaded JSON file is merged;
 - configuration from request parameters and selected profiles is applied;
 - templates are downloaded and applied;
@@ -176,18 +180,40 @@ To start and manage new processes from within a running process use
 the [Concord](../plugins/concord.html) task.
 
 During its life, a process can go though various statuses:
+
 - `PREPARING` - the process start request is being processes. During this
-status, Server prepares the initial process state;
+  status, Server prepares the initial process state;
 - `ENQUEUED` - the process is ready to be picked up by one of the Agents;
 - `STARTING` - the process was dispatched to an Agent and is being prepared to
-start on the Agent's side;
+  start on the Agent's side;
 - `RUNNING` - the process is running;
 - `SUSPENDED` - the process is waiting for an external event (e.g. a form);
 - `RESUMING` - the Server received the event the process was waiting for and
-now prepares the process' resume state;
+  now prepares the process' resume state;
 - `FINISHED` - final status, the process was completed successfully. Or, at
-least, all process-level errors were handled in the process itself;
+  least, all process-level errors were handled in the process itself;
 - `FAILED` - the process failed with an unhandled error;
 - `CANCELLED` - the process was cancelled by a user;
 - `TIMED_OUT` - the process exceeded its
-[execution time limit](./concord-dsl.html#process-timeout).
+  [execution time limit](./concord-dsl.html#process-timeout).
+
+## Process Events
+
+During process execution, Concord records various events: process status
+changes, task calls, internal plugin events, etc. The data is stored in the
+database and used later in the [Concord Console](../console/index.html) and
+other components.
+
+Events can be retrieved using [the API](../api/process.html#list-events).
+Currently, those event types are used:
+
+- `PROCESS_STATUS` - process status changes;
+- `ELEMENT` - flow element events (sucha as task calls).
+
+In additional, plugins can use their own specific event types. For example, the
+[Ansible plugin](../plugins/ansible.html) uses custom events to record playbook
+execution details.  This data is extensively used by the Concord Console to
+provide visibility into the playbook execution - hosts, playbook steps, etc.
+
+Event recording can be configured in the [Runner](./concord-dsl.html#runner)
+section of the process' `configuration` object.
