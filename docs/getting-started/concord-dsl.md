@@ -19,6 +19,7 @@ process flows, configuration, forms and other aspects:
   - [Arguments](#arguments)
   - [Process Timeout](#timeout)
   - [Debug](#debug)
+  - [Runner](#runner)
 - [Process Definitions in `flows:`](#flows)
   - [Entry points](#entry-points)
   - [Execution steps](#execution-steps)
@@ -49,7 +50,8 @@ Additional features are available by using tasks available in a
 ```yaml
 flows:
   default:
-    - log: "Getting started now"
+    - log: "Going to to send an email..."
+
     - task: sendEmail                               # (1)
       in:
         to: me@localhost.local
@@ -57,12 +59,13 @@ flows:
       out:
         result: operationResult
       error:
-        - log: "email sending error"
+        - log: "Error while sending an email: ${lastError.cause.message}"
+
     - if: ${result.ok}                              # (2)
       then:
         - reportSuccess                             # (3)
       else:
-        - log: "Failed: ${lastError.message}"
+        - log: "Failed: ${lastError.cause.message}"
 
   reportSuccess:
     - ${dbBean.updateStatus(result.id, "SUCCESS")}; # (4)
@@ -82,6 +85,7 @@ The actual task names and their required parameters may differ. Please refer to
 the [task documentation](./tasks.html) and the specific task used for details.
 
 <a name="configuration"/>
+
 ## Project Configuration in `configuration`
 
 Overall configuration for the project and process executions are contained in the
@@ -277,6 +281,45 @@ configuration:
   debug: true
 ```
 
+### Runner
+
+[Concord Runner]({{ site.concord_source }}tree/master/runner) is
+the name of the default runtime used for actual execution of processes. Its
+parameters can be configured in the `runner` section of the `configuration`
+object. Here is an example of the default configuration:
+
+```yaml
+configuration:
+  runner:
+    debug: false
+    logLevel: "INFO"
+    events:
+      recordTaskInVars: false
+      inVarsBlacklist:
+        - "password"
+        - "apiToken"
+        - "apiKey"
+
+      recordTaskOutVars: false
+      outVarsBlacklist: []
+```
+
+- `debug` - enables additional debug logging, `true` if `configuration.debug`
+  enabled;
+- `logLevel` - [logging level](https://logback.qos.ch/manual/architecture.html#effectiveLevel)
+  for the `log` task;
+- `events` - the process event recording parameters:
+  - `recordTaskInVars` - enable or disable recording of input variables in task
+    calls;
+  - `inVarsBlacklist` - list of variable names that must not be recorded if
+    `recordTaskInVars` is `true`;
+  - `recordTaskOutVars` - enable or disable recording of output variables in
+    task calls;
+  - `outVarsBlacklist` - list of variable names that must not be recorded if
+    `recordTaskInVars` is `true`.
+
+See the [Process Events](./processes.html#process-events) section for more
+details about the process event recording.
 
 <a name="flows"/>
 
