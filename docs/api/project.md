@@ -17,8 +17,12 @@ The REST API provides support for a number of operations:
 - [List Projects](#list-projects)
 - [Get Project Configuration](#get-project-configuration)
 - [Update Project Configuration](#update-project-configuration)
+- [List Current Access Rules](#list-current-access-rules)
+- [Update Access Rules](#update-access-rules)
+- [Bulk Update Access Rules](#bulk-update-access-rules)
 
 <a name="create-project"/>
+
 ## Create a Project
 
 Creates a new project with specified parameters.
@@ -76,6 +80,7 @@ Creates a new project with specified parameters.
     ```
 
 **<a name="update-project"/>
+
 ## Update a Project
 
 Updates parameters of an existing project.
@@ -127,6 +132,7 @@ Updates parameters of an existing project.
     ```**
 
 <a name="delete-project"/>
+
 ## Delete a Project
 
 Removes a project and its resources.
@@ -149,6 +155,7 @@ Removes a project and its resources.
     ```
 
 <a name="list-projects">
+
 ## List Projects
 
 Lists all existing projects.
@@ -173,9 +180,10 @@ Lists all existing projects.
     ```
 
 <a name="get-project-configuration"/>
+
 ## Get Project Configuration
 
-Returns project's configuration JSON or its part.
+Returns project's [configuration](../getting-started/projects.html#configuration) JSON or its part.
 
 * **URI** `/api/v1/org/${orgName}/project/${projectName}/cfg/${path}`
 * **Query parameters**
@@ -195,10 +203,11 @@ Returns project's configuration JSON or its part.
     }
     ```
 
-a name="update-project-configuration"/>
+<a name="update-project-configuration"/>
+
 ## Update Project Configuration
 
-Updates project's configuration or its part.
+Updates project's [configuration](../getting-started/projects.html#configuration) or its part.
 
 * **URI** `/api/v1/org/${orgName}/project/${projectName}/cfg/${path}`
 * **Query parameters**
@@ -217,6 +226,106 @@ Updates project's configuration or its part.
       }
     }
     ```
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
+    ```
+
+## List Current Access Rules
+
+Returns project's current access rules.
+
+* **URI** `/api/v1/org/${orgName}/project/${projectName}/access`
+* **Method** `GET`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [
+      {"teamId": "...", "level":  "..."},
+      ...
+    ]
+    ```
+
+## Update Access Rules
+
+Updates project's access rules for a specific team.
+
+* **URI** `/api/v1/org/${orgName}/project/${projectName}/access`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "teamId": "9304748c-81e6-11e9-b909-0fe0967f269a",
+      "orgName": "myOrg",
+      "teamName": "myTeam",
+      "level": "READER"
+    }
+    ```
+    
+    Either `teamId` or `orgName` and `teamName` combinations are allowed.
+    The `level` parameter accepts one of the three possible values:
+    - `READER`
+    - `WRITER`
+    - `OWNER`
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
+    ```
+* **Example**
+    ```
+    curl -ikn -H 'Content-Type: application/json' \
+    -d '{"orgName": "MyOrg", "teamName": "myTeam", "level": "READER"}' \
+    https://concord.prod.walmart.com/api/v1/org/MyOrg/project/MyProject/access
+    ```
+
+## Bulk Update Access Rules
+
+Updates project's access rules for multiple teams.
+
+* **URI** `/api/v1/org/${orgName}/project/${projectName}/access/bulk`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [{
+      "teamId": "9304748c-81e6-11e9-b909-0fe0967f269a",
+      "orgName": "myOrg",
+      "teamName": "myTeam",
+      "level": "READER"
+    }]
+    ```
+    
+    Accepts a list of access rule elements. See [the non-bulk version](#update-access-rules)
+    of this method for description.
 * **Success response**
     ```
     Content-Type: application/json
