@@ -89,7 +89,7 @@ that identify groovy-all jar in v. 2.14.
 then type '/org/codehaus/groovy' in the address bar, and dotwalk to the jar file,
 drawing parallels to link in yml.
 - Note other dependencies for concord can be found in https://repository.walmart.com/content/groups/public/com/walmartlabs/concord/plugins/
-- Go find the smtp jar (in basic/smtp-tasks/1.6.0/*jar), and compare that link to the one in slide
+- Go find the smtp jar (in basic/smtp-tasks/1.6.0/jar), and compare that link to the one in slide
 - Update the concord.yml to include the smtp dependency, git add, commit, push, and run in concord console.
 
 <!--- vertical -->
@@ -540,7 +540,7 @@ Note:
 - uses JavaScript impl for Java Scripting API which includes extensions like print
 - show other examples from concord codebase examples folder
 - multi line
-- Copy script* from slide, comment out the form, add in `default` flow
+- Copy script block from slide, comment out the form, add in `default` flow
 - Note: specify language. Concord won't guess.
 - '|' (pipe) after 'body' denotes a multi-line segment
 - Save and demo - note it's a system write, not a log
