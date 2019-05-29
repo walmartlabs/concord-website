@@ -17,11 +17,17 @@ Concord interacts with
 - Slack
 - SMTP
 
+Note:
+- Skim over this slide - oneline descriptions are in the next slides
+
 <!--- vertical -->
 
 ## Looper
 
 Continuous integration server of choice.
+
+Note:
+- Read
 
 <!--- vertical -->
 
@@ -29,11 +35,17 @@ Continuous integration server of choice.
 
 Cloud Platform as a Service of choice.
 
+Note:
+- Read
+
 <!--- vertical -->
 
 ## Ansible
 
 Automation engine for application configuration and deployment.
+
+Note:
+- Read
 
 <!--- vertical -->
 
@@ -45,6 +57,10 @@ Proximity is the repository manager to stores binaries.
 - npm packages
 - docker images
 - ...
+
+Note:
+- Read
+- Go to strati -> Proximity -> Documentation
 
 <!--- vertical -->
 
@@ -59,6 +75,11 @@ Proximity is the repository manager to stores binaries.
   - adjust scale
   - touch 
   - commit and deploy
+
+Note:
+- 2 tasks, boo and OneOps
+- Boo - read, then navigate to github.com/oneops/boo
+- Boo lets you write yaml file to define OneOps assembly and environments
 
 <!--- vertical -->
 
@@ -75,6 +96,8 @@ and more.
 
 Note:
 - Concord = improved, more flexible version of Ansible Tower
+- Gives you access to a feature-rich Ansible integration
+- Read bullets - available via Ansible to be used in Concord
 
 <!--- vertical -->
 
@@ -89,6 +112,15 @@ Note:
 
 Note:
 - concord-cd-example
+- Read bullets
+- Demo available https://gecgithub01.walmart.com/devtools/concord-cd-example
+- Open the .looper.yml, line 13 creates new release version and deploys to proximity
+- This echos out the release number and starts the concord flow
+- This passes to the concord flow
+- Open concord.yml, line 25, read flow steps
+   - deploy flow: touch the component defined above, update w/ new version, commit and deploy
+   - test flow - connects to server on port (line 23) via groovy script
+   - notify - sends an email
 
 <!--- vertical -->
 
@@ -97,6 +129,10 @@ Note:
 - OneOps compute or Ansible deployment goes down
 - Reboot/repair of system fires event to Concord
 - Concord flow triggers new deployment
+
+Note:
+- OneOps compute has problems, event sends to Concord, Concord triggers deployment to
+reinstate to state before failure
 
 <!--- vertical -->
 
@@ -109,7 +145,7 @@ Note:
 - SMTP task sends email to user and manager
 
 Note: 
-Managed Service at Walmart implements that for Cassandra, CloudRDBMS and others.
+- Managed Service at Walmart implements that for Cassandra, CloudRDBMS and others.
 
 <!--- vertical -->
 
@@ -127,6 +163,11 @@ flows:
       inventoryFile: inventory.ini
 ```
 
+Note:
+- dependency needed, task name, playbook, and inventory.ini file
+- Ansible inventory.ini contains list of computes to connect to
+- Go over example in https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/ansible
+
 <!--- vertical -->
 
 ## Ansible Dynamic Inventory
@@ -139,6 +180,10 @@ flows:
       playbook: "playbook/hello.yml"
       dynamicInventoryFile: "inventory.py"
 ```
+
+Note:
+- Difference is instead of hardcoded IPs/computers like in the .ini file, this
+runs a script to determine hosts
 
 <!--- vertical -->
 
@@ -160,6 +205,11 @@ configuration:
       env: myEnvironment
 ```
 
+Note:
+- When working w/ OneOps API, you have to add the API token.
+- This is typically by user.
+- Encrypt based on your project, and put that in the double-quotes, use the crypto.decryptString
+
 <!--- vertical -->
 
 ## OneOps Task Example
@@ -174,6 +224,9 @@ flows:
   - ${oneops.commitAndDeploy(oneOpsConfig)}
 ```
 
+Note:
+- Reinforce when we went over this earlier
+
 <!--- vertical -->
 
 ## OneOps Inventory and Ansible
@@ -186,6 +239,7 @@ flows:
 Note:
 - concord-pipeline git repo
 - concord-oneops-ansible-example git repo
+- https://gecgithub01.walmart.com/vn0xxv4/concord-oneops-ansible-example
 
 <!--- vertical -->
 
@@ -195,6 +249,9 @@ Note:
 - Simple declaration
 
 Concord, the orchestrator!
+
+Note:
+- Go over https://gecgithub01.walmart.com/devtools/concord/tree/master/examples again
 
 <!--- vertical -->
 
