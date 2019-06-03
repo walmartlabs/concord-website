@@ -321,10 +321,10 @@ flows:
       vaultPasswordFile: "get_vault_pwd.py"
 ```
 
-Any secret values are then made available for usage in the ansible playbook as
+Any secret values are then made available for usage in the Ansible playbook as
 usual.
 
-Multiple vault `password` or `password files` can also be specified.
+Multiple vault passwords or password files can also be specified.
 
 ```yaml
 flows:
