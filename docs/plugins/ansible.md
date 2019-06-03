@@ -324,6 +324,21 @@ flows:
 Any secret values are then made available for usage in the ansible playbook as
 usual.
 
+Multiple vault `password` or `password files` can also be specified.
+
+```yaml
+flows:
+  default:
+  - task: ansible
+    in:
+      vaultPassword:
+         password: "aStringValue"
+         otherPassword: "otherStringValue"
+      vaultPasswordFile:
+         vaultFile: "get_vault_pwd.py"
+         otherVaultFile: "get_other_vault_pwd.py"
+```
+
 Our [ansible_vault example project]({{ site.concord_source}}/tree/master/examples/ansible_vault)
 shows a complete setup and usage.
 
