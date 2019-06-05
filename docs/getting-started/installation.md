@@ -193,7 +193,7 @@ Try logging in using your AD/LDAP credentials.
 ## First Project
 
 As a next step you can create your first project as detailed in the
-[quickstart guide](./quickstart.html).
+[quickstart guide](../quickstart.html).
 
 
 ## Clean Up
