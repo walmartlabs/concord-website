@@ -124,7 +124,7 @@ or LDAP server setup. If you wish to use a local OpenLDAP instance, follow the
 [Using OpenLDAP for Authentication](./development.html#oldap) guide.
 
 The configuration file format and available parameters described in the
-[Configuration](./configuration.html) document.
+[Configuration](../configuration.html) document.
 
 ### Step 3. Start the Concord Server
 
@@ -193,7 +193,7 @@ Try logging in using your AD/LDAP credentials.
 ## First Project
 
 As a next step you can create your first project as detailed in the
-[quickstart guide](./quickstart.html).
+[quickstart guide](../quickstart.html).
 
 
 ## Clean Up
