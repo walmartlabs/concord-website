@@ -7,6 +7,7 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 There are several options to install Concord:
+
 - [Docker](./install/docker.html)
 - [Vagrant](./install/vagrant.html)
 

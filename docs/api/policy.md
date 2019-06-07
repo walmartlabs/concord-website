@@ -42,7 +42,7 @@ privileges.
     - `name` - the policy's name;
     - `parentId` - optional, ID of a parent policy;
     - `rules` - the policy's rules, see the
-    [Policies](../getting-started/policies.md) document.
+    [Policies](../getting-started/policies.html) document.
 * **Success response**
 
     ```
