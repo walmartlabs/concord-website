@@ -27,13 +27,13 @@ If you are using a private Docker registry, add its name to an image name in
 the examples below.  For example, if your private docker registry is running
 on `docker.myorg.com` this command:
 
-```
+```bash
 docker run ... walmartlabs/concord-agent
 ```
 
 has to be run as:
 
-```
+```bash
 docker run ... docker.myorg.com/walmartlabs/concord-agent
 ```
 
@@ -44,9 +44,11 @@ Console, the Database and an agent. Follow these steps to start all four
 components and run a simple process to test your Concord instance.
 
 <a name="step-1">
+
 ### Step 1. Start the Database
 
 Concord uses [PostgreSQL](https://www.postgresql.org/) version 10.4 or higher:
+
 ```bash
 docker run -d \
 -e 'POSTGRES_PASSWORD=q1' \
@@ -56,7 +58,8 @@ library/postgres:10.4
 ```
 
 Verify that the Database is running and ready to accept connections:
-```
+
+```bash
 $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 c3b438edc980        postgres:10.4       "docker-entrypoint.s…"   3 seconds ago       Up 1 second         5432/tcp            db
@@ -72,11 +75,13 @@ postgres=# select 1;
 ```
 
 <a name="step-2">
+
 ### Step 2. Create the Server's Configuration File
 
 Create a `server.conf` file somewhere on the local filesystem with the
 following content:
-```
+
+```json
 concord-server {
     db {
         url="jdbc:postgresql://db:5432/postgres"
@@ -103,11 +108,12 @@ concord-server {
 }
 ```
 
-Make sure that the `db` section contains the same password you speficied on
+Make sure that the `db` section contains the same password you specified on
 [Step 1](#step-1).
 
 The `secretStore` parameters define the keys that are used
 to encrypt user secrets. The keys must be base64-encoded:
+
 ```bash
 $ echo -ne "q1" | base64
 cTE=
@@ -115,10 +121,10 @@ cTE=
 
 The `ldap` section parameters depends on your organization's Active Directory
 or LDAP server setup. If you wish to use a local OpenLDAP instance, follow the
-[Using OpenLDAP for Authentication](./development.html#oldap) guide.
+[Using OpenLDAP for Authentication](../development.html#oldap) guide.
 
 The configuration file format and available parameters described in the
-[Configuration](./configuration.html) document.
+[Configuration](../configuration.html) document.
 
 ### Step 3. Start the Concord Server
 
@@ -136,7 +142,8 @@ Replace `/path/to/server.conf` with the path to the file created on
 [Step 2](#step-2).
 
 Check the server's status:
-```
+
+```bash
 $ docker logs server
 ...
 14:38:17.866 [main] [INFO ] com.walmartlabs.concord.server.Main - main -> started in 5687ms
@@ -162,7 +169,8 @@ walmartlabs/concord-agent
 ```
 
 Check the agent's status:
-```
+
+```bash
 $ docker logs agent
 ...
 4:41:45.530 [queue-client] [INFO ] c.w.c.server.queueclient.QueueClient - connect ['ws://server:8001/websocket'] -> done
@@ -187,8 +195,7 @@ Try logging in using your AD/LDAP credentials.
 ## First Project
 
 As a next step you can create your first project as detailed in the
-[quickstart guide](./quickstart.html).
-
+[quickstart guide](../quickstart.html).
 
 ## Clean Up
 
