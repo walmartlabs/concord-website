@@ -339,6 +339,45 @@ flows:
     fields:
     - myValue: { type: "string" }
 ```
+### Runner
+
+[Concord Runner]({{ site.concord_source }}tree/master/runner) is
+the name of the default runtime used for actual execution of processes. Its
+parameters can be configured in the `runner` section of the `configuration`
+object. Here is an example of the default configuration:
+
+```yaml
+configuration:
+  runner:
+    debug: false
+    logLevel: "INFO"
+    events:
+      recordTaskInVars: false
+      inVarsBlacklist:
+        - "password"
+        - "apiToken"
+        - "apiKey"
+
+      recordTaskOutVars: false
+      outVarsBlacklist: []
+```
+
+- `debug` - enables additional debug logging, `true` if `configuration.debug`
+  enabled;
+- `logLevel` - [logging level](https://logback.qos.ch/manual/architecture.html#effectiveLevel)
+  for the `log` task;
+- `events` - the process event recording parameters:
+  - `recordTaskInVars` - enable or disable recording of input variables in task
+    calls;
+  - `inVarsBlacklist` - list of variable names that must not be recorded if
+    `recordTaskInVars` is `true`;
+  - `recordTaskOutVars` - enable or disable recording of output variables in
+    task calls;
+  - `outVarsBlacklist` - list of variable names that must not be recorded if
+    `recordTaskInVars` is `true`.
+
+See the [Process Events](./processes.html#process-events) section for more
+details about the process event recording.
 
 ### Runner
 
