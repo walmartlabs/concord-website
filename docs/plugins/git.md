@@ -156,8 +156,8 @@ flows:
       ignoreErrors: true
 
   - if: "${!response.ok}"
-      then:
-       - log: "Clone action failed: ${response.error}"
+    then:
+    - log: "Clone action failed: ${response.error}"
 ```
 
 The `baseBranch` parameter is optional and specifies the name of the branch to
@@ -190,8 +190,8 @@ action, so make sure `clone` action is performed first.
       out: response
 
 - if: "${response.ok}"
-      then:
-       - log: "Commit action completed successfully."
+  then:
+  - log: "Commit action completed successfully."
 ```
 
 The `baseBranch` parameter is mandatory and specifies the name of the branch to
@@ -235,8 +235,8 @@ flows: default:
       out: response
 
   - if: "${response.ok}"
-        then:
-         - log: "Create-branch action completed successfully."
+    then:
+    - log: "Create-branch action completed successfully."
 ```
 
 <a name="merge"/>
@@ -270,8 +270,8 @@ flows:
       out: response
 
   - if: "${response.ok}"
-          then:
-           - log: "Merge action completed successfully."
+    then:
+    - log: "Merge action completed successfully."
 ```
 
 We recommend using the [merge action of the GitHub task](#github-merge) to merge
