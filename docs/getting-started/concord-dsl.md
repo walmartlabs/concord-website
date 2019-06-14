@@ -1115,10 +1115,10 @@ configuration:
     name: "you"
 ```
 
-The example above clones https://github.com/walmartlabs/concord.git and stores
-its `example/hello_world` directory into the `${workDir}/concord/` directory of
-the current process. Running this example should produce a `Hello, you!` log
-message.
+The example above clones the git repository from
+`https://github.com/walmartlabs/concord.git` and stores its
+`example/hello_world` directory into the `${workDir}/concord/` directory of the
+current process. Running this example produces a `Hello, you!` log message.
 
 The full syntax:
 
@@ -1131,7 +1131,8 @@ imports:
 ```
 
 Types of imports and their parameters:
-- `git` - imports remote GIT repositories:
+
+- `git` - imports remote git repositories:
   - `url` - URL of the repository, either `http(s)` or `git@`;
   - `name` - the organization and repository names, e.g. `walmartlabs/concord`.
   Automatically expanded into the full URL based on the server's configuration.
@@ -1139,7 +1140,7 @@ Types of imports and their parameters:
   - `version` - (optional) branch, tag or a commit ID to use. Default `master`;
   - `path` - (optional) path in the repository to use as the source directory;
   - `dest` - (optional) path in the process' working directory to use as the
-  destination directory. Default `./concord/`;
+  destination directory. Defaults to the process workspace `./concord/`;
   - `secret` - reference to `KEY_PAIR` or a `USERNAME_PASSWORD` secret. Must be
   a non-password protected secret;
 - `mvn` - imports a Maven artifact:
