@@ -36,6 +36,7 @@ process flows, configuration, forms and other aspects:
   - [Setting variables](#set-step)
 - [Named Profiles in `profiles`](#profiles)
 - [Separate Concord Folder Usage](#concord-folder)
+- [Imports](#imports)
 
 Some features are more complex and you can find details in separate documents:
 
@@ -1055,6 +1056,7 @@ In this example, values from `b` are merged with the result of the merge
 of `a` and the default configuration.
 
 <a name="concord-folder"/>
+
 ## Separate Concord Folder Usage
 
 The default use case with the Concord DSL is to maintain everything in the one
@@ -1083,7 +1085,7 @@ configuration:
       name: "Concord"
 ```
 
-The above example printss out `Hello, Concord!`, when running the default flow.
+The above example prints out `Hello, Concord!`, when running the default flow.
 
 Concord folder merge rules:
 
@@ -1097,3 +1099,51 @@ Concord folder merge rules:
   the values from the files loaded earlier.
 - Profiles with flows, forms and configuration values are merged according to
   the rules above.
+
+## Imports
+
+External repositories and artifacts can be imported into the process working
+directory using the `import` section of a Concord YAML file:
+
+```yaml
+imports:
+  - git:
+      url: "https://github.com/walmartlabs/concord.git"
+      path: "examples/hello_world"
+
+configuration:
+  arguments:
+    name: "you"
+```
+
+The example above clones https://github.com/walmartlabs/concord.git and stores
+its `example/hello_world` directory into the `${workDir}/concord/` directory of
+the current process. Running this example should produce a `Hello, you!` log
+message.
+
+The full syntax:
+
+```yaml
+imports:
+  - type:
+      options
+  - type:
+      options
+```
+
+Types of imports and their parameters:
+- `git` - imports remote GIT repositories:
+  - `url` - URL of the repository, either `http(s)` or `git@`;
+  - `name` - the organization and repository names, e.g. `walmartlabs/concord`.
+  Automatically expanded into the full URL based on the server's configuration.
+  Mutually exclusive with `url`;
+  - `version` - (optional) branch, tag or a commit ID to use. Default `master`;
+  - `path` - (optional) path in the repository to use as the source directory;
+  - `dest` - (optional) path in the process' working directory to use as the
+  destination directory. Default `./concord/`;
+  - `secret` - reference to `KEY_PAIR` or a `USERNAME_PASSWORD` secret. Must be
+  a non-password protected secret;
+- `mvn` - imports a Maven artifact:
+  - `url` - the Artifact's URL, in the format of `mvn://groupId:artifactId:version`;
+  - `dest` - (optional) path in the process' working directory to use as the
+  destination directory. Default `./concord/`.
