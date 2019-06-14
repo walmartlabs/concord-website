@@ -1102,7 +1102,7 @@ Concord folder merge rules:
 ## Imports
 
 External repositories and artifacts can be imported into the process working
-directory using the `import` section of a Concord YAML file:
+directory using the `imports` section of a Concord YAML file:
 
 ```yaml
 imports:
@@ -1117,7 +1117,7 @@ configuration:
 
 The example above clones the git repository from
 `https://github.com/walmartlabs/concord.git` and stores its
-`example/hello_world` directory into the `${workDir}/concord/` directory of the
+`example/hello_world` directory in the `${workDir}/concord/` directory of the
 current process. Running this example produces a `Hello, you!` log message.
 
 The full syntax:
