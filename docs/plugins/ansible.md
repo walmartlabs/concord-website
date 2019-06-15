@@ -317,27 +317,42 @@ flows:
   default:
   - task: ansible
     in:
+      # passing the vault's password as a value
       vaultPassword: "myS3cr3t"
+
+      # or as a file
       vaultPasswordFile: "get_vault_pwd.py"
 ```
 
 Any secret values are then made available for usage in the Ansible playbook as
 usual.
 
-Multiple vault passwords or password files can also be specified.
+[Multiple vault passwords](https://docs.ansible.com/ansible/latest/user_guide/vault.html#multiple-vault-passwords)
+or password files can also be specified:
 
 ```yaml
 flows:
   default:
   - task: ansible
     in:
+      # pass as values
       vaultPassword:
-         password: "aStringValue"
-         otherPassword: "otherStringValue"
+         myVaultID: "aStringValue"
+         myOtherVaultId: "otherStringValue"
+
+      # or using files
       vaultPasswordFile:
          vaultFile: "get_vault_pwd.py"
          otherVaultFile: "get_other_vault_pwd.py"
 ```
+
+The `vaultPassword` example above is an equivalent of running
+```
+$ ansible-playbook --vault-id myVaultId@aStringValue --vault-id myOtherVaultId@otherStringValue ...
+```
+
+The `vaultPasswordFile` must be relative paths inside the process' working
+directory.
 
 Our [ansible_vault example project]({{ site.concord_source}}/tree/master/examples/ansible_vault)
 shows a complete setup and usage.
