@@ -1101,8 +1101,10 @@ Concord folder merge rules:
 
 ## Imports
 
-External repositories and artifacts can be imported into the process working
-directory using the `imports` section of a Concord YAML file:
+Resources such as flows, forms and other workflow files can be shared between
+Concord projects by using `imports`.
+
+For example:
 
 ```yaml
 imports:
@@ -1113,12 +1115,9 @@ imports:
 configuration:
   arguments:
     name: "you"
-```
 
-The example above clones the git repository from
-`https://github.com/walmartlabs/concord.git` and stores its
-`example/hello_world` directory in the `${workDir}/concord/` directory of the
-current process. Running this example produces a `Hello, you!` log message.
+# running this example produces a `Hello, you!` log message.
+```
 
 The full syntax:
 
@@ -1129,6 +1128,10 @@ imports:
   - type:
       options
 ```
+
+Note, that `imports` is a top-level objects, similar to `configuration`.
+In addition, only the main YAML file's (the root `concord.yml`) `imports` are
+allowed.
 
 Types of imports and their parameters:
 
@@ -1144,6 +1147,18 @@ Types of imports and their parameters:
   - `secret` - reference to `KEY_PAIR` or a `USERNAME_PASSWORD` secret. Must be
   a non-password protected secret;
 - `mvn` - imports a Maven artifact:
-  - `url` - the Artifact's URL, in the format of `mvn://groupId:artifactId:version`;
+  - `url` - the Artifact's URL, in the format of `mvn://groupId:artifactId:version`.
+  Only JARs and ZIP archives are supported;
   - `dest` - (optional) path in the process' working directory to use as the
   destination directory. Default `./concord/`.
+
+How it works:
+- when the process is submitted, Concord reads the root `concord.yml` file
+and looks for the `imports` declaration;
+- all imports are processed in the order of their declaration;
+- `git` repositories cloned and their `path` directories are copied into the
+`dest` directory of the process working directory;
+- `mvn` artifacts are downloaded and extracted into the `dest` directory;
+- any existing files in target directories are overwritten;
+- the processes continues. Any imported resources placed into `concord`,
+`flows`, `profiles` and `forms` directories will be loaded as usual.
