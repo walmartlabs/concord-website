@@ -34,8 +34,8 @@ address to be used as the sender address, `to` for the recipient address,
 
 ## Attachments
 
-To add attachments to an email, you will need to add `attachments` parameter 
-with list of attachment paths to the smtp task:
+The `attachments` parameter accepts a list of file paths or attachment
+definitions. File paths must be relative to the process' working directory.
 
 ```yaml
 flows:
@@ -46,14 +46,13 @@ flows:
         from: sender@example.com
         ...
         attachments:
-        # simple attachment path
-        - "path-to-attachment-file"
-        # or attachment with additional info
-        - path: "path-to-attachment-file"
-          disposition: "attachment"             # optional, default "attachment". allowed: "attachment" or "inline"
-          description: "attachment description" # optional
-          name: "attachment name"               # optional
-          
+        # simple attachment paths
+        - "myFile.txt"
+        # or an attachment with additional info
+        - path: "myOtherFile.txt"
+          disposition: "attachment"             # optional, "attachment" or "inline"
+          description: "my attached file"       # optional
+          name: "my.txt"                        # optional
 ```
 
 ## Optional Parameters
