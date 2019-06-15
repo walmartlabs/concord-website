@@ -23,6 +23,7 @@ application deployments with Concord.
 - [Ansible Lookup Plugins](#ansible-lookup-plugins)
 - [Group Vars](#group-vars)
 - [Output Parameters](#out)
+- [Extra Modules](#extra-modules)
 - [Limitations](#limitations)
 
 ## Usage
@@ -342,15 +343,14 @@ flows:
   default:
   - task: ansible
     in:
-      dockerImage: "docker.example.com/walmartlabs/concord-ansible"
+      dockerImage: "walmartlabs/concord-ansible"
 ```
 
-We recommend using `docker.example.com/walmartlabs/concord-ansible`
-as a base for your custom Docker images.
+We recommend using `walmartlabs/concord-ansible` as a base for your custom
+Ansible images.
 
-Please refer to our
-[Docker plugin documentation](./docker.html)
-for more details.
+Please refer to our [Docker plugin documentation](./docker.html) for more
+details.
 
 <a name="retry-limit"/>
 
@@ -563,10 +563,47 @@ The JSON object can be traversed to access specific values.
 - log: ${myVar['127.0.0.1']['msg']}
 ```
 
+## Extra Modules
+
+The plugin provides two ways of adding 3rd-party modules or using a specific
+version of Ansible:
+- using a [custom Docker image](#custom-docker-images);
+- or using the plugin's support for Python's
+[virtualenv](https://virtualenv.pypa.io/en/latest/).
+
+Virtualenv can be used to install [PIP modules](https://pypi.org/) (including
+Ansible itself) into a temporary directory inside the process' working
+directory.
+
+For example:
+```yaml
+- task: ansible
+  in:
+    virtualenv:
+      packages:
+        - "ansible==2.7.0"
+        - "openshift"
+
+    # the rest as usual
+```
+
+In the example above the plugin creates a new virtualenv and installs two
+packages: `ansible` (using the specified version) and `openshift`.
+
+The full syntax:
+- `virtualenv`
+  - `packages` - list of PIP packages with optional version qualifiers;
+  - `indexUrl` - (optional) URL of the Python Package Index (default
+    https://pypi.org/simple).
+
+**Note:** at the moment the plugin doesn't provide any caching for virtualenv.
+Any requested modules will be downloaded each time the task executes, which
+might take significant amount of time depending on the size of the packages,
+their dependencies, network speed, etc.
 
 ## Limitations
 
-Ansible's `strategy: debug` is not supported. It requires an interactive terminal and
-expects user input and should not be used in Concord's environment.
-Playbooks with `strategy: debug` will hang indefinitely, but can be killed using the
-REST API or the Console.
+Ansible's `strategy: debug` is not supported. It requires an interactive
+terminal and expects user input and should not be used in Concord's
+environment. Playbooks with `strategy: debug` will hang indefinitely, but can
+be killed using the REST API or the Console.
