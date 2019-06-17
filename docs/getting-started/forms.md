@@ -332,6 +332,7 @@ data = {
   "success" : false,
   "processFailed" : false,
   "submitUrl" : "/api/service/custom_form/f5c0ab7c-72d8-42ee-b02e-26baea56f686/cc0beb01-b42c-4991-ae6c-180de2b672e5/continue",
+  "fields" : [ "name" ],
   "definitions" : {
     "name": {
         "type": "string"
@@ -347,11 +348,14 @@ data = {
 ```
 
 The file defines a JavaScript object with the following fields:
+
 - `success` - `false` if a form submit failed;
 - `processFailed` - `true` if a process execution failed outside of
 a form;
 - `submitUrl` - automatically generated URL which should be used to
 submit new form values and resume the process;
+- `fields` - list of form field names in the order of their declaration in the
+  Concord file;
 - `definitions` - form field definitions. Each key represents a
 field:
   - `type` - type of the field;
