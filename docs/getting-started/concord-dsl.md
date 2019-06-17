@@ -1151,6 +1151,18 @@ Concord folder merge rules:
 Resources such as flows, forms and other workflow files can be shared between
 Concord projects by using `imports`.
 
+How it works:
+
+- when the process is submitted, Concord reads the root `concord.yml` file
+  and looks for the `imports` declaration;
+- all imports are processed in the order of their declaration;
+- `git` repositories are cloned and their `path` directories are copied into the
+  `dest` directory of the process working directory;
+- `mvn` artifacts are downloaded and extracted into the `dest` directory;
+- any existing files in target directories are overwritten;
+- the processes continues. Any imported resources placed into `concord`,
+  `flows`, `profiles` and `forms` directories will be loaded as usual.
+
 For example:
 
 ```yaml
@@ -1162,11 +1174,11 @@ imports:
 configuration:
   arguments:
     name: "you"
-
-# running this example produces a `Hello, you!` log message.
 ```
 
-The full syntax:
+Running the above example produces a `Hello, you!` log message.
+
+The full syntax for imports is:
 
 ```yaml
 imports:
@@ -1177,7 +1189,7 @@ imports:
 ```
 
 Note, that `imports` is a top-level objects, similar to `configuration`.
-In addition, only the main YAML file's (the root `concord.yml`) `imports` are
+In addition, only the main YAML file's, the root `concord.yml`, `imports` are
 allowed.
 
 Types of imports and their parameters:
@@ -1195,17 +1207,7 @@ Types of imports and their parameters:
   a non-password protected secret;
 - `mvn` - imports a Maven artifact:
   - `url` - the Artifact's URL, in the format of `mvn://groupId:artifactId:version`.
-  Only JARs and ZIP archives are supported;
+    Only JAR and ZIP archives are supported;
   - `dest` - (optional) path in the process' working directory to use as the
   destination directory. Default `./concord/`.
 
-How it works:
-- when the process is submitted, Concord reads the root `concord.yml` file
-and looks for the `imports` declaration;
-- all imports are processed in the order of their declaration;
-- `git` repositories cloned and their `path` directories are copied into the
-`dest` directory of the process working directory;
-- `mvn` artifacts are downloaded and extracted into the `dest` directory;
-- any existing files in target directories are overwritten;
-- the processes continues. Any imported resources placed into `concord`,
-`flows`, `profiles` and `forms` directories will be loaded as usual.
