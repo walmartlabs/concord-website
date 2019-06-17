@@ -35,6 +35,7 @@ process flows, configuration, forms and other aspects:
   - [Throwing exceptions](#throw-step)
   - [Setting variables](#set-step)
 - [Named Profiles in `profiles`](#profiles)
+- [Configurable Resources in `resources`](#resources)
 - [Separate Concord Folder Usage](#concord-folder)
 - [Imports](#imports)
 
@@ -1053,6 +1054,52 @@ $ curl ... -F activeProfiles=a,b http://concord.example.com/api/v1/process
 
 In this example, values from `b` are merged with the result of the merge
 of `a` and the default configuration.
+
+<a name="resources"/>
+
+## Configurable Resources in `resources`
+
+Resource directory path such as `./flows`, `./processes`, `./profiles` and
+`./concord` can be configured in the `resources` top-level element in the
+concord file.
+
+Concord loads the root `concord.yml` first and subsequently looks for the
+resources paths under the `resources` section.
+
+The following resources configuration causes all flows to be loaded from the
+`myFlows` folder in the repository, instead of the default `flows` folder using
+the pattern `./flows/**/*.yml`. Resources are loaded from the `myConcordStuff`
+folder instead of the default `concord` folder using the pattern
+`./concord/**/*.yml`.
+
+```yaml
+resources:
+  flows: "myFlows"
+  concord: "myConcordStuff"
+```
+
+Multiple resource paths per category are also supported:
+
+```yaml
+resources:
+  flows:
+    - "myFlowDirA"
+    - "myFlowDirB"
+```
+
+Resource loading can be disabled by providing the list of disabled resources.
+
+```yaml
+resources:
+    flows: "myFlows"
+    disabled:
+      - "profiles"
+      - "processes"
+```
+
+In the above example, flows are picked from `./myFlows` instead of the `./flows`
+directory and loading of resources from the `./profiles` and `./processes`
+directories is disabled.
 
 <a name="concord-folder"/>
 
