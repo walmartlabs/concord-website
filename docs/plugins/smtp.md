@@ -46,14 +46,19 @@ flows:
         from: sender@example.com
         ...
         attachments:
-        # simple attachment paths
         - "myFile.txt"
-        # or an attachment with additional info
-        - path: "myOtherFile.txt"
-          disposition: "attachment"             # optional, "attachment" or "inline"
-          description: "my attached file"       # optional
-          name: "my.txt"                        # optional
+
+        - path: "test/myOtherFile.txt"
+          disposition: "attachment"
+          description: "my attached file"
+          name: "my.txt"
 ```
+
+The above example attache two files from the process working directory,
+`myFile.txt` from the directory itself and `myOtherFile.txt` from the `test`
+directory. The `description` and `name` parameters are optional. The
+`disposition` parameter allows the values `attachment` or `inline`. Inline
+inserts the file as part of the email message itself.
 
 ## Optional Parameters
 
