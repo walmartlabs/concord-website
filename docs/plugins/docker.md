@@ -47,6 +47,8 @@ library/alpine \
 echo 'Hello, world!'
 ```
 
+The `cmd` parameter is optional. If omitted, the image's `ENTRYPOINT` is used.
+
 The current process' working directory is mounted as `/workspace`.
 
 **Note:** Your Dockerfile's `WORKDIR` is overwritten to `/workspace`. Depending
