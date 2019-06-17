@@ -559,7 +559,7 @@ ansible task.
 
 The JSON object can be traversed to access specific values.
 
-```
+```yaml
 - log: ${myVar['127.0.0.1']['msg']}
 ```
 
@@ -567,15 +567,17 @@ The JSON object can be traversed to access specific values.
 
 The plugin provides two ways of adding 3rd-party modules or using a specific
 version of Ansible:
+
 - using a [custom Docker image](#custom-docker-images);
 - or using the plugin's support for Python's
-[virtualenv](https://virtualenv.pypa.io/en/latest/).
+  [virtualenv](https://virtualenv.pypa.io/en/latest/).
 
-Virtualenv can be used to install [PIP modules](https://pypi.org/) (including
-Ansible itself) into a temporary directory inside the process' working
+Virtualenv can be used to install [PIP modules](https://pypi.org/), as well as
+Ansible itself, into a temporary directory inside the process' working
 directory.
 
 For example:
+
 ```yaml
 - task: ansible
   in:
@@ -583,23 +585,23 @@ For example:
       packages:
         - "ansible==2.7.0"
         - "openshift"
-
-    # the rest as usual
 ```
 
-In the example above the plugin creates a new virtualenv and installs two
-packages: `ansible` (using the specified version) and `openshift`.
+In the example above the plugin creates a new virtual environment and installs
+two packages `ansible`, using the specified version, And `openshift`. This
+environment is then used to run Ansible.
 
 The full syntax:
+
 - `virtualenv`
   - `packages` - list of PIP packages with optional version qualifiers;
-  - `indexUrl` - (optional) URL of the Python Package Index (default
-    https://pypi.org/simple).
+  - `indexUrl` - optional URL of the Python Package Index, defaults to
+    `https://pypi.org/simple`;
 
-**Note:** at the moment the plugin doesn't provide any caching for virtualenv.
-Any requested modules will be downloaded each time the task executes, which
-might take significant amount of time depending on the size of the packages,
-their dependencies, network speed, etc.
+Note that, at the moment the plugin doesn't provide any caching for virtual
+environments. Any requested modules are downloaded each time the task
+executes, which might take significant amount of time depending on the size of
+the packages, their dependencies, network speed, etc.
 
 ## Limitations
 
