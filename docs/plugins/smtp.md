@@ -32,6 +32,29 @@ The `mail` input parameters includes the parameters `from` to specify the email
 address to be used as the sender address, `to` for the recipient address,
 `subject` for the message subject and `message` for the actual message body.
 
+## Attachments
+
+The `attachments` parameter accepts a list of file paths or attachment
+definitions. File paths must be relative to the process' working directory.
+
+```yaml
+flows:
+  default:
+  - task: smtp
+    in:
+      mail:
+        from: sender@example.com
+        ...
+        attachments:
+        # simple attachment paths
+        - "myFile.txt"
+        # or an attachment with additional info
+        - path: "myOtherFile.txt"
+          disposition: "attachment"             # optional, "attachment" or "inline"
+          description: "my attached file"       # optional
+          name: "my.txt"                        # optional
+```
+
 ## Optional Parameters
 
 You can add `cc` and `bcc` recipient email addresses, and  specify 
