@@ -31,6 +31,8 @@ nav:
         context: /docs/getting-started/policies
       - page: Triggers
         context: /docs/getting-started/triggers
+      - page: CLI
+        context: /docs/getting-started/cli
       - page: Development
         context: /docs/getting-started/development
   - title: Console
