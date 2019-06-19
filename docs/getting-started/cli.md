@@ -17,7 +17,7 @@ Concord CLI requires Java 1.8+ available in `$PATH`. Installation is merely
 a download-and-copy process:
 
 ```bash
-curl -o ~/bin/concord http://central.maven.org/maven2/com/walmartlabs/concord/concord-cli/{{ site.concord_core_version }}/concord-cli-{{ site.concord_core_version }}-executable.jar
+curl -o ~/bin/concord https://repo.maven.apache.org/maven2/com/walmartlabs/concord/concord-cli/{{ site.concord_core_version }}/concord-cli-{{ site.concord_core_version }}-executable.jar
 chmod +x ~/bin/concord
 ```
 
