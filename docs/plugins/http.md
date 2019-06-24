@@ -63,7 +63,8 @@ All parameters sorted in alphabetical order.
 - `headers`: add additional headers, details in [Headers](#headers)
 - `ignoreErrors`: boolean, instead of throwing exceptions on unauthorized requests, 
   return the result object with the error
-- `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or `DELETE`
+- `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or `DELETE`. 
+Default value is `GET`.
 - `out`: variable to store the [HTTP response](#http-task-response) object
 - `request`: type of request data `string`, `json`, or `file`, details available
    in [Request type](#request-type);
@@ -76,6 +77,7 @@ between two data packets. Default value is `-1`, which means that the default
 value of the Java Runtime Environment running the process is used - common value
 is 60000 ms;
 - `proxy`: HTTP(s) proxy to use (see the [example](#proxy-usage)).
+- `query`: request query parameters, details in [Query Parameter](#query-parameters)
 - `requestTimeout`: request timeout in ms, which is the maximum time spent 
 waiting for the response.
 
@@ -155,6 +157,17 @@ Extra header values can be specified using `headers` key:
     MyHeader: "a value"
     X-Some-Header: "..."
 ```
+
+### Query Parameters
+
+Query parameters can be specified using `query` key:
+```yaml
+  query:
+    param: "Hello Concord"
+    otherParam: "..."
+    
+```
+It will be automatically encoded and appended the request URL.
 
 ### Request Type
 
