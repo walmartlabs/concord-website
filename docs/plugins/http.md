@@ -167,7 +167,7 @@ Query parameters can be specified using `query` key:
     otherParam: "..."
     
 ```
-Parameters will be automatically encoded and appended the request URL.
+Parameters will be automatically encoded and appended to the request URL.
 
 ### Request Type
 
