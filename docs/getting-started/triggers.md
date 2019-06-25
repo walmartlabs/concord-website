@@ -307,13 +307,13 @@ for more details.
 
 ## Manual Triggers
 
-You can specify which flow you want to execute from UI by defining `manual` triggers.
+Manual triggers can be used to add "shortcuts" to the UI.
 
-Each `manual` trigger is required to specify the flow to execute with the
-`entryPoint` parameter and the `name` that will be displayed on the UI.
+Each `manual` trigger must specify the flow to execute using the `entryPoint`
+parameter. The `name` parameter is the displayed name of the shortcut.
 
-After repository triggers will be refreshed you will see `manual` triggers 
-as dropdown menu items in repository actions menu. 
+After repository triggers are refreshed, the defined `manual` triggers appear
+as dropdown menu items in the repository actions menu. 
 
 ```yaml
 triggers:
