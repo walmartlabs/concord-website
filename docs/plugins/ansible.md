@@ -402,11 +402,18 @@ flows:
       retry: true
 ```
 
-The equivalent ansible command is
+The equivalent Ansible command is
 
 ```
 ansible-playbook --limit @${workDir}/playbook/hello.retry
 ```
+
+**Note:** specifying `retry: true` doesn't mean that Ansible will automatically
+retry the playbook execution. It only tells Ansible to look for a `*.retry`
+file and if it is there - use it. If there was no `*.retry` files created
+before hand, the task call will fail. See an [example](https://github.com/walmartlabs/concord/tree/master/examples/ansible_retry)
+how to combine the plugin's `retry` and the task call's `retry` attribute to
+automatically re-run a playbook.
 
 Alternatively, the `limit` parameter can be specified directly:
 
@@ -420,7 +427,7 @@ flows:
       limit: @my.retry
 ```
 
-The equivalent ansible command is
+The equivalent Ansible command is
 
 ```
 ansible-playbook --limit @my.retry
@@ -436,7 +443,6 @@ flows:
     in:
       saveRetryFile: true
 ```
-
 
 ```
 curl ... http://concord.example.com/api/v1/process/${processId}/attachments/ansible.retry
