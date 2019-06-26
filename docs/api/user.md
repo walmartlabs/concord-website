@@ -28,7 +28,8 @@ using the specified username.
     ```json
     {
       "username": "myUser",
-      "type": "LOCAL"
+      "type": "LOCAL",
+      "roles": ["testRole1", "testRole2"]
     }
     ```
     
