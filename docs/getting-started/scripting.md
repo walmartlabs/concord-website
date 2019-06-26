@@ -25,6 +25,7 @@ JVM.
 
 - [Using Flow Variables](#variables)
 - [Using Concord Tasks](#tasks)
+- [Error Handling](#error-handling)
 - [Javascript](#javascript)
 - [Groovy](#groovy)
 - [Python](#python)
@@ -99,6 +100,29 @@ Scripts can be automatically retrieved from an external server:
 The file extension in the URL must match the script engine's
 supported extensions -- e.g. `.groovy` for the Groovy language, `.js`
 for JavaScript, etc.
+
+<a name="error-handling">
+
+## Error Handling
+
+Script can have an optional error block. It is executed when an exception occurs
+in the script execution:
+
+```yaml
+- script: groovy
+  body: |
+    throw new RuntimeException("kaboom!")
+  error:
+    - log: "Caught an error: ${lastError.cause}"
+```
+
+Using external script file:
+
+```yaml
+- script: "http://localhost:8000/myScript.groovy"
+  error:
+    - log: "Caught an error: ${lastError.cause}"
+```
 
 ## JavaScript
 
