@@ -23,20 +23,18 @@ response to specific events.
 > repository content with the reload button beside the repository in the Concord
 > Console.
   
-
-
-
 <a name="common"/>
+
 ## Common Syntax
 
-All triggers work by the same process: 
+All triggers work by the same process:
 
 - Concord matches the patterns you specify as triggers to event data.
 - Event data is typically external, but can be internally produced in the case
 of the [scheduled triggers](#scheduled).
 - For each matched trigger, it starts a new process.
 
-You define triggers in the `triggers` section of a `concord.yml` file, as in 
+You define triggers in the `triggers` section of a `concord.yml` file, as in
 this example:
 
 ```yaml
@@ -51,14 +49,15 @@ triggers:
 ```
 
 When the API end-point `/api/v1/events/` receives an event, Concord detects any
-existing matches with trigger names. 
+existing matches with trigger names.
 
 This allows you to publish events to `/api/v1/events/eventSource` for matching
 with triggers (where `eventSource` is any string).
 
-Further: 
+Further:
 
-- Concord detects any matches of `parameter1` and `parameter2` with the external event's parameters.
+- Concord detects any matches of `parameter1` and `parameter2` with the external
+  event's parameters.
 - `entryPoint` is the name of the flow that Concord starts when there is a match.
 - `arguments` is the list of additional parameters that are passed to the flow.
 
@@ -80,9 +79,10 @@ parameter which contains attributes of the external event. Depending on the
 source of the event, the exact structure of the `event` object may vary.
 
 <a name="oneops"/>
+
 ## OneOps Triggers
 
-Using `oneops` as an event source allows Concord to receive events from OneOps. 
+Using `oneops` as an event source allows Concord to receive events from OneOps.
 You can configure event properties in the OneOps notification sink, specifically
 for use in Concord triggers.
 
@@ -106,8 +106,9 @@ triggers:
 ```
 
 The `event` object, in addition to its trigger parameters, contains a `payload`
-attribute--the original event's data "as is". You can set `useInitiator` to `true` in order to make
-sure that process is initiated using `createdBy` attribute of the event.
+attribute--the original event's data "as is". You can set `useInitiator` to
+`true` in order to make sure that process is initiated using `createdBy`
+attribute of the event.
 
 The following example uses the IP address of the deployment component to build 
 an Ansible inventory for execution of an [Ansible task](../plugins/ansible.html):
@@ -124,10 +125,11 @@ flows:
 ```
 
 <a name="github"/>
+
 ## GitHub Triggers
 
-The `github` event source allows Concord to receive `push` and `pull_request` notifications from
-GitHub. Here's an example:
+The `github` event source allows Concord to receive `push` and `pull_request`
+notifications from GitHub. Here's an example:
 
 ```yaml
 flows:
@@ -149,11 +151,13 @@ is set to `push` by default;
 - `status` - for `pull_request` notifications only, with possible values of
 `opened` or `closed`
 - `project` and `repository` - the name of the Concord project and repository
-which were updated in GitHub. By default the current project/repository is triggered;
+  which were updated in GitHub. By default the current project/repository is
+  triggered;
 - `author` - GitHub user, the author of the commit;
 - `branch` - the GIT repository's branch;
 - `commitId` - ID of the commit which triggered the notification;
-- `useInitiator` - process initiator is set to `author` when this attribute is marked as `true`
+- `useInitiator` - process initiator is set to `author` when this attribute is
+  marked as `true`
 
 The following example trigger fires when someone pushes to a development branch
 with a name starting with `dev-`, e.g. `dev-my-feature`, `dev-bugfix`, and
@@ -198,6 +202,7 @@ The connection to the GitHub deployment needs to be
 [configured globally](./configuration.html#github).
 
 <a name="scheduled"/>
+
 ## Scheduled Triggers
 
 You can schedule execution of flows by defining one or multiple `cron` triggers.
@@ -307,13 +312,14 @@ for more details.
 
 ## Manual Triggers
 
-Manual triggers can be used to add "shortcuts" to the UI.
+Manual triggers can be used to add items to the repository action drop down
+in the Concord Console, similar to the default added _Run_ action.
 
 Each `manual` trigger must specify the flow to execute using the `entryPoint`
 parameter. The `name` parameter is the displayed name of the shortcut.
 
 After repository triggers are refreshed, the defined `manual` triggers appear
-as dropdown menu items in the repository actions menu. 
+as dropdown menu items in the repository actions menu.
 
 ```yaml
 triggers:
