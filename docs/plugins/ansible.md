@@ -348,8 +348,9 @@ flows:
 ```
 
 The `vaultPassword` example above is an equivalent of running
-```
-$ ansible-playbook --vault-id myVaultId@aStringValue --vault-id myOtherVaultId@otherStringValue ...
+
+```bash
+ansible-playbook --vault-id myVaultId@aStringValue --vault-id myOtherVaultId@otherStringValue ...
 ```
 
 The `vaultPasswordFile` must be relative paths inside the process' working
@@ -404,14 +405,15 @@ flows:
 
 The equivalent Ansible command is
 
-```
+```bash
 ansible-playbook --limit @${workDir}/playbook/hello.retry
 ```
 
-**Note:** specifying `retry: true` doesn't mean that Ansible will automatically
-retry the playbook execution. It only tells Ansible to look for a `*.retry`
-file and if it is there - use it. If there was no `*.retry` files created
-before hand, the task call will fail. See an [example](https://github.com/walmartlabs/concord/tree/master/examples/ansible_retry)
+Note that specifying `retry: true` doesn't mean that Ansible automatically
+retries the playbook execution. It only tells Ansible to look for a `*.retry`
+file and if it is there - use it. If there was no `*.retry` files created before
+hand, the task call simply fails. See an
+[example](https://github.com/walmartlabs/concord/tree/master/examples/ansible_retry)
 how to combine the plugin's `retry` and the task call's `retry` attribute to
 automatically re-run a playbook.
 
@@ -423,18 +425,18 @@ flows:
   - task: ansible
     in:
       playbook: playbook/hello.yml
-      # will use @${workDir}/my.retry file
+      # uses @${workDir}/my.retry file
       limit: @my.retry
 ```
 
 The equivalent Ansible command is
 
-```
+```bash
 ansible-playbook --limit @my.retry
 ```
 
-If the `saveRetryFile` parameter is set to `true`, then the generated `*.retry` file
-is saved as a process attachment and can be retrieved using the REST API:
+If the `saveRetryFile` parameter is set to `true`, then the generated `*.retry`
+file is saved as a process attachment and can be retrieved using the REST API:
 
 ```yaml
 flows:
@@ -444,7 +446,7 @@ flows:
       saveRetryFile: true
 ```
 
-```
+```bash
 curl ... http://concord.example.com/api/v1/process/${processId}/attachments/ansible.retry
 ```
 
