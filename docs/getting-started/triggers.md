@@ -14,6 +14,7 @@ response to specific events.
 - [GitHub Triggers](#github)
 - [Scheduled Triggers](#scheduled)
 - [Generic Triggers](#generic)
+- [Manual Triggers](#manual)
 
 > Trigger configuration is typically loaded automatically, but can be disabled
 > globally or for specific types of repositories. For example, personal git
@@ -301,3 +302,25 @@ Check out the
 [full example](
 {{site.concord_source}}tree/master/examples/generic_triggers)
 for more details.
+
+<a name="manual"/>
+
+## Manual Triggers
+
+Manual triggers can be used to add "shortcuts" to the UI.
+
+Each `manual` trigger must specify the flow to execute using the `entryPoint`
+parameter. The `name` parameter is the displayed name of the shortcut.
+
+After repository triggers are refreshed, the defined `manual` triggers appear
+as dropdown menu items in the repository actions menu. 
+
+```yaml
+triggers:
+  - manual:
+      name: Build
+      entryPoint: main
+  - manual:
+      name: Deploy Prod
+      entryPoint: deployProd
+```
