@@ -10,16 +10,17 @@ The HTTP task provides a basic HTTP/RESTful client that allows you to call
 RESTful endpoints. It is provided automatically by Concord, and does not require
 any external dependencies.
 
-RESTful endpoints are very commonly used and often expose an API to work with 
+RESTful endpoints are very commonly used and often expose an API to work with
 an application. The HTTP task allows you to invoke any exposed functionality in
 third party applications in your Concord project and therefore automate the
 interaction with these applications. This makes the HTTP task a very powerful
 tool to integrate Concord with applications that do not have a custom
 integration with Concord via a specific task.
 
-The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `PATCH`, `POST`, or
-`DELETE` method and returns [HTTP response](#http-task-response) objects. The
-response object can be stored in an `out` parameter for later usage.
+The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `PATCH`,
+`POST`, or `DELETE` method and returns [HTTP response](#http-task-response)
+objects. The response object can be stored in an `out` parameter for later
+usage.
 
 - [Usage and Configuration](#usage)
 - [Examples](#examples)
@@ -61,10 +62,10 @@ All parameters sorted in alphabetical order.
 - `body`: the request body, details in [Body](#body);
 - `debug`: boolean, output the request and response data in the logs
 - `headers`: add additional headers, details in [Headers](#headers)
-- `ignoreErrors`: boolean, instead of throwing exceptions on unauthorized requests, 
+- `ignoreErrors`: boolean, instead of throwing exceptions on unauthorized requests,
   return the result object with the error
-- `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or `DELETE`. 
-Default value is `GET`.
+- `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or
+    `DELETE`. Default value is `GET`.
 - `out`: variable to store the [HTTP response](#http-task-response) object
 - `request`: type of request data `string`, `json`, or `file`, details available
    in [Request type](#request-type);
@@ -112,9 +113,8 @@ causes an `UnauthorizedException` error.
 
 ### Body
 
-The HTTP method type `POST`, `PUT` and `PATCH` requires a `body` parameter that contains a complex
-object (map), json sourced from a file, or raw string.
-
+The HTTP method type `POST`, `PUT` and `PATCH` requires a `body` parameter that
+contains a complex object (map), json sourced from a file, or raw string.
 
 Body for request type `json`:
 
@@ -152,6 +152,7 @@ Body for Request Type `string`:
 ### Headers
 
 Extra header values can be specified using `headers` key:
+
 ```yaml
   headers:
     MyHeader: "a value"
@@ -161,13 +162,14 @@ Extra header values can be specified using `headers` key:
 ### Query Parameters
 
 Query parameters can be specified using `query` key:
+
 ```yaml
   query:
     param: "Hello Concord"
     otherParam: "..."
-    
 ```
-Parameters will be automatically encoded and appended to the request URL.
+
+Parameters are automatically encoded and appended to the request URL.
 
 ### Request Type
 
@@ -248,10 +250,10 @@ Using raw JSON for the body:
     method: POST # `PATCH`, `PUT`
     url: "https://api.example.com:port/path/endpoint"
     body: |
-      { 
+      {
         "myObject": {
            "nestedVar": 123
-        } 
+        }
       }
     response: json
     out: jsonResponse
@@ -303,7 +305,7 @@ Using Basic Authentication with a username and a password:
 
 ```yaml
 - task: http
-  in:    
+  in:
     method: GET
     url: "https://api.example.com:port/path/endpoint"
     proxy: "http://proxy.example.com:8080"
