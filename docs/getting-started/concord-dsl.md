@@ -658,7 +658,23 @@ The items are referenced in the invoked flow with the `${item}` expression:
   - log: "We got ${item}"
 ```
 
-Complex objects can be used in loops as well:
+Maps (dicts, in Python terms) can also be used:
+
+```yaml
+flows:
+  default:
+    - call: log
+      in:
+        msg: "${item.key} - ${item.value}"
+      withItems:
+        a: "Hello"
+        b: "world"
+```
+
+In the example above `withItems` iterates over the keys of the object. Each
+`${item}` provides `key` and `value` attributes.
+
+Lists of nested objects can be used in loops as well:
 
 ```yaml
 flows:
