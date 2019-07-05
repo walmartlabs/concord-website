@@ -165,6 +165,7 @@ docker run -d \
 --name agent \
 --link server \
 -e SERVER_API_BASE_URL=http://server:8001 \
+-e SERVER_WEBSOCKET_URL=ws://server:8001/websocket \
 walmartlabs/concord-agent
 ```
 
