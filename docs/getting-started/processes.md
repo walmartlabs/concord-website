@@ -205,12 +205,12 @@ database and used later in the [Concord Console](../console/index.html) and
 other components.
 
 Events can be retrieved using [the API](../api/process.html#list-events).
-Currently, those event types are used:
+Currently, those event types are:
 
 - `PROCESS_STATUS` - process status changes;
 - `ELEMENT` - flow element events (sucha as task calls).
 
-In additional, plugins can use their own specific event types. For example, the
+In addition, plugins can use their own specific event types. For example, the
 [Ansible plugin](../plugins/ansible.html) uses custom events to record playbook
 execution details.  This data is extensively used by the Concord Console to
 provide visibility into the playbook execution - hosts, playbook steps, etc.
