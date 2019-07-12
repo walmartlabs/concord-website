@@ -70,6 +70,12 @@ or in a directory specified in `dirOrPlan` parameter:
 - task: terraform
   in:
     action: plan
+
+# run `terraform plan` to generate a destroy plan
+- task: terraform
+  in:
+    action: plan
+    destroy: true
     
 # run `terraform plan` in a specific directory
 - task: terraform
@@ -83,9 +89,11 @@ configuration and runs `terraform init` when necessary.
 
 Parameters:
 - `dirOrPlan` - string value, path to a directory with `*.tf` files or to
-a previously created plan file. The path must be relative to the process'
+a previously created plan file. The path must be relative to the process;
+- `destroy` - boolean value, if `true` destroy plan will be generated. By default,
+apply plan is generated;
 `${workDir}`;
- - `gitSsh` - see [GIT modules](#git-modules).
+- `gitSsh` - see [GIT modules](#git-modules).
 
 The output is stored in a `result` variable that has the following structure:
 - `ok` - boolean value, `true` if the execution is successful;
