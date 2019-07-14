@@ -55,8 +55,8 @@ the `terraform` process;
 - `extraVars` - [variables](#variables) provided to the `terraform` process;
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
 execution will be ignored and stored in the `result` variable;
-- `stateId` - string value, the name of a state file to use. If not set, the
-`${projectName}_${repoName}` template is used automatically.
+- `stateId` - string value, the name of a state file to use. See
+the [State Backends](#backends) section for more details.
 
 <a name="planning"/>
 
@@ -220,14 +220,28 @@ the `apply` action parameters:
 
 By default Concord provides its own
 [state backend](https://www.terraform.io/docs/backends/index.html) based on
-[http backend](https://www.terraform.io/docs/backends/types/http.html).
+the [http backend](https://www.terraform.io/docs/backends/types/http.html).
 
-The data is stored in Concord Inventory. Terraform uses previously saved data
-to calculate necessary changes to the environment and stores the updated state
-whenever changes are made.
+Currently, the data is stored in Concord Inventory. Terraform uses previously
+saved data to calculate necessary changes to the environment and stores the
+updated state whenever changes are made.
+
+By default, the plugin automatically creates a new inventory using
+the `tfState-${projectName}_${repositoryName}` template for the name.
+It can be overridden using the `stateId` parameter:
+
+```yaml
+- task: terraform
+  in:
+    action: plan
+    stateId: "myInventory"
+```
+
+To completely remove the saved state remove the inventory using the [API](../api/inventory.html#delete-inventory). 
 
 If your Terraform configuration uses a backend other then the `default` backend,
-then you must disable the `default` backend:
+then you must disable the default backend:
+
 ```yaml
 - task: terraform
   in:
