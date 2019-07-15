@@ -12,6 +12,7 @@ The REST API provides support for working with inventories:
 
 - [Create an Inventory](#create-inventory)
 - [Update an Inventory](#update-inventory)
+- [Delete an Inventory](#delete-inventory)
 - [List Inventories](#list-inventories)
 
 To remove a project's value, specify an empty value. For example, you can use an
@@ -19,6 +20,7 @@ empty `parent` inventory JSON object to remove a parent inventory from an
 inventory.
 
 <a name="create-inventory"/>
+
 ## Create an Inventory
 
 Creates a new inventory with specified parameters.
@@ -64,6 +66,7 @@ Creates a new inventory with specified parameters.
 
 
 <a name="update-inventory"/>
+
 ## Update an Inventory
 
 Updates parameters of an existing inventory.
@@ -109,8 +112,32 @@ Updates parameters of an existing inventory.
       "id": "..."
     }
     ```
-    
+
+<a name="delete-inventory"/>
+
+## Delete an Inventory
+
+Removes an existing inventory and all its data and associated queries.
+
+* **URI** `/api/v1/org/${orgName}/inventory/${inventoryName}`
+* **Method** `DELETE`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "DELETED"
+    }
+    ```
+
 <a name="list-inventories"/>
+
 ## List Inventories
 
 Lists all existing inventories for the specified organization.
