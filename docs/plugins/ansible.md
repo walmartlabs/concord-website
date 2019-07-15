@@ -573,11 +573,18 @@ And the corresponding playbook:
       verbosity: 0
 ```
 
-Effectively, it is the same as running `ansible-playbook ... -e '{"message": "Hello from..."}' playbook.yml`.
-Any JSON-compatible data type can be used: strings, numbers, booleans, lists, etc.
+Effectively, it is the same as running this command:
 
-Additionally, YAML/JSON files can also be used to pass additional variables
-into the playbook execution:
+```bash
+`ansible-playbook ... -e '{"message": "Hello from..."}' playbook.yml
+
+```
+
+Any JSON-compatible data type such as strings, numbers, booleans, lists, etc.
+can be used.
+
+Additionally, YAML/JSON files can be used to pass additional variables into the
+playbook execution:
 
 ```yaml
 - task: ansible
@@ -588,7 +595,11 @@ into the playbook execution:
       - "moreVars.yml"
 ```
 
-Which is the same as running `ansible-playbook ... -e @myVars.json -e @moreVars.yml playbook.yml`
+This is equivalent to running the following command:
+
+```bash
+ansible-playbook ... -e @myVars.json -e @moreVars.yml playbook.yml
+```
 
 <a name="out"/>
 
