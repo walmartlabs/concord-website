@@ -127,5 +127,3 @@ nav:
     subfolderitems:
       - page: Introduction
         context: /docs/templates/index
-      - page: Blue/Green Deployment
-        context: /docs/templates/bluegreen
