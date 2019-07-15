@@ -472,14 +472,14 @@ flows:
 
 ## DeleteTag
 
-The `deleteTag` action of the `github` task can used to delete an existing `tag` from GitHub repository
+The `deleteTag` action of the `github` task can be used to delete an existing
+`tag` from GitHub repository
 
 The following parameters are needed in addition to the general parameters:
 
 - `org`: Required, name of GitHub organization where your repository is located
 - `repo`: Required, name of GitHub repository where your tag is located
 - `tagName`: Required, name of `tag` that you want to delete from your `org/repo`
-
 
 ```yaml
 flows:
@@ -490,7 +490,7 @@ flows:
        accessToken: gitApiToken
        org: myGitOrg
        repo: myGitRepo
-       tagName: myTagName #Name of the tag that you want to delete
+       tagName: myTagName
 ```
 
 <a name="github-merge"/>
