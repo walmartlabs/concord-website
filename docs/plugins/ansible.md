@@ -22,7 +22,8 @@ application deployments with Concord.
 - [Retry and Limit Files](#retry-limit)
 - [Ansible Lookup Plugins](#ansible-lookup-plugins)
 - [Group Vars](#group-vars)
-- [Output Parameters](#out)
+- [Input Variables](#input-variables)
+- [Output Variables](#out)
 - [Extra Modules](#extra-modules)
 - [Limitations](#limitations)
 
@@ -113,8 +114,10 @@ following sections:
 - `dynamicInventoryFile`: string, path to a dynamic inventory
   script. See also [Dynamic inventories](#dynamic-inventories) section;
 - `extraEnv`: JSON object, additional environment variables
-- `extraVars`: JSON object, used as `--extra-vars`
-- `extraVarsFiles`: list of strings, paths to extra variables files 
+- `extraVars`: JSON object, used as `--extra-vars`. See also
+the [Input Variables](#input-variables) section;
+- `extraVarsFiles`: list of strings, paths to extra variables files. See also
+the [Input Variables](#input-variables) section; 
 - `groupVars`: configuration for exporting secrets as Ansible [group_vars](#group-vars) files;
 - `inventory`: JSON object, an inventory data specifying
   [a static, inline inventories](#inline-inventories)section;
@@ -547,8 +550,60 @@ Check
 [the official Ansible documentation](http://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#group-variables)
 for more details `group_vars` files.
 
+## Input Variables
+
+To pass variables from the Concord flow to an Ansible playbook execution use
+`extraVars`:
+
+```yaml
+- task: ansible
+  in:
+    playbook: playbook.yml
+    extraVars:
+      message: "Hello from Concord! Process ID: ${txId}"
+```
+
+And the corresponding playbook:
+
+```yaml
+- hosts: all
+  tasks:
+  - debug:
+      msg: "{{ message }}"
+      verbosity: 0
+```
+
+Effectively, it is the same as running this command:
+
+```bash
+`ansible-playbook ... -e '{"message": "Hello from..."}' playbook.yml
+
+```
+
+Any JSON-compatible data type such as strings, numbers, booleans, lists, etc.
+can be used.
+
+Additionally, YAML/JSON files can be used to pass additional variables into the
+playbook execution:
+
+```yaml
+- task: ansible
+  in:
+    playbook: playbook.yml
+    extraVarsFiles:
+      - "myVars.json"
+      - "moreVars.yml"
+```
+
+This is equivalent to running the following command:
+
+```bash
+ansible-playbook ... -e @myVars.json -e @moreVars.yml playbook.yml
+```
+
 <a name="out"/>
-## Output Parameters
+
+## Output Variables
 
 The `ansible` task can export a list of variable names from the Ansible
 execution back to the Concord process context with the `outVars` parameters
