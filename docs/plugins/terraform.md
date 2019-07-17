@@ -63,7 +63,7 @@ the [State Backends](#backends) section for more details.
 ## Planning the Changes
 
 The `plan` action executes `terraform plan` in the process' working directory
-or in a directory specified in `dirOrPlan` parameter:
+or in a directory specified in `dir` parameter:
 
 ```yaml
 # run `terraform plan` in `${workDir}`
@@ -75,16 +75,17 @@ or in a directory specified in `dirOrPlan` parameter:
 - task: terraform
   in:
     action: plan
-    dirOrPlan: "myTFStuff"
+    dir: "myTFStuff"
 ```
 
 The plugin automatically creates the necessary [backend](#backends)
 configuration and runs `terraform init` when necessary.
 
 Parameters:
-- `dirOrPlan` - string value, path to a directory with `*.tf` files or to
-a previously created plan file. The path must be relative to the process'
-`${workDir}`;
+- `dir` - string value, path to a directory with `*.tf` files. The path must be
+relative to the process' `${workDir}`;
+- `plan` - string value, path to a previosly created plan file. The path must
+be relative to the process' `${workDir}`;
  - `gitSsh` - see [GIT modules](#git-modules).
 
 The output is stored in a `result` variable that has the following structure:
@@ -108,8 +109,8 @@ etc.
 ## Applying the Changes
 
 The `apply` action executes `terraform apply` in the process' working
-directory, in a directory specified in `dirOrPlan` parameter or using a
-previously created plan file:
+directory, in a directory specified in `dir` parameter or using a
+previously created `plan` file:
 
 ```yaml
 # run `terraform apply` in `${workDir}`
@@ -121,21 +122,24 @@ previously created plan file:
 - task: terraform
   in:
     action: apply
-    dirOrPlan: "myTFStuff"
+    dir: "myTFStuff"
     
 # run `terraform apply` using a plan file
 - task: terraform
   in:
     action: apply
-    dirOrPlan: "${result.planPath}" # created by previously executed `plan` action
+    dir: "myTFStuff"
+    plan: "${result.planPath}" # created by previously executed `plan` action
 ```
 
 As with the `plan` action, the plugin automatically runs `terraform init` when necessary.
 
 Parameters:
-- `dirOrPlan` - string value, path to a directory with `*.tf` files or to
-a previously created plan file. The path must be relative to the process'
-`${workDir}`;
+- `dir` - string value, path to a directory with `*.tf` files. The path must be
+relative to the process' `${workDir}`;
+- `plan` - string value, path to a previosly created plan file. The path must
+be relative to the process' `${workDir}`. When using `plan`, the original `dir`
+must be specified as well;
 - `gitSsh` - see [GIT modules](#git-modules).
 - `saveOutput` - boolean value, if `true` the `terraform output` command will
 be automatically executed after the `apply` is completed and the result will
