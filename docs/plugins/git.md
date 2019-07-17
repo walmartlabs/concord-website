@@ -22,6 +22,7 @@ task.
   - [Close a Pull Request](#closePR)
   - [Create a Tag](#tag)
   - [Delete a Tag](#deleteTag)
+  - [Delete a Branch](#deleteBranch)
   - [Merge Branches](#github-merge)
   - [Fork a Repo](#fork)
   - [Get Branch List](#getBranchList)
@@ -491,6 +492,31 @@ flows:
        org: myGitOrg
        repo: myGitRepo
        tagName: myTagName
+```
+
+<a name="deleteBranch"/>
+
+## DeleteBranch
+
+The `deleteBranch` action of the `github` task can be used to delete an existing
+`branch` from GitHub repository
+
+The following parameters are needed in addition to the general parameters:
+
+- `org`: Required, name of GitHub organization where your repository is located
+- `repo`: Required, name of GitHub repository where your tag is located
+- `branch`: Required, name of `branch` that you want to delete from your `org/repo`
+
+```yaml
+flows:
+  default:
+  - task: github
+     in:
+       action: deleteBranch
+       accessToken: gitApiToken
+       org: myGitOrg
+       repo: myGitRepo
+       branch: myBranchName
 ```
 
 <a name="github-merge"/>
