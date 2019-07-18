@@ -101,6 +101,23 @@ configuration:
     greeting: "Hello, world!"            
 ```
 
+## Capturing the Output
+
+The `stdout` parameter can be used to capture the output of commands running
+in Docker:
+
+```yaml
+- docker: library/alpine
+  cmd: echo "Hello, Concord!"
+  stdout: myOut
+
+- log: "Got the greeting: ${myOut.contains('Hello')}"
+```
+
+In the example above the output (`stdout`) of the command running in the
+container won't be printed out into the log but instead saved as `myOut`
+variable.
+
 ## Custom Images
 
 All images must provide a standard POSIX shell as `/bin/sh`.
