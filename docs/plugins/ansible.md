@@ -25,6 +25,7 @@ application deployments with Concord.
 - [Input Variables](#input-variables)
 - [Output Variables](#out)
 - [Extra Modules](#extra-modules)
+- [External Roles](#external-roles)
 - [Limitations](#limitations)
 
 ## Usage
@@ -576,8 +577,7 @@ And the corresponding playbook:
 Effectively, it is the same as running this command:
 
 ```bash
-`ansible-playbook ... -e '{"message": "Hello from..."}' playbook.yml
-
+ansible-playbook ... -e '{"message": "Hello from..."}' playbook.yml
 ```
 
 Any JSON-compatible data type such as strings, numbers, booleans, lists, etc.
@@ -695,6 +695,64 @@ Note that, at the moment the plugin doesn't provide any caching for virtual
 environments. Any requested modules are downloaded each time the task
 executes, which might take significant amount of time depending on the size of
 the packages, their dependencies, network speed, etc.
+
+## External Roles
+
+Ansible roles located in external repositories can be imported using the `roles`
+parameter:
+
+```yaml
+- task: ansible
+  in:
+    playbook: "playbook.yml"
+    roles:
+      - src: "https://github.com/my-org/my-roles.git"
+        name: "roles"
+```
+
+And the corresponding playbook:
+
+```yaml
+- hosts: myHosts
+  roles:
+    - somerole # any role in the repository can be used
+```
+
+Using the configuration above the plugin  performs a `git clone` of the
+specified URL into a temporary directory and adds the path to `myrole` into the
+path list of Ansible roles.
+
+The `roles` parameter is a list of role imports with the following syntax:
+
+- `src` - URL of a repository to import;
+- `name` - the name of the directory or a repository shortcut (see below);
+- `path` - a path in the repository to use;
+- `version` - a branch name, a tag or a commit ID to use.
+
+A shortcut can be used to avoid specifying the repository URLs multiple times:
+
+```yaml
+configuration:
+  arguments:
+    ansibleParams:
+      defaultSrc: "https://github.com"
+
+flows:
+  default:
+    - task: ansible
+      in:
+        playbook: playbook.yml
+        roles:
+          - name: "my-org/my-roles"
+```
+
+In the example above the plugin uses `ansibleParams.defaultSrc` and the role's
+`name` to create the repository URL: https://github.com/my-org/my-roles.git
+
+It is possible to put such `ansibleParams` into the [default process
+configuration](../getting-started/configuration.html#default-process-variables)
+and make it the system default. If you're using a hosted Concord instance,
+contact your administrator if such defaults are available.
 
 ## Limitations
 
