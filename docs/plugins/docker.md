@@ -95,11 +95,28 @@ flows:
     hosts:
       - foo:10.0.0.3
       - bar:10.7.3.21
-      
+
 configuration:
   arguments:
-    greeting: "Hello, world!"            
+    greeting: "Hello, world!"
 ```
+
+## Capturing the Output
+
+The `stdout` parameter can be used to capture the output of commands running
+in the Docker container:
+
+```yaml
+- docker: library/alpine
+  cmd: echo "Hello, Concord!"
+  stdout: myOut
+
+- log: "Got the greeting: ${myOut.contains('Hello')}"
+```
+
+In the example above the output (`stdout`) of the command running in the
+container is not printed out into the log, but instead saved as `myOut`
+variable.
 
 ## Custom Images
 
