@@ -505,7 +505,7 @@ The following parameters are needed in addition to the general parameters:
 
 - `org`: Required, name of GitHub organization where your repository is located
 - `repo`: Required, name of GitHub repository where your tag is located
-- `branch`: Required, name of `branch` that you want to delete from your `org/repo`
+- `branch`: Required, name of the branch that you want to delete
 
 ```yaml
 flows:
