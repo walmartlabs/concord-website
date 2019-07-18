@@ -698,8 +698,8 @@ the packages, their dependencies, network speed, etc.
 
 ## External Roles
 
-Ansible roles located in external repositories can be imported using
-the `roles` parameter:
+Ansible roles located in external repositories can be imported using the `roles`
+parameter:
 
 ```yaml
 - task: ansible
@@ -718,17 +718,19 @@ And the corresponding playbook:
     - somerole # any role in the repository can be used
 ```
 
-Using the configuration above the plugin:
-- performs a `git clone` of the specified URL into a temporary directory;
-- adds the path to `myrole` into the path list of Ansible roles.
+Using the configuration above the plugin  performs a `git clone` of the
+specified URL into a temporary directory and adds the path to `myrole` into the
+path list of Ansible roles.
 
-The `roles` parameter is a list of role imports with the following syntax: 
+The `roles` parameter is a list of role imports with the following syntax:
+
 - `src` - URL of a repository to import;
 - `name` - the name of the directory or a repository shortcut (see below);
 - `path` - a path in the repository to use;
 - `version` - a branch name, a tag or a commit ID to use.
 
 A shortcut can be used to avoid specifying the repository URLs multiple times:
+
 ```yaml
 configuration:
   arguments:
