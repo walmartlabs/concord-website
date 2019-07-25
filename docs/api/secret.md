@@ -294,6 +294,10 @@ List all existing secrets in a specific organization.
 
 * **Permissions**
 * **URI** `/api/v1/org/${orgName}/secret`
+* **Query parameters**
+    - `limit`: maximum number of records to return;
+    - `offset`: starting index from which to return;
+    - `filter`: secrets with matching name to return;
 * **Method** `GET`
 * **Body**
     none
