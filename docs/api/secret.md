@@ -170,11 +170,13 @@ Updates parameters of an existing secret.
     ```json
     {
       "name": "New name",
-      "visibility": "PRIVATE"
+      "visibility": "PRIVATE",
+      "projectId": "...",
+      "projectName": "Project Name"
     }
     ```
     
-    Either `name` or `visibility` (or both) must be specified.
+    Either `projectId` or `projectName` must be specified to change secret `Visiblity`, `Name` or `Project`.
 
     Omitted parameters are not updated.    
 * **Success response**
