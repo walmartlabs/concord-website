@@ -182,6 +182,7 @@ Types supported currently:
 - `string` (converted into `text/plain`)
 - `json` (converted into `application/json`)
 - `file` (converted into `application/octet-stream`)
+- `form` (converted into `application/x-www-form-urlencoded`)
 
 ### Response Type
 
