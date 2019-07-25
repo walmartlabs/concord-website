@@ -13,6 +13,7 @@ task.
 - [Usage](#usage)
 - [Git Task](#git-task)
   - [Clone a Repository](#clone)
+  - [Pull from Remote Repository](#pull)
   - [Commit and Push Changes](#commit-push)
   - [Create and Push a New Branch](#branch)
   - [Merge Branches](#merge)
@@ -165,6 +166,32 @@ flows:
 The `baseBranch` parameter is optional and specifies the name of the branch to
 use check out after the clone operation. If not provided, the default branch of
 the repository is used - typically called `master`.
+
+<a name="pull"/>
+
+## Pull
+
+The `pull` action of the `git` task can be used to pull/incorporate changes from a remote repository into the current branch.
+
+It simply uses the minimal common parameters with the addition of the
+`remoteRepo` and `currentBranch` parameters:
+
+- `remoteRepo`: Optional, name of a branch in the remote repository. By default set to `origin`.
+- `currentBranch`: Required, name of your local branch into which you want to pull the changes.
+
+```yaml
+flows:
+  default:
+  - task: git
+    in:
+      action: pull
+      workingDir: "git-project"
+      remoteRepo: feature-a
+      currentBranch: myLocalBranch
+      privateKey:
+        org: myOrg
+        secretName: mySecret
+```
 
 <a name="commit-push"/>
 
