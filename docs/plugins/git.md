@@ -13,6 +13,7 @@ task.
 - [Usage](#usage)
 - [Git Task](#git-task)
   - [Clone a Repository](#clone)
+  - [Pull](#pull)
   - [Commit and Push Changes](#commit-push)
   - [Create and Push a New Branch](#branch)
   - [Merge Branches](#merge)
@@ -165,6 +166,38 @@ flows:
 The `baseBranch` parameter is optional and specifies the name of the branch to
 use check out after the clone operation. If not provided, the default branch of
 the repository is used - typically called `master`.
+
+<a name="pull"/>
+
+## Pull
+
+The `pull` action of the `git` task can be used to pull changes from another
+branch from the remote `origin` into the current checked out branch.
+
+It simply uses the minimal common parameters with the addition of the
+`remoteBranch` parameter:
+
+- `remoteBranch`: Required, name of remote `origin/branch` from where the
+  changes are pulled.
+
+Below example is equivalent to `git pull origin myRemoteBranch`. In order to use
+a `pull` action in your concord flow, you have to run a `clone` action first so
+that a repository clone is available in the `workingDir`. The value for the
+`workingDir` parameter should be same as what was used in `clone` action,
+otherwise you end up with an `repository not found` exception.
+
+```yaml
+flows:
+  default:
+  - task: git
+    in:
+      action: pull
+      workingDir: "git-project"
+      remoteBranch: myRemoteBranch
+      privateKey:
+        org: myOrg
+        secretName: mySecret
+```
 
 <a name="commit-push"/>
 
