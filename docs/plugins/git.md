@@ -171,13 +171,20 @@ the repository is used - typically called `master`.
 
 ## Pull
 
-The `pull` action of the `git` task can be used to pull/incorporate changes from a remote `origin/branch` into the current checked out branch.
+The `pull` action of the `git` task can be used to pull changes from another
+branch from the remote `origin` into the current checked out branch.
 
-It simply uses the minimal common parameters with the addition of the `remoteBranch` parameter:
+It simply uses the minimal common parameters with the addition of the
+`remoteBranch` parameter:
 
-- `remoteBranch`: Required, name of remote `origin/branch` from where the changes are pulled.
+- `remoteBranch`: Required, name of remote `origin/branch` from where the
+  changes are pulled.
 
-Below example is equivalent of something like `git pull origin myRemoteBranch`. Inorder to use `pull` action in your concord flow, `clone` action should be performed first. And input for `workingDir` param should be same as what was used in `clone` action. Else you will end up with `repository not found` exception.
+Below example is equivalent to `git pull origin myRemoteBranch`. In order to use
+a `pull` action in your concord flow, you have to run a `clone` action first so
+that a repository clone is available in the `workingDir`. The value for the
+`workingDir` parameter should be same as what was used in `clone` action,
+otherwise you end up with an `repository not found` exception.
 
 ```yaml
 flows:
