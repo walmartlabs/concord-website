@@ -442,10 +442,10 @@ users. This can be used to, but is not limited to, create flows with approval
 steps. You can configure a flow, where an action is required from a user that is
 not the process' initiator.
 
-Restricted forms can be submitted only by the specified user or the membersos a
+Restricted forms can be submitted only by the specified user(s) or the membersos a
 security group - e.g. configured in your Active Directory/LDAP setup.
 
-To restrict a form to a specific user, use the `runAs` attribute. Used with a
+To restrict a form to specific user(s), use the `runAs` attribute. Used with a
 boolean variable, rendered as a checkbox, in the form, can change the flow
 depending on the approval or disapproval from the authorized user defined in
 `username`.
@@ -466,6 +466,17 @@ flows:
 forms:
   approvalForm:
   - approved: { type: boolean }
+```
+Multiple users can be specified under `username`:
+
+```yaml
+flows:
+  default:
+  - form: approvalForm
+    runAs:
+      username: 
+       - "userA"
+       - "userB"
 ```
 
 Here's how a form can be restricted to specific AD/LDAP groups:
