@@ -64,10 +64,9 @@ working directory.
     - `repoCommitId` - overrides the configured GIT commit ID of the
     project's repository;
     - `entryPoint` - name of the starting flow;
-    - `sync` - enables synchronous execution of a process. The
-    request will block until the process is complete;
     - `out` - list of comma-separated names of variables that will be
-    returned after the process finishes. Works only with `sync`;
+    saved after the process finishes. Such variables can be retrieved
+    later using the [status](#status) request;
     - `startAt` - ISO-8601 date-time value. If specified, the process
     will be scheduled to run on the specified date and time. Can't be
     in the past. Explicitly specifying the timezone is recommended;
@@ -127,7 +126,7 @@ curl ... -F startAt='2018-03-15T15:25:00-05:00' https://concord.example.com/api/
 ### Form Data
 
 Concord accepts `multipart/form-data` requests to start a process. 
-Special variables such as `arguments`, `sync`, `archive`, `out`, `activeProfiles`, etc
+Special variables such as `arguments`, `archive`, `out`, `activeProfiles`, etc
 are automatically configured. Other submitted data of format `text/plain` is used
 to configure variables. All other information is stored as a file in the
 process' working directory.
