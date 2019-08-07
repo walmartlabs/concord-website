@@ -120,13 +120,21 @@ The names or returned variables should be declared when a process starts
 using `multipart/form-data` parameters:
 
 ```bash
-$ curl ... -F sync=true -F out=myVar1 http://concord.example.com/api/v1/process
+$ curl ... -F out=myVar1 http://concord.example.com/api/v1/process
+{
+  "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b"
+}
+
+# wait for completion
+
+$ curl .. http://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b
 {
   "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b",
-  "out" : {
-    "myVar1" : "my value"
-  },
-  "ok" : true
+  "meta": {
+    out" : {
+      "myVar1" : "my value"
+    },
+  }  
 }
 ```
 
@@ -141,15 +149,13 @@ configuration:
 It is also possible to retrieve a nested value:
 
 ```bash
-$ curl ... -F sync=true -F out=a.b.c http://concord.example.com/api/v1/process
+$ curl ... -F out=a.b.c http://concord.example.com/api/v1/process
 ```
 
 In this example, Concord looks for variable `a`, its field `b` and
 the nested field `c`.
 
-When a process starts in synchronous mode (`sync=true`), the data is
-returned in the response. For asynchronous processes, the output variables data
-can be retrieved with an API call:
+Additionally, the output variables can be retrieved as a JSON file:
 
 ```bash
 $ curl ... http://localhost:8001/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
