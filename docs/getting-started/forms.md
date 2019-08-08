@@ -567,7 +567,8 @@ The Concord repository contains a couple of examples on how to use
 custom and regular forms:
 
 - [single form]({{site.concord_source}}tree/master/examples/forms)
-- [custom form]({{site.concord_source}}tree/master/examples/forms_branding)
+- [custom form]({{site.concord_source}}tree/master/examples/custom_form)
+- [custom form with no external dependencies]({{site.concord_source}}tree/master/examples/custom_form_basic)
 - [custom form with dynamic fields]({{site.concord_source}}tree/master/examples/dynamic_forms)
 - [approval-style flow]({{site.concord_source}}tree/master/examples/approval)
 
