@@ -82,6 +82,10 @@ flows:
       ....
 ```
 
+All operations are subject to the security configuration of your Confluence and
+the userId performing the actions. For example, if you attempt to delete a page
+without the correct rights to delete pages, the action of the task fails.
+
 <a name="createPage"/>
 
 ## Create a Page
