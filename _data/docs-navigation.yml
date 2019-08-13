@@ -91,6 +91,8 @@ nav:
         context: /docs/plugins/ansible
       - page: Concord
         context: /docs/plugins/concord
+      - page: Confluence
+        context: /docs/plugins/confluence
       - page: Crypto
         context: /docs/plugins/crypto
       - page: Datetime
