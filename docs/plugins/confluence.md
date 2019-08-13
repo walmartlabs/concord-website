@@ -188,7 +188,8 @@ The CONFLUENCE task can be used to create a new page, with content, as a child o
       spaceKey: "MYSPACEKEY"
       parentPageTitle: "My Parent Page Title"
       childPageTitle: "My Child Page Title"
-      childPageContent: "<p>This is <br/> child page content</p> "
+      childPageContent: "<p>This is <br/> child page content</p>"
+- log: "Child Page Id is ${childPageId}"
 ```
 Additional parameters to use are:
 
