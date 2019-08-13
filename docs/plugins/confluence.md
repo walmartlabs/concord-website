@@ -79,7 +79,6 @@ flows:
       action: createPage
       userId: myUserId
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      ....
 ```
 
 All operations are subject to the security configuration of your Confluence and
@@ -114,6 +113,12 @@ Additional parameters to use are:
 - `pageTitle` - string, Required - title of a page.
 - `pageContent` - string, Required - content to be added to a page.
 
+<a name="getPageContent/>
+
+## Get Page Content
+
+TBD
+ 
 <a name="updatePage"/>
 
 ## Update a Page
