@@ -90,7 +90,8 @@ Or use it directly. For example, in a `http` task call:
 ```yaml
 - task: http
   in:
-    auth: ${crypto.exportCredentials('myOrg', 'myCredentials', null)}
+    auth:
+      basic: ${crypto.exportCredentials('myOrg', 'myCredentials', null)}
   # ...
 ```
 
