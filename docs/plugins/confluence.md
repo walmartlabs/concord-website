@@ -20,6 +20,7 @@ Possible operations are:
 - [Upload an Attachment](#uploadAttachment)
 - [Create a Child Page](#createChildPage)
 - [Delete a Page](#deletePage)
+- [Get page content](#getPageContent)
 
 <a name="usage"/>
 
@@ -54,6 +55,7 @@ common for all operations:
 - `password` -  password for the user account to use, typically this should be
   provided via usage of the [Crypto task](./crypto.html) to access a password
   stored in Concord or decrypt an encrypted password string.
+- `ignoreErrors`: boolean value, if `true` any errors that occur during the execution are ignored and stored in the `result` variable. Defaults to `false`.
 
 The `apiUrl` configures the URL to the Confluence REST API endpoint. It is best
 configured globally as [default process
@@ -90,8 +92,7 @@ without the correct rights to delete pages, the action of the task fails.
 ## Create a Page
 
 The `createPage` action can be used to create a new page with content in a
-specific `space`. The output of the action is stored in a variable `pageId`. It
-can used at later point in the flow.
+specific `space`.
 
 ```yaml
 flows:
@@ -104,26 +105,54 @@ flows:
       spaceKey: "MYSPACEKEY"
       pageTitle: "My Page Title"
       pageContent: "<p>This is <br/> my page content</p>"
-  - log: "Page Id is ${pageId}"
+  - log: "Page Id is ${result.pageId}"
+  - if: ${!result.ok}
+    then:
+    - throw: "Something went wrong: ${result.error}"
+    else:
+    - log: "Here is Page view info url: ${result.data}"
 ```
 
 Additional parameters to use are:
 
 - `spaceKey` - string, Required - identifying key for a `Confluence` space.
 - `pageTitle` - string, Required - title of a page.
-- `pageContent` - string, Required - content to be added to a page.
+- `pageContent` - string, optional - content to be added to a page.
+- `template` - string, optional - plugin supports the use of a separate file for longer content. As an alternative to `pageContent`, specify template and point to a file in your project that contains the content text.
+    
+          `template: content.mustache`
 
-<a name="getPageContent/>
+The template engine `Mustache` is used to process content template files, so you can use any variables from the Concord process context in the message.
 
-## Get Page Content
+When creating content in a template file, you can reference any variable that is defined in the flow using double open { and closing curly braces } in the template file. You can also pass additional variables as a part of `templateParams` parameter as shown below
 
-TBD
+```yaml
+flows:
+  default:
+  - task: confluence
+    in:
+      action: createPage
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      spaceKey: "MYSPACEKEY"
+      pageTitle: "My Page Title"
+      template: content.mustache
+      templateParams:
+        myVariable1: "content variable 1"
+        myVariable2: "content variable 2"
+        myVariable3: "content variable 3"
+```      
+
+The output of the action is stored in a `result` variable that has the following structure:
+- `ok` - boolean value, `true` if the execution is successful;
+- `data` - string value, contains the page view info url.
+- `pageId` - integer value, contains the `id` of confluence page created.
  
 <a name="updatePage"/>
 
 ## Update a Page
 
-The `updatePage` action can be used to update the content of an existing page.
+The `updatePage` action can be used to update (`append/overWrite`) the content of an existing page. By default this action appends text to existing content.
 
 ```yaml
 flows:
@@ -136,7 +165,6 @@ flows:
       spaceKey: "MYSPACEKEY"
       pageTitle: "My Page Title"
       pageUpdate: "This is an update to an existing content"
-      version: 2
 ```
 
 Additional parameters to use are:
@@ -144,9 +172,11 @@ Additional parameters to use are:
 - `spaceKey` - string, Required - identifying key for a `Confluence` space.
 - `pageTitle` - string, Required - title of a page that you intend to update.
 - `pageUpdate` - string, Required - content used to update an existing page.
-- `version` - Integer, Required - next version of a page. If `current version`
-  of a page is `2` and you want to update its content using `updatePage` action,
-  `version` is `3`.
+- `overWrite`: boolean, if set to `true` overwrites the existing content. Defaults to `false`.
+
+The output of the action is stored in a `result` variable that has the following structure:
+- `ok` - boolean value, `true` if the execution is successful;
+- `data` - string value, contains the page view info url.
 
 <a name="addCommentsToPage"/>
 
@@ -162,14 +192,18 @@ flows:
       action: addCommentsToPage
       userId: myUserId
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      pageTitle: "My Page Title"
+      pageId: 32432235
       pageComment: "<p>This is a comment to an existing page</p>"
 ```
 
 Additional parameters to use are:
 
-- `pageTitle` - string, Required - title of a page to which comments are added.
+- `pageId` - interger, Required - Id of a confluence page to which comments are added.
 - `pageComment` - string, Required - comments added to an existing page.
+
+The output of the action is stored in a `result` variable that has the following structure:
+- `ok` - boolean value, `true` if the execution is successful;
+- `data` - string value, contains the page view info url.
 
 <a name="uploadAttachment"/>
 
@@ -184,23 +218,54 @@ page.
       action: uploadAttachment
       userId: myUserId
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      pageTitle: "My Page Title"
+      pageId: 32432235
       attachmentComment: "My attachment comments"
       attachmentPath: path/to/the/attachment.txt
 ```
 
 Additional parameters to use are:
 
+- `pageId` - interger, Required - Id of a confluence page to which file is attached.
 - `attachmentComment` - Required - string, comments added to an attachment.
 - `attachmentPath` - Required - string, path to an attachment file.
+
+The output of the action is stored in a `result` variable that has the following structure:
+- `ok` - boolean value, `true` if the execution is successful;
+- `data` - string value, contains the page view info url.
+
+
+<a name="getPageContent"/>
+
+## Get Page Content
+
+The `getPageContent` action can be used to get the content of a
+page.
+
+```yaml
+  - task: confluence
+    in:
+      action: getPageContent
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      pageId: 32432235
+```
+
+Additional parameters to use are:
+
+- `pageId` - interger, Required - Id of a confluence page
+
+The output of the action is stored in a `result` variable that has the following structure:
+- `ok` - boolean value, `true` if the execution is successful;
+- `data` - string value, contains the page content
+
+
 
 <a name="createChildPage"/>
 
 ## Create a Child Page
 
 The `createChildPage` action can be used to create a new page, with content, as
-a child of another page. The output of the action is stored in a variable
-`childPageId`. It can used at later point in the flow.
+a child of another page.
 
 ```yaml
 - task: confluence
@@ -209,17 +274,24 @@ a child of another page. The output of the action is stored in a variable
       userId: myUserId
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
       spaceKey: "MYSPACEKEY"
-      parentPageTitle: "My Parent Page Title"
+      parentPageId: 32432235
       childPageTitle: "My Child Page Title"
       childPageContent: "<p>This is <br/> child page content</p>"
-- log: "Child Page Id is ${childPageId}"
+- log: "Child Page Id is ${result.childPageId}"
 ```
 
 Additional parameters to use are:
 
-- `parentPageTitle` - string, Required - title of parent page.
+- `parentPageId` - integer, Required - id of parent page.
 - `childPageTitle` - string, Required - title of child page.
-- `childPageContent` - string, Required - content added to child page.
+- `childPageContent` - string, optional - content added to child page.
+- `template` - string, optional - plugin supports the use of a separate file for longer content. As an alternative to `childPageContent`, specify template and point to a file in your project that contains the content text.
+- `templateParams` - map, optional - parameter used to define  additional variables that can be used when creating content in a `template` file
+
+The output of the action is stored in a `result` variable that has the following structure:
+- `ok` - boolean value, `true` if the execution is successful;
+- `data` - string value, contains the page view info url.
+- `childId` - integer value, contains the `id` of child confluence page.
 
 <a name="deletePage"/>
 
@@ -235,9 +307,12 @@ flows:
       action: deletePage
       userId: myUserId
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      pageTitle: "My Page Title"
+      pageId: 32432235
 ```
 
 Additional parameters to use are:
 
-- `pageTitle` - string, Required - title of page that you intend to delete.
+- `pageId` - integer, Required - id of page that you intend to delete.
+
+The output of the action is stored in a `result` variable that has the following structure:
+- `ok` - boolean value, `true` if the execution is successful;
