@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `Confluence` task supports operations on the popluar content collaboration
+The `confluence` task supports operations on the popular content collaboration
 tool [Atlassian Confluence](https://www.atlassian.com/software/confluence).
 
 - [Usage](#usage)
@@ -46,16 +46,18 @@ The `confluence` task allows users to trigger operations on a Confluence server
 as a step of a flow. It uses a number of required input parameters that are
 common for all operations:
 
-- `apiUrl` -  URL to the API endpoint of the Confluence server, e.g
+- `apiUrl` - URL to the API endpoint of the Confluence server, e.g
   `https://confluence.example.com/rest/api/`
 - `action` - determines the operation to be performed with the current
   invocation of the `confluence` task
-- `userId` -  identifier of the Confluence user account to use for the
+- `userId` - identifier of the Confluence user account to use for the
   interaction
-- `password` -  password for the user account to use, typically this should be
+- `password` - password for the user account to use, typically this should be
   provided via usage of the [Crypto task](./crypto.html) to access a password
   stored in Concord or decrypt an encrypted password string.
-- `ignoreErrors`: boolean value, if `true` any errors that occur during the execution are ignored and stored in the `result` variable. Defaults to `false`.
+- `ignoreErrors` - boolean value, if `true` any errors that occur during the
+  execution are ignored and stored in the `result` variable. Defaults to
+  `false`.
 
 The `apiUrl` configures the URL to the Confluence REST API endpoint. It is best
 configured globally as [default process
@@ -110,21 +112,32 @@ flows:
     then:
     - throw: "Something went wrong: ${result.error}"
     else:
-    - log: "Here is Page view info url: ${result.data}"
+    - log: "Here is Page view info URL: ${result.data}"
 ```
 
 Additional parameters to use are:
 
-- `spaceKey` - string, Required - identifying key for a `Confluence` space.
+- `spaceKey` - string, Required - identifying key for a Confluence space.
 - `pageTitle` - string, Required - title of a page.
 - `pageContent` - string, optional - content to be added to a page.
-- `template` - string, optional - plugin supports the use of a separate file for longer content. As an alternative to `pageContent`, specify template and point to a file in your project that contains the content text.
-    
-          `template: content.mustache`
+- `template` - string, optional - the task supports the use of a separate file
+  for longer content.
 
-The template engine `Mustache` is used to process content template files, so you can use any variables from the Concord process context in the message.
+As an alternative to `pageContent`, specify template and point to a file in your
+project that contains the content text.
 
-When creating content in a template file, you can reference any variable that is defined in the flow using double open { and closing curly braces } in the template file. You can also pass additional variables as a part of `templateParams` parameter as shown below
+```yaml
+template: page.mustache
+```
+
+The template engine [Mustache](https://mustache.github.io/) is used to process
+content template files, so you can use any variables from the Concord process
+context in the message.
+
+When creating content in a template file, you can reference any variable that is
+defined in the flow using double open { and closing curly braces } in the
+template file. You can also pass additional variables as a part of
+`templateParams` parameter as shown below
 
 ```yaml
 flows:
@@ -141,18 +154,21 @@ flows:
         myVariable1: "content variable 1"
         myVariable2: "content variable 2"
         myVariable3: "content variable 3"
-```      
+```
 
-The output of the action is stored in a `result` variable that has the following structure:
+The output of the action is stored in a `result` variable that has the following
+structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
-- `data` - string value, contains the page view info url.
+- `data` - string value, contains the page view info URL.
 - `pageId` - integer value, contains the `id` of confluence page created.
  
 <a name="updatePage"/>
 
 ## Update a Page
 
-The `updatePage` action can be used to update (`append/overWrite`) the content of an existing page. By default this action appends text to existing content.
+The `updatePage` action can be used to update (`append/overWrite`) the content
+of an existing page. By default this action appends text to existing content.
 
 ```yaml
 flows:
@@ -172,11 +188,14 @@ Additional parameters to use are:
 - `spaceKey` - string, Required - identifying key for a `Confluence` space.
 - `pageTitle` - string, Required - title of a page that you intend to update.
 - `pageUpdate` - string, Required - content used to update an existing page.
-- `overWrite`: boolean, if set to `true` overwrites the existing content. Defaults to `false`.
+- `overWrite`: boolean, if set to `true` overwrites the existing content.
+  Defaults to `false`.
 
-The output of the action is stored in a `result` variable that has the following structure:
+The output of the action is stored in a `result` variable that has the following
+structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
-- `data` - string value, contains the page view info url.
+- `data` - string value, contains the page view info URL.
 
 <a name="addCommentsToPage"/>
 
@@ -198,12 +217,15 @@ flows:
 
 Additional parameters to use are:
 
-- `pageId` - interger, Required - Id of a confluence page to which comments are added.
+- `pageId` - integer, Required - Id of a confluence page to which comments are
+  added.
 - `pageComment` - string, Required - comments added to an existing page.
 
-The output of the action is stored in a `result` variable that has the following structure:
+The output of the action is stored in a `result` variable that has the following
+structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
-- `data` - string value, contains the page view info url.
+- `data` - string value, contains the page view info URL.
 
 <a name="uploadAttachment"/>
 
@@ -225,13 +247,16 @@ page.
 
 Additional parameters to use are:
 
-- `pageId` - interger, Required - Id of a confluence page to which file is attached.
+- `pageId` - integer, Required - Id of a confluence page to which file is
+  attached.
 - `attachmentComment` - Required - string, comments added to an attachment.
 - `attachmentPath` - Required - string, path to an attachment file.
 
-The output of the action is stored in a `result` variable that has the following structure:
+The output of the action is stored in a `result` variable that has the following
+structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
-- `data` - string value, contains the page view info url.
+- `data` - string value, contains the page view info URL.
 
 
 <a name="getPageContent"/>
@@ -254,11 +279,11 @@ Additional parameters to use are:
 
 - `pageId` - interger, Required - Id of a confluence page
 
-The output of the action is stored in a `result` variable that has the following structure:
+The output of the action is stored in a `result` variable that has the following
+structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
 - `data` - string value, contains the page content
-
-
 
 <a name="createChildPage"/>
 
@@ -285,13 +310,15 @@ Additional parameters to use are:
 - `parentPageId` - integer, Required - id of parent page.
 - `childPageTitle` - string, Required - title of child page.
 - `childPageContent` - string, optional - content added to child page.
-- `template` - string, optional - plugin supports the use of a separate file for longer content. As an alternative to `childPageContent`, specify template and point to a file in your project that contains the content text.
+- `template` - string, optional - task supports the use of a separate file for longer content. As an alternative to `childPageContent`, specify template and point to a file in your project that contains the content text.
 - `templateParams` - map, optional - parameter used to define  additional variables that can be used when creating content in a `template` file
 
-The output of the action is stored in a `result` variable that has the following structure:
+The output of the action is stored in a `result` variable that has the following
+structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
-- `data` - string value, contains the page view info url.
-- `childId` - integer value, contains the `id` of child confluence page.
+- `data` - string value, contains the page view info URL.
+- `childId` - integer value, contains the `id` of child page.
 
 <a name="deletePage"/>
 
@@ -314,5 +341,7 @@ Additional parameters to use are:
 
 - `pageId` - integer, Required - id of page that you intend to delete.
 
-The output of the action is stored in a `result` variable that has the following structure:
+The output of the action is stored in a `result` variable that has the following
+structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
