@@ -829,17 +829,17 @@ flows:
 
 <a name="retry-task"/>
 
-### Retry Tasks
+### Retry
 
-The `retry` attribute inside a task is used to restart the task automatically
-in case of errors or failures. Users can define the number of times the task can
-be re-tried and a delay for each retry. If not specified, the default value
-for the delay is 5 seconds.
+The `retry` attribute is used to restart the `task`/`flow` automatically
+in case of errors or failures. Users can define the number of times the `task`/`flow` can
+be re-tried and a delay for each retry.
 
-The `times` parameter defines the number of times a task can be retried and
-`delay` specifies the time span after which it retries the task in case of
-errors. The delay time is always in seconds.
-
+- `delay` - the time span after which it retries. The delay time is always in 
+seconds, default value is `5`;
+- `in` - additional parameters for the retry
+- `times` - the number of times a task/flow can be retried;
+  
 For example the below section executes the `myTask` using the provided `in`
 parameters.  In case of errors, the task retries up to 3 times with 3
 seconds delay each. Additional parameters for the retry are supplied in the
@@ -847,6 +847,18 @@ seconds delay each. Additional parameters for the retry are supplied in the
 
 ```yaml
 - task: myTask
+  in:
+    ...
+  retry:
+    in:
+      ...additional parameters...
+    times: 3
+    delay: 3
+```
+Retry flow call: 
+
+```yaml
+- call: myFlow
   in:
     ...
   retry:
