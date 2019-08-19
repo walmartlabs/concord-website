@@ -248,7 +248,7 @@ process and available for usage.
 
 ### Process Timeout
 
-You can specify the maximum amount of time the process can spend in the running
+You can specify the maximum amount of time the process can spend in the __running__
 state with the `processTimeout` configuration. It can be useful to set
 specific SLAs for deployment jobs or to use it as a global timeout:
 
@@ -273,6 +273,10 @@ flows:
   onTimeout:
   - log: "I'm going to run when my parent process times out"
 ```
+
+Note that forms waiting for input and other process action are captured in a
+_suspended_ state, which is not affecting process runtime and therefore also
+not the process timeout.
 
 ### Debug
 
