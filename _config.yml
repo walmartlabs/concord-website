@@ -48,6 +48,8 @@ projects:
    url: /overview/case-study-managed-services.html
  - title: Case Study - Continuous Deployment
    url: /overview/case-study-cd.html
+ - title: Videos
+   url: /overview/videos.html
  - title: Code & Contribute
    url: /overview/contribute.html
 
