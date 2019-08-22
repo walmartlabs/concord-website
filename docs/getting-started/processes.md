@@ -216,7 +216,7 @@ Events can be retrieved using [the API](../api/process.html#list-events).
 Currently, those event types are:
 
 - `PROCESS_STATUS` - process status changes;
-- `ELEMENT` - flow element events (sucha as task calls).
+- `ELEMENT` - flow element events (such as task calls).
 
 In addition, plugins can use their own specific event types. For example, the
 [Ansible plugin](../plugins/ansible.html) uses custom events to record playbook
