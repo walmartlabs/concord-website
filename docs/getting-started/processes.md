@@ -187,8 +187,10 @@ the [Concord](../plugins/concord.html) task.
 
 During its life, a process can go though various statuses:
 
-- `PREPARING` - the process start request is being processes. During this
-  status, Server prepares the initial process state;
+- `NEW` - the process start request is received, passed the initial validation
+and saved;
+- `PREPARING` - the start request is being processes. During this status,
+Server prepares the initial process state;
 - `ENQUEUED` - the process is ready to be picked up by one of the Agents;
 - `STARTING` - the process was dispatched to an Agent and is being prepared to
   start on the Agent's side;
@@ -214,7 +216,7 @@ Events can be retrieved using [the API](../api/process.html#list-events).
 Currently, those event types are:
 
 - `PROCESS_STATUS` - process status changes;
-- `ELEMENT` - flow element events (sucha as task calls).
+- `ELEMENT` - flow element events (such as task calls).
 
 In addition, plugins can use their own specific event types. For example, the
 [Ansible plugin](../plugins/ansible.html) uses custom events to record playbook
