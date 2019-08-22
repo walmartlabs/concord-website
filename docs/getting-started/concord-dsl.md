@@ -248,7 +248,7 @@ process and available for usage.
 
 ### Process Timeout
 
-You can specify the maximum amount of time the process can spend in the running
+You can specify the maximum amount of time the process can spend in the __running__
 state with the `processTimeout` configuration. It can be useful to set
 specific SLAs for deployment jobs or to use it as a global timeout:
 
@@ -273,6 +273,10 @@ flows:
   onTimeout:
   - log: "I'm going to run when my parent process times out"
 ```
+
+Note that forms waiting for input and other process action are captured in a
+_suspended_ state, which is not affecting process runtime and therefore also
+not the process timeout.
 
 ### Debug
 
@@ -342,46 +346,6 @@ flows:
     fields:
     - myValue: { type: "string" }
 ```
-
-### Runner
-
-[Concord Runner]({{ site.concord_source }}tree/master/runner) is
-the name of the default runtime used for actual execution of processes. Its
-parameters can be configured in the `runner` section of the `configuration`
-object. Here is an example of the default configuration:
-
-```yaml
-configuration:
-  runner:
-    debug: false
-    logLevel: "INFO"
-    events:
-      recordTaskInVars: false
-      inVarsBlacklist:
-        - "password"
-        - "apiToken"
-        - "apiKey"
-
-      recordTaskOutVars: false
-      outVarsBlacklist: []
-```
-
-- `debug` - enables additional debug logging, `true` if `configuration.debug`
-  enabled;
-- `logLevel` - [logging level](https://logback.qos.ch/manual/architecture.html#effectiveLevel)
-  for the `log` task;
-- `events` - the process event recording parameters:
-  - `recordTaskInVars` - enable or disable recording of input variables in task
-    calls;
-  - `inVarsBlacklist` - list of variable names that must not be recorded if
-    `recordTaskInVars` is `true`;
-  - `recordTaskOutVars` - enable or disable recording of output variables in
-    task calls;
-  - `outVarsBlacklist` - list of variable names that must not be recorded if
-    `recordTaskInVars` is `true`.
-
-See the [Process Events](./processes.html#process-events) section for more
-details about the process event recording.
 
 ### Runner
 
@@ -869,17 +833,17 @@ flows:
 
 <a name="retry-task"/>
 
-### Retry Tasks
+### Retry
 
-The `retry` attribute inside a task is used to restart the task automatically
-in case of errors or failures. Users can define the number of times the task can
-be re-tried and a delay for each retry. If not specified, the default value
-for the delay is 5 seconds.
+The `retry` attribute is used to restart the `task`/`flow` automatically
+in case of errors or failures. Users can define the number of times the `task`/`flow` can
+be re-tried and a delay for each retry.
 
-The `times` parameter defines the number of times a task can be retried and
-`delay` specifies the time span after which it retries the task in case of
-errors. The delay time is always in seconds.
-
+- `delay` - the time span after which it retries. The delay time is always in 
+seconds, default value is `5`;
+- `in` - additional parameters for the retry
+- `times` - the number of times a task/flow can be retried;
+  
 For example the below section executes the `myTask` using the provided `in`
 parameters.  In case of errors, the task retries up to 3 times with 3
 seconds delay each. Additional parameters for the retry are supplied in the
@@ -887,6 +851,18 @@ seconds delay each. Additional parameters for the retry are supplied in the
 
 ```yaml
 - task: myTask
+  in:
+    ...
+  retry:
+    in:
+      ...additional parameters...
+    times: 3
+    delay: 3
+```
+Retry flow call: 
+
+```yaml
+- call: myFlow
   in:
     ...
   retry:

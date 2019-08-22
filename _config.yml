@@ -23,7 +23,7 @@ matomo-site-id: 11
 concord_source: "https://github.com/walmartlabs/concord/"
 concord_plugins_source: "https://github.com/walmartlabs/concord-plugins/"
 concord_plugins_version: "1.15.0"
-concord_core_version: "1.26.0"
+concord_core_version: "1.30.0"
 concord_ansible_version: "2.6.17"
 
 navigation:
@@ -48,6 +48,8 @@ projects:
    url: /overview/case-study-managed-services.html
  - title: Case Study - Continuous Deployment
    url: /overview/case-study-cd.html
+ - title: Videos
+   url: /overview/videos.html
  - title: Code & Contribute
    url: /overview/contribute.html
 
