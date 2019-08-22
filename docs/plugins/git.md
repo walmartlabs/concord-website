@@ -163,9 +163,10 @@ flows:
     - log: "Clone action failed: ${response.error}"
 ```
 
-The `baseBranch` parameter is optional and specifies the name of the branch to
-use check out after the clone operation. If not provided, the default branch of
-the repository is used - typically called `master`.
+The `baseBranch` parameter is optional and specifies the name of the branch, the
+commit SHA identifier or the name of a tag, used to check out after the clone
+operation. If not provided, the default branch of the repository is used -
+typically called `master`.
 
 <a name="pull"/>
 
