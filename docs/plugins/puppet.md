@@ -101,10 +101,7 @@ __`pql` Action Parameters__
 
 ## Task Output
 
-The results of the task are saved into the `result` variable
-
-The last known status of the submitted Jenkins job is saved into the
-`jenkinsJob` variable:
+The results of the task are saved into the `result` variable.
 
 ```yaml
 flows:
