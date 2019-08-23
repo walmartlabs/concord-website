@@ -99,7 +99,7 @@ has the following structure:
 - `searchOptions` - optional, a list of values for the dropdown element of the
   column filter. See [the examples](#examples).
 
-### Build-in Columns
+### Built-in Columns
 
 Concord Console provides several built-in column types, that can be used in
 the process list configuration:
