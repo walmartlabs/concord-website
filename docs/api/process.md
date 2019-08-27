@@ -26,14 +26,16 @@ The REST API provides support for a number of operations:
 
 ## Start a Process
 
-The best approach to start a process is to execute a flow defined in the Concord
-file in a repository of an existing project.
+The best approach to start a [process](../getting-started/processes.html)
+manually is to execute a flow defined in the Concord file in a [repository of an
+existing project using the Concord Console](../console/repository.html).
 
 Alternatively you can create a [ZIP file with the necessary content](#zip-file)
 and submit it for execution.
 
 For simple user interaction with flows that include forms, a process can also be
-started [in a browser directly](#browser).
+started [in a browser directly](#browser) and therefore via a link e.g. in an
+email or online documentation or even any web applicaion.
 
 Following is the full information about the API. It allows the user 
 to starts a new process using the provided files as request data.
@@ -193,8 +195,13 @@ The response should look like:
 ### Browser Link
 
 You can start a new process in Concord via simply accessing a URL in a browser.
-This execution starts the process with the specified parameters and potentially
-walks a user through all process' forms and intermediate pages.
+
+Clicking on the link forces the users to log into the Concord Console, and then
+starts the process with the specified parameter. Progress is indicated in the
+user interface showing the process ID and the initiator. After completion a link
+to the process is displayed, so the user can get more information. If a form is
+used in the flow, the progress view is replaced with the form and further steps
+can include additional forms, which also show up in the browser.
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/repo/{repoName}/start/{entryPoint}`
 * **Method** `GET`
