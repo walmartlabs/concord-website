@@ -11,8 +11,10 @@ too complex to express with the Concord DSL and EL in YAML directly. They are
 _plugins_ of Concord.
 
 - [Using Tasks](#use-task)
-- [Creating Tasks](#create-task)
-- [Best Practices](#best-practices)
+- [Development](#development)
+    - [Creating Tasks](#create-task)
+    - [Using External Artifacts](#using-external-artifacts)
+    - [Best Practices](#best-practices)
 
 <a name="use-task"/>
 
@@ -77,7 +79,7 @@ flows:
 
 <a name="create-task"/>
 
-## Creating Tasks
+### Creating Tasks
 
 Tasks must implement `com.walmartlabs.concord.sdk.Task` Java interface.
 
@@ -227,14 +229,54 @@ configuration:
     greeting: "Hello, %s!"
 ```
 
+### Using External Artifacts
+
+The runtime provides a way for tasks to download and cache external artifacts: 
+```java
+import com.walmartlabs.concord.sdk.DependencyManager;
+
+@Named("myTask")
+public class MyTask implements Task {
+    
+    private final DependencyManager dependencyManager;
+    
+    @Inject
+    public MyTask(DependencyManager dependencyManager) {
+        this.dependencyManager = dependencyManager;
+    }
+    
+    @Override
+    public void execute(Context ctx) throws Exception {
+        URI uri = ...
+        Path p = dependencyManager.resolve(uri);
+        // ...do something with the returned path
+    }
+}
+```
+
+The `DependencyManager` is an `@Inject`-able service that takes care of
+resolving, downloading and caching URLs. It supports all URL types as
+the regular [dependencies](./concord-dsl.html#dependencies) section in Concord
+YAML files - `http(s)`, `mvn`, etc.
+
+Typically, cached copies are persistent between process executions (depends on
+the Concord's environment configuration).
+
+The tasks shouldn't expect the returning path to be writable (i.e. read-only
+access).
+
+`DependencyManager` shouldn't be used as a way to download deployment
+artifacts. It's not a replacement for [Ansible](../plugins/ansible.html) or any
+other deployment tool.
+
 <a name="best-practices"/>
 
-## Best Practices
+### Best Practices
 
 Here are some of the best practices when creating a new plugin with one or
 multiple tasks.
 
-### Environment Defaults
+#### Environment Defaults
 
 Instead of hard coding parameters like endpoint URLs, credentials and other
 environment-specific values, use injectable defaults:
@@ -265,7 +307,7 @@ The task's default can also be injected using `@InjectVariable`
 annotation - check out the [GitHub task]({{ site.source_url }}tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/GitHubTask.java#L79)
 as the example.
 
-### Full Syntax vs Expressions
+#### Full Syntax vs Expressions
 
 There are two ways how the task can be invoked: the `task`  syntax and
 using expressions. Consider the `task` syntax for tasks with multiple
@@ -285,7 +327,7 @@ parameters and expressions for tasks that return data and should be used inline:
 - log: "${myTask.getAListOfThings()}"
 ```
 
-### Task Output and Error Handling
+#### Task Output and Error Handling
 
 Consider storing the task's results in a `result` variable of the following
 structure:
@@ -370,7 +412,7 @@ public class MyTask implements Task {
 }
 ```
 
-### Unit Tests
+#### Unit Tests
 
 Consider using unit tests to quickly test the task without publishing SNAPSHOT
 versions. Use a library like [Mockito](https://site.mockito.org/) to replace
@@ -392,7 +434,7 @@ public void test() throws Exception {
 }
 ```
 
-### Integration Tests
+#### Integration Tests
 
 It is possible to test a task using a running Concord instance without
 publishing the task's JAR. Concord automatically adds `lib/*.jar` files from
