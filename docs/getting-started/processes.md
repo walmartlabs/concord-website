@@ -9,6 +9,10 @@ side-navigation: wmt/docs-navigation.html
 A process represents an execution of a Concord project using one of the
 defined process definitions and additional supplied resources.
 
+It can be started [with the run action for a repository in the  Concord
+Console](../console/repository.html) or by using the [process
+API](../api/process.html#start).
+
 - [Structure](#structure)
 - [Project Files](#project-files)
 - [Request Data](#request-data)
