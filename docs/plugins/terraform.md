@@ -88,8 +88,9 @@ The plugin automatically creates the necessary [backend](#backends)
 configuration and runs `terraform init` when necessary.
 
 Parameters:
+
 - `dir` - string value, path to a directory with `*.tf` files. The path must be
-relative to the process' `${workDir}`;
+  relative to the process' `${workDir}`;
 - `plan` - string value, path to a previosly created plan file. The path must
 be relative to the process' `${workDir}`;
 - `destroy` - boolean value, if true destroy plan is generated. By default,
@@ -97,6 +98,7 @@ be relative to the process' `${workDir}`;
 - `gitSsh` - see [GIT modules](#git-modules).
 
 The output is stored in a `result` variable that has the following structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
 - `hasChanges` - boolean value, `true` if `terraform plan` detected any changes
 in the enviroment;
@@ -120,19 +122,26 @@ The `apply` action executes `terraform apply` in the process' working
 directory, in a directory specified in `dir` parameter or using a
 previously created `plan` file:
 
+Run `terraform apply` in `${workDir}`:
+
 ```yaml
-# run `terraform apply` in `${workDir}`
 - task: terraform
   in:
     action: apply
-    
-# run `terraform apply` in a specific directory
+```
+
+Run `terraform apply` in a specific directory
+
+```yaml
 - task: terraform
   in:
     action: apply
     dir: "myTFStuff"
-    
-# run `terraform apply` using a plan file
+```
+
+Run `terraform apply` using a plan file
+
+```yaml
 - task: terraform
   in:
     action: apply
@@ -143,6 +152,7 @@ previously created `plan` file:
 As with the `plan` action, the plugin automatically runs `terraform init` when necessary.
 
 Parameters:
+
 - `dir` - string value, path to a directory with `*.tf` files. The path must be
 relative to the process' `${workDir}`;
 - `plan` - string value, path to a previosly created plan file. The path must
@@ -155,6 +165,7 @@ be saved in the `result` variable.
 
 The action's output is stored in a `result` variable that has the following
 structure:
+
 - `ok` - boolean value, `true` if the execution is successful;
 - `output` - string value, output of `terraform apply` (stdout);
 - `error` - string value, error of the last `terraform` execution (stderr);
@@ -231,10 +242,15 @@ the `apply` action parameters:
 
 ## State Backends
 
-Concord uses its own
-[state backend](https://www.terraform.io/docs/backends/index.html) by default, but any of the standard Terraform state backends can be configured for use.
+Concord uses its own [state
+backend](https://www.terraform.io/docs/backends/index.html) by default, but any
+of the standard Terraform state backends can be configured for use.
 
-When using the Concord state backend, on by default, the state is stored in Concord's internal [inventory system](https://concord.walmartlabs.com/docs/api/inventory.html) using the `tfState-${projectName}_${repositoryName}` template for the name. If you want to use a custom name for storing the state, the name can be overridden using the `stateId` parameter:
+When using the Concord state backend, on by default, the state is stored in
+Concord's internal [inventory system](../api/inventory.html) using the
+`tfState-${projectName}_${repositoryName}` template for the name. If you want to
+use a custom name for storing the state, the name can be overridden using the
+`stateId` parameter:
 
 ```yaml
 - task: terraform
@@ -247,7 +263,7 @@ To completely remove the state, you can use the inventory [API](../api/inventory
 
 Concord also supports the use of all [Terraform's backend types](https://www.terraform.io/docs/backends/types/index.html). To instruct the plugin to use the `s3` backend for storing state, use something like the following:
 
-```
+```yaml
 - task: terraform
   in:
     backend:
@@ -257,10 +273,12 @@ Concord also supports the use of all [Terraform's backend types](https://www.ter
         region: "us-west-2"
         encrypt: true
         dynamodb_table: "project-lock"
-```        
+```
 
-You can also disable the use of all state backends by specifying a backend of `none`. This is effectively the same as the default command line behavior that uses the filesystem to store state in the `terraform.tfstate`. To instruct the plugin to use no backend for storing state, use something like the following:
-
+You can also disable the use of all state backends by specifying a backend of
+`none`. This is effectively the same as the default command line behavior that
+uses the filesystem to store state in the `terraform.tfstate`. To instruct the
+plugin to use no backend for storing state, use something like the following:
 
 ```yaml
 - task: terraform
@@ -273,9 +291,10 @@ You can also disable the use of all state backends by specifying a backend of `n
 
 ## GIT Modules
 
-Using [Generic GIT repositories](https://www.terraform.io/docs/modules/sources.html#generic-git-repository)
-as modules may require SSH key authentication. The plugin provides a couple ways to
-configure the keys.
+Using [Generic GIT
+repositories](https://www.terraform.io/docs/modules/sources.html#generic-git-repository)
+as modules may require SSH key authentication. The plugin provides a couple ways
+to configure the keys.
 
 Using private key files directly:
 
@@ -304,7 +323,8 @@ An alternative (and recommended) way is to use Concord [Secrets](../api/secret.h
 
 Multiple private key files and Concord Secrets can be used simultaneously.
 
-When running separate `plan` and `apply` actions, only the `plan` part requires the key configuration. 
+When running separate `plan` and `apply` actions, only the `plan` part requires
+the key configuration.
 
 ## Examples
 
