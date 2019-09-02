@@ -338,9 +338,9 @@ triggers:
 
 ## Exclusive Triggers
 
-There's an option to make triggered processes "exclusive" -- make the process
-wait in the queue if there are any other processes in the same project with
-the same "exclusive group":
+There's an option to make triggered processes "exclusive" -- prevent process
+from running if there are any other processes in the same project with the same
+"exclusive group":
 
 ```yaml
 flows:
@@ -369,6 +369,5 @@ triggers:
       exclusive: "myGroup"
 ```
 
-Any processes with the same `exclusive` value are put in the queue and executed
-one by one.
+Any processes with the same `exclusive` value are automatically cancelled.
  
