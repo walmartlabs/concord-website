@@ -15,4 +15,6 @@ bundle install
 
 ## Contribute
 
-Feel free to submit pull requests or file issues.
+Feel free to submit pull requests or file issues. More info is available on https://concord.walmartlabs.com/overview/contribute.html 
+
+
