@@ -11,11 +11,11 @@ response to specific events.
 
 - [Common Syntax](#common)
 - [Supported Triggers](#supported-triggers)
-    - [OneOps Triggers](#oneops)
-    - [GitHub Triggers](#github)
-    - [Scheduled Triggers](#scheduled)
-    - [Generic Triggers](#generic)
-    - [Manual Triggers](#manual)
+  - [OneOps Triggers](#oneops)
+  - [GitHub Triggers](#github)
+  - [Scheduled Triggers](#scheduled)
+  - [Generic Triggers](#generic)
+  - [Manual Triggers](#manual)
 - [Exclusive Triggers](#exclusive-triggers)
 
 > Trigger configuration is typically loaded automatically, but can be disabled
@@ -338,9 +338,9 @@ triggers:
 
 ## Exclusive Triggers
 
-There's an option to make triggered processes "exclusive" -- prevent process
-from running if there are any other processes in the same project with the same
-"exclusive group":
+There is an option to make a triggered processes "exclusive". This prevents
+the process from running, if there are any other processes in the same project
+with the same "exclusive group":
 
 ```yaml
 flows:
@@ -355,10 +355,11 @@ triggers:
       entryPoint: cronEvent
 ```
 
-In this example, if the triggered process runs longer than the trigger's period
+In this example, if the triggered process runs longer than the trigger's period,
 then it is possible that multiple `cronEvent` processes can run at the same
-time. In some cases it is necessary that only one trigger process can be
-running at the time:
+time. In some cases, it is necessary to enforce that only one trigger process
+runs at a time, due to limitation in target systems being accessed or similar
+reasons.
   
 ```yaml
 triggers:
@@ -369,5 +370,5 @@ triggers:
       exclusive: "myGroup"
 ```
 
-Any processes with the same `exclusive` value are automatically cancelled.
- 
+Any processes with the same `exclusive` value are automatically prevented from
+starting, if a running process in the same group exists.
