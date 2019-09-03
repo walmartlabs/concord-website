@@ -119,6 +119,8 @@ nav:
         context: /docs/plugins/resource
       - page: Slack
         context: /docs/plugins/slack
+      - page: Sleep
+        context: /docs/plugins/sleep
       - page: SMTP
         context: /docs/plugins/smtp
       - page: Taurus
