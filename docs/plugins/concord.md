@@ -20,7 +20,6 @@ necessary.
 - [Scheduling a Process](#start-schedule)
 - [Specifying Profiles](#start-profiles)
 - [File Attachments](#start-attachments)
-- [Output Variables](#start-outvars)
 - [Forking a Process](#fork)
 - [Forking Multiple Instances](#fork-multi)
 - [Synchronous Execution](#sync)
@@ -30,6 +29,7 @@ necessary.
 - [Handling Cancellation and Failures](#handle-onfailure)
 - [Cancelling Processes](#cancel)
 - [Tagging Subprocesses](#tags)
+- [Output Variables](#outvars)
 
 ## Examples
 
@@ -65,7 +65,7 @@ project's repository;
 - `startAt` - [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date/time
 value, the process' start time;
 - `suspend` - boolean, if `true` and `sync` is enabled the process [suspends](#start-suspend)
-waiting for the child process to complete (only for `action: "start"`); 
+waiting for the child process to complete (only for actions `start` and `fork`); 
 - `sync` - boolean, wait for completion if `true`, defaults to `false`;
 - `tags` - list of string values, the process' tags;
 - `attachments` - list of file attachments;
@@ -215,34 +215,6 @@ flows:
 This is equivalent to the curl command:
 ```
 curl ... -F myFile.txt=@${workDir}/someDir/myFile.txt -F someFile.json=@anotherFile.json ...
-```
-
-<a name="start-outvars"/>
-
-## Output Variables
-
-Variables of a child process can be accessed via the `outVars` configuration. 
-The functionality requires the `sync` parameter to be set to `true`.
-
-```yaml
-flows:
-  default:
-  - task: concord
-    in:
-      action: start
-      project: myProject
-      repo: myRepo
-      sync: true
-      # list of variable names
-      outVars:
-      - someVar1
-      - someVar2
-```
-
-Output values are stored as a `jobOut` variable:
-
-```yaml
-- log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
 ```
 
 <a name="fork"/>
@@ -524,3 +496,80 @@ flows:
       action: kill
       instanceId: "${concord.listSubprocesses(parentInstanceId, 'someTag')}"
 ```
+
+<a name="outvars"/>
+
+## Output Variables
+
+Variables of a child process can be accessed via the `outVars` configuration. 
+The functionality requires the `sync` parameter to be set to `true`.
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      action: start
+      project: myProject
+      repo: myRepo
+      sync: true
+      # list of variable names
+      outVars:
+      - someVar1
+      - someVar2
+```
+
+Output values are stored as a `jobOut` variable:
+
+```yaml
+- log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
+```
+
+When starting multiple forks their output variables will be collected into a
+nested object with fork IDs as keys:
+
+```yaml
+configuration:
+  arguments:
+    name: "Concord"
+
+flows:
+  default:
+    - task: concord
+      in:
+        action: fork
+        forks:
+          - entryPoint: onFork
+            arguments:
+              msg: "Hello"
+          - entryPoint: onFork
+            arguments:
+              msg: "Bye"
+        sync: true
+        suspend: true
+        outVars:
+          - varFromFork
+
+    - log: "${jobOut}"
+
+  onFork:
+    - log: "Running in a fork"
+    - set:
+        varFromFork: "${msg}, ${name}"
+```
+
+In the example above, the `jobOut` variable has the following structure:
+
+```json
+{
+    "54e21668-d011-11e9-8369-6b27f0faf40f": {
+        "varFromFork": "Hello, Concord"
+    },
+    "6ac8b356-d011-11e9-81f6-73dd6c99b3b2": {
+        "varFromFork": "Bye, Concord"
+    }
+}
+```
+
+Because each fork can produce a variable with the same name, the values are
+nested into objects with the fork ID as the key.
