@@ -239,7 +239,7 @@ flows:
 
 The IDs of the started processes are stored as `${jobs}` array.
 
-**Note** Due to the current limitations, files created after
+**Note:** Due to the current limitations, files created after
 the start of a process cannot be copied to child processes.
 
 <a name="fork-multi"/>
@@ -573,3 +573,56 @@ In the example above, the `jobOut` variable has the following structure:
 
 Because each fork can produce a variable with the same name, the values are
 nested into objects with the fork ID as the key.
+
+To get output variables for already running processes use `getOutVars` method:
+
+```yaml
+flows:
+  default:
+    # empty list to store fork IDs
+    - set:
+        children: []
+
+    # start the first fork
+    - task: concord
+      in:
+        action: fork
+        entryPoint: forkA
+        sync: false
+        outVars:
+          - x
+
+    # save the first fork's ID
+    - ${children.addAll(jobs)}
+
+    # start the second fork
+    - task: concord
+      in:
+        action: fork
+        entryPoint: forkB
+        sync: false
+        outVars:
+          - y
+
+    # save the second fork's ID
+    - ${children.addAll(jobs)}
+
+    # grab out vars of the forks
+    - expr: ${concord.getOutVars(children)} # the new method, accepts a list of process IDs
+      out: forkOutVars
+
+    # print out out vars grouped by fork
+    - log: "${forkOutVars}"
+
+  forkA:
+    - set:
+        x: 1
+
+  forkB:
+    - set:
+        y: 2
+```
+
+**Note:** the `getOutVars` method will wait for the specified processes to
+finish. If one of the specified processes fails then its output variables will
+be empty.
