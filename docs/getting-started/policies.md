@@ -9,6 +9,16 @@ side-navigation: wmt/docs-navigation.html
 Policies is a powerful and flexible mechanism to control different
 characteristics of processes and system entities.
 
+- [Overview](#overview)
+- [Document Format](#document-format)
+- [Ansible Rule](#ansible-rule)
+- [Dependency Rule](#dependency-rule)
+- [Entity Rule](#entity-rule)
+- [File Rule](#file-rule)
+- [Process Configuration Rule](#process-configuration-rule)
+- [Task Rule](#task-rule)
+- [Workspace Rule](#workspace-rule)
+
 ## Overview
 
 A policy is a JSON document describing rules that can affect the execution of
@@ -170,6 +180,7 @@ The syntax:
 ```
 
 The attributes:
+
 - `scheme` - the dependency URL scheme. For example: `http` or `mvn`;
 - `groupId` and `artifactId` - parts of the dependency's Maven GAV (only for
 `mvn` dependencies);
@@ -183,7 +194,7 @@ so:
 {
   "dependency": {
     "deny": [
-      {        
+      {
         "groupId": "com.walmartlabs.concord.plugins.basic",
         "artifactId": "ansible-tasks",
         "toVersion": "1.13.1",
@@ -237,6 +248,7 @@ The currently supported `entity` types are:
 - `org`
 - `project`
 - `secret`
+- `trigger`
 
 Available actions:
 
@@ -263,7 +275,7 @@ and the entity's owner attributes:
     ...entity specific attributes...
   }
 }
-``` 
+```
 
 Different types of entities provide different sets of attributes:
 
@@ -286,6 +298,10 @@ Different types of entities provide different sets of attributes:
   - `type` - the secret's type;
   - `visibility` - the secret's visibility (`PUBLIC` or `PRIVATE`, optional);
   - `storeType` - the secret's store type (optional).
+- `trigger`
+  - `name` - the trigger's type (string, `github`, `manual`, etc);
+  - `orgId` - linked organization's ID (UUID, optional);
+  - `params` - the trigger's configuration (JSON object, optional).
 
 For example, to restrict creation of projects in the `Default` organization use:
 
@@ -306,7 +322,7 @@ For example, to restrict creation of projects in the `Default` organization use:
       ]
    }
 }
-``` 
+```
 
 To prevent users with a specific AD/LDAP group from creating any new entities:
 
@@ -322,6 +338,34 @@ To prevent users with a specific AD/LDAP group from creating any new entities:
                	  "userType": "LDAP",
                	  "groups": ["CN=SomeGroup,.*"]
                } 
+            }
+         }
+      ]
+   }
+}
+```
+
+Another example is a policy to prevent users from creating wide-sweeping,
+"blanket" GitHub triggers for all projects:
+
+```json
+{
+    "entity": {
+      "deny": [
+         {
+            "msg": "Blanket Github triggers are disallowed",
+            "action": "create",
+            "entity": "trigger",
+            "conditions":{
+               "entity": {
+                  "name": "github",
+                  "params": {
+                     "org": "\\.\\*",
+                     "project": "\\.\\*",
+                     "repository": "\\.\\*",
+                     "unknownRepo": [true, false]
+                  }
+               }
             }
          }
       ]
