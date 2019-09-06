@@ -60,27 +60,29 @@ All parameters sorted in alphabetical order.
 - `auth`: authentication used for secure endpoints, details in 
   [Basic authentication](#basic-authentication);
 - `body`: the request body, details in [Body](#body);
-- `debug`: boolean, output the request and response data in the logs
-- `headers`: add additional headers, details in [Headers](#headers)
+- `connectTimeout`: HTTP connection timeout in ms. Default value is 30000 ms;
+- `debug`: boolean, output the request and response data in the logs;
+- `followRedirects`: boolean, determines whether redirects should be handled automatically.
+Default is `true`;
+- `headers`: add additional headers, details in [Headers](#headers);
 - `ignoreErrors`: boolean, instead of throwing exceptions on unauthorized requests,
-  return the result object with the error
-- `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or
-    `DELETE`. Default value is `GET`.
-- `out`: variable to store the [HTTP response](#http-task-response) object
+  return the result object with the error;
+- `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or 
+`DELETE`. Default value is `GET`;
+- `out`: variable to store the [HTTP response](#http-task-response) object;
+- `proxy`: HTTP(s) proxy to use (see the [example](#proxy-usage));
+- `query`: request query parameters, details in [Query Parameter](#query-parameters);
 - `request`: type of request data `string`, `json`, or `file`, details available
    in [Request type](#request-type);
+- `requestTimeout`: request timeout in ms, which is the maximum time spent 
+waiting for the response;
 - `response`: type of response data `string`, `json`, or `file` received from
   the endpoint, details in [Response type](#response-type);
-- `url`: complete URL in string for HTTP request;
-- `connectTimeout`: HTTP connection timeout in ms. Default value is 30000 ms.
 - `socketTimeout`: socket timeout in ms, which is the maximum time of inactivity
 between two data packets. Default value is `-1`, which means that the default
 value of the Java Runtime Environment running the process is used - common value
 is 60000 ms;
-- `proxy`: HTTP(s) proxy to use (see the [example](#proxy-usage)).
-- `query`: request query parameters, details in [Query Parameter](#query-parameters)
-- `requestTimeout`: request timeout in ms, which is the maximum time spent 
-waiting for the response.
+- `url`: complete URL in string for HTTP request;
 
 ### Basic Authentication
 
