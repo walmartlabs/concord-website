@@ -1009,8 +1009,8 @@ used for validation:
 Only process initiators, administrators and users with `WRITER` access level to
 the process' project can restore checkpoints with the API or the user console.
 
-After restoring a checkpoint, its name can be accessed using the `eventName`
-variable.
+After restoring a checkpoint, its name can be accessed using
+the `resumeEventName` variable.
 
 **Note:** files created during the process' execution are not saved during the
 checkpoint creation.
