@@ -608,7 +608,7 @@ flows:
     - ${children.addAll(jobs)}
 
     # grab out vars of the forks
-    - expr: ${concord.getOutVars(children)} # the new method, accepts a list of process IDs
+    - expr: ${concord.getOutVars(children)} # accepts a list of process IDs
       out: forkOutVars
 
     # print out out vars grouped by fork
