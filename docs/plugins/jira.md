@@ -127,6 +127,8 @@ Additional parameters to use are:
 > of the API and inspect the return object of an existing ticket e.g.
 > https:https://jira.example.com/rest/api/2/issue/issueId
 
+Note: The Ticket number get stored in `${issueId}` variable.
+
 
 <a name="updateIssue"/>
 ## Update an Issue
