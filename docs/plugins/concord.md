@@ -198,7 +198,7 @@ The parameter accepts either a YAML array or a comma-separated string value.
 To start a process with file attachments, use the `attachments` parameter. An
 attachment can be a single path to a file, or a map which specifies a source
 and destination filename for the file. If the attachment is a single path, the
-file will be placed in the root directory of the new process with the same name.
+file is placed in the root directory of the new process with the same name.
 
 ```yaml
 flows:
@@ -433,11 +433,11 @@ flows:
   - log: "Hello!"
   - ${misc.throwBpmnError("oh no!")}
   
-  # will be invoked only for the parent process
+  # invoked only for the parent process
   onCancel:
   - log: "Handling a cancellation..."
   
-  # will be invoked only for the parent process
+  # invoked only for the parent process
   onFailure:
   - log: "Handling a failure..."
 ```
@@ -525,8 +525,8 @@ Output values are stored as a `jobOut` variable:
 - log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
 ```
 
-When starting multiple forks their output variables will be collected into a
-nested object with fork IDs as keys:
+When starting multiple forks their output variables are collected into a nested
+object with fork IDs as keys:
 
 ```yaml
 configuration:
@@ -623,6 +623,5 @@ flows:
         y: 2
 ```
 
-**Note:** the `getOutVars` method will wait for the specified processes to
-finish. If one of the specified processes fails then its output variables will
-be empty.
+**Note:** the `getOutVars` method waits for the specified processes to finish.
+If one of the specified processes fails then its output variables are empty.
