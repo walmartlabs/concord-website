@@ -248,7 +248,7 @@ Forcefully stops the process.
 
 Returns the current status of a process.
 
-**Note**: this is a `v2` endpoint.
+**Note:** this is a `v2` endpoint.
 
 * **URI** `/api/v2/process/${instanceId}`
 * **Method** `GET`
@@ -324,7 +324,7 @@ Downloads a process' attachment.
 
 Retrieve a list of processes.
 
-**Note**: this is a `v2` endpoint.
+**Note:** this is a `v2` endpoint.
 
 * **URI** `/api/v2/process`
 * **Query parameters**
