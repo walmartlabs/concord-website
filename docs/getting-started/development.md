@@ -56,6 +56,20 @@ archive) with this content:
 }
 ```
 
+`jvm` arguments can also be specified in the `requirements` section of the 
+`configuration`:
+
+```yaml
+configuration:
+  requirements:
+    jvm:
+      extraArgs:
+        - "-Xdebug"
+        - "-Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=y"
+```
+
+**Note:** If both configurations exists then `_agent.json` will always take the priority. 
+
 This makes all processes to listen on port `5005` for incoming connections from
 an IDE. Make sure to change the port number if you plan to debug multiple
 processes simultaneously.
