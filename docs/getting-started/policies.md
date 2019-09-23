@@ -299,7 +299,7 @@ Different types of entities provide different sets of attributes:
   - `visibility` - the secret's visibility (`PUBLIC` or `PRIVATE`, optional);
   - `storeType` - the secret's store type (optional).
 - `trigger`
-  - `name` - the trigger's type (string, `github`, `manual`, etc);
+  - `eventSource` - the trigger's event type (string, `github`, `manual`, etc);
   - `orgId` - linked organization's ID (UUID, optional);
   - `params` - the trigger's configuration (JSON object, optional).
 
@@ -358,7 +358,7 @@ Another example is a policy to prevent users from creating wide-sweeping,
             "entity": "trigger",
             "conditions":{
                "entity": {
-                  "name": "github",
+                  "eventSource": "github",
                   "params": {
                      "org": "\\.\\*",
                      "project": "\\.\\*",
