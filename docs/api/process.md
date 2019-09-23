@@ -91,7 +91,7 @@ working directory.
     ```
 * **Example**
     ```
-    curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+    curl -H "Authorization: ..." \
     -F org=MyOrg \
     -F project=MyProject \
     -F repo=MyRepo \
@@ -100,7 +100,7 @@ working directory.
     -F entryPoint=main \
     -F activeProfiles=myProfile \
     -F arguments.name=Concord \
-    http://concord.example.com:8001/api/v1/process
+    http://concord.example.com/api/v1/process
     ```
 
 An example of a invocation triggers the `default` flow in the `default` repository
@@ -346,7 +346,16 @@ Retrieve a list of processes.
       `history`), repeat the parameter to include multiple additional entries;
     - `limit`: maximum number of records to return;
     - `offset`: starting index from which to return;
-    - `meta.[paramName]`: filter by the process metadata's value `paramName`.
+    - `meta.[paramName][.operation]`: filter by the process metadata's value
+      `paramName` using the specified comparison `operation`. Supported
+      operations:
+        - `eq`, `notEq` - equality check;
+        - `contains`, `notContains` - substring search;
+        - `startsWith`, `notStartsWith` - beginning of the string match;
+        - `endsWith`, `notEndsWith` - end of the string match.
+      If the operator is omitted, the default `contains` mode is used.
+      Metadata filters require `projectId` or `orgName` and `projectName` to be
+      specified.
 * **Method** `GET`
 * **Body**
     none
@@ -360,6 +369,11 @@ Retrieve a list of processes.
       { "instanceId": "...", "status": "...", ... },
       { "instanceId": "...", ... }
     ]
+    ```
+* **Example**
+    ```
+curl -H "Authorization: ..." \
+'http://concord.example.com/api/v2/process?orgName=MyOrg&projectName=MyProject&meta.myMetaVar.startsWith=Hello'
     ```
 
 <a name="count"/>
