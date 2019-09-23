@@ -162,7 +162,7 @@ the nested field `c`.
 Additionally, the output variables can be retrieved as a JSON file:
 
 ```bash
-$ curl ... http://localhost:8001/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
+$ curl ... http://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
 
 {"myVar1":"my value"}
 ```

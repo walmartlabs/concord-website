@@ -300,7 +300,7 @@ Updates project's access rules for a specific team.
     ```
     curl -ikn -H 'Content-Type: application/json' \
     -d '{"orgName": "MyOrg", "teamName": "myTeam", "level": "READER"}' \
-    https://concord.prod.walmart.com/api/v1/org/MyOrg/project/MyProject/access
+    http://concord.example.com/api/v1/org/MyOrg/project/MyProject/access
     ```
 
 ## Bulk Update Access Rules
