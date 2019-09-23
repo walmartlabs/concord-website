@@ -19,6 +19,7 @@ The REST API provides support for a number of operations:
 - [Retrieve a Process Log](#log)
 - [Download an Attachment](#download-attachment)
 - [List Processes](#list)
+- [Count Processes](#count)
 - [Process Events](#process-events)
   - [List events](#list-events)
 
@@ -300,6 +301,7 @@ Downloads the log file of a process.
 
 
 <a name="download-attachment"/>
+
 ## Downloading an Attachment
 
 Downloads a process' attachment.
@@ -358,6 +360,31 @@ Retrieve a list of processes.
       { "instanceId": "...", "status": "...", ... },
       { "instanceId": "...", ... }
     ]
+    ```
+
+<a name="count"/>
+
+## Count Processes
+
+Returns a total number of processes using the specified filters.
+
+**Note:** this is a `v2` endpoint.
+
+* **URI** `/api/v2/process/count`
+* **Query parameters**
+    Same as the [list](#list) method. A `projectId` or a combination of
+    `orgName` and `projectName` is required. Not supported: `limit`,
+    `offset`, `include`.
+* **Method** `GET`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    12
     ```
 
 ## Process Events
