@@ -216,7 +216,7 @@ configuration:
 flows:
   default:
     - log: "Project name: ${name}"
-    - log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+    - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}"
 ```
 
 Values of `arguments` can contain [expressions](#expressions). Expressions can
@@ -277,6 +277,8 @@ flows:
 Note that forms waiting for input and other process action are captured in a
 _suspended_ state, which is not affecting process runtime and therefore also
 not the process timeout.
+
+If an `onTimeout` flow fails, it is automatically retried up to three times.
 
 ### Debug
 
@@ -829,7 +831,10 @@ flows:
   onFailure:
   - log: "The parent process failed because ${lastError.cause.payload.myCause}."
   - log: "And ${lastError.cause.payload.whoToBlame.mainCulpit} is responsible for it!"
-```  
+```
+
+If an `onCancel` or `onFailure` flow fails, it is automatically
+retried up to three times.
 
 <a name="retry-task"/>
 
