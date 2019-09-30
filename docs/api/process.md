@@ -299,6 +299,11 @@ Downloads the log file of a process.
 * **Success response**
     Redirects a user to a form or an intermediate page.
 
+* **Example**
+    ```
+    curl -H "Authorization: ..." -H "Range: ${startByte}-${endByte}"\
+    http://concord.example.com/api/v1/process/${instanceId}/log
+    ```
 
 <a name="download-attachment"/>
 
