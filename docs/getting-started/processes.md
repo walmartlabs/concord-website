@@ -89,7 +89,8 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
   - `initiator.username`: login, string;
   - `initiator.displayName`: printable name, string;
   - `initiator.groups`: list of user's groups;
-  - `initiator.attributes`: other LDAP attributes; for example `initiator.attributes.mail` contains the email address.
+  - `initiator.attributes`: other LDAP attributes; for example
+    `initiator.attributes.mail` contains the email address.
 - `currentUser`: information about the current user. Has the same structure
   as `initiator`;
 - `requestInfo`: additional request data:
@@ -97,7 +98,6 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
     endpoints (e.g. the portal API);
   - `requestInfo.ip`: client IP address, where from request is generated.
   - `requestInfo.headers`: headers of request made using user-facing endpoints.
-
 - `projectInfo`: project's data:
   - `projectInfo.orgId` - the ID of the project's organization;
   - `projectInfo.orgName` - the name of the project's organization;
@@ -106,9 +106,14 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
   - `projectInfo.repoId` - the project's repository ID;
   - `projectInfo.repoName` - the repository's name;
   - `projectInfo.repoUrl` - the repository's URL;
+  - `projectInfo.repoBranch` - the repository's branch;
+  - `projectInfo.repoPath` - the repository's path (if configured);
   - `projectInfo.repoCommitId` - the repository's last commit ID;
   - `projectInfo.repoCommitAuthor` - the repository's last commit author;
   - `projectInfo.repoCommitMessage` - the repository's last commit message.
+- `processInfo`: the current process' data:
+  - `processInfo.activeProfiles` - list of active profiles used for the current
+  execution.
 
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 
