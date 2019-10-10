@@ -367,8 +367,14 @@ triggers:
       spec: "* * * * *"
       timezone: "America/Toronto"
       entryPoint: cronEvent
-      exclusive: "myGroup"
+      exclusive:
+        group: "myGroup"
+        mode: "cancel" # or "wait"
 ```
 
 Any processes with the same `exclusive` value are automatically prevented from
-starting, if a running process in the same group exists.
+starting, if a running process in the same group exists. If you wish to enqueue
+the processes instead use `mode: "wait"`.
+
+See also [Exclusive Execution](./concord-dsl.html#exclusive-execution) section
+in the Concord DSL documentation.
