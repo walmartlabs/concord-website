@@ -397,9 +397,9 @@ details about the process event recording.
 
 ### Requirements
 
-Custom `jvm` arguments can be specified in the `requirements` section of the 
-`configuration` object. [Concord Agent](./index.html/#concord-agent) pass these 
-arguments to JVM when starts the process:
+Custom `jvm` arguments can be specified in the `requirements` section of the
+`configuration` object. [Concord Agent](./index.html/#concord-agent) pass these
+arguments to the process' JVM:
 
 ```yaml
 configuration:
@@ -410,7 +410,11 @@ configuration:
         - "-Xmx512m"
 ```
 
-**Note:** Process having custom `jvm` arguments should not use the pre-fork mechanism.
+**Note:** Process having custom `jvm` arguments can't the pre-fork mechanism
+and are usually slowed to start.
+
+**Note:** Consult with your Concord instance's admin what are the limitations
+for JVM memory and other settings. 
 
 <a name="flows"/>
 
