@@ -20,15 +20,16 @@ necessary.
 - [Scheduling a Process](#start-schedule)
 - [Specifying Profiles](#start-profiles)
 - [File Attachments](#start-attachments)
-- [Output Variables](#start-outvars)
 - [Forking a Process](#fork)
 - [Forking Multiple Instances](#fork-multi)
 - [Synchronous Execution](#sync)
 - [Suspending Parent Process](#start-suspend)
+- [Suspending for Completion](#suspend-for-completion)
 - [Waiting for Completion](#wait-for-completion)
 - [Handling Cancellation and Failures](#handle-onfailure)
 - [Cancelling Processes](#cancel)
 - [Tagging Subprocesses](#tags)
+- [Output Variables](#outvars)
 
 ## Examples
 
@@ -64,7 +65,7 @@ project's repository;
 - `startAt` - [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date/time
 value, the process' start time;
 - `suspend` - boolean, if `true` and `sync` is enabled the process [suspends](#start-suspend)
-waiting for the child process to complete (only for `action: "start"`); 
+waiting for the child process to complete (only for actions `start` and `fork`); 
 - `sync` - boolean, wait for completion if `true`, defaults to `false`;
 - `tags` - list of string values, the process' tags;
 - `attachments` - list of file attachments;
@@ -144,6 +145,7 @@ flows:
 ```
 
 Connection parameters can be overridden using the following keys:
+
 - `baseUrl` - Concord REST API endpoint. Defaults to the current
   server's API endpoint address;
 - `apiKey` - user's REST API key.
@@ -196,7 +198,7 @@ The parameter accepts either a YAML array or a comma-separated string value.
 To start a process with file attachments, use the `attachments` parameter. An
 attachment can be a single path to a file, or a map which specifies a source
 and destination filename for the file. If the attachment is a single path, the
-file will be placed in the root directory of the new process with the same name.
+file is placed in the root directory of the new process with the same name.
 
 ```yaml
 flows:
@@ -213,34 +215,6 @@ flows:
 This is equivalent to the curl command:
 ```
 curl ... -F myFile.txt=@${workDir}/someDir/myFile.txt -F someFile.json=@anotherFile.json ...
-```
-
-<a name="start-outvars"/>
-
-## Output Variables
-
-Variables of a child process can be accessed via the `outVars` configuration. 
-The functionality requires the `sync` parameter to be set to `true`.
-
-```yaml
-flows:
-  default:
-  - task: concord
-    in:
-      action: start
-      project: myProject
-      repo: myRepo
-      sync: true
-      # list of variable names
-      outVars:
-      - someVar1
-      - someVar2
-```
-
-Output values are stored as a `jobOut` variable:
-
-```yaml
-- log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
 ```
 
 <a name="fork"/>
@@ -265,7 +239,7 @@ flows:
 
 The IDs of the started processes are stored as `${jobs}` array.
 
-**Note** Due to the current limitations, files created after
+**Note:** Due to the current limitations, files created after
 the start of a process cannot be copied to child processes.
 
 <a name="fork-multi"/>
@@ -353,13 +327,64 @@ flows:
 
 This can be very useful to reduce the amount of Concord agents needed. With
 `suspend: true`, the parent process does not consume any resources including
-agent workers, whil waiting for the child process.
+agent workers, while waiting for the child process.
 
-Currently, `suspend` can only be used with the `start` action.
+`suspend` can be used with the `fork` action as well:
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      action: fork
+      forks:
+        - entryPoint: sayHello
+        - entryPoint: sayHello
+        - entryPoint: sayHello
+      sync: true
+      suspend: true
+
+  sayHello:
+    - log: "Hello from a subprocess!"
+```
+
+Currently, `suspend` can only be used with the `start` and `fork` actions.
 
 **Note:** Due to the current limitations, files created after the start of
 the parent process are not preserved. Effectively, the suspend works in the same
 way as the [forms](../getting-started/forms.html).
+
+<a name="suspend-for-completion"/>
+
+## Suspending for Completion
+
+You can use the follow approach to suspend a process until the the completion of
+other process:
+
+```yaml
+flows:
+  default:
+  - set:
+      children: []
+
+  - task: concord
+    in:
+      action: start
+      payload: payload
+
+  - ${children.addAll(jobs)}
+
+  - task: concord
+    in:
+      action: start
+      payload: payload
+
+  - ${children.addAll(jobs)}
+
+  - ${concord.suspendForCompletion(children)}
+
+  - log: "process is resumed."
+```
 
 <a name="wait-for-completion"/>
 
@@ -388,7 +413,8 @@ The expression returns a map of process statuses:
 
 ## Handling Cancellation and Failures
 
-Just like regular processes, subprocesses can have `onCancel` and `onFailure` flows.
+Just like regular processes, subprocesses can have `onCancel` and `onFailure`
+flows.
 
 However, as process forks share their flows, it may be useful to disable
 `onCancel` or `onFailure` flows in subprocesses:
@@ -402,16 +428,16 @@ flows:
       disableOnCancel: true
       disableOnFailure: true
       entryPoint: sayHello
-      
+
   sayHello:
   - log: "Hello!"
   - ${misc.throwBpmnError("oh no!")}
   
-  # will be invoked only for the parent process
+  # invoked only for the parent process
   onCancel:
   - log: "Handling a cancellation..."
   
-  # will be invoked only for the parent process
+  # invoked only for the parent process
   onFailure:
   - log: "Handling a failure..."
 ```
@@ -435,8 +461,8 @@ flows:
 The `instanceId` parameter can be a single value or a list of process
 IDs.
 
-Setting `sync` to `true` forces the the task to wait until the specified processes
-are stopped.
+Setting `sync` to `true` forces the the task to wait until the specified
+processes are stopped.
 
 <a name="tags"/>
 
@@ -470,3 +496,132 @@ flows:
       action: kill
       instanceId: "${concord.listSubprocesses(parentInstanceId, 'someTag')}"
 ```
+
+<a name="outvars"/>
+
+## Output Variables
+
+Variables of a child process can be accessed via the `outVars` configuration. 
+The functionality requires the `sync` parameter to be set to `true`.
+
+```yaml
+flows:
+  default:
+  - task: concord
+    in:
+      action: start
+      project: myProject
+      repo: myRepo
+      sync: true
+      # list of variable names
+      outVars:
+      - someVar1
+      - someVar2
+```
+
+Output values are stored as a `jobOut` variable:
+
+```yaml
+- log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
+```
+
+When starting multiple forks their output variables are collected into a nested
+object with fork IDs as keys:
+
+```yaml
+configuration:
+  arguments:
+    name: "Concord"
+
+flows:
+  default:
+    - task: concord
+      in:
+        action: fork
+        forks:
+          - entryPoint: onFork
+            arguments:
+              msg: "Hello"
+          - entryPoint: onFork
+            arguments:
+              msg: "Bye"
+        sync: true
+        suspend: true
+        outVars:
+          - varFromFork
+
+    - log: "${jobOut}"
+
+  onFork:
+    - log: "Running in a fork"
+    - set:
+        varFromFork: "${msg}, ${name}"
+```
+
+In the example above, the `jobOut` variable has the following structure:
+
+```json
+{
+    "54e21668-d011-11e9-8369-6b27f0faf40f": {
+        "varFromFork": "Hello, Concord"
+    },
+    "6ac8b356-d011-11e9-81f6-73dd6c99b3b2": {
+        "varFromFork": "Bye, Concord"
+    }
+}
+```
+
+Because each fork can produce a variable with the same name, the values are
+nested into objects with the fork ID as the key.
+
+To get output variables for already running processes use `getOutVars` method:
+
+```yaml
+flows:
+  default:
+    # empty list to store fork IDs
+    - set:
+        children: []
+
+    # start the first fork
+    - task: concord
+      in:
+        action: fork
+        entryPoint: forkA
+        sync: false
+        outVars:
+          - x
+
+    # save the first fork's ID
+    - ${children.addAll(jobs)}
+
+    # start the second fork
+    - task: concord
+      in:
+        action: fork
+        entryPoint: forkB
+        sync: false
+        outVars:
+          - y
+
+    # save the second fork's ID
+    - ${children.addAll(jobs)}
+
+    # grab out vars of the forks
+    - expr: ${concord.getOutVars(children)} # accepts a list of process IDs
+      out: forkOutVars
+
+    # print out out vars grouped by fork
+    - log: "${forkOutVars}"
+
+  forkA:
+    - set:
+        x: 1
+
+  forkB:
+    - set:
+        y: 2
+```
+
+**Note:** the `getOutVars` method waits for the specified processes to finish.
+If one of the specified processes fails then its output variables are empty.

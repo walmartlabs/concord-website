@@ -117,8 +117,12 @@ nav:
         context: /docs/plugins/puppet
       - page: Resource
         context: /docs/plugins/resource
+      - page: S3
+        context: /docs/plugins/s3
       - page: Slack
         context: /docs/plugins/slack
+      - page: Sleep
+        context: /docs/plugins/sleep
       - page: SMTP
         context: /docs/plugins/smtp
       - page: Taurus

@@ -19,6 +19,7 @@ The REST API provides support for a number of operations:
 - [Retrieve a Process Log](#log)
 - [Download an Attachment](#download-attachment)
 - [List Processes](#list)
+- [Count Processes](#count)
 - [Process Events](#process-events)
   - [List events](#list-events)
 
@@ -90,7 +91,7 @@ working directory.
     ```
 * **Example**
     ```
-    curl -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" \
+    curl -H "Authorization: ..." \
     -F org=MyOrg \
     -F project=MyProject \
     -F repo=MyRepo \
@@ -99,7 +100,7 @@ working directory.
     -F entryPoint=main \
     -F activeProfiles=myProfile \
     -F arguments.name=Concord \
-    http://concord.example.com:8001/api/v1/process
+    http://concord.example.com/api/v1/process
     ```
 
 An example of a invocation triggers the `default` flow in the `default` repository
@@ -248,7 +249,7 @@ Forcefully stops the process.
 
 Returns the current status of a process.
 
-**Note**: this is a `v2` endpoint.
+**Note:** this is a `v2` endpoint.
 
 * **URI** `/api/v2/process/${instanceId}`
 * **Method** `GET`
@@ -298,8 +299,14 @@ Downloads the log file of a process.
 * **Success response**
     Redirects a user to a form or an intermediate page.
 
+* **Example**
+    ```
+    curl -H "Authorization: ..." -H "Range: ${startByte}-${endByte}"\
+    http://concord.example.com/api/v1/process/${instanceId}/log
+    ```
 
 <a name="download-attachment"/>
+
 ## Downloading an Attachment
 
 Downloads a process' attachment.
@@ -324,7 +331,7 @@ Downloads a process' attachment.
 
 Retrieve a list of processes.
 
-**Note**: this is a `v2` endpoint.
+**Note:** this is a `v2` endpoint.
 
 * **URI** `/api/v2/process`
 * **Query parameters**
@@ -344,7 +351,16 @@ Retrieve a list of processes.
       `history`), repeat the parameter to include multiple additional entries;
     - `limit`: maximum number of records to return;
     - `offset`: starting index from which to return;
-    - `meta.[paramName]`: filter by the process metadata's value `paramName`.
+    - `meta.[paramName][.operation]`: filter by the process metadata's value
+      `paramName` using the specified comparison `operation`. Supported
+      operations:
+        - `eq`, `notEq` - equality check;
+        - `contains`, `notContains` - substring search;
+        - `startsWith`, `notStartsWith` - beginning of the string match;
+        - `endsWith`, `notEndsWith` - end of the string match.
+      If the operator is omitted, the default `contains` mode is used.
+      Metadata filters require `projectId` or `orgName` and `projectName` to be
+      specified.
 * **Method** `GET`
 * **Body**
     none
@@ -358,6 +374,36 @@ Retrieve a list of processes.
       { "instanceId": "...", "status": "...", ... },
       { "instanceId": "...", ... }
     ]
+    ```
+* **Example**
+    ```
+curl -H "Authorization: ..." \
+'http://concord.example.com/api/v2/process?orgName=MyOrg&projectName=MyProject&meta.myMetaVar.startsWith=Hello'
+    ```
+
+<a name="count"/>
+
+## Count Processes
+
+Returns a total number of processes using the specified filters.
+
+**Note:** this is a `v2` endpoint.
+
+* **URI** `/api/v2/process/count`
+* **Query parameters**
+    Same as the [list](#list) method. A `projectId` or a combination of
+    `orgName` and `projectName` is required. Not supported: `limit`,
+    `offset`, `include`.
+* **Method** `GET`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    12
     ```
 
 ## Process Events

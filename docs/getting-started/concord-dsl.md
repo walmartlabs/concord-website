@@ -220,7 +220,7 @@ configuration:
 flows:
   default:
     - log: "Project name: ${name}"
-    - log: "Coordinats (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}
+    - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}"
 ```
 
 Values of `arguments` can contain [expressions](#expressions). Expressions can
@@ -281,6 +281,8 @@ flows:
 Note that forms waiting for input and other process action are captured in a
 _suspended_ state, which is not affecting process runtime and therefore also
 not the process timeout.
+
+If an `onTimeout` flow fails, it is automatically retried up to three times.
 
 ### Debug
 
@@ -852,7 +854,10 @@ flows:
   onFailure:
   - log: "The parent process failed because ${lastError.cause.payload.myCause}."
   - log: "And ${lastError.cause.payload.whoToBlame.mainCulpit} is responsible for it!"
-```  
+```
+
+If an `onCancel` or `onFailure` flow fails, it is automatically
+retried up to three times.
 
 <a name="retry-task"/>
 
@@ -1031,6 +1036,9 @@ used for validation:
 
 Only process initiators, administrators and users with `WRITER` access level to
 the process' project can restore checkpoints with the API or the user console.
+
+After restoring a checkpoint, its name can be accessed using
+the `resumeEventName` variable.
 
 **Note:** files created during the process' execution are not saved during the
 checkpoint creation.

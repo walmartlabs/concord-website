@@ -12,7 +12,7 @@ The `jira` task supports operations on the popluar issue tracking system
 - [Usage](#usage)
 - [Overview](#overview)
 
-Possible operations are: 
+Possible operations are:
 
 - [Create an Issue](#createIssue)
 - [Update an Issue](#updateIssue)
@@ -23,6 +23,7 @@ Possible operations are:
 - [Delete a Component](#deleteComponent)
 
 <a name="usage"/>
+
 ## Usage
 
 To be able to use the `jira` task in a Concord flow, it must be added as a
@@ -41,8 +42,8 @@ This adds the task to the classpath and allows you to invoke the
 > implementation of the task. Please migrate to the new actions documented here
 > when upgrading from these versions.
 
-
 <a name="overview"/>
+
 ## Overview
 
 The `jira` task allows users to trigger operations on a Jira server as a step of
@@ -83,6 +84,7 @@ flows:
 ```
 
 <a name="createIssue"/>
+
 ## Create an Issue
 
 The JIRA task can be used to create a new issue with the `createIssue` action.
@@ -123,12 +125,15 @@ Additional parameters to use are:
 - `customFieldsTypeKv` - list of custom fields of type key->value
 - `customFieldsTypeFieldAttr` - list of custom fields of type fieldAttribute
 
+After the action runs, the identifier for the created issue is available in the
+`issueId` variable.
+
 > To see possible values for custom fields we recommend to use the `issue` endpoint
 > of the API and inspect the return object of an existing ticket e.g.
 > https:https://jira.example.com/rest/api/2/issue/issueId
 
-
 <a name="updateIssue"/>
+
 ## Update an Issue
 
 The JIRA task can be used to update an issue with the `updateIssue` action.
@@ -157,6 +162,7 @@ Additional parameters to use are:
 - `assignee` -  name of the assignee of issue
 
 <a name="addComment"/>
+
 ## Add a comment
 
 The JIRA task can be used to add a comment to an existing issue with the
@@ -179,6 +185,7 @@ Additional parameters to use are:
 - `issueKey` - the identifier of the issue
 
 <a name="transition"/>
+
 ## Transition an Issue
 
 The JIRA task can be used to transition an existing issue with the `transition`
@@ -207,10 +214,12 @@ Additional parameters to use are:
 Custom fields can be specified like in [issue creation](#createIssue).
 
 <a name="deleteIssue"/>
+
 ## Delete an Issue
 
 The JIRA task can be used to delete an existing issue with the `deleteIssue`
 action and the identifier for the issue in `issueKey`.
+
 ```yaml
 flows:
   default:
@@ -223,6 +232,7 @@ flows:
 ```
 
 <a name="createComponent"/>
+
 ## Create a new Component
 
 The JIRA task can be used to create a new component for a given JIRA project
@@ -246,6 +256,7 @@ Additional parameters to use are:
 - `componentName` - name for the new component
 
 <a name="deleteComponent"/>
+
 ## Delete a Component
 
 The JIRA task can be used to delete a component with the `deleteComponent` action

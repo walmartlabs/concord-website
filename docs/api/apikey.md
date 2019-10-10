@@ -43,7 +43,9 @@ Creates a new API key for a user.
   ```
 * **Example**
   ```
-  curl -u myLdapUser -H "Content-Type: application/json" -d '{ "username": "myLdapUser" }' http://localhost:8001/api/v1/apikey
+  curl -u myLdapUser \
+  -H "Content-Type: application/json" -d '{ "username": "myLdapUser" }' \
+  http://concord.example.com/api/v1/apikey
   ```
 
 <a name="list-keys"/>
@@ -74,7 +76,9 @@ Lists any existing API keys for the user. Only returns metadata, not actual keys
     ```
 * **Example**
   ```
-  curl -u myLdapUser -H "Content-Type: application/json" http://localhost:8001/api/v1/apikey
+  curl -u myLdapUser \
+  -H "Content-Type: application/json" \
+  http://concord.example.com/api/v1/apikey
   ```
 
 <a name="delete-key"/>
