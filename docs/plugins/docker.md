@@ -118,6 +118,23 @@ In the example above the output (`stdout`) of the command running in the
 container is not printed out into the log, but instead saved as `myOut`
 variable.
 
+## Capturing the Error
+
+The `stderr` parameter can be used to capture the errors of commands running
+in the Docker container:
+
+```yaml
+- docker: library/alpine
+  cmd: echo "Hello, ${name}" && (>&2 echo "STDERR WORKS")
+  stderr: myErr
+
+- log: "Errors: ${myErr}"
+```
+
+In the example above the errors (`stderr`) of the command running in the
+container is not printed out into the log, but instead saved as `myErr`
+variable.
+
 ## Custom Images
 
 All images must provide a standard POSIX shell as `/bin/sh`.
