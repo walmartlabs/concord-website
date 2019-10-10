@@ -34,7 +34,12 @@ This expression returns a map with two keys:
 A full example adds a key via the REST API:
 
 ```
-$ curl -u yourusername -F storePassword="myKeyPassword" -F name=myKey -F type=key_pair http://localhost:8001/api/1/org/Default/secret
+$ curl -u yourusername \
+-F storePassword="myKeyPassword" \
+-F name=myKey \
+-F type=key_pair \
+http://concord.example.com/api/1/org/Default/secret
+
 {
   "id" : "...",
   "result" : "CREATED",
@@ -96,6 +101,7 @@ Or use it directly. For example, in a `http` task call:
 ```
 
 <a name="plain"/>
+
 ## Exporting Plain Secrets
 
 A "plain" secret is a single encrypted value, which is stored using
@@ -103,7 +109,12 @@ the REST API or the UI and retrieved using the
 `crypto.exportAsString` method:
     
 ```bash
-$ curl -u myusername -F name=mySecret -F type=data -F data="my value" -F storePassword="myPassword" http://localhost:8001/api/v1/org/Default/secret
+$ curl -u myusername \
+-F name=mySecret \
+-F type=data \
+-F data="my value" \
+-F storePassword="myPassword" \
+http://concord.example.com/api/v1/org/Default/secret
 ```
 
 ```yaml
@@ -136,7 +147,7 @@ and the `encrypt` context:
 curl -u myusername \
 -H 'Content-Type: text/plain' \
 -d 'my secret value' \
-http://localhost:8001/api/v1/org/MyOrg/project/MyProject/encrypt
+http://concord.example.com/api/v1/org/MyOrg/project/MyProject/encrypt
 ```
 
 (replace `MyOrg` and `MyProject` with the names of your organization and project).

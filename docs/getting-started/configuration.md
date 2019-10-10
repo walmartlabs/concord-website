@@ -85,6 +85,12 @@ concord-server {
     ldap {
         url = "ldap://oldap:389"
         searchBase = "dc=example,dc=org"
+        principalSearchFilter = "(cn={0})"
+        userSearchFilter = "(cn=*{0}*)"
+        usernameProperty = "cn"
+        userPrincipalNameProperty = ""
+        returningAttributes = ["*", "memberOf"]
+
         systemUsername = "cn=admin,dc=example,dc=org"
         systemPassword = "admin"
     }

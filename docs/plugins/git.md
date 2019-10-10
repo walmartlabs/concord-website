@@ -29,6 +29,7 @@ task.
   - [Get Branch List](#getBranchList)
   - [Get Tag List](#getTagList)
   - [Get Latest Commit SHA](#getLatestSHA)
+  - [Add a Status](#addStatus)
   
 <a name="usage"/>
 
@@ -57,17 +58,17 @@ Concord server.
 The `git` task uses a number of input parameters that are common for all
 operations:
 
-- `url`: Required - the SSH or HTTPS URL of git repository
+- `url`: required, the SSH or HTTPS URL of git repository
   - `auth`: Required for HTTPS `url` values, details in [Basic authentication](#basic-authentication)
   - `privateKey`: Required for SSH `url` values.
-- `workingDir`: Required - the name of the directory inside the process space on
+- `workingDir`: required, the name of the directory inside the process space on
   the Concord server into which the git repository is cloned before any
   operation is performed.
-- `action`: Required - the name of the operation to perform.
+- `action`: required, the name of the operation to perform.
 - `org` of the `privateKey` parameter: Optional - the name of the organization
   in Concord org where the secret can be located, if not specified defaults to
   `Default`.
-- `secretName` of the `privateKey` parameter: Required - the name of the Concord
+- `secretName` of the `privateKey` parameter: required, the name of the Concord
   [secret](../api/secret.html) used for the SSH connection to the git 
   repository on the remote server.
 - `ignoreErrors`: instead of throwing exceptions on operation failure, returns
@@ -81,12 +82,12 @@ flows:
   default:
   - task: git
     in:
-      action: actionName
+      action: "actionName"
       url: "git@git.example.com:example-org/git-project.git"
       workingDir: "git-project"
       privateKey:
-        org: myOrg
-        secretName: mySecret
+        org: "myGitHubOrg"
+        secretName: "mySecret"
 ```
 
 <a name="basic-authentication"/>
@@ -105,13 +106,13 @@ flows:
   default:
   - task: git
     in:
-      action: actionName
+      action: "actionName"
       url: "https://git.example.com/example-org/git-project.git"
       workingDir: "git-project"
       auth:
         basic:
-          username: any_username
-          password: any_password
+          username: "any_username"
+          password: "any_password"
 ```
 
 Here is an example of using basic authentication with `token`:
@@ -148,14 +149,14 @@ flows:
   default:
   - task: git
     in:
-      action: clone
+      action: "clone"
       url: "git@git.example.com:example-org/git-project.git"
       workingDir: "git-project"
       privateKey:
-        org: myOrg
-        secretName: mySecret
-      baseBranch: feature-a
-      out: response
+        org: "myGitHubOrg"
+        secretName: "mySecret"
+      baseBranch: "feature-a"
+      out: "response"
       ignoreErrors: true
 
   - if: "${!response.ok}"
@@ -178,7 +179,7 @@ branch from the remote `origin` into the current checked out branch.
 It simply uses the minimal common parameters with the addition of the
 `remoteBranch` parameter:
 
-- `remoteBranch`: Required, name of remote `origin/branch` from where the
+- `remoteBranch`: required, name of remote `origin/branch` from where the
   changes are pulled.
 
 Below example is equivalent to `git pull origin myRemoteBranch`. In order to use
@@ -192,12 +193,12 @@ flows:
   default:
   - task: git
     in:
-      action: pull
+      action: "pull"
       workingDir: "git-project"
-      remoteBranch: myRemoteBranch
+      remoteBranch: "myRemoteBranch"
       privateKey:
-        org: myOrg
-        secretName: mySecret
+        org: "myGitHubOrg"
+        secretName: "mySecret"
 ```
 
 <a name="commit-push"/>
@@ -213,17 +214,17 @@ action, so make sure `clone` action is performed first.
 ```yaml
 - task: git
     in:
-      action: commit
+      action: "commit"
       workingDir: "git-project"
       privateKey:
-         org: myOrg
-         secretName: mySecret
-      baseBranch: feature-a
+         org: "myGitHubOrg"
+         secretName: "mySecret"
+      baseBranch: "feature-a"
       commitMessage: "my commit message"
-      commitUsername: myUserId
-      commitEmail: myEmail
+      commitUsername: "myUserId"
+      commitEmail: "myEmail"
       pushChanges: true
-      out: response
+      out: "response"
 
 - if: "${response.ok}"
   then:
@@ -248,7 +249,7 @@ parameters:
 - `baseBranch`: Optional - the name of the branch to use as starting point for
 the new branch. If not provided, the default branch of the repository is used -
 typically called `master`.
-- `newBranch`: Required - the name of new branch.
+- `newBranch`: required, the name of new branch.
 - `pushBranch`: Required configuration to determine if the new branch
 is pushed to the origin repository - `true` or `false`.
 
@@ -256,19 +257,20 @@ The following example creates a new feature branch called `feature-b` off the
 `master` branch and pushes the new branch back to the remote origin.
 
 ```yaml
-flows: default:
+flows:
+  default:
   - task: git
     in:
-      action: createBranch
+      action: "createBranch"
       url: "git@git.example.com:example-org/git-project.git"
       workingDir: "git-project"
       privateKey:
-        org: myOrg
-        secretName: mySecret
-      baseBranch: master
-      newBranch: feature-b
+        org: "myGitHubOrg"
+        secretName: "mySecret"
+      baseBranch: "master"
+      newBranch: "feature-b"
       pushBranch: true
-      out: response
+      out: "response"
 
   - if: "${response.ok}"
     then:
@@ -282,9 +284,9 @@ flows: default:
 The `merge` action of the `git` task can be used to merge branches using the
 following parameters:
 
-- `sourceBranch`: Required - the name of the branch where your changes are
+- `sourceBranch`: required, the name of the branch where your changes are
   implemented.
-- `destinationBranch`: Required - the name of the branch into which the branches
+- `destinationBranch`: required, the name of the branch into which the branches
   have to be merged.
 
 The following example merges the changes in the branch `feature-a` into the
@@ -295,15 +297,15 @@ flows:
   default:
   - task: git
     in:
-      action: merge
+      action: "merge"
       url: "git@git.example.com:example-org/git-project.git"
       workingDir: "git-project"
       privateKey:
-        org: myOrg
-        secretName: mySecret
-      sourceBranch: feature-a
-      destinationBranch: master
-      out: response
+        org: "myGitHubOrg"
+        secretName: "mySecret"
+      sourceBranch: "feature-a"
+      destinationBranch: "master"
+      out: "response"
 
   - if: "${response.ok}"
     then:
@@ -343,11 +345,11 @@ configuration:
 The authors of specific projects on the Concord server can then specify the
 remaining parameters:
   
-- `accessToken`: Required - the GitHub
+- `accessToken`: required, the GitHub
   [access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
-- `org`: Required - the name of the GitHub organization or user in which the git
+- `org`: required, the name of the GitHub organization or user in which the git
   repository is located.
-- `repo`: Required - the name of the git repository.
+- `repo`: required, the name of the git repository.
 
 The following example includes a locally defined `apiUrl`:
 
@@ -356,11 +358,11 @@ flows:
   default:
   - task: github
     in:
-      action: createPr
+      action: "createPr"
       apiUrl: "https://github.example.com/api/v3"
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
 ```
 
 Examples below take advantage of a globally configured `apiUrl`.
@@ -375,11 +377,11 @@ used to create and merge a pull request within one Concord process.
 
 The following parameters are needed by the `createPr` action:
 
-- `prTitle`: Required - the title used for the pull request.
-- `prBody`: Required - the description body for the pull request.
-- `prSourceBranch`: Required - the name of the branch from where your changes
+- `prTitle`: required, the title used for the pull request.
+- `prBody`: required, the description body for the pull request.
+- `prSourceBranch`: required, the name of the branch from where your changes
   are implemented.
-- `prDestinationBranch`: Required - the name of the branch into which the
+- `prDestinationBranch`: required, the name of the branch into which the
   changes are merged.
 
 The example below creates a pull request to merge the changes from branch
@@ -390,16 +392,16 @@ flows:
   default:
   - task: github
     in:
-      action: createPr
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
+      action: "createPr"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
       prTitle: "Feature A"
       prBody: "Feature A implements the requirements from request 12."
-      prSourceBranch: feature-a
-      prDestinationBranch: master
+      prSourceBranch: "feature-a"
+      prDestinationBranch: "master"
     out:
-      prId: ${myPrId}
+      myPrId: "${prId}"
 ```
 
 The `mergePr` action can be used to merge a pull request. The pull request
@@ -413,11 +415,11 @@ flows:
   default:
   - task: github
     in:
-      action: mergePr
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
-      prId: ${myPrId}
+      action: "mergePr"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      prId: "${myPrId}"
 ```
 
 <a name="commentPR">
@@ -440,11 +442,11 @@ flows:
   default:
   - task: github
     in:
-      action: commentPR
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
-      prId: ${myPrId}
+      action: "commentPR"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      prId: "${myPrId}"
       prComment: "Some pr comment"
 ```
 
@@ -463,11 +465,11 @@ flows:
   default:
   - task: github
     in:
-      action: closePR
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
-      prId: ${myPrId}
+      action: "closePR"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      prId: "${myPrId}"
 ```
 
 <a name="tag"/>
@@ -480,11 +482,11 @@ typically via a parameter from a form or a invocation of the flow from another
 application. One example is the usage of the Concord task in the Looper
 continuous integration server.
 
-- `commitSHA`: Required - the SHA of the git commit to use for the tag creation.
-- `tagVersion`: Required - the name of the tag e.g. a version string `1.0.1`.
-- `tagMessage`: Required - the message associated with the tagging.
-- `tagAuthorName`: Required - the name of the author of the tag.
-- `tagAuthorEmail`: Required - the email of the author of the tag.
+- `commitSHA`: required, the SHA of the git commit to use for the tag creation.
+- `tagVersion`: required, the name of the tag e.g. a version string `1.0.1`.
+- `tagMessage`: required, the message associated with the tagging.
+- `tagAuthorName`: required, the name of the author of the tag.
+- `tagAuthorEmail`: required, the email of the author of the tag.
 
 
 ```yaml
@@ -492,15 +494,15 @@ flows:
   default:
   - task: github
     in:
-      action: createTag
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
-      tagVersion: 1.0.0
+      action: "createTag"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      tagVersion: "1.0.0"
       tagMessage: "Release 1.0.0"
       tagAuthorName: "Jane Doe"
-      tagAuthorEmail: jane@example.com
-      commitSHA: ${gitHubBranchSHA}
+      tagAuthorEmail: "jane@example.com"
+      commitSHA: "${gitHubBranchSHA}"
 ```
 
 <a name="deleteTag"/>
@@ -512,20 +514,20 @@ The `deleteTag` action of the `github` task can be used to delete an existing
 
 The following parameters are needed in addition to the general parameters:
 
-- `org`: Required, name of GitHub organization where your repository is located
-- `repo`: Required, name of GitHub repository where your tag is located
-- `tagName`: Required, name of `tag` that you want to delete from your `org/repo`
+- `org`: required, name of GitHub organization where your repository is located
+- `repo`: required, name of GitHub repository where your tag is located
+- `tagName`: required, name of `tag` that you want to delete from your `org/repo`
 
 ```yaml
 flows:
   default:
   - task: github
      in:
-       action: deleteTag
-       accessToken: gitApiToken
-       org: myGitOrg
-       repo: myGitRepo
-       tagName: myTagName
+       action: "deleteTag"
+       accessToken: "myGitHubToken"
+       org: "myGitHubOrg"
+       repo: "myGitHubRepo"
+       tagName: "myTagName"
 ```
 
 <a name="deleteBranch"/>
@@ -537,19 +539,19 @@ The `deleteBranch` action of the `github` task can be used to delete an existing
 
 The following parameters are needed in addition to the general parameters:
 
-- `org`: Required, name of GitHub organization where your repository is located
-- `repo`: Required, name of GitHub repository where your tag is located
-- `branch`: Required, name of the branch that you want to delete
+- `org`: required, name of GitHub organization where your repository is located
+- `repo`: required, name of GitHub repository where your tag is located
+- `branch`: required, name of the branch that you want to delete
 
 ```yaml
 flows:
   default:
   - task: github
      in:
-       action: deleteBranch
-       accessToken: gitApiToken
-       org: myGitOrg
-       repo: myGitRepo
+       action: "deleteBranch"
+       accessToken: "myGitHubToken"
+       org: "myGitHubOrg"
+       repo: "myGitHubRepo"
        branch: myBranchName
 ```
 
@@ -567,10 +569,10 @@ Concord flow - typically by a parameter from a form or a invocation of the flow
 from another application. One example is the usage of the Concord task in the
 Looper continuous integration server.
 
-- `base`: Required - the name of the base branch into which the head is merged.
-- `head`: Required - the identifier for the head to merge. Head can be specified
+- `base`: required, the name of the base branch into which the head is merged.
+- `head`: required, the identifier for the head to merge. Head can be specified
   by using a branch name or a commit SHA1.
-- `commitMessage`: Required - - the message to use for the merge commit. If
+- `commitMessage`: required, - the message to use for the merge commit. If
   omitted, a default message is used. Expressions can be used to add process
   information.
 
@@ -579,12 +581,12 @@ flows:
   default:
   - task: github
     in:
-      action: merge
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
-      base: master
-      head: ${gitHubBranchName}
+      action: "merge"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      base: "master"
+      head: "${gitHubBranchName}"
       commitMessage: "Automated merge performed by Concord flow."
 ```
 
@@ -598,8 +600,8 @@ default, the `repo` is forked into your personal account asscociated with the
 
 The following parameters are needed in addition to the general parameters:
 
-- `org`: Required, name of GitHub organization where your repository is located
-- `repo`: Required, name of GitHub repository that you want to fork
+- `org`: required, name of GitHub organization where your repository is located
+- `repo`: required, name of GitHub repository that you want to fork
 - `targetOrg`: optional, if a value is specified the repository is forked into
   specified organization, otherwise the target is the personal space of the user
   specified with the `accessToken`
@@ -609,11 +611,11 @@ flows:
   default:
   - task: github
     in:
-      action: forkRepo
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
-      targetOrg: myforkToOrg
+      action: "forkRepo"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      targetOrg: "myForkToOrg"
 ```
 
 <a name="getBranchList"/>
@@ -626,8 +628,8 @@ can used at later point in the flow
 
 The following parameters are needed in addition to the general parameters:
 
-- `org`: Required, name of GitHub organization where your repository is located
-- `repo`: Required, name of GitHub repository for which you want to get the
+- `org`: required, name of GitHub organization where your repository is located
+- `repo`: required, name of GitHub repository for which you want to get the
   branch list
 
 ```yaml
@@ -636,9 +638,9 @@ flows:
   - task: github
     in:
       action: getBranchList
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
 ```
 
 <a name="getTagList"/>
@@ -651,8 +653,8 @@ used at later point in the flow.
 
 The following parameters are needed in addition to the general parameters:
 
-- `org`: Required, name of GitHub organization where your repository is located
-- `repo`: Required, name of GitHub repository for which you want to get the tag
+- `org`: required, name of GitHub organization where your repository is located
+- `repo`: required, name of GitHub repository for which you want to get the tag
   list
 
 ```yaml
@@ -660,10 +662,10 @@ flows:
   default:
   - task: github
     in:
-      action: getTagList
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
+      action: "getTagList"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
 ```
 
 <a name="getLatestSHA"/>
@@ -677,8 +679,8 @@ later point in the flow.
 
 The following parameters are needed in addition to the general parameters:
 
-- `org`: Required, name of GitHub organization where your repository is located
-- `repo`: Required, name of GitHub repository
+- `org`: required, name of GitHub organization where your repository is located
+- `repo`: required, name of GitHub repository
 - `branch`: name of Github branch from which you want to get the latest commit
   SHA. Defaults to `master`
 
@@ -687,9 +689,40 @@ flows:
   default:
   - task: github
     in:
-      action: getLatestSHA
-      accessToken: myGitToken
-      org: myOrg
-      repo: myRepo
-      branch: myBranch
+      action: "getLatestSHA"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      branch: "myBranch"
+```
+
+<a name="addStatus"/>
+
+## AddStatus
+
+The `addStatus` action can be used to add status messages to commits.
+
+The following parameters are needed in addition to the general parameters:
+
+- `org`: required, name of GitHub organization where your repository is located;
+- `repo`: required, name of GitHub repository;
+- `commitSHA`: ID of the commit which should receive the status update;
+- `context`, `state`, `targetUrl` and `description`: attributes of the status
+update. See [the GitHub API documentation](https://developer.github.com/v3/repos/statuses/#parameters)
+for details.
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: "addStatus"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      commitSHA: "dfd5...0262"
+      context: "myContext"
+      state: "pending"
+      targetUrl: "https://concord.example.com/#/process/${txId}"
+      description: "my status description"
 ```
