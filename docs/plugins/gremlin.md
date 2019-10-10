@@ -19,15 +19,18 @@ system:
   - [Memory](#memory)
   - [Disk](#disk)
   - [IO](#io)
+  - [Container](#resource-containerExamples)
 - [State](#state)
   - [Shutdown](#shutdown)
   - [Timetravel](#timeTravel)
   - [Processkiller](#processKiller)
+  - [Container](#state-containerExamples)
 - [Network](#network)
   - [Blackhole](#blackhole)
   - [Latency](#latency)
   - [Packetloss](#packetLoss)
   - [DNS](#dns)
+  - [Container](#network-containerExamples)
 - [Halt](#halt)
 
 ## Usage
@@ -53,13 +56,24 @@ parameters that are common for all operations:
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
-- `targetType`: Type of clients that should be targeted by the attack. Allowed
+- `endPointType`: Type of endPoints - Accepted values are `hosts` and `containers`. By
+default set to `hosts`.
+- When `endPointType` is `hosts`
+    - `targetType`: Type of clients that should be targeted by the attack. Allowed
   values are `Random` and `Exact`. Default is set to `Exact`
-- `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
-  `["client1", "client2"]`
-- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
+    - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
+`["client1", "client2"]`
+    - `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair eg. `{ "myTagKey": "myTagValue" }`. More information about client tags
   can be found in the documentation for [advanced gremlin configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
+- When `endPointType` is `containers`
+    - `targetType`: Type of clients that should be targeted by the attack. Allowed
+  values are `Random` and `Exact`. Default is set to `Exact`
+    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list eg.
+`["containerId1", "containerId2"]`
+    - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
+  pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
+    - `containerCount`: Interger value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 
 <a name="cpu"/>
 
@@ -178,6 +192,42 @@ to the general parameters:
     targetList: ["client1", "client2"]
 ```
 
+<a name="resource-containerExamples"/>
+
+## Container
+
+Example: Using `endPointType` as `containers`
+
+```yaml
+- task: gremlin
+  in:
+    action: memory
+    apiKey: myApiKey
+    unitOption: PERCENT
+    memoryPercent: 10
+    length: 15
+    endPointType: containers
+    targetType: Exact
+    containerIds:
+      - "myContainerId1"
+      - "myContainerId2"
+```
+
+
+```yaml
+- task: gremlin
+  in:
+    action: memory
+    apiKey: myApiKey
+    unitOption: PERCENT
+    memoryPercent: 10
+    length: 15
+    endPointType: containers
+    targetType: Random
+    containerCount: 2
+    containerLabels: { "myLabelKey": "myLabelValue" }
+```
+
 ## State
 
 The attacks under the `State` category introduce chaos into your infrastructure,
@@ -190,11 +240,24 @@ parameters that are common for all operations:
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
--  `targetType`: Type of clients that should be targeted by the attack. Allowed
-   values are `Random` and `Exact`. Default is set to `Exact`
-- `targetList`: Required - when `targetType` is `Exact`. Input is a list eg. `["client1", "client2"]`
-- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value` pair eg. `{ "myTagKey": "myTagValue" }`.  More information about target tags
+- `endPointType`: Type of endPoints - Accepted values are `hosts` and `containers`. By
+default set to `hosts`.
+- When `endPointType` is `hosts`
+    - `targetType`: Type of clients that should be targeted by the attack. Allowed
+  values are `Random` and `Exact`. Default is set to `Exact`
+    - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
+`["client1", "client2"]`
+    - `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
+  pair eg. `{ "myTagKey": "myTagValue" }`. More information about client tags
   can be found in the documentation for [advanced gremlin configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
+- When `endPointType` is `containers`
+    - `targetType`: Type of clients that should be targeted by the attack. Allowed
+  values are `Random` and `Exact`. Default is set to `Exact`
+    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list eg.
+`["containerId1", "containerId2"]`
+    - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
+  pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
+    - `containerCount`: Interger value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.  
 
 <a name="shutdown"/>
 
@@ -278,6 +341,40 @@ in:
   targetTags: { "myTagKey": "myTagValue" }
 ```
 
+<a name="state-containerExamples"/>
+
+## Container
+
+Example: Using `endPointType` as `containers`
+
+```yaml
+task: gremlin
+in:
+  action: processKiller
+  apiKey: myApiKey
+  length: 15
+  interval: 10
+  process: myProcess
+  newest: true
+  targetType: Exact
+  containerIds:
+  - "myContainerId1"
+  - "myContainerId2"
+```
+
+```yaml
+- task: gremlin
+  in:
+    action: timeTravel
+    apiKey: myApiKey
+    length: 15
+    offset: -100
+    endPointType: containers
+    targetType: Random
+    containerCount: 2
+    containerLabels: { "myLabelKey": "myLabelValue" }
+```
+
 ## Network
 
 The attacks under the `Network` category allow you to see the impact of lost or
@@ -293,14 +390,24 @@ parameters that are common for all operations:
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
-- `targetType`: Type of clients that should be targeted by the attack. Allowed
-   values are `Random` and `Exact`. Default is set to `Exact`
-- `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
-  `["client1", "client2"]`
-- `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
-  pair eg. `{ "myTagKey": "myTagValue" }`.  More information about client tags
-  can be found in the documentation for [advanced gremlin
-  configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
+- `endPointType`: Type of endPoints - Accepted values are `hosts` and `containers`. By
+default set to `hosts`.
+- When `endPointType` is `hosts`
+    - `targetType`: Type of clients that should be targeted by the attack. Allowed
+  values are `Random` and `Exact`. Default is set to `Exact`
+    - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
+`["client1", "client2"]`
+    - `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
+  pair eg. `{ "myTagKey": "myTagValue" }`. More information about client tags
+  can be found in the documentation for [advanced gremlin configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
+- When `endPointType` is `containers`
+    - `targetType`: Type of clients that should be targeted by the attack. Allowed
+  values are `Random` and `Exact`. Default is set to `Exact`
+    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list eg.
+`["containerId1", "containerId2"]`
+    - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
+  pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
+    - `containerCount`: Interger value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 
 <a name="blackhole"/>
 
@@ -438,6 +545,46 @@ parameters:
     protocol: UDP
     targetType: Random
     targetTags: { "myTagKey": "myTagValue" }
+```
+
+<a name="netrwork-containerExamples"/>
+
+## Container
+
+Example: Using `endPointType` as `containers`
+
+```yaml
+- task: gremlin
+  in:
+    action: packetLoss
+    apiKey: myApiKey
+    length: 15
+    ipAddresses: "ipAddress1, ipAddress2"
+    device: "myDevice"
+    hostnames: "host1.com, host2.com"
+    egressPorts: "egPort1, egPort2"
+    sourcePorts: "sPort1, sPort2" 
+    percent: 5
+    corrupt: true
+    protocol: ICMP
+    targetType: Exact
+    containerIds:
+    - "myContainerId1"
+    - "myContainerId2"
+```
+
+```yaml
+- task: gremlin
+  in:
+    action: dns
+    apiKey: myApiKey
+    length: 15
+    ipAddresses: "ipAddress1, ipAddress2"
+    device: "myDevice"
+    protocol: UDP
+    targetType: Random
+    containerCount: 2
+    containerLabels: { "myLabelKey": "myLabelValue" }
 ```
 
 ## Halt
