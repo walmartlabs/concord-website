@@ -84,8 +84,15 @@ Scripts can retrieve and invoke all tasks available for flows by name:
 - script: js
   body: |
     var slack = tasks.get("slack");
-    slack.call("C5NUWH9S5", "Hi there!");
+    slack.call(execution, "C5NUWH9S5", "Hi there!");
 ```
+
+The number and type of arguments depend on the particular task's method. In
+this example, the script calls `call` method of the [SlackTask](https://github.com/walmartlabs/concord/blob/1e053db578b9550e0aac656e1916eaf8f8eba0b8/plugins/tasks/slack/src/main/java/com/walmartlabs/concord/plugins/slack/SlackTask.java#L54)
+instance.
+
+The `execution` variable is an alias for [context](./processes.html#variables)
+and automatically provided by the runtime for all supported script engines.
 
 <a name="external-scripts">
 
