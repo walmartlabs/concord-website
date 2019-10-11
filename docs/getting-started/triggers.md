@@ -10,11 +10,13 @@ Triggers provide a way to automatically start specific Concord flows as a
 response to specific events.
 
 - [Common Syntax](#common)
-- [OneOps Triggers](#oneops)
-- [GitHub Triggers](#github)
-- [Scheduled Triggers](#scheduled)
-- [Generic Triggers](#generic)
-- [Manual Triggers](#manual)
+- [Supported Triggers](#supported-triggers)
+  - [OneOps Triggers](#oneops)
+  - [GitHub Triggers](#github)
+  - [Scheduled Triggers](#scheduled)
+  - [Generic Triggers](#generic)
+  - [Manual Triggers](#manual)
+- [Exclusive Triggers](#exclusive-triggers)
 
 > Trigger configuration is typically loaded automatically, but can be disabled
 > globally or for specific types of repositories. For example, personal git
@@ -59,7 +61,8 @@ Further:
 - Concord detects any matches of `parameter1` and `parameter2` with the external
   event's parameters.
 - `entryPoint` is the name of the flow that Concord starts when there is a match.
-- `arguments` is the list of additional parameters that are passed to the flow.
+- `arguments` is the list of additional parameters that are passed to the flow;
+- `exclusive` is the name of the [exclusive group](#exclusive-triggers).
 
 Parameters can contain YAML literals as follows:
 
@@ -78,9 +81,11 @@ In addition to the `arguments` list, a started flow receives the `event`
 parameter which contains attributes of the external event. Depending on the
 source of the event, the exact structure of the `event` object may vary.
 
+## Supported Triggers
+
 <a name="oneops"/>
 
-## OneOps Triggers
+### OneOps Triggers
 
 Using `oneops` as an event source allows Concord to receive events from OneOps.
 You can configure event properties in the OneOps notification sink, specifically
@@ -126,7 +131,7 @@ flows:
 
 <a name="github"/>
 
-## GitHub Triggers
+### GitHub Triggers
 
 The `github` event source allows Concord to receive `push` and `pull_request`
 notifications from GitHub. Here's an example:
@@ -203,7 +208,7 @@ The connection to the GitHub deployment needs to be
 
 <a name="scheduled"/>
 
-## Scheduled Triggers
+### Scheduled Triggers
 
 You can schedule execution of flows by defining one or multiple `cron` triggers.
 
@@ -278,7 +283,7 @@ automated via a Concord flow.
 
 <a name="generic"/>
 
-## Generic Triggers
+### Generic Triggers
 
 You can configure generic triggers to respond to events that are configured to
 submit data to the Concord REST API.
@@ -310,7 +315,7 @@ for more details.
 
 <a name="manual"/>
 
-## Manual Triggers
+### Manual Triggers
 
 Manual triggers can be used to add items to the repository action drop down
 in the Concord Console, similar to the default added _Run_ action.
@@ -330,3 +335,46 @@ triggers:
       name: Deploy Prod
       entryPoint: deployProd
 ```
+
+## Exclusive Triggers
+
+There is an option to make a triggered processes "exclusive". This prevents
+the process from running, if there are any other processes in the same project
+with the same "exclusive group":
+
+```yaml
+flows:
+  cronEvent:
+    - log: "Hello!"
+    - ${sleep.ms(65000)} # wait for 1m 5s
+
+triggers:
+  - cron:
+      spec: "* * * * *" # run every minute
+      timezone: "America/Toronto"
+      entryPoint: cronEvent
+```
+
+In this example, if the triggered process runs longer than the trigger's period,
+then it is possible that multiple `cronEvent` processes can run at the same
+time. In some cases, it is necessary to enforce that only one trigger process
+runs at a time, due to limitation in target systems being accessed or similar
+reasons.
+  
+```yaml
+triggers:
+  - cron:
+      spec: "* * * * *"
+      timezone: "America/Toronto"
+      entryPoint: cronEvent
+      exclusive:
+        group: "myGroup"
+        mode: "cancel" # or "wait"
+```
+
+Any processes with the same `exclusive` value are automatically prevented from
+starting, if a running process in the same group exists. If you wish to enqueue
+the processes instead use `mode: "wait"`.
+
+See also [Exclusive Execution](./concord-dsl.html#exclusive-execution) section
+in the Concord DSL documentation.
