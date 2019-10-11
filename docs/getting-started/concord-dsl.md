@@ -413,8 +413,8 @@ configuration:
 **Note:** Process having custom `jvm` arguments can't the pre-fork mechanism
 and are usually slowed to start.
 
-**Note:** Consult with your Concord instance's admin what are the limitations
-for JVM memory and other settings. 
+**Note:** Consult with your Concord instance's admin to determine what the limitations
+are for JVM memory and other settings. 
 
 <a name="flows"/>
 
