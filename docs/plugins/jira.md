@@ -22,7 +22,7 @@ Possible operations are:
 - [Delete an Issue](#deleteIssue)
 - [Create a Component](#createComponent)
 - [Delete a Component](#deleteComponent)
-
+- [Get Current Status](#getStatus)
 <a name="usage"/>
 
 ## Usage
@@ -293,3 +293,24 @@ flows:
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
       componentId: 33818
 ```
+
+<a name="getStatus"/>
+
+## Get Current Status
+
+The JIRA task can be used to get the current status of an existing issue with the 
+`currentStatus` action.
+
+```yaml
+flows:
+  default:
+  - task: jira
+    in:
+      action: currentStatus
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      issueKey: "MYISSUEKEY"
+```
+
+After the action runs, the current status of an issue is available in the 
+`issueStatus` variable.
