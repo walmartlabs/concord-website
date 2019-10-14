@@ -17,6 +17,7 @@ Possible operations are:
 - [Create an Issue](#createIssue)
 - [Update an Issue](#updateIssue)
 - [Add a comment](#addComment)
+- [Add an Attachment](#addAttachment)
 - [Transition an Issue](#transitionIssue)
 - [Delete an Issue](#deleteIssue)
 - [Create a Component](#createComponent)
@@ -183,6 +184,26 @@ flows:
 Additional parameters to use are:
 
 - `issueKey` - the identifier of the issue
+
+<a name="addAttachment"/>
+
+## Add an Attachment
+
+The JIRA task can be used to add attachment to an existing issue with the 
+`addAttachment` action.
+
+```yaml
+flows:
+  default:
+  - task: jira
+    in:
+      action: addAttachment
+      ...
+      issueKey: "MYISSUEKEY"
+      filePath: "path/to/file"
+```
+
+The `filePath` must be relative to the process' `workDir`.
 
 <a name="transition"/>
 
