@@ -11,6 +11,7 @@ The `jira` task supports operations on the popluar issue tracking system
 
 - [Usage](#usage)
 - [Overview](#overview)
+- [Authentication](#authentication)
 
 Possible operations are:
 
@@ -56,6 +57,7 @@ operations:
 - `userId` -  identifier of the user account to use for the interaction
 - `password` -  password for the user account to use, typically this should be
 provided via usage of the [Crypto task](./crypto.html)
+- `auth` - authentication used for jira.
 
 The `apiUrl` configures the URL to the Jira REST API endpoint. It is best
 configured globally as 
@@ -69,9 +71,11 @@ configuration:
       apiUrl: "https://jira.example.com/rest/api/2/"
 ```
 
-A minimal configuration taking advantage of a globally configured API URL
-includes the `userId`, the `password`, the desired `action` to perform and any
-additional parameters need for the action:
+<a name="authentication"/>
+
+## Authentication
+A minimal configuration to get authenticated from a globally configured API URL
+includes the `userId`, the `password`.
 
 ```yaml
 flows:
@@ -82,6 +86,30 @@ flows:
       userId: myUserId
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
       ....
+```
+
+`username` and `password` can be provided as:
+
+```yaml
+- task: jira
+  in:
+    auth:
+      basic:
+        username: "..."
+        password: "..."
+
+```
+
+`USERNAME_PASSWORD` type secrets can also be used to provide the credentials:
+
+```yaml
+- task: jira
+  in:
+    auth:
+      secret:
+        org: "..." # optional
+        name: "..."
+        password: "..." # optional
 ```
 
 <a name="createIssue"/>
