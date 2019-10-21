@@ -412,8 +412,8 @@ configuration:
         - "-Xmx512m"
 ```
 
-**Note:** Process having custom `jvm` arguments can't the pre-fork mechanism
-and are usually slowed to start.
+**Note:** Processes with custom `jvm` arguments can't use the "pre-fork"
+mechanism and are usually slower to start.
 
 **Note:** Consult with your Concord instance's admin to determine what the limitations
 are for JVM memory and other settings. 
