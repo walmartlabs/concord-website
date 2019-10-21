@@ -11,16 +11,20 @@ The `jira` task supports operations on the popluar issue tracking system
 
 - [Usage](#usage)
 - [Overview](#overview)
+- [Authentication](#authentication)
 
 Possible operations are:
 
 - [Create an Issue](#createIssue)
 - [Update an Issue](#updateIssue)
 - [Add a comment](#addComment)
+- [Add an Attachment](#addAttachment)
 - [Transition an Issue](#transitionIssue)
 - [Delete an Issue](#deleteIssue)
 - [Create a Component](#createComponent)
 - [Delete a Component](#deleteComponent)
+- [Get Current Status](#getStatus)
+- [Get Issues](#getIssues)
 
 <a name="usage"/>
 
@@ -55,6 +59,7 @@ operations:
 - `userId` -  identifier of the user account to use for the interaction
 - `password` -  password for the user account to use, typically this should be
 provided via usage of the [Crypto task](./crypto.html)
+- `auth` - authentication used for jira.
 
 The `apiUrl` configures the URL to the Jira REST API endpoint. It is best
 configured globally as 
@@ -68,9 +73,11 @@ configuration:
       apiUrl: "https://jira.example.com/rest/api/2/"
 ```
 
-A minimal configuration taking advantage of a globally configured API URL
-includes the `userId`, the `password`, the desired `action` to perform and any
-additional parameters need for the action:
+<a name="authentication"/>
+
+## Authentication
+A minimal configuration to get authenticated from a globally configured API URL
+includes the `userId`, the `password`.
 
 ```yaml
 flows:
@@ -81,6 +88,30 @@ flows:
       userId: myUserId
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
       ....
+```
+
+`username` and `password` can also be provided as:
+
+```yaml
+- task: jira
+  in:
+    auth:
+      basic:
+        username: "..."
+        password: "..."
+
+```
+
+`USERNAME_PASSWORD` type secrets can also be used to provide the credentials:
+
+```yaml
+- task: jira
+  in:
+    auth:
+      secret:
+        org: "..." # optional
+        name: "..."
+        password: "..." # optional
 ```
 
 <a name="createIssue"/>
@@ -118,7 +149,7 @@ Additional parameters to use are:
 - `projectKey` - identifying key for the project
 - `summary` - summary text
 - `description` - description text
-- `issueType` -  name the issue type
+- `issueType` -  name of the issue type
 - `components` - list of components to add 
 - `labels` - list of labels to add
 - `requestorUid` - identifier of the user account to be used as the requestor
@@ -183,6 +214,26 @@ flows:
 Additional parameters to use are:
 
 - `issueKey` - the identifier of the issue
+
+<a name="addAttachment"/>
+
+## Add an Attachment
+
+The JIRA task can be used to add attachment to an existing issue with the 
+`addAttachment` action.
+
+```yaml
+flows:
+  default:
+  - task: jira
+    in:
+      action: addAttachment
+      ...
+      issueKey: "MYISSUEKEY"
+      filePath: "path/to/file"
+```
+
+The `filePath` must be relative to the process' `workDir`.
 
 <a name="transition"/>
 
@@ -272,3 +323,54 @@ flows:
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
       componentId: 33818
 ```
+
+<a name="getStatus"/>
+
+## Get Current Status
+
+The JIRA task can be used to get the current status of an existing issue with the 
+`currentStatus` action.
+
+```yaml
+flows:
+  default:
+  - task: jira
+    in:
+      action: currentStatus
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      issueKey: "MYISSUEKEY"
+```
+
+After the action runs, the current status of an issue is available in the 
+`issueStatus` variable.
+
+<a name="getIssues"/>
+
+## Get Issues
+
+The JIRA task can be used to get the count and list of all issue ids for given JIRA project based on a given issue type and its status with the `getIssues` action. Below example fetches list of all issue ids that matches `project = "MYPROJECTKEY" AND issueType = Bug AND issueStatus != Done`
+
+```yaml
+flows:
+  default:
+  - task: jira
+    in:
+      action: getIssues
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      projectKey: "MYPROJECTKEY"
+      issueType: Bug
+      issueStatus: Done
+      statusOperator: "!="
+```
+
+Additional parameters to use are:
+
+- `projectKey` - string, Required - identifying key for the project.
+- `issueType` -  string, Required - name of the issue type that you want to query against.
+- `statusOperator` - string, Optional - operator used to compare againt `issueStatus`. Accepted values are `=` and `!=`. Default is set to `=`.
+- `issueStatus` - string, Optional - status of the issue that you want to query against. If not set, fetches all issue ids for a given `projectKey` and `issueType`
+
+After the action runs, the identifier for the fetched issue id list is available in the
+`issueList` variable and total count of issues fetched is available in `issueCount` varaible that can used at later point in the flow.
