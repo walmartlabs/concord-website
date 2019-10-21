@@ -21,6 +21,7 @@ process flows, configuration, forms and other aspects:
   - [Debug](#debug)
   - [Metadata](#metadata)
   - [Runner](#runner)
+  - [Exclusive Execution](#exclusive-execution)
 - [Process Definitions in `flows:`](#flows)
   - [Entry points](#entry-points)
   - [Execution steps](#execution-steps)
@@ -103,6 +104,7 @@ Overall configuration for the project and process executions are contained in th
 - [Metadata](#metadata)
 - [Runner](#runner)
 - [Requirements](#requirements)
+- [Exclusive Execution](#exclusive)
 
 ### Entry Point
 
@@ -415,6 +417,32 @@ and are usually slowed to start.
 
 **Note:** Consult with your Concord instance's admin to determine what the limitations
 are for JVM memory and other settings. 
+
+<a name="exclusive"/>
+
+## Exclusive Execution
+
+The `exclusive` section in the process `configuration` can be used to configure
+exclusive execution of the process:
+
+```yaml
+configuration:
+  exclusive:
+    group: "myGroup"
+    mode: "cancel"
+
+flows:
+  default:
+    - "${sleep.ms(60000)}" # simulate a long-running task
+```
+
+In the example above, if another process in the same project with the same
+`group` value is submitted, it will be immediately cancelled.
+
+If `mode` set to `wait` then only one process in the same `group` is allowed to
+run.
+
+**Note:** this feature available only for project processes.
 
 <a name="flows"/>
 
