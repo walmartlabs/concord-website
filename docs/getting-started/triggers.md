@@ -139,13 +139,15 @@ notifications from GitHub. Here's an example:
 ```yaml
 flows:
   onPush:
-  - log: "${event.author} pushed ${event.commitId} to ${event.project}/${event.repository}"
+  - log: "${event.sender} pushed ${event.commitId} to ${event.payload.repository.full_name}"
   
 triggers:
 - github:
-    type: push
     useInitiator: true
     entryPoint: onPush
+    version: 2
+    conditions:
+      type: push
 ```
 
 The `event` object provides the following attributes
@@ -155,14 +157,18 @@ Possible values can be `push` and `pull_request`. If not specified, the `type`
 is set to `push` by default;
 - `status` - for `pull_request` notifications only, with possible values of
 `opened` or `closed`
+- `githubOrg` - The organization on Github;
+- `githubRepo` - The repository on Github;
+- `githubHost` - The Github host;
 - `project` and `repository` - the name of the Concord project and repository
   which were updated in GitHub. By default the current project/repository is
   triggered;
-- `author` - GitHub user, the author of the commit;
+- `sender` - GitHub user, the sender of the commit;
 - `branch` - the GIT repository's branch;
 - `commitId` - ID of the commit which triggered the notification;
-- `useInitiator` - process initiator is set to `author` when this attribute is
+- `useInitiator` - process initiator is set to `sender` when this attribute is
   marked as `true`
+- `payload` -  The Git payload
 
 The following example trigger fires when someone pushes to a development branch
 with a name starting with `dev-`, e.g. `dev-my-feature`, `dev-bugfix`, and
@@ -170,37 +176,43 @@ ignores pushes on branch deletes:
 
 ```yaml
 - github:
-    type: push
     useInitiator: true
     entryPoint: devPushFlow
-    branch: '^dev-.*$'
-    payload:
-      deleted: false
+    version: 2
+    conditions:
+      branch: '^dev-.*$'
+      type: push
+      payload:
+        deleted: false
 ```
 
 The next example trigger only fires on pull requests that have the label `bug`:
 
 ```yaml
 - github:
-    type: pull_request
     useInitiator: true
     entryPoint: pullRequestFlow
-    payload:
-      pull_request:
-        labels:
-        - { name: "bug" }
+    version: 2
+    conditions:
+      type: pull_request
+      payload:
+        pull_request:
+          labels:
+          - { name: "bug" }
 ```
 
 The following example trigger fires when someone pushes/merges into master, but
 ignores pushes by `jenkinspan` and `anothersvc`:
 
 ```yaml
-- github: 
-    type: push
+- github:
+    version: 2
     useInitiator: true
     entryPoint: mainPushFlow
-    branch: 'master'
-    author: '^(?!.*(jenkinspan|anothersvc)).*$'
+    conditions:
+      type: push
+      branch: 'master'
+      sender: '^(?!.*(jenkinspan|anothersvc)).*$'
 ```
 
 The connection to the GitHub deployment needs to be
