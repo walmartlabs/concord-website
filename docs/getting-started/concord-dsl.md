@@ -99,7 +99,12 @@ Overall configuration for the project and process executions are contained in th
 - [Dependencies](#dependencies)
 - [Template](#template)
 - [Arguments](#arguments)
+- [Process Timeout](#process-timeout)
 - [Debug](#debug)
+- [Metadata](#metadata)
+- [Runner](#runner)
+- [Requirements](#requirements)
+- [Exclusive Execution](#exclusive)
 
 ### Entry Point
 
@@ -389,6 +394,31 @@ configuration:
 
 See the [Process Events](./processes.html#process-events) section for more
 details about the process event recording.
+
+<a name="requirements"/>
+
+### Requirements
+
+Custom `jvm` arguments can be specified in the `requirements` section of the
+`configuration` object. [Concord Agent](./index.html/#concord-agent) pass these
+arguments to the process' JVM:
+
+```yaml
+configuration:
+  requirements:
+    jvm:
+      extraArgs:
+        - "-Xms256m"
+        - "-Xmx512m"
+```
+
+**Note:** Processes with custom `jvm` arguments can't use the "pre-fork"
+mechanism and are usually slower to start.
+
+**Note:** Consult with your Concord instance's admin to determine what the limitations
+are for JVM memory and other settings. 
+
+<a name="exclusive"/>
 
 ## Exclusive Execution
 
