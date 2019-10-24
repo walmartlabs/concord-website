@@ -60,9 +60,10 @@ operations:
 - `password` -  password for the user account to use, typically this should be
 provided via usage of the [Crypto task](./crypto.html)
 - `auth` - authentication used for jira.
+- `debug` - Optional, if true enables additional debug output. Default is set to `false`
 
 The `apiUrl` configures the URL to the Jira REST API endpoint. It is best
-configured globally as 
+configured globally as
 [default process configuration](../getting-started/configuration.html#default-process-variable):
 with a `jiraParams` argument:
 
@@ -140,7 +141,7 @@ flows:
       customFieldsTypeFieldAttr:
         customfield_10216:
                     value: "mycustomfield_10216"
-        customfield_10212: 
+        customfield_10212:
                     value: "mycustomfield_10212"
 ```
 
@@ -150,7 +151,7 @@ Additional parameters to use are:
 - `summary` - summary text
 - `description` - description text
 - `issueType` -  name of the issue type
-- `components` - list of components to add 
+- `components` - list of components to add
 - `labels` - list of labels to add
 - `requestorUid` - identifier of the user account to be used as the requestor
 - `customFieldsTypeKv` - list of custom fields of type key->value
@@ -219,7 +220,7 @@ Additional parameters to use are:
 
 ## Add an Attachment
 
-The JIRA task can be used to add attachment to an existing issue with the 
+The JIRA task can be used to add attachment to an existing issue with the
 `addAttachment` action.
 
 ```yaml
@@ -328,7 +329,7 @@ flows:
 
 ## Get Current Status
 
-The JIRA task can be used to get the current status of an existing issue with the 
+The JIRA task can be used to get the current status of an existing issue with the
 `currentStatus` action.
 
 ```yaml
@@ -342,7 +343,7 @@ flows:
       issueKey: "MYISSUEKEY"
 ```
 
-After the action runs, the current status of an issue is available in the 
+After the action runs, the current status of an issue is available in the
 `issueStatus` variable.
 
 <a name="getIssues"/>
