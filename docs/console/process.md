@@ -108,7 +108,6 @@ the process list configuration:
 - `instanceId` - the process' ID with a link to the process' details;
 - `projectName` - the process' project with a link to the project's process
   list;
-- `repoName` - the process' repository with a link to the project's repository;
 - `initiator` - the process initiator's user name;
 - `createdAt` - date-time of the process creation;
 - `lastUpdatedAt` - date-time when the process was last seen alive.
