@@ -64,8 +64,8 @@ message to a specific user use `@handle` syntax:
     text: "Hi there!"
 ```
 
-Not that `@handle` works only for users that did not change their _Display Name_
-in their Slack profiles.
+> Though using a `@handle` does work, it will stop working if the user changes the _Display Name_
+of their Slack profile.
 
 Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
