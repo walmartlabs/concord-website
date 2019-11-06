@@ -64,7 +64,7 @@ message to a specific user use `@handle` syntax:
     text: "Hi there!"
 ```
 
-> Though using a `@handle` does work, it will stop working if the user changes the _Display Name_
+> Though using `@handle` does work, it stops working, if the user changes the _Display Name_
 of their Slack profile.
 
 Optionally, the message sender name appearing as the user submitting the post,
