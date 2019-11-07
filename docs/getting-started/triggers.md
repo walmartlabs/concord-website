@@ -150,25 +150,31 @@ triggers:
       type: push
 ```
 
-The `event` object provides the following attributes
+Github trigger supports the following attributes
 
-- `type` - Notifications type to bind with respective event notification.
-Possible values can be `push` and `pull_request`. If not specified, the `type`
-is set to `push` by default;
-- `status` - for `pull_request` notifications only, with possible values of
-`opened` or `closed`
-- `githubOrg` - The organization on Github;
-- `githubRepo` - The repository on Github;
-- `githubHost` - The Github host;
-- `project` and `repository` - the name of the Concord project and repository
-  which were updated in GitHub. By default the current project/repository is
-  triggered;
-- `sender` - GitHub user, the sender of the commit;
-- `branch` - the GIT repository's branch;
-- `commitId` - ID of the commit which triggered the notification;
-- `useInitiator` - process initiator is set to `sender` when this attribute is
-  marked as `true`
-- `payload` -  The Git payload
+- `entryPoint` string, mandatory, the name of the flow that Concord starts when GitHub event matches trigger conditions;
+- `activeProfiles` array of string, optional, list of profiles that Concord applies for process;
+- `useInitiator` boolean, optional, process initiator is set to `sender` when this attribute is marked as `true`;
+- `useEventCommitId` boolean, optional, Concord will use commit id from event for process;
+- `exclusive` string, optional, exclusive group for process;
+- `arguments` key-value, optional, additional parameters that are passed to the flow;
+- `conditions` key-value, mandatory, conditions for GutHub event matching;
+- `version` - number, mandatory, trigger version.
+
+Github trigger conditions
+
+- `type` - string, mandatory, GitHub event name;
+- `githubOrg` - string or regexp, optional, GitHub organization name. By default GitHub organization name is from the URL repository;
+- `githubRepo` - string or regexp, optional, GitHub repository name. By default GitHub project name is from the URL repository;
+- `githubHost` - string or regexp, optional, GitHub host;
+- `branch` - string or regexp, optional, even branch name;
+- `sender` - string or regexp, optional, event sender;
+- `status` - string or regexp, optional, event action;
+- `payload` - key-value, optional, github event payload;
+
+The `event` object provides all attributes from trigger conditions filled with GitHub event
+
+Examples
 
 The following example trigger fires when someone pushes to a development branch
 with a name starting with `dev-`, e.g. `dev-my-feature`, `dev-bugfix`, and
@@ -217,6 +223,39 @@ ignores pushes by `jenkinspan` and `anothersvc`:
 
 The connection to the GitHub deployment needs to be
 [configured globally](./configuration.html#github).
+
+## GitHub Triggers (Deprecated)
+
+The `github` event source allows Concord to receive `push` and `pull_request`
+notifications from GitHub. Here's an example:
+
+```yaml
+flows:
+  onPush:
+  - log: "${event.author} pushed ${event.commitId} to ${event.project}/${event.repository}"
+
+triggers:
+- github:
+    type: push
+    useInitiator: true
+    entryPoint: onPush
+```
+
+The `event` object provides the following attributes
+
+- `type` - Notifications type to bind with respective event notification.
+Possible values can be `push` and `pull_request`. If not specified, the `type`
+is set to `push` by default;
+- `status` - for `pull_request` notifications only, with possible values of
+`opened` or `closed`
+- `project` and `repository` - the name of the Concord project and repository
+  which were updated in GitHub. By default the current project/repository is
+  triggered;
+- `author` - GitHub user, the author of the commit;
+- `branch` - the GIT repository's branch;
+- `commitId` - ID of the commit which triggered the notification;
+- `useInitiator` - process initiator is set to `author` when this attribute is
+  marked as `true`
 
 <a name="scheduled"/>
 
