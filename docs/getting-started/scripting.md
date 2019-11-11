@@ -274,6 +274,28 @@ flows:
 Note that `pip` and 3rd-party modules with native dependencies are not
 supported.
 
+### Compatibility
+
+Python objects must be converted to regular Java `List` and `Map` instances to be
+compatible with the Concord runtime:
+
+```yaml
+flows:
+  default:
+    - script: python
+      body: |
+        from java.util import HashMap, ArrayList
+
+        aDict = {'x': 123}
+        aList = [1, 2, 3]
+
+        execution.setVariable('aDict', HashMap(aDict))
+        execution.setVariable('aList', ArrayList(aList))
+
+    - log: "${aDict}"
+    - log: "${aList}"
+```
+
 ## Ruby
 
 Ruby scripts can be executed using the [JRuby](http://jruby.org/)
