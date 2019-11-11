@@ -1307,3 +1307,19 @@ Types of imports and their parameters:
   - `dest` - (optional) path in the process' working directory to use as the
   destination directory. Default `./concord/`.
 
+The `secret` reference has the following syntax:
+- `org` - (optional) name of the secret's org. Uses the process's organization
+if not specified;
+- `name` - name of the secret;
+- `password` - (optional) password for password-protected secrets. Accepts
+literal values only, expressions are not supported. 
+
+An example of a `git` import using custom authentication:
+
+```yaml
+imports:
+  - git:
+      url: "https://github.com/me/my_private_repo.git"
+      secret:
+        name: "my_secret_key"
+```
