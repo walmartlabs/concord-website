@@ -200,7 +200,7 @@ repositories (see below);
 
 The `repositoryInfo` condition allows triggering on GitHub repository events
 that have matching Concord repositories. For example, if `https://github.com/myorg/producer-repo`
-is registered in Concord as a `producerRepo` then the following trigger will receive
+is registered in Concord as `producerRepo` then the following trigger will receive
 all matching events for the registered repository:
 
 ```yaml
