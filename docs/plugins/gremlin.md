@@ -10,6 +10,19 @@ Concord supports injecting faults into your system using the chaos engineering
 tool [Gremlin](https://www.gremlin.com/docs/) with the `gremlin` task as part of
 any flow.
 
+Users planning to use gremlin plugin in their concord flow should take care of below items.
+
+- Pricing. Please refer below for documentation about pricing
+  - [Free](https://www.gremlin.com/docs/pricing/free/)
+  - [Pro](https://www.gremlin.com/docs/pricing/pro/)
+
+- Installing gremlin agents on their respective endpoints. Please refer below for documentation about installation
+
+  - [Ubuntu](https://www.gremlin.com/community/tutorials/how-to-install-and-use-gremlin-on-ubuntu-16-04/)
+  - [CentOS](https://www.gremlin.com/community/tutorials/how-to-install-and-use-gremlin-on-centos-7/)
+  - [Container](https://www.gremlin.com/community/tutorials/how-to-install-and-use-gremlin-in-a-docker-container/)
+  - [Kubernetes](https://www.gremlin.com/community/tutorials/how-to-install-and-use-gremlin-with-kubernetes/)
+
 The gremlin plugin offers below categories of attacks to inject faults into your
 system:
 
@@ -257,7 +270,7 @@ default set to `hosts`.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
-    - `containerCount`: Interger value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.  
+    - `containerCount`: Interger value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 
 <a name="shutdown"/>
 
@@ -438,7 +451,7 @@ parameters:
     device: "myDevice"
     hostnames: "host1.com, host2.com"
     egressPorts: "egPort1, egPort2"
-    ingressPorts: "ingPort1, ingPort2" 
+    ingressPorts: "ingPort1, ingPort2"
     protocol: UDP
     targetType: Exact
     targetList: ["client1", "client2"]
@@ -474,7 +487,7 @@ addition to the general parameters:
     device: "myDevice"
     hostnames: "host1.com, host2.com"
     egressPorts: "egPort1, egPort2"
-    sourcePorts: "sPort1, sPort2" 
+    sourcePorts: "sPort1, sPort2"
     delay: 100
     protocol: ICMP
     targetType: Exact
@@ -513,7 +526,7 @@ addition to the general parameters:
     device: "myDevice"
     hostnames: "host1.com, host2.com"
     egressPorts: "egPort1, egPort2"
-    sourcePorts: "sPort1, sPort2" 
+    sourcePorts: "sPort1, sPort2"
     percent: 5
     corrupt: true
     protocol: ICMP
@@ -563,7 +576,7 @@ Example: Using `endPointType` as `containers`
     device: "myDevice"
     hostnames: "host1.com, host2.com"
     egressPorts: "egPort1, egPort2"
-    sourcePorts: "sPort1, sPort2" 
+    sourcePorts: "sPort1, sPort2"
     percent: 5
     corrupt: true
     protocol: ICMP
