@@ -199,7 +199,7 @@ the current repository's name;
 The `event` object provides all attributes from trigger conditions filled with
 GitHub event.
 
-Examples
+#### Examples
 
 The following example trigger fires when someone pushes to a development branch
 with a name starting with `dev-`, e.g. `dev-my-feature`, `dev-bugfix`, and
