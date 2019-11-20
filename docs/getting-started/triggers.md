@@ -288,7 +288,7 @@ is set to `push` by default;
 - `commitId` - ID of the commit which triggered the notification;
 - `useInitiator` - process initiator is set to `author` when this attribute is
   marked as `true`;
-  - `version` - number, optional if matches the default version of the current
+- `version` - number, optional if matches the default version of the current
   Concord instance. Trigger implementation's version.
 
 <a name="github-migration"/>
