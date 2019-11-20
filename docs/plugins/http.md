@@ -185,6 +185,7 @@ Types supported currently:
 - `json` (converted into `application/json`)
 - `file` (converted into `application/octet-stream`)
 - `form` (converted into `application/x-www-form-urlencoded`)
+- `formData` (converted into `multipart/form-data`)
 
 ### Response Type
 
@@ -263,6 +264,24 @@ Using raw JSON for the body:
 - if: ${jsonResponse.success}
   then:
    - log: "Response received: ${jsonResponse.content}"
+```
+
+#### Full Syntax for Multipart Form
+
+Using multipart form for the body
+
+```yaml
+- task: http
+  in:
+    request: formData
+    method: POST
+    url: "https://api.example.com:port/path/endpoint"
+    body:
+      field1: "string value" # text/plain part
+      field2: "@myFile.txt" # application/octet-stream part with a filename
+      field3:
+        type: "text/plain"  # manually specify the content-type of the part
+        data: "string value"
 ```
 
 #### Full Syntax for Secure Request

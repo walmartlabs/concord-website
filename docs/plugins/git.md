@@ -18,6 +18,7 @@ task.
   - [Create and Push a New Branch](#branch)
   - [Merge Branches](#merge)
 - [GitHub Task](#github-task)
+  - [Create and Delete a Repository](#githubRepo)
   - [Create and Merge a Pull Request](#pr)
   - [Comment on a Pull Request](#commentPR)
   - [Close a Pull Request](#closePR)
@@ -366,6 +367,66 @@ flows:
 ```
 
 Examples below take advantage of a globally configured `apiUrl`.
+
+<a name="githubRepo"/>
+
+## Create and Delete a Repository
+
+The `createRepo` and `deleteRepo` actions of the `github` task allow the creation 
+and deletion of GitHub repositories.
+
+`createRepo` action creates an empty repository with the name provided by `repo` 
+parameter in the Github organization specified by `org` parameter. 
+
+Output of `createRepo` action is the clone URL of the repository created saved
+as a `cloneURL` variable.
+
+The example below creates a repository `myRepository` in the Github 
+organization `myOrg`.
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: "createRepo"
+      apiUrl: "https://github.example.com/api/v3"
+      accessToken: "myGitHubToken"
+      org: "myRepository"
+      repo: "myOrg"
+
+  - log: "New repository: ${cloneUrl}"
+```
+
+`deleteRepo` action deletes the repository with the name provided by `repo` 
+parameter in the Github organization specified by `org` parameter.
+
+The example below deletes the repository `myRepository` from the Github 
+organization `myOrg`.
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: "deleteRepo"
+      apiUrl: "https://github.example.com/api/v3"
+      accessToken: "myGitHubToken"
+      org: "myRepository"
+      repo: "myOrg"
+```
+
+A few points to consider:
+
+* both `createRepo` and `deleteRepo` actions are idempotent. 
+  * `createRepo` action does not fail if the repository already exists in 
+  an organization, but returns the clone URL of the repository. 
+  * similarly, `deleteRepo` action does not fail if the repository does 
+  not exist in the organization.
+* `createRepo` action can be supplemented by other `git` and `github` task 
+actions to commit code/documentation, and configure the repository.
+* `deleteRepo` action is irreversible. The repository, its contents and the 
+commit history will be deleted, and cannot be recovered.
 
 <a name="pr"/>
 

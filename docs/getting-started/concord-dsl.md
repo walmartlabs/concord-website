@@ -99,7 +99,12 @@ Overall configuration for the project and process executions are contained in th
 - [Dependencies](#dependencies)
 - [Template](#template)
 - [Arguments](#arguments)
+- [Process Timeout](#process-timeout)
 - [Debug](#debug)
+- [Metadata](#metadata)
+- [Runner](#runner)
+- [Requirements](#requirements)
+- [Exclusive Execution](#exclusive)
 
 ### Entry Point
 
@@ -389,6 +394,31 @@ configuration:
 
 See the [Process Events](./processes.html#process-events) section for more
 details about the process event recording.
+
+<a name="requirements"/>
+
+### Requirements
+
+Custom `jvm` arguments can be specified in the `requirements` section of the
+`configuration` object. [Concord Agent](./index.html/#concord-agent) pass these
+arguments to the process' JVM:
+
+```yaml
+configuration:
+  requirements:
+    jvm:
+      extraArgs:
+        - "-Xms256m"
+        - "-Xmx512m"
+```
+
+**Note:** Processes with custom `jvm` arguments can't use the "pre-fork"
+mechanism and are usually slower to start.
+
+**Note:** Consult with your Concord instance's admin to determine what the limitations
+are for JVM memory and other settings. 
+
+<a name="exclusive"/>
 
 ## Exclusive Execution
 
@@ -1277,3 +1307,19 @@ Types of imports and their parameters:
   - `dest` - (optional) path in the process' working directory to use as the
   destination directory. Default `./concord/`.
 
+The `secret` reference has the following syntax:
+- `org` - (optional) name of the secret's org. Uses the process's organization
+if not specified;
+- `name` - name of the secret;
+- `password` - (optional) password for password-protected secrets. Accepts
+literal values only, expressions are not supported. 
+
+An example of a `git` import using custom authentication:
+
+```yaml
+imports:
+  - git:
+      url: "https://github.com/me/my_private_repo.git"
+      secret:
+        name: "my_secret_key"
+```
