@@ -183,7 +183,7 @@ flow;
 - `version` - number, optional if matches the default version of the current
 Concord instance. Trigger implementation's version.
 
-Github trigger conditions:
+Possible GitHub trigger `conditions`:
 
 - `type` - string, mandatory, GitHub event name;
 - `githubOrg` - string or regex, optional, GitHub organization name. Default is
@@ -194,12 +194,46 @@ the current repository's name;
 - `branch` - string or regex, optional, even branch name;
 - `sender` - string or regex, optional, event sender;
 - `status` - string or regex, optional, event action;
-- `payload` - key-value, optional, github event payload;
+- `repositoryInfo` - a list of objects, information about the matching Concord
+repositories (see below);
+- `payload` - key-value, optional, github event payload.
+
+The `repositoryInfo` condition allows triggering on GitHub repository events
+that have matching Concord repositories. For example, if `https://github.com/myorg/producer-repo`
+is registered in Concord as a `producerRepo` then the following trigger will receive
+all matching events for the registered repository:
+
+```yaml
+triggers:
+  - github:
+      version: 2
+      entryPoint: onPush
+      conditions:
+        repositoryInfo:
+          - repository: producerRepo
+```
+
+The `repositoryInfo` entries have the following structure:
+- `projectId` - UUID, ID of a Concord project with the registered repository;
+- `repositoryId` - UUID, ID of the registered repository;
+- `repository` - string, name of the registered repository;
+- `branch` - string, the configured branch in the registered repository.
 
 The `event` object provides all attributes from trigger conditions filled with
 GitHub event.
 
 #### Examples
+
+A minimal `github` trigger definition that triggers the `onPush` flow whenever
+there's a `push` event in the same branch as configured in Concord:
+
+```yaml
+- github:
+    version: 2
+    entryPoint: "onPush"
+    conditions:
+      type: "push"
+```
 
 The following example trigger fires when someone pushes to a development branch
 with a name starting with `dev-`, e.g. `dev-my-feature`, `dev-bugfix`, and
@@ -314,7 +348,7 @@ Notable differences in `github` triggers between [version 1](#github-v1) and
       entryPoint: "onPush"
   ```
 - the `event` variable structure is different:
-    - `${event.author}` is replaced with `${event.sender}` to closer match the
+    - `${event.author}` is replaced with `${event.sender}` to closely match the
     original data received from GitHub;
     - `${event.org}` and `${event.project}` are gone. It's not possible to
     provide this data while simultaneously support triggers for repositories
