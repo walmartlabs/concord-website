@@ -13,6 +13,9 @@ response to specific events.
 - [Supported Triggers](#supported-triggers)
   - [OneOps Triggers](#oneops)
   - [GitHub Triggers](#github)
+    - [Version 2](#github-v2)
+    - [Version 1](#github-v1)
+    - [Migration](#github-migration)
   - [Scheduled Triggers](#scheduled)
   - [Generic Triggers](#generic)
   - [Manual Triggers](#manual)
@@ -133,6 +136,19 @@ flows:
 
 ### GitHub Triggers
 
+Currently Concord supports two different implementations of `github` triggers:
+`version: 1` and `version: 2`. The latter has cleaner syntax and more
+straightforward to use in complex use cases like listening for multiple
+repositories.
+
+The default version is configured in [the server configuration file](./configuration.html#server-cfg-file).
+Ask your Concord instance's administrator which version is the default version
+for your environment.
+
+<a name="github-v2"/>
+
+### Version 2
+
 The `github` event source allows Concord to receive `push` and `pull_request`
 notifications from GitHub. Here's an example:
 
@@ -143,36 +159,45 @@ flows:
   
 triggers:
 - github:
+    version: 2
     useInitiator: true
     entryPoint: onPush
-    version: 2
     conditions:
       type: push
 ```
 
 Github trigger supports the following attributes
 
-- `entryPoint` string, mandatory, the name of the flow that Concord starts when GitHub event matches trigger conditions;
-- `activeProfiles` array of string, optional, list of profiles that Concord applies for process;
-- `useInitiator` boolean, optional, process initiator is set to `sender` when this attribute is marked as `true`;
-- `useEventCommitId` boolean, optional, Concord will use commit id from event for process;
+- `entryPoint` string, mandatory, the name of the flow that Concord starts when
+GitHub event matches trigger conditions;
+- `activeProfiles` array of string, optional, list of profiles that Concord
+applies for process;
+- `useInitiator` boolean, optional, process initiator is set to `sender` when
+this attribute is marked as `true`;
+- `useEventCommitId` boolean, optional, Concord will use commit id from event
+for process;
 - `exclusive` string, optional, exclusive group for process;
-- `arguments` key-value, optional, additional parameters that are passed to the flow;
+- `arguments` key-value, optional, additional parameters that are passed to the
+flow;
 - `conditions` key-value, mandatory, conditions for GutHub event matching;
-- `version` - number, mandatory, trigger version.
+- `version` - number, optional if matches the default version of the current
+Concord instance. Trigger implementation's version.
 
-Github trigger conditions
+Github trigger conditions:
 
 - `type` - string, mandatory, GitHub event name;
-- `githubOrg` - string or regexp, optional, GitHub organization name. By default GitHub organization name is from the URL repository;
-- `githubRepo` - string or regexp, optional, GitHub repository name. By default GitHub project name is from the URL repository;
-- `githubHost` - string or regexp, optional, GitHub host;
-- `branch` - string or regexp, optional, even branch name;
-- `sender` - string or regexp, optional, event sender;
-- `status` - string or regexp, optional, event action;
+- `githubOrg` - string or regex, optional, GitHub organization name. Default is
+the current repository's GitHub organization name;
+- `githubRepo` - string or regex, optional, GitHub repository name. Default is
+the current repository's name;
+- `githubHost` - string or regex, optional, GitHub host;
+- `branch` - string or regex, optional, even branch name;
+- `sender` - string or regex, optional, event sender;
+- `status` - string or regex, optional, event action;
 - `payload` - key-value, optional, github event payload;
 
-The `event` object provides all attributes from trigger conditions filled with GitHub event
+The `event` object provides all attributes from trigger conditions filled with
+GitHub event.
 
 Examples
 
@@ -182,9 +207,9 @@ ignores pushes on branch deletes:
 
 ```yaml
 - github:
+    version: 2
     useInitiator: true
     entryPoint: devPushFlow
-    version: 2
     conditions:
       branch: '^dev-.*$'
       type: push
@@ -196,9 +221,9 @@ The next example trigger only fires on pull requests that have the label `bug`:
 
 ```yaml
 - github:
+    version: 2
     useInitiator: true
     entryPoint: pullRequestFlow
-    version: 2
     conditions:
       type: pull_request
       payload:
@@ -224,7 +249,13 @@ ignores pushes by `jenkinspan` and `anothersvc`:
 The connection to the GitHub deployment needs to be
 [configured globally](./configuration.html#github).
 
-## GitHub Triggers (Deprecated)
+<a name="github-v1"/>
+
+## Version 1
+
+**Note:** the version 1 of `github` trigger implementation is deprecated and
+replaced with [version 2](#version-2). Check [the migration guide](#github-migration)
+on how to update your flows to be compatible with the version 2. 
 
 The `github` event source allows Concord to receive `push` and `pull_request`
 notifications from GitHub. Here's an example:
@@ -236,6 +267,7 @@ flows:
 
 triggers:
 - github:
+    version: 1
     type: push
     useInitiator: true
     entryPoint: onPush
@@ -255,7 +287,38 @@ is set to `push` by default;
 - `branch` - the GIT repository's branch;
 - `commitId` - ID of the commit which triggered the notification;
 - `useInitiator` - process initiator is set to `author` when this attribute is
-  marked as `true`
+  marked as `true`;
+  - `version` - number, optional if matches the default version of the current
+  Concord instance. Trigger implementation's version.
+
+<a name="github-migration"/>
+
+### Migration
+
+Notable differences in `github` triggers between [version 1](#github-v1) and
+[version 2](#github-v2):
+- trigger conditions are moved into a `conditions` field:
+
+  ```yaml
+  # v1
+  - github:
+      version: 1
+      type: "push"
+      entryPoint: "onPush"
+  
+  # v2
+  - github:
+      version: 2
+      conditions:
+        type: "push"
+      entryPoint: "onPush"
+  ```
+- the `event` variable structure is different:
+    - `${event.author}` is replaced with `${event.sender}` to closer match the
+    original data received from GitHub;
+    - `${event.org}` and `${event.project}` are gone. It's not possible to
+    provide this data while simultaneously support triggers for repositories
+    that are not registered in Concord (i.e. in typical GitOps use cases).
 
 <a name="scheduled"/>
 
