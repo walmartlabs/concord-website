@@ -137,7 +137,7 @@ flows:
 ### GitHub Triggers
 
 Currently Concord supports two different implementations of `github` triggers:
-`version: 1` and `version: 2`. The latter has cleaner syntax and more
+`version: 1` and `version: 2`. The latter has cleaner syntax and is more
 straightforward to use in complex use cases like listening for multiple
 repositories.
 
