@@ -199,19 +199,7 @@ repositories (see below);
 - `payload` - key-value, optional, github event payload.
 
 The `repositoryInfo` condition allows triggering on GitHub repository events
-that have matching Concord repositories. For example, if `https://github.com/myorg/producer-repo`
-is registered in Concord as `producerRepo` then the following trigger will receive
-all matching events for the registered repository:
-
-```yaml
-triggers:
-  - github:
-      version: 2
-      entryPoint: onPush
-      conditions:
-        repositoryInfo:
-          - repository: producerRepo
-```
+that have matching Concord repositories. See below for examples.
 
 The `repositoryInfo` entries have the following structure:
 - `projectId` - UUID, ID of a Concord project with the registered repository;
@@ -280,8 +268,34 @@ ignores pushes by `jenkinspan` and `anothersvc`:
       sender: '^(?!.*(jenkinspan|anothersvc)).*$'
 ```
 
-The connection to the GitHub deployment needs to be
-[configured globally](./configuration.html#github).
+If `https://github.com/myorg/producer-repo` is registered in Concord as
+`producerRepo` then the following trigger will receive all matching events for
+the registered repository:
+
+```yaml
+- github:
+      version: 2
+      entryPoint: onPush
+      conditions:
+        repositoryInfo:
+          - repository: producerRepo
+```
+
+Regular expressions can be used to subscribe to *all* GitHub repositories
+handled by the registered webhooks:
+
+```yaml
+- github:
+    version: 2
+    entryPoint: onPush
+    conditions:
+      githubOrg: ".*"
+      githubRepo: ".*"
+```
+
+**Note:** subscribing to all GitHub events can be restricted on the system
+policy level. Ask your Concord instance administrator if it is allowed in your
+environment. 
 
 <a name="github-v1"/>
 
