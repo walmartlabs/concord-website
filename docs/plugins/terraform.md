@@ -16,6 +16,7 @@ flow.
 - [Applying the Changes](#applying)
 - [Input Variables](#variables)
 - [Environment Variables](#env)
+- [External Variable Files](#var-files)
 - [Output Variables](#output)
 - [State Backends](#backends)
 - [GIT modules](#git-modules)
@@ -56,7 +57,8 @@ the `terraform` process;
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
 execution will be ignored and stored in the `result` variable;
 - `stateId` - string value, the name of a state file to use. See
-the [State Backends](#backends) section for more details.
+the [State Backends](#backends) section for more details;
+- `varFiles` - list of files to add as `-var-file`.
 
 <a name="planning"/>
 
@@ -209,6 +211,24 @@ can be specified using `extraEnv` parameter:
       HTTPS_PROXY: http://proxy.example.com
       TF_LOG: TRACE
 ```
+
+<a name="var-files"/>
+
+## External Variable Files
+
+Paths to an external files with variables can be added to `plan` or `apply`
+actions using `varFiles` parameter:
+
+```yaml
+- task: terraform
+  in:
+    action: apply
+    varFiles:
+      - "path/to/my-vars.json"
+      - "another/path/to/other/vars.json"
+```
+
+Paths must be relative to the current process' `${workDir}`.
 
 <a name="output"/>
 
