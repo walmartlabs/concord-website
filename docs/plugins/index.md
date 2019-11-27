@@ -36,6 +36,7 @@ use in the workflow execution.
         <li><a href="./sleep.html">Sleep</a></li>
         <li><a href="./smtp.html">SMTP</a></li>
         <li><a href="./taurus.html">Taurus</a></li>
+        <li><a href="./teams.html">Teams</a></li>
         <li><a href="./terraform.html">Terraform</a></li>
         <li><a href="./zoom.html">Zoom</a></li>
       </ul>

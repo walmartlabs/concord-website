@@ -127,6 +127,8 @@ nav:
         context: /docs/plugins/smtp
       - page: Taurus
         context: /docs/plugins/taurus
+      - page: Teams
+        context: /docs/plugins/teams
       - page: Terraform
         context: /docs/plugins/terraform
       - page: Zoom
