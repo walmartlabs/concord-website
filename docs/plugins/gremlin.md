@@ -13,6 +13,7 @@ any flow.
 Users planning to use gremlin plugin in their concord flow should take care of below items.
 
 - Pricing. Please refer below for documentation about pricing
+
   - [Free](https://www.gremlin.com/docs/pricing/free/)
   - [Pro](https://www.gremlin.com/docs/pricing/pro/)
 
