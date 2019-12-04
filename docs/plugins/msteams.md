@@ -21,12 +21,17 @@ Possible operations are:
 
 # Prerequisite
 
-Configure an `incoming webhook` on your MSTeams channel. Follow below steps to configure it from MSTeams UI.
+Configure an `incoming webhook` on your Teams channel. Follow below steps to
+configure it from MS Teams UI.
 
-1. Navigate to the channel where you want to add the webhook and select (•••) More Options from the top navigation bar.
+1. Navigate to the channel where you want to add the webhook and select
+(•••) More Options from the top navigation bar
 2. Choose Connectors from the drop-down menu and search for Incoming Webhook.
-3. Select the Configure button, provide a name, and, optionally, upload an image avatar for your webhook.
-4. The dialog window presents a unique URL that maps to the channel. Copy and save the URL—to use in a Concord flow. Sample `webhookUrl` for reference `https://outlook.office.com/webhook/{teamID}@{tenantID}/IncomingWebhook/{webhookID}/{webhookTypeID}`
+3. Select the Configure button, provide a name, and, optionally, upload an
+image avatar for your webhook.
+4. The dialog window presents a unique URL that maps to the channel. Copy and
+save the URL—to use in a Concord flow. Sample `webhookUrl` for reference
+`https://outlook.office.com/webhook/{teamID}@{tenantID}/IncomingWebhook/{webhookID}/{webhookTypeID}`
 5. Select the Done button. The webhook will now be available in the team channel.
 
 # Usage
@@ -58,14 +63,21 @@ common for all operations:
 
 ## Send Message
 
-The `sendMessage` action allows users to send messages to a specific MSTeams channel. It uses input parameters listed below for the operation. 
+The `sendMessage` action allows users to send messages to a specific MSTeams
+channel. It uses input parameters listed below for the operation. 
 
-- `webhookUrl` - URL, Required - webhookUrl got from step 4 of [Prerequisite](#prerequisite).
-- `title` - string, optional - title of the message.
-- `text` - string, required - body of the message.
-- `themeColor` - string, optional - theme color of the message. Defaults to `11B00A`. More theme colors can be found [here](https://htmlcolorcodes.com/) to pick from.
-- `sections` - Array, optional - A collection of sections to include in a message. See [sections](https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference#section-fields) for more details.
-- `potentialAction` - Array, optional - A collection of actions that can be invoked on a message. See [potentialAction](https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference#actions) for more details.
+- `webhookUrl`: URL, required - webhookUrl got from step 4 of [Prerequisite](#prerequisite).
+- `title`: string, optional - title of the message.
+- `text`: string, required - body of the message.
+- `themeColor`: string, optional - theme color of the message. Defaults to
+`11B00A`. More theme colors can be found [here](https://htmlcolorcodes.com/)
+to pick from.
+- `sections`: array, optional - a collection of sections to include in
+a message. See [sections](https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference#section-fields)
+for more details.
+- `potentialAction`: array, optional - a collection of actions that can be
+invoked on a message. See [potentialAction](https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference#actions)
+for more details.
 
 <a name="using-webhookUrl"/>
 
@@ -85,20 +97,20 @@ flows:
         ignoreErrors: true
 
     - if: "${!result.ok}"
-    then:
-    - throw: "Error while sending a message: ${result.error}"
-    else:
-    - log: "Data: ${result.data}"
+      then:
+        - throw: "Error while sending a message: ${result.error}"
+      else:
+        - log: "Data: ${result.data}"
 ```
 
-<a name="using-ids)"/>
+<a name="using-ids"/>
 
 ### Using IDs
 
 Initiating `sendMessage` action using `teamId` and `webhookId` got from `webhookUrl`
 
-- `teamId` - string, Required - Team ID
-- `webhookId` - string, Required - Webhook ID
+- `teamId`: string, required - team ID
+- `webhookId`: string, required - webhook ID
 
 ```yaml
 flows:
@@ -113,12 +125,11 @@ flows:
         ignoreErrors: true
 
     - if: "${!result.ok}"
-    then:
-    - throw: "Error while sending a message: ${result.error}"
-    else:
-    - log: "Data: ${result.data}"
+      then:
+        - throw: "Error while sending a message: ${result.error}"
+      else:
+        - log: "Data: ${result.data}"
 ```
-
 
 The task returns a `result` object with three fields:
 
