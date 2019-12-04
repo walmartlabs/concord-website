@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  MSTeams Task
+title:  MS Teams Task
 side-navigation: wmt/docs-navigation.html
 ---
 
