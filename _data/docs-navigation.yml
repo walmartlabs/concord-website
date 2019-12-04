@@ -113,6 +113,8 @@ nav:
         context: /docs/plugins/key-value
       - page: LDAP
         context: /docs/plugins/ldap
+      - page: MSTeams
+        context: /docs/plugins/msteams
       - page: Puppet
         context: /docs/plugins/puppet
       - page: Resource
@@ -127,8 +129,6 @@ nav:
         context: /docs/plugins/smtp
       - page: Taurus
         context: /docs/plugins/taurus
-      - page: Teams
-        context: /docs/plugins/teams
       - page: Terraform
         context: /docs/plugins/terraform
       - page: Zoom

@@ -30,13 +30,13 @@ use in the workflow execution.
       <ul>
         <li><a href="./key-value.html">Key Value</a></li>
         <li><a href="./ldap.html">LDAP</a></li>
+        <li><a href="./msteams.html">MSTeams</a></li>
         <li><a href="./puppet.html">Puppet</a></li>
         <li><a href="./resource.html">Resource</a></li>
         <li><a href="./slack.html">Slack</a></li>
         <li><a href="./sleep.html">Sleep</a></li>
         <li><a href="./smtp.html">SMTP</a></li>
         <li><a href="./taurus.html">Taurus</a></li>
-        <li><a href="./teams.html">Teams</a></li>
         <li><a href="./terraform.html">Terraform</a></li>
         <li><a href="./zoom.html">Zoom</a></li>
       </ul>

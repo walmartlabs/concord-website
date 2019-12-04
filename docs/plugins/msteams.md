@@ -1,12 +1,12 @@
 ---
 layout: wmt/docs
-title:  Teams Task
+title:  MSTeams Task
 side-navigation: wmt/docs-navigation.html
 ---
 
 # {{ page.title }}
 
-The `teams` plugin supports interaction with the [Microsoft Teams](https://teams.microsoft.com/)
+The `msteams` plugin supports interaction with the [Microsoft Teams](https://teams.microsoft.com/)
 messaging platform.
 
 - [Prerequisite](#prerequisite)
@@ -21,7 +21,7 @@ Possible operations are:
 
 # Prerequisite
 
-Configure an `incoming webhook` on your Teams channel. Follow below steps to configure it from Teams UI.
+Configure an `incoming webhook` on your MSTeams channel. Follow below steps to configure it from MSTeams UI.
 
 1. Navigate to the channel where you want to add the webhook and select (•••) More Options from the top navigation bar.
 2. Choose Connectors from the drop-down menu and search for Incoming Webhook.
@@ -31,25 +31,25 @@ Configure an `incoming webhook` on your Teams channel. Follow below steps to con
 
 # Usage
 
-To be able to use the `Teams` task in a Concord flow, it must be added as a
+To be able to use the `MSTeams` task in a Concord flow, it must be added as a
 [dependency](../getting-started/concord-dsl.html#dependencies):
 
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins:teams-task:{{ site.concord_plugins_version }}
+  - mvn://com.walmartlabs.concord.plugins:msteams-task:{{ site.concord_plugins_version }}
 ```
 
-This adds the task to the classpath and allows you to invoke the `Teams` task.
+This adds the task to the classpath and allows you to invoke the `MSTeams` task.
 
 # Overview
 
-The `Teams` task allows users to trigger operations on a Microsoft Teams server
+The `MSTeams` task allows users to trigger operations on a Microsoft Teams server
 as a step in a Concord flow. It uses a number of required input parameters that are
 common for all operations:
 
 - `action` - determines the operation to be performed with the current
-  invocation of the `Teams` task
+  invocation of the `MSTeams` task
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
   execution are ignored and stored in the `result` variable. Defaults to
   `false`.
@@ -58,7 +58,7 @@ common for all operations:
 
 ## Send Message
 
-The `sendMessage` action allows users to send messages to a specific Teams channel. It uses input parameters listed below for the operation. 
+The `sendMessage` action allows users to send messages to a specific MSTeams channel. It uses input parameters listed below for the operation. 
 
 - `webhookUrl` - URL, Required - webhookUrl got from step 4 of [Prerequisite](#prerequisite).
 - `title` - string, optional - title of the message.
@@ -76,7 +76,7 @@ Initiating `sendMessage` action using `webhookUrl`
 ```yaml
 flows:
   default:
-    - task: teams
+    - task: msteams
       in:
         action: sendMessage
         webhookUrl: https://outlook.office.com/webhook/{teamID}@{tenantID}/IncomingWebhook/{webhookID}/{webhookTypeID}
@@ -103,7 +103,7 @@ Initiating `sendMessage` action using `teamId` and `webhookId` got from `webhook
 ```yaml
 flows:
   default:
-    - task: teams
+    - task: msteams
       in:
         action: sendMessage
         teamId: "6d97d054-8882-59f8-be19-052934402f09"
