@@ -16,12 +16,12 @@ messaging platform.
 Possible operations are:
 
 - [Send Message](#send-message)
-   - [Using WebhookUrl](#using-webhookUrl)
+   - [Using WebhookURL](#using-webhookurl)
    - [Using IDs (teamId/webhookId)](#using-ids)
 
 # Prerequisite
 
-Configure an `incoming webhook` on your Teams channel. Follow below steps to
+Configure an `Incoming Webhook` on your Teams channel. Follow below steps to
 configure it from MS Teams UI.
 
 1. Navigate to the channel where you want to add the webhook and select
@@ -30,7 +30,7 @@ configure it from MS Teams UI.
 3. Select the Configure button, provide a name, and, optionally, upload an
 image avatar for your webhook.
 4. The dialog window presents a unique URL that maps to the channel. Copy and
-save the URL—to use in a Concord flow. Sample `webhookUrl` for reference
+save the URL—to use in a Concord flow. Sample webhook URL for reference
 `https://outlook.office.com/webhook/{teamID}@{tenantID}/IncomingWebhook/{webhookID}/{webhookTypeID}`
 5. Select the Done button. The webhook will now be available in the team channel.
 
@@ -59,14 +59,35 @@ common for all operations:
   execution are ignored and stored in the `result` variable. Defaults to
   `false`.
 
-<a name="send-message"/>
+The `webhookTypeId`, `tenantId`, `rootWebhookUrl`, `proxyAddress`, and `proxyPort` variables configure the connection to the MS Teams server. They are best configured globally as
+[default process configuration](../getting-started/configuration.html#default-process-variable)
+with an `msteamsParams` argument.
+
+- `webhookTypeId`: unique GUID of webhook type `Incoming Webhook`
+- `tenantId`:  unique GUID representing the Azure ActiveDirectory Tenant
+- `rootWebhookUrl`: root URL of webhook
+- `proxyAddress`: proxy server to use
+- `proxyPort`: proxy server port to use
+
+Extract `webhookTypeId` and `tenantId` from webhook URL from step 4 of [Prerequisite](#prerequisite)
+
+```yaml
+configuration:
+  arguments:
+    msteamsParams:
+      webhookTypeId: "myWebhookTypeID"
+      tenantId: "myTenantID"
+      rootWebhookUrl: "https://outlook.office.com/webhook/"
+      proxyAddress: "proxy.example.com"
+      proxyPort: 8080
+```
 
 ## Send Message
 
 The `sendMessage` action allows users to send messages to a specific MSTeams
 channel. It uses input parameters listed below for the operation. 
 
-- `webhookUrl`: URL, required - webhookUrl got from step 4 of [Prerequisite](#prerequisite).
+- `webhookUrl`: URL, required - webhook URL from step 4 of [Prerequisite](#prerequisite).
 - `title`: string, optional - title of the message.
 - `text`: string, required - body of the message.
 - `themeColor`: string, optional - theme color of the message. Defaults to
@@ -79,11 +100,9 @@ for more details.
 invoked on a message. See [potentialAction](https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference#actions)
 for more details.
 
-<a name="using-webhookUrl"/>
+### Using WebhookURL
 
-### Using WebhookUrl
-
-Initiating `sendMessage` action using `webhookUrl`
+Initiate `sendMessage` action using `webhookUrl`
 
 ```yaml
 flows:
@@ -103,11 +122,9 @@ flows:
         - log: "Data: ${result.data}"
 ```
 
-<a name="using-ids"/>
-
 ### Using IDs
 
-Initiating `sendMessage` action using `teamId` and `webhookId` got from `webhookUrl`
+Initiate `sendMessage` action using `teamId` and `webhookId` extracted from webhook URL from step 4 of [Prerequisite](#prerequisite)
 
 - `teamId`: string, required - team ID
 - `webhookId`: string, required - webhook ID
@@ -118,8 +135,8 @@ flows:
     - task: msteams
       in:
         action: sendMessage
-        teamId: "6d97d054-8882-59f8-be19-052934402f09"
-        webhookId: "ec83079e7d2b5680886b1138966c46d9c"
+        teamId: "myTeamID"
+        webhookId: "myWebhookID"
         title: "My message title"
         text: "My message text"
         ignoreErrors: true
