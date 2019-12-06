@@ -30,6 +30,7 @@ use in the workflow execution.
       <ul>
         <li><a href="./key-value.html">Key Value</a></li>
         <li><a href="./ldap.html">LDAP</a></li>
+        <li><a href="./msteams.html">MS Teams</a></li>
         <li><a href="./puppet.html">Puppet</a></li>
         <li><a href="./resource.html">Resource</a></li>
         <li><a href="./slack.html">Slack</a></li>
