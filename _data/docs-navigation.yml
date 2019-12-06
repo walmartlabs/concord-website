@@ -113,6 +113,8 @@ nav:
         context: /docs/plugins/key-value
       - page: LDAP
         context: /docs/plugins/ldap
+      - page: MS Teams
+        context: /docs/plugins/msteams
       - page: Puppet
         context: /docs/plugins/puppet
       - page: Resource
