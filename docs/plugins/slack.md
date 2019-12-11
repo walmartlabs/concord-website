@@ -37,6 +37,7 @@ flows:
         username: "anyCustomString"
         iconEmoji: ":information_desk_person:"
         text: "Starting execution on Concord, process ID ${txId}"
+        ignoreErrors: true
 
     - if: "${!result.ok}"
       then:
@@ -51,6 +52,7 @@ flows:
         username: "anyCustomString"
         iconEmoji: ":information_desk_person:"
         text: "Execution on Concord for process ID ${txId} completed."
+        ignoreErrors: true
 ```
 
 The `channelId` can be seen in the URL of the channel or alternatively the name
@@ -80,6 +82,14 @@ The task returns a `result` object with three fields:
 
 The optional field from the result object `ts` can be used to create
 a thread and reply. Avoid using a reply's `ts` value; use it's parent instead.
+
+The optional field `ignoreErrors` can be used to ignore any failures that 
+might occur when sending a Slack message. When the value for this field 
+is `true`, Concord flow does not throw any exception and fail when the 
+slack task fails.
+
+The value defaults to `false` if `ignoreErrors` field is not specified 
+in the parameters.
 
 ## Slack Channel Task
 

@@ -401,6 +401,11 @@ flows:
 `deleteRepo` action deletes the repository with the name provided by `repo` 
 parameter in the Github organization specified by `org` parameter.
 
+> Github access token specified should have `delete_repo` scope 
+enabled to delete a repository on Github. This can be done in 
+**Personal Access Token** under **Developer Settings** for the intended user 
+on Github.
+
 The example below deletes the repository `myRepository` from the Github 
 organization `myOrg`.
 
