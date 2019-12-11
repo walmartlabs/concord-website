@@ -10,8 +10,12 @@ Pre-built Docker images can be used to run all four components of Concord:
 
 - [the Database](https://hub.docker.com/_/postgres)
 - [Concord Server](https://hub.docker.com/r/walmartlabs/concord-server)
-- [Concord Console](https://hub.docker.com/r/walmartlabs/concord-console)
 - [Concord Agent](https://hub.docker.com/r/walmartlabs/concord-agent)
+
+**Note:** starting from 1.36.0 the `concord-console` image is no longer needed.
+The UI is served by the `concord-server` container. For older versions check
+[the previous revision](https://github.com/walmartlabs/concord-website/blob/fcb31e1931541f5930913efce0503ce5d8b83f4b/docs/getting-started/install/docker.md)
+of this document.
 
 ## Prerequisites
 
@@ -158,6 +162,9 @@ $ curl -i http://localhost:8001/api/v1/server/version
 }
 ```
 
+The API and the Console are available on [http://localhost:8001](http://localhost:8001).
+Try logging in using your AD/LDAP credentials.
+
 ### Step 4. Start a Concord Agent
 
 ```bash
@@ -177,21 +184,6 @@ $ docker logs agent
 4:41:45.530 [queue-client] [INFO ] c.w.c.server.queueclient.QueueClient - connect ['ws://server:8001/websocket'] -> done
 ...
 ```
-
-### Step 6. Start the Concord Console
-
-```bash
-docker run -d -p 8080:8080 \
---name console \
---link server \
--v "/path/to/repo/docker-images/console.conf:/opt/concord/console/nginx/app.conf:ro" \
-walmartlabs/concord-console
-```
-
-Replace `/path/to/repo` with your path to the Concord's repository.
-
-The console is available on [http://localhost:8080](http://localhost:8080).
-Try logging in using your AD/LDAP credentials.
 
 ## First Project
 
