@@ -1299,6 +1299,7 @@ Types of imports and their parameters:
   - `path` - (optional) path in the repository to use as the source directory;
   - `dest` - (optional) path in the process' working directory to use as the
   destination directory. Defaults to the process workspace `./concord/`;
+  - `exclude` - (optional) list of regular expression patterns to exclude some files when importing;
   - `secret` - reference to `KEY_PAIR` or a `USERNAME_PASSWORD` secret. Must be
   a non-password protected secret;
 - `mvn` - imports a Maven artifact:
