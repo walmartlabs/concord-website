@@ -350,6 +350,7 @@ the key configuration.
 
 - [minimal AWS example](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/minimal)
 - [minimal Azure example](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/azure-minimal)
+- [minimal GCP example](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/gcp-minimal)
 - [approval](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/approval) - runs `plan`
 and `apply` actions separately, uses an approval form to gate the changes;
 - [output values](https://github.com/walmartlabs/concord-plugins/tree/master/tasks/terraform/examples/output) - how
