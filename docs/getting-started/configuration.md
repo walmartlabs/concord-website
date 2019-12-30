@@ -103,17 +103,31 @@ concord-server {
 
 All parameters are optional.
 
+### API
+
+| Variable       | Description                  | Default value |
+|----------------|------------------------------|---------------|
+| API_PORT       | API port number to listen on | 8001          |
+
 ### Forms
 
 | Variable        | Description                          | Default value               |
 |-----------------|--------------------------------------|-----------------------------|
 | FORM_SERVER_DIR | Directory to store custom form files | _a new temporary directory_ |
 
-### HTTPS support
+### HTTP(S)
 
-| Variable       | Description                                  | Default value |
-|----------------|----------------------------------------------|---------------|
-| SECURE_COOKIES | Enable `secure` attribute on server cookies. | false         |
+| Variable        | Description                                 | Default value |
+|-----------------|---------------------------------------------|---------------|
+| SECURE_COOKIES  | Enable `secure` attribute on server cookies | false         |
+| SESSION_TIMEOUT | Default timeout for sessions (seconds)      | 1800          |
+
+### Logging
+
+| Variable               | Description                                    | Default value |
+|------------------------|------------------------------------------------|---------------|
+| ACCESS_LOG_PATH        | Path to the access log, including the filename | _n/a_         |
+| ACCESS_LOG_RETAIN_DAYS | How many days to keep access logs              | 7             |
 
 <a name="agent-cfg-file"/>
 
