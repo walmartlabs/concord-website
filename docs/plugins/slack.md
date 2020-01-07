@@ -12,14 +12,28 @@ messaging platform.
 - posting messages to a channel with the [slack task](#slack)
 - working with channels and groups with the [slack channel task](#slackChannel)
 
+The task is provided automatically for all flows, no external dependencies
+necessary.
+
 ## Configuration
 
-This slack plugin is provided automatically by Concord and the target Slack server
-instance has to be
-[configured as part of the server installation](../getting-started/configuration.html#slack).
+The plugin supports setting the [defaults](../getting-started/configuration.html#default-process-variables)
+via the `slackCfg` variable.
 
 The bot user created for the API token configuration e.g. `concord` has to be a
 member of the channel receiving the messages.
+
+## Common Parameters
+
+Common parameters of both `slack` and `slackChannel` tasks:
+- `apiToken`: required, the
+  [slack API token](https://api.slack.com/custom-integrations/legacy-tokens) for
+  authentication and authorization. The owner of the token as has to have
+  sufficient access rights to create or archive channels and groups. Typically
+  this should be provided via usage of the [Crypto task](./crypto.html) or
+  configured in the [default variables](../getting-started/configuration.html#default-process-variables);
+- `proxyAddress`: optional, the proxy's host name;
+- `proxyPort`: optional, the proxy's port.
 
 <a name="slack"/>
 
@@ -150,15 +164,10 @@ The `slackChannel` task uses following input parameters
 - `channelName` the name of the slack channel or group you want to create,
   required for `create` and `createGroup` that you want to create or
 - `channelId`: the id of the slack channel that you want to archive, required
-  for `archive` and `archiveGroup`
-- `apiToken`: required, the
-  [slack API token](https://api.slack.com/custom-integrations/legacy-tokens) for
-  authentication and authorization. The owner of the token as has to have
-  sufficient access rights to create or archive channels and groups. Typically
-  this should be provided via usage of the [Crypto task](./crypto.html).
-
+  for `archive` and `archiveGroup`.
 
 <a name="create"/>
+
 ### Create a Channel
 
 This `slackChannel` task can be used to create a new channel with the `create` action.
@@ -178,6 +187,7 @@ The identifier of the created channel is available in the context after the
 successful task execution output variable as `slackChannelId`.
 
 <a name="archive"/>
+
 ### Archive a Channel
 
 This `slackChannel` task can be used to archive an existing channel with the
@@ -196,6 +206,7 @@ flows:
 The `channelId` can be seen in the URL of the channel  e.g. `C7HNUMYQ1`
 
 <a name="create-group"/>
+
 ### Create a Group
 
 This `slackChannel` task can be used to create a group with the `createGroup`
@@ -216,6 +227,7 @@ The identifier of the created group is available in the context after the
 successful task execution output variable as `slackChannelId`.
 
 <a name="archive-group"/>
+
 ### Archive a Group
 
 This `slackChannel` task can be used to archive an existing group with the
