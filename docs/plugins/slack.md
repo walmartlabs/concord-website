@@ -10,7 +10,7 @@ The `slack` plugin supports interaction with the [Slack](https://slack.com/)
 messaging platform.
 
 - posting messages to a channel with the [slack task](#slack)
-- working with channels and groups with the [slackChannel task](#slack-channel)
+- working with channels and groups with the [slack channel task](#slackChannel)
 
 ## Configuration
 
@@ -24,6 +24,13 @@ member of the channel receiving the messages.
 <a name="slack"/>
 
 ## Slack Task
+
+Possible operations are:
+
+- [Send Message](#send-message)
+- [Add Reaction](#add-reaction)
+
+### Send Message
 
 A message `text` can be sent to a specific channel identified by a `channelId`
 with the long syntax or you can use the `call` method.
@@ -73,12 +80,13 @@ Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
 
-The task returns a `result` object with three fields:
+The task returns a `result` object with four fields:
 
 - `ok` - `true` if the operation succeeded;
 - `error` - error message if the operation failed.
 - `ts` -  Timestamp ID of the message that was posted, can be used, in the
-  following slack task of posting message, to make the message a reply.
+  following slack task of posting message, to make the message a reply or in `addReaction` action.
+- `id` - Channel ID that can be used in subsequent operations.
 
 The optional field from the result object `ts` can be used to create
 a thread and reply. Avoid using a reply's `ts` value; use it's parent instead.
@@ -90,6 +98,38 @@ slack task fails.
 
 The value defaults to `false` if `ignoreErrors` field is not specified 
 in the parameters.
+
+### Add Reaction
+
+The Slack task can be used to add a reaction (emoji) to a posted message using `addReaction` action.
+
+- `action` - action to perform `addReaction`.
+- `channelId` - Channel ID  where the message to add reaction to was posted. e.g. `C7HNUMYQ1`
+- `ts` -  Timestamp ID of a posted message to add reaction to.
+- `reaction` - Reaction (emoji) name.
+
+```yaml
+flows:
+  default:
+    - task: slack
+      in:
+        action: addReaction
+        channelId: ${result.id}
+        ts: ${result.ts}
+        reaction: "thumbup"
+        ignoreErrors: true
+
+    - if: "${!result.ok}"
+      then:
+        - log: "Error while adding a reaction: ${result.error}"
+```
+
+The task returns a `result` object with two fields:
+
+- `ok` - `true` if the operation succeeded;
+- `error` - error message if the operation failed.
+
+<a name="slackChannel"/>
 
 ## Slack Channel Task
 
