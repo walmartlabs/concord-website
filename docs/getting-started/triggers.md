@@ -265,7 +265,7 @@ ignores pushes by `jenkinspan` and `anothersvc`:
     conditions:
       type: push
       branch: 'master'
-      sender: '^(?!.*(jenkinspan|anothersvc)).*$'
+      author: '^(?!.*(jenkinspan|anothersvc)).*$'
 ```
 
 If `https://github.com/myorg/producer-repo` is registered in Concord as
