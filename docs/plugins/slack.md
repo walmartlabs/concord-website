@@ -27,8 +27,8 @@ member of the channel receiving the messages.
 
 Common parameters of both `slack` and `slackChannel` tasks:
 - `apiToken`: required, the
-  [slack API token](https://api.slack.com/custom-integrations/legacy-tokens) for
-  authentication and authorization. The owner of the token as has to have
+  [slack API token](https://api.slack.com/custom-integrations/legacy-tokens)
+  for authentication and authorization. The owner of the token as has to have
   sufficient access rights to create or archive channels and groups. Typically
   this should be provided via usage of the [Crypto task](./crypto.html) or
   configured in the [default variables](../getting-started/configuration.html#default-process-variables);
@@ -99,7 +99,8 @@ The task returns a `result` object with four fields:
 - `ok` - `true` if the operation succeeded;
 - `error` - error message if the operation failed.
 - `ts` -  Timestamp ID of the message that was posted, can be used, in the
-  following slack task of posting message, to make the message a reply or in `addReaction` action.
+  following slack task of posting message, to make the message a reply or in
+  `addReaction` action.
 - `id` - Channel ID that can be used in subsequent operations.
 
 The optional field from the result object `ts` can be used to create
@@ -115,12 +116,15 @@ in the parameters.
 
 ### Add Reaction
 
-The Slack task can be used to add a reaction (emoji) to a posted message using `addReaction` action.
+The Slack task can be used to add a reaction (emoji) to a posted message using
+`addReaction` action.
 
-- `action` - action to perform `addReaction`.
-- `channelId` - Channel ID  where the message to add reaction to was posted. e.g. `C7HNUMYQ1`
-- `ts` -  Timestamp ID of a posted message to add reaction to.
-- `reaction` - Reaction (emoji) name.
+- `action` - action to perform `addReaction`;
+- `channelId` - channel ID where the message to add reaction to was posted,
+   e.g. `C7HNUMYQ1`;
+- `ts` -  timestamp of a posted message to add reaction to. Usually returned
+   by the [sendMessage](#send-message) action;
+- `reaction` - reaction (emoji) name.
 
 ```yaml
 flows:
