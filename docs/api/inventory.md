@@ -14,6 +14,7 @@ The REST API provides support for working with inventories:
 - [Update an Inventory](#update-inventory)
 - [Delete an Inventory](#delete-inventory)
 - [List Inventories](#list-inventories)
+- [Add Host Data to an Inventory](#add-host-data-to-an-inventory)
 
 To remove a project's value, specify an empty value. For example, you can use an
 empty `parent` inventory JSON object to remove a parent inventory from an 
@@ -156,4 +157,40 @@ Lists all existing inventories for the specified organization.
       { "id": "...", "name": "..." },
       ...
     ]
+    ```
+
+
+<a name="add-data-to-inventory"/>
+
+## Add Host Data to an Inventory
+
+Adds or updates host data. `${itemPath}` is a unique to identify the data (e.g.
+a fully-qualified hostname).
+
+* **URI** `/api/v1/org/${orgName}/inventory/${inventoryName}/data/${itemPath}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    {
+      "host": "my.host.example.com",
+      "meta": {
+        "env": "cert",
+        ...
+      }
+    }
+    ```
+* **Success Response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "host": "my.host.example.com",
+      "meta": {
+        "env": "cert",
+        ...
+      }
+    }
     ```

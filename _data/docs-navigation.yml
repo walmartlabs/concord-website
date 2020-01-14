@@ -59,6 +59,10 @@ nav:
         context: /docs/api/apikey
       - page: Checkpoint
         context: /docs/api/checkpoint
+      - page: Inventory
+        context: /docs/api/inventory
+      - page: Inventory Query
+        context: /docs/api/inventory-query
       - page: Organization
         context: /docs/api/org
       - page: Policy
@@ -103,6 +107,8 @@ nav:
         context: /docs/plugins/gremlin
       - page: HTTP
         context: /docs/plugins/http
+      - page: Inventory
+        context: /docs/plugins/inventory
       - page: Jenkins
         context: /docs/plugins/jenkins
       - page: Jira
