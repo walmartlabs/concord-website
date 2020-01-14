@@ -66,6 +66,7 @@ Alternatively the key can be
 [created](../api/secret.html#create-secret) and
 [accessed](../api/secret.html#get-key) with the REST API for secrets.
 
+
 <a name="create-project"/>
 ## Create Project in Concord
 
@@ -88,6 +89,9 @@ _URL_ field.
 
 Alternatively you can
 [create a project with the REST API](../api/project.html#createproject).
+
+**Note**: project creation in the Default organization might be disabled by
+the instance admins using [policies](./policies.html#entity-rule)
 
 <a name="execute-process"/>
 ## Execute a Process
