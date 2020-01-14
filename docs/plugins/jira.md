@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-The `jira` task supports operations on the popluar issue tracking system
+The `jira` task supports operations on the popular issue tracking system
 [Atlassian Jira](https://www.atlassian.com/software/jira).
 
 - [Usage](#usage)
