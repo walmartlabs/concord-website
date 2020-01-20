@@ -18,7 +18,6 @@ format required per [Dynamic Inventory Conventions](https://docs.ansible.com/ans
 - [Usage](#usage)
 - [Ansible Example](#ansible-example)
 
-
 ## Usage
 
 Prior to using this plugin, inventory data must be stored in Concord JSON

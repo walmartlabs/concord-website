@@ -33,6 +33,8 @@ nav:
         context: /docs/getting-started/triggers
       - page: JSON Store
         context: /docs/getting-started/json-store
+      - page: Node Roster
+        context: /docs/getting-started/node-roster
       - page: CLI
         context: /docs/getting-started/cli
       - page: Development
@@ -63,6 +65,8 @@ nav:
         context: /docs/api/checkpoint
       - page: JSON Store
         context: /docs/api/json-store
+      - page: Node Roster
+        context: /docs/api/node-roster
       - page: Organization
         context: /docs/api/org
       - page: Policy
@@ -121,6 +125,8 @@ nav:
         context: /docs/plugins/ldap
       - page: MS Teams
         context: /docs/plugins/msteams
+      - page: Node Roster
+        context: /docs/plugins/node-roster
       - page: Puppet
         context: /docs/plugins/puppet
       - page: Resource
