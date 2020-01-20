@@ -80,4 +80,4 @@ This can be used as a simple sequence number generator.
 - log: "We got an ID: ${myId}"
 ```
 
-**Warning**: the existing string values can't be incremented.
+**Warning:** the existing string values can't be incremented.

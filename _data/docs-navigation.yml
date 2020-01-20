@@ -31,6 +31,8 @@ nav:
         context: /docs/getting-started/policies
       - page: Triggers
         context: /docs/getting-started/triggers
+      - page: JSON Store
+        context: /docs/getting-started/json-store
       - page: CLI
         context: /docs/getting-started/cli
       - page: Development
@@ -59,10 +61,8 @@ nav:
         context: /docs/api/apikey
       - page: Checkpoint
         context: /docs/api/checkpoint
-      - page: Inventory
-        context: /docs/api/inventory
-      - page: Inventory Query
-        context: /docs/api/inventory-query
+      - page: JSON Store
+        context: /docs/api/json-store
       - page: Organization
         context: /docs/api/org
       - page: Policy
@@ -113,6 +113,8 @@ nav:
         context: /docs/plugins/jenkins
       - page: Jira
         context: /docs/plugins/jira
+      - page: JSON Store
+        context: /docs/plugins/json-store
       - page: Key Value
         context: /docs/plugins/key-value
       - page: LDAP

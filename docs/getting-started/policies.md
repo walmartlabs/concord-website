@@ -15,6 +15,7 @@ characteristics of processes and system entities.
 - [Dependency Rule](#dependency-rule)
 - [Entity Rule](#entity-rule)
 - [File Rule](#file-rule)
+- [JSON Store Rule](#json-store-rule)
 - [Process Configuration Rule](#process-configuration-rule)
 - [Task Rule](#task-rule)
 - [Workspace Rule](#workspace-rule)
@@ -379,6 +380,7 @@ The file rules control the types and sizes of files that are allowed in
 the process' workspace.
 
 The syntax:
+
 ```json
 {
   "maxSize": "1G",
@@ -406,6 +408,46 @@ For example, to forbid files larger than 128Mb:
       }
     ]
   }
+}
+```
+
+## JSON Store Rule
+
+The `jsonStore` rule control parameters of [JSON stores](./json-store.html).
+
+The syntax:
+```json
+{ 
+  "data":{ 
+     "maxSizeInBytes": 100,
+     "msg": "optional message"
+  },
+  "store":{ 
+     "maxNumberPerOrg": 30,
+     "msg": "optional message"
+  }
+}
+```
+
+The attributes:
+
+- `data`
+  - `maxSizeInBytes` - maximum allowed size of a store in bytes;
+- `store`
+  - `maxNumberPerOrg` - maximum allowed number of stores per organization.
+
+Example:
+
+```json
+{ 
+   "jsonStore":{
+      "data":{ 
+         "maxSizeInBytes": 1048576
+      },
+      "store":{ 
+         "maxNumberPerOrg": 30
+      }
+   }
 }
 ```
 
