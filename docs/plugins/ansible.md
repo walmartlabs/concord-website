@@ -60,15 +60,14 @@ A number of configuration parameters are pre-configred by the plugin:
 
 ```
 [defaults]
-callback_plugins = _callbacks
 host_key_checking = false
+retry_files_enabled = true
 gather_subset = !facter,!ohai
-remote_tmp = /tmp/ansible/$USER
+remote_tmp = /tmp/${USER}/ansible
 timeout = 120
-lookup_plugins = _lookups
+
 [ssh_connection]
-control_path = %(directory)s/%%h-%%p-%%r
-pipelining = True
+pipelining = true
 ```
 
 Further and up to date details are available
