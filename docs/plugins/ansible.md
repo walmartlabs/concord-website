@@ -191,6 +191,44 @@ flows:
             ansible_connection: "local"
 ```
 
+Multiple inventories can be used as well:
+
+```yaml
+flows:
+  default:
+  - task: ansible
+    in:
+      inventory:
+        - local:
+            hosts:
+              - "127.0.0.1"
+            vars:
+              ansible_connection: "local"
+        - remote:
+            hosts:
+              - "example.com"
+```
+
+In the example above, the plugin creates two temporary inventory files and runs
+`ansible-playbook -i fileA -i fileB ...` command.
+
+The plugin allows mixing and matching of inventory files and inline inventory
+definitions:
+
+```yaml
+flows:
+  default:
+  - task: ansible
+    in:
+      inventory:
+        - "path/to/a/local/file.ini"
+        - local:
+            hosts:
+              - "127.0.0.1"
+            vars:
+              ansible_connection: "local"
+```
+
 Alternatively, an inventory file can be uploaded supplied as a separate file
 e.g. `inventory.ini`:
 
