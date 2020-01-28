@@ -247,7 +247,7 @@ Creates or updates a JSON store items.
 * **Query parameters**
     - `itemPath`: a unique value to identify the data and can contain path
       separators (e.g. `dir1/dir2/item`)
-* **Method** `POST`
+* **Method** `PUT`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
     any valid JSON
