@@ -134,6 +134,7 @@ The `git` task returns a result object with following fields:
 - `status`: `NO_CHANGES` if repository is clean, otherwise returns `SUCCESS` or
 `FAILURE` if operation successful or failed respectively.
 - `error`: error message if operation failed.
+- `changeList`: saves the list of uncommitted changes.
 
 <a name="clone"/>
 
@@ -230,6 +231,7 @@ action, so make sure `clone` action is performed first.
 - if: "${response.ok}"
   then:
   - log: "Commit action completed successfully."
+  - log: "My changeList: ${response.changeList}."
 ```
 
 The `baseBranch` parameter is mandatory and specifies the name of the branch to
@@ -237,6 +239,8 @@ use to commit the changes. The `commitMessage` is a message to add to your
 commit operataion. The `pushChanges` parameter is optional and defaults to
 `false`, when omitted. The `commitUsername` and `commitEmail` are mandatory
 parameters to capture committer details.
+
+Users can get the list of uncommitted changes using `${response.changeList}` variable.
 
 <a name="branch"/>
 
