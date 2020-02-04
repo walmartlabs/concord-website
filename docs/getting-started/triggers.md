@@ -179,7 +179,7 @@ for process;
 - `exclusive` string, optional, exclusive group for process;
 - `arguments` key-value, optional, additional parameters that are passed to the
 flow;
-- `conditions` key-value, mandatory, conditions for GutHub event matching;
+- `conditions` key-value, mandatory, conditions for GitHub event matching;
 - `version` - number, optional if matches the default version of the current
 Concord instance. Trigger implementation's version.
 
@@ -269,7 +269,8 @@ ignores pushes by `jenkinspan` and `anothersvc`:
 ```
 
 If `https://github.com/myorg/producer-repo` is registered in Concord as
-`producerRepo` then the following trigger will receive all matching events for
+`producerRepo`, put `producerRepo` in `repository` field under `repositoryInfo` as shown below.
+The following trigger will receive all matching events for
 the registered repository:
 
 ```yaml
