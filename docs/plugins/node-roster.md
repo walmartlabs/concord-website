@@ -60,66 +60,6 @@ has the following format:
   data;
 - `data` - object, result of the operation.
 
-### Find the Last Deployer
-
-Returns the user who were the initiator of the last process that "touched" the
-specified host.
-
-```yaml
-- task: nodeRoster
-  in:
-    action: "deployedBy"
-    hostName: "myhost.example.com"
-```
-
-Parameters:
-- `hostName` - string, name of the host to look up;
-- `hostId` - UUID, id of the host to look up.
-
-Either `hostName` or `hostId` are required.
-
-The action returns the following `result`:
-
-```json
-{
-  "ok": true,
-  "data": {
-    "userId": "...",
-    "username": "..."
-  }
-}
-```
-
-### Find Hosts by Project
-
-Returns a list of hosts "touched" (deployed to) by a project.
-
-```yaml
-- task: nodeRoster
-  in:
-    action: "touchedHosts"
-    projectId: "..."
-```
-
-Parameters:
-- `projectId` - UUID, id of the project;
-- `limit` - number, maximum number of records to return. Default is `30`;
-- `offset` - number, offset of the first record, used for paging. Default
-  is `0`.
-
-The action returns the following `result`:
-
-```json
-{
-  "ok": true,
-  "data": [
-    { "hostId":  "...", "hostName": "..."},
-    { "hostId":  "...", "hostName": "..."},
-    ...
-  ]
-}
-```
-
 ### Find Hosts by Artifact
 
 Returns a list of hosts which had the specified artifact deployed to.
@@ -159,34 +99,6 @@ The action returns the following `result`:
 
 The `data` is a object where keys are artifact URLs matching the supplied
 `artifactPattern` and values are lists of hosts. 
-
-### Get All Known Hosts
-
-Returns a list of all hosts registered in the Node Roster.
-
-```yaml
-- task: nodeRoster
-  in:
-    action: "knownHosts"
-```
-
-Parameters:
-- `limit` - number, maximum number of records to return. Default is `30`;
-- `offset` - number, offset of the first record, used for paging. Default
-  is `0`.
-
-The action returns the following `result`:
-
-```json
-{
-  "ok": true,
-  "data": [
-    { "hostId":  "...", "hostName": "..."},
-    { "hostId":  "...", "hostName": "..."},
-    ...
-  ]
-}
-```
 
 ### Get Host Facts
 
