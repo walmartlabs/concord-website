@@ -250,7 +250,13 @@ Creates or updates a JSON store items.
 * **Method** `PUT`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
-    any valid JSON
+    any valid JSON object:
+
+    ```json
+    {
+      ...
+    }
+    ```
 * **Success Response**
     ```
     Content-Type: application/json
