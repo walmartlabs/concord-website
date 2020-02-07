@@ -67,6 +67,7 @@ value, the process' start time;
 - `suspend` - boolean, if `true` and `sync` is enabled the process [suspends](#start-suspend)
 waiting for the child process to complete (only for actions `start` and `fork`); 
 - `sync` - boolean, wait for completion if `true`, defaults to `false`;
+- `debug` - boolean, if `true` the plugin logs additional debug information, defaults to `false`;
 - `tags` - list of string values, the process' tags;
 - `attachments` - list of file attachments;
 
