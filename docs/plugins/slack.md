@@ -70,6 +70,7 @@ flows:
       in:
         channelId: "exampleId"
         ts: ${result.ts}
+        replyBroadcast: false
         username: "anyCustomString"
         iconEmoji: ":information_desk_person:"
         text: "Execution on Concord for process ID ${txId} completed."
@@ -113,6 +114,10 @@ slack task fails.
 
 The value defaults to `false` if `ignoreErrors` field is not specified 
 in the parameters.
+
+The optional field `replyBroadcast` is used with `ts` and will also post 
+the message to the channel. The value defaults to `false` and has no
+effect if `ts` is not used. 
 
 ### Add Reaction
 
