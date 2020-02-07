@@ -17,6 +17,7 @@ characteristics of processes and system entities.
 - [File Rule](#file-rule)
 - [JSON Store Rule](#json-store-rule)
 - [Process Configuration Rule](#process-configuration-rule)
+- [Default Process Configuration Rule](#default-process-configuration-rule)
 - [Task Rule](#task-rule)
 - [Workspace Rule](#workspace-rule)
 
@@ -462,6 +463,10 @@ overriding any existing values with the same keys:
 }
 ```
 
+Those values take precedence over the values specified by users in the process'
+`configuration` section. The [defaultProcessCfg](#default-process-configuration-rule)
+rule can be used to set the initial values. 
+
 For example, to force a specific [processTimeout](./concord-dsl.html#timeout)
 value:
 
@@ -481,6 +486,32 @@ Or to override a value in `arguments`:
       "arguments": {
         "message": "Hello from Concord!"
       }
+  }
+}
+```
+
+## Default Process Configuration Rule
+
+The `defaultProcessCfg` rule allows settings initial values for process
+`configuration`. 
+
+```json
+{
+  "...variable...": "...value..."
+}
+```
+
+Those values can be overriden by users their process' `configuration` sections.
+The [processCfg](#process-configuration-rule) rule can be used to override any
+user values. 
+
+For example, to set the default [processTimeout](./concord-dsl.html#timeout)
+value:
+
+```json
+{
+  "defaultProcessCfg": {
+    "processTimeout": "PT2H"
   }
 }
 ```
