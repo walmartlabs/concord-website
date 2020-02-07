@@ -24,37 +24,12 @@ gathered during [Ansible](../plugins/ansible.html) playbook executions.
 
 ## Hosts
 
-### Get All Known Hosts
-
-Returns a (paginated) list of all hosts registered in Node Roster.
-
-* **URI** `/api/v1/noderoster/hosts?offset=${offset}&limit=${limit}`
-* **Query parameters**
-    - `limit`: maximum number of records to return;
-    - `offset`: starting index from which to return.
-* **Method** `GET`
-* **Headers** `Authorization`
-* **Body**
-    none
-* **Success response**
-
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    [
-      { "hostId":  "...", "hostName":  "..." },
-      { "hostId":  "...", "hostName":  "..." }
-    ]
-    ```
-
 ### List Hosts With An Artifact
 
 Returns a (paginated) list of all hosts that had the specified artifact
 deployed on.
 
-* **URI** `/api/v1/noderoster/deployedArtifact?artifactPattern=${artifactPattern}&offset=${offset}&limit=${limit}`
+* **URI** `/api/v1/noderoster/hosts?artifact=${artifactPattern}&offset=${offset}&limit=${limit}`
 * **Query parameters**
     - `artifactPattern`: regex, the artifact's URL pattern;
     - `limit`: maximum number of records to return;
@@ -70,54 +45,33 @@ deployed on.
     ```
 
     ```json
-    {
-      "artifact A": [{ "hostId":  "...", "hostName":  "..." }, { "hostId":  "...", "hostName":  "..." }, ...],
-      "artifact B": [{ "hostId":  "...", "hostName":  "..." }, { "hostId":  "...", "hostName":  "..." }, ...],
-      ...
-    }
+    [ {
+      "id" : "d18f60ec-4804-11ea-9e99-0242ac110003",
+      "name" : "hostb",
+      "createdAt" : "2020-02-05T10:46:52.112Z",
+      "artifactUrl" : "http://localhost:57675/test.txt"
+    }, {
+      "id" : "d18eeb8a-4804-11ea-9e99-0242ac110003",
+      "name" : "hosta",
+      "createdAt" : "2020-02-05T10:46:52.109Z",
+      "artifactUrl" : "http://localhost:57675/test.txt"
+    }]
     ```
   
-    The result is an object where keys are artifact URLs matching the supplied
-    `artifactPattern` and values are lists of hosts
+    The result is a list of hosts where are artifact URLs matching the supplied
+    `artifactPattern`
 
-### List Hosts by a Project
+### Process that touched the host
 
-Returns a (paginated) list of all hosts "touched" (deployed to using one of
-[the supported modules](../getting-started/node-roster.html#supported-modules))
-by the specified project.
+Returns a (paginated) list of processes that touched the specified host.
 
-* **URI** `/api/v1/noderoster/hosts/touched?projectId=${projectId}&offset=${offset}&limit=${limit}`
-* **Query parameters**
-    - `projectId`: ID of the project;
-    - `limit`: maximum number of records to return;
-    - `offset`: starting index from which to return.
-* **Method** `GET`
-* **Headers** `Authorization`
-* **Body**
-    none
-* **Success response**
-
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    [
-      { "hostId":  "...", "hostName":  "..." },
-      { "hostId":  "...", "hostName":  "..." }
-    ]
-    ```
-
-### Last Deployer
-
-Returns the user who was the last "deployer" (the initiator of a process that
-deployed anything) to the specified host.
-
-* **URI** `/api/v1/noderoster/hosts/lastInitiator?hostName=${hostName}&hostId=${hostId}`
+* **URI** `/api/v1/noderoster/processes?hostName=${hostName}&hostId=${hostId}&offset=${offset}&limit=${limit}`
 * **Query parameters**
     - `hostName`: name of the host;
-    - `hostId`: ID of the host.
-    
+    - `hostId`: ID of the host;
+    - `limit`: maximum number of records to return;
+    - `offset`: starting index from which to return.
+
     Either `hostName` or `hostId` must be specified.
 * **Method** `GET`
 * **Headers** `Authorization`
@@ -130,10 +84,12 @@ deployed anything) to the specified host.
     ```
 
     ```json
-    {
-      "userId": "...",
-      "username": "..."
-    }
+    [ {
+      "instanceId" : "5285f431-3551-4467-ad31-b43e9693eaab",
+      "createdAt" : "2020-02-03T20:32:07.276Z",
+      "initiatorId" : "230c5c9c-d9a7-11e6-bcfd-bb681c07b26c",
+      "initiator" : "admin"
+    } ]
     ```
 
 ## Facts
@@ -143,10 +99,12 @@ deployed anything) to the specified host.
 Returns the latest registered [Ansible facts](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts)
 for the specified host.
 
-* **URI** `/api/v1/noderoster/facts/last?hostName=${hostName}&hostId=${hostId}`
+* **URI** `/api/v1/noderoster/facts/last?hostName=${hostName}&hostId=${hostId}&offset=${offset}&limit=${limit}`
 * **Query parameters**
     - `hostName`: name of the host;
-    - `hostId`: ID of the host.
+    - `hostId`: ID of the host;
+    - `limit`: maximum number of records to return;
+    - `offset`: starting index from which to return.
     
     Either `hostName` or `hostId` must be specified.
 * **Method** `GET`
@@ -171,10 +129,12 @@ for the specified host.
 
 Returns a (paginated) list of known artifacts deployed to the specified host.
 
-* **URI** `/api/v1/noderoster/hosts/artifacts?hostName=${hostName}&hostId=${hostId}`
+* **URI** `/api/v1/noderoster/artifacts?hostName=${hostName}&hostId=${hostId}&offset=${offset}&limit=${limit}`
 * **Query parameters**
     - `hostName`: name of the host;
-    - `hostId`: ID of the host.
+    - `hostId`: ID of the host;
+    - `limit`: maximum number of records to return;
+    - `offset`: starting index from which to return.
     
     Either `hostName` or `hostId` must be specified.
 * **Method** `GET`
@@ -188,9 +148,8 @@ Returns a (paginated) list of known artifacts deployed to the specified host.
     ```
 
     ```json
-    [
-      { "url": "..."},
-      { "url": "..."},
-      ...
-    ]
+    [ {
+      "url" : "http://localhost:53705/test.txt",
+      "processInstanceId" : "5285f431-3551-4467-ad31-b43e9693eaab"
+    } ]
     ```
