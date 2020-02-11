@@ -15,6 +15,7 @@ The REST API provides support for working with organizations:
 - [List Organizations](#list-org)
 
 <a name="create-org"/>
+
 ## Create an Organization
 
 Creates a new organization with specified parameters.
@@ -45,6 +46,7 @@ Only administrators can create new organizations.
     ```
 
 <a name="update-org"/>
+
 ## Update an Organization
 
 Updates parameters of an existing organization.
@@ -76,6 +78,7 @@ Updates parameters of an existing organization.
     ```
 
 <a name="list-orgs">
+
 ## List Organizations
 
 Lists all available organizations.

@@ -13,6 +13,7 @@ process flows, configuration, forms and other aspects:
 
 - [Example](#example)
 - [Process Configuration in `configuration`](#configuration)
+  - [Merge Rules](#merge-rules)
   - [Entry Point](#entry-point)
   - [Dependencies](#dependencies)
   - [Template](#template)
@@ -95,6 +96,7 @@ the [task documentation](./tasks.html) and the specific task used for details.
 Overall configuration for the project and process executions are contained in the
 `configuration:` top level element of the Concord file:
 
+- [Merge Rules](#merge-rules)
 - [Entry Point](#entry-point)
 - [Dependencies](#dependencies)
 - [Template](#template)
@@ -105,6 +107,21 @@ Overall configuration for the project and process executions are contained in th
 - [Runner](#runner)
 - [Requirements](#requirements)
 - [Exclusive Execution](#exclusive)
+
+### Merge Rules
+
+Process `configuration` values can come from different sources: the section in
+the `concord.yml` file, request parameters, policies, etc. Here's the order in
+which all `configuration` sources are merged before the process starts:
+
+- environment-specific [default values](./configuration.html#default-process-variables);
+- [defaultCfg](./policies.html#default-process-configuration-rule) policy values;
+- the current organization's configuration values;
+- the current [project's configuration](../api/project.html#get-project-configuration) values;
+- values from current active [profiles](#named-profiles-in-profiles)
+- `_main.json` file in [the process' payload](./processes.html#structure)
+- configuration file send in [the process start request](../api/process.html#start);
+- [processCfg](./policies.html#process-configuration-rule) policy values.
 
 ### Entry Point
 
@@ -157,6 +174,14 @@ Maven URLs provide additional options:
   (default `true`);
 - `scope=compile|provided|system|runtime|test` - use the specific
   dependency scope (default `compile`).
+
+Additional options can be added as "query parameters" parameters to
+the dependency's URL:
+```yaml
+configuration:
+  dependencies:
+  - "mvn://com.walmartlabs.concord:concord-client:{{ site.concord_core_version }}?transitive=false"
+```
 
 The syntax for the Maven URL uses the groupId, artifactId, optionally packaging,
 and version values - the GAV coordinates of a project. For example the Maven
@@ -797,7 +822,8 @@ If an error was caught, the execution will continue from the next step:
 ```yaml
 flows:
   default:
-  - expr: ${misc.throwBpmnError('Catch that!')}
+  - try:
+      - throw: "Catch that!"
     error:
     - log: "A"
 
@@ -825,7 +851,7 @@ Similarly, `onFailure` flow is executed if a process crashes:
 flows:
   default:
   - log: "Brace yourselves, we're going to crash!"
-  - ${misc.throwBpmnError('Handle that!')}
+  - throw: "Crash!"
 
   onFailure:
   - log: "Yep, we just did"

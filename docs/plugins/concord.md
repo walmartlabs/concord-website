@@ -432,7 +432,7 @@ flows:
 
   sayHello:
   - log: "Hello!"
-  - ${misc.throwBpmnError("oh no!")}
+  - throw: "Simulating a failure..."
   
   # invoked only for the parent process
   onCancel:

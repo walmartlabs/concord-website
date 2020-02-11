@@ -47,7 +47,8 @@ library/alpine \
 echo 'Hello, world!'
 ```
 
-The `cmd` parameter is optional. If omitted, the image's `ENTRYPOINT` is used.
+**Note:** the `cmd` parameter is optional. If omitted, the image's `ENTRYPOINT`
+is used.
 
 The current process' working directory is mounted as `/workspace`.
 
@@ -137,7 +138,8 @@ variable.
 
 ## Custom Images
 
-All images must provide a standard POSIX shell as `/bin/sh`.
+Currently there's only one requirement for custom Docker images: all images
+must provide a standard POSIX shell as `/bin/sh`.
 
 ## Limitations
 
