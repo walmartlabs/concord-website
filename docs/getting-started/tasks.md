@@ -441,7 +441,7 @@ publishing the task's JAR. Concord automatically adds `lib/*.jar` files from
 [the payload archive](../api/process.html#zip-file) to the process'
 classpath. This mechanism can be used to upload local JAR files and,
 consequently, to test locally-built JARs. Check out the
-[custom_task]({{site.source_url}}examples/custom_task)
+[custom_task]({{ site.concord_source }}/tree/master/examples/custom_task)
 example. It uses Maven to collect all `compile` dependencies of the task
 and creates a payload archive with the dependencies and the task's JAR.
 

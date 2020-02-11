@@ -57,13 +57,13 @@ task:
 
 All parameters sorted in alphabetical order.
 
-- `auth`: authentication used for secure endpoints, details in 
-  [Basic authentication](#basic-authentication);
+- `auth`: authentication used for secure endpoints, details in
+  the [Authentication](#authentication) section;
 - `body`: the request body, details in [Body](#body);
 - `connectTimeout`: HTTP connection timeout in ms. Default value is 30000 ms;
 - `debug`: boolean, output the request and response data in the logs;
 - `followRedirects`: boolean, determines whether redirects should be handled automatically.
-Default is `true`;
+  Default is `true`;
 - `headers`: add additional headers, details in [Headers](#headers);
 - `ignoreErrors`: boolean, instead of throwing exceptions on unauthorized requests,
   return the result object with the error;
@@ -84,7 +84,7 @@ value of the Java Runtime Environment running the process is used - common value
 is 60000 ms;
 - `url`: complete URL in string for HTTP request;
 
-### Basic Authentication
+### Authentication
 
 The `auth` parameter is optional. When used, it must contain the `basic` nested
 element which contains either the `token` element, or the `username` and
@@ -95,7 +95,12 @@ Basic auth using `token` syntax:
 ```yaml
   auth:
     basic:
-      token: base64_encoded_auth_token
+      token: value
+```
+
+In this case, the `value` is used as-is in the `Authorization` header: 
+```
+Authorization: value
 ```
 
 Basic auth using `username` and `password` syntax:
@@ -105,6 +110,12 @@ Basic auth using `username` and `password` syntax:
     basic:
       username: any_username
       password: any_password
+```
+
+In this example, `username` and `password` values will be formatted according
+to standard basic authentication rules:
+```
+Authorization: Basic base64(username + ":" + password)
 ```
 
 To avoid exposing credentials in your Concord file, replace the actual values

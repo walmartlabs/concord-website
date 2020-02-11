@@ -16,7 +16,7 @@ API](../api/process.html#start).
 - [Structure](#structure)
 - [Project Files](#project-files)
 - [Request Data](#request-data)
-- [Provided Variables](#variables) 
+- [Provided Variables](#variables)
 - [Output Variables](#output-variables)
 - [Execution](#execution)
 - [Process Events](#process-events)
