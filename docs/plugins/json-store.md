@@ -40,7 +40,8 @@ configuration:
 
 flows:
   default:
-    - "${jsonStore.put("myStore", "anItem", myItem)}"    
+    # uses the current organization
+    - "${jsonStore.put('myStore', 'anItem', myItem)}"
 ```
 
 ## Retrieve an Item
