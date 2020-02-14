@@ -49,11 +49,16 @@ In scripts:
 ```yaml
 - script: groovy
   body: |
-    def kv = tasks.get("kv");
+    def kv = tasks.get("kv")
 
-    def id = kv.inc("idSeq");
-    println("I've got {id}");
+    def id = kv.inc(execution, "idSeq")
+    println("I've got ${id}")
 ```
+
+The `execution` variable is an alias for [context](https://concord.walmartlabs.com/docs/getting-started/processes.html#provided-variables)
+and automatically provided by the runtime for all supported script engines.
+Check out [the source code]({{ site.concord_source }}/blob/master/plugins/tasks/kv/src/main/java/com/walmartlabs/concord/plugins/kv/KvTask.java)
+for all available public methods.
 
 Integer values can be retrieved in the same way:
 
