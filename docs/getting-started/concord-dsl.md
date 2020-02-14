@@ -976,6 +976,22 @@ In the example below the value of `someVar` is overwritten to 321 in the
         newValue: "hello"
 ```
 
+The `retry` block also supports expressions:
+
+```yaml
+configuration:
+  arguments:
+    retryTimes: 3
+    retryDelay: 2
+
+flows:
+  default:
+    - task: myTask
+      retry:
+        times: "${retryTimes}"
+        delay: "${retryDelay}"
+```
+
 <a name="throw-step"/>
 
 ### Throwing Exceptions
