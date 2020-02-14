@@ -13,6 +13,7 @@ characteristics of processes and system entities.
 - [Document Format](#document-format)
 - [Ansible Rule](#ansible-rule)
 - [Dependency Rule](#dependency-rule)
+- [Dependency Versions Rule](#dependency-versions-rule)
 - [Entity Rule](#entity-rule)
 - [File Rule](#file-rule)
 - [JSON Store Rule](#json-store-rule)
@@ -224,6 +225,66 @@ dependencies:
     ]
   }
 }
+```
+
+## Dependency Versions Rule
+
+The dependency versions rule provides a way to map `latest` version tags of
+[process dependencies](./concord-dsl.html#dependencies) to actual version values.
+
+The syntax:
+
+```json
+[ 
+    { 
+     "artifact": "...groupId:artifactId...",
+     "version": "...version"
+    },
+
+    { 
+         "artifact": "...groupId:artifactId...",
+         "version": "...version"
+        },
+    ...
+]
+```
+
+The attributes:
+- `artifact` - Maven's `groupId` and `artifactId` values, separated by colon `:`;
+- `version` - the artifact's version to use instead of the `latest` tag.
+
+For example:
+
+```json
+{
+    "dependencyVersions": [ 
+        { 
+         "artifact": "com.walmartlabs.concord.plugins.basic:ansible-tasks",
+         "version": "{{ site.concord_core_version }}"
+        },
+    
+        { 
+         "artifact": "mvn://com.walmartlabs.concord.plugins:jenkins-task",
+         "version": "{{ site.concord_plugins_version }}"
+        }
+    ]
+}
+```
+
+If a process specifies `latest` instead of the version:
+
+```yaml
+configuration:
+  dependencies:
+    - "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:latest"
+    - "mvn://com.walmartlabs.concord.plugins:jenkins-task:latest"
+```
+
+the effective dependency list is:
+
+```yaml
+- "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:{{ site.concord_core_version }}"
+- "mvn://com.walmartlabs.concord.plugins:jenkins-task:{{ site.concord_plugins_version }}"
 ```
 
 ## Entity Rule
