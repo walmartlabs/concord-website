@@ -98,9 +98,9 @@ Basic auth using `token` syntax:
       token: value
 ```
 
-In this case, the `value` is used as-is in the `Authorization` header: 
+In this case, the `value` is used as Basic authentication token in the `Authorization` header: 
 ```
-Authorization: value
+Authorization: Basic value
 ```
 
 Basic auth using `username` and `password` syntax:
