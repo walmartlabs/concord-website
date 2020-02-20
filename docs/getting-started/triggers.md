@@ -48,8 +48,13 @@ triggers:
     parameter1: ".*123.*"
     parameter2: false
     entryPoint: myFlow
+    activeProfiles:
+    - myProfile
     arguments:
       myValue: "..."
+    exclusive:
+      group: "myGroup"
+      mode: cancel
 ...
 ```
 
@@ -62,10 +67,12 @@ with triggers (where `eventSource` is any string).
 Further:
 
 - Concord detects any matches of `parameter1` and `parameter2` with the external
-  event's parameters.
-- `entryPoint` is the name of the flow that Concord starts when there is a match.
+  event's parameters;
+- `entryPoint` is the name of the flow that Concord starts when there is a match;
+- `activeProfiles` is the list of [profiles](./concord-dsl.html#named-profiles-in-profiles)
+  to active for the process;
 - `arguments` is the list of additional parameters that are passed to the flow;
-- `exclusive` is the name of the [exclusive group](#exclusive-triggers).
+- `exclusive` is the exclusivity info of the [exclusive group](#exclusive-triggers).
 
 Parameters can contain YAML literals as follows:
 
@@ -275,11 +282,11 @@ the registered repository:
 
 ```yaml
 - github:
-      version: 2
-      entryPoint: onPush
-      conditions:
-        repositoryInfo:
-          - repository: producerRepo
+    version: 2
+    entryPoint: onPush
+    conditions:
+      repositoryInfo:
+        - repository: producerRepo
 ```
 
 Regular expressions can be used to subscribe to *all* GitHub repositories
@@ -325,10 +332,10 @@ triggers:
 The `event` object provides the following attributes
 
 - `type` - Notifications type to bind with respective event notification.
-Possible values can be `push` and `pull_request`. If not specified, the `type`
-is set to `push` by default;
+  Possible values can be `push` and `pull_request`. If not specified, the `type`
+  is set to `push` by default;
 - `status` - for `pull_request` notifications only, with possible values of
-`opened` or `closed`
+  `opened` or `closed`
 - `project` and `repository` - the name of the Concord project and repository
   which were updated in GitHub. By default the current project/repository is
   triggered;
@@ -346,28 +353,31 @@ is set to `push` by default;
 
 Notable differences in `github` triggers between [version 1](#github-v1) and
 [version 2](#github-v2):
-- trigger conditions are moved into a `conditions` field:
 
-  ```yaml
-  # v1
-  - github:
-      version: 1
+Trigger conditions are moved into a `conditions` field:
+
+```yaml
+# v1
+- github:
+    version: 1
+    type: "push"
+    entryPoint: "onPush"
+
+# v2
+- github:
+    version: 2
+    conditions:
       type: "push"
-      entryPoint: "onPush"
-  
-  # v2
-  - github:
-      version: 2
-      conditions:
-        type: "push"
-      entryPoint: "onPush"
-  ```
-- the `event` variable structure is different:
-    - `${event.author}` is replaced with `${event.sender}` to closely match the
-    original data received from GitHub;
-    - `${event.org}` and `${event.project}` are gone. It's not possible to
-    provide this data while simultaneously support triggers for repositories
-    that are not registered in Concord (i.e. in typical GitOps use cases).
+    entryPoint: "onPush"
+```
+
+The `event` variable structure is different:
+
+- `${event.author}` is replaced with `${event.sender}` to closely match the
+original data received from GitHub;
+- `${event.org}` and `${event.project}` are gone. It's not possible to
+provide this data while simultaneously support triggers for repositories
+that are not registered in Concord (i.e. in typical GitOps use cases).
 
 <a name="scheduled"/>
 
@@ -491,12 +501,19 @@ as dropdown menu items in the repository actions menu.
 
 ```yaml
 triggers:
-  - manual:
-      name: Build
-      entryPoint: main
-  - manual:
-      name: Deploy Prod
-      entryPoint: deployProd
+- manual:
+    name: Build
+    entryPoint: main
+- manual:
+    name: Deploy Prod
+    entryPoint: deployProd
+- manual:
+    name: Deploy Dev and Test
+    entryPoint: deployDev    
+    activeProfiles:
+    - devProfile
+    arguments:
+      runTests: true
 ```
 
 ## Exclusive Triggers
@@ -512,10 +529,10 @@ flows:
     - ${sleep.ms(65000)} # wait for 1m 5s
 
 triggers:
-  - cron:
-      spec: "* * * * *" # run every minute
-      timezone: "America/Toronto"
-      entryPoint: cronEvent
+- cron:
+    spec: "* * * * *" # run every minute
+    timezone: "America/Toronto"
+    entryPoint: cronEvent
 ```
 
 In this example, if the triggered process runs longer than the trigger's period,
@@ -526,13 +543,13 @@ reasons.
   
 ```yaml
 triggers:
-  - cron:
-      spec: "* * * * *"
-      timezone: "America/Toronto"
-      entryPoint: cronEvent
-      exclusive:
-        group: "myGroup"
-        mode: "cancel" # or "wait"
+- cron:
+    spec: "* * * * *"
+    timezone: "America/Toronto"
+    entryPoint: cronEvent
+    exclusive:
+      group: "myGroup"
+      mode: "cancel" # or "wait"
 ```
 
 Any processes with the same `exclusive` value are automatically prevented from
