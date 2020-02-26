@@ -52,7 +52,7 @@ In order to grant Concord access to the Git repository via SSH, you need to
 create a new key on the Concord server.
 
 - Log into the Concord Console user interface;
-- Navigate to _Organizations_ &rarr; _Default_ organization &rarr; _Secrets_;
+- Navigate to _Organizations_ &rarr; _[your organization] &rarr;  Secrets_ (Contact your support team/administrators to create a new organization or have you added to an existing organization)
 - Select _New secret_ on the toolbar;
 - Provide a string e.g. `mykey` as _Name_ and select _Generate a new key pair_ as _Type_;
 - Press _Create_.
@@ -73,7 +73,7 @@ Alternatively the key can be
 Now you can create a new project in the Concord Console.
 
 - Log into the Concord Console user interface;
-- Navigate to _Organizations_ &rarr; _Default_ organization &rarr; _Projects_;
+- Navigate to _Organizations_ &rarr; _[your organization] &rarr;  Projects_ (Contact your support team/administrators to create a new organization or have you added to an existing organization)
 - Select _New project_ on the toolbar;
 - Provide a _Name_ for the project e.g. 'myproject';
 - Click the _Create_ button;
