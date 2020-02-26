@@ -63,6 +63,8 @@ nav:
         context: /docs/api/apikey
       - page: Checkpoint
         context: /docs/api/checkpoint
+      - page: Form
+        context: /docs/api/form
       - page: JSON Store
         context: /docs/api/json-store
       - page: Node Roster
