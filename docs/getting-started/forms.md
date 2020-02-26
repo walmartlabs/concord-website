@@ -23,6 +23,7 @@ HTML/CSS/JS/etc resources](#custom-forms).
 - [User access](#user)
 - [Restricting forms](#restriction)
 - [Dynamic forms](#dynamic)
+- [Using API](#using-api)
 - [Examples](#examples)
 
 <a name="declaration"/>
@@ -559,7 +560,11 @@ process runtime, resulting in a dynamic form. A number of examples are available
 in the
 [dynamic_form_fields project]({{site.concord_source}}tree/master/examples/dynamic_form_fields).
 
-<a name="examples"/>
+## Using API
+
+Forms can be retrieved and submitted using [the REST API](../api/form.html).
+A form can be submitted either by posting JSON data or by using
+`multipart/form-data` requests which also support file upload.
 
 ## Examples
 
