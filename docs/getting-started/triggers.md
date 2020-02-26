@@ -198,7 +198,7 @@ the current repository's GitHub organization name;
 - `githubRepo` - string or regex, optional, GitHub repository name. Default is
 the current repository's name;
 - `githubHost` - string or regex, optional, GitHub host;
-- `branch` - string or regex, optional, even branch name;
+- `branch` - string or regex, optional, event branch name;
 - `sender` - string or regex, optional, event sender;
 - `status` - string or regex, optional, event action;
 - `repositoryInfo` - a list of objects, information about the matching Concord
