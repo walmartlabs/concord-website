@@ -29,8 +29,6 @@ nav:
         context: /docs/getting-started/orgs
       - page: Policies
         context: /docs/getting-started/policies
-      - page: Triggers
-        context: /docs/getting-started/triggers
       - page: JSON Store
         context: /docs/getting-started/json-store
       - page: Node Roster
@@ -39,6 +37,22 @@ nav:
         context: /docs/getting-started/cli
       - page: Development
         context: /docs/getting-started/development
+  - title: Triggers
+    id: triggers
+    collapse: /docs/triggers
+    subfolderitems:
+      - page: Overview
+        context: /docs/triggers/overview
+      - page: GitHub
+        context: /docs/triggers/github
+      - page: Cron
+        context: /docs/triggers/cron
+      - page: Manual
+        context: /docs/triggers/manual
+      - page: Generic
+        context: /docs/triggers/generic
+      - page: OneOps
+        context: /docs/triggers/oneops
   - title: Console
     id: console
     collapse: /docs/console
