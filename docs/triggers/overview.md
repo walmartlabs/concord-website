@@ -1,0 +1,135 @@
+---
+layout: wmt/docs
+title:  Triggers
+side-navigation: wmt/docs-navigation.html
+---
+
+# {{ page.title }}
+
+Triggers provide a way to automatically start specific Concord flows as a
+response to specific events.
+
+- [Common Syntax](#common)
+- [Supported Triggers](#supported-triggers)
+- [Exclusive Triggers](#exclusive-triggers)
+
+> Trigger configuration is typically loaded automatically, but can be disabled
+> globally or for specific types of repositories. For example, personal git
+> repositories can be treated differently from organizational repositories in
+> GitHub. You can force a new parsing and configuration by reloading a
+> repository content with the reload button beside the repository in the Concord
+> Console.
+  
+<a name="common"/>
+
+## Common Syntax
+
+All triggers work by the same process:
+
+- Concord matches the patterns you specify as triggers to event data.
+- event data is typically external, but can be internally produced in the case
+of the [cron triggers](./cron.html).
+- for each matched trigger, it starts a new process.
+
+You define triggers in the `triggers` section of a `concord.yml` file, as in
+this example:
+
+```yaml
+triggers:
+- eventSource:
+    parameter1: ".*123.*"
+    parameter2: false
+    entryPoint: myFlow
+    activeProfiles:
+    - myProfile
+    arguments:
+      myValue: "..."
+    exclusive:
+      group: "myGroup"
+      mode: cancel
+...
+```
+
+When the API end-point `/api/v1/events/` receives an event, Concord detects any
+existing matches with trigger names.
+
+This allows you to publish events to `/api/v1/events/eventSource` for matching
+with triggers (where `eventSource` is any string).
+
+Further:
+
+- Concord detects any matches of `parameter1` and `parameter2` with the external
+  event's parameters;
+- `entryPoint` is the name of the flow that Concord starts when there is a match;
+- `activeProfiles` is the list of [profiles](../getting-started/concord-dsl.html#named-profiles-in-profiles)
+  to active for the process;
+- `arguments` is the list of additional parameters that are passed to the flow;
+- `exclusive` is the exclusivity info of the [exclusive group](#exclusive-triggers).
+
+Parameters can contain YAML literals as follows:
+
+- strings
+- numbers
+- boolean values
+- regular expressions
+
+The `triggers` section can contain multiple trigger definitions. Each matching
+trigger is processed individually--each match can start a new process.
+
+A trigger definition without match attributes is activated for any event
+received from the specified source.
+
+In addition to the `arguments` list, a started flow receives the `event`
+parameter which contains attributes of the external event. Depending on the
+source of the event, the exact structure of the `event` object may vary.
+
+## Supported Triggers
+
+- [GitHub](./github.html)
+- [Cron](./cron.html)
+- [Manual](./manual.html)
+- [Generic](./generic.html)
+- [OneOps](./oneops.html)
+
+## Exclusive Triggers
+
+There is an option to make a triggered processes "exclusive". This prevents
+the process from running, if there are any other processes in the same project
+with the same "exclusive group":
+
+```yaml
+flows:
+  cronEvent:
+    - log: "Hello!"
+    - ${sleep.ms(65000)} # wait for 1m 5s
+
+triggers:
+- cron:
+    spec: "* * * * *" # run every minute
+    timezone: "America/Toronto"
+    entryPoint: cronEvent
+```
+
+In this example, if the triggered process runs longer than the trigger's period,
+then it is possible that multiple `cronEvent` processes can run at the same
+time. In some cases, it is necessary to enforce that only one trigger process
+runs at a time, due to limitation in target systems being accessed or similar
+reasons.
+  
+```yaml
+triggers:
+- cron:
+    spec: "* * * * *"
+    timezone: "America/Toronto"
+    entryPoint: cronEvent
+    exclusive:
+      group: "myGroup"
+      mode: "cancel" # or "wait"
+```
+
+Any processes with the same `exclusive` value are automatically prevented from
+starting, if a running process in the same group exists. If you wish to enqueue
+the processes instead use `mode: "wait"`.
+
+See also [Exclusive Execution](../getting-started/concord-dsl.html#exclusive-execution)
+section in the Concord DSL documentation.
