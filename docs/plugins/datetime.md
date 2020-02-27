@@ -21,26 +21,36 @@ The current date as a `java.util.Date` object:
 ${datetime.current()} 
 ```
 
-The current date as a formatted string with a pattern: 
+The current date/time from a specific zone formatted using the provided pattern:
 
 ```yaml
-${datetime.current('pattern')} 
+${datetime.currentWithZone('zone', 'pattern')}
+${datetime.currentWithZone('America/Chicago', 'yyyy/MM/dd HH:mm:ss Z')}
 ```
 
-An example of this is as follows. Pattern syntax should follow [standard java date patterns](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html).
+Pattern syntax should follow
+[the standard Java date/time patterns](https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html).
+
+The current date formatted as a string with a pattern: 
 
 ```yaml
-${datetime.current('dd.MM.yyy')}
+${datetime.current('pattern')}
+${datetime.current('yyyy/MM/dd HH:mm:ss')}
 ```
 
-The current date formatted into a date/time string:
+A `java.util.Date` instance formatted into a string:
 
 ```yaml
-${datetime.format(datetime, 'pattern')} 
+${datetime.format(dateValue, 'pattern')}
+${datetime.format(dateValue, 'yyyy/MM/dd HH:mm:ss')}
 ```
 
-Parse dateStr string to `java.util.Date` object:
+Parse a string into a `java.util.Date` instance:
 
 ```yaml
-${datetime.parse(dateStr, 'pattern')} 
+${datetime.parse(dateStr, 'pattern')}
+${datetime.parse('2020/02/18 23:59:59', 'yyyy/MM/dd HH:mm:ss')}
 ```
+
+If no timezone specified, the `parse` method defaults to the current timezone
+of a Concord agent running the process.
