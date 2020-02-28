@@ -48,6 +48,6 @@ various operations.
 - _Run_: Start [a process](../getting-started/processes.html) with a dedicated
   dialog to provide further details.
 - _Validate_: Load and validate the `concord.yml` and related Concord files.
-- _Triggers_: Show a list of configured [triggers](../getting-started/triggers.html)
+- _Triggers_: Show a list of configured [triggers](../triggers/overview.html)
 - _Refresh_: Reload the content of the repository.
 - _Delete_: Delete the Concord repository definition.
