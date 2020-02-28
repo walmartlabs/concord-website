@@ -267,7 +267,7 @@ backend](https://www.terraform.io/docs/backends/index.html) by default, but any
 of the standard Terraform state backends can be configured for use.
 
 When using the Concord state backend, on by default, the state is stored in
-Concord's internal [inventory system](../api/inventory.html) using the
+Concord's internal [JSON store](../getting-started/json-store.html) using the
 `tfState-${projectName}_${repositoryName}` template for the name. If you want to
 use a custom name for storing the state, the name can be overridden using the
 `stateId` parameter:
@@ -279,7 +279,7 @@ use a custom name for storing the state, the name can be overridden using the
     stateId: "myInventory"
 ```
 
-To completely remove the state, you can use the inventory [API](../api/inventory.html#delete-inventory). 
+To completely remove the state, you can use the [JSON Store API](../api/json-store.html). 
 
 Concord also supports the use of all [Terraform's backend types](https://www.terraform.io/docs/backends/types/index.html). To instruct the plugin to use the `s3` backend for storing state, use something like the following:
 
