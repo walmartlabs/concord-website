@@ -22,9 +22,12 @@ The REST API provides support for the following operations related to secrets:
 - [Get Public SSH Key of Secret](#get-key)
 - [Delete a Secret](#delete-secret)
 - [List Secrets](#list-secrets)
-
+- [List Current Access Rules](#list-current-access-rules)
+- [Update Access Rules](#update-access-rules)
+- [Bulk Update Access Rules](#bulk-update-access-rules)
 
 <a name="create-secret"/>
+
 ## Create a Secret
 
 Creates a new secret to be stored in Concord.
@@ -159,6 +162,7 @@ https://concord.example.com/api/v1/org/Default/secret
 ```
 
 <a name="update-secret"/>
+
 ## Update a Secret
 
 Updates parameters of an existing secret.
@@ -191,7 +195,8 @@ Updates parameters of an existing secret.
     }
     ```
 
-<a name="metadata>
+<a name="metadata"/>
+
 ## Get Metadata of Secret
 
 Retrieves metadata of an existing secret.
@@ -221,6 +226,7 @@ Retrieves metadata of an existing secret.
     ```
 
 <a name="get-key"/>
+
 ## Get Public SSH Key of Secret
 
 Returns a public key from an existing key pair of a secret.
@@ -268,6 +274,7 @@ The value of the `name` attribute e.g. `myKey` identifies the key for
 usage in Concord.
 
 <a name="delete-secret"/>
+
 ## Delete a Secret
 
 Deletes a secret and associated keys.
@@ -289,7 +296,6 @@ Deletes a secret and associated keys.
     }
     ```
 
-<a name="list-secrets"/>
 ## List Secrets
 
 List all existing secrets in a specific organization.
@@ -314,4 +320,104 @@ List all existing secrets in a specific organization.
       { "name": "...", "type": "..." },
       { "name": "...", "type": "..." }
     ]
+    ```
+
+## List Current Access Rules
+
+Returns secrets's current access rules.
+
+* **URI** `/api/v1/org/${orgName}/secret/${secretName}/access`
+* **Method** `GET`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [
+      {"teamId": "...", "level":  "..."},
+      ...
+    ]
+    ```
+
+## Update Access Rules
+
+Updates secrets's access rules for a specific team.
+
+* **URI** `/api/v1/org/${orgName}/secret/${secretName}/access`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "teamId": "9304748c-81e6-11e9-b909-0fe0967f269a",
+      "orgName": "myOrg",
+      "teamName": "myTeam",
+      "level": "READER"
+    }
+    ```
+    
+    Either `teamId` or `orgName` and `teamName` combinations are allowed.
+    The `level` parameter accepts one of the three possible values:
+    - `READER`
+    - `WRITER`
+    - `OWNER`
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
+    ```
+* **Example**
+    ```
+    curl -ikn -H 'Content-Type: application/json' \
+    -d '{"orgName": "MyOrg", "teamName": "myTeam", "level": "READER"}' \
+    http://concord.example.com/api/v1/org/MyOrg/secret/MySecret/access
+    ```
+
+## Bulk Update Access Rules
+
+Updates secrets's access rules for multiple teams.
+
+* **URI** `/api/v1/org/${orgName}/secret/${secretName}/access/bulk`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [{
+      "teamId": "9304748c-81e6-11e9-b909-0fe0967f269a",
+      "orgName": "myOrg",
+      "teamName": "myTeam",
+      "level": "READER"
+    }]
+    ```
+    
+    Accepts a list of access rule elements. See [the non-bulk version](#update-access-rules)
+    of this method for description.
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
     ```
