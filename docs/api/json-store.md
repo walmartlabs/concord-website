@@ -456,7 +456,7 @@ Executes a previously created query using the submitted body as the query's
 parameter. Returns a list of rows.
 
 * **URI** `/api/v1/org/${orgName}/jsonstore/${storeName}/query/${queryName}/exec`
-* **Method** `DELETE`
+* **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
     any valid JSON object.
