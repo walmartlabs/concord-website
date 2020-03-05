@@ -26,6 +26,7 @@ application deployments with Concord.
 - [Output Variables](#out)
 - [Extra Modules](#extra-modules)
 - [External Roles](#external-roles)
+- [Log Filtering](#log-filtering)
 - [Limitations](#limitations)
 
 ## Usage
@@ -113,6 +114,7 @@ following sections:
 - `dockerImage`: optional configuration to specify
 - `dynamicInventoryFile`: string, path to a dynamic inventory
   script. See also [Dynamic inventories](#dynamic-inventories) section;
+- `enableLogFiltering`: boolean, see [Log Filtering](#log-filtering) section;
 - `extraEnv`: JSON object, additional environment variables
 - `extraVars`: JSON object, used as `--extra-vars`. See also
 the [Input Variables](#input-variables) section;
@@ -790,6 +792,25 @@ It is possible to put such `ansibleParams` into the [default process
 configuration](../getting-started/configuration.html#default-process-variables)
 and make it the system default. If you're using a hosted Concord instance,
 contact your administrator if such defaults are available.
+
+## Log Filtering
+
+The plugin provides an optional mode when variables that might contain
+sensitive data are prevented from appearing in the log.
+
+To enable this mode, set `enableLogFiltering` to `true` in the task call
+parameters:
+
+```yaml
+- task: ansible
+  in:
+    enableLogFiltering: true
+```
+
+If the filter detects a variable with `password`, `credentials`, `secret`,
+`ansible_password` or `vaultpassword` in its name or value, then the value
+appears as `******` in the log. Additionally, the `no_log` mode is enabled
+for steps that include such variables.
 
 ## Limitations
 
