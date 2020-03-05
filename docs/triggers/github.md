@@ -11,15 +11,14 @@ Currently Concord supports two different implementations of `github` triggers:
 straightforward to use in complex use cases like listening for multiple
 repositories.
 
-- [GitHub Triggers](#github)
-  - [Version 2](#github-v2)
-  - [Version 1](#github-v1)
-  - [Migration](#github-migration)
-  - [Examples](#examples)
-    - [Push Notifications](#push-notifications)
-    - [Pull Requests](#pull-requests)
-    - [Organization Events](#organization-events)
-    - [Common Events](#common-events)
+- [Version 1](#github-v1)
+- [Version 2](#github-v2)
+- [Migration](#github-migration)
+- [Examples](#examples)
+  - [Push Notifications](#push-notifications)
+  - [Pull Requests](#pull-requests)
+  - [Organization Events](#organization-events)
+  - [Common Events](#common-events)
 
 The default version is configured in [the server configuration file](../getting-started/configuration.html#server-cfg-file).
 Ask your Concord instance's administrator which version is the default version

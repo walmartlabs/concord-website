@@ -6,9 +6,20 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
+- [Version 2](#oneops-v2)
+- [Version 1](#oneops-v1)
+- [Migration](#oneops-migration)
+
 Using `oneops` as an event source allows Concord to receive events from
 [OneOps](https://oneops.com). You can configure event properties in the OneOps
 notification sink, specifically for use in Concord triggers.
+
+Currently Concord supports two different implementations of `oneops` triggers:
+`version: 1` and `version: 2`.
+
+<a name="oneops-v2"/>
+
+## Version 2
 
 Deployment completion events can be especially useful:
 
@@ -19,12 +30,14 @@ flows:
   
 triggers:
 - oneops:
-    org: "myOrganization"
-    asm: "myAssembly"
-    env: "myEnvironment"
-    platform: "myPlatform"
-    type: "deployment"
-    deploymentState: "complete"
+    version: 2
+    conditions:
+      org: "myOrganization"
+      asm: "myAssembly"
+      env: "myEnvironment"
+      platform: "myPlatform"
+      type: "deployment"
+      deploymentState: "complete"
     useInitiator: true
     entryPoint: onDeployment
 ```
@@ -46,4 +59,56 @@ flows:
       inventory:
         hosts:
           - "${event.payload.cis.public_ip}"
+```
+
+<a name="oneops-v1"/>
+
+## Version 1
+
+```yaml
+flows:
+  onDeployment:
+  - log: "OneOps has completed a deployment: ${event}"
+
+triggers:
+- oneops:
+    version: 1 # optional, depends on the environment's defaults
+    org: "myOrganization"
+    asm: "myAssembly"
+    env: "myEnvironment"
+    platform: "myPlatform"
+    type: "deployment"
+    deploymentState: "complete"
+    useInitiator: true
+    entryPoint: onDeployment
+```
+
+<a name="oneops-migration"/>
+
+### Migrating OneOps trigger from v1 to v2
+
+In `version: 2`, the trigger conditions are moved into a `conditions` field:
+
+```
+# v1
+- oneops:
+    org: "myOrganization"
+    asm: "myAssembly"
+    env: "myEnvironment"
+    platform: "myPlatform"
+    type: "deployment"
+    deploymentState: "complete"
+    useInitiator: true
+    entryPoint: onDeployment
+# v2
+- oneops:
+    conditions:
+      org: "myOrganization"
+      asm: "myAssembly"
+      env: "myEnvironment"
+      platform: "myPlatform"
+      type: "deployment"
+      deploymentState: "complete"
+    useInitiator: true
+    entryPoint: onDeployment
 ```
