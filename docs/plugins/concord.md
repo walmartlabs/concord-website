@@ -56,6 +56,8 @@ following sections:
 organization of the calling process;
 - `outVars` - list of string values, out variables to capture;
 - `payload` - path to a ZIP archive or a directory, the process' payload;
+- `requirements` - object, allows specifying the process'
+[requirements](../getting-started/concord-dsl.html#requirements); 
 - `project` - string, name of the process' project;
 - `repo` - string, name of the project's repository to use;
 - `repoBranchOrTag` - string, overrides the configured branch or tag name of
