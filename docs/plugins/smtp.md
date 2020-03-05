@@ -28,6 +28,9 @@ flows:
         message: "My message"
 ```
 
+The `debug` - boolean parameter, if true the plugin logs additional debug
+information, defaults to `false`.
+
 The `mail` input parameters includes the parameters `from` to specify the email
 address to be used as the sender address, `to` for the recipient address,
 `subject` for the message subject and `message` for the actual message body.
