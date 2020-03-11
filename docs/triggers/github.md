@@ -266,17 +266,17 @@ organization:
       githubRepo: ".*"
 ```
 
-To trigger a process when a team is added or removed to a repository in the current
-GitHub organization:
+To trigger a process when a team is added to the current repository:
 
 ```yaml
 - github:
     version: 2
-    entryPoint: "onTeamChange"
+    entryPoint: "onTeamAdd"
     conditions:
-      type: "team"
-      githubRepo: ".*"
+      type: "team_add"
 ```
+
+
 
 ### Common Events
 
