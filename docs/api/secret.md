@@ -421,3 +421,34 @@ Updates secrets's access rules for multiple teams.
       "result": "UPDATED"
     }
     ```
+
+## Move Secret to Another Organization
+
+Moves the Secret to the specified Organization (through Organization name ID)
+
+* **URI** `/api/v1/org/${orgName}/secret/${secretName}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```
+    Content-Tupe: application/json
+    ```
+
+    ```json
+    {
+      "orgName": "anotherOrg"
+    }
+    ```
+    Also accepts `orgId` (Unique Organization ID) instead of `orgName` 
+    in the request body.
+* **Success Response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
+    ```

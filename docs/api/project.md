@@ -337,3 +337,35 @@ Updates project's access rules for multiple teams.
       "result": "UPDATED"
     }
     ```
+
+## Move Project to Another Organization
+
+Moves the project to the specified Organization (through Organization name ID)
+
+* **URI** `/api/v1/org/${orgName}/project`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```
+    Content-Tupe: application/json
+    ```
+
+    ```json
+    {
+      "projectName": "myProject",
+      "orgName": "anotherOrg"
+    }
+    ```
+    Also accepts `orgId` (Unique Organization ID) instead of `orgName` 
+    in the request body.
+* **Success Response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
+    ```
