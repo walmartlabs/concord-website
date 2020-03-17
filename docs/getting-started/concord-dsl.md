@@ -424,6 +424,67 @@ details about the process event recording.
 
 ### Requirements
 
+A process can have a specific set of `requirements` configured. Requirements
+are used to control where the process is executed and what kind of resources it
+requires.
+
+The server uses `requirements.agent` value to determine which agents it can set
+the process to. For example, if the process specifies
+
+```yaml
+configuration:
+  requirements:
+    agent:
+      favorite: true
+``` 
+
+and there is an agent with
+
+```
+concord-agent {
+  capabilities = {
+    favorite = true
+  }
+}
+```
+
+in its configuration file then it is a suitable agent for the process.
+
+Following rules are used when matching `requirements.agent` values of processes
+and agent `capabilities`:
+- if the value is present in `capabilities` but missing in `requirements.agent`
+is is **ignored**;
+- if the value is missing in `capabilities` but present in `requirements.agent`
+then it is **not a match**;
+- string values in `requirements.agent` are treated as **regular expressions**,
+i.e. in pseudo code `capabilities_value.regex_match(requirements_value)`;
+- lists in `requirements.agent` are treated as "one or more" match, i.e. if one
+or more elements in the list must match the value from `capabilities`;
+- other values are compared directly.
+
+More examples:
+
+```yaml
+configuration:
+  requirements:
+    agent:
+      size: ".*xl"
+      flavor:
+        - "vanilla"
+        - "chocolate"
+```
+
+matches agents with:
+
+```
+concord-agent {
+  capabilities = {
+    size = "xxl"
+    flavor = "vanilla"
+  }
+}
+```
+
 Custom `jvm` arguments can be specified in the `requirements` section of the
 `configuration` object. [Concord Agent](./index.html/#concord-agent) pass these
 arguments to the process' JVM:
