@@ -198,7 +198,7 @@ During its life, a process can go though various statuses:
 
 - `NEW` - the process start request is received, passed the initial validation
 and saved;
-- `PREPARING` - the start request is being processes. During this status,
+- `PREPARING` - the start request is being processed. During this status,
 Server prepares the initial process state;
 - `ENQUEUED` - the process is ready to be picked up by one of the Agents;
 - `STARTING` - the process was dispatched to an Agent and is being prepared to
