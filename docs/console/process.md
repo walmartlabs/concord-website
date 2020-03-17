@@ -6,6 +6,10 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }} 
 
+- [Process Metadata](#process-metadata)
+- [Built-in Columns](#built-in-columns)
+- [Examples](#examples)
+
 A process is the execution of a workflow defined by the combination of request
 data, a user's files, project templates, and the contents of a repository. These
 four components result in a specific process that is executed. This process and
@@ -18,7 +22,7 @@ World` in the log as shown in the
 The Concord Console provides comprehensive access to process data on the
 _Processes_ list as well as in a separate view for a specific process.
 
-<a name="metadata"/>
+<a name="process-metadata"/>
 
 ## Process Metadata
 
@@ -99,6 +103,8 @@ has the following structure:
 - `searchOptions` - optional, a list of values for the dropdown element of the
   column filter. See [the examples](#examples).
 
+<a name="built-in-columns"/>
+
 ### Built-in Columns
 
 Concord Console provides several built-in column types, that can be used in
@@ -108,14 +114,19 @@ the process list configuration:
 - `instanceId` - the process' ID with a link to the process' details;
 - `projectName` - the process' project with a link to the project's process
   list;
-- `repoName` - the process' repository with a link to the project's repository;
 - `initiator` - the process initiator's user name;
-- `createdAt` - date-time of the process creation;
-- `lastUpdatedAt` - date-time when the process was last seen alive.
+- `createdAt` - date-time of the process creation.
+
+Please note that `repoName` and `lastUpdatedAt` have been removed from the list of default columns.
+You can still add them as custom columns as shown in the [example below](#example2).
+
+<a name="examples"/>
 
 ### Examples
 
-A column with a dropdown filter:
+<a name="example1"/>
+
+##### A column with a dropdown filter:
 
 ```json
 {
@@ -123,7 +134,7 @@ A column with a dropdown filter:
         "ui": {
             "processList": [
                 {
-                    "source": "meta.MyValue",
+                    "source": "meta.myValue",
                     "caption": "My Value",
                     "searchType": "equals",
                     "searchValueType": "string",
@@ -147,3 +158,49 @@ A column with a dropdown filter:
 The column's filter will look like this:
 
 <img src="../../assets/img/screenshots/process-list-meta-dropdown.gif" class="img-responsive"/>
+
+<br />
+
+<a name="example2"/>
+
+##### Custom columns `repoName` and `lastUpdatedAt`:
+
+```json
+{
+    "name": "concord-pipeline",
+    "meta": {
+        "ui": {
+            "processList": [
+                {
+                    "builtin": "status"
+                },
+                {
+                    "builtin": "instanceId"
+                },
+                {
+                    "render": "repoName",
+                    "source": "repoName",
+                    "caption": "Repository"
+                },
+                {
+                    "source": "meta.myValue",
+                    "caption": "My Value",
+                    "searchType": "substring",
+                    "searchValueType": "string"
+                },
+                {
+                    "builtin": "initiator"
+                },
+                {
+                    "builtin": "createdAt"
+                },
+                {
+                    "render" : "timestamp",
+                    "source" : "lastUpdatedAt",
+                    "caption" : "Updated"
+                }
+            ]
+        }
+    }
+}
+```
