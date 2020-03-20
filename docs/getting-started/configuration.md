@@ -15,37 +15,12 @@ needs to define their processes and further details. Check out
 
 The following configuration details are available:
 
-- [Common Environment Variables](#common-environment-variables)
 - [Server Configuration File](#server-cfg-file)
 - [Server Environment Variables](#server-environment-variables)
 - [Agent Configuration File](#agent-cfg-file)
+- [Common Environment Variables](#common-environment-variables)
 - [Process Runtime Variables](#process-runtime-variables)
 - [Default Process Variables](#default-process-variables)
-
-<a name="common-environment-variables"/>
-
-## Common Environment Variables
-
-<a name="dependencies"/>
-### Dependencies
-
-| Variable           | Description                           | Default value |
-|--------------------|---------------------------------------|---------------|
-| CONCORD_MAVEN_CFG  | Path to a JSON file                   | _empty_       |
-
-Expected format of the configuration file:
-
-```json
-{
-  "repositories": [
-    {
-      "id": "central",
-      "layout": "default",
-      "url": "https://repo.maven.apache.org/maven2/"
-    }
-  ]
-}
-```
 
 <a name="server-cfg-file"/>
 
@@ -149,6 +124,66 @@ The complete configuration file for the Agent can be found in
 [the source code repository]({{ site.concord_source}}tree/master/agent/src/main/resources/concord-agent.conf).
 
 The configuration file is optional for local development.
+
+## Common Environment Variables
+
+### Dependencies
+
+| Variable           | Description                           | Default value |
+|--------------------|---------------------------------------|---------------|
+| CONCORD_MAVEN_CFG  | Path to a JSON file                   | _empty_       |
+
+See below for the expected format of the configuration file.
+
+Complete example:
+
+```json
+{
+  "repositories": [
+    {
+      "id": "central",
+      "layout": "default",
+      "url": "https://repo.maven.apache.org/maven2/",
+      "auth": {
+        "username": "...",
+        "password": "..."
+      },
+      "snapshotPolicy": {
+        "enabled": true,
+        "updatePolicy": "never",
+        "checksumPolicy": "ignore"
+      },
+      "releasePolicy": {
+        "enabled": true,
+        "updatePolicy": "never",
+        "checksumPolicy": "ignore"
+      }
+    },
+
+    {
+      "id": "private",
+      "url": "https://repo.example.com/maven2/"
+    } 
+  ]
+}
+```
+
+Parameters:
+- `id` - string, mandatory. Arbitrary ID of the repository;
+- `layout` - string, optional. Maven repository layout. Default value is
+`default`;
+- `url` - string, mandatory. URL of the repository;
+- `auth` - object, optional. Authentication parameters, see
+the [AuthenticationContext](https://maven.apache.org/resolver/apidocs/org/eclipse/aether/repository/AuthenticationContext.html)
+javadoc for the list of accepted parameters;
+- `snapshotPolicy` and `releasePolicy` - object, optional. Policies for
+snapshots and release versions. Parameters: 
+  - `enabled` - boolean, optional. Enabled or disables the category. Default
+  value is `true`;
+  - `updatePolicy` - string, optional. See [RepositoryPolicy](https://maven.apache.org/resolver/apidocs/org/eclipse/aether/repository/RepositoryPolicy.html)
+  javadoc for the list of accepted values;
+  - `checksumPolicy` - string, optional. See [RepositoryPolicy](https://maven.apache.org/resolver/apidocs/org/eclipse/aether/repository/RepositoryPolicy.html)
+  javadoc for the list of accepted values;
 
 ## Process Runtime Variables
 
