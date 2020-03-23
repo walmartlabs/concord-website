@@ -236,7 +236,7 @@ flows:
 
 The `filePath` must be relative to the process' `workDir`.
 
-<a name="transition"/>
+<a name="transitionIssue"/>
 
 ## Transition an Issue
 
