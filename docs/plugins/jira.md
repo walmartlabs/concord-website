@@ -160,9 +160,9 @@ Additional parameters to use are:
 After the action runs, the identifier for the created issue is available in the
 `issueId` variable.
 
-> To see possible values for custom fields we recommend to use the `issue` endpoint
-> of the API and inspect the return object of an existing ticket e.g.
-> https:https://jira.example.com/rest/api/2/issue/issueId
+> To see possible values for custom fields we recommend to use the `issue` API endpoint
+> on an existing ticket and inspect the return object e.g.
+> https://jira.example.com/rest/api/2/issue/{issueId}
 
 <a name="updateIssue"/>
 
