@@ -311,6 +311,8 @@ not the process timeout.
 
 If an `onTimeout` flow fails, it is automatically retried up to three times.
 
+**Note:** The process timeout cancellation is not applied to processes in `SUSPENDED` state.
+
 ### Debug
 
 Enabling the `debug` configuration option causes Concord to log paths of all

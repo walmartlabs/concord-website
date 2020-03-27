@@ -195,7 +195,7 @@ Updates parameters of an existing secret.
     }
     ```
 
-<a name="metadata"/>
+<a name="meta-data"/>
 
 ## Get Metadata of Secret
 

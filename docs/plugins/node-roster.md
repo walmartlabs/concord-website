@@ -15,10 +15,6 @@ data in Concord flows.
 - [Usage](#usage)
     - [Common Parameters](#common-parameters)
     - [Result Format](#result-format)
-    - [Find the Last Deployer](#find-the-last-deployer)
-    - [Find Hosts by Project](#find-hosts-by-project)
-    - [Find Hosts by Artifact](#find-hosts-by-artifact)
-    - [Get All Known Hosts](#get-all-known-hosts)
     - [Get Host Facts](#get-host-facts)
     - [Find Artifacts By Host](#find-artifacts-by-host)
 
