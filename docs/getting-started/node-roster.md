@@ -35,7 +35,7 @@ Future versions will further extend this list.
 
 ## Example
 
-A simple example of a flow an a playbook that downloads a remote file and puts
+A simple example of a flow and a playbook that downloads a remote file and puts
 it onto the remote host's directory.
 
 The flow:
@@ -72,7 +72,7 @@ The playbook:
 ```
 
 To run the example, either put it into a Git repository and follow
-the Quick Start guide or start it using `curl` (in the directory with
+the [Quick Start guide](../getting-started/quickstart.html) or start it using `curl` (in the directory with
 `concord.yml` and `playbook.yml`):
 ```
 $ curl -i -u CONCORD_USER \

@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-**Note:** this is a beta feature. Although changes in the API are unlikely,
+**Note:** This is a beta feature. Although changes in the API are unlikely,
 changes in behavior are possible. The main intent for the JSON Store API is
 to be used within Concord flows. Future versions may restrict the API for
 external usage.
@@ -24,7 +24,7 @@ using the old API is available both trough the Inventory and JSON Store APIs.
 ## Concepts
 
 Any Concord [organization](./orgs.html) can contain multiple JSON stores.
-Each store must have a unique (for the organization) name. Just like projects
+Each store must have a name that's unique for that organization. Just like projects
 or secrets, JSON stores can be either _public_ or _private_. Data in public
 stores can be read by any user in the same organization as the store.
 Private stores require explicit access rules.
