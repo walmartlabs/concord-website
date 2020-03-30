@@ -18,12 +18,12 @@ automatically identified based on the file extension used. They can be stored
 as external files and invoked from the Concord YAML file or they can be inline
 in the file.
 
-[Flow variables](#variables), [Concord tasks](#tasks) and other Java methods can
-be accessed from the scripts due to the usage of the Java Scripting API. The
-script and your Concord processes essentially run within the same context on the
-JVM.
+[Flow variables](#using-flow-variables), [Concord tasks](#tasks) and other Java
+methods can be accessed from the scripts due to the usage of the Java Scripting
+API. The script and your Concord processes essentially run within the same
+context on the JVM.
 
-- [Using Flow Variables](#variables)
+- [Using Flow Variables](#using-flow-variables)
 - [Using Concord Tasks](#tasks)
 - [Error Handling](#error-handling)
 - [Javascript](#javascript)
@@ -31,7 +31,6 @@ JVM.
 - [Python](#python)
 - [Ruby](#ruby)
 
-<a name="variables">
 
 ## Using Flow Variables
 
@@ -74,8 +73,6 @@ To set a variable, you need to use `execution#setVariable` method:
 > with forms or when the process suspends. Refer to the specific language
 > section for more details.
 
-<a name="tasks">
-
 ## Using Concord Tasks
 
 Scripts can retrieve and invoke all tasks available for flows by name:
@@ -91,12 +88,10 @@ The number and type of arguments depend on the particular task's method. In
 this example, the script calls `call` method of the [SlackTask](https://github.com/walmartlabs/concord/blob/1e053db578b9550e0aac656e1916eaf8f8eba0b8/plugins/tasks/slack/src/main/java/com/walmartlabs/concord/plugins/slack/SlackTask.java#L54)
 instance.
 
-The `execution` variable is an alias for [context](./processes.html#variables)
+The `execution` variable is an alias for [context](../processes-v1/index.html#context)
 and automatically provided by the runtime for all supported script engines.
 
-<a name="external-scripts">
-
-## External scripts
+## External Scripts
 
 Scripts can be automatically retrieved from an external server:
 
@@ -107,8 +102,6 @@ Scripts can be automatically retrieved from an external server:
 The file extension in the URL must match the script engine's
 supported extensions -- e.g. `.groovy` for the Groovy language, `.js`
 for JavaScript, etc.
-
-<a name="error-handling">
 
 ## Error Handling
 

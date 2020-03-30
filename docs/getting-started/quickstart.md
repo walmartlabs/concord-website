@@ -133,13 +133,13 @@ Congratulations, your first process flow execution completed successfully!
 You can now learn more about flows and perform tasks such as
 
 - Add a [form](./forms.html) to capture user input;
-- Using [variables](./concord-dsl.html#setting-variables);
-- [Groups of steps](./concord-dsl.html#groups-of-steps);
-- Add [conditional expressions](./concord-dsl.html#conditional-expressions);
-- [Calling other flows](./concord-dsl.html#calling-other-flows);
+- Using [variables](../processes-v1/index.html#variables);
+- [Groups of steps](../processes-v1/flows.html#groups-of-steps);
+- Add [conditional expressions](../processes-v1/flows.html#conditional-expressions);
+- [Calling other flows](../processes-v1/flows.html#calling-other-flows);
 - Work with [Ansible](../plugins/ansible.html), [Jira](../plugins/jira.html) and [other](../plugins/) tasks;
 - Maybe even [implement your own task](./tasks.html#create-task)
 
 and much more. Have a look at all the documentation about the
-[Concord DSL](./concord-dsl.html), [forms](./forms.html),
+[Concord DSL](../processes-v1/flows.html), [forms](./forms.html),
 [scripting](./scripting.html) and other aspects to find out more!

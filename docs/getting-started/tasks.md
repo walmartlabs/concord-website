@@ -22,9 +22,9 @@ _plugins_ of Concord.
 
 Tasks allow you to call Java methods implemented in one of the projects.
 In order to be able to use a task a URL to the JAR containing the implementation
-has to be added as a [dependency](./concord-dsl.html#dependencies). Typically
-the JAR is published to a repository manager and a URL pointing to the JAR in
-the repository is used.
+has to be added as a [dependency](../processes-v1/configuration.html#dependencies).
+Typically the JAR is published to a repository manager and a URL pointing to
+the JAR in the repository is used.
 
 You can invoke a task via an expression or with the `task` step type.
 
@@ -119,7 +119,7 @@ public class MyTask implements Task {
 }
 ```
 
-This task can be called using an [expression](./concord-dsl.html#expressions)
+This task can be called using an [expression](../processes-v1/flows.html#expressions)
 in short or long form:
 
 ```yaml
@@ -256,8 +256,8 @@ public class MyTask implements Task {
 
 The `DependencyManager` is an `@Inject`-able service that takes care of
 resolving, downloading and caching URLs. It supports all URL types as
-the regular [dependencies](./concord-dsl.html#dependencies) section in Concord
-YAML files - `http(s)`, `mvn`, etc.
+the regular [dependencies](../processes-v1/configuration.html#dependencies)
+section in Concord YAML files - `http(s)`, `mvn`, etc.
 
 Typically, cached copies are persistent between process executions (depends on
 the Concord's environment configuration).

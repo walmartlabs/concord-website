@@ -1,218 +1,116 @@
 ---
 layout: wmt/docs
-title:  Processes
+title:  Overview
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title }}
+# {{ page.title}}
 
-A process represents an execution of a Concord project using one of the
-defined process definitions and additional supplied resources.
+A process is an execution of flows written in [Concord DSL](../processes-v1/index.html#dsl)
+running in a [project](../getting-started/projects.html) or standalone.
+A process can represent a single deployment, CI/CD job or any other, typically
+a "one-off", type of workload.
 
-It can be started [with the run action for a repository in the  Concord
-Console](../console/repository.html) or by using the [process
-API](../api/process.html#start).
-
-- [Structure](#structure)
-- [Project Files](#project-files)
-- [Request Data](#request-data)
-- [Provided Variables](#variables)
-- [Output Variables](#output-variables)
-- [Execution](#execution)
-- [Process Events](#process-events)
-
-<a name="structure"/>
-
-## Structure
-
-Console expects the following structure of a process working directory:
-
-- `concord.yml`: the [project file](#project-file) containing the main project
-information and declarations;
-- `concord/*.yml`: directory containing extra Concord YAML files;
-- `lib`: directory for additional runtime dependencies.
-
-Anything else will be copied as-is and will be available for a process. The
-plugins can require other files to be present in a payload.
-
-The same structure should be used when storing your project in a git repository.
-Concord simply clones the repository into the process execution space.
-
-<a name="project-files"/>
-## Project Files
-
-A payload archive can contain the Concord file `concord.yml`. It uses the
-[Concord DSL](./concord-dsl.html). This file will be loaded first and can
-contain general configuration, process flow definitions, forms, profiles and
-more.
-
-<a name="request-data"/>
-
-## Request Data
-
-A payload's `_main.json` file is either supplied by users or created by the
-server from a user's request data.
-
-The request's JSON format:
-
-```json
-{
-  "entryPoint": "...",
-  "activeProfiles": ["myProfile", "..."],
-  "otherCfgVar": 123,
-  "arguments": {
-    "myForm": {
-      "name": "John"
-    }
-  }
-}
-```
-
-The `entryPoint` parameter defines the flow to be used. The 
-`activeProfiles` parameter is a list of project file's profiles that will be
-used to start a process. If not set, a `default` profile will be used.
-
-<a name="variables"/>
-
-## Provided Variables
-
-Concord automatically provides several built-in variables upon process
-execution in addition to the defined [variables](./concord-dsl.html#variables):
-
-- `execution` or `context`: a reference to a context variables map of a current execution,
-instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs/concord/blob/master/sdk/src/main/java/com/walmartlabs/concord/sdk/Context.java);
-- `txId`: unique identifier of a current execution;
-- `tasks`: allows access to available tasks (for example:
-  `${tasks.get('oneops')}`);
-- `workDir`: path to the working directory of a current process;
-- `initiator`: information about the user who started a process:
-  - `initiator.username`: login, string;
-  - `initiator.displayName`: printable name, string;
-  - `initiator.groups`: list of user's groups;
-  - `initiator.attributes`: other LDAP attributes; for example
-    `initiator.attributes.mail` contains the email address.
-- `currentUser`: information about the current user. Has the same structure
-  as `initiator`;
-- `requestInfo`: additional request data:
-  - `requestInfo.query`: query parameters of a request made using user-facing
-    endpoints (e.g. the portal API);
-  - `requestInfo.ip`: client IP address, where from request is generated.
-  - `requestInfo.headers`: headers of request made using user-facing endpoints.
-- `projectInfo`: project's data:
-  - `projectInfo.orgId` - the ID of the project's organization;
-  - `projectInfo.orgName` - the name of the project's organization;
-  - `projectInfo.projectId` - the project's ID;
-  - `projectInfo.projectName` - the project's name;
-  - `projectInfo.repoId` - the project's repository ID;
-  - `projectInfo.repoName` - the repository's name;
-  - `projectInfo.repoUrl` - the repository's URL;
-  - `projectInfo.repoBranch` - the repository's branch;
-  - `projectInfo.repoPath` - the repository's path (if configured);
-  - `projectInfo.repoCommitId` - the repository's last commit ID;
-  - `projectInfo.repoCommitAuthor` - the repository's last commit author;
-  - `projectInfo.repoCommitMessage` - the repository's last commit message.
-- `processInfo`: the current process' data:
-  - `processInfo.activeProfiles` - list of active profiles used for the current
-  execution.
-
-LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
-
-Availability of other variables and "beans" depends on the installed Concord
-plugins and the arguments passed in at the process invocation and stored in the
-request data.
-
-<a name="output-variables"/>
-## Output Variables
-
-Concord has the ability to return process data when a process completes.
-The names or returned variables should be declared when a process starts
-using `multipart/form-data` parameters:
-
-```bash
-$ curl ... -F out=myVar1 http://concord.example.com/api/v1/process
-{
-  "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b"
-}
-
-# wait for completion
-
-$ curl .. http://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b
-{
-  "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b",
-  "meta": {
-    out" : {
-      "myVar1" : "my value"
-    },
-  }  
-}
-```
-
-or declared in the `configuration` section:
+Let's take a look at an example:
 
 ```yaml
 configuration:
-  out:
-    - myVar1
+  arguments:
+    todoId: "1"
+
+flows:
+  default:
+    - task: http
+      in:
+        url: "https://jsonplaceholder.typicode.com/todos/${todoId}"
+        response: json
+        out: myTodo
+
+    - if: "${myTodo.content.completed}"
+      then:
+        - log: "All done!"
+      else:
+        - log: "You got a todo item: ${myTodo.content.title}"
 ```
 
-It is also possible to retrieve a nested value:
+When executed this flow performs a number of steps:
+- fetches a JSON object from the specified URL;
+- saves the response as a flow variable;
+- checks if the retrieved "todo" is completed or not;
+- prints out a message depending whether the condition is true or not. 
 
-```bash
-$ curl ... -F out=a.b.c http://concord.example.com/api/v1/process
-```
+The example demonstrates a few concepts:
+- flow definitions use Concord's YAML-based [DSL](./v1/index.html#dsl);
+- flows can call [tasks](../getting-started/tasks.md). And tasks can perform
+useful actions;
+- flows can use [conditional expressions](./v1/flows.html#conditional-expressions);
+- tasks can save their results as flow [variables](./v1/flows.html#setting-variables)
+- an [expression language](./v1/flows.html#expressions) can be used to work
+with data inside flows;
 
-In this example, Concord looks for variable `a`, its field `b` and
-the nested field `c`.
+There are multiple ways how to execute a Concord process: using a Git
+repository, sending the necessary files in [the API request](../api/process.html#start-a-process),
+using a [trigger](../triggers/index.html), etc.
 
-Additionally, the output variables can be retrieved as a JSON file:
-
-```bash
-$ curl ... http://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
-
-{"myVar1":"my value"}
-```
-
-Any value type that can be represented as JSON is supported.
-
-<a name="execution"/>
-
-## Execution
-
-Typically, a process is executed by the Concord Server using the following steps: 
+No matter how the process was started it goes through the same execution steps:
 
 - project repository data is cloned or updated;
 - binary payload from the process invocation is added to the workspace;
-- configuration from the project is used;
-- configuration from `project.yml` is merged;
-- configuration from an uploaded JSON file is merged;
-- configuration from request parameters and selected profiles is applied;
-- templates are downloaded and applied;
-- the payload is created and sent to an agent for execution;
-- dependencies are downloaded and put on the class-path;
+- configuration parameters from different sources are merged together;
+- [imports](./v1/index.html#imports) and [templates](../templates/index.html)
+are downloaded and applied;
+- the process is added to the queue;
+- one of the agents picks up the process from the queue;
+- the agent downloads the process state,
+[dependencies](./v1/index.html#dependencies) and `imports`;
+- the agent starts [the runtime](#runtime) in the process' working directory;
 - the flow configured as entry point is invoked.
-
-To start and manage new processes from within a running process use 
-the [Concord](../plugins/concord.html) task.
 
 During its life, a process can go though various statuses:
 
 - `NEW` - the process start request is received, passed the initial validation
-and saved;
+and saved for execution;
 - `PREPARING` - the start request is being processed. During this status,
-Server prepares the initial process state;
+the Server prepares the initial process state;
 - `ENQUEUED` - the process is ready to be picked up by one of the Agents;
 - `STARTING` - the process was dispatched to an Agent and is being prepared to
-  start on the Agent's side;
+start on the Agent's side;
 - `RUNNING` - the process is running;
 - `SUSPENDED` - the process is waiting for an external event (e.g. a form);
 - `RESUMING` - the Server received the event the process was waiting for and
-  now prepares the process' resume state;
+now prepares the process' resume state;
 - `FINISHED` - final status, the process was completed successfully. Or, at
-  least, all process-level errors were handled in the process itself;
+least, all process-level errors were handled in the process itself;
 - `FAILED` - the process failed with an unhandled error;
 - `CANCELLED` - the process was cancelled by a user;
 - `TIMED_OUT` - the process exceeded its
-  [execution time limit](./concord-dsl.html#process-timeout).
+[execution time limit](#process-timeout).
+
+## Runtime
+
+The runtime is what actually executes the process. It is an interpreter written
+in Java that executed flows written in [Concord DSL](../processes-v1/index.html#dsl).
+Typically is is executed in a separate JVM process.
+
+Currently there are two versions of the runtime:
+- [concord-v1](../processes-v1/index.html) - the current stable version, used
+by default;
+- [concord-v2](../processes-v2/index.html) - new and improved version
+introduced in 1.42.0. Not recommended for production usage yet.
+
+The runtime can be specified using `configuration.runtime` parameter in
+the `concord.yml` file:
+
+```yaml
+configuration:
+  runtime: "concord-v2"
+```
+
+or in the request parameters:
+
+```
+$ curl -F runtime=concord-v2 ... https://concord.example.com/api/v1/process
+```
 
 ## Process Events
 

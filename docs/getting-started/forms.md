@@ -8,8 +8,8 @@ side-navigation: wmt/docs-navigation.html
 
 Concord flows can provide simple web-based user interfaces with forms for data
 input from users. Forms are described declaratively in
-[Concord file](./concord-dsl.html) and [optionally contain custom
-HTML/CSS/JS/etc resources](#custom-forms).
+[Concord file](../processes-v1/flows.html) and optionally contain
+[custom HTML/CSS/JS/etc resources](#custom-forms).
 
 - [Form declaration](#declaration)
 - [Form fields](#fields)
@@ -131,7 +131,8 @@ flows:
 ```
 
 The variable has the same structure as `${initiator}` or `${currentUser}`
-(see [Provided Variables](./processes.html#variables) section).
+(see [Provided Variables](../processes-v1/index.html#provided-variables)
+section).
 
 <a name="using"/>
 

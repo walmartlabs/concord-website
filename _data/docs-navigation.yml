@@ -11,8 +11,6 @@ nav:
         context: /docs/getting-started/configuration
       - page: Quickstart
         context: /docs/getting-started/quickstart
-      - page: Concord DSL
-        context: /docs/getting-started/concord-dsl
       - page: Processes
         context: /docs/getting-started/processes
       - page: Projects
@@ -37,12 +35,34 @@ nav:
         context: /docs/getting-started/cli
       - page: Development
         context: /docs/getting-started/development
+  - title: Processes (v1)
+    id: processes-v1
+    collapse: /docs/processes-v1
+    subfolderitems:
+      - page: Overview
+        context: /docs/processes-v1/index
+      - page: Configuration
+        context: /docs/processes-v1/configuration
+      - page: Flows
+        context: /docs/processes-v1/flows
+      - page: Imports
+        context: /docs/processes-v1/imports
+      - page: Profiles
+        context: /docs/processes-v1/profiles
+      - page: Resources
+        context: /docs/processes-v1/resources
+  - title: Processes (v2)
+    id: processes-v2
+    collapse: /docs/processes-v2
+    subfolderitems:
+      - page: Overview
+        context: /docs/processes-v2/index
   - title: Triggers
     id: triggers
     collapse: /docs/triggers
     subfolderitems:
       - page: Overview
-        context: /docs/triggers/overview
+        context: /docs/triggers/index
       - page: GitHub
         context: /docs/triggers/github
       - page: Cron
