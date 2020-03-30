@@ -19,7 +19,7 @@ information about features and benefits of Concord.
 ## Processes
 
 Processes are the main concept of Concord. A process is an execution of
-[Concord Flows](./concord-dsl.html) in an isolated environment.
+[Concord Flows](../processes-v1/flows.html) in an isolated environment.
 
 A process can run in a [project](#projects), thus sharing configuration and
 resources (such as [the KV store](../plugins/key-value.html)) with other
@@ -27,7 +27,7 @@ processes in the same project.
 
 Processes can be suspended (typically using a [form](./forms.html) and resumed.
 While suspended processes are not consuming any resources apart from the DB
-disk space. See the [Process Execution](./processes.html#execution) section for
+disk space. See the [Process Overview](../processes/index.html) section for
 more details about the lifecycle of Concord processes.
 
 ## Projects

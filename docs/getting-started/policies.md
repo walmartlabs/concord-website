@@ -136,10 +136,9 @@ ANSIBLE:  [ERROR]: Task 'get_url (get_url)' is forbidden by the task policy: Fou
 ANSIBLE: forbidden URL
 ```
 
-The Ansible rule supports
-[regular JUEL expressions](./concord-dsl.html#expressions) which are evaluated
-each time the Ansible plugin starts using the current process' context. This
-allows users to create context-aware Ansible policies:
+The Ansible rule supports [regular JUEL expressions](../processes-v1/flows.html#expressions)
+which are evaluated each time the Ansible plugin starts using the current
+process' context. This allows users to create context-aware Ansible policies:
 
 ```json
 {
@@ -230,7 +229,8 @@ dependencies:
 ## Dependency Versions Rule
 
 The dependency versions rule provides a way to map `latest` version tags of
-[process dependencies](./concord-dsl.html#dependencies) to actual version values.
+[process dependencies](../processes-v1/configuration.html#dependencies) to
+actual version values.
 
 The syntax:
 
@@ -528,7 +528,7 @@ Those values take precedence over the values specified by users in the process'
 `configuration` section. The [defaultProcessCfg](#default-process-configuration-rule)
 rule can be used to set the initial values. 
 
-For example, to force a specific [processTimeout](./concord-dsl.html#timeout)
+For example, to force a specific [processTimeout](../processes-v1/configuration.html#process-timeout)
 value:
 
 ```json
@@ -566,7 +566,7 @@ Those values can be overriden by users their process' `configuration` sections.
 The [processCfg](#process-configuration-rule) rule can be used to override any
 user values. 
 
-For example, to set the default [processTimeout](./concord-dsl.html#timeout)
+For example, to set the default [processTimeout](../processes-v1/configuration.html#process-timeout)
 value:
 
 ```json
@@ -621,7 +621,7 @@ of processes for a specific status (see below);
 - `forkDepth` - the maximum allowed depth of process forks, i.e. how many
 _ancestors_ a process can have. Can be used to prevent "fork bombs";
 - `processTimeout` - limits the maximum allowed value of the
-[processTimeout parameter](./concord-dsl.html#timeout).
+[processTimeout parameter](../processes-v1/configuration.html#process-timeout).
 
 The process status rule has the following syntax:
 
