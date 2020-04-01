@@ -9,7 +9,7 @@ side-navigation: wmt/docs-navigation.html
 A repository is defined within a [project](./project.html) and defines a
 connection to a git repository. The git repository contains the Concord file
 that defines the workflows and more configuration using the
-[Concord DSL](../getting-started/concord-dsl.html)
+[Concord DSL](../processes-v1/index.html#dsl)
 
 Repositories are configured within a project in the Concord Console and listed
 in the _Repositories_ tab.
@@ -48,6 +48,6 @@ various operations.
 - _Run_: Start [a process](../getting-started/processes.html) with a dedicated
   dialog to provide further details.
 - _Validate_: Load and validate the `concord.yml` and related Concord files.
-- _Triggers_: Show a list of configured [triggers](../triggers/overview.html)
+- _Triggers_: Show a list of configured [triggers](../triggers/index.html)
 - _Refresh_: Reload the content of the repository.
 - _Delete_: Delete the Concord repository definition.

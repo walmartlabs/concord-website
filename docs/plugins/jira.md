@@ -31,7 +31,7 @@ Possible operations are:
 ## Usage
 
 To be able to use the `jira` task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+[dependency](../processes-v1/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -64,7 +64,7 @@ provided via usage of the [Crypto task](./crypto.html)
 
 The `apiUrl` configures the URL to the Jira REST API endpoint. It is best
 configured globally as
-[default process configuration](../getting-started/configuration.html#default-process-variable):
+[default process configuration](../getting-started/configuration.html#default-process-variables):
 with a `jiraParams` argument:
 
 ```yaml

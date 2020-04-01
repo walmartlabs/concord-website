@@ -37,7 +37,7 @@ task.
 ## Usage
 
 To be able to use the plugin in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+[dependency](../processes-v1/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -337,7 +337,7 @@ repositories.
 
 The `apiUrl` configures the GitHub API endpoint. It is best configured globally
 as 
-[default process configuration](../getting-started/configuration.html#default-process-variable):
+[default process configuration](../getting-started/configuration.html#default-process-variables):
 with a `githubParams` argument:
 
 ```yaml

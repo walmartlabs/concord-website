@@ -25,7 +25,7 @@ flow.
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+[dependency](../processes-v1/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -108,7 +108,7 @@ in the enviroment;
 - `planPath` - string value, path to the created plan file. The plugin stored
 such files as process attachments so they \"survive\" suspending/resuming the
 process or restoring from a
-[checkpoint](../getting-started/concord-dsl.html#checkpoints). The path is
+[checkpoint](../processes-v1/flows.html#checkpoints). The path is
 relative to the process' `${workDir}`;
 - `error` - string value, error of the last `terraform` execution (stderr).
 

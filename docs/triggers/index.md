@@ -61,7 +61,7 @@ Further:
 - Concord detects any matches of `parameter1` and `parameter2` with the external
   event's parameters;
 - `entryPoint` is the name of the flow that Concord starts when there is a match;
-- `activeProfiles` is the list of [profiles](../getting-started/concord-dsl.html#named-profiles-in-profiles)
+- `activeProfiles` is the list of [profiles](../processes-v1/profiles.html)
   to active for the process;
 - `arguments` is the list of additional parameters that are passed to the flow;
 - `exclusive` is the exclusivity info of the [exclusive group](#exclusive-triggers).
@@ -131,5 +131,5 @@ Any processes with the same `exclusive` value are automatically prevented from
 starting, if a running process in the same group exists. If you wish to enqueue
 the processes instead use `mode: "wait"`.
 
-See also [Exclusive Execution](../getting-started/concord-dsl.html#exclusive-execution)
+See also [Exclusive Execution](../processes-v1/configuration.html#exclusive-execution)
 section in the Concord DSL documentation.

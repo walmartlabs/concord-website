@@ -27,7 +27,7 @@ _Processes_ list as well as in a separate view for a specific process.
 ## Process Metadata
 
 Metadata exposed in the [process
-configuration](../getting-started/concord-dsl.html#metadata) can be used to
+configuration](../processes-v1/configuration.html#metadata) can be used to
 customize the data shown in the process list. For example, specific variables
 from the metadata can be used in additional columns and/or filters.
 

@@ -172,7 +172,7 @@ flows:
 ```
 
 The format is described in
-[Project file](../getting-started/processes.html#project-file) document.
+[Directory Structure](../processes-v1/index.html#directory-structure) document.
 
 Now you can submit the archive directly to the Process REST endpoint of Concord
 with the admin authorization or your user credentials as described in our
