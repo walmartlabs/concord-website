@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # Templates
 
-> Consider a simpler mechanism of [Imports](../getting-started/concord-dsl.html#imports)
+> Consider a simpler mechanism of [Imports](../processes-v1/configuration.html#imports)
 first.
 
 Templates allow users to share common elements between different

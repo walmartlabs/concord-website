@@ -7,7 +7,7 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 The checkpoint API can be used to list and restore
-[checkpoints created in a flow](../getting-started/concord-dsl.html#checkpoints).
+[checkpoints created in a flow](../processes-v1/flows.html#checkpoints).
 
 - [List Checkpoints](#list)
 - [Restore a Process](#restore)

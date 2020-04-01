@@ -132,7 +132,7 @@ global default process configuration.
  
 The simplest and cleanest way to activate the task and specify the SMTP server
 connection details is to set up a
-[default process configuration](../getting-started/configuration.html#default-process-variable):
+[default process configuration](../getting-started/configuration.html#default-process-variables):
 
 1. Under `configuration/dependencies`, specify the `smtp-tasks` plugin. 
 2. Add `smtpParams` as an `argument` and specify the SMTP server `host` and 

@@ -37,7 +37,7 @@ save the URL—to use in a Concord flow. Sample webhook URL for reference
 # Usage
 
 To be able to use the `MSTeams` task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+[dependency](../processes-v1/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -60,7 +60,7 @@ common for all operations:
   `false`.
 
 The `webhookTypeId`, `tenantId`, `rootWebhookUrl`, `proxyAddress`, and `proxyPort` variables configure the connection to the MS Teams server. They are best configured globally as
-[default process configuration](../getting-started/configuration.html#default-process-variable)
+[default process configuration](../getting-started/configuration.html#default-process-variables)
 with an `msteamsParams` argument.
 
 - `webhookTypeId`: unique GUID of webhook type `Incoming Webhook`

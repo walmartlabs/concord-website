@@ -18,7 +18,7 @@ flow using `taurus` task.
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+[dependency](../processes-v1/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -88,7 +88,7 @@ flows:
 The inline configuration definitions will be saved as YAML files in a temporary
 directly. Taurus automatically merges all input configurations.
 
-[Expressions](../getting-started/concord-dsl.html#expressions) can be used in
+[Expressions](../processes-v1/flows.html#expressions) can be used in
 any input parameter including the inline configuration definitions.
 
 ## Examples

@@ -12,7 +12,7 @@ Welcome to the Concord documentation!
 - [Get started using Concord](./getting-started/index.html).
 - [Install Concord](./getting-started/installation.html)
 - Create your first project with the [quickstart guide](./getting-started/quickstart.html).
-- Write flows and more with the [Concord DSL](./getting-started/concord-dsl.html).
+- Write flows and more with the [Concord DSL](./processes-v1/index.html#dsl).
 - Find out about [plugins](./plugins/index.html).
 - Reference the [API](./api/index.html).
 

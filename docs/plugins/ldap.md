@@ -22,7 +22,7 @@ Possible search operations are:
 ## Usage
 
 To be able to use the `ldap` task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+[dependency](../processes-v1/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -53,7 +53,7 @@ operations:
 
 The `ldapAdServer`, `bindUserDn`, and `bindPassword` variables configure the
 connection to the LDAP server. It is best configured globally as
-[default process configuration](../getting-started/configuration.html#default-process-variable):
+[default process configuration](../getting-started/configuration.html#default-process-variables):
 with an `ldapParams` argument:
 
 ```yaml
