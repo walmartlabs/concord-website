@@ -479,6 +479,8 @@ identifier has to be known to perform the action. It can be available from a
 form value, an external invocation of the process or as output parameter from
 the `createPr` action. The example below uses the pull request identifier `myPrId`,
 that was populated with a value in the `createPr` action above.
+`commitMessage` is a string that can be used to post custom merge commit messages.
+If omitted, a default message is used.
 
 ```yaml
 flows:
@@ -490,6 +492,7 @@ flows:
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
       prId: "${myPrId}"
+      commitMessage: "my custom merge commit message"
 ```
 
 <a name="commentPR">
