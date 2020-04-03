@@ -25,7 +25,7 @@ The REST API provides support for working with policies:
 Creates a new policy or updates an existing one. Requires administrator
 privileges.
 
-* **URI** `/api/v1/policy`
+* **URI** `/api/v2/policy`
 * **Method** `POST`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
@@ -63,7 +63,7 @@ privileges.
 
 Returns an existing policy.
 
-* **URI** `/api/v1/policy/${name}`
+* **URI** `/api/v2/policy/${name}`
 * **Method** `GET`
 * **Headers** `Authorization`
 * **Body**
@@ -89,7 +89,7 @@ Returns an existing policy.
 
 Deletes an existing policy.
 
-* **URI** `/api/v1/policy/${name}`
+* **URI** `/api/v2/policy/${name}`
 * **Method** `DELETE`
 * **Headers** `Authorization`
 * **Body**
@@ -113,7 +113,7 @@ Deletes an existing policy.
 
 Links an existing policy to an organization, project or a specific user.
 
-* **URI** `/api/v1/policy/${name}/link`
+* **URI** `/api/v2/policy/${name}/link`
 * **Method** `PUT`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
@@ -146,7 +146,7 @@ Links an existing policy to an organization, project or a specific user.
 
 Unlinks an existing policy from an organization, project or a specific user.
 
-* **URI** `/api/v1/policy/${name}/link?orgName=${orgName}&projectName=${projectName}&userName=${userName}`
+* **URI** `/api/v2/policy/${name}/link?orgName=${orgName}&projectName=${projectName}&userName=${userName}`
 * **Query parameters**
     All parameters are optional. If all parameters are omitted then the system
     link is removed. 
