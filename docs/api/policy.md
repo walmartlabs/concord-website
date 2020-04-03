@@ -114,7 +114,7 @@ Deletes an existing policy.
 Links an existing policy to an organization, project or a specific user.
 
 * **URI** `/api/v1/policy/${name}/link`
-* **Method** `POST`
+* **Method** `PUT`
 * **Headers** `Authorization`, `Content-Type: application/json`
 * **Body**
     ```json
