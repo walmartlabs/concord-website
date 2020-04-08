@@ -9,6 +9,7 @@ side-navigation: wmt/docs-navigation.html
 - [Directory Structure](#directory-structure)
 - [Additional Concord Files](#additional-concord-files)
 - [DSL](#dsl)
+- [Public Flows](#public-flows)
 - [Variables](#variables)
     - [Provided Variables](#provided-variables)
     - [Context](#context)
@@ -89,6 +90,9 @@ configuration:
 flows:
   ...
 
+publicFlows:
+  ...
+
 forms:
   ...
 
@@ -109,12 +113,42 @@ Let's take a look at each section:
 - [configuration](./configuration.html) - defines process configuration,
 dependencies, arguments and other values;
 - [flows](./flows.html) - contains one or more Concord flows;
+- [publicFlows](#public-flows) - list of flow names which may be used as an [entry point](./configuration.html#entry-point);
 - [forms](../getting-started/forms.html) - Concord form definitions;
 - [triggers](../triggers/index.html) - contains trigger definitions;
 - [profiles](./profiles.html) - declares profiles that can override
 declarations from other sections;
 - [resources](./resources.html) - configurable paths to Concord resources;
 - [imports](./imports.html) - allows referencing external Concord definitions.
+
+## Public Flows
+
+Flows listed in the `publicFlows` section are the only flows allowed as
+[entry point](./configuration.html#entry-point) values. This also limits the
+flows listed in the repository run dialog. When the `publicFlows` is omitted,
+all flows are considered public.
+
+Flows from an [imported repository](./imports.html) are subject to the same
+setting. `publicFlows` defined in the imported repository are merged
+with those defined in the main repository.
+
+```yaml
+publicFlows:
+  - default
+  - enterHere
+
+flows:
+  default:
+    - log: "Hello!"
+    - call: internalFlow
+
+  enterHere:
+    - "Using alternative entry point."
+
+  # not listed in the UI repository start popup
+  internalFlow:
+    - log: "Only callable from another flow."
+```
 
 ## Variables
 
