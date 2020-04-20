@@ -591,15 +591,6 @@ The syntax:
     "maxPerProject": "5",
     "msg": "optional message"
   },
-  "process": {
-    ...process status rule...
-  },
-  "processPerOrg": {
-    ...process status rule...
-  },
-  "processPerProject": {
-    ...process status rule...
-  },
   "forkDepth": {
     "max": 5,
     "msg": "optional message"
@@ -616,28 +607,10 @@ The attributes:
 - `concurrent` - controls the number of concurrently running processes:
   - `maxPerOrg` - max number of running processes per organization;
   - `maxPerProject` - max number of running processes per project;
-- `process`, `processPerOrg`, `processPerProject` - controls the maximum number
-of processes for a specific status (see below);
 - `forkDepth` - the maximum allowed depth of process forks, i.e. how many
 _ancestors_ a process can have. Can be used to prevent "fork bombs";
 - `processTimeout` - limits the maximum allowed value of the
 [processTimeout parameter](../processes-v1/configuration.html#process-timeout).
-
-The process status rule has the following syntax:
-
-```json
-{
-  "max": {
-    "...status...": 5,
-    "...another status...": 1
-  },
-  "msg": "optional message"
-}
-```
-
-The `max` value controls the number of concurrent processes allowed for a
-specific status. It can effectively control how many processes can an
-organization or a project start concurrently.  
 
 For example:
 
