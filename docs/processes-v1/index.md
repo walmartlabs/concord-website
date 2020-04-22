@@ -189,7 +189,7 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
     `initiator.attributes.mail` contains the email address.
 - `currentUser`: information about the current user. Has the same structure
   as `initiator`;
-- `requestInfo`: additional request data:
+- `requestInfo`: additional request data (see the note below):
   - `requestInfo.query`: query parameters of a request made using user-facing
     endpoints (e.g. the portal API);
   - `requestInfo.ip`: client IP address, where from request is generated.
@@ -212,6 +212,11 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
   execution.
 
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
+
+**Note:** only the processes started using [the browser link](../api/process.html#browser)
+provide the `requiestInfo` variable. In other cases (e.g. processes
+[triggered by GitHub](../triggers/github.html)) the variable might be undefined
+or empty. 
 
 Availability of other variables and "beans" depends on the installed Concord
 plugins and the arguments passed in at the process invocation and stored in the
