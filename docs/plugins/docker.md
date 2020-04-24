@@ -6,9 +6,18 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
+Concord supports running [Docker](https://hub.docker.com/) images within a process flow.
+
+- [Usage](#usage)
+- [Environment Variables](#environment-variables)
+- [Docker Options](#docker-options)
+    - [Add Host Option](#add-host-option)
+- [Capturing the Output](#capturing-the-output)
+- [Custom Images](#custom-images)
+- [Limitations](#limitations)
+
 ## Usage
 
-Concord supports running docker images within a process flow.
 
 Short syntax:
 
@@ -69,12 +78,12 @@ Additional environment variables can be specified using `env` parameter:
 ```yaml
 flows:
   default:
-  - docker: library/alpine
-    cmd: echo $GREETING
-    env:
-      GREETING: "Hello, ${name}!"
+    - docker: library/alpine
+      cmd: echo $GREETING
+      env:
+        GREETING: "Hello, ${name}!"
 
-configuration
+configuration:
   arguments:
     name: "concord"
 ```
@@ -82,9 +91,24 @@ configuration
 Environment variables can contain expressions: all values will be
 converted to strings.
 
+A file containing environment variables can be used by specifying
+the `envFile` parameter:
+
+```yaml
+flows:
+  default:
+    - docker: library/alpine
+      cmd: echo $GREETING
+      envFile: "myEnvFile"
+```
+
+The path must be relative to the process' working directory `${workDir}`.
+
+It is an equivalent of running `docker run --env-file=myEnvFile`.
+
 ## Docker options
 
-### --add-host option
+### Add Host Option
 
 Additional `/etc/hosts` lines can be specified using `hosts` parameter:
 
@@ -104,8 +128,8 @@ configuration:
 
 ## Capturing the Output
 
-The `stdout` parameter can be used to capture the output of commands running
-in the Docker container:
+The `stdout` and `stderr` parameters can be used to capture the output of
+commands running in the Docker container:
 
 ```yaml
 - docker: library/alpine
@@ -118,8 +142,6 @@ in the Docker container:
 In the example above the output (`stdout`) of the command running in the
 container is not printed out into the log, but instead saved as `myOut`
 variable.
-
-## Capturing the Error
 
 The `stderr` parameter can be used to capture the errors of commands running
 in the Docker container:
