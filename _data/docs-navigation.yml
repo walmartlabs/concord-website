@@ -163,6 +163,8 @@ nav:
         context: /docs/plugins/msteams
       - page: Node Roster
         context: /docs/plugins/node-roster
+      - page: Packer
+        context: /docs/plugins/packer
       - page: Puppet
         context: /docs/plugins/puppet
       - page: Resource

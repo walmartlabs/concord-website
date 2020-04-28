@@ -31,7 +31,7 @@ This adds the task to the classpath and allows you to invoke it in any flow.
 
 The task requires the process to run as a part of a Concord project.
 
-<a name="building"></a>
+<a name="building"/></a>
 
 ## Building Images
 
@@ -44,27 +44,30 @@ The `build` command executes `packer build` in the process' working directory:
     template: packer.json
 ```
 
-
 Parameters:
 
 - `version` - string value, version of Packer to use;
 - `url` - string value, url of the Packer binary to use;
-- `debug` - boolean value, if `true` the plugin logs additional debug information; 
-- `force` - boolean value, force a build to continue if artifacts exist, deletes existing artifacts;
-- `except` - string list, run all builds and post-procesors other than these;
+- `debug` - boolean value, if `true` the plugin logs additional debug
+information;
+- `force` - boolean value, force a build to continue if artifacts exist,
+deletes existing artifacts;
+- `except` - string list, run all builds and post-processors other than these;
 - `only` - string list; build only the specified builds;
 - `onError` - string value, if the build fails do: `cleanup` or `abort`;
 - `parallel` - boolean value, if `false` disable parallelization;
-- `parallelBuilds` - int value, number of builds to run in parallel. 0 means no limit (Default: 0);
+- `parallelBuilds` - int value, number of builds to run in parallel. 0 means no
+limit (default: 0);
 - `varFile` - string value, JSON file containing user variables;
 - `template` - string value, Packer template to use for building;
-- `extraVars` - key value pairs, [variables](#variables) provided to the `packer` process;
+- `extraVars` - key value pairs, [variables](#variables) provided to
+the `packer` process.
 
 <a name="variables"></a>
 
 ## Input Variables
 
-[Input variables](https://www.terraform.io/docs/configuration/variables.html)
+[Input variables](https://www.packer.io/docs/commands/build.html#var-file)
 can be specified using the `extraVars` parameter:
 
 ```yaml
@@ -81,14 +84,15 @@ The `extraVars` parameter expects regular `java.util.Map<String, Object>`
 objects and supports all JSON-compatible data structures (nested objects,
 lists, etc).
 
-Specifying `extraVars` is an equivalent of running `packer build -var-file=/path/to/file.json`.
+Specifying `extraVars` is an equivalent of running
+`packer build -var-file=/path/to/file.json`.
 
 <a name="env"></a>
 
 ## Environment Variables
 
 OS-level [environment variables](https://www.packer.io/docs/templates/user-variables.html)
-can be specified using `extraEnv` parameter:
+can be specified using `envars` parameter:
 
 ```yaml
 - task: packer
