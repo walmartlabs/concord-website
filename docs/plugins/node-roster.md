@@ -37,7 +37,7 @@ flows:
   default:
     - task: nodeRoster
       in:
-        action: "deployedBy"
+        action: "deployedOnHost"
         hostName: "myhost.example.com"
 ```
 
@@ -94,7 +94,7 @@ The action returns the following `result`:
 ```
 
 The `data` is a object where keys are artifact URLs matching the supplied
-`artifactPattern` and values are lists of hosts. 
+`artifactPattern` and values are lists of hosts.
 
 ### Get Host Facts
 
@@ -104,6 +104,7 @@ Returns the last registered snapshot of the host's [Ansible facts](https://docs.
 - task: nodeRoster
   in:
     action: "facts"
+    hostName: "myhost.example.com"
 ```
 
 Parameters:
@@ -130,7 +131,7 @@ Returns a list of artifacts deployed on the specified host.
 ```yaml
 - task: nodeRoster
   in:
-    action: "deployedOn"
+    action: "deployedOnHost"
     hostName: "myhost.example.com"
 ```
 
