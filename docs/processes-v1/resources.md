@@ -12,8 +12,8 @@ the `resources` top-level element in the concord file.
 Concord loads the root `concord.yml` first and subsequently looks for the
 resources paths under the `resources` section.
 
-The following resources configuration causes all flows to be loaded loaded
-from the `myConcordStuff` folder instead of the default `concord` folder
+The following resources configuration causes all flows to be loaded
+from the `myFlows` folder instead of the default `concord` folder
 using the pattern `./concord/**/*.yml`.
 
 ```yaml
