@@ -29,9 +29,10 @@ task.
   - [Fork a Repo](#fork)
   - [Get Branch List](#getBranchList)
   - [Get Tag List](#getTagList)
+  - [Get PR List](#getPRList)
   - [Get Latest Commit SHA](#getLatestSHA)
   - [Add a Status](#addStatus)
-  
+
 <a name="usage"/>
 
 ## Usage
@@ -70,7 +71,7 @@ operations:
   in Concord org where the secret can be located, if not specified defaults to
   `Default`.
 - `secretName` of the `privateKey` parameter: required, the name of the Concord
-  [secret](../api/secret.html) used for the SSH connection to the git 
+  [secret](../api/secret.html) used for the SSH connection to the git
   repository on the remote server.
 - `ignoreErrors`: instead of throwing exceptions on operation failure, returns
   the result object with the error, if set to `true`.
@@ -336,7 +337,7 @@ of the cloning and other operations and is therefore advantageous for large
 repositories.
 
 The `apiUrl` configures the GitHub API endpoint. It is best configured globally
-as 
+as
 [default process configuration](../getting-started/configuration.html#default-process-variables):
 with a `githubParams` argument:
 
@@ -349,7 +350,7 @@ configuration:
 
 The authors of specific projects on the Concord server can then specify the
 remaining parameters:
-  
+
 - `accessToken`: required, the GitHub
   [access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
 - `org`: required, the name of the GitHub organization or user in which the git
@@ -376,16 +377,16 @@ Examples below take advantage of a globally configured `apiUrl`.
 
 ## Create and Delete a Repository
 
-The `createRepo` and `deleteRepo` actions of the `github` task allow the creation 
+The `createRepo` and `deleteRepo` actions of the `github` task allow the creation
 and deletion of GitHub repositories.
 
-`createRepo` action creates an empty repository with the name provided by `repo` 
-parameter in the Github organization specified by `org` parameter. 
+`createRepo` action creates an empty repository with the name provided by `repo`
+parameter in the Github organization specified by `org` parameter.
 
 Output of `createRepo` action is the clone URL of the repository created saved
 as a `cloneURL` variable.
 
-The example below creates a repository `myRepository` in the Github 
+The example below creates a repository `myRepository` in the Github
 organization `myOrg`.
 
 ```yaml
@@ -402,15 +403,15 @@ flows:
   - log: "New repository: ${cloneUrl}"
 ```
 
-`deleteRepo` action deletes the repository with the name provided by `repo` 
+`deleteRepo` action deletes the repository with the name provided by `repo`
 parameter in the Github organization specified by `org` parameter.
 
-> Github access token specified should have `delete_repo` scope 
-enabled to delete a repository on Github. This can be done in 
-**Personal Access Token** under **Developer Settings** for the intended user 
+> Github access token specified should have `delete_repo` scope
+enabled to delete a repository on Github. This can be done in
+**Personal Access Token** under **Developer Settings** for the intended user
 on Github.
 
-The example below deletes the repository `myRepository` from the Github 
+The example below deletes the repository `myRepository` from the Github
 organization `myOrg`.
 
 ```yaml
@@ -427,14 +428,14 @@ flows:
 
 A few points to consider:
 
-* both `createRepo` and `deleteRepo` actions are idempotent. 
-  * `createRepo` action does not fail if the repository already exists in 
-  an organization, but returns the clone URL of the repository. 
-  * similarly, `deleteRepo` action does not fail if the repository does 
+* both `createRepo` and `deleteRepo` actions are idempotent.
+  * `createRepo` action does not fail if the repository already exists in
+  an organization, but returns the clone URL of the repository.
+  * similarly, `deleteRepo` action does not fail if the repository does
   not exist in the organization.
-* `createRepo` action can be supplemented by other `git` and `github` task 
+* `createRepo` action can be supplemented by other `git` and `github` task
 actions to commit code/documentation, and configure the repository.
-* `deleteRepo` action is irreversible. The repository, its contents and the 
+* `deleteRepo` action is irreversible. The repository, its contents and the
 commit history will be deleted, and cannot be recovered.
 
 <a name="pr"/>
@@ -739,6 +740,39 @@ flows:
       accessToken: "myGitHubToken"
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
+```
+
+<a name="getPRList"/>
+
+## GetPRList
+
+The `getPRList` action can be used to get the list of PRs from a GitHub
+repository. The output of the action is stored in a variable `prList`,
+which is a list of `PullRequest` values. It can
+used at later point in the flow.
+
+The following parameters are needed in addition to the general parameters:
+
+- `org`: required, name of GitHub organization.
+- `repo`: required, name of GitHub repository.
+- `state`: optional, state of a PR. Defaults to `open`. Allowed values are `all`, `open`, `closed`.
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: getPRList
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      state: "closed"
+  - if: ${prList.isEmpty()}
+    then:
+    - log: "Got zero PRs"
+    else:
+    - log: "PR Numbers : ${prList.stream().map(c -> c.get('number')).toList()}"
+    - log: "PR Titles: ${prList.stream().map(c -> c.get('title')).toList()}"
 ```
 
 <a name="getLatestSHA"/>
