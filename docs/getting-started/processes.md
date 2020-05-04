@@ -43,7 +43,7 @@ The example demonstrates a few concepts:
 - flow definitions use Concord's YAML-based [DSL](./v1/index.html#dsl);
 - flows can call [tasks](../getting-started/tasks.md). And tasks can perform
 useful actions;
-- flows can use [conditional expressions](./v1/flows.html#conditional-expressions);
+- flows can use [conditional expressions](../processes-v1/flows.html#conditional-expressions);
 - tasks can save their results as flow [variables](./v1/flows.html#setting-variables)
 - an [expression language](./v1/flows.html#expressions) can be used to work
 with data inside flows;
