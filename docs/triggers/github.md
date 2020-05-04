@@ -92,6 +92,13 @@ GitHub event.
 Refer to the GitHub's [Webhook](https://developer.github.com/webhooks/)
 documentation for the complete list of event types and `payload` structure.
 
+**Note:** Normally, Concord automatically reload trigger definitions for all
+registered repositories. However, in some cases, such as using personal
+repositories or using a Concord environment without GitHub webhooks installed,
+you need to manually refresh the repository by clicking on the `Refresh` button
+on the `Repository` page of Concord UI or
+[using the API](../api/repository.html#refresh-repository).
+
 <a name="github-v1"/>
 
 ## Version 1
@@ -122,7 +129,8 @@ The `event` object provides the following attributes
   Possible values can be `push` and `pull_request`. If not specified, the `type`
   is set to `push` by default;
 - `status` - for `pull_request` notifications only, with possible values of
-  `opened` or `closed`
+  `opened` or `closed`. A complete list of values can be found
+  [here](https://developer.github.com/v3/activity/events/types/#pullrequestevent);
 - `project` and `repository` - the name of the Concord project and repository
   which were updated in GitHub. By default the current project/repository is
   triggered;
@@ -220,6 +228,18 @@ To receive a notification when a PR is opened:
     conditions:
       type: "pull_request"
       status: "opened"
+      branch: ".*"
+```
+
+To trigger a process when a new PR is opened or commits are added to the existing PR:
+
+```yaml
+- github:
+    version: 2
+    entryPoint: "onPr"
+    conditions:
+      type: "pull_request"
+      status: "(opened|synchronize)"
       branch: ".*"
 ```
 
