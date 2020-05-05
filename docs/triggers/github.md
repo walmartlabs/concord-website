@@ -72,7 +72,9 @@ the current repository's name;
 - `githubHost` - string or regex, optional, GitHub host;
 - `branch` - string or regex, optional, event branch name;
 - `sender` - string or regex, optional, event sender;
-- `status` - string or regex, optional, event action;
+- `status` - string or regex, optional. For `pull_request` notifications
+possible values are `opened` or `closed`. A complete list of values can be
+found [here](https://developer.github.com/v3/activity/events/types/#pullrequestevent);
 - `repositoryInfo` - a list of objects, information about the matching Concord
 repositories (see below);
 - `payload` - key-value, optional, github event payload.
