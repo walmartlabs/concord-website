@@ -18,14 +18,13 @@ Concord supports running [Docker](https://hub.docker.com/) images within a proce
 
 ## Usage
 
-
 Short syntax:
 
 ```yaml
 flows:
   default:
-  - docker: library/alpine
-    cmd: echo '${greeting}'
+    - docker: library/alpine
+      cmd: echo '${greeting}'
 
 configuration:
   arguments:
@@ -37,10 +36,10 @@ Using the `task` syntax:
 ```yaml
 flows:
   default:
-  - task: docker
-    in:
-      image: library/alpine
-      cmd: echo '${greeting}'
+    - task: docker
+      in:
+        image: library/alpine
+        cmd: echo '${greeting}'
 
 configuration:
   arguments:
@@ -56,8 +55,24 @@ library/alpine \
 echo 'Hello, world!'
 ```
 
-**Note:** the `cmd` parameter is optional. If omitted, the image's `ENTRYPOINT`
-is used.
+Parameters:
+- `image` - mandatory, string. Docker image to use;
+- `cmd` - optional, string. Command to run. If not specified, the image's
+`ENTRYPOINT` is used;
+- `env` - optional, [environment variables](#environment-variables);
+- `envFile` - optional. Path to the file containing
+[environment variables](#environment-variables);
+- `hosts` - optional. Additional [/etc/host entries](#add-host-option);
+- `forcePull` - optional, boolean. If `true` Concord runs
+`docker pull ${image}` before starting the container. Default is `true`;
+- `debug` - optional, boolean. If `true` Concord prints out additional
+information into the log (the command line, parameters, etc);
+- `stdout` and `stderr` - optional, string. Name of variables to
+[save the stdout and stderr](#capturing-the-output) of the container;
+- `pullRetryCount` - optional, number. Number of retries if `docker pull`
+fails. Default is `3`;
+- `pullRetryInterval` - optional, number. Delay in milliseconds between
+`docker pull` retries. Default is `10000`.
 
 The current process' working directory is mounted as `/workspace`.
 
@@ -69,7 +84,7 @@ on your setup, you may need to change to a different working directory:
   cmd: cd /usr/ && echo "I'm in $PWD"
 ``` 
 
-The container is automatically removed when the called command is complete.
+Concord automatically removes the container when the called command is complete.
 
 ## Environment Variables
 
