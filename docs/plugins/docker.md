@@ -49,6 +49,7 @@ configuration:
 The above invocations are equivalent to running
 
 ```bash
+docker pull library/alpine && \
 docker run -i --rm \
 -v /path/to/process/workDir:/workspace \
 library/alpine \
