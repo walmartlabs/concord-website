@@ -75,9 +75,8 @@ fails. Default is `3`;
 - `pullRetryInterval` - optional, number. Delay in milliseconds between
 `docker pull` retries. Default is `10000`.
 
-The current process' working directory is mounted as `/workspace`.
-
-**Note:** Your Dockerfile's `WORKDIR` is overwritten to `/workspace`. Depending
+**Note:** The current process' working directory is mounted as `/workspace`.
+Concord replaces the container's `WORKDIR` with `/workspace`. Depending
 on your setup, you may need to change to a different working directory:
 
 ```yaml
@@ -85,7 +84,17 @@ on your setup, you may need to change to a different working directory:
   cmd: cd /usr/ && echo "I'm in $PWD"
 ``` 
 
-Concord automatically removes the container when the called command is complete.
+To run multiple commands multiline YAML strings can be used:
+
+```yaml
+- docker: library/alpine
+  cmd: |
+    echo "First command"
+    echo "Second command"
+    echo "Third command"
+```
+
+Concord automatically removes the container when the command is complete.
 
 ## Environment Variables
 
