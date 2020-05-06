@@ -31,7 +31,7 @@ This adds the task to the classpath and allows you to invoke it in any flow.
 
 The task requires the process to run as a part of a Concord project.
 
-<a name="building"/></a>
+<a name="building"/>
 
 ## Building Images
 
@@ -63,7 +63,7 @@ limit (default: 0);
 - `extraVars` - key value pairs, [variables](#variables) provided to
 the `packer` process.
 
-<a name="variables"></a>
+<a name="variables"/>
 
 ## Input Variables
 
@@ -87,7 +87,7 @@ lists, etc).
 Specifying `extraVars` is an equivalent of running
 `packer build -var-file=/path/to/file.json`.
 
-<a name="env"></a>
+<a name="env"/>
 
 ## Environment Variables
 
@@ -103,7 +103,7 @@ can be specified using `envars` parameter:
       NAME: Concord
 ```
 
-<a name="var-files"></a>
+<a name="var-files"/>
 
 ## External Variable Files
 
