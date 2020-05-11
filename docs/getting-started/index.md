@@ -92,7 +92,7 @@ The Agent is responsible for process execution. It receives workload from
 starts processes in separate JVMs and/or Docker containers.
 
 Depending on [the configuration](./configuration.html#agent-cfg-file) a single
-agent can one or many job simultaneously.
+agent can execute one or many jobs simultaneously.
 
 <img src="../../assets/img/concord_agents.png" class="img-responsive"/>
 
