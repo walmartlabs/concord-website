@@ -59,7 +59,7 @@ secrets, teams and others belong to.
 
 # Components
 
-[Concord](../../overview/index.html) consists of several components. The three
+[Concord](../../overview/index.html) consists of several components. The four
 main components are:
 - [Server](#concord-server) - the central component, manages the process state
 and resources;
