@@ -59,7 +59,7 @@ secrets, teams and others belong to.
 
 # Components
 
-[Concord](../../overview/index.html) consists of several components. The three
+[Concord](../../overview/index.html) consists of several components. The four
 main components are:
 - [Server](#concord-server) - the central component, manages the process state
 and resources;
@@ -92,7 +92,7 @@ The Agent is responsible for process execution. It receives workload from
 starts processes in separate JVMs and/or Docker containers.
 
 Depending on [the configuration](./configuration.html#agent-cfg-file) a single
-agent can one or many job simultaneously.
+agent can execute one or many jobs simultaneously.
 
 <img src="../../assets/img/concord_agents.png" class="img-responsive"/>
 
