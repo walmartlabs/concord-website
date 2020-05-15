@@ -4,7 +4,7 @@ title:  Resources
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title}}
+# {{ page.title }}
 
 Resource directory path such as `./concord` can be configured in
 the `resources` top-level element in the concord file.

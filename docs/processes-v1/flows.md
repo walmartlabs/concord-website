@@ -4,7 +4,7 @@ title:  Flows
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title}}
+# {{ page.title }}
 
 Concord flows consist of series of steps executing various actions: calling
 plugins (also known as "tasks"), performing data validation, creating
@@ -600,8 +600,8 @@ flows:
   - log: "${myComplexData.nestedValue}, Concord"
 ```
 
-A [number of variables](../getting-started/processes.html#variables) are
-automatically set in each process and available for usage.
+A [number of variables](./index.html#variables) are automatically set in each
+process and available for usage.
 
 ### Checkpoints
 

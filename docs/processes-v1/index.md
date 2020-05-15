@@ -4,7 +4,7 @@ title:  Processes v1
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title}}
+# {{ page.title }}
 
 - [Directory Structure](#directory-structure)
 - [Additional Concord Files](#additional-concord-files)
@@ -214,7 +214,7 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 
 **Note:** only the processes started using [the browser link](../api/process.html#browser)
-provide the `requiestInfo` variable. In other cases (e.g. processes
+provide the `requestInfo` variable. In other cases (e.g. processes
 [triggered by GitHub](../triggers/github.html)) the variable might be undefined
 or empty. 
 
@@ -225,7 +225,7 @@ request data.
 ### Context
 
 The `context` variable provides access to the current process' state:
-variables, current flow name, etc. The `context` variable is avalailable at
+variables, current flow name, etc. The `context` variable is available at
 any moment during the flow execution and can be accessed using expressions,
 [scripts](../getting-started/scripting.html) or in
 [tasks](../getting-started/tasks.html):

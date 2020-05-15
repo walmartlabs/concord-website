@@ -4,7 +4,7 @@ title:  Concord Overview
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title}}
+# {{ page.title }}
 
 <img src="../../assets/img/concord_top_level.png" class="img-responsive"/>
 

@@ -107,7 +107,10 @@ on the `Repository` page of Concord UI or
 
 **Note:** the version 1 of `github` trigger implementation is deprecated and
 replaced with [version 2](#version-2). Check [the migration guide](#github-migration)
-on how to update your flows to be compatible with the version 2. 
+on how to update your flows to be compatible with the version 2.
+
+**Note:** [Runtime v2](../processes-v2/index.html) doesn't support GitHub
+triggers version 1.
 
 The `github` event source allows Concord to receive `push` and `pull_request`
 notifications from GitHub. Here's an example:

@@ -4,7 +4,7 @@ title:  Overview
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title}}
+# {{ page.title }}
 
 A process is an execution of flows written in [Concord DSL](../processes-v1/index.html#dsl)
 running in a [project](../getting-started/projects.html) or standalone.

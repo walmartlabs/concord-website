@@ -4,7 +4,7 @@ title:  Configuration
 side-navigation: wmt/docs-navigation.html
 ---
 
-# {{ page.title}}
+# {{ page.title }}
 
 The Concord server can be configured via a configuration file. Typically this
 is done by the administrator responsible for the Concord installation.
