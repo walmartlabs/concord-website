@@ -20,6 +20,7 @@ The REST API provides support for a number of operations:
 - [Download an Attachment](#download-attachment)
 - [List Processes](#list)
 - [Count Processes](#count)
+- [Resume a Process](#resume)
 - [Process Events](#process-events)
   - [List events](#list-events)
 
@@ -404,6 +405,43 @@ Returns a total number of processes using the specified filters.
 
     ```json
     12
+    ```
+
+<a name="resume"/>
+
+## Resume a Process
+
+Resume a previously `SUSPENDED` process.
+
+**Note:** usually Concord suspends and resumes processes automatically, e.g.
+when forms or suspendable tasks used. The resume API can be used for custom
+integrations or for special use cases.
+
+* **URI** `/api/v1/process/${instanceId}/resume/${eventName}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Parameters**
+    ID of a process: `${instanceId}`
+    Event name: `${eventName}` - must match the event name created when
+    the process was suspended.
+* **Body**
+    a JSON object. Must match the process `configuration` format:
+    ```json
+    {
+      "arguments": {
+          "x": 123
+      }
+    }
+    ```
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true
+    }
     ```
 
 ## Process Events
