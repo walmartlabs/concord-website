@@ -45,11 +45,29 @@ common for all operations:
   execution are ignored and stored in the `result` variable. Defaults to
   `false`.
 
+The `clientId`, `clientSecret`, `robotJid`, `accountId`, `rootApi` and
+`accessTokenApi` variables configure connection to the Zoom api endpoint.
+They are best configured globally as[default process configuration](../getting-started/configuration.html#default-process-variable) with an `zoomParams` argument.
+
+```yaml
+configuration:
+  arguments:
+    zoomParams:
+      clientId: "botId"
+      clientSecret: "botSecret"
+      robotJid: "botJid"
+      accountId: "zoomAccountId"
+      rootApi: "zoomRootApi"
+      accessTokenApi: "zoomAccessTokenApi"
+```
+
+For more details about each parameter refer to the [api docs](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages).
+
 <a name="send-message"/>
 
 ## Send Message
 
-The `sendMessage` action allows users to send messages to a specific Zoom channel 
+The `sendMessage` action allows users to send messages to a specific Zoom channel
 identified by a `channelId`. It uses input parameters listed below for the operation:
 
 - `channelId` - string, Required - The JID of the Channel you want to send message to.
@@ -74,24 +92,9 @@ flows:
     else:
     - log: "Data: ${result.data}"
 ```
-Walmart users can get the `channelId` by one of the following approaches:
-Go to a Zoom chat channel and type,
-
-`/getchanneldetails list`
-
-This will display a list of channels the user `(who typed the slash command)` 
-has access to. Click on a channel in the list to see the JID of that channel.
-
-`/getchanneldetails details`
-
-This will display the channel JID and channel name of the channel the command was typed 
-in, as well as the Account ID.
-
-In general Users can get the `channelId` from the Chatbot request sent to the server. 
-Refer to the example [here](https://marketplace.zoom.us/docs/guides/chatbots/sending-messages#receive).
 
 The task returns a `result` object with three fields:
 
 - `ok` - `true` if the operation is succeeded.
 - `data` - string - response body, if the operation is succeeded.
-- `error` - error message if the operation failed.  
+- `error` - error message if the operation failed.
