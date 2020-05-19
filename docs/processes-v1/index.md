@@ -177,7 +177,7 @@ execution in addition to the defined [variables](#variables):
 
 - `execution` or `context`: a reference to the current execution's [context](#context),
 instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs/concord/blob/master/sdk/src/main/java/com/walmartlabs/concord/sdk/Context.java);
-- `txId`: unique identifier of a current execution;
+- `txId`: an unique identifier of the current process;
 - `tasks`: allows access to available tasks (for example:
   `${tasks.get('oneops')}`);
 - `workDir`: path to the working directory of a current process;

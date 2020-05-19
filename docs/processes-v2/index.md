@@ -186,7 +186,7 @@ execution in addition to the defined [variables](#variables):
 - `context`: a reference to the current execution's [context](#context),
 instance of [com.walmartlabs.concord.runtime.v2.sdk.Context]({{concord_source}}/blob/master/runtime/v2/sdk/src/main/java/com/walmartlabs/concord/runtime/v2/sdk/Context.java)
 interface;
-- `txId`: unique identifier of a current execution;
+- `txId`: an unique identifier of the current process;
 - `workDir`: path to the working directory of a current process;
 - `initiator`: information about the user who started a process:
   - `initiator.username`: login, string;
