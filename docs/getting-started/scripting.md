@@ -185,7 +185,17 @@ flows:
     - log: "${x.a}"
 ```
 
-Alternatively, a `HashMap` instance can be used directly in the JavaScript code.
+Alternatively, a `HashMap` instance can be used directly in the JavaScript
+code.
+
+Similarly, JavaScript arrays (lists) must be converted into compatible
+Java `List` objects:
+
+```javascript
+var arr = [1, 2, 3];
+var ArrayList = Java.type('java.util.ArrayList');
+execution.setVariable('x', new ArrayList(arr));
+```
 
 ## Groovy
 
