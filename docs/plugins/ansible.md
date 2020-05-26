@@ -647,8 +647,8 @@ ansible-playbook ... -e @myVars.json -e @moreVars.yml playbook.yml
 The `ansible` task can export a list of variable names from the Ansible
 execution back to the Concord process context with the `outVars` parameters
 
-The Ansible playbook has to use the `register` statement to make the variable 
-available.
+The Ansible playbook can use the `register` or `set_fact` statements to make
+the variable available:
 
 ```yaml
 - hosts: local
