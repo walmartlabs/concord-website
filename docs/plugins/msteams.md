@@ -52,7 +52,7 @@ for all public channels in a team.
 2. Supports `replyToConversation` action.
 3. Future enhancements (if any), will be made on `V2`.
 
-<a name="prerequisite-V2"/>
+<a name="prerequisite-v2"/>
 
 ## Prerequisite
 
@@ -73,19 +73,22 @@ For more details check [here](https://docs.microsoft.com/en-us/microsoftteams/pr
 
 ## Common Parameters
 
-The `MSTeams` task uses a number of input parameters that are common for all operations:
+The `MSTeams` task uses a number of input parameters that are common for all
+operations:
 
-- `task`: determines name of task. Should be `msteamsV2` if you are using Version 2.
+- `task` - determines name of task. Should be `msteamsV2` if you are using
+version 2;
 - `action` - determines the operation to be performed with the current
 invocation of the `MSTeams` task.
 - `ignoreErrors` - boolean value, if `true` any errors that occur during
-the execution are ignored and stored in the `result` variable. Defaults to `false`.
-- `useProxy` - boolean value, if `true` uses the `proxyAddress` and `proxyPort` set
-in default vars. Defaults to `false`.
+the execution are ignored and stored in the `result` variable. Defaults to
+`false`.
 
-The `tenantId`, `proxyAddress` and `proxyPort` variables configure the
-connection to the MS Teams server. They are best configured globally as
-[default process configuration](../getting-started/configuration.html#default-process-variable)
+The `tenantId`, `useProxy`, `proxyAddress`, `proxyPort`,`clientId`,
+`clientSecret`, `rootApi`, and `accessTokenApi` variables
+configure the connection to the MS Teams server. They are
+best configured globally as [default process configuration]
+(../getting-started/configuration.html#default-process-variable)
 with an `msteamsParams` argument.
 
 ```yaml
@@ -93,9 +96,22 @@ configuration:
   arguments:
     msteamsParams:
       tenantId: "myTenantID"
+      useProxy: true
       proxyAddress: "proxy.example.com"
       proxyPort: 8080
+      clientId: "botId"
+      clientSecret: "botSecret"
+      rootApi: "https://smba.trafficmanager.net/amer/v3/conversations"
+      accessTokenApi: "https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token"
 ```
+
+- `useProxy` - boolean value, if `true` uses the `proxyAddress` and `proxyPort`
+set in default vars. Defaults to `false`.
+- `clientId` - determines the id associated with bot.
+- `clientSecret` - determines the secret associated with bot.
+
+**Note:** your Concord environment may provide other defaults using
+the [default variables](../getting-started/configuration.html#default-process-variables).
 
 ### Create Conversation
 
