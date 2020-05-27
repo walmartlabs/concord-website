@@ -111,10 +111,20 @@ following sections:
   [the official documentation](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_checkmode.html)
   for more details
 - `debug`: boolean, enables additional debug logging;
+- `disableConcordCallbacks`: boolean, disables all Ansible callback plugins
+  provided by Concord (event recording, `outVars` processing, etc). Default is
+  `false`;
 - `dockerImage`: optional configuration to specify
 - `dynamicInventoryFile`: string, path to a dynamic inventory
   script. See also [Dynamic inventories](#dynamic-inventories) section;
 - `enableLogFiltering`: boolean, see [Log Filtering](#log-filtering) section;
+- `enablePolicy`: boolean, apply active Concord [policies](../getting-started/policies.html#ansible-rule).
+  Default is `true`;
+- `enableEvents`: boolean, record Ansible events - task executions, hosts, etc.
+  Default is `true`;
+- `enableStats`: boolean, save the statistics as a JSON file. Default is `true`;
+- `enableOutsVars`: boolean, process [output variables](#output-variables).
+  Default is `true`;
 - `extraEnv`: JSON object, additional environment variables
 - `extraVars`: JSON object, used as `--extra-vars`. See also
 the [Input Variables](#input-variables) section;
@@ -645,7 +655,7 @@ ansible-playbook ... -e @myVars.json -e @moreVars.yml playbook.yml
 ## Output Variables
 
 The `ansible` task can export a list of variable names from the Ansible
-execution back to the Concord process context with the `outVars` parameters
+execution back to the Concord process context with the `outVars` parameters.
 
 The Ansible playbook can use the `register` or `set_fact` statements to make
 the variable available:
@@ -694,6 +704,10 @@ The JSON object can be traversed to access specific values.
 ```yaml
 - log: ${myVar['127.0.0.1']['msg']}
 ```
+
+**Note:** not compatible with `disableConcordCallbacks: true` or
+`enableOutVars: false`. Check the [parameters](#parameters) section for more
+details.
 
 ## Extra Modules
 
