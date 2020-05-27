@@ -45,7 +45,9 @@ All parameter sorted alphabetically. Usage documentation can be found in the
 following sections:
 
 - `action` - string, name of the action (`start`, `startExternal`, `fork`, `kill`);
-- `activeProfiles` - list of string values, profiles to activate; 
+- `activeProfiles` - list of string values, profiles to activate;
+- `apiKey` - string, Concord API key to use. If not specified the task uses
+the current process' session key;
 - `arguments` - input arguments of the starting processes;
 - `disableOnCancel` - boolean, disable `onCancel` flow in forked processes;
 - `disableOnFailure` - boolean, disable `onFailure` flow in forked processes;
@@ -82,7 +84,6 @@ flows:
   default:
   - task: concord
     in:
-      apiKey: "..."
       action: start
       payload: payload.zip
 ```
@@ -140,7 +141,7 @@ flows:
   default:
   - task: concord
     in:
-      baseUrl: http://another.concord.example.com:8001
+      baseUrl: "http://another.concord.example.com:8001"
       apiKey: "myApiKey"
       action: startExternal
       project: myProject
