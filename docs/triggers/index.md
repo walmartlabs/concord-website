@@ -9,18 +9,10 @@ side-navigation: wmt/docs-navigation.html
 Triggers provide a way to automatically start specific Concord flows as a
 response to specific events.
 
-- [Common Syntax](#common)
+- [Common Syntax](#common-syntax)
 - [Supported Triggers](#supported-triggers)
 - [Exclusive Triggers](#exclusive-triggers)
-
-> Trigger configuration is typically loaded automatically, but can be disabled
-> globally or for specific types of repositories. For example, personal git
-> repositories can be treated differently from organizational repositories in
-> GitHub. You can force a new parsing and configuration by reloading a
-> repository content with the reload button beside the repository in the Concord
-> Console.
-  
-<a name="common"/>
+- [Limitations](#limitations)
 
 ## Common Syntax
 
@@ -133,3 +125,13 @@ the processes instead use `mode: "wait"`.
 
 See also [Exclusive Execution](../processes-v1/configuration.html#exclusive-execution)
 section in the Concord DSL documentation.
+
+## Limitations
+
+Trigger configuration is typically loaded automatically, but can be disabled
+globally or for specific types of repositories. For example, personal Git
+repositories can be treated differently from organizational repositories in
+GitHub. You can force a new parsing and configuration by manually reloading the
+repository content with the **`Refresh`** button beside the repository in
+the Concord Console or by
+[using the API](../api/repository.html#refresh-repository).

@@ -41,6 +41,8 @@ systems with Concord. Simply modify or extend the external system to send
 events to the Concord API and define the flow in Concord to proceed with the
 next steps.
 
+**Note:** standard [limitations](./index.html#limitations) apply.
+
 <a name="generic-v1"/>
 
 ## Version 1
@@ -54,6 +56,8 @@ next steps.
 
 Check out the [full example]({{site.concord_source}}tree/master/examples/generic_triggers)
 for more details.
+
+**Note:** standard [limitations](./index.html#limitations) apply.
 
 <a name="generic-migration"/>
 

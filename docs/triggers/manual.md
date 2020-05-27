@@ -31,3 +31,5 @@ triggers:
     arguments:
       runTests: true
 ```
+
+**Note:** standard [limitations](./index.html#limitations) apply.

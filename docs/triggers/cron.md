@@ -21,11 +21,11 @@ flow whenever the minute value is 30, and hence once an hour every hour.
 ```yaml
 flows:
   hourlyCleanUp:
-  - log: "Sweep and wash."
+    - log: "Sweep and wash."
 triggers:
-- cron:
-    spec: "30 * * * *"
-    entryPoint: hourlyCleanUp
+  - cron:
+      spec: "30 * * * *"
+      entryPoint: hourlyCleanUp
 ```
 
 Multiple values can be used to achieve shorter intervals, e.g. every 15 minutes
@@ -40,12 +40,12 @@ value for stricter control. Otherwise the Concord instance specific timezone is 
 ```yaml
 flows:
   cronEvent:
-  - log: "On cron event."
+    - log: "On cron event."
 triggers:
-- cron:
-    spec: "0 12 * * *"
-    timezone: "Europe/Moscow"
-    entryPoint: cronEvent
+  - cron:
+      spec: "0 12 * * *"
+      timezone: "Europe/Moscow"
+      entryPoint: cronEvent
 ```
 
 Values for the timezone are derived from the
@@ -62,17 +62,19 @@ configuration (e.g. `arguments` or `activeProfiles`):
 ```yaml
 flows:
   eventOutput:
-  - log: "${name} - event run at ${event.fireAt} due to spec ${event.spec} started."
+    - log: "${name} - event run at ${event.fireAt} due to spec ${event.spec} started."
 triggers:
-- cron:
-    spec: "* 12 * * *"
-    entryPoint: eventOutput
-    activeProfiles:
-    - myProfile
-    arguments:
-      name: "Concord"
+  - cron:
+      spec: "* 12 * * *"
+      entryPoint: eventOutput
+      activeProfiles:
+      - myProfile
+      arguments:
+        name: "Concord"
 ```
 
 Scheduled events are a useful feature to enable tasks such as regular cleanup
 operations,  batch reporting or processing and other repeating task that are
 automated via a Concord flow.
+
+**Note:** standard [limitations](./index.html#limitations) apply.

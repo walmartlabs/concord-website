@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-Currently Concord supports two different implementations of `github` triggers:
+Currently, Concord supports two different implementations of `github` triggers:
 `version: 1` and `version: 2`. The latter has cleaner syntax and is more
 straightforward to use in complex use cases like listening for multiple
 repositories.
@@ -94,12 +94,7 @@ GitHub event.
 Refer to the GitHub's [Webhook](https://developer.github.com/webhooks/)
 documentation for the complete list of event types and `payload` structure.
 
-**Note:** Normally, Concord automatically reload trigger definitions for all
-registered repositories. However, in some cases, such as using personal
-repositories or using a Concord environment without GitHub webhooks installed,
-you need to manually refresh the repository by clicking on the `Refresh` button
-on the `Repository` page of Concord UI or
-[using the API](../api/repository.html#refresh-repository).
+**Note:** standard [limitations](./index.html#limitations) apply.
 
 <a name="github-v1"/>
 
@@ -146,6 +141,8 @@ The `event` object provides the following attributes
   marked as `true`;
 - `version` - number, optional if matches the default version of the current
   Concord instance. Trigger implementation's version.
+
+**Note:** standard [limitations](./index.html#limitations) apply.
 
 <a name="github-migration"/>
 

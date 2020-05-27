@@ -61,6 +61,8 @@ flows:
           - "${event.payload.cis.public_ip}"
 ```
 
+**Note:** standard [limitations](./index.html#limitations) apply.
+
 <a name="oneops-v1"/>
 
 ## Version 1
@@ -82,6 +84,8 @@ triggers:
     useInitiator: true
     entryPoint: onDeployment
 ```
+
+**Note:** standard [limitations](./index.html#limitations) apply.
 
 <a name="oneops-migration"/>
 
