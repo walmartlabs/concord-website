@@ -11,3 +11,5 @@ vendor
 .jekyll-metadata
 .arcconfig
 .classpath
+.ruby-version
+Gemfile.lock

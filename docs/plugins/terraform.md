@@ -14,11 +14,13 @@ flow.
 - [Common Parameters](#common-parameters)
 - [Planning the Changes](#planning)
 - [Applying the Changes](#applying)
+- [Destroying Infrastructure](#destroying)
 - [Input Variables](#variables)
 - [Environment Variables](#env)
 - [External Variable Files](#var-files)
 - [Output Variables](#output)
 - [State Backends](#backends)
+- [Terraform Enterprise / Cloud](#remote)
 - [GIT modules](#git-modules)
 - [Examples](#examples)
 
@@ -42,23 +44,25 @@ The task requires the process to run as a part of a Concord project.
 ## Common Parameters
 
 - `action` - (mandatory) action to perform:
-  - `plan` - [plan](#planning) the changes;
+  - `plan` - [plan](#planning) the changes
   - `apply` - [apply](#applying) the changes with or without using a previously
-  created plan file;
-  - `output` - save the [output variables](#output);
+  created plan file
+  - `destroy` -[destroy](#destroying) an environment
+  - `output` - save the [output variables](#output)
 - `backend` - type of a [state backend](#backends) to use:
-  - `concord` - (default) use the backend provided by Concord;
+  - `concord` - (default) use the backend provided by Concord
   - `none` - use the default file-based backend or the backend configuration
-  provided by the user;
-- `debug` - boolean value, if `true` the plugin logs additional debug information;
+  provided by the user
+  - `remote` - run on on Terraform Cloud or Terraform Enterprise
+- `debug` - boolean value, if `true` the plugin logs additional debug information
 - `extraEnv` - key-value pairs, extra environment variables provided to
-the `terraform` process;
-- `extraVars` - [variables](#variables) provided to the `terraform` process;
+the `terraform` process
+- `extraVars` - [variables](#variables) provided to the `terraform` process
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
-execution will be ignored and stored in the `result` variable;
+execution will be ignored and stored in the `result` variable
 - `stateId` - string value, the name of a state file to use. See
-the [State Backends](#backends) section for more details;
-- `varFiles` - list of files to add as `-var-file`.
+the [State Backends](#backends) section for more details
+- `varFiles` - list of files to add as `-var-file`
 
 <a name="planning"/>
 
@@ -110,6 +114,7 @@ such files as process attachments so they \"survive\" suspending/resuming the
 process or restoring from a
 [checkpoint](../processes-v1/flows.html#checkpoints). The path is
 relative to the process' `${workDir}`;
+- `toolUrl` - URL to a specific terraform bundle or version  (.zip format)
 - `error` - string value, error of the last `terraform` execution (stderr).
 
 The execution's output (stored as `${result.output}`) can be used to output
@@ -172,6 +177,40 @@ structure:
 - `output` - string value, output of `terraform apply` (stdout);
 - `error` - string value, error of the last `terraform` execution (stderr);
 - `data` - map (dict) value, contains the output values. Only if `saveOutput` is `true`.
+
+<a name="destroying"/>
+
+## Destroying Infrastructure
+
+The `destroy` action executes `terraform destroy` in the process' working
+directory or in a directory specified in `dir` parameter. This is provided in
+addition to applying a plan generated with the `destroy` argument which 
+is problematic with some modules and providers. 
+
+When used with the `remote` backend the `CONFIRM_DESTROY` environment 
+variable must be created in the relavent Cloud/Enterprise workspace.
+
+Run `terraform destroy` in `${workDir}`:
+
+```yaml
+- task: terraform
+  in:
+    action: destroy
+    extraEnv: 
+      CONFIRM_DESTROY: 1
+```
+
+Run `terraform destroy` in a specific directory
+
+```yaml
+- task: terraform
+  in:
+    action: destroy 
+    dir: "myTFStuff"
+    extraEnv: 
+      CONFIRM_DESTROY: 1
+```
+
 
 <a name="variables"/>
 
@@ -305,6 +344,34 @@ plugin to use no backend for storing state, use something like the following:
   in:
     action: plan
     backend: none
+```
+
+<a name="remote"/>
+
+## Terraform Enterprise / Cloud
+
+
+[Remote](https://www.terraform.io/docs/backends/types/remote.html) is a special backend 
+that runs jobs on Terraform Enterprise (TFE) or Terraform Cloud. Concord will 
+create `.terraformrc` and `*.override.tfvars.json` configurations to access the 
+module registry and trigger execution.
+
+It is preferrable to configure a Terraform Version in the TFE / Cloud workspace
+(workspace->settings->general->Terraform Version) and provide a matching `toolUrl` 
+so concord and TFE use the same executable and bundled modules.
+
+```yaml
+- task: terraform
+  in:
+    action: apply
+    toolUrl: https://releases.hashicorp.com/terraform/tfe-configured-version/terraform_tfe-version_linux_amd64.zip
+    backend:
+      remote:
+        hostname: "app.terraform.io"
+        organization:  "ExampleOrg"
+        token: "Use_A_Crypto_Task_To_Protect_Token"
+        workspaces: 
+          name: "ExampleWorkspace"
 ```
 
 <a name="git-modules"/>
