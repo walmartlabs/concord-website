@@ -175,6 +175,8 @@ nav:
         context: /docs/plugins/taurus
       - page: Terraform
         context: /docs/plugins/terraform
+      - page: XML
+        context: /docs/plugins/xml
       - page: Zoom
         context: /docs/plugins/zoom
   - title: Templates
