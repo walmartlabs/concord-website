@@ -1,6 +1,6 @@
 ---
 layout: wmt/docs
-title:  LDAP Task
+title:  XML Task
 side-navigation: wmt/docs-navigation.html
 ---
 
