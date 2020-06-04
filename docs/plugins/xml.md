@@ -33,6 +33,7 @@ expression.
 ### Read a String Value
 
 Assuming an XML file `data.xml` with the following content:
+
 ```xml
 <books>
   <book id="0">
@@ -56,7 +57,8 @@ return a DOM text node.
 ## Read a List of String Values
 
 Assuming an XML file `data.xml` with the following content:
-```
+
+```xml
 <books>
   <book id="0">
     <title>Don Quixote</title>
