@@ -54,7 +54,8 @@ working directory.
     - `activeProfiles` - a comma-separated list of profiles to use;
     - `archive` - ZIP archive, will be extracted into the process'
     working directory;
-    - `request` - JSON file, will be used as the process' parameters;
+    - `request` - JSON file, will be used as the process' parameters
+    (see [examples](#examples) below);
     - any value of `application/octet-stream` type - will be copied
     as a file into the process' working directory;
     - `orgId` or `org` - ID or name of the organization which
@@ -90,33 +91,43 @@ working directory.
       "ok" : true
     }
     ```
-* **Example**
-    ```
-    curl -H "Authorization: ..." \
-    -F org=MyOrg \
-    -F project=MyProject \
-    -F repo=MyRepo \
-    -F archive=@src/payload.zip \
-    -F myFile.txt=@src/myFile.txt \
-    -F entryPoint=main \
-    -F activeProfiles=myProfile \
-    -F arguments.name=Concord \
-    http://concord.example.com/api/v1/process
-    ```
 
-An example of a invocation triggers the `default` flow in the `default` repository
-of `myproject` in the `myorg` organization without further parameters.
+### Examples
+
+An example of a invocation triggers the `default` flow in the `default`
+repository of `myProject` in the `myOrg` organization without further
+parameters.
 
 ```
-curl -F org=myorg -F project=myproject -F repo=default https://concord.example.com/api/v1/process
+curl -i -F org=myOrg -F project=myProject -F repo=default https://concord.example.com/api/v1/process
 ```
 
+(use `-i` or `-v` to see the server's reply in case of any errors).
 
-You can specify the flow e.g. `main` to start with a different flow for the same
-`default` repository of the `myproject` without further parameters.
+You can specify the flow e.g. `main` to start with a different flow for
+the same `default` repository of the `myProject` without further parameters.
 
 ```
-curl -F org=myorg -F project=myproject -F repo=default -F entryPoint=main https://concord.example.com/api/v1/process
+curl ... -F entryPoint=main https://concord.example.com/api/v1/process
+```
+
+Passing arguments:
+
+```
+curl ... -F arguments.x=123 https://concord.example.com/api/v1/process
+```
+
+Note that all arguments passed this way are `String` values. If you wish to
+pass other types of values you can use JSON files:
+
+```
+curl ... -F request=@values.json https://concord.example.com/api/v1/process
+```
+
+or using Curl's inline syntax:
+
+```
+curl ... -F request='{"arguments": {"x": true}};type=application/octet-stream' https://concord.example.com/api/v1/process
 ```
 
 Scheduling an execution:
@@ -125,14 +136,21 @@ Scheduling an execution:
 curl ... -F startAt='2018-03-15T15:25:00-05:00' https://concord.example.com/api/v1/process
 ```
 
+You can also upload and run a `concord.yml` file without creating a Git
+repository or a payload archive:
+
+```
+curl ... -F concord.yml=@concord.yml https://concord.example.com/api/v1/process
+```
+
 <a name="form-data"/>
 
 ### Form Data
 
 Concord accepts `multipart/form-data` requests to start a process. 
 Special variables such as `arguments`, `archive`, `out`, `activeProfiles`, etc
-are automatically configured. Other submitted data of format `text/plain` is used
-to configure variables. All other information is stored as a file in the
+are automatically configured. Other submitted data of format `text/plain` is
+used to configure variables. All other information is stored as a file in the
 process' working directory.
 
 However, if user tries to upload a `.txt` file
@@ -145,12 +163,13 @@ curl ... -F myFile.txt=@myFile.txt -F archive=@target/payload.zip \
 then curl uses `Content-Type: text/plain` header and Concord stores this as a
 configuration variable instead of a file as desired.
 
-As a workaround you can configured the content type of the field explicitly:
+As a workaround you can specify the content type of the field explicitly:
 
 ```
-curl ... -F "myFile.txt=@myFile.txt;type=application/octet-stream" \
-  -F archive=@target/payload.zip \
-  https://concord.example.com//api/v1/process
+curl ... \
+-F "myFile.txt=@myFile.txt;type=application/octet-stream" \
+-F archive=@target/payload.zip \
+https://concord.example.com//api/v1/process
 ```
 
 <a name="zip-file"/>
@@ -379,7 +398,7 @@ Retrieve a list of processes.
 * **Example**
     ```
 curl -H "Authorization: ..." \
-'http://concord.example.com/api/v2/process?orgName=MyOrg&projectName=MyProject&meta.myMetaVar.startsWith=Hello'
+'http://concord.example.com/api/v2/process?orgName=myOrg&projectName=myProject&meta.myMetaVar.startsWith=Hello'
     ```
 
 <a name="count"/>
