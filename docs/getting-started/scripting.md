@@ -9,9 +9,10 @@ side-navigation: wmt/docs-navigation.html
 Concord flows can include scripting language snippets for execution. The
 scripts run within the same JVM that is running Concord, and hence need to
 implement the Java Scripting API as defined by JSR-223. Language examples with a
-compliant runtimes are
-[JavaScript](#javascript), [Groovy](#groovy), [Python](#python), JRuby and many
-others.
+compliant runtimes are [JavaScript](#javascript), [Groovy](#groovy),
+[Python](#python), [JRuby](#ruby) and many others.
+
+Script engines must support Java 8.
 
 Script languages have to be identified by setting the language explicitly or can be
 automatically identified based on the file extension used. They can be stored
@@ -257,12 +258,12 @@ Python scripts can be executed using the [Jython](http://www.jython.org/)
 runtime. It requires the addition of a dependency to
 [jython-standalone](https://repo1.maven.org/maven2/org/python/jython-standalone)
 located in the Central Repository or on another server and the identifier
-`python`.
+`python`. Any version that supports JSR-223 and Java 8 should work.
 
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.python:jython-standalone:2.7.1"
+  - "mvn://org.python:jython-standalone:2.7.2"
 
 flows:
   default:
