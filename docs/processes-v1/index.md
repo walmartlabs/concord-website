@@ -184,6 +184,7 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
 - `initiator`: information about the user who started a process:
   - `initiator.username`: login, string;
   - `initiator.displayName`: printable name, string;
+  - `initiator.email`: email address, string;
   - `initiator.groups`: list of user's groups;
   - `initiator.attributes`: other LDAP attributes; for example
     `initiator.attributes.mail` contains the email address.
