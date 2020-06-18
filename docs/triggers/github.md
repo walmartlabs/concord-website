@@ -47,18 +47,21 @@ triggers:
 
 Github trigger supports the following attributes
 
-- `entryPoint` string, mandatory, the name of the flow that Concord starts when
-GitHub event matches trigger conditions;
-- `activeProfiles` array of string, optional, list of profiles that Concord
+- `entryPoint` - string, mandatory, the name of the flow that Concord starts
+when GitHub event matches trigger conditions;
+- `activeProfiles` - list of strings, optional, list of profiles that Concord
 applies for process;
-- `useInitiator` boolean, optional, process initiator is set to `sender` when
+- `useInitiator` - boolean, optional, process initiator is set to `sender` when
 this attribute is marked as `true`;
-- `useEventCommitId` boolean, optional, Concord will use commit id from event
-for process;
-- `exclusive` string, optional, exclusive group for process;
-- `arguments` key-value, optional, additional parameters that are passed to the
-flow;
-- `conditions` key-value, mandatory, conditions for GitHub event matching;
+- `useEventCommitId` - boolean, optional, Concord will use the event's commit
+ID to start the process;
+- `ignoreEmptyPush` - boolean, optional, if `true` Concord skips empty `push`
+notifications, i.e. pushes with the same `after` and `before` commit IDs.
+Default value is `true`;
+- `exclusive` - string, optional, exclusive group for process;
+- `arguments` - key-value, optional, additional parameters that are passed to
+the flow;
+- `conditions` - key-value, mandatory, conditions for GitHub event matching;
 - `version` - number, optional if matches the default version of the current
 Concord instance. Trigger implementation's version.
 
