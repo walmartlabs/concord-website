@@ -6,6 +6,9 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
+**Note:** the Inventory Query API is deprecated in favor of
+[the JSON Store API](../json-store.html).
+
 Inventory Queries are used to access data stored in an [Inventory](inventory).
 
 The REST API provides support working with inventory queries:
@@ -29,7 +32,7 @@ Creates a new inventory query with specified query.
 
 * **URI** `/api/v1/org/{orgName}/inventory/${inventoryName}/query/${queryName}`
 * **Method** `POST`
-* **Headers** `Authorization`, `Content-Type: text/plain`
+* **Headers** `Authorization`, `Content-Type: text/plain` or `Content-Type: application/json`
 * **Body**
     ```sql
     SELECT CAST(json_build_object('host', item_data->'host') as varchar) FROM inventory_data;

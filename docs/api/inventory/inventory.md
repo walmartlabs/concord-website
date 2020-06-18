@@ -6,6 +6,9 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
+**Note:** the Inventory API is deprecated in favor of
+[the JSON Store API](../json-store.html).
+
 An organization can contain one or more inventories.
 
 The REST API provides support for working with inventories:
