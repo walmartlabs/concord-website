@@ -93,64 +93,61 @@ described in [Configuring Ansible](#configuring-ansible):
 All parameter sorted alphabetically. Usage documentation can be found in the
 following sections:
 
-- `auth`: authentication parameters:
-  - `privateKey`: private key parameters;
-    - `path`: string, path to a private key file located in the process's working directory;
-    - `user`: string, remote username;
-    - `secret`: parameters of the SSH key pair stored as a Concord secret
-      - `org`: string, the secret's organization name;
-      - `name`: string, the secret's name;
-      - `password`: string, the secret's password (optional);
-  - `krb5`: Kerberos 5 authentication:
-    - `user`: AD username;
-    - `password`: AD password.
-- `config`: JSON object, used to create an
+- `auth` - authentication parameters:
+  - `privateKey` - private key parameters;
+    - `path` - string, path to a private key file located in the process's working directory;
+    - `user` - string, remote username;
+    - `secret` - parameters of the SSH key pair stored as a Concord secret
+      - `org` - string, the secret's organization name;
+      - `name` - string, the secret's name;
+      - `password` - string, the secret's password (optional);
+  - `krb5` - Kerberos 5 authentication:
+    - `user` - AD username;
+    - `password` - AD password.
+- `config` - JSON object, used to create an
   [Ansible configuration](#configuring-ansible);
-- `check`: boolean, when set to true Ansible does not make any changes; instead
+- `check` - boolean, when set to true Ansible does not make any changes; instead
   it tries to predict some of the changes that may occur. Check
   [the official documentation](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_checkmode.html)
   for more details
-- `debug`: boolean, enables additional debug logging;
-- `disableConcordCallbacks`: boolean, disables all Ansible callback plugins
+- `debug` - boolean, enables additional debug logging;
+- `disableConcordCallbacks` - boolean, disables all Ansible callback plugins
   provided by Concord (event recording, `outVars` processing, etc). Default is
   `false`;
-- `dockerImage`: optional configuration to specify
-- `dynamicInventoryFile`: string, path to a dynamic inventory
+- `dockerImage` - string, optional [Docker image](#custom-docker-images) to use;
+- `dynamicInventoryFile` - string, path to a dynamic inventory
   script. See also [Dynamic inventories](#dynamic-inventories) section;
-- `enableLogFiltering`: boolean, see [Log Filtering](#log-filtering) section;
-- `enablePolicy`: boolean, apply active Concord [policies](../getting-started/policies.html#ansible-rule).
+- `enableLogFiltering` - boolean, see [Log Filtering](#log-filtering) section;
+- `enablePolicy` - boolean, apply active Concord [policies](../getting-started/policies.html#ansible-rule).
   Default is `true`;
-- `enableEvents`: boolean, record Ansible events - task executions, hosts, etc.
+- `enableEvents` - boolean, record Ansible events - task executions, hosts, etc.
   Default is `true`;
-- `enableStats`: boolean, save the statistics as a JSON file. Default is `true`;
-- `enableOutsVars`: boolean, process [output variables](#output-variables).
+- `enableStats` - boolean, save the statistics as a JSON file. Default is `true`;
+- `enableOutsVars` - boolean, process [output variables](#output-variables).
   Default is `true`;
-- `extraEnv`: JSON object, additional environment variables
-- `extraVars`: JSON object, used as `--extra-vars`. See also
-the [Input Variables](#input-variables) section;
-- `extraVarsFiles`: list of strings, paths to extra variables files. See also
-the [Input Variables](#input-variables) section; 
-- `groupVars`: configuration for exporting secrets as Ansible [group_vars](#group-vars) files;
-- `inventory`: JSON object, an inventory data specifying
+- `extraEnv` - JSON object, additional environment variables
+- `extraVars` - JSON object, used as `--extra-vars`. See also
+  the [Input Variables](#input-variables) section;
+- `extraVarsFiles` - list of strings, paths to extra variables files. See also
+  the [Input Variables](#input-variables) section; 
+- `groupVars` - configuration for exporting secrets as Ansible [group_vars](#group-vars) files;
+- `inventory` - JSON object, an inventory data specifying
   [a static, inline inventories](#inline-inventories)section;
-- `inventoryFile`: string, path to an inventory file;
-- `limit`: limit file, see [Retry and Limit Files](#retry-limit)
-- `playbook`: string, relative path to a playbook;
-  argument of `ansible-playbook` command. Check [the official
-  documentation](http://docs.ansible.com/ansible/latest/playbooks_variables.html#id31)
-  for more details;
-- `retry`: retry flag, see [Retry and Limit Files](#retry-limit)
-- `tags`: string, a comma-separated list or an array of
+- `inventoryFile` - string, path to an inventory file;
+- `limit` - limit file, see [Retry and Limit Files](#retry-limit)
+- `playbook` - string, a path to a playbook. See [the note](#custom-docker-images)
+on usage with `dockerImage`;
+- `retry` - boolean, the retry flag, see [Retry and Limit Files](#retry-limit);
+- `tags` - string, a comma-separated list or an array of
   [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html);
-- `skipTags`: string, a comma-separated list or an array of
+- `skipTags` - string, a comma-separated list or an array of
   [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html) to skip;
-- `saveRetryFile`: file name for the retry file, see [Retry and Limit Files](#retry-limit)
-- `syntaxCheck`: boolean, perform a syntax check on the playbook, but do not execute it
-- `vaultPassword`: string, password to use with [Ansible Vault](#ansible-vault).
-- `verbose`: integer, increase log
+- `saveRetryFile` - file name for the retry file, see [Retry and Limit Files](#retry-limit)
+- `syntaxCheck` - boolean, perform a syntax check on the playbook, but do not execute it
+- `vaultPassword` - string, password to use with [Ansible Vault](#ansible-vault).
+- `verbose` - integer, increase log
   [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4
   correlate to -v through -vvvv.
-
 
 ## Configuring Ansible
 
@@ -435,6 +432,22 @@ Ansible images.
 
 Please refer to our [Docker plugin documentation](./docker.html) for more
 details.
+
+**Note:** Concord mounts the current `${workDir}` into the container as
+`/workspace`. If your `playbook` parameter specified an absolute path or uses
+`${workDir}` value, consider using relative paths:
+
+```yaml
+- task: ansible
+  in:
+    playbook: "${workDir}/myPlaybooks/play.yml" # doesn't work, ${workDir} points to a directory outside of the container
+    dockerImage: "walmartlabs/concord-ansible"
+
+- task: ansible
+  in:
+    playbook: "myPlaybooks/play.yml" # works, the relative path correctly resolves to the path inside the container
+    dockerImage: "walmartlabs/concord-ansible"
+```
 
 <a name="retry-limit"/>
 
