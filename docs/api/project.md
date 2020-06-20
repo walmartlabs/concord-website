@@ -20,6 +20,7 @@ The REST API provides support for a number of operations:
 - [List Current Access Rules](#list-current-access-rules)
 - [Update Access Rules](#update-access-rules)
 - [Bulk Update Access Rules](#bulk-update-access-rules)
+- [Move Project To Another Organization](#move-project-to-another-organization)
 
 <a name="create-project"/>
 
@@ -352,7 +353,7 @@ Moves the project to the specified Organization (through Organization name ID)
 
     ```json
     {
-      "projectName": "myProject",
+      "name": "myProject",
       "orgName": "anotherOrg"
     }
     ```
