@@ -22,7 +22,7 @@ format required per [Dynamic Inventory Conventions](https://docs.ansible.com/ans
 
 Prior to using this plugin, inventory data must be stored in Concord JSON
 storage. Additionally, a query must be created per the API documentation:
-[Inventory Query](../api/inventory-query). The results of that query are the
+[Inventory Query](../api/inventory/inventory-query). The results of that query are the
 input of this plugin and must contain a list of JSON objects containing a
 `host` string and a `data` object. The `host` is added to the hostgroup and all
 `data` becomes hostvars.
