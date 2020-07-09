@@ -11,6 +11,7 @@ characteristics of processes and system entities.
 
 - [Overview](#overview)
 - [Document Format](#document-format)
+- [Attachment Rule](#attachment-rule)
 - [Ansible Rule](#ansible-rule)
 - [Dependency Rule](#dependency-rule)
 - [Dependency Versions Rule](#dependency-versions-rule)
@@ -80,6 +81,27 @@ Here's the list of currently supported rules:
 - [queue](#queue-rule) - controls the process queue behaviour;
 - [task](#task-rule) - applies rules to flow tasks;
 - [workspace](#workspace-rule) - controls the size of the workspace.
+
+## Attachment Rule
+
+Attachment rules allow you to limit the size of
+[process attachments](../api/process.html#downloading-an-attachment).
+
+The syntax:
+
+```json
+{
+   "attachments": {
+      "msg": "The size of process attachments exceeds the allowed value: current {0} byte(s), limit {1} byte(s)",
+      "maxSizeInBytes": 1024
+   }
+}
+```
+
+Concord applies the limit to all files stored in the process'
+`${workDir}/_attachments` directory, including the process state
+files (variables, flow state, etc) and all files created during
+the execution of the process.
 
 ## Ansible Rule
 
