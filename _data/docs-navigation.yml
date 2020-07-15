@@ -31,8 +31,6 @@ nav:
         context: /docs/getting-started/json-store
       - page: Node Roster
         context: /docs/getting-started/node-roster
-      - page: CLI
-        context: /docs/getting-started/cli
       - page: Development
         context: /docs/getting-started/development
   - title: Processes (v1)
@@ -185,6 +183,16 @@ nav:
     subfolderitems:
       - page: Introduction
         context: /docs/templates/index
+  - title: CLI
+    id: cli
+    collapse: /docs/cli
+    subfolderitems:
+      - page: Overview
+        context: /docs/cli/index
+      - page: Linting
+        context: /docs/cli/linting
+      - page: Running Flows
+        context: /docs/cli/running-flows
   - title: Under Development
     id: processes-v2
     collapse: /docs/processes-v2

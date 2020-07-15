@@ -6,9 +6,6 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-**Note:** Node Roster is a "beta" feature. API methods and parameters are
-subject to change.
-
 [Node Roster](../getting-started/node-roster.html) provides access to data
 gathered during [Ansible](../plugins/ansible.html) playbook executions.
 

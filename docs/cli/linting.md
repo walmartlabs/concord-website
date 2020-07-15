@@ -1,27 +1,13 @@
 ---
 layout: wmt/docs
-title:  CLI
+title:  Linting
 side-navigation: wmt/docs-navigation.html
 ---
 
 # {{ page.title }}
 
-Concord provides a command-line tool to simplify some of the common operations.
-
-- [Installation](#installation)
-- [Linting](#linting)
-
-## Installation
-
-Concord CLI requires Java 1.8+ available in `$PATH`. Installation is merely
-a download-and-copy process:
-
-```bash
-curl -o ~/bin/concord https://repo.maven.apache.org/maven2/com/walmartlabs/concord/concord-cli/{{ site.concord_core_version }}/concord-cli-{{ site.concord_core_version }}-executable.jar
-chmod +x ~/bin/concord
-```
-
-## Linting
+The CLI tool supports "linting" of Concord YAML files. It can validate
+the syntax of flows and expressions without actually running them.
 
 ```bash
 concord lint [-v] [target dir]
@@ -69,3 +55,34 @@ INVALID
 
 The linting feature is in very early development, more validation rules are
 added in future releases.
+
+## Running Flows Locally
+
+**Note:** this feature supports only [`concord-v2` flows](../processes-v2/index.html).
+The CLI tool forces the `runtime` parameter value to `concord-v2`.
+
+The CLI tool can run Concord flows locally:
+
+```yaml
+# concord.yml
+flows:
+  default:
+    - log: "Hello!"
+```
+
+```
+$ concord run
+Starting...
+21:23:45.951 [main] Hello!
+...done!
+```
+
+By default, `concord run` copies all files in the current directory into
+a `$PWD/target` directory -- similarly to Maven.
+
+The `concord run` command doesn't use a Concord Server, the flow execution is
+purely local. However, if the flow uses external
+[dependencies](../processes-v2/configuration.html#dependencies) or
+[imports](../processes-v2/imports.html) a working network connection might be
+required.
+

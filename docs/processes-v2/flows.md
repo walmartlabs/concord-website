@@ -18,6 +18,7 @@ plugins (also known as "tasks"), performing data validation, creating
     - [Calling Other Flows](#calling-other-flows)
     - [Setting Variables](#setting-variables)
     - [Checkpoints](#checkpoints)
+    - [Parallel Execution](#parallel-execution)
 - [Loops](#loops)
 - [Error Handling](#error-handling)
     - [Handling Errors In Flows](#handling-errors-in-flows)
@@ -349,6 +350,59 @@ the `resumeEventName` variable.
 
 **Note:** files created during the process' execution are not saved during the
 checkpoint creation.
+
+### Parallel Execution
+
+**Note:** this is a "preview" feature. The syntax is subject to change.
+
+The `parallel` block executes all step in parallel:
+
+```yaml
+flows:
+  default:
+    - parallel:
+        - ${sleep.ms(3000)}
+        - ${sleep.ms(3000)}
+
+    - log: "Done!"
+```
+
+The runtime executes each step in its own Java thread.
+
+Variables that exist at the start of the `parallel` block are copied into each
+thread.
+
+The `out` block can be used to return variables from the `parallel`
+block back into the flow:
+
+```yaml
+- parallel:
+    - task: http
+      in:
+        url: https://google.com/
+      out: googleResponse
+
+    - task: http
+      in:
+        url: https://bing.com/
+      out: bingResponse
+  out:
+    - googleResponse
+    - bingResponse
+
+- log: |
+    Google: ${googleResponse.statusCode}
+    Bing: ${bingResponse.statusCode}
+```
+
+**Note:** currently, to pass current variables into a `parallel` block,
+the runtime performs a "shallow copy". If you're passing collections or
+non-primitive objects in or out of the `parallel` block, you can
+still modify the original variable:
+
+```yaml
+# TODO
+```
 
 ## Loops
 

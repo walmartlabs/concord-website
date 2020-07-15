@@ -13,8 +13,6 @@ and a flow [task](../plugins/node-roster.html).
 Node Roster requires a minimum [Ansible Plugin](../plugins/ansible.html)
 version of 1.38.0. No further configuration is required for usage.
 
-**Note:** Node Roster is a beta feature. All APIs are subject to change.
-
 ## Features
 
 - automatically processes Ansible events and collects deployment data such as:

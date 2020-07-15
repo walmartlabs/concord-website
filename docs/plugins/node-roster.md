@@ -6,9 +6,6 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-**Note:** Node Roster is a "beta" feature. The plugin's actions and parameters
-are subject to change.
-
 The Node Roster task provides a way to access [Node Roster](../getting-started/node-roster.html)
 data in Concord flows.
 

@@ -6,11 +6,6 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-**Note:** This is a beta feature. Although changes in the API are unlikely,
-changes in behavior are possible. The main intent for the JSON Store API is
-to be used within Concord flows. Future versions may restrict the API for
-external usage.
-
 JSON Store provides a built-in mechanism of storing and querying for
 arbitrary JSON data persistently. It is useful for processes which require
 state management beyond regular variables or features provided by
