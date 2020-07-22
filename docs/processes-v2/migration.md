@@ -34,6 +34,33 @@ $ curl ... -F runtime=concord-v2 http://concord.example.com/api/v1/process
 
 Check out below for new and updated features of v2.
 
+## New Directory Structure
+
+The v1 runtime supports loading additional files from the
+`${workDir}/concord/*.yml` directory. Any YAML file in the `concord` directory
+treated as a Concord YAML file. Sometimes it might get in the way,
+especially when [imports](../processes-v1/imports.html) are used -- the
+`${workDir}/concord` directory is the default target for `imports` and
+you might end up with other YAML files imported into the directory.
+
+The v2 runtime requires Concord YAML files in the `concord` directory to have
+a special `.concord.yml` extension, for example:
+
+```
+# the main file
+/concord.yml   
+
+# additional files
+/concord/my.concord.yml
+/concord/extra.concord.yml
+
+# not a Concord file, won't be loaded
+/concord/values.yaml
+```
+
+See more details in the [Directory structure](./index.html#directory-structure)
+documentation.
+
 ## New SDK
 
 Tasks that wish to use all features provided by the v2 runtime must use
@@ -83,7 +110,8 @@ class MyTaskV2 implements com.walmartlabs.concord.runtime.v2.sdk.Task {
 }
 ```
 
-More details in the [Tasks v2](../getting-started/tasks-v2.md) document (TBD).
+More details in the [Tasks v2](../getting-started/tasks-v2.md) documentation
+(TBD).
 
 ## Variable Scoping Rules
 
