@@ -21,6 +21,7 @@ The following configuration details are available:
 - [Common Environment Variables](#common-environment-variables)
 - [Process Runtime Variables](#process-runtime-variables)
 - [Default Process Variables](#default-process-variables)
+- [GitHub Integration](#github-integration)
 
 <a name="server-cfg-file"/>
 
@@ -227,3 +228,67 @@ configuration:
     slackCfg:
       authToken: "..."
 ```
+
+## GitHub Integration
+
+### Repository Access
+
+To access external Git repositories Concord supports both the username and
+password, and the SSH key pair authentication.
+
+Additionally, an access token can be configured to use when no custom
+authentication specified:
+
+```
+# concord-server.conf
+concord-server {
+    git {
+        # GitHub username and an access token separated by a colon
+        oauth: "jsmith:af3f...f"
+    }
+}
+```
+
+The same token must be added to the Agent's configuration as well:
+
+```
+# concord-agent.conf
+concord-agent {
+    git {
+        oauth: "..."
+    }
+}
+```
+
+### Webhooks
+
+Concord supports both repository and organization level hooks.
+
+Here's a step-by-step instruction on how to configure Concord to use GitHub
+webhooks:
+
+Configure the shared secret:
+
+```
+# concord-server.conf
+concord-server {
+    github {
+        githubDomain = "github.com"
+        secret = "myGitHubSecret"
+    }
+}
+```
+
+Create a new webhook on the GitHub repository or organizations settings page:
+
+<img src="../../assets/img/screenshots/gh-webhook-page.png" class="img-responsive"/>
+
+Use `Content-Type: application/json` and a secret you specified in the
+`concord-server.conf` file.
+
+**Note:** the `useInitiator` [feature](../triggers/github.org#version-2) requires
+a Concord environment with an AD/LDAP server. If you wish to use Concord without
+an AD or LDAP server, or your GitHub users are not the same as your AD/LDAP users,
+use `useInitiator: false` or omit it (`false` is the default value). In this case
+all processes triggered by GitHub would have the built-in `github` user as their
+initiator.
