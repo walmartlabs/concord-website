@@ -62,7 +62,7 @@ concord-server {
         url = "ldap://oldap:389"
         searchBase = "dc=example,dc=org"
         principalSearchFilter = "(cn={0})"
-        userSearchFilter = "(cn=*{0}*)"
+        userSearchFilter = "(cn={0})"
         usernameProperty = "cn"
         userPrincipalNameProperty = ""
         returningAttributes = ["*", "memberOf"]
