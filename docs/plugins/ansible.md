@@ -709,13 +709,19 @@ ansible task.
         vars:
           ansible_connection: "local"
     outVars:
-    - "myVar"
+      - "myVar"
 ```
 
-The JSON object can be traversed to access specific values.
-
+The object can be traversed to access specific values:
 ```yaml
 - log: ${myVar['127.0.0.1']['msg']}
+```
+
+Expressions can be used to convert an `outVar` value into a "flat" list of
+values:
+```yaml
+# grab a 'msg' value for each host
+- log: "${myVar.entrySet().stream().map(kv -> kv.value.msg).toList()}"
 ```
 
 **Note:** not compatible with `disableConcordCallbacks: true` or
