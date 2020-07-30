@@ -89,8 +89,8 @@ least, all process-level errors were handled in the process itself;
 ## Runtime
 
 The runtime is what actually executes the process. It is an interpreter written
-in Java that executed flows written in [Concord DSL](../processes-v1/index.html#dsl).
-Typically is is executed in a separate JVM process.
+in Java that executes flows written in [Concord DSL](../processes-v1/index.html#dsl).
+Typically this is executed in a separate JVM process.
 
 Currently there are two versions of the runtime:
 - [concord-v1](../processes-v1/index.html) - the current stable version, used
