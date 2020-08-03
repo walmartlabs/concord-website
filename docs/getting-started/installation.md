@@ -8,7 +8,8 @@ side-navigation: wmt/docs-navigation.html
 
 There are several options to install Concord:
 
-- [Docker](./install/docker.html)
+- using [Docker Compose](./install/docker-compose.html)
+- manually with [Docker](./install/docker.html)
 - [Vagrant](./install/vagrant.html)
 
 If you already have access to a Concord deployment or after finishing these
