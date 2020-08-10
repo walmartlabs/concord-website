@@ -128,6 +128,15 @@ The configuration file is optional for local development.
 
 ## Common Environment Variables
 
+### JVM Parameters
+
+| Variable           | Description                           | Default value             |
+|--------------------|---------------------------------------|---------------------------|
+| CONCORD_JAVA_OPTS  | Additional JVM arguments              | concord-server:           |
+|                    |                                       |   `-Xms2g -Xmx2g -server` |
+|                    |                                       | concord-agent:            |
+|                    |                                       |   `-Xmx256m`              |
+
 ### Dependencies
 
 | Variable           | Description                           | Default value |
@@ -185,21 +194,6 @@ snapshots and release versions. Parameters:
   javadoc for the list of accepted values;
   - `checksumPolicy` - string, optional. See [RepositoryPolicy](https://maven.apache.org/resolver/apidocs/org/eclipse/aether/repository/RepositoryPolicy.html)
   javadoc for the list of accepted values;
-
-## Process Runtime Variables
-
-Specific Concord project executions are processes on the so-called _agents_.
-The following parameters affect the agent configuration used for any process
-execution. All parameters are optional.
-
-| Variable          | Description                                     | Default value               |
-|-------------------|-------------------------------------------------|-----------------------------|
-| SERVER_HOST       | Hostname of the server.                         | `localhost`                 |
-| SERVER_PORT       | Port of the server's API for agents.            | `8101`                      |
-| AGENT_LOG_DIR     | Directory to store payload execution log files. | _a new temporary directory_ |
-| AGENT_PAYLOAD_DIR | Directory to store unpacked payload files.      | _a new temporary directory_ |
-| AGENT_JAVA_CMD    | Path to `java` executable.                      | `java`                      |
-| DEPS_CACHE_DIR    | Path to a directory for the dependency cache.   | _a new temporary directory_ |
 
 ## Default Process Variables
 
