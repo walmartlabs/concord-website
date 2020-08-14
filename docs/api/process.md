@@ -74,7 +74,7 @@ working directory.
     later using the [status](#status) request;
     - `startAt` - ISO-8601 date-time value. If specified, the process
     will be scheduled to run on the specified date and time. Can't be
-    in the past. Explicitly specifying the timezone is recommended;
+    in the past. Time offset (e.g. `Z`, `-06:00`) is required;
     - any other value of `text/plain` type - will be used as a process'
     parameter. Nested values can be specified using `.` as the
     delimiter;
@@ -360,8 +360,8 @@ Retrieve a list of processes.
     - `projectId`: filter by the project's ID;
     - `projectName`: filter by the project's name, requires `orgId` or
       `orgName`;
-    - `afterCreatedAt`: limit by date, ISO-8601 string;
-    - `beforeCreatedAt`: limit by date, ISO-8601 string;
+    - `afterCreatedAt`: limit by date, ISO-8601 string with time offset;
+    - `beforeCreatedAt`: limit by date, ISO-8601 string with time offset;
     - `tags`: filter by a tag, repeat the parameter to filter by multiple tags;
     - `status`: filter by the process status;
     - `initiator`: filter by the initiator's username (starts with the
@@ -398,7 +398,7 @@ Retrieve a list of processes.
 * **Example**
     ```
 curl -H "Authorization: ..." \
-'http://concord.example.com/api/v2/process?orgName=myOrg&projectName=myProject&meta.myMetaVar.startsWith=Hello'
+'http://concord.example.com/api/v2/process?orgName=myOrg&projectName=myProject&meta.myMetaVar.startsWith=Hello&afterCreatedAt=2020-08-12T00:00:00.000Z'
     ```
 
 <a name="count"/>
@@ -474,7 +474,7 @@ Retrieve a list of events.
     ID of a process: `${instanceId}`
 * **Query parameters**
     - `type`: event type;
-    - `after`: limit by date, ISO-8601 string;
+    - `after`: limit by date, ISO-8601 string with time offset;
     - `eventCorrelationId`: correlation ID of the event (e.g. a task call);
     - `eventPhase`: for multi-phase events (e.g. a task call - `PRE` or
       `POST`);
