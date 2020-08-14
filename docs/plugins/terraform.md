@@ -22,6 +22,7 @@ flow.
 - [State Backends](#backends)
 - [Terraform Enterprise / Cloud](#remote)
 - [GIT modules](#git-modules)
+- [Terraform Version](#terraform-version)
 - [Examples](#examples)
 
 ## Usage
@@ -60,9 +61,16 @@ the `terraform` process
 - `extraVars` - [variables](#variables) provided to the `terraform` process
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
 execution will be ignored and stored in the `result` variable
+- `ignoreLocalBinary` - boolean value, if `true` the plugin won't use
+a `terraform` binary from `$PATH`. See the [Terraform Version](#terraform-version)
+section for more details
 - `stateId` - string value, the name of a state file to use. See
 the [State Backends](#backends) section for more details
-- `varFiles` - list of files to add as `-var-file`
+- `toolUrl` - URL to a specific terraform bundle or version (.zip format). See
+the [Terraform Version](#terraform-version) section for more details
+- `toolVersion` - Terraform version to use, mutually exclusive with `toolUrl`.
+See the [Terraform Version](#terraform-version) section for more details
+- `varFiles` - list of files to add as `-var-file`.
 
 <a name="planning"/>
 
@@ -114,7 +122,6 @@ such files as process attachments so they \"survive\" suspending/resuming the
 process or restoring from a
 [checkpoint](../processes-v1/flows.html#checkpoints). The path is
 relative to the process' `${workDir}`;
-- `toolUrl` - URL to a specific terraform bundle or version  (.zip format)
 - `error` - string value, error of the last `terraform` execution (stderr).
 
 The execution's output (stored as `${result.output}`) can be used to output
@@ -412,6 +419,19 @@ Multiple private key files and Concord Secrets can be used simultaneously.
 
 When running separate `plan` and `apply` actions, only the `plan` part requires
 the key configuration.
+
+## Terraform Version
+
+The plugin tries to find a `terraform` binary using the following methods:
+- looks for `${workDir}/.terraform/terraform` first;
+- next, if `toolUrl` is provided, the plugin downloads the specified URL and
+extracts it into `${workDir}/.terraform` directory. The `terraform` binary
+should be in the top-level directory of the archive;
+- looks for `terraform` in `$PATH` unless `ignoreLocalBinary: true` is
+specified;
+- downloads the binary's archive from the standard location
+([releases.hashicorp.com](https://releases.hashicorp.com)). In this case,
+the `toolVersion` parameter can be used.
 
 ## Examples
 
