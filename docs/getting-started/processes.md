@@ -40,12 +40,12 @@ When executed this flow performs a number of steps:
 - prints out a message depending whether the condition is true or not. 
 
 The example demonstrates a few concepts:
-- flow definitions use Concord's YAML-based [DSL](./v1/index.html#dsl);
+- flow definitions use Concord's YAML-based [DSL](../processes-v1/index.html#dsl);
 - flows can call [tasks](../getting-started/tasks.md). And tasks can perform
 useful actions;
 - flows can use [conditional expressions](../processes-v1/flows.html#conditional-expressions);
-- tasks can save their results as flow [variables](./v1/flows.html#setting-variables)
-- an [expression language](./v1/flows.html#expressions) can be used to work
+- tasks can save their results as flow [variables](../processes-v1/flows.html#setting-variables)
+- an [expression language](../processes-v1/flows.html#expressions) can be used to work
 with data inside flows;
 
 There are multiple ways how to execute a Concord process: using a Git
@@ -57,12 +57,12 @@ No matter how the process was started it goes through the same execution steps:
 - project repository data is cloned or updated;
 - binary payload from the process invocation is added to the workspace;
 - configuration parameters from different sources are merged together;
-- [imports](./v1/index.html#imports) and [templates](../templates/index.html)
+- [imports](../processes-v1/index.html#imports) and [templates](../templates/index.html)
 are downloaded and applied;
 - the process is added to the queue;
 - one of the agents picks up the process from the queue;
 - the agent downloads the process state,
-[dependencies](./v1/index.html#dependencies) and `imports`;
+[dependencies](../processes-v1/index.html#dependencies) and `imports`;
 - the agent starts [the runtime](#runtime) in the process' working directory;
 - the flow configured as entry point is invoked.
 
