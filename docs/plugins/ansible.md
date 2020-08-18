@@ -57,7 +57,7 @@ Ansible installation running on Concord.
 
 __The version of Ansible being used is {{ site.concord_ansible_version }}.__
 
-A number of configuration parameters are pre-configred by the plugin:
+A number of configuration parameters are pre-configured by the plugin:
 
 ```
 [defaults]
