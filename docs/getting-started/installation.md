@@ -70,6 +70,7 @@ concord-server {
 
         changeLogParameters {
             superuserAvailable = "false"
+            createExtensionAvailable = "false"
         }
     }
 }
