@@ -169,6 +169,39 @@ Adds a list of users to the specified team.
     }
     ```
 
+<a name="add-ldap-group">
+## Add LDAP Groups to a Team
+
+Adds a list of LDAP groups to the specified team.
+
+* **URI** `/api/v1/org/${orgName}/team/${teamName}/ldapGroups`
+* **Method** `PUT`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    [
+      {
+        "group": "CN=groupA,DC=example,DC=com",
+        "role": "MEMBER"  
+      },
+      {
+        "group": "CN=groupB,DC=example,DC=com",
+        "role": "MAINTAINER"  
+      },
+      ...
+    ]    
+    ```
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true
+    }
+    ```
+
 <a name="remove-users">
 ## Remove Users from a Team
 
