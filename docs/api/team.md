@@ -16,6 +16,7 @@ The REST API provides support for a number of operations:
 - [List Teams](#list-teams)
 - [List Users in a Team](#list-users)
 - [Add Users to a Team](#add-users)
+- [Add LDAP Groups to a Team](#add-ldap-group)
 - [Remove Users from a Team](#remove-users)
 
 <a name="create-team"/>
