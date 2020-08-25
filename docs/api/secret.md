@@ -174,13 +174,14 @@ Updates parameters of an existing secret.
     ```json
     {
       "name": "New name",
+      "owner": {"id": "ownerId (UUID)"},
       "visibility": "PRIVATE",
       "projectId": "...",
       "projectName": "Project Name"
     }
     ```
     
-    Either `projectId` or `projectName` must be specified to change secret `Visiblity`, `Name` or `Project`.
+    Either `projectId` or `projectName` must be specified to change a secret's `Visiblity`, `Owner`, `Name` or `Project`.
 
     Omitted parameters are not updated.    
 * **Success response**

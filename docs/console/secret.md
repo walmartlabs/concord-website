@@ -17,10 +17,15 @@ A number of different secrets are supported.
 - username/password combinations
 - password values
 
+Concord UI allows several changes to be made to a secret if the user has either `WRITER` or higher access to it -
+
+- [Move Secret to a Different Organization](#move-secret-to-a-different-organization)
+- [Update Secret Owner or Project OR Delete Secret](#update-secret-owner-or-project-or-delete-secret)
+
 ### Move Secret to a Different Organization
 
-A secret after it is created in an organization can be moved to a different
-organization to which the user must have access to (WRITER or above).
+A secret, after it is created in an organization, can be moved to a different
+organization to which the user must have access to (`WRITER` or above).
 
 This can be done with the Concord Console or by using the REST API.
 
@@ -65,3 +70,14 @@ redirect to the changed secret URL path.
 > project can also be moved to the same organization if required
 > (refer [here](./project.html#move-project-to-a-different-organization) for
 > more details).
+
+### Update Secret Owner or Project OR Delete Secret
+
+<img src="../../assets/img/screenshots/secret-update.png" width="500" height="400" class="img-responsive" alt="SecretUpdate"/>
+
+Similar to the process described [here](#move-secret-to-a-different-organization), 
+except these activities require `OWNER` access. _Please be careful_.
+
+
+
+
