@@ -22,6 +22,9 @@ The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `PATCH`,
 objects. The response object can be stored in an `out` parameter for later
 usage.
 
+> The HTTP Task automatically follows redirect URLs for all methods if the response returns status code 301.
+> To disable this feature, set the **`followRedirects`** task parameter to **`false`**.
+
 - [Usage and Configuration](#usage)
 - [Examples](#examples)
 
@@ -62,8 +65,8 @@ All parameters sorted in alphabetical order.
 - `body`: the request body, details in [Body](#body);
 - `connectTimeout`: HTTP connection timeout in ms. Default value is 30000 ms;
 - `debug`: boolean, output the request and response data in the logs;
-- `followRedirects`: boolean, determines whether redirects should be handled automatically.
-  Default is `true`;
+- `followRedirects`: boolean, determines whether redirects should be handled automatically. 
+Default is `true`. Allows automatic redirection for all `methods` if not explicitly set to `false`;
 - `headers`: add additional headers, details in [Headers](#headers);
 - `ignoreErrors`: boolean, instead of throwing exceptions on unauthorized requests,
   return the result object with the error;
