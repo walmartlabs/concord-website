@@ -17,7 +17,8 @@ A number of different secrets are supported.
 - username/password combinations
 - password values
 
-Concord UI allows several changes to be made to a secret if the user has either `WRITER` or higher access to it -
+Concord UI allows several changes to be made to a secret if the user has either
+`WRITER` or higher access to it -
 
 - [Move Secret to a Different Organization](#move-secret-to-a-different-organization)
 - [Update Secret Owner or Project OR Delete Secret](#update-secret-owner-or-project-or-delete-secret)
