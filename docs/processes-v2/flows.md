@@ -663,8 +663,8 @@ seconds delay each. Additional parameters for the retry are supplied in the
   retry:
     in:
       ...additional parameters...
-      times: 3
-      delay: 3
+    times: 3
+    delay: 3
 ```
 Retry flow call: 
 
@@ -675,8 +675,8 @@ Retry flow call:
   retry:
     in:
       ...additional parameters...
-      times: 3
-      delay: 3
+    times: 3
+    delay: 3
 ```
 
 The default `in` and `retry` variables with the same values are overwritten.
