@@ -260,9 +260,13 @@ flows:
     - log: "Just a regular log statement"
 ```
 
-Should produce the log looking like this:
+Should produce a log looking like this:
 
 <img src="../../assets/img/screenshots/segmented_log_example.png" class="img-responsive"/>
+
+The toolbar on the segments allows various actions to be performed on the logs.
+Users can expand the segment, auto scroll to the end, see YAML info, download the log segment as a file and
+generate a unique URL for the segment to facilitate ease of sharing logs.
 
 ## Parallel Execution
 
