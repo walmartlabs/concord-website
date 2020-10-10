@@ -16,6 +16,7 @@ The `configuration` sections contains [dependencies](#dependencies),
 - [Requirements](#requirements)
 - [Process Timeout](#process-timeout)
 - [Exclusive Execution](#exclusive-execution)
+- [Events](#events)
 
 ## Merge Rules
 
@@ -296,3 +297,44 @@ If `mode` set to `wait` then only one process in the same `group` is allowed to
 run.
 
 **Note:** this feature available only for processes running in a project.
+
+## Events
+
+The [process event recording](../getting-started/processes.html#process-events)
+can be configured using the `events` section. Here is an example of the default
+configuration:
+
+```yaml
+configuration:
+  events:
+    recordTaskInVars: false
+    truncateInVars: true
+    recordTaskOutVars: false
+    truncateOutVars: true
+    truncateMaxStringLength: 1024
+    truncateMaxArrayLength: 32
+    truncateMaxDepth: 10
+    inVarsBlacklist:
+      - "apiKey"
+      - "apiToken"
+      - "password"
+      - "privateKey"
+      - "vaultPassword"
+    outVarsBlacklist: []
+```
+
+- `recordTaskInVars`, `recordTaskOutVars` - enable or disable recording of
+input/output variables in task calls;
+- `truncateInVars`, `truncateOutVars` - if `true` the runtime truncates
+the recorded values to prevent spilling large values into process events;
+- `inVarsBlacklist`, `outVarsBlacklist` - list of variable names that must
+not be included recorded;
+- `truncateMaxStringLength` - maximum allowed length of string values.
+The runtime truncates strings larger than the specified value;
+- `truncateMaxArrayLength` - maximum allowed length of array (list) values;
+- `truncateMaxDepth` - maximum allowed depth of nested data structures (e.g.
+nested `Map` objects).
+
+**Note:** in the [runtime v1](../processes-v1/configuration.html#runner)
+the event recording configuration was a subsection of the `runner` section.
+In the runtime v2 it is a direct subsection of the `configuration` block.
