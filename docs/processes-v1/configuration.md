@@ -425,8 +425,8 @@ configuration:
   - `outVarsBlacklist` - list of variable names that must not be recorded if
     `recordTaskInVars` is `true`.
 
-See the [Process Events](../index.html#process-events) section for more
-details about the process event recording.
+See the [Process Events](../getting-started/processes.html#process-events)
+section for more details about the process event recording.
 
 ## Debug
 
