@@ -458,8 +458,8 @@ flows:
       in:
         msg: "${item.key} - ${item.value}"
       withItems:
-        a: "Hello"
-        b: "world"
+        - a: "Hello"
+        - b: "world"
 ```
 
 In the example above `withItems` iterates over the keys of the object. Each
