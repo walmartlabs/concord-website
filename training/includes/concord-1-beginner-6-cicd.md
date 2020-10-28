@@ -113,7 +113,6 @@ Note:
 Note:
 - concord-cd-example
 - Read bullets
-- Demo available https://gecgithub01.walmart.com/devtools/concord-cd-example
 - Open the .looper.yml, line 13 creates new release version and deploys to proximity
 - This echos out the release number and starts the concord flow
 - This passes to the concord flow
@@ -166,7 +165,7 @@ flows:
 Note:
 - dependency needed, task name, playbook, and inventory.ini file
 - Ansible inventory.ini contains list of computes to connect to
-- Go over example in https://gecgithub01.walmart.com/devtools/concord/tree/master/examples/ansible
+- Go over example in https://github.com/walmartlabs/concord/tree/master/examples/ansible
 
 <!--- vertical -->
 
@@ -239,7 +238,6 @@ Note:
 Note:
 - concord-pipeline git repo
 - concord-oneops-ansible-example git repo
-- https://gecgithub01.walmart.com/vn0xxv4/concord-oneops-ansible-example
 
 <!--- vertical -->
 
@@ -251,7 +249,7 @@ Note:
 Concord, the orchestrator!
 
 Note:
-- Go over https://gecgithub01.walmart.com/devtools/concord/tree/master/examples again
+- Go over https://github.com/walmartlabs/concord/tree/master/examples/ again
 
 <!--- vertical -->
 

@@ -76,10 +76,10 @@ To allow Concord access to the repository:
 Note:
 - Demo it
 - you can also get the key via the REST API
-- `curl -u username 'http://concord.prod.walmart.com/api/v1/secret/nameOfKey/public'
+- `curl -u username 'http://concord.example.com/api/v1/secret/nameOfKey/public'
 - GitHub repo / Settings / Deploy Keys
 - Important b/c Concord and git repo need to trust each other
-- Log into Concord console - concord.prod.walmart.com
+- Log into Concord console - concord.example.com
 - Briefly go over the Console view, then select 'Default' org, and click 'Secrets' tab
 - Note if they want to get a special org created they can fill out a request
 - Create New -> Generate a New Key Pair -> encrypt using the server's key
