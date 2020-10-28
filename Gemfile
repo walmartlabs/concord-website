@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
-gem "jekyll", "~>3.8.3"
+gem "jekyll", "~>3.8.4"
 
 gem "minima", "~> 2.0"
 gem "json"
