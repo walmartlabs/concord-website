@@ -85,10 +85,9 @@ Note:
 - Note; this link isn't a jar... the way Maven works, this is a set of coordinates
 that identify groovy-all jar in v. 2.14.
 - Syntax is `mvn://<org>:<name>:<version>`
-- Go to repository.walmart.com -> repositories -> click on a 'public' link,
+- Go to nexus repo instance -> repositories -> click on a 'public' link,
 then type '/org/codehaus/groovy' in the address bar, and dotwalk to the jar file,
 drawing parallels to link in yml.
-- Note other dependencies for concord can be found in https://repository.walmart.com/content/groups/public/com/walmartlabs/concord/plugins/
 - Go find the smtp jar (in basic/smtp-tasks/1.6.0/jar), and compare that link to the one in slide
 - Update the concord.yml to include the smtp dependency, git add, commit, push, and run in concord console.
 
@@ -300,7 +299,6 @@ flows:
 Note:
 - You can call flows from other flows by just adding the name as a step
 OR with `- call: <step>` syntax. Show an example, don't demo
-- (https://gecgithub01.walmart.com/strati/training-admin/blob/master/concord.yml)
 - Huge selling points here: cleanliness and reusability
 
 <!--- vertical -->
@@ -493,7 +491,7 @@ Note:
 
 Note:
 - Just read the points on the slide. 
-- Good example of more complex form is https://gecgithub01.walmart.com/strati/training-admin/blob/master/concord.yml
+- Good example of more complex form is https://github.com/walmartlabs/concord/tree/master/examples/custom_form
 
 <!--- vertical -->
 
@@ -544,7 +542,7 @@ Note:
 - Note: specify language. Concord won't guess.
 - '|' (pipe) after 'body' denotes a multi-line segment
 - Save and demo - note it's a system write, not a log
-- Show where to find examples in GitHub (https://gecgithub01.walmart.com/devtools/concord/tree/master/examples)
+- Show where to find examples in GitHub (https://github.com/walmartlabs/concord/tree/master/examples/)
 
 <!--- vertical -->
 
@@ -569,11 +567,11 @@ Inline script:
 ```
 
 Note:
-- In https://gecgithub01.walmart.com/devtools/concord/tree/master/examples:
+- In https://github.com/walmartlabs/concord/tree/master/examples:
 - groovy is a good basic example
 - groovy_rest adds dependencies and imports
 - python_script demos an external script file
-- Also good to review concord.walmart.com/docs/getting-started/scripting.html
+- Also good to review concord.walmartlabs.com/docs/getting-started/scripting.html
 
 <!--- vertical -->
 

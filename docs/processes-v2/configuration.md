@@ -71,7 +71,7 @@ flows:
     - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}"
 ```
 
-Values of `arguments` can contain [expressions](#expressions). Expressions can
+Values of `arguments` can contain [expressions](./flows.html#expressions). Expressions can
 use all regular tasks:
 
 ```yaml
@@ -92,7 +92,7 @@ configuration:
     message: "Hello, ${name}"
 ```
 
-A variable's value can be [defined or modified with the set step](#set-step)
+A variable's value can be [defined or modified with the set step](./flows.html#setting-variables)
 and a [number of variables](./index.html#provided-variables) are automatically
 set in each process and available for usage.
 

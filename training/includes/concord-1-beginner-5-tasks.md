@@ -125,7 +125,7 @@ Method names differ for each task!
 
 Note:
 - Can use other methods - to figure out what those are, can look at source
-- E.g. https://gecgithub01.walmart.com/devtools/concord/tree/master/plugins/tasks/log/src/main/java/com/walmartlabs/concord/plugins/log
+- E.g. https://github.com/walmartlabs/concord/tree/master/plugins/tasks/log/src/main/java/com/walmartlabs/concord/plugins/log
 
 <!--- vertical -->
 
@@ -227,7 +227,6 @@ Note:
 - Update 'to' to be your email
 - Commit and demo (log - show smtp in classpath)
 - Can use exprs or can use 'template' instead of 'message'
-- E.g. https://gecgithub01.walmart.com/strati/training-admin
 
 <!--- vertical -->
 
@@ -319,10 +318,6 @@ Note:
    - log: "Response received: ${response.content}"
 ```
 
-Note:
-- Walk through example, then show dewey registration
-- E.g. https://gecgithub01.walmart.com/devtools/sde-dewey-registration/blob/master/concord.yml
-
 <!--- vertical -->
 
 ## More Tasks
@@ -343,7 +338,7 @@ And more are on the way.
 Note:
 - https://github.com/walmartlabs/concord/tree/master/plugins
 - https://github.com/walmartlabs/concord/tree/master/examples
-- Go to http://concord.walmart.com/docs/plugins/jira.html and skim through docs
+- Go to http://concord.walmartlabs.com/docs/plugins/jira.html and skim through docs
 
 <!--- vertical -->
 
