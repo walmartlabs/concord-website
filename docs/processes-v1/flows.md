@@ -544,8 +544,7 @@ flows:
 
 ### Throwing Errors
 
-The `throw` step can be used to throw a new `RuntimeException` wit
-hthe supplied message anywhere in a flow including in `error` sections and in
+The `throw` step can be used to throw a new `RuntimeException` with the supplied message anywhere in a flow including in `error` sections and in
 [conditional expressions](#conditional-expressions) such as if-then or
 switch-case.
 
