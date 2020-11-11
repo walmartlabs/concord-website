@@ -235,7 +235,7 @@ elements get their own log "segment" -- a separate log "file":
 
 <img src="../../assets/img/screenshots/segmented_log.png" class="img-responsive"/>
 
-This feature is enabled automatically and should work "out of the box" for
+This feature is enabled by default and should work "out of the box" for
 most plugins that use `org.slf4j.Logger` for logging.
 
 The runtime also redirects Java's `System.out` and `System.err` into
@@ -244,15 +244,13 @@ appropriate log segments. For example, if you use `puts` in
 [Groovy](../getting-started/scripting.html#groovy), you should see those lines
 in correct segments.
 
-Segments can be named (see the picture above). Currently, there's no dedicated
-syntax for naming log segments, a flow step's `meta` tag can be used:
+Segments can be named:
 
 ```yaml
 flows:
   default:
-    - task: log
-      meta:
-        segmentName: "Log something"
+    - name: Log something
+      task: log
       in:
         msg: "Hello! I'm being logged in a separate (and named!) segment!"
         level: "WARN"
@@ -264,9 +262,35 @@ Should produce a log looking like this:
 
 <img src="../../assets/img/screenshots/segmented_log_example.png" class="img-responsive"/>
 
+The `name` field also supports expressions:
+
+```yaml
+flows:
+  default:
+    - name: Processing '${item}'
+      task: log
+      in:
+        msg: "We got: ${item}"
+      withItems:
+        - "red"
+        - "green"
+        - "blue"
+```
+
+Currently, the following steps can use `name`:
+- `task`
+- `call`
+- `expr`
+- `log`
+- `throw`
+
+If `name` is not specified, the runtime pick a default value, e.g.
+`task: <...>` for task calls.
+
 The toolbar on the segments allows various actions to be performed on the logs.
-Users can expand the segment, auto scroll to the end, see YAML info, download the log segment as a file and
-generate a unique URL for the segment to facilitate ease of sharing logs.
+Users can expand the segment, auto scroll to the end, see YAML info, download
+the log segment as a file and generate a unique URL for the segment to
+facilitate ease of sharing logs.
 
 ## Parallel Execution
 
