@@ -67,7 +67,7 @@ The keypair password itself can be encrypted using a
 <a name="credentials"/>
 ## Exporting Credentials
 
-Credentials, so username and password pairs, can be exported with:
+Credentials (username and password pairs) can be exported with:
 
 ```yaml
 - ${crypto.exportCredentials('myOrg', 'myCredentials', 'myPassword')}
