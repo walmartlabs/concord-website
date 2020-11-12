@@ -12,19 +12,20 @@ side-navigation: wmt/docs-navigation.html
 ## Authentication
 
 Concord supports multiple authentication methods:
-- Concord API tokens;
+- Concord [API tokens](#using-api-tokens);
 - basic authentication (username/password);
+- temporary [session tokens](#using-session-tokens);
 - OpenID Connect, via [the OIDC plugin](https://github.com/walmartlabs/concord/tree/master/server/plugins/oidc).
 
 Plugins can implement additional authentication methods.
 
-### Using API keys
+### Using API Tokens
 
 The key must be passed in the `Authorization` header on every API request. For
 example:
 
 ```
-curl -v -H "Authorization: auBy4eDWrKWsyhiDp3AQiw" ...
+curl -v -H "Authorization: <value>" ...
 ```
 
 API keys are managed using the [API key](../api/apikey.html) endpoint or using
@@ -43,6 +44,28 @@ the [User](../api/user.html) API endpoint.
 
 Username/password authentication uses an LDAP/Active Directory realm. Check
 [Configuration](./configuration.html#ldap) document for details.
+
+### Using Session Tokens
+
+For each process Concord generates a temporary "session token" that can be used
+to call Concord API. The token is valid until the process reaches one of
+the final statuses:
+- `FINISHED`
+- `FAILED`
+- `CANCELLED`
+- `TIMED_OUT`.
+
+The session token must be passed in the `X-Concord-SessionToken` header:
+
+```
+curl -v -H "X-Concord-SessionToken: <value>" ...
+```
+
+Such API requests use the process's security principal, i.e. they run on behalf
+of the process' current user.
+
+The current session token is available as `${processInfo.sessionToken}`
+[variable](../processes-v1/index.html#provided-variables).
 
 ## Secret Management
 

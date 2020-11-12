@@ -24,11 +24,11 @@ Regardless of how the process starts -- using
 [sending a payload archive](../api/process.html#zip-file), Concord assumes
 a certain structure of the process's working directory:
 
-- `concord.yml`: a Concord [DSL](#dsl) file containing the main flow,
+- `concord.yml` - a Concord [DSL](#dsl) file containing the main flow,
 configuration, profiles and other declarations;
-- `concord/**/*.concord.yml`: directory containing
+- `concord/**/*.concord.yml` - directory containing
 [extra Concord YAML files](#additional-concord-files);
-- `forms`: directory with [custom forms](../getting-started/forms.html#custom).
+- `forms` - directory with [custom forms](../getting-started/forms.html#custom).
 
 Anything else is copied as-is and available for the process.
 [Plugins](../plugins/index.html) can require other files to be present in
@@ -183,24 +183,24 @@ configuration, passed in the API request when the process is created, etc.
 Concord automatically provides several built-in variables upon process
 execution in addition to the defined [variables](#variables):
 
-- `txId`: an unique identifier of the current process;
-- `parentInstanceId`: an identifier of the parent process;
-- `workDir`: path to the working directory of a current process;
-- `initiator`: information about the user who started a process:
-  - `initiator.username`: login, string;
-  - `initiator.displayName`: printable name, string;
-  - `initiator.email`: email address, string;
-  - `initiator.groups`: list of user's groups;
-  - `initiator.attributes`: other LDAP attributes; for example
+- `txId` - an unique identifier of the current process;
+- `parentInstanceId` - an identifier of the parent process;
+- `workDir` - path to the working directory of a current process;
+- `initiator` - information about the user who started a process:
+  - `initiator.username` - login, string;
+  - `initiator.displayName` - printable name, string;
+  - `initiator.email` - email address, string;
+  - `initiator.groups` - list of user's groups;
+  - `initiator.attributes` - other LDAP attributes; for example
     `initiator.attributes.mail` contains the email address.
-- `currentUser`: information about the current user. Has the same structure
+- `currentUser` - information about the current user. Has the same structure
   as `initiator`;
-- `requestInfo`: additional request data (see the note below):
-  - `requestInfo.query`: query parameters of a request made using user-facing
+- `requestInfo` - additional request data (see the note below):
+  - `requestInfo.query` - query parameters of a request made using user-facing
     endpoints (e.g. the portal API);
-  - `requestInfo.ip`: client IP address, where from request is generated.
-  - `requestInfo.headers`: headers of request made using user-facing endpoints.
-- `projectInfo`: project's data:
+  - `requestInfo.ip` - client IP address, where from request is generated.
+  - `requestInfo.headers` - headers of request made using user-facing endpoints.
+- `projectInfo` - project's data:
   - `projectInfo.orgId` - the ID of the project's organization;
   - `projectInfo.orgName` - the name of the project's organization;
   - `projectInfo.projectId` - the project's ID;
@@ -213,9 +213,12 @@ execution in addition to the defined [variables](#variables):
   - `projectInfo.repoCommitId` - the repository's last commit ID;
   - `projectInfo.repoCommitAuthor` - the repository's last commit author;
   - `projectInfo.repoCommitMessage` - the repository's last commit message.
-- `processInfo`: the current process' data:
+- `processInfo` - the current process' information:
   - `processInfo.activeProfiles` - list of active profiles used for the current
-  execution.
+  execution;
+  - `processInfo.sessionToken` - the current process'
+  [session token](../getting-started/security.html#using-session-tokens) can be
+  used to call Concord API from flows.
 
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 

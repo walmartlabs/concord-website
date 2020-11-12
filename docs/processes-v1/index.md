@@ -177,26 +177,26 @@ execution in addition to the defined [variables](#variables):
 
 - `execution` or `context`: a reference to the current execution's [context](#context),
 instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs/concord/blob/master/sdk/src/main/java/com/walmartlabs/concord/sdk/Context.java);
-- `txId`: an unique identifier of the current process;
-- `parentInstanceId`: an identifier of the parent process;
-- `tasks`: allows access to available tasks (for example:
+- `txId` - an unique identifier of the current process;
+- `parentInstanceId` - an identifier of the parent process;
+- `tasks` - allows access to available tasks (for example:
   `${tasks.get('oneops')}`);
-- `workDir`: path to the working directory of a current process;
-- `initiator`: information about the user who started a process:
-  - `initiator.username`: login, string;
-  - `initiator.displayName`: printable name, string;
-  - `initiator.email`: email address, string;
-  - `initiator.groups`: list of user's groups;
-  - `initiator.attributes`: other LDAP attributes; for example
+- `workDir` - path to the working directory of a current process;
+- `initiator` - information about the user who started a process:
+  - `initiator.username` - login, string;
+  - `initiator.displayName` - printable name, string;
+  - `initiator.email` - email address, string;
+  - `initiator.groups` - list of user's groups;
+  - `initiator.attributes` - other LDAP attributes; for example
     `initiator.attributes.mail` contains the email address.
-- `currentUser`: information about the current user. Has the same structure
+- `currentUser` - information about the current user. Has the same structure
   as `initiator`;
-- `requestInfo`: additional request data (see the note below):
-  - `requestInfo.query`: query parameters of a request made using user-facing
+- `requestInfo` - additional request data (see the note below):
+  - `requestInfo.query` - query parameters of a request made using user-facing
     endpoints (e.g. the portal API);
-  - `requestInfo.ip`: client IP address, where from request is generated.
-  - `requestInfo.headers`: headers of request made using user-facing endpoints.
-- `projectInfo`: project's data:
+  - `requestInfo.ip` - client IP address, where from request is generated.
+  - `requestInfo.headers` - headers of request made using user-facing endpoints.
+- `projectInfo` - project's data:
   - `projectInfo.orgId` - the ID of the project's organization;
   - `projectInfo.orgName` - the name of the project's organization;
   - `projectInfo.projectId` - the project's ID;
@@ -209,9 +209,12 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
   - `projectInfo.repoCommitId` - the repository's last commit ID;
   - `projectInfo.repoCommitAuthor` - the repository's last commit author;
   - `projectInfo.repoCommitMessage` - the repository's last commit message.
-- `processInfo`: the current process' data:
+- `processInfo` - the current process' data:
   - `processInfo.activeProfiles` - list of active profiles used for the current
-  execution.
+  execution;
+  - `processInfo.sessionToken` - the current process'
+  [session token](../getting-started/security.html#using-session-tokens) can be
+  used to call Concord API from flows.
 
 LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
 
