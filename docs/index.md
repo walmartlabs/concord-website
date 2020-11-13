@@ -15,6 +15,7 @@ Welcome to the Concord documentation!
 - Write flows and more with the [Concord DSL](./processes-v1/index.html#dsl).
 - Find out about [plugins](./plugins/index.html).
 - Reference the [API](./api/index.html).
+    - a [Postman](https://www.postman.com/) collection can be found [here](/assets/postman/concord-api.postman_collection.json).
 
 Enjoy,
 
