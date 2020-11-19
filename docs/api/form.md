@@ -153,5 +153,5 @@ Note the `multipart` extension in the endpoint's URL.
     curl -i -H "Authorization: ..." \
     -F myValue=abc \
     -F myFile=@form.yml \
-    https://concord.prod.walmart.com/api/v1/process/361bec22-14eb-4063-a26d-0eb7e6d4654e/form/myForm/multipart
+    https://concord.example.com/api/v1/process/361bec22-14eb-4063-a26d-0eb7e6d4654e/form/myForm/multipart
     ```
