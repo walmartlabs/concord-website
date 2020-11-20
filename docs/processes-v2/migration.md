@@ -11,7 +11,7 @@ side-navigation: wmt/docs-navigation.html
 Starting from version 1.57.0, Concord introduces a new runtime for process
 execution.
 
-The new runtime's features requires changes in flows and plugins. That's why
+The new runtime features require changes in flows and plugins. That's why
 initially it will be an opt-in feature - both v1 and v2 versions will coexist
 for foreseeable future.
 
@@ -25,8 +25,8 @@ configuration:
   runtime: "concord-v2"
 ```
 
-Alternatively, it is possible to specify the runtime parameter's value in
-the API request:
+Alternatively, it is possible to specify the runtime directly in the API
+request:
 
 ```
 $ curl ... -F runtime=concord-v2 http://concord.example.com/api/v1/process
@@ -87,21 +87,28 @@ it is recommended to keep the common logic separate and create two classes
 each implementing a single `Task` interface:
 
 ```java
+// common logic, abstracted away from the differences between v1 and v2
 class MyTaskCommon {
-    // common logic, abstracted away from the differences between v1 and v2
-    Serializable doTheThing(Map<String, Object> input) {
+    TaskResult doTheThing(Map<String, Object> input) {
         return "I did the thing!";
     }
 }
 
+// v1 version of the task
+@Named("myTask")
 class MyTaskV1 implements com.walmartlabs.concord.sdk.Task {
     void execute(Context ctx) {
-        Serializable result = new MyTaskCommon().doTheThing(ctx.toMap());
+        Map<String, Object> result = new MyTaskCommon()
+            .doTheThing(ctx.toMap())
+            .toMap();
+
         // result is saved as a flow variable
         ctx.setVariable("result", result);
     }
 }
 
+// v2 version of the task
+@Named("myTask")
 class MyTaskV2 implements com.walmartlabs.concord.runtime.v2.sdk.Task {
     Serializable execute(Variables input) {
         // return the value instead of setting a flow variable
@@ -138,7 +145,7 @@ flows:
         x: 234
 ```
 
-In addition, task inputs can be implicit:
+In addition, task inputs are implicit:
 
 ```yaml
 configuration:

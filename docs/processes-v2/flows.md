@@ -94,8 +94,8 @@ flows:
 ```
 
 Full form can optionally contain additional declarations:
-- `out` field - contains the name of a variable, in which a result of
-the expression will be stored;
+- `out` field - contains the name of a variable to store the result
+of the expression;
 - `error` block - to handle any exceptions thrown by the evaluation.
 
 Literal values, for example arguments or [form](../getting-started/forms.html)
@@ -353,8 +353,6 @@ checkpoint creation.
 
 ### Parallel Execution
 
-**Note:** this is a "preview" feature. The syntax is subject to change.
-
 The `parallel` block executes all step in parallel:
 
 ```yaml
@@ -401,8 +399,20 @@ non-primitive objects in or out of the `parallel` block, you can
 still modify the original variable:
 
 ```yaml
-# TODO
+- set:
+    anObject:
+      aList: [ ]
+
+- parallel:
+    - ${anObject.aList.add(1)}
+    - ${anObject.aList.add(2)}
+
+- log: ${anObject.aList}
 ```
+
+While `parallel` executes _steps_ in parallel, `parallelWithItems` can be used
+to perform same steps for each item in a collection. See the [Loops](#loops)
+section for more details.
 
 ## Loops
 
@@ -481,6 +491,38 @@ flows:
     - log: "Starting deployment to ${item.name}"
     - log: "Using FQDN ${item.fqdn}"
 ```
+
+The `parallelWithItems` syntax can be used to process items in parallel.
+Consider the following example:
+
+```yaml
+configuration:
+  runtime: concord-v2
+  dependencies:
+    - "mvn://com.walmartlabs.concord.plugins.basic:http-tasks:1.73.0"
+
+flows:
+  default:
+    - task: http
+      in:
+        # imagine a slow API call here
+        url: "https://jsonplaceholder.typicode.com/todos/${item}"
+        response: json
+      out: results # withItems turns "results" into a list of results for each item
+      parallelWithItems:
+        - "1"
+        - "2"
+        - "3"
+
+    # grab titles from all todos
+    - log: ${results.stream().map(o -> o.content.title).toList()}
+```
+
+In the example above, each item is processed in parallel in a separate OS
+thread.
+
+The `parallelWithItems` syntax is supported for the same steps as `withItems`:
+tasks, flow calls, groups of steps, etc.
 
 ## Error Handling
 
