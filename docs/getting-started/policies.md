@@ -332,7 +332,7 @@ The currently supported `entity` types are:
 
 - `org` - organizations;
 - `project` - projects;
-- `repository` - repositories in projects; 
+- `repository` - repositories in projects;
 - `secret` - secrets;
 - `jsonStore` - JSON stores;
 - `jsonStoreItem` - items in JSON stores;
@@ -400,15 +400,15 @@ Different types of entities provide different sets of attributes:
   - `ownerDomain` - user domain of the store's owner (optional);
   - `ownerType` - user type of the store's owner (optional).
 - `jsonStoreItem`:
-  - `itemPath` - item's path;
-  - `itemData` - data (JSON object);
+  - `path` - item's path;
+  - `data` - data (JSON object);
   - `jsonStoreId` - ID of the store (UUID);
   - `jsonStoreName` - name of the store;
   - `orgId` - the store's organization ID (UUID);
   - `orgName` - the store's organization name.
 - `jsonStoreQuery`:
-  - `queryName` - the query's name;
-  - `query` - the query's text;
+  - `name` - the query's name;
+  - `text` - the query's text;
   - `storeId` - the store's ID (UUID);
   - `storeName` - the store's name;
   - `orgId` - the store's organization ID (UUID);
