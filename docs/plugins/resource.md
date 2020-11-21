@@ -84,12 +84,33 @@ output.
 ```
 
 ```yaml
-- flows:
-    default:
+flows:
+  default:
     - set:
        newObj:
         name: testName
         type: testType
-    - log: ${resource.prettyPrintJson(newObj)}  
+    - log: ${resource.prettyPrintJson(newObj)}
 ```
 
+The `prettyPrintYaml` method can be used to format data as YAML with an option
+to add additional indentation:
+
+```yaml
+flows:
+  default:
+    - set:
+        data:
+          x: 1
+          y:
+            a: 10
+            b: 20
+
+    - set:
+        result: |
+          data: ${resource.prettyPrintYaml(data, 2)} # adds 2 spaces to each line
+
+    - log: |
+        -------------------------------------------
+        ${result}
+```
