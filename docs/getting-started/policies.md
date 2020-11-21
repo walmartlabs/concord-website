@@ -312,8 +312,8 @@ the effective dependency list is:
 ## Entity Rule
 
 Entity rules control the creation or update of Concord
-[organizations](../api/org.html), [projects](../api/project.html) and
-[secrets](../api/secret.html).
+[organizations](../api/org.html), [projects](../api/project.html),
+[secrets](../api/secret.html), etc.
 
 The syntax:
 
@@ -330,10 +330,14 @@ The syntax:
 
 The currently supported `entity` types are:
 
-- `org`
-- `project`
-- `secret`
-- `trigger`
+- `org` - organizations;
+- `project` - projects;
+- `repository` - repositories in projects; 
+- `secret` - secrets;
+- `jsonStore` - JSON stores;
+- `jsonStoreItem` - items in JSON stores;
+- `jsonStoreQuery` - JSON store queries;
+- `trigger` - triggers.
 
 Available actions:
 
@@ -377,6 +381,38 @@ Different types of entities provide different sets of attributes:
   - `visibility` - the project's visibility (`PUBLIC` or `PRIVATE`);
   - `meta` - metadata (JSON object, optional);
   - `cfg` - configuration (JSON object, optional).
+- `repository`:
+  - `name` - repository name;
+  - `url` - repository URL;
+  - `branch` - branch name;
+  - `secret` - reference to a secret (optional, JSON object, see below for
+    the list of fields);
+  - `orgId` - the project's organization ID (UUID);
+  - `orgName` - the project's organization name;
+  - `projectId` - project ID (UUID);
+  - `projectName` - project name.
+- `jsonStore`:
+  - `name` - JSON store name;
+  - `orgId` - the store's organization ID;
+  - `visibility` - the store's visibility (optional);
+  - `ownerId` - user ID of the store's owner (UUID, optional);
+  - `ownerName` - username of the store's owner (optional);
+  - `ownerDomain` - user domain of the store's owner (optional);
+  - `ownerType` - user type of the store's owner (optional).
+- `jsonStoreItem`:
+  - `itemPath` - item's path;
+  - `itemData` - data (JSON object);
+  - `jsonStoreId` - ID of the store (UUID);
+  - `jsonStoreName` - name of the store;
+  - `orgId` - the store's organization ID (UUID);
+  - `orgName` - the store's organization name.
+- `jsonStoreQuery`:
+  - `queryName` - the query's name;
+  - `query` - the query's text;
+  - `storeId` - the store's ID (UUID);
+  - `storeName` - the store's name;
+  - `orgId` - the store's organization ID (UUID);
+  - `orgName` - the store's organization name.
 - `secret`:
   - `name` - project name;
   - `orgId` - the secrets's organization ID (UUID);
