@@ -10,6 +10,7 @@ The `configuration` sections contains [dependencies](#dependencies),
 [arguments](#arguments) and other process configuration values.
 
 - [Merge Rules](#merge-rules)
+- [Runtime](#runtime)
 - [Entry Point](#entry-point)
 - [Arguments](#arguments)
 - [Dependencies](#dependencies)
@@ -31,6 +32,23 @@ which all `configuration` sources are merged before the process starts:
 - values from current active [profiles](./profiles.html)
 - configuration file send in [the process start request](../api/process.html#start);
 - [processCfg](../getting-started/policies.html#process-configuration-rule) policy values.
+
+## Runtime
+
+The `runtime` parameter can be used to specify the execution runtime:
+
+```yaml
+configuration:
+  runtime: "concord-v2"
+```
+
+Currently, the default `runtime` is `concord-v1` which is considered stable and
+production-ready. This section describes the new and improved `concord-v2`
+runtime that is available in "preview" mode - the syntax and the execution
+semantics may change at any moment.
+
+See the [Processes (v1)](../processes-v1/index.html) section for more details
+about `concord-v1` runtime.
 
 ## Entry Point
 
@@ -108,11 +126,11 @@ as:
 ```yaml
 configuration:
   dependencies:
-  # maven URLs...
-  - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
-  # or direct URLs
-  - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
-  - "https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
+    # maven URLs...
+    - "mvn://org.codehaus.groovy:groovy-all:2.4.12"
+    # or direct URLs
+    - "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.12/groovy-all-2.4.12.jar"
+    - "https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar"
 ```
 
 Concord downloads the artifacts and adds them to the process' classpath.
@@ -138,7 +156,7 @@ the dependency's URL:
 ```yaml
 configuration:
   dependencies:
-  - "mvn://com.walmartlabs.concord:concord-client:{{ site.concord_core_version }}?transitive=false"
+    - "mvn://com.walmartlabs.concord:concord-client:{{ site.concord_core_version }}?transitive=false"
 ```
 
 The syntax for the Maven URL uses the groupId, artifactId, optionally packaging,
