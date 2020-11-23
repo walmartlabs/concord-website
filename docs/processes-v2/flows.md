@@ -12,6 +12,7 @@ plugins (also known as "tasks"), performing data validation, creating
 
 - [Structure](#structure)
 - [Steps](#steps)
+    - [Task Calls](#task-calls)
     - [Expressions](#expressions)
     - [Conditional Execution](#conditional-execution)
     - [Groups of Steps](#groups-of-steps)
@@ -59,6 +60,32 @@ flows:
 
 Flows can contain any number of steps and call each other. See below for
 the description of available steps and syntax constructs.
+
+### Task Calls
+
+The `task` syntax can be used to call Concord [tasks](../getting-started/tasks.html):
+
+```yaml
+flows:
+  default:
+    - task: log
+      in:
+        msg: "Hello!"
+```
+
+Input parameters must be explicitly passed in the `in` block. If the task
+produces a result, it can be saved as a variable by using the `out` syntax:
+
+```yaml
+flows:
+  default:
+    - task: http
+      in:
+        url: "https://google.com"
+      out: result
+
+    - log: ${result}
+```
 
 ### Expressions
 
@@ -194,7 +221,7 @@ flows:
 ```
 
 In this example, branch labels `red` and `green` are the compared
-values and `default` is the block which will be executed if no other
+values and `default` is the block which is executed if no other
 value fits.
 
 Expressions can be used as branch values:
@@ -285,12 +312,67 @@ flows:
     - set:
         myComplexData.nestedValue: "Bye"
     
-    # will print "Bye, Concord"
+    # prints out "Bye, Concord"
     - log: "${myComplexData.nestedValue}, Concord"
 ```
 
 A [number of variables](./index.html#variables) are automatically set in each
 process and available for usage.
+
+**Note:** comparing to [the runtime v1](../processes-v1/flows.html#setting-variables)
+the scoping rules are different - all variables except for
+`configuration.arguments` and automatically provided ones are local variables
+and must be explicitly returned using `out` syntax. For flow `calls` inputs are
+implicit - all variables available as the call site are available inside
+the called flow:
+
+```yaml
+flows:
+  default:
+    - set:
+        x: "abc"
+
+    - log: "${abc}"       # prints out "abc"
+
+    - call: aFlow         # implicit "in"
+
+    - log: "${x}"         # still prints out "abc"
+
+    - call: aFlow
+      out:
+        - x               # explicit "out"
+  aFlow:
+    - log: "${x}"         # prints out "abc"
+
+    - set:
+        x: "xyz"
+```
+
+The same rules apply to nested data - top-level elements are local variables
+and any changes to them won't be visible unless exposed using `out`:
+
+```yaml
+flows:
+  default:
+    - set:
+        myComplexData:
+          nested: "abc"
+
+    - log: "${myComplexData.nested}"  # prints out "abc"
+
+    - call: aFlow
+
+    - log: "${myComplexData.nested}"  # still prints out "abc"
+
+    - call: aFlow
+      out:
+        - myComplexData
+
+    - log: "${myComplexData.nested}"  # prints out "xyz"
+  aFlow:
+    - set:
+        myComplexData.nested: "xyz"
+```
 
 ### Checkpoints
 
@@ -627,14 +709,14 @@ flows:
   - set:
       myVar: "xyz"
 
-  # will print "The default flow got xyz"
+  # prints out "The default flow got xyz"
   - log: "The default flow got ${myVar}"
 
   # ...and then crash the process
   - throw: "Boom!"
 
   onFailure:
-    # will log "I've got xyz"
+    # logs "I've got xyz"
     - log: "I've got ${myVar}"
 ```
 

@@ -602,6 +602,48 @@ flows:
 A [number of variables](./index.html#variables) are automatically set in each
 process and available for usage.
 
+**Note:** all variables are global. Consider the following example:
+
+```yaml
+flows:
+  default:
+    - set:
+        x: "abc"
+
+    - log: "${x}"         # prints out "abc"
+
+    - call: aFlow
+
+    - log: "${x}"         # prints out "xyz"
+
+  aFlow:
+    - log: "${x}"         # prints out "abc"
+
+    - set:
+        x: "xyz"
+```
+
+In the example above, even if the second `set` is called inside a subflow, its
+value becomes available in the caller flow.
+
+The same applies to nested data:
+```yaml
+flows:
+  default:
+    - set:
+        nested:
+          x: "abc"
+
+    - call: aFlow
+
+    - log: "${nested.y}"  # prints out "xyz"
+
+  aFlow:
+    - set:
+        nested.y: "xyz"
+```
+
+
 ### Checkpoints
 
 A checkpoint is a point defined within a flow at which the process state is
