@@ -319,11 +319,11 @@ flows:
 A [number of variables](./index.html#variables) are automatically set in each
 process and available for usage.
 
-**Note:** comparing to [the runtime v1](../processes-v1/flows.html#setting-variables)
-the scoping rules are different - all variables except for
-`configuration.arguments` and automatically provided ones are local variables
+**Note:** comparing to [the runtime v1](../processes-v1/flows.html#setting-variables),
+the scoping rules are different - all variables, except for
+`configuration.arguments` and automatically provided ones, are local variables
 and must be explicitly returned using `out` syntax. For flow `calls` inputs are
-implicit - all variables available as the call site are available inside
+implicit - all variables available at the call site are available inside
 the called flow:
 
 ```yaml
@@ -349,7 +349,7 @@ flows:
 ```
 
 The same rules apply to nested data - top-level elements are local variables
-and any changes to them won't be visible unless exposed using `out`:
+and any changes to them will not be visible unless exposed using `out`:
 
 ```yaml
 flows:
