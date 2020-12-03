@@ -35,8 +35,8 @@ context on the JVM.
 
 ## Using Flow Variables
 
-For most of the supported languages, flows variables can be accessed
-directly:
+For most of the supported languages, flow variables can be accessed
+directly inside the script (without using ${} syntax):
 
 ```yaml
 configuration:
