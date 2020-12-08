@@ -73,6 +73,9 @@ operations:
 - `secretName` of the `privateKey` parameter: required, the name of the Concord
   [secret](../api/secret.html) used for the SSH connection to the git
   repository on the remote server.
+- `password` of the `privateKey` parameter: Optional, the password to decrypt the
+  Concord [secret](../api/secret.html), if the secret is password protected.
+  Otherwise not required.
 - `ignoreErrors`: instead of throwing exceptions on operation failure, returns
   the result object with the error, if set to `true`.
 - `out`: variable to store the [Git task response](#response).
@@ -90,6 +93,7 @@ flows:
       privateKey:
         org: "myGitHubOrg"
         secretName: "mySecret"
+        password: "mySecretPassword" # optional
 ```
 
 <a name="basic-authentication"/>
@@ -158,6 +162,7 @@ flows:
       privateKey:
         org: "myGitHubOrg"
         secretName: "mySecret"
+        password: "mySecretPassword" # optional
       baseBranch: "feature-a"
       out: "response"
       ignoreErrors: true
@@ -202,6 +207,7 @@ flows:
       privateKey:
         org: "myGitHubOrg"
         secretName: "mySecret"
+        password: "mySecretPassword" # optional
 ```
 
 <a name="commit-push"/>
@@ -222,6 +228,7 @@ action, so make sure `clone` action is performed first.
       privateKey:
          org: "myGitHubOrg"
          secretName: "mySecret"
+         password: "mySecretPassword" # optional
       baseBranch: "feature-a"
       commitMessage: "my commit message"
       commitUsername: "myUserId"
@@ -273,6 +280,7 @@ flows:
       privateKey:
         org: "myGitHubOrg"
         secretName: "mySecret"
+        password: "mySecretPassword" # optional
       baseBranch: "master"
       newBranch: "feature-b"
       pushBranch: true
@@ -309,6 +317,7 @@ flows:
       privateKey:
         org: "myGitHubOrg"
         secretName: "mySecret"
+        password: "mySecretPassword" # optional
       sourceBranch: "feature-a"
       destinationBranch: "master"
       out: "response"
