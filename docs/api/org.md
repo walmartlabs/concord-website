@@ -12,6 +12,7 @@ The REST API provides support for working with organizations:
 
 - [Create an Organization](#create-org)
 - [Update an Organization](#update-org)
+- [Delete an Organization](#delete-org)  
 - [List Organizations](#list-org)
 
 <a name="create-org"/>
@@ -74,6 +75,33 @@ Updates parameters of an existing organization.
       "result": "UPDATED",
       "ok": true,
       "id": "..."
+    }
+    ```
+
+<a name="delete-org"/>
+
+## Delete an Organization
+
+Removes an existing organization and all resources associated with it
+(projects, secrets, teams, etc). This operation is irreversible.
+
+Only administrators can delete organizations.
+
+* **URI** `/api/v1/org/${orgName}?confirmation=yes`
+* **Method** `DELETE`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "result": "DELETED",
+      "ok": true
     }
     ```
 
