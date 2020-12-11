@@ -12,6 +12,7 @@ response to specific events.
 - [Common Syntax](#common-syntax)
 - [Supported Triggers](#supported-triggers)
 - [Exclusive Triggers](#exclusive-triggers)
+- [Security](#security)  
 - [Limitations](#limitations)
 
 ## Common Syntax
@@ -125,6 +126,32 @@ the processes instead use `mode: "wait"`.
 
 See also [Exclusive Execution](../processes-v1/configuration.html#exclusive-execution)
 section in the Concord DSL documentation.
+
+## Security
+
+Triggering a project process requires at least
+[READER-level privileges](../getting-started/orgs.html#teams).
+
+To activate a trigger using the API, the request must be correctly
+authenticated first. To activate a [generic trigger](./generic.html) one can
+use an API request similar to this:
+
+```
+curl -ik \
+ -H 'Authorization: <token>' \
+ -H 'Content-Type: application/json' \
+ -d '{"some_value": 123}'
+ https://concord.example.com/api/v1/events/my_trigger
+```
+
+The owner of the `token` must have the necessary privileges in all projects
+that have such triggers.
+
+Processes started by triggers are executed using the request sender's
+privileges. If the process uses any Concord resources such as
+[secrets](../getting-started/security.md#secret-management) or
+[JSON stores](../getting-started/json-store.html), the user's permissions need
+to be configured accordingly.
 
 ## Limitations
 
