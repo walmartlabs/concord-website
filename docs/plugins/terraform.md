@@ -64,6 +64,8 @@ execution will be ignored and stored in the `result` variable
 - `ignoreLocalBinary` - boolean value, if `true` the plugin won't use
 a `terraform` binary from `$PATH`. See the [Terraform Version](#terraform-version)
 section for more details
+- `pwd` - working directory. See the [Directories](#directories) section for
+more details;
 - `stateId` - string value, the name of a state file to use. See
 the [State Backends](#backends) section for more details
 - `toolUrl` - URL to a specific terraform bundle or version (.zip format). See
@@ -218,6 +220,19 @@ Run `terraform destroy` in a specific directory
       CONFIRM_DESTROY: 1
 ```
 
+## Directories
+
+The plugin provides two input parameters to control where and how Terraform is
+executed: `pwd` and `dir`.
+
+Specifying those values is an equivalent of running the following shell command:
+```
+cd $pwd && terraform ... $dir
+```
+
+If not specified, the plugin uses the current process' `workDir` as `pwd` value.
+
+Both `pwd` and `dir` path must be relative to the process' `workDir`.
 
 <a name="variables"/>
 
