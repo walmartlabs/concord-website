@@ -47,6 +47,8 @@ Such form definitions can be reused multiple times in the same process.
 Form fields can also be defined
 [dynamically during the runtime of the process](#dynamic).
 
+> **Note:** Form names can only contain alphanumerics, whitespaces, underscores(_) and dollar signs($).
+
 <a name="fields"/>
 
 ## Form Fields
