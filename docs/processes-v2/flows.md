@@ -332,7 +332,7 @@ flows:
     - set:
         x: "abc"
 
-    - log: "${abc}"       # prints out "abc"
+    - log: "${x}"       # prints out "abc"
 
     - call: aFlow         # implicit "in"
 
