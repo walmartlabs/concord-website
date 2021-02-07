@@ -44,7 +44,7 @@ ID to start the process;
 - `ignoreEmptyPush` - boolean, optional, if `true` Concord skips empty `push`
 notifications, i.e. pushes with the same `after` and `before` commit IDs.
 Default value is `true`;
-- `exclusive` - string, optional, exclusive group for process;
+- `exclusive` - key-value, optional, exclusive execution configuration for process;
 - `arguments` - key-value, optional, additional parameters that are passed to
 the flow;
 - `conditions` - key-value, mandatory, conditions for GitHub event matching.
@@ -74,6 +74,35 @@ The `repositoryInfo` entries have the following structure:
 - `repositoryId` - UUID, ID of the registered repository;
 - `repository` - string, name of the registered repository;
 - `branch` - string, the configured branch in the registered repository.
+
+The `exclusive` section in the trigger definition can be used to configure
+exclusive execution of the process:
+
+```yaml
+triggers:
+  - github:
+      useInitiator: true
+      entryPoint: onPush
+      exclusive:
+        groupBy: "branch"
+        mode: "cancelOld"
+      conditions:
+        type: push
+```
+
+In the example above, if another process in the same project with the same github branch 
+is running, it will be immediately cancelled.
+
+The `exclusive` entry have the following structure:
+- `group` - string, optional;
+- `groupBy` - string, optional, allowed values: 
+  - `branch` - processes grouped by branch name;
+- `mode` - string, mandatory, allowed values: 
+  - `cancel` - new process in the same `group` will be cancelled;
+  - `cancelOld` - all running processes in the same `group` that starts before current will be cancelled;
+  - `wait` - only one process in the same `group` is allowed to run.
+
+**Note:** this feature available only for project processes.
 
 The `event` object provides all attributes from trigger conditions filled with
 GitHub event.
