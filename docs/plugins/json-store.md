@@ -13,6 +13,34 @@ This task is provided automatically by Concord.
 
 ## Usage
 
+### Check store exists
+
+Syntax:
+
+```yaml
+- ${jsonStore.isStoreExists(orgName, storeName)}
+- ${jsonStore.isStoreExists(storeName)}
+```
+
+The task uses the current process' organization name if the `orgName` parameter
+is omitted.
+
+The expression returns `true` if specified store exists.
+
+### Check Item exists
+
+Syntax:
+
+```yaml
+- ${jsonStore.isExists(orgName, storeName, itemPath)}
+- ${jsonStore.isExists(storeName, itemPath))}
+```
+
+The task uses the current process' organization name if the `orgName` parameter
+is omitted. 
+
+The expression returns `true` if specified item exists.
+
 ### Create or Update an Item
 
 Syntax:
@@ -20,6 +48,8 @@ Syntax:
 ```yaml
 - ${jsonStore.put(orgName, storeName, itemPath, data)}
 - ${jsonStore.put(storeName, itemPath, data)}
+- ${jsonStore.upsert(orgName, storeName, itemPath, data)}
+- ${jsonStore.upsert(storeName, itemPath, data)}
 ```
 
 The `data` parameter must be a Java object. Only types that can be represented
@@ -27,6 +57,8 @@ in JSON are supported: Java lists, maps, strings, numbers, boolean values, etc.
 
 The task uses the current process' organization name if the `orgName` parameter
 is omitted. 
+
+Difference between `put/upsert` is that `upsert` creates storage if it doesn't exist. 
 
 Example:
 
@@ -82,6 +114,16 @@ Syntax:
 
 The expression returns `true` if the specified item was removed or `false` if
 it didn't exist.
+
+## Create or Update a Named Query
+
+```yaml
+- ${jsonStore.upsertQuery(orgName, storeName, queryName, queryText)}
+- ${jsonStore.upsertQuery(storeName, queryName, queryText)}
+```
+
+The task uses the current process' organization name if the `orgName` parameter
+is omitted.
 
 <a name="execute-query"/>
 
