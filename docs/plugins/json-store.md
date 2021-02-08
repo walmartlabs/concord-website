@@ -11,9 +11,18 @@ It allows users to add, update and remove JSON store items using Concord flows.
 
 This task is provided automatically by Concord.
 
+- [Usage](#usage)
+  - [Check if Store Exists](#check-if-store-exists)
+  - [Check if Item Exists](#check-if-item-exists)
+  - [Create or Update an Item](#create-or-update-an-item)
+  - [Retrieve an Item](#remove-an-item)
+  - [Remove an Item](#remove-an-item)
+  - [Create or Update a Named Query](#create-or-update-a-named-query)
+  - [Execute a Named Query](#execute-a-named-query)
+
 ## Usage
 
-### Check store exists
+### Check if Store Exists
 
 Syntax:
 
@@ -27,7 +36,7 @@ is omitted.
 
 The expression returns `true` if specified store exists.
 
-### Check Item exists
+### Check if Item Exists
 
 Syntax:
 
@@ -55,10 +64,11 @@ Syntax:
 The `data` parameter must be a Java object. Only types that can be represented
 in JSON are supported: Java lists, maps, strings, numbers, boolean values, etc.
 
+If the `orgName` parameter is omitted the current organization is used.
 The task uses the current process' organization name if the `orgName` parameter
-is omitted. 
+is omitted.
 
-Difference between `put/upsert` is that `upsert` creates storage if it doesn't exist. 
+The `upsert` method creates the specified JSON store if it doesn't exist. 
 
 Example:
 
@@ -124,8 +134,6 @@ it didn't exist.
 
 The task uses the current process' organization name if the `orgName` parameter
 is omitted.
-
-<a name="execute-query"/>
 
 ## Execute a Named Query
 
