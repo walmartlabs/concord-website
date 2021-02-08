@@ -94,7 +94,8 @@ has the following structure:
   - `process-link` - with a link to the process' details;
   - `project-link` - with a link to the process' project;
   - `repo-link` - with a link to the process' repository;
-  - `timestamp` - formatted as a date-time value.
+  - `timestamp` - formatted as a date-time value;
+  - `link` - link to external resource.
 - `searchValueType` - optional, how the value should be treated when the
   filtering is used. Currently accepts only `string`;
 - `searchType` - optional, how the filtering should work for this column:
