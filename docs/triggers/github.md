@@ -44,10 +44,10 @@ ID to start the process;
 - `ignoreEmptyPush` - boolean, optional, if `true` Concord skips empty `push`
 notifications, i.e. pushes with the same `after` and `before` commit IDs.
 Default value is `true`;
-- `exclusive` - string, optional, exclusive group for process;
-- `arguments` - key-value, optional, additional parameters that are passed to
+- `exclusive` - object, optional, exclusive execution configuration for process;
+- `arguments` - object, optional, additional parameters that are passed to
 the flow;
-- `conditions` - key-value, mandatory, conditions for GitHub event matching.
+- `conditions` - object, mandatory, conditions for GitHub event matching.
 
 Possible GitHub trigger `conditions`:
 
@@ -75,6 +75,41 @@ The `repositoryInfo` entries have the following structure:
 - `repository` - string, name of the registered repository;
 - `branch` - string, the configured branch in the registered repository.
 
+The `exclusive` section in the trigger definition can be used to configure
+[exclusive execution](../processes-v1/configuration.html#exclusive-execution)
+of the process:
+
+```yaml
+triggers:
+  - github:
+      useInitiator: true
+      entryPoint: onPush
+      exclusive:
+        groupBy: "branch"
+        mode: "cancelOld"
+      conditions:
+        type: push
+```
+
+In the example above, if there's another process running in the same project
+that was started by a GitHub event in the same branch is running, it will be
+immediately cancelled. This mechanism can be used, for example, to cancel
+processes started by `push` events if a new commit appears in the same Git
+branch.
+
+The `exclusive` entry has the following structure:
+- `group` - string, optional;
+- `groupBy` - string, optional, allowed values: 
+  - `branch` - group processes by the branch name;
+- `mode` - string, mandatory, allowed values: 
+  - `cancel` - cancel all new processes if there's a process already running
+  in the `group`;
+  - `cancelOld` - all running processes in the same `group` that starts before
+  current will be cancelled;
+  - `wait` - only one process in the same `group` is allowed to run.
+
+**Note:** this feature available only for processes running in projects.
+
 The `event` object provides all attributes from trigger conditions filled with
 GitHub event.
 
@@ -99,7 +134,7 @@ repository:
 
 The following example trigger fires when someone pushes to a development branch
 with a name starting with `dev-`, e.g. `dev-my-feature`, `dev-bugfix`, and
-ignores pushes on branch deletes:
+ignores pushes if the branch is deleted:
 
 ```yaml
 - github:
@@ -195,8 +230,6 @@ To trigger a process when a team is added to the current repository:
     conditions:
       type: "team_add"
 ```
-
-
 
 ### Common Events
 
