@@ -17,6 +17,7 @@ The `configuration` sections contains [dependencies](#dependencies),
 - [Requirements](#requirements)
 - [Process Timeout](#process-timeout)
 - [Exclusive Execution](#exclusive-execution)
+- [Metadata](#metadata)
 - [Events](#events)
 
 ## Merge Rules
@@ -315,6 +316,65 @@ If `mode` set to `wait` then only one process in the same `group` is allowed to
 run.
 
 **Note:** this feature available only for processes running in a project.
+
+## Metadata
+
+Flows can expose internal variables as process metadata. Such metadata can be
+retrieved using the [API](../api/process.html#status) or displayed in
+the process list in [Concord Console](../console/process.html#metadata).
+
+```yaml
+configuration:
+  meta:
+    myValue: "n/a" # initial value
+
+flows:
+  default:
+    - set:
+        myValue: "hello!"
+```
+
+After each step, Concord sends the updated value back to the server:
+
+```bash
+$ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c | jq '.meta.myValue'
+"hello!"
+```
+
+Nested variables and forms are also supported:
+
+```yaml
+configuration:
+  meta:
+    nested.value: "n/a"
+
+flows:
+  default:
+    - set:
+        nested:
+          value: "hello!"
+```
+
+The value is stored under the `nested.value` key:
+
+```bash
+$ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c | jq '.meta.["nested.value"]'
+"hello!"
+```
+
+Example with a form:
+
+```yaml
+configuration:
+  meta:
+    myForm.myValue: "n/a"
+
+flows:
+  default:
+    - form: myForm
+      fields:
+      - myValue: { type: "string" }
+```
 
 ## Events
 
