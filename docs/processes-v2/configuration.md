@@ -15,7 +15,9 @@ The `configuration` sections contains [dependencies](#dependencies),
 - [Arguments](#arguments)
 - [Dependencies](#dependencies)
 - [Requirements](#requirements)
-- [Process Timeout](#process-timeout)
+- [Process Timeouts](#process-timeouts)
+  - [Running Timeout](#running-timeout)
+  - [Suspend Timeout](#suspend-timeout)
 - [Exclusive Execution](#exclusive-execution)
 - [Metadata](#metadata)
 - [Events](#events)
@@ -257,7 +259,27 @@ concord-agent {
 }
 ```
 
-### Process Timeout
+### Process Timeouts
+
+You can specify the maximum amount of time that a process can be in a some state. 
+After this timeout process automatically canceled and marked as `TIMED_OUT`.  
+
+The timeout parameter accepts duration in the
+[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+
+A special `onTimeout` flow can be used to handle such processes:
+
+```yaml
+flows:
+  onTimeout:
+  - log: "I'm going to run when my parent process times out"
+```
+
+The way Concord handles timeouts is described in more details in
+the [error handling](./flows.html#handling-cancellations-failures-and-timeout)
+section.
+
+#### Running timeout
 
 You can specify the maximum amount of time the process can spend in
 the `RUNNING` state with the `processTimeout` configuration. It can be useful
@@ -274,24 +296,34 @@ flows:
 In the example above, if the process runs for more than 1 hour it is
 automatically cancelled and marked as `TIMED_OUT`.
 
-The parameter accepts duration in the
-[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-
-A special `onTimeout` flow can be used to handle such processes:
-
-```yaml
-flows:
-  onTimeout:
-  - log: "I'm going to run when my parent process times out"
-```
-
-The way Concord handles `processTimeout` is described in more details in
-the [error handling](./flows.html#handling-cancellations-failures-and-timeout)
-section.
-
 **Note:** forms waiting for input and other processes in `SUSPENDED` state
 are not affected by the process timeout. I.e. a `SUSPENDED` process can stay
 `SUSPENDED` indefinitely -- up to the allowed data retention period.
+
+#### Suspend Timeout
+
+You can specify the maximum amount of time the process can spend in
+the `SUSPEND` state with the `suspendTimeout` configuration. It can be useful
+to set specific SLAs for forms waiting for input and processes waiting for external events:
+
+```yaml
+configuration:
+  suspendTimeout: "PT1H"
+flows:
+  default:
+    - task: concord
+      in:
+       action: start
+       org: myOrg
+       project: myProject
+       repo: myRepo
+       sync: true
+       suspend: true
+  ...
+```
+
+In the example above, if the process waits for more than 1 hour it is
+automatically cancelled and marked as `TIMED_OUT`.
 
 ## Exclusive Execution
 

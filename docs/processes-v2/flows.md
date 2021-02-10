@@ -746,8 +746,8 @@ flows:
     - log: "And ${lastError.cause.payload.whoToBlame.mainCulpit} is responsible for it!"
 ```
 
-If the process runs longer than the specified [timeout](./configuration.html#process-timeout),
-Concord cancels is and executes the special `onTimeout` flow:
+If the process runs longer than the specified [timeout](./configuration.html#running-timeout),
+Concord cancels it and executes the special `onTimeout` flow:
 
 ```yaml
 configuration:
@@ -756,6 +756,27 @@ configuration:
 flows:
   default:
     - ${sleep.ms(120000)} # sleep for 2 minutes
+
+  onTimeout:
+    - log: "I'm going to run when my parent process times out"
+```
+
+If the process suspended longer that the specified [timeout](./configuration.html#process-suspend-timeout)
+Concord cancels it and executes the special `onTimeout` flow:
+```yaml
+configuration:
+  suspendTimeout: "PT1M" # 1 minute timeout
+
+flows:
+  default:
+    - task: concord
+      in:
+        action: start
+        org: myOrg
+        project: myProject
+        repo: myRepo
+        sync: true
+        suspend: true
 
   onTimeout:
     - log: "I'm going to run when my parent process times out"
