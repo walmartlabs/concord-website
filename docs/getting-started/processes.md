@@ -130,5 +130,5 @@ In addition, plugins can use their own specific event types. For example, the
 execution details.  This data is extensively used by the Concord Console to
 provide visibility into the playbook execution - hosts, playbook steps, etc.
 
-Event recording can be configured in the [Runner](./concord-dsl.html#runner)
+Event recording can be configured in the [Runner](../processes-v1/configuration.html#runner)
 section of the process' `configuration` object.
