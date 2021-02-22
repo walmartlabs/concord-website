@@ -49,6 +49,8 @@ nav:
         context: /docs/processes-v1/profiles
       - page: Resources
         context: /docs/processes-v1/resources
+      - page: Tasks
+        context: /docs/processes-v1/tasks
   - title: Triggers
     id: triggers
     collapse: /docs/triggers
@@ -211,3 +213,5 @@ nav:
         context: /docs/processes-v2/profiles
       - page: Resources
         context: /docs/processes-v2/resources
+      - page: Tasks
+        context: /docs/processes-v2/tasks

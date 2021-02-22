@@ -138,7 +138,7 @@ You can now learn more about flows and perform tasks such as
 - Add [conditional expressions](../processes-v1/flows.html#conditional-expressions);
 - [Calling other flows](../processes-v1/flows.html#calling-other-flows);
 - Work with [Ansible](../plugins/ansible.html), [Jira](../plugins/jira.html) and [other](../plugins/) tasks;
-- Maybe even [implement your own task](./tasks.html#create-task)
+- Maybe even [implement your own task](../processes-v1/tasks.html#create-task)
 
 and much more. Have a look at all the documentation about the
 [Concord DSL](../processes-v1/flows.html), [forms](./forms.html),
