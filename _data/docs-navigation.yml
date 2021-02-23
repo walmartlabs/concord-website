@@ -137,6 +137,8 @@ nav:
         context: /docs/plugins/git
       - page: Gremlin
         context: /docs/plugins/gremlin
+      - page: HashiCorp Vault
+        context: /docs/plugins/hashivault
       - page: HTTP
         context: /docs/plugins/http
       - page: Inventory
