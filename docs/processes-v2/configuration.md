@@ -15,7 +15,7 @@ The `configuration` sections contains [dependencies](#dependencies),
 - [Arguments](#arguments)
 - [Dependencies](#dependencies)
 - [Requirements](#requirements)
-- [Process Timeouts](#process-timeouts)
+- [Process Timeout](#process-timeout)
   - [Running Timeout](#running-timeout)
   - [Suspend Timeout](#suspend-timeout)
 - [Exclusive Execution](#exclusive-execution)
@@ -259,15 +259,26 @@ concord-agent {
 }
 ```
 
-### Process Timeouts
+### Process Timeout
 
 You can specify the maximum amount of time that a process can be in a some state. 
 After this timeout process automatically canceled and marked as `TIMED_OUT`.  
 
-The timeout parameter accepts duration in the
-[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+Currently, the runtime provides two different timeout parameters:
+- [processTimeout](#running-timeout) - how long the process can stay in
+  the `RUNNING` state;
+- [suspendTimeout](#suspend-timeout) - how long the process can stay in
+  the `SUSPENDED` state. 
 
-A special `onTimeout` flow can be used to handle such processes:
+Both timeout parameters accepts duration in the
+[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
+
+```yaml
+configuration:
+  processTimeout: "PT1H" # 1 hour
+```
+
+A special `onTimeout` flow can be used to handle timeouts:
 
 ```yaml
 flows:
@@ -279,7 +290,7 @@ The way Concord handles timeouts is described in more details in
 the [error handling](./flows.html#handling-cancellations-failures-and-timeout)
 section.
 
-#### Running timeout
+#### Running Timeout
 
 You can specify the maximum amount of time the process can spend in
 the `RUNNING` state with the `processTimeout` configuration. It can be useful
@@ -304,7 +315,8 @@ are not affected by the process timeout. I.e. a `SUSPENDED` process can stay
 
 You can specify the maximum amount of time the process can spend in
 the `SUSPEND` state with the `suspendTimeout` configuration. It can be useful
-to set specific SLAs for forms waiting for input and processes waiting for external events:
+to set specific SLAs for forms waiting for input and processes waiting for
+external events:
 
 ```yaml
 configuration:
