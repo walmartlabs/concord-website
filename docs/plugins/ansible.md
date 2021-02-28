@@ -12,13 +12,14 @@ application deployments with Concord.
 
 - [Usage](#usage)
 - [Ansible](#ansible)
+- [Execution](#execution)
 - [Parameters](#parameters)
 - [Configuring Ansible](#configuring-ansible)
 - [Inline inventories](#inline-inventories)
 - [Dynamic inventories](#dynamic-inventories)
 - [Authentication with Secrets](#secrets)
 - [Ansible Vault](#ansible-vault)
-- [Custom Docker Images](#docker)
+- [Custom Docker Images](#custom-docker-images)
 - [Retry and Limit Files](#retry-limit)
 - [Ansible Lookup Plugins](#ansible-lookup-plugins)
 - [Group Vars](#group-vars)
@@ -87,6 +88,13 @@ described in [Configuring Ansible](#configuring-ansible):
          gather_subset: all
 ```
 
+## Execution
+
+When the plugin executes the `ansible-playbook` process it prepares
+the following environment:
+
+- `PYTHONPATH`
+- other stuff
 
 ## Parameters
 
@@ -125,7 +133,7 @@ following sections:
 - `enableStats` - boolean, save the statistics as a JSON file. Default is `true`;
 - `enableOutsVars` - boolean, process [output variables](#output-variables).
   Default is `true`;
-- `extraEnv` - JSON object, additional environment variables
+- `extraEnv` - JSON object, additional environment variables;
 - `extraVars` - JSON object, used as `--extra-vars`. See also
   the [Input Variables](#input-variables) section;
 - `extraVarsFiles` - list of strings, paths to extra variables files. See also
@@ -408,8 +416,6 @@ directory.
 
 Our [ansible_vault example project]({{ site.concord_source}}/tree/master/examples/ansible_vault)
 shows a complete setup and usage.
-
-<a name="docker"/>
 
 ## Custom Docker Images
 
