@@ -178,6 +178,26 @@ Flow variables can be defined using the DSL's [set step](./flows.html#setting-va
 the [arguments](./configuration.html#arguments) section in the process
 configuration, passed in the API request when the process is created, etc.
 
+Variables can be accessed using expressions, [scripts](../getting-started/scripting.html) or in
+[tasks](../getting-started/tasks.html).
+
+```yaml
+flows:
+  default:
+    - log: "All variables: ${allVariables()}"
+    
+    - if: ${hasVariable('var1')}
+      then:
+        - log: "Yep, we have var1 variable with value: ${var1}"
+      else:
+        - log: "Nop, we do not have var1 variable"
+        
+    - script: javascript
+      body: |
+        var allVars = execution.variables().toMap();
+        print('Getting all variables in a JavaScript snippet: ' + allVars);
+```
+
 ### Provided Variables
 
 Concord automatically provides several built-in variables upon process
@@ -230,26 +250,3 @@ or empty.
 Availability of other variables and "beans" depends on the installed Concord
 plugins, the arguments passed in at the process invocation, and stored in the
 request data.
-
-### Context
-
-The `context` variable provides access to the current process' state:
-variables, current flow name, etc. The `context` variable is available at
-any moment during the flow execution and can be accessed using expressions,
-[scripts](../getting-started/scripting.html) or in
-[tasks](../getting-started/tasks.html):
-
-```yaml
-# TODO this doesn't work yet due to some issues in the "lazy evaluator"
-flows:
-  default:
-    - log: "All variables: ${context.globalVariables().toMap()}"
-
-    - script: javascript
-      body: |
-        var allVars = execution.globalVariables().toMap();
-        print('Getting all variables in a JavaScript snippet: ' + allVars);
-``` 
-
-**Note:** in the `script` environment the `context` variable called `execution`
-to avoid clashes with the JSR 223 scripting context.
