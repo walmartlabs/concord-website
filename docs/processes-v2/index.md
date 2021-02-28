@@ -174,9 +174,40 @@ In the example above the expression `${initator.displayName}` references an
 automatically provided variable `inititator` and retrieves it's `displayName`
 field value.
 
-Flow variables can be defined using the DSL's [set step](./flows.html#setting-variables),
-the [arguments](./configuration.html#arguments) section in the process
-configuration, passed in the API request when the process is created, etc.
+Flow variables can be defined in multiple ways:
+- using the DSL's [set step](./flows.html#setting-variables);
+- the [arguments](./configuration.html#arguments) section in the process
+configuration;
+- passed in the API request when the process is created;
+- produced by tasks;
+- etc.
+
+Variables can be accessed using expressions,
+[scripts](../getting-started/scripting.html) or in
+[tasks](../getting-started/tasks.html).
+
+```yaml
+flows:
+  default:
+    - log: "All variables: ${allVariables()}"
+    
+    - if: ${hasVariable('var1')}
+      then:
+        - log: "Yep, we got 'var1' variable with value ${var1}"
+      else:
+        - log: "Nope, we do not have 'var1' variable"
+        
+    - script: javascript
+      body: |
+        var allVars = execution.variables().toMap();
+        print('Getting all variables in a JavaScript snippet: ' + allVars);
+```
+
+The `allVariables` function returns a Java Map object with all current
+variables.
+
+The `hasVariable` function accepts a variable name (as a string parameter) and
+returns `true` if the variable exists.
 
 ### Provided Variables
 
@@ -230,26 +261,3 @@ or empty.
 Availability of other variables and "beans" depends on the installed Concord
 plugins, the arguments passed in at the process invocation, and stored in the
 request data.
-
-### Context
-
-The `context` variable provides access to the current process' state:
-variables, current flow name, etc. The `context` variable is available at
-any moment during the flow execution and can be accessed using expressions,
-[scripts](../getting-started/scripting.html) or in
-[tasks](../getting-started/tasks.html):
-
-```yaml
-# TODO this doesn't work yet due to some issues in the "lazy evaluator"
-flows:
-  default:
-    - log: "All variables: ${context.globalVariables().toMap()}"
-
-    - script: javascript
-      body: |
-        var allVars = execution.globalVariables().toMap();
-        print('Getting all variables in a JavaScript snippet: ' + allVars);
-``` 
-
-**Note:** in the `script` environment the `context` variable called `execution`
-to avoid clashes with the JSR 223 scripting context.
