@@ -93,8 +93,14 @@ described in [Configuring Ansible](#configuring-ansible):
 When the plugin executes the `ansible-playbook` process it prepares
 the following environment:
 
-- `PYTHONPATH`
-- other stuff
+- `ANSIBLE_CONFIG` - path to ansible config file;
+- `ANSIBLE_FORCE_COLOR` - forces color mode for ansible;
+- `CONCORD_BASE_URL` - base URL of the Concord API;
+- `CONCORD_CURRENT_ORG_NAME` - current process organization name;
+- `CONCORD_EVENT_CORRELATION_ID` - correlation ID of the event (e.g. a task call);
+- `CONCORD_INSTANCE_ID` - current process identifier;
+- `CONCORD_SESSION_TOKEN` - session token [session token](../getting-started/security.html#using-session-tokens) can be used to call Concord API;
+- `PYTHONPATH` - path to Concord Python libraries. Custom Python path can be added with `extraEnv` task parameter.
 
 ## Parameters
 
