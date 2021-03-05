@@ -509,30 +509,61 @@ Variables of a child process can be accessed via the `outVars` configuration.
 The functionality requires the `sync` parameter to be set to `true`.
 
 ```yaml
+# runtime v1 and v2 example
+
 flows:
   default:
-  - task: concord
-    in:
-      action: start
-      project: myProject
-      repo: myRepo
-      sync: true
-      # list of variable names
-      outVars:
-      - someVar1
-      - someVar2
+    - task: concord
+      in:
+        action: start
+        project: myProject
+        repo: myRepo
+        sync: true
+        # list of variable names
+        outVars:
+        - someVar1
+        - someVar2
 ```
 
-Output values are stored as a `jobOut` variable:
+In processes using [the v1 runtime](../processes-v1/index.html) the result is
+automatically stored as a `jobOut` variable:
 
 ```yaml
 - log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
+```
+
+When using [the v2 runtime](../processes-v2/index.html), the result must be
+explicitly saved using the `out` syntax:
+
+```yaml
+# runtime v2 example
+
+configuration:
+  runtime: "concord-v2"
+
+flows:
+  default:
+    - task: concord
+      in:
+        action: start
+        project: myProject
+        repo: myRepo
+        sync: true
+        # list of variable names
+        outVars:
+        - someVar1
+        - someVar2
+      out: jobOut
+
+    - log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}"
 ```
 
 When starting multiple forks their output variables are collected into a nested
 object with fork IDs as keys:
 
 ```yaml
+# runtime v1 example
+
 configuration:
   arguments:
     name: "Concord"
@@ -581,6 +612,8 @@ nested into objects with the fork ID as the key.
 To get output variables for already running processes use `getOutVars` method:
 
 ```yaml
+# runtime v1 example
+
 flows:
   default:
     # empty list to store fork IDs
@@ -627,5 +660,103 @@ flows:
         y: 2
 ```
 
+Or, when using [the runtime v2](../processes-v2/index.html):
+
+```yaml
+# runtime v2 example
+
+configuration:
+  runtime: "concord-v2"
+
+flows:
+  default:
+    # empty list to store fork IDs
+    - set:
+        children: []
+
+    # start the first fork and save the result as "firstResult"
+    - task: concord
+      in:
+        action: fork
+        entryPoint: forkA
+        sync: false
+        outVars:
+          - x
+      out: firstResult
+
+    # save the first fork's ID
+    - ${children.addAll(firstResult.forks)}
+
+    # start the second fork and save the result as "secondResult"
+    - task: concord
+      in:
+        action: fork
+        entryPoint: forkB
+        sync: false
+        outVars:
+          - y
+      out: secondResult
+
+    # save the second fork's ID
+    - ${children.addAll(secondResult.forks)}
+
+    # grab out vars of the forks
+    - expr: ${concord.getOutVars(children)} # accepts a list of process IDs
+      out: forkOutVars
+
+    # print out out vars grouped by fork
+    - log: "${forkOutVars}"
+
+  forkA:
+    - set:
+        x: 1
+
+  forkB:
+    - set:
+        y: 2
+```
+
 **Note:** the `getOutVars` method waits for the specified processes to finish.
-If one of the specified processes fails then its output variables are empty.
+If one of the specified processes fails, its output is going to be empty.
+
+In [the runtime v2](../processes-v2/index.html) all variables are
+"local" -- limited to the scope they were defined in. The `outVars` mechanism
+grabs only the top-level variables, i.e. variables available in the `entryPoint`
+scope:
+
+```yaml
+# runtime v2 example
+
+configuration:
+  runtime: "concord-v2"
+
+flows:
+  # caller
+  default:
+    - task: concord
+      in:
+        action: fork
+        sync: true
+        entryPoint: onFork
+        outVars:
+          - foo
+          - bar
+      out: forkResult
+
+    - log: "${concord.getOutVars(forkResult.forks)}"
+
+  # callee
+  onFork:
+    - set:
+        foo: "abc" # ok, top-level variable
+
+    - call: anotherFlow # not ok, "bar" stays local to "anotherFlow"
+
+    - call: anotherFlow # ok, "bar" pushed into the current scope, becomes a top-level variable
+      out:
+        - bar
+
+  anotherFlow:
+    - set:
+        bar: "xyz"
+```
