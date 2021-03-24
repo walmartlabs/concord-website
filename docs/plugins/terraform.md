@@ -220,6 +220,19 @@ Run `terraform destroy` in a specific directory
       CONFIRM_DESTROY: 1
 ```
 
+To target a specific resource add `target`:
+
+```yaml
+- task: terraform
+  in:
+    action: destroy
+    dir: "myTFStuff"
+    target: "digital_ocean_droplet.my_server"
+```
+
+For more details on the `target` syntax see
+[the official documentation](https://www.terraform.io/docs/cli/commands/plan.html#resource-targeting).
+
 ## Directories
 
 The plugin provides two input parameters to control where and how Terraform is
