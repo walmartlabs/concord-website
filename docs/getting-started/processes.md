@@ -73,6 +73,8 @@ and saved for execution;
 - `PREPARING` - the start request is being processed. During this status,
 the Server prepares the initial process state;
 - `ENQUEUED` - the process is ready to be picked up by one of the Agents;
+- `WAITING` - the processes is waiting for "external" conditions 
+(e.g. concurrent execution limits, waiting for another process or lock, etc);
 - `STARTING` - the process was dispatched to an Agent and is being prepared to
 start on the Agent's side;
 - `RUNNING` - the process is running;
