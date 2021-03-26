@@ -404,12 +404,24 @@ flows:
 
 The `jobIds` value is a list (as in `java.util.List`) of process IDs.
 
-The expression returns a map of process statuses:
+The expression returns a map of process entries. To see all returned fields,
+check with the [Process API](../api/process.html#status):
 
 ```json
 {
-  "56e3dcd8-a775-11e7-b5d6-c7787447ca6d": "FINISHED",
-  "5cd83364-a775-11e7-aadd-53da44242629": "FAILED"
+  "56e3dcd8-a775-11e7-b5d6-c7787447ca6d": {
+    "status": "FINISHED"
+  },
+  "5cd83364-a775-11e7-aadd-53da44242629": {
+    "status": "FAILED",
+    "meta": {
+      "out": {
+        "lastError": {
+          "message": "Something went wrong."
+        }
+      }
+    }
+  }
 }
 ```
 
