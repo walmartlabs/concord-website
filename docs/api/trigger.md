@@ -19,7 +19,12 @@ The REST API provides support for a number of operations:
 
 Returns a list of triggers registered for the specified project's repository.
 
-* **URI** `/api/v1/org/${orgName}/project/${projectName}/repository/${repoName}/trigger`
+* **URI** `/api/v2/trigger?orgName={orgName}&projectName={projectName}&repoName={repoName}&type={eventSource}`
+* **Query parameters**
+    - `orgName`: organization filter for trigger list;
+    - `projectName`: project filter for trigger list;
+    - `repoName`: repository name filter for trigger list;
+    - `type`: Event source filter for trigger list (e.g. `cron`, `github`);
 * **Method** `GET`
 * **Headers** `Authorization`
 * **Body**
@@ -35,7 +40,7 @@ Returns a list of triggers registered for the specified project's repository.
         "id": "...",
         "conditions": {
           ...
-        }        
+        }
       }
     ]
     ```
