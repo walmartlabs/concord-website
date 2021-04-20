@@ -25,6 +25,7 @@ API. The script and your Concord processes essentially run within the same
 context on the JVM.
 
 - [Using Flow Variables](#using-flow-variables)
+  - [Flow Variables in Runtime V2](#flow-variables-in-runtime-v2)
 - [Using Concord Tasks](#tasks)
 - [Error Handling](#error-handling)
 - [Javascript](#javascript)
@@ -60,7 +61,7 @@ language, it can be accessed using a built-in `execution` variable:
     print("We got", x);
 ```
 
-To set a variable, you need to use `execution#setVariable` method:
+To set a variable, you need to use the `execution.setVariable()` method:
 
 ```yaml
 - script: js
@@ -73,6 +74,52 @@ To set a variable, you need to use `execution#setVariable` method:
 > via `execution.setVariable` must be serializable in order to work correctly
 > with forms or when the process suspends. Refer to the specific language
 > section for more details.
+
+### Flow Variables in Runtime V2
+
+Similar to Runtime V1, flow variables can be accessed directly inside the script
+by the variable's name.
+
+```yaml
+configuration:
+  runtime: concord-v2
+  arguments:
+    myVar: "world"
+
+flows:
+  default:
+  - script: js
+    body: |
+      print("Hello, ", myVar);
+```
+
+Additionally, the `execution` variable has a `variables()` method which returns a
+[`Variables` object](https://github.com/walmartlabs/concord/blob/master/runtime/v2/sdk/src/main/java/com/walmartlabs/concord/runtime/v2/sdk/Variables.java). This object includes a number of methods for interacting with flow variables.
+
+```yaml
+configuration:
+  runtime: concord-v2
+
+flows:
+  default:
+  - script: js
+    body: |
+      var myVar = execution.variables().getString('myString', 'world');
+      print("Hello, ", myVar);
+```
+
+To set a variable, use the `execution.variables().set()` method:
+
+```yaml
+configuration:
+  runtime: concord-v2
+
+flows:
+  default:
+  - script: js
+    body: |
+      execution.variables().set('myVar', 'Hello, world!');
+```
 
 ## Using Concord Tasks
 

@@ -234,6 +234,46 @@ flows:
         method: "GET" # error: 'url' is required
 ```
 
+## Scripting
+
+In v1 the `Context` object injected into scripts provides methods to get and set
+flow variables.
+
+```yaml
+configuration:
+  runtime: concord-v1
+
+flows:
+  default:
+    - script: groovy
+      body: |
+        // get a variable
+        def v = execution.getVariable('myVar')
+        // set a variable
+        execution.setVariable('newVar', 'hello')
+```
+
+In v2, the injected `Context` object has a `variables()` method which returns a
+[`Variables` object](https://github.com/walmartlabs/concord/blob/master/runtime/v2/sdk/src/main/java/com/walmartlabs/concord/runtime/v2/sdk/Variables.java). This object includes a number of methods for interacting with flow variables.
+
+```yaml
+configuration:
+  runtime: concord-v2
+
+flows:
+  default:
+    - script: groovy
+      body: |
+        // get a variable
+        def v = execution.variables().get('myVar')
+        // get a String, or default value
+        String s = execution.variables().getString("aString", "default value")
+        // get a required integer
+        int n = execution.variables().assertInt('myInt')
+        // set a variable
+        execution.variables().set('newVar', 'Hello, world!')
+```
+
 ## Segmented Logging
 
 In v1 the process log is a single steam of text - every task and `log`

@@ -201,6 +201,8 @@ flows:
       body: |
         var allVars = execution.variables().toMap();
         print('Getting all variables in a JavaScript snippet: ' + allVars);
+
+        execution.variables().set('newVar', 'hello');
 ```
 
 The `allVariables` function returns a Java Map object with all current
