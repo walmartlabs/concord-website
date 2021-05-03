@@ -25,6 +25,7 @@ The REST API provides support for the following operations related to secrets:
 - [List Current Access Rules](#list-current-access-rules)
 - [Update Access Rules](#update-access-rules)
 - [Bulk Update Access Rules](#bulk-update-access-rules)
+- [Move Secret to Another Organization](#move-secret-to-another-organization)
 
 <a name="create-secret"/>
 
