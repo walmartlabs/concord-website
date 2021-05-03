@@ -9,11 +9,6 @@ side-navigation: wmt/docs-navigation.html
 The API for working with Concord [JSON Stores](../getting-started/json-store.html),
 the data in stores and named queries. 
 
-**Note:** the JSON Store API supersedes the old [Inventory](./inventory/inventory.html)
-and [Inventory Query](./inventory/inventory-query.html) APIs.
-Existing users are encouraged to switch to the JSON Store API. The data created
-using the old API is available both trough the Inventory and JSON Store APIs.
-
 - [JSON Stores](#json-stores)
     - [Create or Update a JSON Store](#create-update-store)
     - [Get a JSON Store](#get-store)
