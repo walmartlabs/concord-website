@@ -105,7 +105,7 @@ Only administrators can delete organizations.
     }
     ```
 
-<a name="list-orgs">
+<a name="list-org"/>
 
 ## List Organizations
 
