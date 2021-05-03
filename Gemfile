@@ -9,6 +9,7 @@ gem "json", "~>2.3.0"
 gem "kramdown", ">= 2.3.0"
 gem "kramdown-parser-gfm"
 gem "kramdown-syntax-coderay"
+gem "jekyll-redirect-from"
 
 group :jekyll_plugins do
    gem "jekyll-feed", "~> 0.6"
