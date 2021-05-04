@@ -218,7 +218,8 @@ Types supported currently:
 
 Objects returned by the HTTP task contain the following fields:
 
-- `success`: true if status code belongs to success family
+- `success`: true if status code belongs to success family (In [runtime v2](../processes-v2/index.html), 
+the `success` variable is replaced by `ok`)
 - `content`: json/string response or relative path (for response type `file`)
 - `headers`: key-value pairs of response headers
 - `statusCode`: http status codes
@@ -240,6 +241,20 @@ Following are examples that illustrate the syntax usage for the HTTP task.
 - if: ${jsonResponse.success}
   then:
    - log: "Response received: ${jsonResponse.content}"
+```
+
+##### Runtime v2 Syntax for GET Request
+
+```yaml
+- task: http
+  in:
+    method: GET # or DELETE
+    url: "https://api.example.com:port/path/endpoint"
+    response: json
+  out: response # indentation of the `out` parameter is outside the `in` block in runtime v2
+- if: ${response.ok} # the `success` variable in v1 is replaced by `ok` in v2
+  then:
+   - log: "Response status: ${response.statusCode}"
 ```
 
 #### Full Syntax for POST, PATCH or PUT Requests
@@ -349,3 +364,4 @@ Using Basic Authentication with a username and a password:
     url: "https://api.example.com:port/path/endpoint"
     proxy: "http://proxy.example.com:8080"
 ```
+
