@@ -29,6 +29,7 @@ task.
   - [Fork a Repo](#fork)
   - [Get Branch List](#getBranchList)
   - [Get Tag List](#getTagList)
+  - [Get PR](#getPR)
   - [Get PR List](#getPRList)
   - [Get Latest Commit SHA](#getLatestSHA)
   - [Add a Status](#addStatus)
@@ -749,6 +750,34 @@ flows:
       accessToken: "myGitHubToken"
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
+```
+
+<a name="getPR"/>
+
+## GetPR
+
+The `getPR` action can be used to get a specific PR from a GitHub repository.
+The output of the action is stored in a variable `pr`,
+containing the  `PullRequest` details. It can used at later point in the flow.
+
+The following parameters are needed in addition to the general parameters:
+
+- `org`: required, name of GitHub organization.
+- `repo`: required, name of GitHub repository.
+- `prNumber`: required, Pull Request number to get
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: "getPR"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      prNumber: 123
+      
+  - log: "PR HEAD SHA: ${pr.head.sha}"
 ```
 
 <a name="getPRList"/>
