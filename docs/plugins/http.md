@@ -30,7 +30,7 @@ usage.
 - [Examples](#examples)
 
 **Note:** If you are using runtime v2, please check out the syntax changes to the HTTP task as 
-[described here](../processes-v2/migration.md#task-parameters).
+[described here](../processes-v2/migration.html#task-parameters).
 
 <a name="usage"/>
 
