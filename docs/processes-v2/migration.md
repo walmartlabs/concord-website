@@ -234,6 +234,58 @@ flows:
         method: "GET" # error: 'url' is required
 ```
 
+## Task Parameters
+
+#### Removed Input Parameters
+
+- `out`: no longer required to specify an out-variable name
+
+#### Removed Output Values
+
+- `success`: Use standardized ok value
+- `errorString`: Use standardized error value
+
+#### Standardized out result
+
+All runtime-v2 tasks return their data in the same fashion via the task call's `out` attribute
+
+```yaml
+- task: myTask
+  in:
+    aParam: a-value
+  out: resultVarName
+```
+
+All data returned by runtime-v2 tasks contain the same basic attributes `ok` and `error` along with per-task values.
+
+```yaml
+{
+  "ok": true,
+  "error": "error message when 'ok' is false",
+  "customValue": "the value"
+}
+```
+
+This removes the need for the HTTP task's `out` parameter in favor of relying solely on the 
+generic task call's `out` attribute. 
+Likewise, `success` and `errorString` are replaced by the standardized `ok` and `error` output values. 
+The rest of the HTTP task's out-values contained within the returned `out` variable remain the same.
+
+```yaml
+- task: http
+  in:
+   method: GET
+    url: "https://api.example.com:port/path/endpoint"
+    response: json
+  out: response
+- if: ${response.ok}
+  then:
+    - log: "Response payload: ${resource.prettyPrintJson(response.content)}"
+  else:
+   - log: "HTTP call failed with code ${response.statusCode}: ${response.error}"
+   - exit
+```
+
 ## Scripting
 
 In v1 the `Context` object injected into scripts provides methods to get and set
