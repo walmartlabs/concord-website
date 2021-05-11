@@ -221,7 +221,7 @@ Types supported currently:
 
 Objects returned by the HTTP task contain the following fields:
 
-- `success`: true if status code belongs to success family 
+- `success`: true if status code belongs to success family
 - `content`: json/string response or relative path (for response type `file`)
 - `headers`: key-value pairs of response headers
 - `statusCode`: http status codes
