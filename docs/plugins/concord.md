@@ -154,6 +154,9 @@ Connection parameters can be overridden using the following keys:
   server's API endpoint address;
 - `apiKey` - user's REST API key.
 
+**Note:** The `suspend: true` option is not supported with the `startExternal`
+action.
+
 <a name="start-schedule"/>
 
 ## Scheduling a Process
