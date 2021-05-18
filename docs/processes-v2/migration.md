@@ -236,15 +236,6 @@ flows:
 
 ## Task Parameters
 
-#### Removed Input Parameters
-
-- `out`: no longer required to specify an out-variable name
-
-#### Removed Output Values
-
-- `success`: Use standardized ok value
-- `errorString`: Use standardized error value
-
 #### Standardized out result
 
 All runtime-v2 tasks return their data in the same fashion via the task call's `out` attribute
@@ -265,6 +256,8 @@ All data returned by runtime-v2 tasks contain the same basic attributes `ok` and
   "customValue": "the value"
 }
 ```
+
+#### HTTP task Params
 
 This removes the need for the HTTP task's `out` parameter in favor of relying solely on the 
 generic task call's `out` attribute. 
