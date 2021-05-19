@@ -72,6 +72,9 @@ explicitly set to `false`;
 - `headers`: add additional headers, details in [Headers](#headers);
 - `ignoreErrors`: boolean, instead of throwing exceptions on unauthorized requests,
   return the result object with the error;
+- `keystorePath`: string, optional, path of a keystore file(.p12 or .pfx), 
+  used for client-cert authentication;
+- `keystorePassword`: string, keystore password;
 - `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or 
 `DELETE`. Default value is `GET`;
 - `out`: variable to store the [HTTP response](#http-task-response) object;
@@ -87,6 +90,10 @@ waiting for the response;
 between two data packets. Default value is `-1`, which means that the default
 value of the Java Runtime Environment running the process is used - common value
 is 60000 ms;
+- `strictSsl`: boolean, set `true` to enable ssl connection. Default value is `false`;
+- `truststorePath`: string, optional, path of a truststore file(.jks), overrides 
+   system's default certificate truststore;
+- `truststorePassword`: string, truststore password;
 - `url`: complete URL in string for HTTP request;
 
 ### Authentication
