@@ -546,7 +546,7 @@ Maps (dicts, in Python terms) can also be used:
 ```yaml
 flows:
   default:
-    - call: log
+    - task: log
       in:
         msg: "${item.key} - ${item.value}"
       withItems:
