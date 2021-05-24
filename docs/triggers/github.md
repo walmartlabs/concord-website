@@ -158,6 +158,31 @@ ignores pushes by `jenkinspan` and `anothersvc`:
       sender: "^(?!.*(jenkinspan|anothersvc)).*$"
 ```
 
+The following example triggers fire when the given file paths within the `push`
+event are `added`, `modified`, `deleted`, or `any`.
+
+```yaml
+# fire when concord.yml is modified
+- github:
+    entryPoint: "onConcordUpdate"
+    conditions:
+      type: "push"
+      branch: "master"
+      files:
+        modified:
+          - "concord.yml"
+
+# fire when any file within src/ is added, modified, or deleted
+- github:
+    entryPoint: "onSrcChanged"
+    conditions:
+      type: "push"
+      branch: "master"
+      files:
+        any:
+          - "src/.*"
+```
+
 ### Pull Requests
 
 To receive a notification when a PR is opened: 
