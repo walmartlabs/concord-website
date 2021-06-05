@@ -140,6 +140,7 @@ The `git` task returns a result object with following fields:
 - `status`: `NO_CHANGES` if repository is clean, otherwise returns `SUCCESS` or
 `FAILURE` if operation successful or failed respectively.
 - `error`: error message if operation failed.
+- `headSHA`: `HEAD` commit ID for the specified branch after performing the action.
 - `changeList`: saves the list of uncommitted changes.
 
 <a name="clone"/>
@@ -240,16 +241,18 @@ action, so make sure `clone` action is performed first.
 - if: "${response.ok}"
   then:
   - log: "Commit action completed successfully."
+  - log: "New HEAD commit ID: ${response.headSHA}."
   - log: "My changeList: ${response.changeList}."
 ```
 
 The `baseBranch` parameter is mandatory and specifies the name of the branch to
 use to commit the changes. The `commitMessage` is a message to add to your
-commit operataion. The `pushChanges` parameter is optional and defaults to
+commit operation. The `pushChanges` parameter is optional and defaults to
 `false`, when omitted. The `commitUsername` and `commitEmail` are mandatory
 parameters to capture committer details.
 
-Users can get the list of uncommitted changes using `${response.changeList}` variable.
+The new commit ID is available in `${response.headSHA}`. A list of uncommitted
+changes is available in `${response.changeList}`.
 
 <a name="branch"/>
 
@@ -562,7 +565,7 @@ flows:
 
 The `createTag` action of the `github` task can create a tag based on a specific
 commit SHA. This commit identifier has to be supplied to the Concord flow -
-typically via a parameter from a form or a invocation of the flow from another
+typically via a parameter from a form or an invocation of the flow from another
 application. One example is the usage of the Concord task in the Looper
 continuous integration server.
 
@@ -649,7 +652,7 @@ require a local clone of the repository and is therefore faster in the execution
 and requires no local storage on the Concord server.
 
 The parameters identifying the branches to merge have to be supplied to the
-Concord flow - typically by a parameter from a form or a invocation of the flow
+Concord flow - typically by a parameter from a form or an invocation of the flow
 from another application. One example is the usage of the Concord task in the
 Looper continuous integration server.
 
@@ -679,7 +682,7 @@ flows:
 ## Fork
 
 The `forkRepo` action can be used to fork a git repository on GitHub. By
-default, the `repo` is forked into your personal account asscociated with the
+default, the `repo` is forked into your personal account associated with the
 `accessToken`.
 
 The following parameters are needed in addition to the general parameters:
@@ -708,7 +711,7 @@ flows:
 
 The `getBranchList` action can be used to get the list of  branches of a GitHub
 repository. The output of the action is stored in a variable `branchList`. It
-can used at later point in the flow
+can be used at a later point in the flow
 
 The following parameters are needed in addition to the general parameters:
 
@@ -732,8 +735,8 @@ flows:
 ## GetTagList
 
 The `getTagList` action can be used to get the  list of tags of a GitHub
-repository. The output of the action is stored in a variable `tagList`. It can
-used at later point in the flow.
+repository. The output of the action is stored in a variable `tagList`. It can be
+used at a later point in the flow.
 
 The following parameters are needed in addition to the general parameters:
 
@@ -758,7 +761,7 @@ flows:
 
 The `getPR` action can be used to get a specific PR from a GitHub repository.
 The output of the action is stored in a variable `pr`,
-containing the  `PullRequest` details. It can used at later point in the flow.
+containing the  `PullRequest` details. It can be used at a later point in the flow.
 
 The following parameters are needed in addition to the general parameters:
 
@@ -776,7 +779,7 @@ flows:
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
       prNumber: 123
-      
+
   - log: "PR HEAD SHA: ${pr.head.sha}"
 ```
 
@@ -786,8 +789,7 @@ flows:
 
 The `getPRList` action can be used to get the list of PRs from a GitHub
 repository. The output of the action is stored in a variable `prList`,
-which is a list of `PullRequest` values. It can
-used at later point in the flow.
+which is a list of `PullRequest` values. It can be used at a later point in the flow.
 
 The following parameters are needed in addition to the general parameters:
 
@@ -817,10 +819,10 @@ flows:
 
 ## GetLatestSHA
 
-The `getLatestSHA` action can be used to get the SHA identifier of latest commit
+The `getLatestSHA` action can be used to get the SHA identifier of the latest commit
 for a given branch. By default, it gets the SHA from the `master` branch. The
-output of the action is stored in the variable `latestCommitSHA`. It can used at
-later point in the flow.
+output of the action is stored in the variable `latestCommitSHA`. It can be used
+at a later point in the flow.
 
 The following parameters are needed in addition to the general parameters:
 
