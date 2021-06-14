@@ -37,14 +37,25 @@ Creates a new API key for a user.
   ```json
   {
     "ok": true,
-    "id": "...",
-    "key": "..."
+    "id": "3b45a52f-91d7-4dd0-8bf6-b06548e0afa5",
+    "key": "someGeneratedKeyValue"
   }
   ```
-* **Example**
+* **Example**: create a key, Concord will auto-generate a key name
   ```
   curl -u myLdapUser \
-  -H "Content-Type: application/json" -d '{ "username": "myLdapUser" }' \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{ "username": "myLdapUser" }' \
+  http://concord.example.com/api/v1/apikey
+  ```
+
+* **Example**: create a key, specify a key name
+  ```
+  curl -u myLdapUser \
+  -X POST
+  -H "Content-Type: application/json" \
+  -d '{ "username": "myLdapUser", "name": "myCustomApiKeyName" }' \
   http://concord.example.com/api/v1/apikey
   ```
 
@@ -67,9 +78,11 @@ Lists any existing API keys for the user. Only returns metadata, not actual keys
     [
       {
         "id" : "2505acba-314d-11e9-adf9-0242ac110002",
+        "userId": "aab8a8e2-2f75-4859-add1-3b8f5d7a6690", 
         "name" : "key#1"
       }, {
         "id" : "efd12c7a-3162-11e9-b9c0-0242ac110002",
+        "userId": "aab8a8e2-2f75-4859-add1-3b8f5d7a6690", 
         "name" : "myCustomApiKeyName"
       }
     ]
@@ -98,6 +111,30 @@ Removes an existing API key.
 
     ```json
     {
+      "result": "DELETED",
       "ok": true
     }
     ```
+
+* **Example**
+  ```
+  curl -u myLdapUser \
+  -X DELETE \
+  -H "Content-Type: application/json" \
+  http://concord.example.com/api/v1/apikey/2505acba-314d-11e9-adf9-0242ac110002
+  ```
+
+<a name="apikey-authorization"/>
+# Using an API key to access the Concord API
+When accessing the Concord API, the **Authorization** header can be
+set with the value of an API key.  This replaces the need to authenticate
+with user and password.
+
+* **Example**
+  ```
+  curl \
+  -H "Content-Type: application/json" \
+  -H "Authorization: someGeneratedKeyValue" \
+  http://concord.example.com/api/v1/apikey
+  ```
+
