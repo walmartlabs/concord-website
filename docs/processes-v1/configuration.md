@@ -68,7 +68,7 @@ flows:
     - log: "Coordinates (x,y,z): ${coordinates.x}, ${coordinates.y}, ${coordinates.z}"
 ```
 
-Values of `arguments` can contain [expressions](#expressions). Expressions can
+Values of `arguments` can contain [expressions](./flows.html#expressions). Expressions can
 use all regular tasks:
 
 ```yaml
