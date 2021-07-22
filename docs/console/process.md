@@ -37,7 +37,9 @@ order to a add `myValue` column to the project's process list, the project's
 configuration can look like this:
 
 ```bash
-$ curl -ikn -H 'Content-Type: application/json' -d @body.json http://concord.example.com/api/v1/org/MyOrg/project
+$ curl -ikn -H 'Content-Type: application/json' \
+    -d @body.json \
+    http://concord.example.com/api/v1/org/MyOrg/project
 ```
 
 where `body.json` is

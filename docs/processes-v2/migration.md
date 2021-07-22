@@ -15,9 +15,6 @@ The new runtime features require changes in flows and plugins. That's why
 initially it will be an opt-in feature - both v1 and v2 versions will coexist
 for foreseeable future.
 
-Currently, the v2 runtime is considered a "preview" feature and is subject to
-change.
-
 To enable the v2 runtime, add the following to your `concord.yml` file:
 
 ```yaml
@@ -25,10 +22,9 @@ configuration:
   runtime: "concord-v2"
 ```
 
-Alternatively, it is possible to specify the runtime directly in the API
-request:
+Alternatively, it is possible to specify the runtime directly in the API request:
 
-```
+```bash
 $ curl ... -F runtime=concord-v2 http://concord.example.com/api/v1/process
 ``` 
 

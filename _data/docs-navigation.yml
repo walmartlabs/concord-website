@@ -51,6 +51,26 @@ nav:
         context: /docs/processes-v1/resources
       - page: Tasks
         context: /docs/processes-v1/tasks
+  - title: Processes (v2)
+    id: processes-v2
+    collapse: /docs/processes-v2
+    subfolderitems:
+      - page: Overview
+        context: /docs/processes-v2/index
+      - page: Configuration
+        context: /docs/processes-v2/configuration
+      - page: Flows
+        context: /docs/processes-v2/flows
+      - page: Migration from v1
+        context: /docs/processes-v2/migration
+      - page: Imports
+        context: /docs/processes-v2/imports
+      - page: Profiles
+        context: /docs/processes-v2/profiles
+      - page: Resources
+        context: /docs/processes-v2/resources
+      - page: Tasks
+        context: /docs/processes-v2/tasks
   - title: Triggers
     id: triggers
     collapse: /docs/triggers
@@ -197,23 +217,3 @@ nav:
         context: /docs/cli/linting
       - page: Running Flows
         context: /docs/cli/running-flows
-  - title: Under Development
-    id: processes-v2
-    collapse: /docs/processes-v2
-    subfolderitems:
-      - page: Overview
-        context: /docs/processes-v2/index
-      - page: Configuration
-        context: /docs/processes-v2/configuration
-      - page: Flows
-        context: /docs/processes-v2/flows
-      - page: Migration
-        context: /docs/processes-v2/migration
-      - page: Imports
-        context: /docs/processes-v2/imports
-      - page: Profiles
-        context: /docs/processes-v2/profiles
-      - page: Resources
-        context: /docs/processes-v2/resources
-      - page: Tasks
-        context: /docs/processes-v2/tasks
