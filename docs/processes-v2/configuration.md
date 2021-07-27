@@ -46,9 +46,10 @@ configuration:
 ```
 
 Currently, the default `runtime` is `concord-v1` which is considered stable and
-production-ready. This section describes the new and improved `concord-v2`
-runtime that is available in "preview" mode - the syntax and the execution
-semantics may change at any moment.
+production-ready. It will remain available for the foreseeable future, but will
+see fewer (if any) feature updates. This section describes the new and improved
+`concord-v2` runtime. There are breaking changes to syntax and execution semantics
+from `concord-v1` which require [migration](./migration.html) considerations.
 
 See the [Processes (v1)](../processes-v1/index.html) section for more details
 about `concord-v1` runtime.
@@ -381,7 +382,9 @@ flows:
 After each step, Concord sends the updated value back to the server:
 
 ```bash
-$ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c | jq '.meta.myValue'
+$ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c |
+    jq '.meta.myValue'
+
 "hello!"
 ```
 
@@ -402,7 +405,9 @@ flows:
 The value is stored under the `nested.value` key:
 
 ```bash
-$ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c | jq '.meta.["nested.value"]'
+$ curl -skn http://concord.example.com/api/v1/process/1c50ab2c-734a-4b64-9dc4-fcd14637e36c |
+    jq '.meta.["nested.value"]'
+
 "hello!"
 ```
 
