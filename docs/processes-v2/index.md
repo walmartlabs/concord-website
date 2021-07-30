@@ -12,7 +12,6 @@ side-navigation: wmt/docs-navigation.html
 - [Public Flows](#public-flows)
 - [Variables](#variables)
     - [Provided Variables](#provided-variables)
-    - [Context](#context)
 
 **Note:** if you used Concord before, check [the migration guide](./migration.html).
 It describes key differences between Concord flows v1 and v2.
