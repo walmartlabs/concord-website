@@ -184,8 +184,11 @@ Parameters:
 `default`;
 - `url` - string, mandatory. URL of the repository;
 - `auth` - object, optional. Authentication parameters, see
-the [AuthenticationContext](https://maven.apache.org/resolver/apidocs/org/eclipse/aether/repository/AuthenticationContext.html)
-javadoc for the list of accepted parameters;
+  the [AuthenticationContext](https://maven.apache.org/resolver/apidocs/org/eclipse/aether/repository/AuthenticationContext.html)
+  javadoc for the list of accepted parameters. Common parameters:
+  - `username`, `password` - credentials;
+  - `preemptiveAuth` - if `true` Concord performs pre-emptive authentication. 
+  Required if the remote server expects credentials in all requests (e.g. S3 buckets).
 - `snapshotPolicy` and `releasePolicy` - object, optional. Policies for
 snapshots and release versions. Parameters: 
   - `enabled` - boolean, optional. Enabled or disables the category. Default
