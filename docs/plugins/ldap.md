@@ -124,7 +124,7 @@ Additional parameters to use are:
 <a name="getGroup"/>
 ## Get Group
 
-The LDAP task can be used to search for a group with the `getUser` action. You
+The LDAP task can be used to search for a group with the `getGroup` action. You
 can specifiy whether it is a security group or not by `securityEnabled`
 
 ```yaml
