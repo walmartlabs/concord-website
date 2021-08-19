@@ -318,6 +318,8 @@ run.
 
 **Note:** this feature available only for project processes. 
 
+See also: [Exclusive Triggers](../triggers/index.html#exclusive-triggers).
+
 ## Metadata
 
 Flows can expose internal variables as process metadata. Such metadata can be
