@@ -18,6 +18,7 @@ The REST API provides support for the following operations related to secrets:
   - [Example: Creating a Username and Password Secret](#example-username-password-secret)
   - [Example: Storing a Single Value as Secret](#example-single-value-secret)
 - [Update a Secret](#update-secret)
+  - [Example: Update Single Value Secret](#example-update-single-value-secret)
 - [Get Metadata of Secret](#meta-data)
 - [Get Public SSH Key of Secret](#get-key)
 - [Delete a Secret](#delete-secret)
@@ -186,6 +187,34 @@ Updates parameters of an existing secret.
     `Visiblity`, `Owner`, `Name` or `Project`.
 
     Omitted parameters are not updated.    
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
+    ```
+
+<a name="example-update-single-value-secret"/>
+
+### Example: Update Single Value Secret
+
+You can update a single value as a secret on Concord as follows:
+
+* **URI** `/api/v1/org/${orgName}/secret/${secretName}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    {
+      "data": "base64 encoded secret value"
+    }
+    ```
+
 * **Success response**
     ```
     Content-Type: application/json
