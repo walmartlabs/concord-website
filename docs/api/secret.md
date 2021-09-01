@@ -205,27 +205,12 @@ Updates parameters of an existing secret.
 
 You can update a single value as a secret on Concord as follows:
 
-* **URI** `/api/v1/org/${orgName}/secret/${secretName}`
-* **Method** `POST`
-* **Headers** `Authorization`, `Content-Type: application/json`
-* **Body**
-    ```json
-    {
-      "data": "base64 encoded secret value"
-    }
-    ```
-
-* **Success response**
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    {
-      "ok": true,
-      "result": "UPDATED"
-    }
-    ```
+```
+curl -u myusername \
+-H 'Content-Type: application/json' \
+--data '{"data": "<base64 encoded secret value>"}' \
+http://concord.example.com/api/v1/org/Default/secret/myKey
+```
 
 <a name="meta-data"/>
 
