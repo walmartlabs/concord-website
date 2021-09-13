@@ -698,7 +698,7 @@ In both cases, the server starts a _child_ process with a copy of
 the original process state and uses `onCancel` or `onFailure` as an
 entry point.
 
-**Note:** `onCancel` and `onFailure` handlers receive the last known
+**Note:** `onCancel` and `onFailure` handlers receive the _last known_
 state of the parent process' variables. This means that changes in
 the process state are visible to the _child_ processes:
 
