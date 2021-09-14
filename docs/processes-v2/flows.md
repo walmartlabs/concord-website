@@ -673,8 +673,13 @@ flows:
     - ${sleep.ms(60000)}
 
   onCancel:
-    - log: "Pack your bags, boys. Show's cancelled"
+    - log: "Pack your bags. Show's cancelled"
 ```
+
+**Note:** `onCancel` handler processes are dispatched immediately when the process
+cancel request is sent. Variables set at runtime may not have been saved to the
+process state in the database and therefore may be unavailable or stale in the
+handler process.
 
 Similarly, `onFailure` flow executes if a process crashes (moves into
 the `FAILED` state):
@@ -693,7 +698,7 @@ In both cases, the server starts a _child_ process with a copy of
 the original process state and uses `onCancel` or `onFailure` as an
 entry point.
 
-**Note:** `onCancel` and `onFailure` handlers receive the last known
+**Note:** `onCancel` and `onFailure` handlers receive the _last known_
 state of the parent process' variables. This means that changes in
 the process state are visible to the _child_ processes:
 
