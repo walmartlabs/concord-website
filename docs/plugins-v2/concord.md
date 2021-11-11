@@ -31,14 +31,6 @@ necessary.
 - [Tagging Subprocesses](#tags)
 - [Output Variables](#outvars)
 
-## Examples
-
-- [process_from_a_process]({{ site.concord_source }}/tree/master/examples/process_from_a_process) 
-- starting a new subprocess from a flow using a payload archive;
-- [fork]({{ site.concord_source }}/tree/master/examples/fork) - starting a subprocess;
-- [fork_join]({{ site.concord_source }}/tree/master/examples/fork_join)
-- starting multiple subprocesses and waiting for completion.
-
 ## Parameters
 
 All parameter sorted alphabetically. Usage documentation can be found in the
@@ -86,13 +78,18 @@ flows:
     in:
       action: start
       payload: payload.zip
+    out: jobOut
 ```
 
 The `start` action starts a new subprocess using the specified payload archive.
-The ID of the started process is stored as the first element of `${jobs}` array:
+The ID of the started process is stored in the `id` attribute:
 
 ```yaml
-- log: "I've started a new process: ${jobs[0]}"
+- if: ${jobOut.ok}
+  then:
+    - log: "I've started a new process: ${jobOut.id}"
+  else:
+    - log: "Error with child process: ${jobOut.error}"
 ```
 
 <a name="start-project"></a>
@@ -108,6 +105,7 @@ flows:
       org: myOrg
       project: myProject
       payload: payload.zip
+    out: jobOut
 ```
 
 The `start` expression with a `project` parameter and a `payload` in the form of
@@ -125,6 +123,7 @@ flows:
       action: start
       project: myProject
       repo: myRepo
+    out: jobOut
 ```
 
 The process is started using the resources provided by the specified archive, 
@@ -146,6 +145,7 @@ flows:
       action: startExternal
       project: myProject
       repo: myRepo
+    out: jobOut
 ```
 
 Connection parameters can be overridden using the following keys:
@@ -171,6 +171,7 @@ flows:
       action: start
       ...
       startAt: "2018-03-16T23:59:59-05:00"
+    out: jobOut
 ```
 
 The `startAt` parameter accepts an ISO-8601 string, `java.util.Date` or
@@ -194,6 +195,7 @@ flows:
       activeProfiles:
       - firstProfile
       - secondProfile
+    out: jobOut
 ```
 
 The parameter accepts either a YAML array or a comma-separated string value.
@@ -217,9 +219,11 @@ flows:
       - ${workDir}/someDir/myFile.txt
       - src: anotherFile.json
         dest: someFile.json
+    out: jobOut
 ```
 
 This is equivalent to the curl command:
+
 ```
 curl ... -F myFile.txt=@${workDir}/someDir/myFile.txt -F someFile.json=@anotherFile.json ...
 ```
@@ -239,6 +243,7 @@ flows:
     in:
       action: fork
       entryPoint: sayHello
+    out: jobOut
         
   sayHello:
   - log: "Hello from a subprocess!"
@@ -273,17 +278,22 @@ flows:
         instances: 2
         arguments:
           color: "blue"
+    out: jobOut
 ```
 
 The `instances` parameter allows spawning of more than one copy of a process.
 
-The IDs of the started processes arestored as `${jobs}` array.
+The IDs of the started processes are stored as `ids` array in the result.
+
+```yaml
+- log: "Forked child processes: ${jobOut.ids}"
+```
 
 <a name="sync"/>
 
 ## Synchronous Execution
 
-By default all subprocesses are started asynchronously. To start a process and
+By default, all subprocesses are started asynchronously. To start a process and
 wait for it to complete, use `sync` parameter:
 
 ```yaml
@@ -294,6 +304,7 @@ flows:
       action: start
       payload: payload.zip
       sync: true
+    out: jobOut
 ```
 
 If a subprocess fails, the task throws an exception. To ignore failed processes
@@ -308,6 +319,7 @@ flows:
       payload: payload.zip
       sync: true
       ignoreFailures: true
+    out: jobOut
 ```
 
 <a name="start-suspend"/>
@@ -328,8 +340,9 @@ flows:
       repo: myRepo
       sync: true
       suspend: true
-      
-  - log: "Done: ${jobs}"
+    out: jobOut
+
+  - log: "Done: ${jobOut.id}"
 ```
 
 This can be very useful to reduce the amount of Concord agents needed. With
@@ -350,6 +363,7 @@ flows:
         - entryPoint: sayHello
       sync: true
       suspend: true
+    out: jobOut
 
   sayHello:
     - log: "Hello from a subprocess!"
@@ -365,7 +379,7 @@ way as the [forms](../getting-started/forms.html).
 
 ## Suspending for Completion
 
-You can use the follow approach to suspend a process until the the completion of
+You can use the follow approach to suspend a process until the completion of the
 other process:
 
 ```yaml
@@ -378,15 +392,17 @@ flows:
     in:
       action: start
       payload: payload
+    out: jobOut
 
-  - ${children.addAll(jobs)}
+  - ${children.addAll(jobOut.ids)}
 
   - task: concord
     in:
       action: start
       payload: payload
+    out: jobOut
 
-  - ${children.addAll(jobs)}
+  - ${children.addAll(jobOut.ids)}
 
   - ${concord.suspendForCompletion(children)}
 
@@ -402,10 +418,10 @@ To wait for a completion of a process:
 ```yaml
 flows:
   default:
-  - ${concord.waitForCompletion(jobIds)}
+  - ${concord.waitForCompletion(jobOut.ids)}
 ```
 
-The `jobIds` value is a list (as in `java.util.List`) of process IDs.
+The `ids` value is a list (as in `java.util.List`) of process IDs.
 
 The expression returns a map of process entries. To see all returned fields,
 check with the [Process API](../api/process.html#status):
@@ -480,7 +496,7 @@ flows:
 The `instanceId` parameter can be a single value or a list of process
 IDs.
 
-Setting `sync` to `true` forces the the task to wait until the specified
+Setting `sync` to `true` forces the task to wait until the specified
 processes are stopped.
 
 <a name="tags"/>
@@ -524,38 +540,6 @@ Variables of a child process can be accessed via the `outVars` configuration.
 The functionality requires the `sync` parameter to be set to `true`.
 
 ```yaml
-# runtime v1 and v2 example
-
-flows:
-  default:
-    - task: concord
-      in:
-        action: start
-        project: myProject
-        repo: myRepo
-        sync: true
-        # list of variable names
-        outVars:
-        - someVar1
-        - someVar2
-```
-
-In processes using [the v1 runtime](../processes-v1/index.html) the result is
-automatically stored as a `jobOut` variable:
-
-```yaml
-- log: "We got ${jobOut.someVar1} and ${jobOut.someVar2}!"
-```
-
-When using [the v2 runtime](../processes-v2/index.html), the result must be
-explicitly saved using the `out` syntax:
-
-```yaml
-# runtime v2 example
-
-configuration:
-  runtime: "concord-v2"
-
 flows:
   default:
     - task: concord
@@ -577,112 +561,6 @@ When starting multiple forks their output variables are collected into a nested
 object with fork IDs as keys:
 
 ```yaml
-# runtime v1 example
-
-configuration:
-  arguments:
-    name: "Concord"
-
-flows:
-  default:
-    - task: concord
-      in:
-        action: fork
-        forks:
-          - entryPoint: onFork
-            arguments:
-              msg: "Hello"
-          - entryPoint: onFork
-            arguments:
-              msg: "Bye"
-        sync: true
-        suspend: true
-        outVars:
-          - varFromFork
-
-    - log: "${jobOut}"
-
-  onFork:
-    - log: "Running in a fork"
-    - set:
-        varFromFork: "${msg}, ${name}"
-```
-
-In the example above, the `jobOut` variable has the following structure:
-
-```json
-{
-    "54e21668-d011-11e9-8369-6b27f0faf40f": {
-        "varFromFork": "Hello, Concord"
-    },
-    "6ac8b356-d011-11e9-81f6-73dd6c99b3b2": {
-        "varFromFork": "Bye, Concord"
-    }
-}
-```
-
-Because each fork can produce a variable with the same name, the values are
-nested into objects with the fork ID as the key.
-
-To get output variables for already running processes use `getOutVars` method:
-
-```yaml
-# runtime v1 example
-
-flows:
-  default:
-    # empty list to store fork IDs
-    - set:
-        children: []
-
-    # start the first fork
-    - task: concord
-      in:
-        action: fork
-        entryPoint: forkA
-        sync: false
-        outVars:
-          - x
-
-    # save the first fork's ID
-    - ${children.addAll(jobs)}
-
-    # start the second fork
-    - task: concord
-      in:
-        action: fork
-        entryPoint: forkB
-        sync: false
-        outVars:
-          - y
-
-    # save the second fork's ID
-    - ${children.addAll(jobs)}
-
-    # grab out vars of the forks
-    - expr: ${concord.getOutVars(children)} # accepts a list of process IDs
-      out: forkOutVars
-
-    # print out out vars grouped by fork
-    - log: "${forkOutVars}"
-
-  forkA:
-    - set:
-        x: 1
-
-  forkB:
-    - set:
-        y: 2
-```
-
-Or, when using [the runtime v2](../processes-v2/index.html):
-
-```yaml
-# runtime v2 example
-
-configuration:
-  runtime: "concord-v2"
-
 flows:
   default:
     # empty list to store fork IDs
@@ -700,7 +578,7 @@ flows:
       out: firstResult
 
     # save the first fork's ID
-    - ${children.addAll(firstResult.forks)}
+    - ${children.addAll(firstResult.id)}
 
     # start the second fork and save the result as "secondResult"
     - task: concord
@@ -713,13 +591,13 @@ flows:
       out: secondResult
 
     # save the second fork's ID
-    - ${children.addAll(secondResult.forks)}
+    - ${children.addAll(secondResult.id)}
 
     # grab out vars of the forks
     - expr: ${concord.getOutVars(children)} # accepts a list of process IDs
       out: forkOutVars
 
-    # print out out vars grouped by fork
+    # print the out-vars grouped by fork
     - log: "${forkOutVars}"
 
   forkA:
@@ -734,17 +612,12 @@ flows:
 **Note:** the `getOutVars` method waits for the specified processes to finish.
 If one of the specified processes fails, its output is going to be empty.
 
-In [the runtime v2](../processes-v2/index.html) all variables are
+In [runtime v2](../processes-v2/index.html) all variables are
 "local" -- limited to the scope they were defined in. The `outVars` mechanism
 grabs only the top-level variables, i.e. variables available in the `entryPoint`
 scope:
 
 ```yaml
-# runtime v2 example
-
-configuration:
-  runtime: "concord-v2"
-
 flows:
   # caller
   default:
@@ -758,7 +631,7 @@ flows:
           - bar
       out: forkResult
 
-    - log: "${concord.getOutVars(forkResult.forks)}"
+    - log: "${concord.getOutVars(forkResult.id)}"
 
   # callee
   onFork:
