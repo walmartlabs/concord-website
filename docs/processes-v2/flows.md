@@ -84,13 +84,23 @@ flows:
         url: "https://google.com"
       out: result
 
-    - log: ${result}
+    - if: ${not result.ok}
+      then:
+        - log: "task failed: ${result.error}"
 ```
+
+#### Task Result Data Structure
+
+All returned result data from tasks compatible with runtime-v2 contain a common
+set of attributes, in addition to any task-specific data:
+
+- `ok` - boolean, true when task executes without error;
+- `error` - string, an error message when `ok` is `false`;
 
 ### Expressions
 
 Expressions must be valid
-[Java Expresssion Language EL 3.0](https://github.com/javaee/el-spec) syntax
+[Java Expression Language EL 3.0](https://github.com/javaee/el-spec) syntax
 and can be simple evaluations or perform actions by invoking more complex code.
 
 Short form:

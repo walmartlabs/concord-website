@@ -32,7 +32,7 @@ application deployments with Concord.
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -48,6 +48,7 @@ flows:
   - task: ansible
     in:
       playbook: playbook/hello.yml
+    out: ansibleResult
 ```
 
 ## Ansible
@@ -148,6 +149,15 @@ on usage with `dockerImage`;
 - `verbose` - integer, increase log
   [verbosity](http://docs.ansible.com/ansible/latest/ansible-playbook.html#cmdoption-ansible-playbook-v). 1-4
   correlate to -v through -vvvv.
+
+## Result Data
+
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the `ansible` task returns:
+
+- `exitCode` - number, ansible process exit code;
+- Custom attributes matching names defined in [`out_vars`](#output-variables);
 
 ## Configuring Ansible
 
@@ -522,14 +532,13 @@ Concord provides a special
 [Ansible lookup plugin](https://docs.ansible.com/ansible/devel/plugins/lookup.html)
 to retrieve password-protected secrets in playbooks:
 
+<!-- use {% raw %}{% endraw %} tags to handle jinja templating -->
 ```yaml
-{% raw %}
-- hosts: local
+{% raw %}- hosts: local
   tasks:
   - debug:
       msg: "We got {{ lookup('concord_data_secret', 'myOrg', 'mySecret', 'myPwd') }}"
-      verbosity: 0
-{% endraw %}
+      verbosity: 0{% endraw %}
 ```
 
 In this example `myOrg` is the name of the organization that owns the secret,
@@ -539,26 +548,22 @@ for accessing the secret.
 Use `None` to retrieve a secret created without a password:
 
 ```yaml
-{% raw %}
-- hosts: local
+{% raw %}- hosts: local
   tasks:
   - debug:
       msg: "We got {{ lookup('concord_data_secret', 'myOrg', 'mySecret', None) }}"
-      verbosity: 0
-{% endraw %}
+      verbosity: 0{% endraw %}
 ```
 
 If the process was started using a project, then the organization name can be
 omitted. Concord will automatically use the name of the project's organization:
 
 ```yaml
-{% raw %}
-- hosts: local
+{% raw %}- hosts: local
   tasks:
   - debug:
       msg: "We got {{ lookup('concord_data_secret', 'mySecret', 'myPwd') }}"
-      verbosity: 0
-{% endraw %}
+      verbosity: 0{% endraw %}
 ```
 
 Currently, only simple string value secrets are supported.
@@ -710,18 +715,24 @@ ansible task.
           ansible_connection: "local"
     outVars:
       - "myVar"
+  out: ansibleResult
 ```
 
 The object can be traversed to access specific values:
+
 ```yaml
-- log: ${myVar['127.0.0.1']['msg']}
+- log: ${ansibleResult.myVar['127.0.0.1']['msg']}
 ```
 
 Expressions can be used to convert an `outVar` value into a "flat" list of
 values:
+
 ```yaml
 # grab a 'msg' value for each host
-- log: "${myVar.entrySet().stream().map(kv -> kv.value.msg).toList()}"
+- log: |-
+    ${ansibleResult.myVar.entrySet().stream()
+        .map(kv -> kv.value.msg)
+        .toList()}
 ```
 
 **Note:** not compatible with `disableConcordCallbacks: true` or
