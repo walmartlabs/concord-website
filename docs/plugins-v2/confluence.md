@@ -27,7 +27,7 @@ Possible operations are:
 ## Usage
 
 To be able to use the `confluence` task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -61,7 +61,7 @@ common for all operations:
 
 The `apiUrl` configures the URL to the Confluence REST API endpoint. It is best
 configured globally as [default process
-configuration](../getting-started/configuration.html#default-process-variables)
+configuration](../getting-started/policies.html#default-process-configuration-rule)
 with a `confluenceParams` argument:
 
 ```yaml
@@ -83,6 +83,7 @@ flows:
       action: createPage
       userId: myUserId
       password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    out: result
 ```
 
 All operations are subject to the security configuration of your Confluence and
@@ -97,22 +98,21 @@ The `createPage` action can be used to create a new page with content in a
 specific `space`.
 
 ```yaml
-flows:
-  default:
-  - task: confluence
-    in:
-      action: createPage
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      spaceKey: "MYSPACEKEY"
-      pageTitle: "My Page Title"
-      pageContent: "<p>This is <br/> my page content</p>"
-  - log: "Page Id is ${result.pageId}"
-  - if: ${!result.ok}
-    then:
-    - throw: "Something went wrong: ${result.error}"
-    else:
-    - log: "Here is Page view info URL: ${result.data}"
+- task: confluence
+  in:
+    action: createPage
+    userId: myUserId
+    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    spaceKey: "MYSPACEKEY"
+    pageTitle: "My Page Title"
+    pageContent: "<p>This is <br/> my page content</p>"
+  out: result
+- log: "Page Id is ${result.pageId}"
+- if: ${!result.ok}
+  then:
+  - throw: "Something went wrong: ${result.error}"
+  else:
+  - log: "Here is Page view info URL: ${result.data}"
 ```
 
 Additional parameters to use are:
@@ -140,26 +140,25 @@ template file. You can also pass additional variables as a part of
 `templateParams` parameter as shown below
 
 ```yaml
-flows:
-  default:
-  - task: confluence
-    in:
-      action: createPage
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      spaceKey: "MYSPACEKEY"
-      pageTitle: "My Page Title"
-      template: content.mustache
-      templateParams:
-        myVariable1: "content variable 1"
-        myVariable2: "content variable 2"
-        myVariable3: "content variable 3"
+- task: confluence
+  in:
+    action: createPage
+    userId: myUserId
+    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    spaceKey: "MYSPACEKEY"
+    pageTitle: "My Page Title"
+    template: content.mustache
+    templateParams:
+      myVariable1: "content variable 1"
+      myVariable2: "content variable 2"
+      myVariable3: "content variable 3"
+  out: result
 ```
 
-The output of the action is stored in a `result` variable that has the following
-structure:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the following attributes are returned:
 
-- `ok` - boolean value, `true` if the execution is successful;
 - `data` - string value, contains the page view info URL.
 - `pageId` - integer value, contains the `id` of confluence page created.
  
@@ -171,16 +170,15 @@ The `updatePage` action can be used to update (`append/overWrite`) the content
 of an existing page. By default this action appends text to existing content.
 
 ```yaml
-flows:
-  default:
-  - task: confluence
-    in:
-      action: updatePage
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      spaceKey: "MYSPACEKEY"
-      pageTitle: "My Page Title"
-      pageUpdate: "This is an update to an existing content"
+- task: confluence
+  in:
+    action: updatePage
+    userId: myUserId
+    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    spaceKey: "MYSPACEKEY"
+    pageTitle: "My Page Title"
+    pageUpdate: "This is an update to an existing content"
+  out: result
 ```
 
 Additional parameters to use are:
@@ -191,10 +189,10 @@ Additional parameters to use are:
 - `overWrite`: boolean, if set to `true` overwrites the existing content.
   Defaults to `false`.
 
-The output of the action is stored in a `result` variable that has the following
-structure:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the following attributes are returned:
 
-- `ok` - boolean value, `true` if the execution is successful;
 - `data` - string value, contains the page view info URL.
 
 <a name="addCommentsToPage"/>
@@ -204,15 +202,14 @@ structure:
 The `addCommentsToPage` action can be used to add a comment to an existing page.
 
 ```yaml
-flows:
-  default:
-  - task: confluence
-    in:
-      action: addCommentsToPage
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      pageId: 32432235
-      pageComment: "<p>This is a comment to an existing page</p>"
+- task: confluence
+  in:
+    action: addCommentsToPage
+    userId: myUserId
+    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    pageId: 32432235
+    pageComment: "<p>This is a comment to an existing page</p>"
+  out: result
 ```
 
 Additional parameters to use are:
@@ -221,10 +218,10 @@ Additional parameters to use are:
   added.
 - `pageComment` - string, Required - comments added to an existing page.
 
-The output of the action is stored in a `result` variable that has the following
-structure:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the following attributes are returned:
 
-- `ok` - boolean value, `true` if the execution is successful;
 - `data` - string value, contains the page view info URL.
 
 <a name="uploadAttachment"/>
@@ -236,13 +233,14 @@ page.
 
 ```yaml
 - task: confluence
-    in:
-      action: uploadAttachment
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      pageId: 32432235
-      attachmentComment: "My attachment comments"
-      attachmentPath: path/to/the/attachment.txt
+  in:
+    action: uploadAttachment
+    userId: myUserId
+    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    pageId: 32432235
+    attachmentComment: "My attachment comments"
+    attachmentPath: path/to/the/attachment.txt
+  out: result
 ```
 
 Additional parameters to use are:
@@ -252,10 +250,10 @@ Additional parameters to use are:
 - `attachmentComment` - Required - string, comments added to an attachment.
 - `attachmentPath` - Required - string, path to an attachment file.
 
-The output of the action is stored in a `result` variable that has the following
-structure:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the following attributes are returned:
 
-- `ok` - boolean value, `true` if the execution is successful;
 - `data` - string value, contains the page view info URL.
 
 
@@ -267,22 +265,23 @@ The `getPageContent` action can be used to get the content of a
 page.
 
 ```yaml
-  - task: confluence
-    in:
-      action: getPageContent
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      pageId: 32432235
+- task: confluence
+  in:
+    action: getPageContent
+    userId: myUserId
+    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    pageId: 32432235
+  out: result
 ```
 
 Additional parameters to use are:
 
 - `pageId` - interger, Required - Id of a confluence page
 
-The output of the action is stored in a `result` variable that has the following
-structure:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the following attributes are returned:
 
-- `ok` - boolean value, `true` if the execution is successful;
 - `data` - string value, contains the page content
 
 <a name="createChildPage"/>
@@ -294,15 +293,16 @@ a child of another page.
 
 ```yaml
 - task: confluence
-    in:
-      action: createChildPage
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      spaceKey: "MYSPACEKEY"
-      parentPageId: 32432235
-      childPageTitle: "My Child Page Title"
-      childPageContent: "<p>This is <br/> child page content</p>"
-- log: "Child Page Id is ${result.childPageId}"
+  in:
+    action: createChildPage
+    userId: myUserId
+    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    spaceKey: "MYSPACEKEY"
+    parentPageId: 32432235
+    childPageTitle: "My Child Page Title"
+    childPageContent: "<p>This is <br/> child page content</p>"
+  out: result
+- log: "Child Page Id is ${result.childId}"
 ```
 
 Additional parameters to use are:
@@ -313,10 +313,10 @@ Additional parameters to use are:
 - `template` - string, optional - task supports the use of a separate file for longer content. As an alternative to `childPageContent`, specify template and point to a file in your project that contains the content text.
 - `templateParams` - map, optional - parameter used to define  additional variables that can be used when creating content in a `template` file
 
-The output of the action is stored in a `result` variable that has the following
-structure:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the following attributes are returned:
 
-- `ok` - boolean value, `true` if the execution is successful;
 - `data` - string value, contains the page view info URL.
 - `childId` - integer value, contains the `id` of child page.
 
@@ -327,21 +327,18 @@ structure:
 The `deletePage` action can be used to delete an existing page.
 
 ```yaml
-flows:
-  default:
-  - task: confluence
-     in:
-      action: deletePage
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      pageId: 32432235
+- task: confluence
+  in:
+    action: deletePage
+    userId: myUserId
+    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    pageId: 32432235
+  out: result
 ```
 
 Additional parameters to use are:
 
 - `pageId` - integer, Required - id of page that you intend to delete.
 
-The output of the action is stored in a `result` variable that has the following
-structure:
-
-- `ok` - boolean value, `true` if the execution is successful;
+The `deletePage` action only returns the
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure).
