@@ -11,7 +11,7 @@ The current version of [the JSON Store task](./json-store.html) doesn't support
 working with Ansible inventories yet, but will replace the `inventory` task in
 future. 
 
-The `inventory` plugin makes data from Concord's Inventory available for direct
+The `inventory` plugin makes data from Concord's Inventory available for dirusually used with theect
 usage by `ansible`. Using predefined inputs, this plugin arranges data in the
 format required per [Dynamic Inventory Conventions](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#inventory-script-conventions).
 
@@ -66,7 +66,7 @@ Example Input (from query):
 ```
  
 The Inventory plugin ships with Concord so there are no dependencies, though it
-is usually used with the [Ansible](../plugins/ansible) plugin which does
+is usually used with the [Ansible](../plugins-v2/ansible) plugin which does
 require a dependency definition.
 
 ```yaml

@@ -46,7 +46,7 @@ Supported features:
 - all regular [flow](../processes-v2/flows.html) elements;
 - [dependencies](#dependencies);
 - [imports](#imports);
-- [secrets](../plugins/crypto.html). See [below](#secrets) for
+- [secrets](../plugins-v2/crypto.html). See [below](#secrets) for
 more details.
 
 Features that are currently *not* supported:
@@ -57,7 +57,7 @@ Features that are currently *not* supported:
 ## Secrets
 
 By default, Concord CLI uses a local file-based storage to access
-[secrets](../plugins/crypto.html) used in flows.
+[secrets](../plugins-v2/crypto.html) used in flows.
 
 For example, when running a flow like this:
 

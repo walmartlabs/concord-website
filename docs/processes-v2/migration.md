@@ -338,9 +338,9 @@ facilitate ease of sharing logs.
 ## Parallel Execution
 
 The v1 runtime provides no satisfactory ways to run flow steps in parallel
-in one single process. For parallel deployments it is possible to use [Ansible](../plugins/ansible.html)
+in one single process. For parallel deployments it is possible to use [Ansible](../plugins-v1/ansible.html)
 and its `forks` feature. There's also
-[a way to "fork" a process](../plugins/concord.html#form), i.e. to run a flow
+[a way to "fork" a process](../plugins-v1/concord.html#form), i.e. to run a flow
 in another process while inheriting current flow variables.  
 
 The v2 runtime was designed with parallel execution in mind. It adds a new

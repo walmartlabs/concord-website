@@ -48,7 +48,7 @@ attribute--the original event's data "as is". You can set `useInitiator` to
 attribute of the event.
 
 The following example uses the IP address of the deployment component to build 
-an Ansible inventory for execution of an [Ansible task](../plugins/ansible.html):
+an Ansible inventory for execution of an [Ansible task](../plugins-v2/ansible.html):
 
 ```yaml
 flows:
