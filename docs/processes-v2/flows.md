@@ -13,6 +13,7 @@ plugins (also known as "tasks"), performing data validation, creating
 - [Structure](#structure)
 - [Steps](#steps)
     - [Task Calls](#task-calls)
+      - [Task Result Data Structure](#task-result-data-structure) 
     - [Expressions](#expressions)
     - [Conditional Execution](#conditional-execution)
     - [Groups of Steps](#groups-of-steps)
