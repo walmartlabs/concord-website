@@ -16,6 +16,7 @@ The `jira` task supports operations on the popular issue tracking system
 Possible operations are:
 
 - [Create an Issue](#createIssue)
+- [Create a Subtask](#createSubtask)
 - [Update an Issue](#updateIssue)
 - [Add a comment](#addComment)
 - [Add an Attachment](#addAttachment)
@@ -55,7 +56,7 @@ a flow. It uses a number of required input parameters that are common for all
 operations:
 
 - `apiUrl` -  URL to the API endpoint of the Jira server, e.g `https://jira.example.com/rest/api/2/`
-- `action` - determines the operation to be performed with the currennt invocation of the Jira task
+- `action` - determines the operation to be performed with the current invocation of the Jira task
 - `userId` -  identifier of the user account to use for the interaction
 - `password` -  password for the user account to use, typically this should be
 provided via usage of the [Crypto task](./crypto.html)
@@ -160,9 +161,27 @@ Additional parameters to use are:
 After the action runs, the identifier for the created issue is available in the
 `issueId` variable.
 
-> To see possible values for custom fields we recommend to use the `issue` API endpoint
+> To see possible values for custom fields we recommend using the `issue` API endpoint
 > on an existing ticket and inspect the return object e.g.
 > https://jira.example.com/rest/api/2/issue/{issueId}
+
+<a name="createSubtask"/>
+
+## Create a Subtask
+
+The JIRA task can be used to create a subtask for an existing issue with the
+`createSubtask` action. It requires a `parentIssueKey` parameter and accepts the
+same parameters as the [`createIssue`](#create-an-issue) action;
+
+```yaml
+flows:
+  default:
+    - task: jira
+      in:
+        action: createSubtask
+        parentIssueKey: "MYISSUEKEY"
+        # see parameters for createIssue
+```
 
 <a name="updateIssue"/>
 
@@ -350,7 +369,10 @@ After the action runs, the current status of an issue is available in the
 
 ## Get Issues
 
-The JIRA task can be used to get the count and list of all issue ids for given JIRA project based on a given issue type and its status with the `getIssues` action. Below example fetches list of all issue ids that matches `project = "MYPROJECTKEY" AND issueType = Bug AND issueStatus != Done`
+The JIRA task can be used to get the count and list of all issue ids for given
+JIRA project based on a given issue type and its status with the `getIssues`
+action. Below example fetches list of all issue ids that matches
+`project = MYPROJECTKEY AND issueType = Bug AND issueStatus != Done`
 
 ```yaml
 flows:
@@ -363,6 +385,25 @@ flows:
       projectKey: "MYPROJECTKEY"
       issueType: Bug
       issueStatus: Done
+      statusOperator: "!="
+```
+
+**Note:** The provided filter values are inserted into a
+[JQL query](https://confluence.atlassian.com/jiracoreserver0813/advanced-searching-1027139119.html)
+and may require escaping or extra quoting. The below example results in the
+corresponding JQL query: `project = MYPROJECTKEY AND issueType = Support\ Ticket AND issueStatus != 'Work in Progress'`
+
+```yaml
+flows:
+  default:
+  - task: jira
+    in:
+      action: getIssues
+      userId: myUserId
+      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      projectKey: "MYPROJECTKEY"
+      issueType: "Support\\ Ticket"      # escape spaces
+      issueStatus: "'Work in Progress'"  # or use extra quotes
       statusOperator: "!="
 ```
 
