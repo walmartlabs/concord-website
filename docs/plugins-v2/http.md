@@ -19,8 +19,7 @@ integration with Concord via a specific task.
 
 The HTTP task executes RESTful requests using a HTTP `GET`, `PUT`, `PATCH`,
 `POST`, or `DELETE` method and returns [HTTP response](#http-task-response)
-objects. The response object can be stored in an `out` parameter for later
-usage.
+objects.
 
 > The HTTP Task automatically follows redirect URLs for all methods if
 > the response returns status code 301. To disable this feature, set
@@ -53,8 +52,8 @@ task:
     method: GET
     url: "https://api.example.com:port/path/endpoint"
     response: string
-    out: response
-- if: ${response.success}
+  out: response
+- if: ${response.ok}
   then:
    - log: "Response received: ${response.content}"
 ```
@@ -77,7 +76,6 @@ explicitly set to `false`;
 - `keystorePassword`: string, keystore password;
 - `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or 
 `DELETE`. Default value is `GET`;
-- `out`: variable to store the [HTTP response](#http-task-response) object;
 - `proxy`: HTTP(s) proxy to use (see the [example](#proxy-usage));
 - `query`: request query parameters, details in [Query Parameter](#query-parameters);
 - `request`: type of request data `string`, `json`, or `file`, details available
@@ -223,13 +221,15 @@ Types supported currently:
 
 ### HTTP Task Response
 
-Objects returned by the HTTP task contain the following fields:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the `http` task returns:
 
-- `success`: true if status code belongs to success family
+- `ok`: true if status code belongs to success family
+- `error`: Descriptive error message from endpoint
 - `content`: json/string response or relative path (for response type `file`)
 - `headers`: key-value pairs of response headers
-- `statusCode`: http status codes
-- `errorString`: Descriptive error message from endpoint
+- `statusCode`: HTTP status codes
 
 ## Examples
 
@@ -243,8 +243,8 @@ Following are examples that illustrate the syntax usage for the HTTP task.
     method: GET # or DELETE
     url: "https://api.example.com:port/path/endpoint"
     response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
+  out: jsonResponse
+- if: ${jsonResponse.ok}
   then:
    - log: "Response received: ${jsonResponse.content}"
 ```
@@ -263,8 +263,8 @@ Using a YAML object for the body:
       userObj:
         name: concord
     response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
+  out: jsonResponse
+- if: ${jsonResponse.ok}
   then:
    - log: "Response received: ${jsonResponse.content}"
 ```
@@ -280,12 +280,12 @@ Using raw JSON for the body:
     body: |
       {
         "myObject": {
-           "nestedVar": 123
+          "nestedVar": 123
         }
       }
     response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
+  out: jsonResponse
+- if: ${jsonResponse.ok}
   then:
    - log: "Response received: ${jsonResponse.content}"
 ```
@@ -321,8 +321,8 @@ Using Basic Authentication with an existing value:
     method: GET
     url: "https://api.example.com:port/path/endpoint"
     response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
+  out: jsonResponse
+- if: ${jsonResponse.ok}
   then:
    - log: "Response received: ${jsonResponse.content}"
 ```
@@ -339,8 +339,8 @@ Using Basic Authentication with a username and a password:
     method: GET
     url: "https://api.example.com:port/path/endpoint"
     response: json
-    out: jsonResponse
-- if: ${jsonResponse.success}
+  out: jsonResponse
+- if: ${jsonResponse.ok}
   then:
    - log: "Response received: ${jsonResponse.content}"
 ```
