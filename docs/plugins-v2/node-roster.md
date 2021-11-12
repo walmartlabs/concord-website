@@ -18,7 +18,7 @@ data in Concord flows.
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -32,10 +32,11 @@ a flow:
 ```yaml
 flows:
   default:
-    - task: nodeRoster
-      in:
-        action: "deployedOnHost"
-        hostName: "myhost.example.com"
+  - task: nodeRoster
+    in:
+      action: "deployedOnHost"
+      hostName: "myhost.example.com"
+    out: result
 ```
 
 ### Common Parameters
@@ -62,6 +63,7 @@ Returns a list of hosts which had the specified artifact deployed to.
   in:
     action: "hostsWithArtifacts"
     artifactPattern: ".*my-app-1.0.0.jar"
+  out: result
 ```
 
 Parameters:
@@ -90,18 +92,20 @@ The action returns the following `result`:
 }
 ```
 
-The `data` is a object where keys are artifact URLs matching the supplied
+The `data` is an object where keys are artifact URLs matching the supplied
 `artifactPattern` and values are lists of hosts.
 
 ### Get Host Facts
 
-Returns the last registered snapshot of the host's [Ansible facts](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts).
+Returns the last registered snapshot of the host's
+[Ansible facts](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts).
 
 ```yaml
 - task: nodeRoster
   in:
     action: "facts"
     hostName: "myhost.example.com"
+  out: result
 ```
 
 Parameters:
@@ -130,6 +134,7 @@ Returns a list of artifacts deployed on the specified host.
   in:
     action: "deployedOnHost"
     hostName: "myhost.example.com"
+  out: result
 ```
 
 Parameters:
