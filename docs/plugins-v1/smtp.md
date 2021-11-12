@@ -57,7 +57,7 @@ flows:
           name: "my.txt"
 ```
 
-The above example attache two files from the process working directory,
+The above example attaches two files from the process working directory,
 `myFile.txt` from the directory itself and `myOtherFile.txt` from the `test`
 directory. The `description` and `name` parameters are optional. The
 `disposition` parameter allows the values `attachment` or `inline`. Inline

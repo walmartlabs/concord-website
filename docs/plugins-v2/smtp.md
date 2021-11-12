@@ -57,7 +57,7 @@ flows:
           name: "my.txt"
 ```
 
-The above example attache two files from the process working directory,
+The above example attaches two files from the process working directory,
 `myFile.txt` from the directory itself and `myOtherFile.txt` from the `test`
 directory. The `description` and `name` parameters are optional. The
 `disposition` parameter allows the values `attachment` or `inline`. Inline
@@ -132,7 +132,8 @@ global default process configuration.
  
 The simplest and cleanest way to activate the task and specify the SMTP server
 connection details is to set up a
-[default process configuration](../getting-started/configuration.html#default-process-variables):
+[default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+policy:
 
 1. Under `configuration/dependencies`, specify the `smtp-tasks` plugin. 
 2. Add `smtpParams` as an `argument` and specify the SMTP server `host` and 
@@ -141,7 +142,7 @@ connection details is to set up a
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:{{ site.concord_core_version }}
   arguments:
     smtpParams:
       host: smtp.example.com
@@ -159,7 +160,7 @@ First, add the plugin as a dependency:
 ```yaml
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.66.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:{{ site.concord_core_version }}
 ```
  
 Then set the `smtpParams` with the connection details for any usage of
