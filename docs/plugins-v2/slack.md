@@ -17,8 +17,22 @@ necessary.
 
 ## Configuration
 
-The plugin supports setting the [defaults](../getting-started/configuration.html#default-process-variables)
-via the `slackCfg` variable.
+The plugin supports default configuration settings supplied by 
+[default process configuration policy](../getting-started/policies.html#default-process-configuration-rule):
+
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "slack": {
+        "apiToken": "slack-api-token",
+        "proxyAddress": "proxy.example.com",
+        "proxyPort": 123
+      }
+    }
+  }
+}
+```
 
 The bot user created for the API token configuration e.g. `concord` has to be a
 member of the channel receiving the messages.
@@ -31,7 +45,7 @@ Common parameters of both `slack` and `slackChannel` tasks:
   for authentication and authorization. The owner of the token as has to have
   sufficient access rights to create or archive channels and groups. Typically
   this should be provided via usage of the [Crypto task](./crypto.html) or
-  configured in the [default variables](../getting-started/configuration.html#default-process-variables);
+  configured in the [default variables](../getting-started/policies.html#default-process-configuration-rule);
 - `proxyAddress`: optional, the proxy's host name;
 - `proxyPort`: optional, the proxy's port.
 
@@ -47,7 +61,7 @@ Possible operations are:
 ### Send Message
 
 A message `text` can be sent to a specific channel identified by a `channelId`
-with the long syntax or you can use the `call` method.
+with the standard [runtime-v2 task call syntax](../processes-v2/flows.html#task-calls).
 
 ```yaml
 flows:
@@ -59,6 +73,7 @@ flows:
         iconEmoji: ":information_desk_person:"
         text: "Starting execution on Concord, process ID ${txId}"
         ignoreErrors: true
+      out: result
 
     - if: "${!result.ok}"
       then:
@@ -95,17 +110,17 @@ Optionally, the message sender name appearing as the user submitting the post,
 can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
 
-The task returns a `result` object with four fields:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the `slack` task returns:
 
-- `ok` - `true` if the operation succeeded;
-- `error` - error message if the operation failed.
 - `ts` -  Timestamp ID of the message that was posted, can be used, in the
   following slack task of posting message, to make the message a reply or in
   `addReaction` action.
 - `id` - Channel ID that can be used in subsequent operations.
 
 The optional field from the result object `ts` can be used to create
-a thread and reply. Avoid using a reply's `ts` value; use it's parent instead.
+a thread and reply. Avoid using a reply's `ts` value; use its parent instead.
 
 The optional field `ignoreErrors` can be used to ignore any failures that 
 might occur when sending a Slack message. When the value for this field 
@@ -141,16 +156,15 @@ flows:
         ts: ${result.ts}
         reaction: "thumbup"
         ignoreErrors: true
+      out: result
 
     - if: "${!result.ok}"
       then:
         - log: "Error while adding a reaction: ${result.error}"
 ```
 
-The task returns a `result` object with two fields:
-
-- `ok` - `true` if the operation succeeded;
-- `error` - error message if the operation failed.
+The `addReaction` action only returns 
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure).
 
 <a name="slackChannel"/>
 
@@ -189,11 +203,12 @@ flows:
       action: create
       channelName: myChannelName
       apiToken: mySlackApiToken
-  - log: "Channel ID: ${slackChannelId}"
+    out: result
+  - log: "Channel ID: ${result.slackChannelId}"
 ```
 
-The identifier of the created channel is available in the context after the
-successful task execution output variable as `slackChannelId`.
+The identifier of the created channel is available in the returned object in
+the `slackChannelId` field.
 
 <a name="archive"/>
 
@@ -229,11 +244,12 @@ flows:
       action: createGroup
       channelName: myChannelName
       apiToken: mySlackApiToken
-  - log: "Group ID: ${slackChannelId}"
+    out: result
+  - log: "Group ID: ${result.slackChannelId}"
 ```
 
-The identifier of the created group is available in the context after the
-successful task execution output variable as `slackChannelId`.
+The identifier of the created group is available in the returned object in
+the `slackChannelId` field.
 
 <a name="archive-group"/>
 
