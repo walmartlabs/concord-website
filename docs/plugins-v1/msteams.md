@@ -16,7 +16,7 @@ messaging platform.
 # Usage
 
 To be able to use the `MSTeams` task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+[dependency](../processes-v1/configuration.html#dependencies):
 
 ```yaml
 configuration:
