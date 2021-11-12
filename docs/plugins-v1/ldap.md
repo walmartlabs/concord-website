@@ -19,6 +19,7 @@ Possible search operations are:
 - [Check user is a member of a group](#is-member-of)
   
 <a name="usage"/>
+
 ## Usage
 
 To be able to use the `ldap` task in a Concord flow, it must be added as a
@@ -34,13 +35,14 @@ This adds the task to the classpath and allows you to invoke the
 [LDAP task](#overview).
 
 <a name="overview"/>
+
 ## Overview
 
 The `ldap` task allows users to make search queries to an LDAP server as a step of
 a flow. It uses a number of required input parameters that are common for all
 operations:
 
-- `action`: determines the operation to be performed with the currennt
+- `action`: determines the operation to be performed with the current
   invocation of the LDAP task
 - `ldapAdServer`: URL to the LDAP server, e.g `ldap://hostname.domain.com:3268`
 - `bindUserDn`: the identifier of the account which is used to bind to the LDAP
@@ -62,7 +64,7 @@ configuration:
     ldapParams:
       ldapAdServer: "ldap://hostname.domain.com:3268"
       bindUserDn: "CN=example,CN=Users,DC=subdomain,DC=domain,DC=com"
-      bindPassword: "${crypto.exportAsString("bindPassword", "myStorePassword")}"
+      bindPassword: "${crypto.exportAsString('bindPassword', 'myStorePassword')}"
 ```
 
 A minimal configuration taking advantage of a globally configured API URL
@@ -77,10 +79,11 @@ flows:
       action: getUser
       searchBase: "DC=subdomain,DC=domain,DC=com"
       user: "userId"
-      ....
+      ...
 ```
 
 <a name="searchByDn"/>
+
 ## Search By DN
 
 The LDAP task can be used to search for an LDAP entry by DN (Distinguished Name)
@@ -102,6 +105,7 @@ Additional parameters to use are:
 - `dn`: the distinguished name of the LDAP entry
 
 <a name="getUser"/>
+
 ## Get User
 
 The LDAP task can be used to search for a user with the `getUser` action.
@@ -122,6 +126,7 @@ Additional parameters to use are:
 - `user`: the user id, email address, or user principal name to search for
 
 <a name="getGroup"/>
+
 ## Get Group
 
 The LDAP task can be used to search for a group with the `getGroup` action. You
@@ -146,10 +151,11 @@ Additional parameters to use are:
   search for security group or not
 
 <a name="isMemberOf"/>
+
 ## Is Member Of
 
 The LDAP task can be used to check whether a user is a member of a particular
-group, includeing recursive searching, with the `isMemberOf` action.
+group, including recursive searching, with the `isMemberOf` action.
 
 ```yaml
 flows:

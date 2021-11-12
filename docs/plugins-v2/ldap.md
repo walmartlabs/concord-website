@@ -19,10 +19,11 @@ Possible search operations are:
 - [Check user is a member of a group](#is-member-of)
   
 <a name="usage"/>
+
 ## Usage
 
 To be able to use the `ldap` task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -34,13 +35,14 @@ This adds the task to the classpath and allows you to invoke the
 [LDAP task](#overview).
 
 <a name="overview"/>
+
 ## Overview
 
 The `ldap` task allows users to make search queries to an LDAP server as a step of
 a flow. It uses a number of required input parameters that are common for all
 operations:
 
-- `action`: determines the operation to be performed with the currennt
+- `action`: determines the operation to be performed with the current
   invocation of the LDAP task
 - `ldapAdServer`: URL to the LDAP server, e.g `ldap://hostname.domain.com:3268`
 - `bindUserDn`: the identifier of the account which is used to bind to the LDAP
@@ -48,21 +50,22 @@ operations:
 - `bindPassword`: the password of the `bindUserDn` identifier, typically
   provided by usage of the [Crypto task](./crypto.html)
 - `searchBase`: defines the starting point for the search in the directory tree, e.g. `DC=subdomain,DC=domain,DC=com`
-- `out`: optional, the variable where the result is stored in. If not specified,
-  `ldapResult` is used.
 
-The `ldapAdServer`, `bindUserDn`, and `bindPassword` variables configure the
-connection to the LDAP server. It is best configured globally as
-[default process configuration](../getting-started/configuration.html#default-process-variables):
-with an `ldapParams` argument:
+The `ldapAdServer` variable configures the
+connection to the LDAP server. It is best configured globally by a
+[default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+policy:
 
-```yaml
-configuration:
-  arguments:
-    ldapParams:
-      ldapAdServer: "ldap://hostname.domain.com:3268"
-      bindUserDn: "CN=example,CN=Users,DC=subdomain,DC=domain,DC=com"
-      bindPassword: "${crypto.exportAsString("bindPassword", "myStorePassword")}"
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "ldap": {
+        "ldapAdServer": "ldap://hostname.domain.com:3268"
+      }
+    }
+  }
+}
 ```
 
 A minimal configuration taking advantage of a globally configured API URL
@@ -74,6 +77,8 @@ flows:
   default:
   - task: ldap
     in:
+      bindUserDn: "CN=example,CN=Users,DC=subdomain,DC=domain,DC=com"
+      bindPassword: "${crypto.exportAsString('bindPassword', 'myStorePassword')}"
       action: getUser
       searchBase: "DC=subdomain,DC=domain,DC=com"
       user: "userId"
@@ -81,6 +86,7 @@ flows:
 ```
 
 <a name="searchByDn"/>
+
 ## Search By DN
 
 The LDAP task can be used to search for an LDAP entry by DN (Distinguished Name)
@@ -91,6 +97,8 @@ flows:
   default:
   - task: ldap
     in:
+      bindUserDn: "CN=example,CN=Users,DC=subdomain,DC=domain,DC=com"
+      bindPassword: "${crypto.exportAsString('bindPassword', 'myStorePassword')}"
       action: searchByDn
       searchBase: "DC=subdomain,DC=domain,DC=com"
       dn: "CN=exampleCN1,CN=exampleCN2,DC=subdomain,DC=domain,DC=com"
@@ -102,6 +110,7 @@ Additional parameters to use are:
 - `dn`: the distinguished name of the LDAP entry
 
 <a name="getUser"/>
+
 ## Get User
 
 The LDAP task can be used to search for a user with the `getUser` action.
@@ -111,6 +120,8 @@ flows:
   default:
   - task: ldap
     in:
+      bindUserDn: "CN=example,CN=Users,DC=subdomain,DC=domain,DC=com"
+      bindPassword: "${crypto.exportAsString('bindPassword', 'myStorePassword')}"
       action: getUser
       searchBase: "DC=subdomain,DC=domain,DC=com"
       user: ${initiator.username}
@@ -122,6 +133,7 @@ Additional parameters to use are:
 - `user`: the user id, email address, or user principal name to search for
 
 <a name="getGroup"/>
+
 ## Get Group
 
 The LDAP task can be used to search for a group with the `getGroup` action. You
@@ -132,6 +144,8 @@ flows:
   default:
   - task: ldap
     in:
+      bindUserDn: "CN=example,CN=Users,DC=subdomain,DC=domain,DC=com"
+      bindPassword: "${crypto.exportAsString('bindPassword', 'myStorePassword')}"
       action: getGroup
       searchBase: "DC=subdomain,DC=domain,DC=com"
       group: "mySecurityGroupName"
@@ -146,6 +160,7 @@ Additional parameters to use are:
   search for security group or not
 
 <a name="isMemberOf"/>
+
 ## Is Member Of
 
 The LDAP task can be used to check whether a user is a member of a particular
@@ -156,6 +171,8 @@ flows:
   default:
   - task: ldap
     in:
+      bindUserDn: "CN=example,CN=Users,DC=subdomain,DC=domain,DC=com"
+      bindPassword: "${crypto.exportAsString('bindPassword', 'myStorePassword')}"
       action: isMemberOf
       searchBase: "DC=subdomain,DC=domain,DC=com"
       user: ${initiator.username}
