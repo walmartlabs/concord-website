@@ -60,15 +60,20 @@ common for all operations:
   `false`.
 
 The `apiUrl` configures the URL to the Confluence REST API endpoint. It is best
-configured globally as [default process
-configuration](../getting-started/policies.html#default-process-configuration-rule)
-with a `confluenceParams` argument:
+configured globally by a
+[default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+policy:
 
-```yaml
-configuration:
-  arguments:
-    confluenceParams:
-      apiUrl: "https://confluence.example.com/rest/api/"
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "confluence": {
+        "apiUrl": "https://confluence.example.com/rest/api/"
+      }
+    }
+  }
+}
 ```
 
 A minimal configuration taking advantage of a globally configured API URL
