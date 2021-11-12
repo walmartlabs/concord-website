@@ -19,7 +19,7 @@ Concord supports running [Docker](https://hub.docker.com/) images within a proce
 
 ## Usage
 
-The `docker` task is called with a standard
+The `docker` task is called with standard
 [runtime-v2 task call syntax](../processes-v2/flows.html#task-calls).
 
 ```yaml
