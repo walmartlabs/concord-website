@@ -137,7 +137,7 @@ Additional parameters to use are:
 ## Get Group
 
 The LDAP task can be used to search for a group with the `getGroup` action. You
-can specifiy whether it is a security group or not by `securityEnabled`
+can specify whether it is a security group or not by `securityEnabled`
 
 ```yaml
 flows:
