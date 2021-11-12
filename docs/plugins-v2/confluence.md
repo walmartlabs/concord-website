@@ -161,7 +161,7 @@ template file. You can also pass additional variables as a part of
 ```
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the following attributes are returned:
 
 - `data` - string value, contains the page view info URL.
@@ -195,7 +195,7 @@ Additional parameters to use are:
   Defaults to `false`.
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the following attributes are returned:
 
 - `data` - string value, contains the page view info URL.
@@ -224,7 +224,7 @@ Additional parameters to use are:
 - `pageComment` - string, Required - comments added to an existing page.
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the following attributes are returned:
 
 - `data` - string value, contains the page view info URL.
@@ -256,7 +256,7 @@ Additional parameters to use are:
 - `attachmentPath` - Required - string, path to an attachment file.
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the following attributes are returned:
 
 - `data` - string value, contains the page view info URL.
@@ -284,7 +284,7 @@ Additional parameters to use are:
 - `pageId` - interger, Required - Id of a confluence page
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the following attributes are returned:
 
 - `data` - string value, contains the page content
@@ -319,7 +319,7 @@ Additional parameters to use are:
 - `templateParams` - map, optional - parameter used to define  additional variables that can be used when creating content in a `template` file
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the following attributes are returned:
 
 - `data` - string value, contains the page view info URL.
@@ -346,4 +346,4 @@ Additional parameters to use are:
 - `pageId` - integer, Required - id of page that you intend to delete.
 
 The `deletePage` action only returns the
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure).
+[common task result fields](../processes-v2/flows.html#task-result-data-structure).

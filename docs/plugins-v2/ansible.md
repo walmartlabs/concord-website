@@ -153,7 +153,7 @@ on usage with `dockerImage`;
 ## Result Data
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the `ansible` task returns:
 
 - `exitCode` - number, ansible process exit code;

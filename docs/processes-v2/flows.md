@@ -93,7 +93,7 @@ flows:
 #### Task Result Data Structure
 
 All returned result data from tasks compatible with runtime-v2 contain a common
-set of attributes, in addition to any task-specific data:
+set of fields, in addition to any task-specific data:
 
 - `ok` - boolean, true when task executes without error;
 - `error` - string, an error message when `ok` is `false`;

@@ -117,7 +117,7 @@ flows:
 ## Task Output
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the `ansible` task returns:
 
 - `status` - string, Final Jenkins job status (e.g. `SUCCESS`, `FAILED`, `CANCELLED`);

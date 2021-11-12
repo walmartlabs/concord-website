@@ -111,7 +111,7 @@ can be changed with `username`.  In addition, the optional `iconEmoji` can
 configure the icon to use for the post.
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the `slack` task returns:
 
 - `ts` -  Timestamp ID of the message that was posted, can be used, in the
@@ -164,7 +164,7 @@ flows:
 ```
 
 The `addReaction` action only returns 
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure).
+[common task result fields](../processes-v2/flows.html#task-result-data-structure).
 
 <a name="slackChannel"/>
 

@@ -222,7 +222,7 @@ Types supported currently:
 ### HTTP Task Response
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the `http` task returns:
 
 - `ok`: true if status code belongs to success family

@@ -61,7 +61,7 @@ flows:
 ```
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the `taurus` task returns:
 
 - `code` - number, Taurus execution's exit code

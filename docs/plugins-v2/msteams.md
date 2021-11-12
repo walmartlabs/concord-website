@@ -150,7 +150,7 @@ flows:
 ```
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the `msteamsV2` task returns:
 
 - `data` - string - response body, if the operation is succeeded.

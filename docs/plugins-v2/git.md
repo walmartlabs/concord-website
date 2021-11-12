@@ -132,7 +132,7 @@ auth:
 ### Git Task Response
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the `git` task returns a result object with following fields:
 
 - `status`: `NO_CHANGES` if repository is clean, otherwise returns `SUCCESS` or

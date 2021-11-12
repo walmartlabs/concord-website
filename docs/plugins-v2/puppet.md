@@ -104,7 +104,7 @@ __`pql` Action Parameters__
 ## Task Output
 
 In addition to
-[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
 the `puppet` task returns:
 
 - `data` - Data returned from the Puppet API. Type (e.g. String, Map, List) depends
