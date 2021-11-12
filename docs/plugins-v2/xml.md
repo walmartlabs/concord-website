@@ -17,7 +17,7 @@ The `xmlUtils` task provides methods to work with XML files.
 ## Usage
 
 To be able to use the `xmlUtils` task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
