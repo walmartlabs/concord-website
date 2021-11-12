@@ -202,7 +202,7 @@ flows:
         summary: "mySummary123"
         description: "myDescription123"
         assignee:
-          name: "vn0tj0b"
+          name: "myuser"
 ```
 
 Additional parameters to use are:
@@ -414,5 +414,6 @@ Additional parameters to use are:
 - `statusOperator` - string, Optional - operator used to compare againt `issueStatus`. Accepted values are `=` and `!=`. Default is set to `=`.
 - `issueStatus` - string, Optional - status of the issue that you want to query against. If not set, fetches all issue ids for a given `projectKey` and `issueType`
 
-After the action runs, the identifier for the fetched issue id list is available in the
-`issueList` variable and total count of issues fetched is available in `issueCount` varaible that can used at later point in the flow.
+After the action runs, the identifier for the fetched issue id list is available
+in the `issueList` variable and total count of issues fetched is available in
+`issueCount`variable that can used at later point in the flow.
