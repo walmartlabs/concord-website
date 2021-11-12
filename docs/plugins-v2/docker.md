@@ -9,6 +9,7 @@ side-navigation: wmt/docs-navigation.html
 Concord supports running [Docker](https://hub.docker.com/) images within a process flow.
 
 - [Usage](#usage)
+- [Parameters](#parameters)
 - [Environment Variables](#environment-variables)
 - [Docker Options](#docker-options)
     - [Add Host Option](#add-host-option)
@@ -18,20 +19,8 @@ Concord supports running [Docker](https://hub.docker.com/) images within a proce
 
 ## Usage
 
-Short syntax:
-
-```yaml
-flows:
-  default:
-    - docker: library/alpine
-      cmd: echo '${greeting}'
-
-configuration:
-  arguments:
-    greeting: "Hello, world!"
-```
-
-Using the `task` syntax:
+The `docker` task is called with a standard
+[runtime-v2 task call syntax](../processes-v2/flows.html#task-calls).
 
 ```yaml
 flows:
@@ -40,13 +29,14 @@ flows:
       in:
         image: library/alpine
         cmd: echo '${greeting}'
+      out: dockerResult
 
 configuration:
   arguments:
     greeting: "Hello, world!"
 ```
 
-The above invocations are equivalent to running
+The above invocation is equivalent to running
 
 ```bash
 docker pull library/alpine && \
@@ -56,7 +46,8 @@ library/alpine \
 echo 'Hello, world!'
 ```
 
-Parameters:
+## Parameters
+
 - `image` - mandatory, string. Docker image to use;
 - `cmd` - optional, string. Command to run. If not specified, the image's
 `ENTRYPOINT` is used;
@@ -68,8 +59,8 @@ Parameters:
 `docker pull ${image}` before starting the container. Default is `true`;
 - `debug` - optional, boolean. If `true` Concord prints out additional
 information into the log (the command line, parameters, etc);
-- `stdout` and `stderr` - optional, string. Name of variables to
-[save the stdout and stderr](#capturing-the-output) of the container;
+- `logOutput` - optional boolean. Sends container log output to Concord process
+  logs. Default is `true`;
 - `pullRetryCount` - optional, number. Number of retries if `docker pull`
 fails. Default is `3`;
 - `pullRetryInterval` - optional, number. Delay in milliseconds between
@@ -80,18 +71,22 @@ Concord replaces the container's `WORKDIR` with `/workspace`. Depending
 on your setup, you may need to change to a different working directory:
 
 ```yaml
-- docker: library/alpine
-  cmd: cd /usr/ && echo "I'm in $PWD"
+- task: docker
+  in:
+    image: library/alpine
+    cmd: cd /usr/ && echo "I'm in $PWD"
 ``` 
 
 To run multiple commands multiline YAML strings can be used:
 
 ```yaml
-- docker: library/alpine
-  cmd: |
-    echo "First command"
-    echo "Second command"
-    echo "Third command"
+- task: docker
+  in:
+    image: library/alpine
+    cmd: |
+      echo "First command"
+      echo "Second command"
+      echo "Third command"
 ```
 
 Concord automatically removes the container when the command is complete.
@@ -103,7 +98,9 @@ Additional environment variables can be specified using `env` parameter:
 ```yaml
 flows:
   default:
-    - docker: library/alpine
+  - task: docker
+    in:
+      image: library/alpine
       cmd: echo $GREETING
       env:
         GREETING: "Hello, ${name}!"
@@ -122,7 +119,9 @@ the `envFile` parameter:
 ```yaml
 flows:
   default:
-    - docker: library/alpine
+  - task: docker
+    in:
+      image: library/alpine
       cmd: echo $GREETING
       envFile: "myEnvFile"
 ```
@@ -140,11 +139,13 @@ Additional `/etc/hosts` lines can be specified using `hosts` parameter:
 ```yaml
 flows:
   default:
-  - docker: library/alpine
-    cmd: echo '${greeting}'
-    hosts:
-      - foo:10.0.0.3
-      - bar:10.7.3.21
+  - task: docker
+    in:
+      image: library/alpine
+      cmd: echo '${greeting}'
+      hosts:
+        - foo:10.0.0.3
+        - bar:10.7.3.21
 
 configuration:
   arguments:
@@ -153,39 +154,41 @@ configuration:
 
 ## Capturing the Output
 
-The `stdout` and `stderr` parameters can be used to capture the output of
-commands running in the Docker container:
+The `stdout` and `stderr` attributes of the task's returned data can be used to
+capture the output of commands running in the Docker container:
 
 ```yaml
-- docker: library/alpine
-  cmd: echo "Hello, Concord!"
-  stdout: myOut
+- task: docker
+  in:
+    image: library/alpine
+    cmd: echo "Hello, Concord!"
+  out: dockerResult
 
-- log: "Got the greeting: ${myOut.contains('Hello')}"
+- log: "Got the greeting: ${dockerResult.stdout.contains('Hello')}"
 ```
 
-In the example above the output (`stdout`) of the command running in the
-container is not printed out into the log, but instead saved as `myOut`
-variable.
+In the example above, the output (`stdout`) of the command running in the
+container is accessible in the returned object's `stdout` attribute.
 
 The `stderr` parameter can be used to capture the errors of commands running
 in the Docker container:
 
 ```yaml
-- docker: library/alpine
-  cmd: echo "Hello, ${name}" && (>&2 echo "STDERR WORKS")
-  stderr: myErr
+- task: docker
+  in:
+    image: library/alpine
+    cmd: echo "Hello, ${name}" && (>&2 echo "STDERR WORKS")
+  out: dockerResult
 
-- log: "Errors: ${myErr}"
+- log: "Errors: ${dockerResult.stderr}"
 ```
 
 In the example above the errors (`stderr`) of the command running in the
-container is not printed out into the log, but instead saved as `myErr`
-variable.
+container is accessible in the returned object's `stderr` variable.
 
 ## Custom Images
 
-Currently there's only one requirement for custom Docker images: all images
+Currently, there's only one requirement for custom Docker images: all images
 must provide a standard POSIX shell as `/bin/sh`.
 
 ## Limitations
