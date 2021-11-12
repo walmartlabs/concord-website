@@ -63,7 +63,7 @@ The execution status and logs are stored in the `result` variable.
 
 ## Configuration Files
 
-The plugins supports mixing and matching configuration files and inline
+The plugin supports mixing and matching configuration files and inline
 configuration definitions:
 
 ```yaml
