@@ -185,8 +185,8 @@ You can filter the objects down to a more simple list of strings with an
 expression.
 
 ```yaml
-- set:
-    namesOnly: ${result.data.stream().map(x -> x.get("certname")).toList()}
+- expr: "${result.data.stream().map(x -> x.get('certname')).toList()}"
+  out: namesOnly
 ```
 
 The value of `namesOnly` is a list of strings:
@@ -210,7 +210,7 @@ a public certificate to be provided to the Puppet Task. Use one of three ways to
 provide the cert to the task. Alternatively, ignore certificate verification
 altogether.
 
-```bash
+```text
 # Get the public cert from Puppet Master of Masters
 curl -k https://mom.example.com:8140/puppet-ca/v1/certificate/ca
 
