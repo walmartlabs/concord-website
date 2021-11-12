@@ -116,8 +116,12 @@ flows:
 
 ## Task Output
 
-The last known status of the submitted Jenkins job is saved into the
-`jenkinsJob` variable:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the `ansible` task returns:
+
+- `status` - string, Final Jenkins job status (e.g. `SUCCESS`, `FAILED`, `CANCELLED`);
+- `buildNumber` - number, Jenkins build number;
 
 ```yaml
 flows:
@@ -125,6 +129,7 @@ flows:
   - task: jenkins
     in:
       ...
+    out: jenkinsJob
   - log: "Build #${jenkinsJob.build} - ${jenkinsJob.status}"
 ```
 
