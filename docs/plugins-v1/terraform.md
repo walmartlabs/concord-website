@@ -308,7 +308,7 @@ Paths must be relative to the current process' `${workDir}`.
 
 ## Output Variables
 
-There are two ways how [output](https://www.terraform.io/docs/configuration/outputs.html)
+There are two ways show [output](https://www.terraform.io/docs/configuration/outputs.html)
 values can be saved - using the `output` action or by adding `saveOutput` to
 the `apply` action parameters:
 
