@@ -37,6 +37,7 @@ flows:
         action: "readKV"
         baseUrl: "https://my-vault.example.com:8200"
         path: "${vaultPath}"
+      out: result
     # public methods require default variables
     - expr: ${hashivault.readKV('path/to/secret', 'my-key')}
       out: singleValue
@@ -63,12 +64,13 @@ __`readKV` Action Parameters__
 __`writeKV` Action Parameters__
 - `kvPairs` - Map of key/value pairs to write to the Vault secret
 
-<a name="task-output"/>
-
 ## Task Output
 
-The output of the full task call are saved into the `result` variable. This
-variable includes `ok`, `data`, and `error` members.
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the output of the full `hashivault` task call returns:
+
+- `data` - map of retrieved Vault data;
 
 ```yaml
 flows:
@@ -76,6 +78,7 @@ flows:
   - task: hashivault
     in:
       ...
+    out: result
   - if: ${result.ok}
     then:
       - log: "Successfully retrieved Vault data"
@@ -84,14 +87,12 @@ flows:
       - log: "Error with task: ${result.error}"
 ```
 
-The output of the task's public method call return _only_ the data.
+The output of the task's public method call returns _only_ the retrieved Vault data.
 
 ```yaml
 - expr: ${hashivault.readKV('path/to/secret', 'aKey')}
   out: justAString
 ```
-
-<a name="setting-default-task-parameters"/>
 
 ## Setting Default Task Parameters
 
@@ -120,9 +121,8 @@ flows:
       in:
         path: "path/to/secret"
         namespace: "/another-ns"
+      out: result
 ```
-
-<a name="reading-secret-data"/>
 
 ## Reading Secret Data
 
@@ -135,6 +135,7 @@ use the `key` parameter to read a single value from a Vault secret.
     action: "readKV"
     baseUrl: "https://my-vault.example.com:8200"
     path: "path/to/secret"
+  out: result
 
 # 'result' variable now contains:
 #  ok: true/false
@@ -147,6 +148,7 @@ use the `key` parameter to read a single value from a Vault secret.
     baseUrl: "https://my-vault.example.com:8200"
     path: "path/to/secret"
     key: "aKey"
+  out: result
 
 # 'result' variable now contains:
 #  ok: true/false
@@ -178,8 +180,6 @@ The public method calls can be plugged directly into other task calls.
     ...
 ```
 
-<a name="writing-secret-data"/>
-
 ## Writing Secret Data
 
 Use the `writeKV` action to write key/value pairs to a Vault secret.
@@ -193,6 +193,7 @@ Use the `writeKV` action to write key/value pairs to a Vault secret.
     kvPairs:
       aKey: "a-value"
       bKey: "b-value"
+  out: result
 
 # 'result' variable now contains:
 #  ok: true/false

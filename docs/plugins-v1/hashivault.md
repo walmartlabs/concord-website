@@ -63,8 +63,6 @@ __`readKV` Action Parameters__
 __`writeKV` Action Parameters__
 - `kvPairs` - Map of key/value pairs to write to the Vault secret
 
-<a name="task-output"/>
-
 ## Task Output
 
 The output of the full task call are saved into the `result` variable. This
@@ -84,14 +82,12 @@ flows:
       - log: "Error with task: ${result.error}"
 ```
 
-The output of the task's public method call return _only_ the data.
+The output of the task's public method call returns _only_ the retrieved Vault data.
 
 ```yaml
 - expr: ${hashivault.readKV('path/to/secret', 'aKey')}
   out: justAString
 ```
-
-<a name="setting-default-task-parameters"/>
 
 ## Setting Default Task Parameters
 
@@ -121,8 +117,6 @@ flows:
         path: "path/to/secret"
         namespace: "/another-ns"
 ```
-
-<a name="reading-secret-data"/>
 
 ## Reading Secret Data
 
@@ -177,8 +171,6 @@ The public method calls can be plugged directly into other task calls.
     vaultPassword: ${hashivault.readKV('path/to/secret', 'vault-pass')}
     ...
 ```
-
-<a name="writing-secret-data"/>
 
 ## Writing Secret Data
 
