@@ -85,24 +85,28 @@ the execution are ignored and stored in the `result` variable. Defaults to
 `false`.
 
 The `tenantId`, `useProxy`, `proxyAddress`, `proxyPort`,`clientId`,
-`clientSecret`, `rootApi`, and `accessTokenApi` variables
-configure the connection to the MS Teams server. They are
-best configured globally as [default process configuration]
-(../getting-started/configuration.html#default-process-variable)
-with an `msteamsParams` argument.
+`clientSecret`, `rootApi`, and `accessTokenApi` variables configure the connection
+to the MS Teams server. It is best configured globally by a
+[default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+policy:
 
-```yaml
-configuration:
-  arguments:
-    msteamsParams:
-      tenantId: "myTenantID"
-      useProxy: true
-      proxyAddress: "proxy.example.com"
-      proxyPort: 8080
-      clientId: "botId"
-      clientSecret: "botSecret"
-      rootApi: "https://smba.trafficmanager.net/amer/v3/conversations"
-      accessTokenApi: "https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token"
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "msteamsV2": {
+        "tenantId": "myTenantID",
+        "useProxy": true,
+        "proxyAddress": "proxy.example.com",
+        "proxyPort": 8080,
+        "clientId": "botId",
+        "clientSecret": "botSecret",
+        "rootApi": "https://smba.trafficmanager.net/amer/v3/conversations",
+        "accessTokenApi": "https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token"
+      }
+    }
+  }
+}
 ```
 
 - `useProxy` - boolean value, if `true` uses the `proxyAddress` and `proxyPort`
@@ -135,22 +139,23 @@ flows:
         text: "My First Message"
       channelId: "myChannelId"
       ignoreErrors: true
+    out: result
 
   - log: "Result status: ${result.ok}"
   - if: "${!result.ok}"
     then:
-    - throw: "Error occured while sending a message: ${result.error}"
+    - throw: "Error occurred while sending a message: ${result.error}"
 
   ...
 ```
 
-The task returns a `result` object with following fields:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the `msteamsV2` task returns:
 
-- `ok` - `true` if the operation is succeeded.
 - `data` - string - response body, if the operation is succeeded.
-- `error` - error message if the operation failed.
 - `coversationId` - ID of the conversation that was posted, can be used,
-in the following msteams task to reply to a conversation.
+  in the subsequent calls to reply to a conversation.
 - `activityId` - ID of the activity, if sent.
 
 ### Reply To Conversation
@@ -169,7 +174,7 @@ listed below for the operation.
       conversationId: ${result.conversationId}
       activity:
         type: message
-        text: "This replies to a previosuly posted conversation"
+        text: "This replies to a previously posted conversation"
 ```
 
 <a name="msteams-v1"/>
@@ -216,10 +221,10 @@ of the `MSTeams` task.
 execution are ignored and stored in the `result` variable. Defaults to `false`.
 
 The `webhookTypeId`, `tenantId`, `rootWebhookUrl`, `proxyAddress`, and
-`proxyPort` variables configure the connection to the MS Teams server. They are
-best configured globally as
-[default process configuration](../getting-started/configuration.html#default-process-variable)
-with an `msteamsParams` argument.
+`proxyPort` variables configure the connection to the MS Teams server. It is
+best configured globally by a
+[default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+policy:
 
 - `webhookTypeId`: unique GUID of webhook type `Incoming Webhook`
 - `tenantId`:  unique GUID representing the Azure ActiveDirectory Tenant
@@ -229,15 +234,20 @@ with an `msteamsParams` argument.
 
 Extract `webhookTypeId` and `tenantId` from webhook URL from step 4 of [Prerequisite](#prerequisite)
 
-```yaml
-configuration:
-  arguments:
-    msteamsParams:
-      webhookTypeId: "myWebhookTypeID"
-      tenantId: "myTenantID"
-      rootWebhookUrl: "https://outlook.office.com/webhook/"
-      proxyAddress: "proxy.example.com"
-      proxyPort: 8080
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "msteams": {
+        "webhookTypeId": "myWebhookTypeID",
+        "tenantId": "myTenantID",
+        "rootWebhookUrl": "https://outlook.office.com/webhook/",
+        "proxyAddress": "proxy.example.com",
+        "proxyPort": 8080
+      }
+    }
+  }
+}
 ```
 
 ## Send Message
@@ -265,19 +275,20 @@ Initiate `sendMessage` action using `webhookUrl`
 ```yaml
 flows:
   default:
-    - task: msteams
-      in:
-        action: sendMessage
-        webhookUrl: https://outlook.office.com/webhook/{teamID}@{tenantID}/IncomingWebhook/{webhookID}/{webhookTypeID}
-        title: "My message title"
-        text: "My message text"
-        ignoreErrors: true
+  - task: msteams
+    in:
+      action: sendMessage
+      webhookUrl: https://outlook.office.com/webhook/{teamID}@{tenantID}/IncomingWebhook/{webhookID}/{webhookTypeID}
+      title: "My message title"
+      text: "My message text"
+      ignoreErrors: true
+    out: result
 
-    - if: "${!result.ok}"
-      then:
-        - throw: "Error while sending a message: ${result.error}"
-      else:
-        - log: "Data: ${result.data}"
+  - if: "${!result.ok}"
+    then:
+      - throw: "Error while sending a message: ${result.error}"
+    else:
+      - log: "Data: ${result.data}"
 ```
 
 ### Using IDs
@@ -291,23 +302,24 @@ webhook URL from step 4 of [Prerequisite](#prerequisite)
 ```yaml
 flows:
   default:
-    - task: msteams
-      in:
-        action: sendMessage
-        teamId: "myTeamID"
-        webhookId: "myWebhookID"
-        title: "My message title"
-        text: "My message text"
-        ignoreErrors: true
+  - task: msteams
+    in:
+      action: sendMessage
+      teamId: "myTeamID"
+      webhookId: "myWebhookID"
+      title: "My message title"
+      text: "My message text"
+      ignoreErrors: true
+    out: result
 
-    - if: "${!result.ok}"
-      then:
-        - throw: "Error while sending a message: ${result.error}"
-      else:
-        - log: "Data: ${result.data}"
+  - if: "${!result.ok}"
+    then:
+      - throw: "Error while sending a message: ${result.error}"
+    else:
+      - log: "Data: ${result.data}"
 ```
 
-The task returns a `result` object with three fields:
+The task returns an object with three fields:
 
 - `ok` - `true` if the operation is succeeded.
 - `data` - string - response body, if the operation is succeeded.
