@@ -8,7 +8,7 @@ side-navigation: wmt/docs-navigation.html
 
 **Note:** Concord Inventory is deprecated in favor of [the JSON Store API](../getting-started/json-store.html).
 The current version of [the JSON Store task](./json-store.html) doesn't support
-working with Ansible inventories yet, but will replace the `inventory` task in
+working with Ansible inventories yet, but will replace the `inventory` task in the
 future. 
 
 The `inventory` plugin makes data from Concord's Inventory available for direct
