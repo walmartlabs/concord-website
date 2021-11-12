@@ -357,7 +357,7 @@ with a `githubParams` argument:
 ```yaml
 configuration:
   arguments:
-    githubParam:
+    githubParams:
       apiUrl: "https://github.example.com/api/v3"
 ```
 

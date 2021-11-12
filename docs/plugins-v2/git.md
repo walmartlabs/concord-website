@@ -12,29 +12,29 @@ task.
 
 - [Usage](#usage)
 - [Git Task](#git-task)
-  - [Clone a Repository](#clone)
+  - [Basic Authentication](#basic-authentication)
+  - [Git Task Response](#git-task-response)
+  - [Clone a Repository](#clone-a-repository)
   - [Pull](#pull)
-  - [Commit and Push Changes](#commit-push)
-  - [Create and Push a New Branch](#branch)
-  - [Merge Branches](#merge)
+  - [Commit and Push Changes](#commit-and-push-changes)
+  - [Create and Push a New Branch](#create-and-push-a-new-branch)
+  - [Merge Branches](#merge-local-branches)
 - [GitHub Task](#github-task)
-  - [Create and Delete a Repository](#githubRepo)
-  - [Create and Merge a Pull Request](#pr)
-  - [Comment on a Pull Request](#commentPR)
-  - [Close a Pull Request](#closePR)
-  - [Create a Tag](#tag)
-  - [Delete a Tag](#deleteTag)
-  - [Delete a Branch](#deleteBranch)
-  - [Merge Branches](#github-merge)
-  - [Fork a Repo](#fork)
+  - [Create and Delete a Repository](#create-and-delete-a-repository)
+  - [Create and Merge a Pull Request](#create-and-merge-a-pull-request)
+  - [Comment on a Pull Request](#comment-on-a-pull-request)
+  - [Close a Pull Request](#close-a-pull-request)
+  - [Create a Tag](#create-a-tag)
+  - [Delete a Tag](#delete-a-tag)
+  - [Delete a Branch](#delete-a-branch)
+  - [Merge Branches](#merge-branches)
+  - [Fork a Repo](#fork-a-repo)
   - [Get Branch List](#getBranchList)
   - [Get Tag List](#getTagList)
-  - [Get PR](#getPR)
-  - [Get PR List](#getPRList)
+  - [Get Pull Request](#get-pull-request)
+  - [Get Pull Request List](#get-pull-request-list)
   - [Get Latest Commit SHA](#getLatestSHA)
-  - [Add a Status](#addStatus)
-
-<a name="usage"/>
+  - [Add a Status](#add-a-status)
 
 ## Usage
 
@@ -49,8 +49,6 @@ configuration:
 
 This adds the Git plugin to the classpath and allows you to invoke the
 [Git task](#git-task) or the [GitHub task](#github-task).
-
-<a name="git"/>
 
 ## Git Task
 
@@ -79,9 +77,10 @@ operations:
   Otherwise not required.
 - `ignoreErrors`: instead of throwing exceptions on operation failure, returns
   the result object with the error, if set to `true`.
-- `out`: variable to store the [Git task response](#response).
 
-Following is an example showing the common parameters with private key based authentication:
+The `git` task is called with standard
+[runtime-v2 task call syntax](../processes-v2/flows.html#task-calls). Below is
+an example showing the common parameters with private key based authentication:
 
 ```yaml
 flows:
@@ -95,11 +94,10 @@ flows:
         org: "myGitHubOrg"
         secretName: "mySecret"
         password: "mySecretPassword" # optional
+    out: gitResult
 ```
 
-<a name="basic-authentication"/>
-
-## Basic Authentication
+### Basic Authentication
 
 The `auth` parameter is required when a private git repository is accessed with
 HTTPS `url`. It must contain a `basic` nested element which contains either the
@@ -120,6 +118,7 @@ flows:
         basic:
           username: "any_username"
           password: "any_password"
+    out: gitResult
 ```
 
 Here is an example of using basic authentication with `token`:
@@ -130,20 +129,16 @@ auth:
     token: base64_encoded_auth_token
 ```
 
-<a name="response"/>
-
 ### Git Task Response
 
-The `git` task returns a result object with following fields:
+In addition to
+[common task result attributes](../processes-v2/flows.html#task-result-data-structure),
+the `git` task returns a result object with following fields:
 
-- `ok`: `true` if the operation succeeded.
 - `status`: `NO_CHANGES` if repository is clean, otherwise returns `SUCCESS` or
 `FAILURE` if operation successful or failed respectively.
-- `error`: error message if operation failed.
 - `headSHA`: `HEAD` commit ID for the specified branch after performing the action.
 - `changeList`: saves the list of uncommitted changes.
-
-<a name="clone"/>
 
 ### Clone a Repository
 
@@ -166,10 +161,10 @@ flows:
         secretName: "mySecret"
         password: "mySecretPassword" # optional
       baseBranch: "feature-a"
-      out: "response"
       ignoreErrors: true
+    out: response
 
-  - if: "${!response.ok}"
+  - if: ${!response.ok}
     then:
     - log: "Clone action failed: ${response.error}"
 ```
@@ -179,9 +174,7 @@ commit SHA identifier or the name of a tag, used to check out after the clone
 operation. If not provided, the default branch of the repository is used -
 typically called `master`.
 
-<a name="pull"/>
-
-## Pull
+### Pull
 
 The `pull` action of the `git` task can be used to pull changes from another
 branch from the remote `origin` into the current checked out branch.
@@ -212,15 +205,12 @@ flows:
         password: "mySecretPassword" # optional
 ```
 
-<a name="commit-push"/>
-
 ### Commit and Push Changes
 
 The `commit` action of the `git` task can be used to commit your changes made on
 the cloned repository. You can push the changes to origin by setting
 `pushChanges` to `true`. The `commit` action is dependent on a prior `clone`
 action, so make sure `clone` action is performed first.
-
 
 ```yaml
 - task: git
@@ -236,9 +226,9 @@ action, so make sure `clone` action is performed first.
       commitUsername: "myUserId"
       commitEmail: "myEmail"
       pushChanges: true
-      out: "response"
+    out: response
 
-- if: "${response.ok}"
+- if: ${response.ok}
   then:
   - log: "Commit action completed successfully."
   - log: "New HEAD commit ID: ${response.headSHA}."
@@ -254,9 +244,7 @@ parameters to capture committer details.
 The new commit ID is available in `${response.headSHA}`. A list of uncommitted
 changes is available in `${response.changeList}`.
 
-<a name="branch"/>
-
-## Create and Push a New Branch
+### Create and Push a New Branch
 
 The `createBranch` action of the `git` task allows the creation of a new
 branch in the process space. The new branch can be pushed back to the remote
@@ -288,16 +276,14 @@ flows:
       baseBranch: "master"
       newBranch: "feature-b"
       pushBranch: true
-      out: "response"
+    out: response
 
-  - if: "${response.ok}"
+  - if: ${response.ok}
     then:
     - log: "Create-branch action completed successfully."
 ```
 
-<a name="merge"/>
-
-## Merge Branches
+### Merge Local Branches
 
 The `merge` action of the `git` task can be used to merge branches using the
 following parameters:
@@ -324,18 +310,16 @@ flows:
         password: "mySecretPassword" # optional
       sourceBranch: "feature-a"
       destinationBranch: "master"
-      out: "response"
+    out: response
 
-  - if: "${response.ok}"
+  - if: ${response.ok}
     then:
     - log: "Merge action completed successfully."
 ```
 
-We recommend using the [merge action of the GitHub task](#github-merge) to merge
+We recommend using the [merge action of the GitHub task](#merge-branches) to merge
 branches in large repositories, since no local cloning is required and the
 action is therefore completed faster.
-
-<a name="github"/>
 
 ## GitHub Task
 
@@ -349,16 +333,20 @@ REST API of GitHub to perform the operations. This avoids the network overhead
 of the cloning and other operations and is therefore advantageous for large
 repositories.
 
-The `apiUrl` configures the GitHub API endpoint. It is best configured globally
-as
-[default process configuration](../getting-started/configuration.html#default-process-variables):
-with a `githubParams` argument:
+The `apiUrl` configures the GitHub API endpoint. It is best configured globally by a
+[default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+policy:
 
-```yaml
-configuration:
-  arguments:
-    githubParam:
-      apiUrl: "https://github.example.com/api/v3"
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "github": {
+        "apiUrl": "https://github.example.com/api/v3"
+      }
+    }
+  }
+}
 ```
 
 The authors of specific projects on the Concord server can then specify the
@@ -370,7 +358,10 @@ remaining parameters:
   repository is located.
 - `repo`: required, the name of the git repository.
 
-The following example includes a locally defined `apiUrl`:
+
+The `github` task is called with standard
+[runtime-v2 task call syntax](../processes-v2/flows.html#task-calls). The example
+below includes a locally defined `apiUrl`:
 
 ```yaml
 flows:
@@ -382,24 +373,23 @@ flows:
       accessToken: "myGitHubToken"
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
+    out: response
 ```
 
-Examples below take advantage of a globally configured `apiUrl`.
+Subsequent examples take advantage of a globally configured `apiUrl`.
 
-<a name="githubRepo"/>
-
-## Create and Delete a Repository
+### Create and Delete a Repository
 
 The `createRepo` and `deleteRepo` actions of the `github` task allow the creation
 and deletion of GitHub repositories.
 
 `createRepo` action creates an empty repository with the name provided by `repo`
-parameter in the Github organization specified by `org` parameter.
+parameter in the GitHub organization specified by `org` parameter.
 
 Output of `createRepo` action is the clone URL of the repository created saved
 as a `cloneURL` variable.
 
-The example below creates a repository `myRepository` in the Github
+The example below creates a repository `myRepository` in the GitHub
 organization `myOrg`.
 
 ```yaml
@@ -412,19 +402,22 @@ flows:
       accessToken: "myGitHubToken"
       org: "myRepository"
       repo: "myOrg"
+    out: response
 
-  - log: "New repository: ${cloneUrl}"
+  - if: ${response.ok}
+    then:
+    - log: "New repository: ${response.cloneUrl}"
 ```
 
 `deleteRepo` action deletes the repository with the name provided by `repo`
-parameter in the Github organization specified by `org` parameter.
+parameter in the GitHub organization specified by `org` parameter.
 
-> Github access token specified should have `delete_repo` scope
-enabled to delete a repository on Github. This can be done in
+> GitHub access token specified should have `delete_repo` scope
+enabled to delete a repository on GitHub. This can be done in
 **Personal Access Token** under **Developer Settings** for the intended user
-on Github.
+on GitHub.
 
-The example below deletes the repository `myRepository` from the Github
+The example below deletes the repository `myRepository` from the GitHub
 organization `myOrg`.
 
 ```yaml
@@ -437,6 +430,7 @@ flows:
       accessToken: "myGitHubToken"
       org: "myRepository"
       repo: "myOrg"
+    out: response
 ```
 
 A few points to consider:
@@ -451,9 +445,7 @@ actions to commit code/documentation, and configure the repository.
 * `deleteRepo` action is irreversible. The repository, its contents and the
 commit history will be deleted, and cannot be recovered.
 
-<a name="pr"/>
-
-## Create and Merge a Pull Request
+### Create and Merge a Pull Request
 
 The `createPr` and `mergePr` actions of the `github` task allow the creation and
 merging a pull request in GitHub. Executed one after another, the tasks can be
@@ -484,15 +476,16 @@ flows:
       prBody: "Feature A implements the requirements from request 12."
       prSourceBranch: "feature-a"
       prDestinationBranch: "master"
-    out:
-      myPrId: "${prId}"
+    out: createResponse
+
+  - log: "Got PR ID: ${createResponse.prId}"
 ```
 
 The `mergePr` action can be used to merge a pull request. The pull request
 identifier has to be known to perform the action. It can be available from a
 form value, an external invocation of the process or as output parameter from
-the `createPr` action. The example below uses the pull request identifier `myPrId`,
-that was populated with a value in the `createPr` action above.
+the `createPr` action. The example below uses the pull request identifier
+`createResponse.prId`, that was returned from the `createPr` action above.
 `commitMessage` is a string that can be used to post custom merge commit messages.
 If omitted, a default message is used.
 
@@ -505,13 +498,12 @@ flows:
       accessToken: "myGitHubToken"
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
-      prId: "${myPrId}"
+      prId: "${createResponse.prId}"
       commitMessage: "my custom merge commit message"
+    out: mergeReponse
 ```
 
-<a name="commentPR">
-
-## Comment on a Pull Request
+### Comment on a Pull Request
 
 The `commentPR` action can be used to add a comment to a pull request.
 
@@ -519,8 +511,8 @@ The pull request identifier has to be known to perform the action. It can be
 available from a form value, an external invocation of the process or as output
 parameter from the `createPr` action.
 
-The example below uses the pull request identifier `myPrId`, that was populated
-with a value in the `createPr` action above. `prComment` is the string that is
+The example below uses the pull request identifier `createResponse.prId`, that was 
+return from the `createPr` action above. `prComment` is the string that is
 posted to the pull request as a comment. The `accessToken` used determines the
 user adding the comment.
 
@@ -533,13 +525,11 @@ flows:
       accessToken: "myGitHubToken"
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
-      prId: "${myPrId}"
+      prId: "${createResponse.prId}"
       prComment: "Some pr comment"
 ```
 
-<a name="closePR"/>
-
-## Close a Pull Request
+### Close a Pull Request
 
 The `closePR` action can be used to close a pull request. The pull request
 identifier has to be known to perform the action. It can be available from a
@@ -559,9 +549,7 @@ flows:
       prId: "${myPrId}"
 ```
 
-<a name="tag"/>
-
-## Create a Tag
+### Create a Tag
 
 The `createTag` action of the `github` task can create a tag based on a specific
 commit SHA. This commit identifier has to be supplied to the Concord flow -
@@ -574,7 +562,6 @@ continuous integration server.
 - `tagMessage`: required, the message associated with the tagging.
 - `tagAuthorName`: required, the name of the author of the tag.
 - `tagAuthorEmail`: required, the email of the author of the tag.
-
 
 ```yaml
 flows:
@@ -592,9 +579,7 @@ flows:
       commitSHA: "${gitHubBranchSHA}"
 ```
 
-<a name="deleteTag"/>
-
-## DeleteTag
+### Delete a Tag
 
 The `deleteTag` action of the `github` task can be used to delete an existing
 `tag` from GitHub repository
@@ -617,9 +602,7 @@ flows:
        tagName: "myTagName"
 ```
 
-<a name="deleteBranch"/>
-
-## DeleteBranch
+### Delete a Branch
 
 The `deleteBranch` action of the `github` task can be used to delete an existing
 `branch` from GitHub repository
@@ -642,14 +625,12 @@ flows:
        branch: myBranchName
 ```
 
-<a name="github-merge"/>
-
-## Merge Branches
+### Merge Branches
 
 The `merge` action of the `github` task can merge two branches of a repository
-on GitHub. Compared to [merging branches with the git](#merge) task, it does not
-require a local clone of the repository and is therefore faster in the execution
-and requires no local storage on the Concord server.
+on GitHub. Compared to [merging branches with the git](#merge-local-branches) task,
+it does not require a local clone of the repository and is therefore faster in
+the execution and requires no local storage on the Concord server.
 
 The parameters identifying the branches to merge have to be supplied to the
 Concord flow - typically by a parameter from a form or an invocation of the flow
@@ -677,9 +658,7 @@ flows:
       commitMessage: "Automated merge performed by Concord flow."
 ```
 
-<a name="fork"/>
-
-## Fork
+### Fork a Repo
 
 The `forkRepo` action can be used to fork a git repository on GitHub. By
 default, the `repo` is forked into your personal account associated with the
@@ -705,9 +684,7 @@ flows:
       targetOrg: "myForkToOrg"
 ```
 
-<a name="getBranchList"/>
-
-## GetBranchList
+### GetBranchList
 
 The `getBranchList` action can be used to get the list of  branches of a GitHub
 repository. The output of the action is stored in a variable `branchList`. It
@@ -730,9 +707,7 @@ flows:
       repo: "myGitHubRepo"
 ```
 
-<a name="getTagList"/>
-
-## GetTagList
+### GetTagList
 
 The `getTagList` action can be used to get the  list of tags of a GitHub
 repository. The output of the action is stored in a variable `tagList`. It can be
@@ -755,9 +730,7 @@ flows:
       repo: "myGitHubRepo"
 ```
 
-<a name="getPR"/>
-
-## GetPR
+### Get Pull Request
 
 The `getPR` action can be used to get a specific PR from a GitHub repository.
 The output of the action is stored in a variable `pr`,
@@ -779,13 +752,12 @@ flows:
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
       prNumber: 123
+    out: response
 
-  - log: "PR HEAD SHA: ${pr.head.sha}"
+  - log: "PR HEAD SHA: ${response.pr.head.sha}"
 ```
 
-<a name="getPRList"/>
-
-## GetPRList
+### Get Pull Request List
 
 The `getPRList` action can be used to get the list of PRs from a GitHub
 repository. The output of the action is stored in a variable `prList`,
@@ -807,17 +779,16 @@ flows:
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
       state: "closed"
-  - if: ${prList.isEmpty()}
+    out: response
+  - if: ${response.prList.isEmpty()}
     then:
     - log: "Got zero PRs"
     else:
-    - log: "PR Numbers : ${prList.stream().map(c -> c.get('number')).toList()}"
-    - log: "PR Titles: ${prList.stream().map(c -> c.get('title')).toList()}"
+    - log: "PR Numbers : ${response.prList.stream().map(c -> c.get('number')).toList()}"
+    - log: "PR Titles: ${response.prList.stream().map(c -> c.get('title')).toList()}"
 ```
 
-<a name="getLatestSHA"/>
-
-## GetLatestSHA
+### GetLatestSHA
 
 The `getLatestSHA` action can be used to get the SHA identifier of the latest commit
 for a given branch. By default, it gets the SHA from the `master` branch. The
@@ -828,7 +799,7 @@ The following parameters are needed in addition to the general parameters:
 
 - `org`: required, name of GitHub organization where your repository is located
 - `repo`: required, name of GitHub repository
-- `branch`: name of Github branch from which you want to get the latest commit
+- `branch`: name of GitHub branch from which you want to get the latest commit
   SHA. Defaults to `master`
 
 ```yaml
@@ -843,9 +814,7 @@ flows:
       branch: "myBranch"
 ```
 
-<a name="addStatus"/>
-
-## AddStatus
+### Add a Status
 
 The `addStatus` action can be used to add status messages to commits.
 
