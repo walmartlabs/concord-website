@@ -21,7 +21,7 @@ Possible operations are:
 ## Usage
 
 To be able to use the `Zoom` task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -46,19 +46,26 @@ common for all operations:
   `false`.
 
 The `clientId`, `clientSecret`, `robotJid`, `accountId`, `rootApi` and
-`accessTokenApi` variables configure connection to the Zoom api endpoint.
-They are best configured globally as[default process configuration](../getting-started/configuration.html#default-process-variable) with an `zoomParams` argument.
+`accessTokenApi` variables configure the connection to the MS Teams server. It
+is best configured globally by a
+[default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+policy:
 
-```yaml
-configuration:
-  arguments:
-    zoomParams:
-      clientId: "botId"
-      clientSecret: "botSecret"
-      robotJid: "botJid"
-      accountId: "zoomAccountId"
-      rootApi: "zoomRootApi"
-      accessTokenApi: "zoomAccessTokenApi"
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "zoom": {
+        "clientId": "botId",
+        "clientSecret": "botSecret",
+        "robotJid": "botJid",
+        "accountId": "zoomAccountId",
+        "rootApi": "zoomRootApi",
+        "accessTokenApi": "zoomAccessTokenApi"
+      }
+    }
+  }
+}
 ```
 
 For more details about each parameter refer to the [api docs](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages).
@@ -74,23 +81,23 @@ identified by a `channelId`. It uses input parameters listed below for the opera
 - `headText` - string, Required - text that goes into message head.
 - `bodyText` - string, optional - text that goes into the message body.
 
-
 ```yaml
 flows:
   default:
-    - task: zoom
-      in:
-        action: sendMessage
-        channelId: "myZoomChannelId"
-        headText: "Hello to concord world"
-        bodyText: "Hello everyone"
-        ignoreErrors: true
+  - task: zoom
+    in:
+      action: sendMessage
+      channelId: "myZoomChannelId"
+      headText: "Hello to concord world"
+      bodyText: "Hello everyone"
+      ignoreErrors: true
+    out: result
 
-    - if: "${!result.ok}"
+  - if: "${!result.ok}"
     then:
-    - throw: "Error while sending a message: ${result.error}"
+      - throw: "Error while sending a message: ${result.error}"
     else:
-    - log: "Data: ${result.data}"
+      - log: "Data: ${result.data}"
 ```
 
 The task returns a `result` object with three fields:
