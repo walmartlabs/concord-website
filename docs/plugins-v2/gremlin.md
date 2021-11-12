@@ -50,7 +50,7 @@ system:
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
