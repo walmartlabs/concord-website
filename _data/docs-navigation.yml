@@ -202,8 +202,8 @@ nav:
       - page: Zoom
         context: /docs/plugins-v2/zoom
   - title: Plugins (v1) - DEPRECATED
-    id: plugins
-    collapse: /docs/plugins
+    id: plugins-v1
+    collapse: /docs/plugins-v1
     subfolderitems:
       - page: Ansible
         context: /docs/plugins-v1/ansible
@@ -242,27 +242,27 @@ nav:
       - page: Node Roster
         context: /docs/plugins-v1/node-roster
       - page: Packer
-        context: /docs/plugins/packer
+        context: /docs/plugins-v1/packer
       - page: Puppet
-        context: /docs/plugins/puppet
+        context: /docs/plugins-v1/puppet
       - page: Resource
-        context: /docs/plugins/resource
+        context: /docs/plugins-v1/resource
       - page: S3
-        context: /docs/plugins/s3
+        context: /docs/plugins-v1/s3
       - page: Slack
-        context: /docs/plugins/slack
+        context: /docs/plugins-v1/slack
       - page: Sleep
-        context: /docs/plugins/sleep
+        context: /docs/plugins-v1/sleep
       - page: SMTP
-        context: /docs/plugins/smtp
+        context: /docs/plugins-v1/smtp
       - page: Taurus
-        context: /docs/plugins/taurus
+        context: /docs/plugins-v1/taurus
       - page: Terraform
-        context: /docs/plugins/terraform
+        context: /docs/plugins-v1/terraform
       - page: XML
-        context: /docs/plugins/xml
+        context: /docs/plugins-v1/xml
       - page: Zoom
-        context: /docs/plugins/zoom
+        context: /docs/plugins-v1/zoom
   - title: Templates
     id: templates
     collapse: /docs/templates
