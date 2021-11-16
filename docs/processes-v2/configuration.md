@@ -198,7 +198,7 @@ configuration:
 ```
 
 The same logic and syntax usage applies to all other dependencies including
-Concord [plugins](../plugins/index.html).
+Concord [plugins](../plugins-v2/index.html).
 
 ## Requirements
 

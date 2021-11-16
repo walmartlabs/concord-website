@@ -16,7 +16,7 @@ messaging platform.
 # Usage
 
 To be able to use the `MSTeams` task in a Concord flow, it must be added as a
-[dependency](../getting-started/concord-dsl.html#dependencies):
+[dependency](../processes-v1/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -139,7 +139,7 @@ flows:
   - log: "Result status: ${result.ok}"
   - if: "${!result.ok}"
     then:
-    - throw: "Error occured while sending a message: ${result.error}"
+    - throw: "Error occurred while sending a message: ${result.error}"
 
   ...
 ```
@@ -169,7 +169,7 @@ listed below for the operation.
       conversationId: ${result.conversationId}
       activity:
         type: message
-        text: "This replies to a previosuly posted conversation"
+        text: "This replies to a previously posted conversation"
 ```
 
 <a name="msteams-v1"/>
