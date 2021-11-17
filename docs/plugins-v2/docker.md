@@ -59,8 +59,11 @@ echo 'Hello, world!'
 `docker pull ${image}` before starting the container. Default is `true`;
 - `debug` - optional, boolean. If `true` Concord prints out additional
 information into the log (the command line, parameters, etc);
-- `logOutput` - optional boolean. Sends container log output to Concord process
-  logs. Default is `true`;
+- `redirectErrorStream` - optional boolean. Redirect container error output to standard output. Default is `false`; 
+- `logOut` - optional boolean. Sends container standard output to Concord process logs. Default is `true`;
+- `logErr` - optional boolean. Sends container error output to Concord process logs. Default is `true`;
+- `saveOut` - optional boolean. Save container standard output in task result, as `stdout` variable. Default is `false`;
+- `saveErr` - optional boolean. Save container error output in task result, as `stderr` variable. Default is `false`;
 - `pullRetryCount` - optional, number. Number of retries if `docker pull`
 fails. Default is `3`;
 - `pullRetryInterval` - optional, number. Delay in milliseconds between
@@ -162,6 +165,7 @@ capture the output of commands running in the Docker container:
   in:
     image: library/alpine
     cmd: echo "Hello, Concord!"
+    saveOut: true
   out: dockerResult
 
 - log: "Got the greeting: ${dockerResult.stdout.contains('Hello')}"
@@ -178,6 +182,7 @@ in the Docker container:
   in:
     image: library/alpine
     cmd: echo "Hello, ${name}" && (>&2 echo "STDERR WORKS")
+    saveErr: true
   out: dockerResult
 
 - log: "Errors: ${dockerResult.stderr}"
