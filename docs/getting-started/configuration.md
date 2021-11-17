@@ -2,11 +2,12 @@
 layout: wmt/docs
 title:  Configuration
 side-navigation: wmt/docs-navigation.html
+description: Concord server configuration
 ---
 
 # {{ page.title }}
 
-The Concord server can be configured via a configuration file. Typically this
+The Concord server can be configured via a configuration file. Typically, this
 is done by the administrator responsible for the Concord installation.
 
 A Concord user does not need to be concerned about these settings and instead
@@ -19,7 +20,6 @@ The following configuration details are available:
 - [Server Environment Variables](#server-environment-variables)
 - [Agent Configuration File](#agent-cfg-file)
 - [Common Environment Variables](#common-environment-variables)
-- [Process Runtime Variables](#process-runtime-variables)
 - [Default Process Variables](#default-process-variables)
 - [GitHub Integration](#github-integration)
 
@@ -278,12 +278,12 @@ concord-server {
 
 Create a new webhook on the GitHub repository or organizations settings page:
 
-<img src="../../assets/img/screenshots/gh-webhook-page.png" class="img-responsive"/>
+<img src="../../assets/img/screenshots/gh-webhook-page.png" alt="github webhook configuration" class="img-responsive"/>
 
 Use `Content-Type: application/json` and a secret you specified in the
 `concord-server.conf` file.
 
-**Note:** the `useInitiator` [feature](../triggers/github.org#version-2) requires
+**Note:** the `useInitiator` [feature](../triggers/github.html) requires
 a Concord environment with an AD/LDAP server. If you wish to use Concord without
 an AD or LDAP server, or your GitHub users are not the same as your AD/LDAP users,
 use `useInitiator: false` or omit it (`false` is the default value). In this case

@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Configuration
 side-navigation: wmt/docs-navigation.html
+deprecated: true
 ---
 
 # {{ page.title }}
@@ -89,7 +90,7 @@ configuration:
     message: "Hello, ${name}"
 ```
 
-A variable's value can be [defined or modified with the set step](#set-step) and a
+A variable's value can be [defined or modified with the set step](./flows.html#setting-variables) and a
 [number of variables](./index.html#provided-variables) are automatically set in
 each process and available for usage.
 
@@ -324,7 +325,7 @@ See also: [Exclusive Triggers](../triggers/index.html#exclusive-triggers).
 
 Flows can expose internal variables as process metadata. Such metadata can be
 retrieved using the [API](../api/process.html#status) or displayed in
-the process list in [Concord Console](../console/process.html#metadata).
+the process list in [Concord Console](../console/process.html#process-metadata).
 
 ```yaml
 configuration:
@@ -385,14 +386,14 @@ A template can be used to allow inheritance of all the configurations of another
 project. The value for the `template` field has to be a valid URL pointing to
 a JAR-archive of the project to use as template.
 
-The template is downloaded for [process execution](../index.html#execution)
+The template is downloaded for [process execution](./index.html)
 and exploded in the workspace. More detailed documentation, including
 information about available templates, can be found in the
 [templates section](../templates/index.html).
 
 ## Runner
 
-[Concord Runner]({{ site.concord_source }}tree/master/runner) is
+[Concord Runner]({{ site.concord_source }}tree/master/runtime/v1/impl) is
 the name of the default runtime used for actual execution of processes. Its
 parameters can be configured in the `runner` section of the `configuration`
 object. Here is an example of the default configuration:

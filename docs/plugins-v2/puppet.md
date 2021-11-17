@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Puppet Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for interacting with Puppet's REST API
 ---
 
 # {{ page.title }}
@@ -157,7 +158,7 @@ flows:
 
 ## Executing PuppetDB Query
 
-Concord can execute [PQL queries](https://puppet.com/docs/puppetdb/5.1/api/query/v4/pql.html).
+Concord can execute [PQL queries](https://puppet.com/docs/puppetdb/7/api/query/v4/pql.html).
 
 ```yaml
 flows:

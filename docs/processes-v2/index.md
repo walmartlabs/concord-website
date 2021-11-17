@@ -252,7 +252,7 @@ execution in addition to the defined [variables](#variables):
   [session token](../getting-started/security.html#using-session-tokens) can be
   used to call Concord API from flows.
 
-LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
+LDAP attributes must be allowed in [the configuration](./configuration.html#server-configuration-file).
 
 **Note:** only the processes started using [the browser link](../api/process.html#browser)
 provide the `requestInfo` variable. In other cases (e.g. processes

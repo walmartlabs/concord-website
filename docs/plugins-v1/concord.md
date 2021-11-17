@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Concord Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for interacting with the Concord Process API
 ---
 
 # {{ page.title }}

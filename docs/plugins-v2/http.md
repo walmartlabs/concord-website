@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  HTTP Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for performing HTTP calls
 ---
 
 # {{ page.title }}

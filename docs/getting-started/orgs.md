@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Organizations and Teams
 side-navigation: wmt/docs-navigation.html
+description: Concord Organization overview
 ---
 
 # {{ page.title }}

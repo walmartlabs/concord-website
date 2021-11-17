@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Profiles
 side-navigation: wmt/docs-navigation.html
+deprecated: true
 ---
 
 # {{ page.title }}

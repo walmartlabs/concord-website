@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Imports
 side-navigation: wmt/docs-navigation.html
+deprecated: true
 ---
 
 # {{ page.title }}

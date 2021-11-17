@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Resource Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for reading and writing local resources
 ---
 
 # {{ page.title }}

@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Tasks
 side-navigation: wmt/docs-navigation.html
+description: Concord Tasks overview
 ---
 
 # {{ page.title }}
@@ -13,7 +14,7 @@ the functionality available for Concord flows.
 
 For example, the [Ansible](../plugins-v2/ansible.html) plugin provides
 a way to execute an Ansible playbook as a flow step,
-the [Docker](../plugins-v2/docker.md) plugin allows users to execute any
+the [Docker](../plugins-v2/docker.html) plugin allows users to execute any
 Docker image, etc.
 
 In addition to the standard plugins, users can create their own tasks
@@ -26,4 +27,3 @@ specific pages for more details:
 
 - [Runtime v1 tasks](../processes-v1/tasks.html)
 - [Runtime v2 tasks](../processes-v2/tasks.html)
-

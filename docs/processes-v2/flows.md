@@ -777,8 +777,9 @@ flows:
     - log: "I'm going to run when my parent process times out"
 ```
 
-If the process suspended longer that the specified [timeout](./configuration.html#process-suspend-timeout)
+If the process suspended longer that the specified [timeout](./configuration.html#suspend-timeout)
 Concord cancels it and executes the special `onTimeout` flow:
+
 ```yaml
 configuration:
   suspendTimeout: "PT1M" # 1 minute timeout

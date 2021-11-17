@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Confluence Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for interacting with Atlassian's Confluence API
 ---
 
 # {{ page.title }}

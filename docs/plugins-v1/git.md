@@ -2,7 +2,10 @@
 layout: wmt/docs
 title:  Git and GitHub Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for performing Git operations and GitHub API interaction
 ---
+
 
 # {{ page.title }}
 

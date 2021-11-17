@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Node Roster
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for interacting with Concord's Node Roster API
 ---
 
 # {{ page.title }}

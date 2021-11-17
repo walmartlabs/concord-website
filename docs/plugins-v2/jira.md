@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Jira Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for interacting with Atlassian's Jira API
 ---
 
 # {{ page.title }}

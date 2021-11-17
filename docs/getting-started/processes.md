@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Overview
 side-navigation: wmt/docs-navigation.html
+description: Processes overview
 ---
 
 # {{ page.title }}
@@ -41,7 +42,7 @@ When executed this flow performs a number of steps:
 
 The example demonstrates a few concepts:
 - flow definitions use Concord's YAML-based [DSL](../processes-v1/index.html#dsl);
-- flows can call [tasks](../getting-started/tasks.md). And tasks can perform
+- flows can call [tasks](../getting-started/tasks.html). And tasks can perform
 useful actions;
 - flows can use [conditional expressions](../processes-v1/flows.html#conditional-expressions);
 - tasks can save their results as flow [variables](../processes-v1/flows.html#setting-variables)
@@ -57,12 +58,12 @@ No matter how the process was started it goes through the same execution steps:
 - project repository data is cloned or updated;
 - binary payload from the process invocation is added to the workspace;
 - configuration parameters from different sources are merged together;
-- [imports](../processes-v1/index.html#imports) and [templates](../templates/index.html)
+- [imports](../processes-v2/imports.html) and [templates](../templates/index.html)
 are downloaded and applied;
 - the process is added to the queue;
 - one of the agents picks up the process from the queue;
 - the agent downloads the process state,
-[dependencies](../processes-v1/index.html#dependencies) and `imports`;
+[dependencies](../processes-v2/configuration.html#dependencies) and `imports`;
 - the agent starts [the runtime](#runtime) in the process' working directory;
 - the flow configured as entry point is invoked.
 

@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Policies
 side-navigation: wmt/docs-navigation.html
+description: Getting started with Policies
 ---
 
 # {{ page.title }}

@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  SMTP Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for sending email
 ---
 
 # {{ page.title }}

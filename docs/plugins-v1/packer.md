@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Packer Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
 ---
 
 # {{ page.title }}
@@ -91,7 +92,7 @@ Specifying `extraVars` is an equivalent of running
 
 ## Environment Variables
 
-OS-level [environment variables](https://www.packer.io/docs/templates/user-variables.html)
+OS-level [environment variables](https://www.packer.io/docs/templates/legacy_json_templates/user-variables)
 can be specified using `envars` parameter:
 
 ```yaml

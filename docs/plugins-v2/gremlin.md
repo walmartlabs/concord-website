@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Gremlin Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for chaos testing with Gremlin 
 ---
 
 # {{ page.title }}
