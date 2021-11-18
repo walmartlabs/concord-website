@@ -487,7 +487,8 @@ form value, an external invocation of the process or as output parameter from
 the `createPr` action. The example below uses the pull request identifier
 `createResponse.prId`, that was returned from the `createPr` action above.
 `commitMessage` is a string that can be used to post custom merge commit messages.
-If omitted, a default message is used.
+If omitted, a default message is used. `mergeMethod` is optional string that can be used to 
+specify merge method to use (possible values are `merge`, `squash` or `rebase`).
 
 ```yaml
 flows:
