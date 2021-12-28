@@ -86,7 +86,7 @@ default set to `hosts`.
     - `containerIds`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
-  pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
+  pair e.g. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
     - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 - When `endPointType` is `kubernetes`
     - `k8s`:  Kubernetes target  parameters:
@@ -278,7 +278,7 @@ default set to `hosts`.
     - `containerIds`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
-  pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
+  pair e.g. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
     - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 - When `endPointType` is `kubernetes`
   - `k8s`:  Kubernetes target  parameters:
@@ -436,7 +436,7 @@ default set to `hosts`.
     - `containerIds`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
-  pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
+  pair e.g. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
     - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 - When `endPointType` is `kubernetes`
   - `k8s`:  Kubernetes target  parameters:
