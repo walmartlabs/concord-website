@@ -79,7 +79,7 @@ parameters that are common for all operations:
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
-- `endPointType`: Type of endPoints - Accepted values are `hosts` and `containers`. By
+- `endPointType`: Type of endPoints - Accepted values are `hosts`, `containers` and `kubernetes`. By
 default set to `hosts`.
 - When `endPointType` is `hosts`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
@@ -97,6 +97,14 @@ default set to `hosts`.
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair e.g. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
     - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
+- When `endPointType` is `kubernetes`
+    - `k8s`:  Kubernetes target  parameters:
+      - `cluster`: Required String - cluster identifier;
+      - `namespace`: String - Kubernetes namespace that you want to attack;
+      - `deployments`: List of Strings - Kubernetes Deployments;
+      - `daemonSets`: List of Strings - Kubernetes DaemonSet;
+      - `statefulSets`: List of Strings - Kubernetes StatefulSet;
+      - `pods`: List of Strings - Kubernetes Pods.
 
 <a name="cpu"/>
 
@@ -264,7 +272,7 @@ parameters that are common for all operations:
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
-- `endPointType`: Type of endPoints - Accepted values are `hosts` and `containers`. By
+- `endPointType`: Type of endPoints - Accepted values are `hosts`, `containers` and `kubernetes`. By
 default set to `hosts`.
 - When `endPointType` is `hosts`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
@@ -282,6 +290,14 @@ default set to `hosts`.
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair e.g. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
     - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
+- When `endPointType` is `kubernetes`
+  - `k8s`:  Kubernetes target  parameters:
+    - `cluster`: Required String - cluster identifier;
+    - `namespace`: String - Kubernetes namespace that you want to attack;
+    - `deployments`: List of Strings - Kubernetes Deployments;
+    - `daemonSets`: List of Strings - Kubernetes DaemonSet;
+    - `statefulSets`: List of Strings - Kubernetes StatefulSet;
+    - `pods`: List of Strings - Kubernetes Pods.
 
 <a name="shutdown"/>
 
@@ -414,7 +430,7 @@ parameters that are common for all operations:
 - `apiKey`: Required - Gremlin Api Key
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
-- `endPointType`: Type of endPoints - Accepted values are `hosts` and `containers`. By
+- `endPointType`: Type of endPoints - Accepted values are `hosts`, `containers` and `kubernetes`. By
 default set to `hosts`.
 - When `endPointType` is `hosts`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
@@ -432,6 +448,14 @@ default set to `hosts`.
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair e.g. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
     - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
+- When `endPointType` is `kubernetes`
+  - `k8s`:  Kubernetes target  parameters:
+    - `cluster`: Required String - cluster identifier;
+    - `namespace`: String - Kubernetes namespace that you want to attack;
+    - `deployments`: List of Strings - Kubernetes Deployments;
+    - `daemonSets`: List of Strings - Kubernetes DaemonSet;
+    - `statefulSets`: List of Strings - Kubernetes StatefulSet;
+    - `pods`: List of Strings - Kubernetes Pods.
 
 <a name="blackhole"/>
 
