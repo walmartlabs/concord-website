@@ -58,7 +58,7 @@ the description of available steps and syntax constructs.
 ### Expressions
 
 Expressions must be valid
-[Java Expresssion Language EL 3.0](https://github.com/javaee/el-spec) syntax
+[Java Expression Language EL 3.0](https://github.com/javaee/el-spec) syntax
 and can be simple evaluations or perform actions by invoking more complex code.
 
 Short form:

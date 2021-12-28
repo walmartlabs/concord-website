@@ -96,5 +96,5 @@ flows:
 Concord encrypts and decrypts such values by using a project-specific
 encryption key. In order to use encrypted strings, the process must run in a project.
 
-The [crypto](../plugins/crypto.html) task can be used to work with secrets and
+The [crypto](../plugins-v2/crypto.html) task can be used to work with secrets and
 encrypted strings.

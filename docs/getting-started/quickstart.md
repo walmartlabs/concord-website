@@ -133,13 +133,13 @@ Congratulations, your first process flow execution completed successfully!
 You can now learn more about flows and perform tasks such as
 
 - Add a [form](./forms.html) to capture user input;
-- Using [variables](../processes-v1/index.html#variables);
-- [Groups of steps](../processes-v1/flows.html#groups-of-steps);
-- Add [conditional expressions](../processes-v1/flows.html#conditional-expressions);
-- [Calling other flows](../processes-v1/flows.html#calling-other-flows);
-- Work with [Ansible](../plugins/ansible.html), [Jira](../plugins/jira.html) and [other](../plugins/) tasks;
-- Maybe even [implement your own task](../processes-v1/tasks.html#create-task)
+- Using [variables](../processes-v2/index.html#variables);
+- [Groups of steps](../processes-v2/flows.html#groups-of-steps);
+- Add [conditional expressions](../processes-v2/flows.html#conditional-expressions);
+- [Calling other flows](../processes-v2/flows.html#calling-other-flows);
+- Work with [Ansible](../plugins-v2/ansible.html), [Jira](../plugins-v2/jira.html) and [other](../plugins-v2/) tasks;
+- Maybe even [implement your own task](../processes-v2/tasks.html#create-task)
 
 and much more. Have a look at all the documentation about the
-[Concord DSL](../processes-v1/flows.html), [forms](./forms.html),
+[Concord DSL](../processes-v2/flows.html), [forms](./forms.html),
 [scripting](./scripting.html) and other aspects to find out more!

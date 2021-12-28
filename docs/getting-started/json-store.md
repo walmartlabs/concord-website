@@ -9,7 +9,7 @@ side-navigation: wmt/docs-navigation.html
 JSON Store provides a built-in mechanism of storing and querying for
 arbitrary JSON data persistently. It is useful for processes which require
 state management beyond regular variables or features provided by
-[the Key Value store](../plugins/key-value.html).
+[the Key Value store](../plugins-v2/key-value.html).
 
 **Note:** JSON Store supersedes the old [Inventory](../api/inventory/inventory.html)
 and [Inventory Query](../api/inventory/inventory-query.html) APIs.
@@ -33,7 +33,7 @@ updated. Documents are identified by their "path" in the store, each path must
 be unique and can contain only one document.
 
 Items can be added or retrieved using [the API](../api/json-store.html),
-by using [the JSON Store task](../plugins/json-store.html) or using
+by using [the JSON Store task](../plugins-v2/json-store.html) or using
 [named queries](#named-queries). 
 
 ## Named Queries
@@ -52,7 +52,7 @@ literal value as a query parameter then you need to wrap it into an object (see
 [the example below](#example)).
 
 Queries can be created and executed by using [the API](../api/json-store.html),
-by using [the task](../plugins/json-store.html#execute-query) or in the
+by using [the task](../plugins-v2/json-store.html#execute-query) or in the
 Concord Console, which provides a way to execute and preview results of a query
 before saving it.
 

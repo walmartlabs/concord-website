@@ -28,7 +28,7 @@ configuration, profiles and other declarations;
 - `forms`: directory with [custom forms](../getting-started/forms.html#custom).
 
 Anything else is copied as-is and available for the process.
-[Plugins](../plugins/index.html) can require other files to be present in
+[Plugins](../plugins-v1/index.html) can require other files to be present in
 the working directory.
 
 The same structure should be used when storing your project in a Git repository.

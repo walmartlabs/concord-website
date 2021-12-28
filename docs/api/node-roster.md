@@ -7,7 +7,7 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 [Node Roster](../getting-started/node-roster.html) provides access to data
-gathered during [Ansible](../plugins/ansible.html) playbook executions.
+gathered during [Ansible](../plugins-v2/ansible.html) playbook executions.
 
 - [Hosts](#hosts)
     - [Get All Known Hosts](#get-all-known-hosts)

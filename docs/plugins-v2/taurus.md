@@ -18,7 +18,7 @@ flow using `taurus` task.
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -55,15 +55,22 @@ flows:
       action: run
       configs:
         - test.yml
+    out: result
         
   - log: "Taurus output: ${result.stdout}"
 ```
 
-The execution status and logs are stored in the `result` variable.
+In addition to
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
+the `taurus` task returns:
+
+- `code` - number, Taurus execution's exit code
+- `stdout` - string, Taurus execution's standard output
+- `stderr` - string, Taurus execution's error output
 
 ## Configuration Files
 
-The plugins supports mixing and matching configuration files and inline
+The plugin supports mixing and matching configuration files and inline
 configuration definitions:
 
 ```yaml
@@ -88,7 +95,7 @@ flows:
 The inline configuration definitions will be saved as YAML files in a temporary
 directly. Taurus automatically merges all input configurations.
 
-[Expressions](../processes-v1/flows.html#expressions) can be used in
+[Expressions](../processes-v2/flows.html#expressions) can be used in
 any input parameter including the inline configuration definitions.
 
 ## Examples

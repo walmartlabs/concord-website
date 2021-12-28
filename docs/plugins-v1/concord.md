@@ -465,14 +465,14 @@ flows:
 
 ## Cancelling Processes
 
-The `cancel` action can be used to cancel the execution of a subprocess.
+The `kill` action can be used to terminate the execution of a process.
 
 ```yaml
 flows:
   default:
   - task: concord
     in:
-      action: cancel
+      action: kill
       instanceId: ${someId}
       sync: true
 ```

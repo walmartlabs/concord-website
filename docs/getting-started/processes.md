@@ -128,7 +128,7 @@ Currently, those event types are:
 - `ELEMENT` - flow element events (such as task calls).
 
 In addition, plugins can use their own specific event types. For example, the
-[Ansible plugin](../plugins/ansible.html) uses custom events to record playbook
+[Ansible plugin](../plugins-v2/ansible.html) uses custom events to record playbook
 execution details.  This data is extensively used by the Concord Console to
 provide visibility into the playbook execution - hosts, playbook steps, etc.
 
