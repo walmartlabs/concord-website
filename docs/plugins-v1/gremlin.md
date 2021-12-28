@@ -87,7 +87,7 @@ default set to `hosts`.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
-    - `containerCount`: Interger value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
+    - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 - When `endPointType` is `kubernetes`
     - `k8s`:  Kubernetes target  parameters:
       - `cluster`: Required String - cluster identifier;
@@ -279,7 +279,7 @@ default set to `hosts`.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
-    - `containerCount`: Interger value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
+    - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 - When `endPointType` is `kubernetes`
   - `k8s`:  Kubernetes target  parameters:
     - `cluster`: Required String - cluster identifier;
@@ -437,7 +437,7 @@ default set to `hosts`.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
-    - `containerCount`: Interger value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
+    - `containerCount`: Integer value - Number of docker containers that you want to attack that have a specific label. Can be used when `containerLabels` parameter is set. Defaults to `1`.
 - When `endPointType` is `kubernetes`
   - `k8s`:  Kubernetes target  parameters:
     - `cluster`: Required String - cluster identifier;
