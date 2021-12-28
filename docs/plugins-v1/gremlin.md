@@ -68,6 +68,7 @@ parameters that are common for all operations:
 
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
+- `teamId`: Required - Gremlin Team Identifier
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
 - `endPointType`: Type of endPoints - Accepted values are `hosts`, `containers` and `kubernetes`. By
@@ -260,6 +261,7 @@ parameters that are common for all operations:
 
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
+- `teamId`: Required - Gremlin Team Identifier
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
 - `endPointType`: Type of endPoints - Accepted values are `hosts`, `containers` and `kubernetes`. By
@@ -418,6 +420,7 @@ parameters that are common for all operations:
 
 - `action`: Required - The name of the operation to perform.
 - `apiKey`: Required - Gremlin Api Key
+- `teamId`: Required - Gremlin Team Identifier
 - `length`: Required - The length of the attack (seconds)
 - `useProxy`: When set to `true` uses the proxy `host` and `port` set in default vars. By default set to `false`
 - `endPointType`: Type of endPoints - Accepted values are `hosts`, `containers` and `kubernetes`. By
