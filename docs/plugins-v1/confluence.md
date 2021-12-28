@@ -302,7 +302,7 @@ a child of another page.
       parentPageId: 32432235
       childPageTitle: "My Child Page Title"
       childPageContent: "<p>This is <br/> child page content</p>"
-- log: "Child Page Id is ${result.childPageId}"
+- log: "Child Page Id is ${result.childId}"
 ```
 
 Additional parameters to use are:

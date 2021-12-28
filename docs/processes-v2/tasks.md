@@ -372,7 +372,7 @@ The tasks shouldn't expect the returning path to be writable (i.e. assume only
 read-only access).
 
 `DependencyManager` shouldn't be used as a way to download deployment
-artifacts. It's not a replacement for [Ansible](../plugins/ansible.html) or any
+artifacts. It's not a replacement for [Ansible](../plugins-v1/ansible.html) or any
 other deployment tool.
 
 ### Environment Defaults

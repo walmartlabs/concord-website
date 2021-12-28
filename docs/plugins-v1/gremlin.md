@@ -75,15 +75,15 @@ default set to `hosts`.
 - When `endPointType` is `hosts`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
   values are `Random` and `Exact`. Default is set to `Exact`
-    - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
+    - `targetList`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["client1", "client2"]`
     - `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
-  pair eg. `{ "myTagKey": "myTagValue" }`. More information about client tags
+  pair e.g. `{ "myTagKey": "myTagValue" }`. More information about client tags
   can be found in the documentation for [advanced gremlin configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
 - When `endPointType` is `containers`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
   values are `Random` and `Exact`. Default is set to `Exact`
-    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list eg.
+    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
@@ -267,15 +267,15 @@ default set to `hosts`.
 - When `endPointType` is `hosts`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
   values are `Random` and `Exact`. Default is set to `Exact`
-    - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
+    - `targetList`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["client1", "client2"]`
     - `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
-  pair eg. `{ "myTagKey": "myTagValue" }`. More information about client tags
+  pair e.g. `{ "myTagKey": "myTagValue" }`. More information about client tags
   can be found in the documentation for [advanced gremlin configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
 - When `endPointType` is `containers`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
   values are `Random` and `Exact`. Default is set to `Exact`
-    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list eg.
+    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.
@@ -425,15 +425,15 @@ default set to `hosts`.
 - When `endPointType` is `hosts`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
   values are `Random` and `Exact`. Default is set to `Exact`
-    - `targetList`: Required - when `targetType` is `Exact`. Input is a list eg.
+    - `targetList`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["client1", "client2"]`
     - `targetTags`: Required - when `targetType` is `Random`. Input is a `key/value`
-  pair eg. `{ "myTagKey": "myTagValue" }`. More information about client tags
+  pair e.g. `{ "myTagKey": "myTagValue" }`. More information about client tags
   can be found in the documentation for [advanced gremlin configuration](https://www.gremlin.com/docs/infrastructure-layer/advanced-configuration/)
 - When `endPointType` is `containers`
     - `targetType`: Type of clients that should be targeted by the attack. Allowed
   values are `Random` and `Exact`. Default is set to `Exact`
-    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list eg.
+    - `containerIds`: Required - when `targetType` is `Exact`. Input is a list e.g.
 `["containerId1", "containerId2"]`
     - `containerLabels`: Required - when `targetType` is `Random`. Input is a `key/value`
   pair eg. `{ "myContainerLabelKey": "myContainerLabelValue" }`.

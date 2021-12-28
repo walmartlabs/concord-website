@@ -47,7 +47,8 @@ common for all operations:
 
 The `clientId`, `clientSecret`, `robotJid`, `accountId`, `rootApi` and
 `accessTokenApi` variables configure connection to the Zoom api endpoint.
-They are best configured globally as[default process configuration](../getting-started/configuration.html#default-process-variable) with an `zoomParams` argument.
+They are best configured globally as
+[default process configuration](../getting-started/configuration.html#default-process-variables) with an `zoomParams` argument.
 
 ```yaml
 configuration:

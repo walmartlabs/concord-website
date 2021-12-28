@@ -204,7 +204,7 @@ As a Concord administrator, you can set default variable values that
 are automatically set in all process executions.
 
 This, for example, allows you to set global parameters such as the connection
-details for an SMTP server used by the [SMTP task](../plugins/smtp.html) in one
+details for an SMTP server used by the [SMTP task](../plugins-v2/smtp.html) in one
 central location separate from the individual projects.
 
 The values are configured in a YAML file. The path to the file and the name are

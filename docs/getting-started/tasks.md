@@ -11,9 +11,9 @@ too complex to express with the Concord DSL and EL in YAML directly.
 Processes can include external tasks as dependencies, extending
 the functionality available for Concord flows.
 
-For example, the [Ansible](../plugins/ansible.html) plugin provides
+For example, the [Ansible](../plugins-v2/ansible.html) plugin provides
 a way to execute an Ansible playbook as a flow step,
-the [Docker](../plugins/docker.md) plugin allows users to execute any
+the [Docker](../plugins-v2/docker.md) plugin allows users to execute any
 Docker image, etc.
 
 In addition to the standard plugins, users can create their own tasks

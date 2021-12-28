@@ -25,7 +25,7 @@ The `puppet` task allows users to interact with various
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -47,6 +47,7 @@ flows:
       lifetime: '1y'
       label: 'one year token'
       description: 'Created by Puppet Task for Concord'
+    out: tokenResult
 
   - task: puppet
     in:
@@ -54,6 +55,7 @@ flows:
       databaseUrl: 'https://puppetdb.example.com:8081'
       apiToken: 'puppet-api-token'
       queryString: "inventory{ limit 10 }"
+    out: queryResult
 ```
 
 __Common Parameters__
@@ -101,6 +103,14 @@ __`pql` Action Parameters__
 
 ## Task Output
 
+In addition to
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
+the `puppet` task returns:
+
+- `data` - Data returned from the Puppet API. Type (e.g. String, Map, List) depends
+  on the `action` used;
+
+
 The results of the task are saved into the `result` variable.
 
 ```yaml
@@ -138,6 +148,9 @@ flows:
       tokenLife: '1y'
       label: 'One year token'
       description: 'created by Puppet Task for Concord'
+    out: result
+  # don't actually log an API token
+  - log: "Got API token: ${result.data}"
 ```
 
 <a name="db-query"/>
@@ -155,6 +168,7 @@ flows:
       databaseUrl: 'https://puppetdb.example.com:8081'
       apiToken: 'my-api-token'
       queryString: 'inventory[certname]{ limit 5 }'
+    out: result
 ```
 
 ### Filtering Results
@@ -185,8 +199,8 @@ You can filter the objects down to a more simple list of strings with an
 expression.
 
 ```yaml
-- set:
-    namesOnly: ${result.data.stream().map(x -> x.get("certname")).toList()}
+- expr: "${result.data.stream().map(x -> x.get('certname')).toList()}"
+  out: namesOnly
 ```
 
 The value of `namesOnly` is a list of strings:
@@ -210,7 +224,7 @@ a public certificate to be provided to the Puppet Task. Use one of three ways to
 provide the cert to the task. Alternatively, ignore certificate verification
 altogether.
 
-```bash
+```text
 # Get the public cert from Puppet Master of Masters
 curl -k https://mom.example.com:8140/puppet-ca/v1/certificate/ca
 

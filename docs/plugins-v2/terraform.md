@@ -28,7 +28,7 @@ flow.
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -47,31 +47,31 @@ The task requires the process to run as a part of a Concord project.
 - `action` - (mandatory) action to perform:
   - `plan` - [plan](#planning) the changes
   - `apply` - [apply](#applying) the changes with or without using a previously
-  created plan file
+    created plan file
   - `destroy` -[destroy](#destroying) an environment
   - `output` - save the [output variables](#output)
 - `backend` - type of a [state backend](#backends) to use:
   - `concord` - (default) use the backend provided by Concord
   - `none` - use the default file-based backend or the backend configuration
-  provided by the user
+    provided by the user
   - `remote` - run on on Terraform Cloud or Terraform Enterprise
 - `debug` - boolean value, if `true` the plugin logs additional debug information
 - `extraEnv` - key-value pairs, extra environment variables provided to
-the `terraform` process
+  the `terraform` process
 - `extraVars` - [variables](#variables) provided to the `terraform` process
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
-execution will be ignored and stored in the `result` variable
+  execution will be ignored and stored in the `result` variable
 - `ignoreLocalBinary` - boolean value, if `true` the plugin won't use
-a `terraform` binary from `$PATH`. See the [Terraform Version](#terraform-version)
-section for more details
+  a `terraform` binary from `$PATH`. See the [Terraform Version](#terraform-version)
+  section for more details
 - `pwd` - working directory. See the [Directories](#directories) section for
-more details;
+  more details;
 - `stateId` - string value, the name of a state file to use. See
-the [State Backends](#backends) section for more details
+  the [State Backends](#backends) section for more details
 - `toolUrl` - URL to a specific terraform bundle or version (.zip format). See
-the [Terraform Version](#terraform-version) section for more details
+  the [Terraform Version](#terraform-version) section for more details
 - `toolVersion` - Terraform version to use, mutually exclusive with `toolUrl`.
-See the [Terraform Version](#terraform-version) section for more details
+  See the [Terraform Version](#terraform-version) section for more details
 - `varFiles` - list of files to add as `-var-file`.
 
 <a name="planning"/>
@@ -86,18 +86,21 @@ or in a directory specified in `dir` parameter:
 - task: terraform
   in:
     action: plan
+  out: result
 
 # run `terraform plan` to generate a destroy plan
 - task: terraform
   in:
     action: plan
     destroy: true
+  out: result
 
 # run `terraform plan` in a specific directory
 - task: terraform
   in:
     action: plan
     dir: "myTFStuff"
+  out: result
 ```
 
 The plugin automatically creates the necessary [backend](#backends)
@@ -113,22 +116,22 @@ be relative to the process' `${workDir}`;
   apply plan is generated;
 - `gitSsh` - see [GIT modules](#git-modules).
 
-The output is stored in a `result` variable that has the following structure:
+In addition to
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
+the `terraform` task returns:
 
-- `ok` - boolean value, `true` if the execution is successful;
 - `hasChanges` - boolean value, `true` if `terraform plan` detected any changes
-in the enviroment;
+  in the enviroment;
 - `output` - string value, output of `terraform plan` (stdout);
 - `planPath` - string value, path to the created plan file. The plugin stored
-such files as process attachments so they \"survive\" suspending/resuming the
-process or restoring from a
-[checkpoint](../processes-v1/flows.html#checkpoints). The path is
-relative to the process' `${workDir}`;
+  such files as process attachments so they \"survive\" suspending/resuming the
+  process or restoring from a
+  [checkpoint](../processes-v2/flows.html#checkpoints). The path is
+  relative to the process' `${workDir}`;
 - `error` - string value, error of the last `terraform` execution (stderr).
 
-The execution's output (stored as `${result.output}`) can be used to output
-the plan into the process' log, used in an approval form, Slack notification,
-etc.
+The `output` field returned by the task can be used to output the plan into the
+process' log, used in an approval form, Slack notification, etc.
 
 <a name="applying"/>
 
@@ -144,6 +147,7 @@ Run `terraform apply` in `${workDir}`:
 - task: terraform
   in:
     action: apply
+  out: result
 ```
 
 Run `terraform apply` in a specific directory
@@ -153,6 +157,7 @@ Run `terraform apply` in a specific directory
   in:
     action: apply
     dir: "myTFStuff"
+  out: result
 ```
 
 Run `terraform apply` using a plan file
@@ -163,6 +168,7 @@ Run `terraform apply` using a plan file
     action: apply
     dir: "myTFStuff"
     plan: "${result.planPath}" # created by previously executed `plan` action
+  out: result
 ```
 
 As with the `plan` action, the plugin automatically runs `terraform init` when necessary.
@@ -179,12 +185,11 @@ must be specified as well;
 be automatically executed after the `apply` is completed and the result will
 be saved in the `result` variable.
 
-The action's output is stored in a `result` variable that has the following
-structure:
+In addition to
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
+the `terraform` task returns:
 
-- `ok` - boolean value, `true` if the execution is successful;
 - `output` - string value, output of `terraform apply` (stdout);
-- `error` - string value, error of the last `terraform` execution (stderr);
 - `data` - map (dict) value, contains the output values. Only if `saveOutput` is `true`.
 
 <a name="destroying"/>
@@ -308,7 +313,7 @@ Paths must be relative to the current process' `${workDir}`.
 
 ## Output Variables
 
-There are two ways how [output](https://www.terraform.io/docs/configuration/outputs.html)
+There are two ways show [output](https://www.terraform.io/docs/configuration/outputs.html)
 values can be saved - using the `output` action or by adding `saveOutput` to
 the `apply` action parameters:
 
@@ -317,6 +322,7 @@ the `apply` action parameters:
   in:
     action: output
     dir: "myTFStuff" # optional path to *.tf files
+  out: result
 
 # all output values will be saved as a ${result.data} variable
 - log: "${result.data}" 
@@ -328,6 +334,7 @@ the `apply` action parameters:
     action: apply
     saveOutput: true
     # the rest of the parameters are the same as with the regular `apply`
+  out: result
 
 - log: "${result.data}"
 ```
