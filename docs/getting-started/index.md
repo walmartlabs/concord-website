@@ -20,7 +20,7 @@ information about features and benefits of Concord.
 ## Processes
 
 Processes are the main concept of Concord. A process is an execution of
-[Concord Flows](../processes-v1/flows.html) in an isolated environment.
+[Concord Flows](../processes-v2/flows.html) in an isolated environment.
 
 A process can run in a [project](#projects), thus sharing configuration and
 resources (such as [the KV store](../plugins-v2/key-value.html)) with other
@@ -38,7 +38,7 @@ configuration.
 
 ## Secrets
 
-Concord provides an API and [the plugin](../plugins-v1/crypto.html) to work with
+Concord provides an API and [the plugin](../plugins-v2/crypto.html) to work with
 secrets such as:
 - SSH keys;
 - username/password pairs;
