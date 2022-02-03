@@ -51,6 +51,3 @@ use in the workflow execution.
 
   </div>
 </div>
-
-You can find the binaries of the plugins and all available versions in
-the repository at `com/walmartlabs/concord/plugins`.
