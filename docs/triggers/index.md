@@ -149,7 +149,7 @@ that have such triggers.
 
 Processes started by triggers are executed using the request sender's
 privileges. If the process uses any Concord resources such as
-[secrets](../getting-started/security.md#secret-management) or
+[secrets](../getting-started/security.html#secret-management) or
 [JSON stores](../getting-started/json-store.html), the user's permissions need
 to be configured accordingly.
 

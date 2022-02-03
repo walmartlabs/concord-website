@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Crypto Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for handling Concord Secret data
 ---
 
 # {{ page.title }}

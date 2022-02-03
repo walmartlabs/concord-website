@@ -12,7 +12,7 @@ The REST API provides support for working with roles:
 
 - [Create or Update a Role](#create-update)
 - [Get a Role](#get)
-- [Remove a Role](#remove)
+- [Remove a Role](#delete)
 - [List Roles](#list)
 
 <a name="create-update"/>

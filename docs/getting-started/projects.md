@@ -2,17 +2,18 @@
 layout: wmt/docs
 title:  Projects
 side-navigation: wmt/docs-navigation.html
+description: Projects overview
 ---
 
 # {{ page.title }}
 
-Projects is a way to organize processes and their configuration. Projects can
+Projects are a way to organize processes and their configuration. Projects can
 be created using [the API](../api/project.html) or using [Console](../console/project.html).
 
 ## Configuration
 
 Project-level configuration provides a way to specify
-[configuration](../processes-v1/configuration.html) for all
+[configuration](../processes-v2/configuration.html) for all
 processes executed in the context of the project.
 
 For example, to specify a common default argument for all project processes:

@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Datetime Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for working with dates
 ---
 
 # {{ page.title }}

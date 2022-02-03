@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  XML Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for parsing XML data
 ---
 
 # {{ page.title }}

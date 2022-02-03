@@ -11,12 +11,11 @@ execution.
 
 The REST API provides support for working with policies:
 
-- [Create or Update a Policy](#create-update)
-- [Get a Policy](#get)
-- [Remove a Policy](#remove)
-- [List Policies](#list)
-- [Link a Policy](#link)
-- [Unlink a Policy](#unlink)
+- [Create or Update a Policy](#create-or-update-a-policy)
+- [Get a Policy](#get-a-policy)
+- [Remove a Policy](#remove-a-policy)
+- [Link a Policy](#link-a-policy)
+- [Unlink a Policy](#unlink-a-policy)
 
 <a name="create-update"/>
 

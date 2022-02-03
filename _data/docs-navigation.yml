@@ -163,8 +163,6 @@ nav:
         context: /docs/plugins-v2/hashivault
       - page: HTTP
         context: /docs/plugins-v2/http
-      - page: Inventory
-        context: /docs/plugins-v2/inventory
       - page: Jenkins
         context: /docs/plugins-v2/jenkins
       - page: Jira
@@ -179,8 +177,6 @@ nav:
         context: /docs/plugins-v2/msteams
       - page: Node Roster
         context: /docs/plugins-v2/node-roster
-      - page: Packer
-        context: /docs/plugins-v2/packer
       - page: Puppet
         context: /docs/plugins-v2/puppet
       - page: Resource
@@ -279,3 +275,9 @@ nav:
         context: /docs/cli/linting
       - page: Running Flows
         context: /docs/cli/running-flows
+  - title: Community
+    id: community
+    collapse: /docs/community
+    subfolderitems:
+      - page: Code Of Conduct
+        context: /docs/community/individual-code-of-conduct

@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Concord Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for interacting with the Concord Process API
 ---
 
 # {{ page.title }}

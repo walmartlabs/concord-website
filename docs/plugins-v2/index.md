@@ -35,7 +35,6 @@ use in the workflow execution.
         <li><a href="./ldap.html">LDAP</a></li>
         <li><a href="./msteams.html">MS Teams</a></li>
         <li><a href="./node-roster.html">Node Roster</a></li>
-        <li><a href="./packer.html">Packer</a></li>
         <li><a href="./puppet.html">Puppet</a></li>
         <li><a href="./resource.html">Resource</a></li>
         <li><a href="./s3.html">S3</a></li>

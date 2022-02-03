@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  MS Teams Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for sending MS Teams messages
 ---
 
 # {{ page.title }}

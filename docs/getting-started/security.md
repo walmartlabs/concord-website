@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Security and Permissions
 side-navigation: wmt/docs-navigation.html
+description: Managing Concord security
 ---
 
 # {{ page.title }}
@@ -43,7 +44,7 @@ attempt. After that, it can be managed as usual, by using
 the [User](../api/user.html) API endpoint.
 
 Username/password authentication uses an LDAP/Active Directory realm. Check
-[Configuration](./configuration.html#ldap) document for details.
+[Configuration](./configuration.html#server-configuration-file) document for details.
 
 ### Using Session Tokens
 

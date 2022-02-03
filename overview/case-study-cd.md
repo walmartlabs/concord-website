@@ -1,6 +1,7 @@
 ---
 layout: wmt/project
 title: Case Study - Continuous Deployment
+description: Continuous Deployment at Walmart case study
 ---
 
 Concord is the tool of choice for most continuous deployment needs at Walmart.

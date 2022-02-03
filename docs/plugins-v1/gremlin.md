@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Gremlin Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for chaos testing with Gremlin
 ---
 
 # {{ page.title }}

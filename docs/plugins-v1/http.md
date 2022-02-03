@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  HTTP Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for performing HTTP calls
 ---
 
 # {{ page.title }}

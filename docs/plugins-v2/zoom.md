@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Zoom Tasks
 side-navigation: wmt/docs-navigation.html
+description: Plugin for sending Zoom messages
 ---
 
 # {{ page.title }}

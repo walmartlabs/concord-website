@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Node Roster
 side-navigation: wmt/docs-navigation.html
+description: Getting started with Node Roster
 ---
 
 # {{ page.title }}

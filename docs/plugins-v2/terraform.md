@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Terraform Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for provisioning IaC with Terraform
 ---
 
 # {{ page.title }}

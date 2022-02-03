@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Plugins
 side-navigation: wmt/docs-navigation.html
+deprecated: true
 ---
 
 # Plugins

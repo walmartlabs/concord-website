@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Git and GitHub Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for performing Git operations and GitHub API interaction
 ---
 
 # {{ page.title }}
@@ -29,11 +30,11 @@ task.
   - [Delete a Branch](#delete-a-branch)
   - [Merge Branches](#merge-branches)
   - [Fork a Repo](#fork-a-repo)
-  - [Get Branch List](#getBranchList)
-  - [Get Tag List](#getTagList)
+  - [Get Branch List](#getbranchlist)
+  - [Get Tag List](#gettaglist)
   - [Get Pull Request](#get-pull-request)
   - [Get Pull Request List](#get-pull-request-list)
-  - [Get Latest Commit SHA](#getLatestSHA)
+  - [Get Latest Commit SHA](#getlatestsha)
   - [Add a Status](#add-a-status)
 
 ## Usage

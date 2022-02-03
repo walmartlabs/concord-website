@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Taurus Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for continuous testing with Taurus
 ---
 
 # {{ page.title }}
