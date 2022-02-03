@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Vault by HashiCorp Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for handling Vault secret data
 ---
 
 # {{ page.title }}

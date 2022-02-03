@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Installation using Vagrant
 side-navigation: wmt/docs-navigation.html
+description: Install Concord with Vagrant
 ---
 
 # {{ page.title }}

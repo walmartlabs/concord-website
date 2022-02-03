@@ -20,10 +20,12 @@
               {% endif %}
             </div>
             <div class="col-md-4">
-              {% if site.footer-image.size < 1 %}
-                {% assign site.footer-image = "/assets/wmt/img/logos/walmart-labs-wht.png" %}
+              {% if site.footer-image.size > 0 %}
+                {% assign local-footer-image = site.footer-image %}
+              {% else  %}
+                {% assign local-footer-image = "/assets/wmt/img/logos/walmart-labs-wht.png" %}
               {% endif %}
-              <img src="{{site.footer-image}}" class="img-responsive" width="150px" align="right" style="padding-top:10px;"/>
+              <img src="{{local-footer-image}}" alt="site footer image" class="img-responsive" width="150px" align="right" style="padding-top:10px;"/>
             </div>
           </div>
         </div>

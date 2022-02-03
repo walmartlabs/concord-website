@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Sleep Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for pausing workflow execution
 ---
 
 # {{ page.title }}

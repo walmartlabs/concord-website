@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Scripting Support
 side-navigation: wmt/docs-navigation.html
+description: Execute scripts in a flow
 ---
 
 # {{ page.title }}
@@ -19,14 +20,14 @@ automatically identified based on the file extension used. They can be stored
 as external files and invoked from the Concord YAML file or they can be inline
 in the file.
 
-[Flow variables](#using-flow-variables), [Concord tasks](#tasks) and other Java
+[Flow variables](#using-flow-variables), [Concord tasks](#using-concord-tasks) and other Java
 methods can be accessed from the scripts due to the usage of the Java Scripting
 API. The script and your Concord processes essentially run within the same
 context on the JVM.
 
 - [Using Flow Variables](#using-flow-variables)
   - [Flow Variables in Runtime V2](#flow-variables-in-runtime-v2)
-- [Using Concord Tasks](#tasks)
+- [Using Concord Tasks](#using-concord-tasks)
 - [Error Handling](#error-handling)
 - [Javascript](#javascript)
 - [Groovy](#groovy)
@@ -249,7 +250,7 @@ execution.setVariable('x', new ArrayList(arr));
 
 Groovy is another compatible engine that is fully-supported in Concord. It
 requires the addition of a dependency to
-[groovy-all](http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/) and
+[groovy-all](https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/) and
 the identifier `groovy`. For versions 2.4.* and lower jar packaging is used in
 projects, so the correct dependency is
 e.g. `mvn://org.codehaus.groovy:groovy-all:2.4.12`. Versions 2.5.0 and higher
@@ -349,7 +350,7 @@ flows:
 
 ## Ruby
 
-Ruby scripts can be executed using the [JRuby](http://jruby.org/)
+Ruby scripts can be executed using the [JRuby](https://www.jruby.org)
 runtime. It requires the addition of a dependency to
 [jruby](https://repo1.maven.org/maven2/org/jruby/jruby)
 located in the Central Repository or on another server and the identifier

@@ -1,6 +1,7 @@
 ---
 layout: wmt/project
 title: Case Study - Ansible at Scale
+description: Large scale Ansible deployments case study
 ---
 
 One of the initial use cases Concord was created to support, is the execution

@@ -2,12 +2,14 @@
 layout: wmt/docs
 title:  Jenkins Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for scheduling Jenkins build jobs
 ---
 
 # {{ page.title }}
 
 The `jenkins` task allows users to trigger build jobs on a
-[Jenkins](http://jenkins-ci.org) continuous integration server as a step of a
+[Jenkins](https://www.jenkins.io) continuous integration server as a step of a
 flow.
 
 <a name="usage"/>

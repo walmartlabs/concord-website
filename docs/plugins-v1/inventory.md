@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Concord Inventory
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for working with Concord's Inventory API
 ---
 
 # {{ page.title }}
@@ -22,7 +24,7 @@ format required per [Dynamic Inventory Conventions](https://docs.ansible.com/ans
 
 Prior to using this plugin, inventory data must be stored in Concord JSON
 storage. Additionally, a query must be created per the API documentation:
-[Inventory Query](../api/inventory/inventory-query). The results of that query are the
+[Inventory Query](../api/json-store.html#queries). The results of that query are the
 input of this plugin and must contain a list of JSON objects containing a
 `host` string and a `data` object. The `host` is added to the hostgroup and all
 `data` becomes hostvars.
@@ -66,7 +68,7 @@ Example Input (from query):
 ```
  
 The Inventory plugin ships with Concord so there are no dependencies, though it
-is usually used with the [Ansible](../plugins-v1/ansible) plugin which does
+is usually used with the [Ansible](./ansible.html) plugin which does
 require a dependency definition.
 
 ```yaml

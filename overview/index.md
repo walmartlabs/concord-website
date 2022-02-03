@@ -1,6 +1,7 @@
 ---
 layout: wmt/project
 title:  About Concord
+description: Concord Overview
 ---
 
 Concord is a workflow server. It is the orchestration engine that connects

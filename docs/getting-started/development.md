@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Development
 side-navigation: wmt/docs-navigation.html
+description: Docs for Concord developers
 ---
 
 # {{ page.title }} 

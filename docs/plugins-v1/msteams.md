@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  MS Teams Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for sending MS Teams messages
 ---
 
 # {{ page.title }}
@@ -218,7 +220,7 @@ execution are ignored and stored in the `result` variable. Defaults to `false`.
 The `webhookTypeId`, `tenantId`, `rootWebhookUrl`, `proxyAddress`, and
 `proxyPort` variables configure the connection to the MS Teams server. They are
 best configured globally as
-[default process configuration](../getting-started/configuration.html#default-process-variable)
+[default process configuration](../getting-started/configuration.html#default-process-variables)
 with an `msteamsParams` argument.
 
 - `webhookTypeId`: unique GUID of webhook type `Incoming Webhook`

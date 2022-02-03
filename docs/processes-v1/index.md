@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Processes v1
 side-navigation: wmt/docs-navigation.html
+deprecated: true
 ---
 
 # {{ page.title }}
@@ -216,7 +217,7 @@ instance of [com.walmartlabs.concord.sdk.Context](https://github.com/walmartlabs
   [session token](../getting-started/security.html#using-session-tokens) can be
   used to call Concord API from flows.
 
-LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
+LDAP attributes must be allowed in [the configuration](../getting-started/configuration.html#server-configuration-file).
 
 **Note:** only the processes started using [the browser link](../api/process.html#browser)
 provide the `requestInfo` variable. In other cases (e.g. processes

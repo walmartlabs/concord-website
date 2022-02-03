@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-- [Using Tasks](#using-task)
+- [Using Tasks](#using-tasks)
 - [Full Syntax vs Expressions](#full-syntax-vs-expressions)
 - [Development](#development)
   - [Complete Example](#complete-example)
@@ -16,7 +16,7 @@ side-navigation: wmt/docs-navigation.html
   - [Call Context](#call-context)
   - [Using External Artifacts](#using-external-artifacts)
   - [Environment Defaults](#environment-defaults)
-  - [Task Output and Error Handling](#task-output-and-error-handling)
+  - [Task Output and Error Handling](#task-output)
   - [Unit Tests](#unit-tests)
   - [Integration Tests](#integration-tests)
 
@@ -401,12 +401,25 @@ public class MyTask implements Task {
 }
 ```
 
-The environment-specific defaults are provided using
-the [Default Process Variables](./configuration.html#default-process-variables)
-file.
+The environment-specific defaults are provided using a
+[Default Process Configuration Rule](../getting-started/policies.html#default-process-configuration-rule)
+policy. A `defaultTaskVariables` entry matching the plugin's `@Named` value is
+provided to the plugin at runtime via the `ctx.defaultVariables()` method.
 
-The task's default can also be injected using `@InjectVariable`
-annotation - check out the [GitHub task]({{ site.source_url }}tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/GitHubTask.java#L79)
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "github": {
+        "apiUrl": "https://github.example.com/api/v3"
+      }
+    }
+  }
+}
+```
+
+Check out the
+[GitHub task]({{ site.concord_plugins_source }}blob/master/tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/v2/GithubTaskV2.java#L43)
 as the example.
 
 ### Error Handling

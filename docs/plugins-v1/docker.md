@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Docker Support
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for running Docker containers in a flow
 ---
 
 # {{ page.title }}

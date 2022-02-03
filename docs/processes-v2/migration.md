@@ -113,8 +113,7 @@ class MyTaskV2 implements com.walmartlabs.concord.runtime.v2.sdk.Task {
 }
 ```
 
-More details in the [Tasks v2](../getting-started/tasks-v2.md) documentation
-(TBD).
+More details in the [Tasks v2](./tasks.html) documentation.
 
 ## Variable Scoping Rules
 
@@ -276,7 +275,7 @@ In v1 the process log is a single steam of text - every task and `log`
 statement writes their output into a single log file. In v2 most of the flow
 elements get their own log "segment" -- a separate log "file":
 
-<img src="../../assets/img/screenshots/segmented_log.png" class="img-responsive"/>
+<img src="../../assets/img/screenshots/segmented_log.png" alt="log view with segments" class="img-responsive"/>
 
 This feature is enabled by default and should work "out of the box" for
 most plugins that use `org.slf4j.Logger` for logging.
@@ -303,7 +302,7 @@ flows:
 
 Should produce a log looking like this:
 
-<img src="../../assets/img/screenshots/segmented_log_example.png" class="img-responsive"/>
+<img src="../../assets/img/screenshots/segmented_log_example.png" alt="example with named log segment" class="img-responsive"/>
 
 The `name` field also supports expressions:
 
@@ -340,7 +339,7 @@ facilitate ease of sharing logs.
 The v1 runtime provides no satisfactory ways to run flow steps in parallel
 in one single process. For parallel deployments it is possible to use [Ansible](../plugins-v1/ansible.html)
 and its `forks` feature. There's also
-[a way to "fork" a process](../plugins-v1/concord.html#form), i.e. to run a flow
+[a way to "fork" a process](../plugins-v2/concord.html#fork), i.e. to run a flow
 in another process while inheriting current flow variables.  
 
 The v2 runtime was designed with parallel execution in mind. It adds a new

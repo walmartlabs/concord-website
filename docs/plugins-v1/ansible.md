@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Ansible Task
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for executing Ansible playbooks
 ---
 
 # {{ page.title }}
@@ -72,7 +74,7 @@ pipelining = true
 ```
 
 Further and up to date details are available
-[in the source code of the plugin]({{ site.concord_source }}blob/master/plugins/tasks/ansible/src/main/java/com/walmartlabs/concord/plugins/ansible/RunPlaybookTask2.java).
+[in the source code of the plugin]({{ site.concord_source }}blob/master/plugins/tasks/ansible/src/main/java/com/walmartlabs/concord/plugins/ansible/v1/RunPlaybookTask2.java).
 
 One of the most important lines is `gather_subset = !facter,!ohai`. This disables
 some of the variables that are usually available such as `ansible_default_ipv4`.
@@ -151,7 +153,7 @@ on usage with `dockerImage`;
 
 ## Configuring Ansible
 
-Ansible's [configuration](http://docs.ansible.com/ansible/intro_configuration.html)
+Ansible's [configuration](https://docs.ansible.com/ansible/latest/reference_appendices/config.html)
 can be specified under the  `config` key:
 
 

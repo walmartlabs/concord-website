@@ -288,7 +288,7 @@ flows:
 ```
 
 The way Concord handles timeouts is described in more details in
-the [error handling](./flows.html#handling-cancellations-failures-and-timeout)
+the [error handling](./flows.html#handling-cancellations-failures-and-timeouts)
 section.
 
 #### Running Timeout
@@ -368,7 +368,7 @@ See also: [Exclusive Triggers](../triggers/index.html#exclusive-triggers).
 
 Flows can expose internal variables as process metadata. Such metadata can be
 retrieved using the [API](../api/process.html#status) or displayed in
-the process list in [Concord Console](../console/process.html#metadata).
+the process list in [Concord Console](../console/process.html#process-metadata).
 
 ```yaml
 configuration:

@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  JSON Store
 side-navigation: wmt/docs-navigation.html
+description: Getting started with JSON Store
 ---
 
 # {{ page.title }}
@@ -11,8 +12,7 @@ arbitrary JSON data persistently. It is useful for processes which require
 state management beyond regular variables or features provided by
 [the Key Value store](../plugins-v2/key-value.html).
 
-**Note:** JSON Store supersedes the old [Inventory](../api/inventory/inventory.html)
-and [Inventory Query](../api/inventory/inventory-query.html) APIs.
+**Note:** JSON Store supersedes the old Inventory and Inventory Query APIs.
 Existing users are encouraged to switch to the JSON Store API. The data created
 using the old API is available both trough the Inventory and JSON Store APIs.
 
@@ -52,22 +52,20 @@ literal value as a query parameter then you need to wrap it into an object (see
 [the example below](#example)).
 
 Queries can be created and executed by using [the API](../api/json-store.html),
-by using [the task](../plugins-v2/json-store.html#execute-query) or in the
+by using [the task](../plugins-v2/json-store.html#execute-a-named-query) or in the
 Concord Console, which provides a way to execute and preview results of a query
 before saving it.
 
 The result of execution is a JSON array of rows returned by the query. All
 values must be representable in JSON - strings, numbers, booleans, arrays and
-objects. Currently there are no limitations on how many rows or columns a query
+objects. Currently, there are no limitations on how many rows or columns a query
 can return (subject to change).
 
 ## Limitations
 
-The following PostgreSQL JSON(b) operators are not supported: `?`, `?|` and
-`?&`.
+The following PostgreSQL JSON(b) operators are not supported: `?`, `?|` and `?&`.
 
-Query arguments are not supported when executing queries in the Concord
-Console. 
+Query arguments are not supported when executing queries in the Concord Console.
 
 ## Example
 

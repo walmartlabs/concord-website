@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  LDAP Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for executing LDAP queries
 ---
 
 # {{ page.title }}

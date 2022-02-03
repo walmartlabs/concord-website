@@ -2,6 +2,7 @@
 layout: wmt/docs
 title: Concord code of conduct
 side-navigation: wmt/docs-navigation.html
+description: Guidelines for community interaction
 ---
 
 # {{ page.title }}

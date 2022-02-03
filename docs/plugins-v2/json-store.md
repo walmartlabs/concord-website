@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  JSON Store Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for interacting with Concord's JSON Store API
 ---
 
 # {{ page.title }}

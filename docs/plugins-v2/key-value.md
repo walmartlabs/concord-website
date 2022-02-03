@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Key Value Task
 side-navigation: wmt/docs-navigation.html
+description: Plugin for storing key-value data
 ---
 
 # {{ page.title }}

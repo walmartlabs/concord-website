@@ -2,6 +2,8 @@
 layout: wmt/docs
 title:  Slack Tasks
 side-navigation: wmt/docs-navigation.html
+deprecated: true
+description: Plugin for sending Slack messages
 ---
 
 # {{ page.title }}
