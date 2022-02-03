@@ -95,10 +95,9 @@ in Java that executes flows written in [Concord DSL](../processes-v1/index.html#
 Typically this is executed in a separate JVM process.
 
 Currently there are two versions of the runtime:
-- [concord-v1](../processes-v1/index.html) - the current stable version, used
-by default;
+- [concord-v1](../processes-v1/index.html) - used by default;
 - [concord-v2](../processes-v2/index.html) - new and improved version
-introduced in 1.42.0. Not recommended for production usage yet.
+introduced in 1.42.0.
 
 The runtime can be specified using `configuration.runtime` parameter in
 the `concord.yml` file:
