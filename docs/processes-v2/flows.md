@@ -181,7 +181,8 @@ flows:
     - log: ${allVariables()}
 ```
 
-- `hasVariable` - accepts a variable name (as a string parameter) and returns true if the variable exists;
+- `hasVariable` - accepts a variable name or nested variable path (as a string parameter) 
+  and returns true if the variable exists;
 
 ```yaml
 flows:
@@ -200,6 +201,13 @@ flows:
 
     # prints out: true
     - log: ${hasVariable('nullVar')}
+  
+    - set:
+        a:
+          b: 1
+
+    # prints out: true
+    - log: ${hasVariable('a.b')}
 ```
 
 - `currentFlowName` - returns current flow name as string;
