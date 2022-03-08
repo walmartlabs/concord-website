@@ -4,7 +4,7 @@ title: Case Study - Managed Services
 description: Managed Services case study
 ---
 
-Numerous teams as Walmart use Concord to provide user an easy automated
+Numerous teams as Walmart use Concord to provide users an easy automated
 provisioning for _Managed Services_. These Managed Service typically are a
 complex, large scale deployment of a cloud application backing service such as
 a relational database cluster, a NoSQL database clusters, file caching systems
