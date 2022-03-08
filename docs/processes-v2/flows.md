@@ -293,7 +293,7 @@ flows:
 
 A `call` step can optionally contain additional declarations:
 - `in` - input parameters (arguments) of the call;
-- `withItems` - see the [Loops](#loops) section;
+- `loop` - see the [Loops](#loops) section;
 - `retry` - see [Retry](#retry) section.
 
 ### Setting Variables
@@ -503,30 +503,32 @@ still modify the original variable:
 - log: ${anObject.aList}
 ```
 
-While `parallel` executes _steps_ in parallel, `parallelWithItems` can be used
+While `parallel` executes _steps_ in parallel, `loop` with `parallel mode` can be used
 to perform same steps for each item in a collection. See the [Loops](#loops)
 section for more details.
 
 ## Loops
 
 Concord flows can iterate through a collection of items in a loop using
-the `withItems` syntax:
+the `loop` syntax:
 
 ```yaml
 - call: myFlow
-  withItems:
-    - "first element"   # string item
-    - "second element"
-    - 3                 # a number
-    - false             # a boolean value
+  loop:
+    items:
+      - "first element"   # string item
+      - "second element"
+      - 3                 # a number
+      - false             # a boolean value
 
-# withItems can also be used with tasks
+# loop can also be used with tasks
 - task: myTask
   in:
     myVar: ${item}
-  withItems:
-    - "first element"
-    - "second element"
+  loop:
+    items:
+      - "first element"
+      - "second element"
 ```
 
 The collection of items to iterate over can be provided by an expression:
@@ -542,7 +544,8 @@ configuration:
 flows:
   default:
   - call: myFlow
-    withItems: ${myItems}
+    loop: 
+      items: ${myItems}
 ```
 
 The items are referenced in the invoked flow with the `${item}` expression:
@@ -560,12 +563,13 @@ flows:
     - task: log
       in:
         msg: "${item.key} - ${item.value}"
-      withItems:
-        a: "Hello"
-        b: "world"
+      loop:
+        items:
+          a: "Hello"
+          b: "world"
 ```
 
-In the example above `withItems` iterates over the keys of the object. Each
+In the example above `loop` iterates over the keys of the object. Each
 `${item}` provides `key` and `value` attributes.
 
 Lists of nested objects can be used in loops as well:
@@ -574,18 +578,19 @@ Lists of nested objects can be used in loops as well:
 flows:
   default:
     - call: deployToClouds
-      withItems:
-        - name: cloud1
-          fqdn: cloud1.myapp.example.com
-        - name: cloud2
-          fqdn: cloud2.myapp.example.com
+      loop:
+        items:
+          - name: cloud1
+            fqdn: cloud1.myapp.example.com
+          - name: cloud2
+            fqdn: cloud2.myapp.example.com
 
   deployToClouds:
     - log: "Starting deployment to ${item.name}"
     - log: "Using FQDN ${item.fqdn}"
 ```
 
-The `parallelWithItems` syntax can be used to process items in parallel.
+The `loop` syntax can be used to process items in parallel.
 Consider the following example:
 
 ```yaml
@@ -601,12 +606,15 @@ flows:
         # imagine a slow API call here
         url: "https://jsonplaceholder.typicode.com/todos/${item}"
         response: json
-      out: results # withItems turns "results" into a list of results for each item
-      parallelWithItems:
-        - "1"
-        - "2"
-        - "3"
-
+      out: results # loop turns "results" into a list of results for each item
+      loop:
+        items:
+          - "1"
+          - "2"
+          - "3"
+        mode: parallel
+        parallelism: 2 # optional number of threads 
+        
     # grab titles from all todos
     - log: ${results.stream().map(o -> o.content.title).toList()}
 ```
@@ -614,7 +622,7 @@ flows:
 In the example above, each item is processed in parallel in a separate OS
 thread.
 
-The `parallelWithItems` syntax is supported for the same steps as `withItems`:
+The parallel `loop` syntax is supported for the same steps as `loop`:
 tasks, flow calls, groups of steps, etc.
 
 ## Error Handling
