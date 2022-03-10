@@ -3,8 +3,6 @@ nav:
     id: getting-started
     collapse: /docs/getting-started
     subfolderitems:
-      - page: Overview
-        context: /docs/getting-started/index
       - page: Installation
         context: /docs/getting-started/installation
       - page: Configuration
@@ -33,6 +31,16 @@ nav:
         context: /docs/getting-started/node-roster
       - page: Development
         context: /docs/getting-started/development
+  - title: Introduction
+    id: introduction
+    collapse: /docs/introduction
+    subfolderitems:
+      - page: Overview
+        context: /docs/introduction/index
+       - page: About Concord
+        context: /docs/introduction/about
+       - page: Quick tour
+        context: /docs/introduction/quick tour
   - title: Processes (v2)
     id: processes-v2
     collapse: /docs/processes-v2
