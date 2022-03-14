@@ -508,7 +508,8 @@ form value, an external invocation of the process or as output parameter from
 the `createPr` action. The example below uses the pull request identifier `myPrId`,
 that was populated with a value in the `createPr` action above.
 `commitMessage` is a string that can be used to post custom merge commit messages.
-If omitted, a default message is used.
+If omitted, a default message is used. `mergeMethod` is optional string that can be used to
+specify merge method to use (possible values are `merge`, `squash` or `rebase`).
 
 **`mergePr` Parameters:**
 
@@ -516,6 +517,7 @@ If omitted, a default message is used.
 - `repo`: repository in which the pull request is located.
 - `prId`: pull request number.
 - `commitMessage`: optional, Custom merge commit message.
+- `mergeMethod`: optional, one of are `merge`, `squash` or `rebase`
 
 ```yaml
 flows:
@@ -528,6 +530,7 @@ flows:
       repo: "myGitHubRepo"
       prId: "${myPrId}"
       commitMessage: "my custom merge commit message"
+      mergeMethod: "squash"
 ```
 
 <a name="commentPR">
