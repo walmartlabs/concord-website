@@ -527,6 +527,7 @@ specify merge method to use (possible values are `merge`, `squash` or `rebase`).
 - `repo`: repository in which the pull request is located.
 - `prId`: pull request number.
 - `commitMessage`: optional, Custom merge commit message.
+- `mergeMethod`: optional, one of are `merge`, `squash` or `rebase`
 
 ```yaml
 flows:
@@ -539,6 +540,7 @@ flows:
       repo: "myGitHubRepo"
       prId: "${createResponse.prId}"
       commitMessage: "my custom merge commit message"
+      mergeMethod: "squash"
     out: mergeReponse
 ```
 
