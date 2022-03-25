@@ -80,7 +80,7 @@ Find an existing user by name.
 <a name="sync-ldap-groups-user"/>
 ## Sync LDAP groups for a User
 
-Sync LDAP groups for a given user.
+Synchronize LDAP groups for a given user.
 
 * **URI** `/api/v1/userldapgroup/sync`
 * **Method** `POST`
@@ -105,3 +105,4 @@ Sync LDAP groups for a given user.
     ```
 
     The `UPDATED` result indicates the ldap groups for a specified username got synced successfully.
+    <p><strong>Note</strong>: Only administrators(role: concordAdmin) can synchronize user LDAP groups</p>
