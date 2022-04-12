@@ -800,6 +800,7 @@ flows:
       accessToken: "myGitHubToken"
       org: "myGitHubOrg"
       repo: "myGitHubRepo"
+    out: response
 
   - if: ${response.ok}
     then:
