@@ -170,6 +170,98 @@ flows:
     - log: "Process running on ${System.getProperty('os.name')}"
 ```
 
+#### Builtin functions
+
+- `allVariables` - returns a Java Map object with all current variables;
+
+```yaml
+flows:
+  default:
+    # prints out: {projectInfo={orgId=0fac1b18-d179-11e7-b3e7-d7df4543ed4f, orgName=Default} ...}
+    - log: ${allVariables()}
+```
+
+- `hasVariable` - accepts a variable name or nested variable path (as a string parameter) 
+  and returns true if the variable exists;
+
+```yaml
+flows:
+  default:
+    # prints out: false
+    - log: ${hasVariable('myVar')}
+  
+    - set:
+        myVar2: "value"
+
+    # prints out: true
+    - log: ${hasVariable('myVar2')}
+  
+    - set:
+        nullVar: ${null}
+
+    # prints out: true
+    - log: ${hasVariable('nullVar')}
+  
+    - set:
+        a:
+          b: 1
+
+    # prints out: true
+    - log: ${hasVariable('a.b')}
+```
+
+- `currentFlowName` - returns current flow name as string;
+
+```yaml
+flows:
+  default:
+    # prints out: default
+    - log: ${currentFlowName()}
+
+    - call: myFlow  
+
+  myFlow:
+    # prints out: myFlow
+    - log: ${currentFlowName()}
+```
+
+- `evalAsMap` - evaluates the specified value as an expression, 
+  returns a Java Map object;
+
+```yaml
+flows:
+  default:
+    - script: js
+      body: |
+        var x = {'a.b': 1, 'a.c': 2, 'a.d': '${a.b}', 'y': 'boo'};
+        context.variables().set('x', x);
+
+    # prints out: {a={b=1, d=1, c=2}, y=boo}
+    - log: ${evalAsMap(x)}
+```
+- `orDefault` - accepts a variable name (as a string parameter), default value and 
+  returns variable value or default value;
+
+```yaml
+flows:
+  default:
+    # prints out: '1'
+    - log: "'${orDefault('myVar', 1)}'"
+
+    - set:
+        myVar2: "boo"
+
+    # prints out: 'boo'
+    - log: "'${orDefault('myVar2', 'xyz')}'"
+
+
+    - set:
+        nullVar: ${null}
+
+    # prints out: ''
+    - log: "'${orDefault('nullVar', 1)}'"
+```
+
 ### Conditional Execution
 
 Concord supports both `if-then-else` and `switch` steps:
