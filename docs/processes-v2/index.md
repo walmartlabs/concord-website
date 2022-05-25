@@ -34,7 +34,12 @@ Anything else is copied as-is and available for the process.
 the working directory.
 
 The same structure should be used when storing your project in a Git repository.
-Concord simply clones the repository into the process' working directory.
+Concord clones the repository and recursively copies the specified directory
+[path](../api/repository.html#create-a-repository) (`/` by default which includes
+all files in the repository) to the working directory for the process. If a
+subdirectory is specified in the Concord repository's configuration, any paths
+outside the configuration-specified path are ignored and not copied. The repository
+name it _not_ included in the final path.
 
 ## Additional Concord Files
 
