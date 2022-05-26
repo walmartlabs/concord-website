@@ -78,7 +78,7 @@ explicitly set to `false`;
 - `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or 
 `DELETE`. Default value is `GET`;
 - `proxy`: HTTP(s) proxy to use (see the [example](#proxy-usage));
-- `proxyAuth`: proxy authentication use, details in the [Proxy Authentication](#proxy-authentication) section;
+- `proxyAuth`: proxy authentication details in the [Proxy Authentication](#proxy-authentication) section;
 - `query`: request query parameters, details in [Query Parameter](#query-parameters);
 - `request`: type of request data `string`, `json`, or `file`, details available
    in [Request type](#request-type);
