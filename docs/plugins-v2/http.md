@@ -78,6 +78,7 @@ explicitly set to `false`;
 - `method`: HTTP request method, either `POST`, `PUT`, `PATCH`, `GET`, or 
 `DELETE`. Default value is `GET`;
 - `proxy`: HTTP(s) proxy to use (see the [example](#proxy-usage));
+- `proxyAuth`: proxy authentication use, details in the [Proxy Authentication](#proxy-authentication) section;
 - `query`: request query parameters, details in [Query Parameter](#query-parameters);
 - `request`: type of request data `string`, `json`, or `file`, details available
    in [Request type](#request-type);
@@ -232,6 +233,16 @@ the `http` task returns:
 - `headers`: key-value pairs of response headers
 - `statusCode`: HTTP status codes
 
+### Proxy Authentication
+
+Proxy auth using `username` and `password` syntax:
+
+```yaml
+  proxyAuth:
+    user: "user"
+    password: "pass"
+```
+
 ## Examples
 
 Following are examples that illustrate the syntax usage for the HTTP task.
@@ -356,4 +367,7 @@ Using Basic Authentication with a username and a password:
     method: GET
     url: "https://api.example.com:port/path/endpoint"
     proxy: "http://proxy.example.com:8080"
+    proxyAuth:
+      user: username
+      password: password
 ```
