@@ -43,7 +43,7 @@ flows:
         path: "/my-secret"
       out: result
     # shorthand, public method
-    - expr: ${akeyless.getSecret("/my-secret")}
+    - expr: "${akeyless.getSecret('/my-secret')}"
       out: singleValue
 ```
 
@@ -72,7 +72,7 @@ the output of the full `akeyless` task call returns:
 ```yaml
 configuration:
   arguments:
-    myPath: '/my-secret'
+    myPath: "/my-secret"
 flows:
   default:
     - task: akeyless
@@ -101,11 +101,11 @@ of the task's public methods.
 configuration:
   arguments:
     akeylessParams:
-      apiBasePath: 'https://api.akeyless.io'
+      apiBasePath: "https://api.akeyless.io"
       auth:
         apiKey:
-          accessId: { org: 'Default', name: 'dev-akeyless-id' }
-          accessKey: { org: 'Default', name: 'dev-akeyless-key' }
+          accessId: { org: "Default", name: "dev-akeyless-id" }
+          accessKey: { org: "Default", name: "dev-akeyless-key" }
 
 flows:
   default:
@@ -155,8 +155,8 @@ Use the `getSecrets` action to get the values of multiple secrets in one call.
   in:
     action: getSecrets
     paths:
-      - /my-first-secret
-      - /subpath/my-second-secret
+      - "/my-first-secret"
+      - "/subpath/my-second-secret"
     out: result
 # 'result' variable now contains:
 # {
@@ -175,7 +175,7 @@ Available parameters:
 - `value`: secret value
 - `description`: optional `String`, description of the secret
 - `multiline`: optional `boolean`, The provided value is a multiline value
-  (separated by '\n'). Default is `false`
+  (separated by `'\n'`). Default is `false`
 - `protectionKey`: optional `String`, The name of a key used to encrypt the
   secret value (if empty, the account default protection key is used)
 - `tags`: optional list of `String` values, List of tags to apply to the secret
@@ -198,7 +198,7 @@ Available parameters:
 - `path`: name, including full path, of the secret
 - `value`: secret value
 - `multiline`: optional `boolean`, The provided value is a multiline value
-  (separated by '\n'). Default is `false`
+  (separated by `'\n'`). Default is `false`
 - `protectionKey`: optional `String`, The name of a key used to encrypt the
   secret value (if empty, the account default protection key is used)
 - `keepPreviousVersion`: optional `boolean`, when `true` keeps the previous version
