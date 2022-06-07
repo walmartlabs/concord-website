@@ -23,7 +23,7 @@ The `akeyless` task allows workflows to interact with various
 ## Usage
 
 To enable the task in a Concord flow, it must be added as a
-[dependency](../processes-v1/configuration.html#dependencies):
+[dependency](../processes-v2/configuration.html#dependencies):
 
 ```yaml
 configuration:
@@ -41,6 +41,7 @@ flows:
       in:
         action: getSecret
         path: "/my-secret"
+      out: result
     # shorthand, public method
     - expr: ${akeyless.getSecret("/my-secret")}
       out: singleValue
@@ -48,22 +49,25 @@ flows:
 
 __Common Parameters__
 - `action`: Action to perform. One of:
-  - `createSecret` - Create a static secret
-  - `deleteItem` - Delete an item
-  - `getSecret` - Get value for one secret path
-  - `getSecrets` - Get value for multiple secret paths
-  - `updateSecret` - Update a secret's value
+    - `createSecret` - Create a static secret
+    - `deleteItem` - Delete an item
+    - `getSecret` - Get value for one secret path
+    - `getSecrets` - Get value for multiple secret paths
+    - `updateSecret` - Update a secret's value
 - `apiBasePath` - Akeyless API URL
 - `debug`: optional `boolean`, enabled extra debug log output for troubleshooting
 - `auth` - API authentication info
-  - `apiKey` - Details for [API Key authentication method](https://docs.akeyless.io/docs/api-key)
-    - `accessId`
-    - `accessKey`
+    - `apiKey` - Details for [API Key authentication method](https://docs.akeyless.io/docs/api-key)
+        - `accessId`
+        - `accessKey`
 
 ## Task Output
 
-The output of the full task call is saved into the `result` variable as map of
-secret paths and values.
+In addition to
+[common task result fields](../processes-v2/flows.html#task-result-data-structure),
+the output of the full `akeyless` task call returns:
+
+- `data` - map of retrieved secret data;
 
 ```yaml
 configuration:
@@ -75,8 +79,13 @@ flows:
       in:
         action: getSecret
         path: "${myPath}"
-    - log: "Don't log secret values: ${result[myPath]}"
-    - log: "Same value: ${akeyless.getSecret('/my-secret')}"
+      out: result
+    - if: ${result.ok}
+      then:
+        - log: "Successfully retrieved secret data"
+        # can be accessed in ${result.data[myPath]}
+      else:
+        - log: "Error with task: ${result.error}"
 ```
 
 The output of public method calls may different depending on the method called.
@@ -110,6 +119,7 @@ flows:
         baseUrl: # overRide apiBasePath here
         action: getSecret
         # ...
+      out: result
 ```
 
 ## Get Secret Data
@@ -121,6 +131,7 @@ Use the `getSecret` action to get the value of a single secret.
   in:
     action: getSecret
     path: "/my-secret"
+  out: result
 # 'result' variable now contains:
 # {
 #   "/my-secret" : "<the-actual-value>"
@@ -146,6 +157,7 @@ Use the `getSecrets` action to get the values of multiple secrets in one call.
     paths:
       - /my-first-secret
       - /subpath/my-second-secret
+    out: result
 # 'result' variable now contains:
 # {
 #   "/my-first-secret" : "<the-actual-value1>",
