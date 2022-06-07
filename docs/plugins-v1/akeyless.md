@@ -107,7 +107,7 @@ flows:
     # or use the full call to override a default parameter
     - task: akeyless
       in:
-        baseUrl: # overRide apiBasePath here
+        apiBasePath: # override apiBasePath here
         action: getSecret
         # ...
 ```
