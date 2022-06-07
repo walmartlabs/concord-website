@@ -143,6 +143,8 @@ nav:
     id: plugins-v2
     collapse: /docs/plugins-v2
     subfolderitems:
+      - page: Akeyless
+        context: /docs/plugins-v2/akeyless
       - page: Ansible
         context: /docs/plugins-v2/ansible
       - page: Concord
@@ -201,6 +203,8 @@ nav:
     id: plugins-v1
     collapse: /docs/plugins-v1
     subfolderitems:
+      - page: Akeyless
+        context: /docs/plugins-v1/akeyless
       - page: Ansible
         context: /docs/plugins-v1/ansible
       - page: Concord
