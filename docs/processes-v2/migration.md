@@ -313,10 +313,11 @@ flows:
       task: log
       in:
         msg: "We got: ${item}"
-      withItems:
-        - "red"
-        - "green"
-        - "blue"
+      loop:
+        items:
+          - "red"
+          - "green"
+          - "blue"
 ```
 
 Currently, the following steps can use `name`:
