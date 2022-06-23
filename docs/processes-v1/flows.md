@@ -178,8 +178,7 @@ flows:
 
 ### Return Command
 
-The `return` command can be used to stop the execution of the current
-(sub) flow:
+The `return` command can be used to stop the execution of the current (sub) flow:
 
 ```yaml
 flows:
@@ -206,6 +205,8 @@ flows:
         - exit
     - log: "message"
 ```
+
+The final status of a process after calling `exit` is `FINISHED`.
 
 ### Groups of Steps
 

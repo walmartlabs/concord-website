@@ -16,6 +16,8 @@ plugins (also known as "tasks"), performing data validation, creating
       - [Task Result Data Structure](#task-result-data-structure) 
     - [Expressions](#expressions)
     - [Conditional Execution](#conditional-execution)
+    - [Return Command](#return-command)
+    - [Exit Command](#exit-command)
     - [Groups of Steps](#groups-of-steps)
     - [Calling Other Flows](#calling-other-flows)
     - [Setting Variables](#setting-variables)
@@ -343,6 +345,38 @@ flows:
       default:
         - log: "Nope"
 ```
+
+### Return Command
+
+The `return` command can be used to stop the execution of the current (sub) flow:
+
+```yaml
+flows:
+  default:
+    - if: ${myVar > 0}
+      then:
+        - log: moving along
+      else:
+        - return
+```
+
+The `return` command can be used to stop the current process if called from an
+entry point.
+
+### Exit Command
+
+The `exit` command can be used to stop the execution of the current process:
+
+```yaml
+flows:
+  default:
+    - if: ${myVar > 0}
+      then:
+        - exit
+    - log: "message"
+```
+
+The final status of a process after calling `exit` is `FINISHED`.
 
 ### Groups of Steps
 
