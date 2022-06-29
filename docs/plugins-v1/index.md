@@ -15,6 +15,7 @@ use in the workflow execution.
   <div class="row">
     <div class="col-md-4">
       <ul>
+        <li><a href="./akeyless.html">Akeyless</a></li>
         <li><a href="./ansible.html">Ansible</a></li>
         <li><a href="./concord.html">Concord</a></li>
         <li><a href="./confluence.html">Confluence</a></li>
