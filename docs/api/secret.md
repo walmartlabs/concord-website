@@ -17,7 +17,8 @@ The REST API provides support for the following operations related to secrets:
   - [Example: Upload an Existing Key Pair](#example-upload-key-pair)
   - [Example: Creating a Username and Password Secret](#example-username-password-secret)
   - [Example: Storing a Single Value as Secret](#example-single-value-secret)
-- [Update a Secret](#update-secret)
+- [Update a Secret (Deprecated)](#update-secret)
+- [Update a Secret](#update-secret-v2)
 - [Get Metadata of Secret](#meta-data)
 - [Get Public SSH Key of Secret](#get-key)
 - [Delete a Secret](#delete-secret)
@@ -164,7 +165,7 @@ https://concord.example.com/api/v1/org/Default/secret
 
 <a name="update-secret"/>
 
-## Update a Secret
+## Update a Secret(Deprecated)
 
 Updates parameters of an existing secret.
 
@@ -198,6 +199,58 @@ Updates parameters of an existing secret.
     }
     ```
 
+<a name="update-secret-v2"/>
+
+## Update a Secret
+
+Updates parameters of an existing secret.
+
+* **URI** `/api/v2/org/${orgName}/secret/${secretName}`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: multipart/form-data`
+* **Body**
+  Multipart binary data.
+  
+  The values will be interpreted depeding on their name:
+   - `name` - New secret name to update;
+   - `orgId` or `org` - New ID or name of the organization which
+   "owns" the secret;
+   - `projectId` or `project` - New ID or name of the project
+   for which secret will be restricted;
+   - `removeProjectLink` - remove restriction to a project, boolean, default value is false;
+   - `ownerId` - new secret owner identifier, UUID;
+   - `storePassword` - current store password used to encrypt the created secret and which can be used to retrieve it back;
+   - `newStorePassword` - new store password, `storePassword` is mandatory to update a new store password, secrets protected by `server key` cannot be updated to a password protected secret;
+   - `visibility` - new secret visibility, `PUBLIC` or `PRIVATE`. See the description of [public and private resources](../getting-started/orgs.html);
+   - `type` - type of new secret to be updated, takes values `data`, `username_password`, `key_pair`;
+   
+   The secret data to be updated depends on `type` value and corresponding rest of the parameters are as follows:
+   
+   - `type=key_pair`:
+       - `public` - a public key file of the key pair.
+       - `private` - a private key file of the key pair.
+         
+   - `type=username_password`:
+       - `username` - a string value;
+       - `password` - a string value.
+   - `type=data`:
+       - `data` - a string or binary value(file).
+   
+   `storePassword` should be mandatory to update a password protected secret.
+        
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "ok": true,
+      "result": "UPDATED"
+    }
+    ```
+  
+  
 <a name="meta-data"/>
 
 ## Get Metadata of Secret
