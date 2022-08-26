@@ -25,6 +25,7 @@ flow.
 - [Terraform Enterprise / Cloud](#remote)
 - [GIT modules](#git-modules)
 - [Terraform Version](#terraform-version)
+- [Executing inside a Docker container](#executing-inside-a-docker-container)
 - [Examples](#examples)
 
 ## Usage
@@ -49,31 +50,33 @@ The task requires the process to run as a part of a Concord project.
 - `action` - (mandatory) action to perform:
   - `plan` - [plan](#planning) the changes
   - `apply` - [apply](#applying) the changes with or without using a previously
-  created plan file
+    created plan file
   - `destroy` -[destroy](#destroying) an environment
   - `output` - save the [output variables](#output)
 - `backend` - type of a [state backend](#backends) to use:
   - `concord` - (default) use the backend provided by Concord
   - `none` - use the default file-based backend or the backend configuration
-  provided by the user
+    provided by the user
   - `remote` - run on on Terraform Cloud or Terraform Enterprise
 - `debug` - boolean value, if `true` the plugin logs additional debug information
+- `dockerImage` - string value, optional [Docker image](#executing-inside-a-fdocker-container)
+  to use for execution
 - `extraEnv` - key-value pairs, extra environment variables provided to
-the `terraform` process
+  the `terraform` process
 - `extraVars` - [variables](#variables) provided to the `terraform` process
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
-execution will be ignored and stored in the `result` variable
+  execution will be ignored and stored in the `result` variable
 - `ignoreLocalBinary` - boolean value, if `true` the plugin won't use
-a `terraform` binary from `$PATH`. See the [Terraform Version](#terraform-version)
-section for more details
+  a `terraform` binary from `$PATH`. See the [Terraform Version](#terraform-version)
+  section for more details
 - `pwd` - working directory. See the [Directories](#directories) section for
-more details;
+  more details;
 - `stateId` - string value, the name of a state file to use. See
-the [State Backends](#backends) section for more details
+  the [State Backends](#backends) section for more details
 - `toolUrl` - URL to a specific terraform bundle or version (.zip format). See
-the [Terraform Version](#terraform-version) section for more details
+  the [Terraform Version](#terraform-version) section for more details
 - `toolVersion` - Terraform version to use, mutually exclusive with `toolUrl`.
-See the [Terraform Version](#terraform-version) section for more details
+  See the [Terraform Version](#terraform-version) section for more details
 - `varFiles` - list of files to add as `-var-file`.
 
 <a name="planning"/>
@@ -387,7 +390,6 @@ plugin to use no backend for storing state, use something like the following:
 
 ## Terraform Enterprise / Cloud
 
-
 [Remote](https://www.terraform.io/docs/backends/types/remote.html) is a special backend 
 that runs jobs on Terraform Enterprise (TFE) or Terraform Cloud. Concord will 
 create `.terraformrc` and `*.override.tfvars.json` configurations to access the 
@@ -462,6 +464,23 @@ specified;
 - downloads the binary's archive from the standard location
 ([releases.hashicorp.com](https://releases.hashicorp.com)). In this case,
 the `toolVersion` parameter can be used.
+
+## Executing inside a Docker container
+
+Use the `dockerImage` option to execute the task's `terraform` CLI commands
+within a Docker container. This option is useful for providing dependencies not
+available in the default runtime environment such as cloud provider dependency
+tools required by some terraform modules.
+
+```yaml
+- task: terraform
+  in:
+    dockerImage: 'my-custom/docker-image:1.2.34'
+    # ... other options ...
+```
+
+The specified image must be compatible with
+[Concord's Docker service](./docker.html#custom-images). 
 
 ## Examples
 

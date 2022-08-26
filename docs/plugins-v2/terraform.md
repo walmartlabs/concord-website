@@ -24,6 +24,7 @@ flow.
 - [Terraform Enterprise / Cloud](#remote)
 - [GIT modules](#git-modules)
 - [Terraform Version](#terraform-version)
+- [Executing inside a Docker container](#executing-inside-a-docker-container)
 - [Examples](#examples)
 
 ## Usage
@@ -57,6 +58,8 @@ The task requires the process to run as a part of a Concord project.
     provided by the user
   - `remote` - run on on Terraform Cloud or Terraform Enterprise
 - `debug` - boolean value, if `true` the plugin logs additional debug information
+- `dockerImage` - string value, optional [Docker image](#executing-inside-a-docker-container)
+  to use for execution
 - `extraEnv` - key-value pairs, extra environment variables provided to
   the `terraform` process
 - `extraVars` - [variables](#variables) provided to the `terraform` process
@@ -393,7 +396,6 @@ plugin to use no backend for storing state, use something like the following:
 
 ## Terraform Enterprise / Cloud
 
-
 [Remote](https://www.terraform.io/docs/backends/types/remote.html) is a special backend 
 that runs jobs on Terraform Enterprise (TFE) or Terraform Cloud. Concord will 
 create `.terraformrc` and `*.override.tfvars.json` configurations to access the 
@@ -468,6 +470,23 @@ specified;
 - downloads the binary's archive from the standard location
 ([releases.hashicorp.com](https://releases.hashicorp.com)). In this case,
 the `toolVersion` parameter can be used.
+
+## Executing inside a Docker container
+
+Use the `dockerImage` option to execute the task's `terraform` CLI commands
+within a Docker container. This option is useful for providing dependencies not
+available in the default runtime environment such as cloud provider dependency
+tools required by some terraform modules.
+
+```yaml
+- task: terraform
+  in:
+    dockerImage: 'my-custom/docker-image:1.2.34'
+    # ... other options ...
+```
+
+The specified image must be compatible with
+[Concord's Docker service](./docker.html#custom-images).
 
 ## Examples
 
