@@ -57,6 +57,7 @@ __Common Parameters__
   - `updateSecret` - Update a secret's value
 - `apiBasePath` - Akeyless API URL
 - `debug`: optional `boolean`, enabled extra debug log output for troubleshooting
+- `accessToken` - API access token. Supersedes `auth` parameter
 - `auth` - API authentication info. Used to generate an authentication token when
   `accessToken` is not provided. Supported authentication methods are:
   - `apiKey` - Details for [API Key authentication method](https://docs.akeyless.io/docs/api-key)
