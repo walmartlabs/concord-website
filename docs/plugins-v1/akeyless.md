@@ -14,6 +14,7 @@ The `akeyless` task allows workflows to interact with various
 - [Usage](#usage)
 - [Task Output](#task-output)
 - [Setting Default Task Parameters](#setting-default-task-parameters)
+- [Get Access Token](#get-access-token)
 - [Get Secret Data](#get-secret-data)
 - [Get Multiple Secrets](#get-multiple-secrets)
 - [Create a Secret](#create-a-secret)
@@ -48,6 +49,7 @@ flows:
 
 __Common Parameters__
 - `action`: Action to perform. One of:
+  - `auth` - Retrieves an API access token
   - `createSecret` - Create a static secret
   - `deleteItem` - Delete an item
   - `getSecret` - Get value for one secret path
@@ -55,7 +57,9 @@ __Common Parameters__
   - `updateSecret` - Update a secret's value
 - `apiBasePath` - Akeyless API URL
 - `debug`: optional `boolean`, enabled extra debug log output for troubleshooting
-- `auth` - API authentication info
+- `accessToken` - API access token. Supersedes `auth` parameter
+- `auth` - API authentication info. Used to generate an authentication token when
+  `accessToken` is not provided. Supported authentication methods are:
   - `apiKey` - Details for [API Key authentication method](https://docs.akeyless.io/docs/api-key)
     - `accessId`
     - `accessKey`
@@ -110,6 +114,21 @@ flows:
         apiBasePath: # override apiBasePath here
         action: getSecret
         # ...
+```
+
+## Get Access Token
+
+Use the `auth` action to generate an access token from a given authentication method.
+
+```yaml
+- task: akeyless
+  in:
+    action: auth
+  out: result
+# 'result' variable now contains:
+# {
+#   "accessToken" : "<the-actual-value>"
+# }
 ```
 
 ## Get Secret Data
