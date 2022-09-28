@@ -16,6 +16,8 @@ The `configuration` sections contains [dependencies](#dependencies),
 - [Dependencies](#dependencies)
 - [Requirements](#requirements)
 - [Process Timeout](#process-timeout)
+  - [Running Timeout](#running-timeout)
+  - [Suspend Timeout](#suspend-timeout)
 - [Exclusive Execution](#exclusive-execution)
 - [Metadata](#metadata)
 - [Template](#template)
@@ -261,25 +263,24 @@ are for JVM memory and other settings.
 
 ### Process Timeout
 
-You can specify the maximum amount of time the process can spend in the __running__
-state with the `processTimeout` configuration. It can be useful to set
-specific SLAs for deployment jobs or to use it as a global timeout:
+You can specify the maximum amount of time that a process can be in a some state.
+After this timeout process automatically canceled and marked as `TIMED_OUT`.
+
+Currently, the runtime provides two different timeout parameters:
+- [processTimeout](#running-timeout) - how long the process can stay in
+  the `RUNNING` state;
+- [suspendTimeout](#suspend-timeout) - how long the process can stay in
+  the `SUSPENDED` state.
+
+Both timeout parameters accepts duration in the
+[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
 
 ```yaml
 configuration:
-  processTimeout: "PT1H"
-flows:
-  default:
-  # a long running process
+  processTimeout: "PT1H" # 1 hour
 ```
 
-In the example above, if the process runs for more than 1 hour it is
-automatically cancelled and marked as _timed out_.
-
-The parameter accepts duration in the
-[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-
-A special `onTimeout` flow can be used to handle such processes:
+A special `onTimeout` flow can be used to handle timeouts:
 
 ```yaml
 flows:
@@ -287,13 +288,56 @@ flows:
   - log: "I'm going to run when my parent process times out"
 ```
 
-Note that forms waiting for input and other process action are captured in a
-_suspended_ state, which is not affecting process runtime and therefore also
-not the process timeout.
+The way Concord handles timeouts is described in more details in
+the [error handling](./flows.html#handling-cancellations-failures-and-timeouts)
+section.
 
-If an `onTimeout` flow fails, it is automatically retried up to three times.
+#### Running Timeout
 
-**Note:** The process timeout is not applied to processes in `SUSPENDED` state.
+You can specify the maximum amount of time the process can spend in
+the `RUNNING` state with the `processTimeout` configuration. It can be useful
+to set specific SLAs for deployment jobs or to use it as a global timeout:
+
+```yaml
+configuration:
+  processTimeout: "PT1H"
+flows:
+  default:
+    # a long running process
+```
+
+In the example above, if the process runs for more than 1 hour it is
+automatically cancelled and marked as `TIMED_OUT`.
+
+**Note:** forms waiting for input and other processes in `SUSPENDED` state
+are not affected by the process timeout. I.e. a `SUSPENDED` process can stay
+`SUSPENDED` indefinitely -- up to the allowed data retention period.
+
+#### Suspend Timeout
+
+You can specify the maximum amount of time the process can spend in
+the `SUSPEND` state with the `suspendTimeout` configuration. It can be useful
+to set specific SLAs for forms waiting for input and processes waiting for
+external events:
+
+```yaml
+configuration:
+  suspendTimeout: "PT1H"
+flows:
+  default:
+    - task: concord
+      in:
+       action: start
+       org: myOrg
+       project: myProject
+       repo: myRepo
+       sync: true
+       suspend: true
+  ...
+```
+
+In the example above, if the process waits for more than 1 hour it is
+automatically cancelled and marked as `TIMED_OUT`.
 
 ## Exclusive Execution
 
