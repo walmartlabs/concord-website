@@ -65,7 +65,7 @@ __Common Parameters__
 - `baseUrl`: Argo CD instance's base URL
 - `debug`: optional `boolean`, enabled extra debug log output for troubleshooting
 - `auth`: API authentication info. Used to generate an authentication token.
-- `validateCerts`: optional `boolean`, default value `true`, can be overriden for testing.
+- `validateCerts`: optional `boolean`, default value `true`, can be overridden for testing.
 - `connectTimeout`: optional value specifies the connection timeout while making API requests to Argo CD
 - `readTimeout`: optional value specifies the read timeout while making API requests to Argo CD
 - `writeTimeout`: optional value specifies the write timeout while making API requests to Argo CD.
@@ -100,7 +100,7 @@ flows:
         - log: "Error with task: ${result.error}"
 ```
 
-The output of public method calls may different depending on the method called.
+The output of public method calls may be different depending on the method called.
 See the documentation for the specific method for output details.
 
 ## Authentication
@@ -120,15 +120,17 @@ flows:
       in:
         action: get
         app: test
+        baseUrl: https://argo.dev
         auth:
           basic:
             username: localUser
             password: password
+      out: result
 ```
 
 ### LDAP Authentication
 
-In this case, Argo CD instance delegates authentication to a LDAP directory backed 
+In this case, Argo CD instance delegates authentication to an LDAP directory backed 
 authentication mechanism.
 
 ```yaml
@@ -138,6 +140,7 @@ flows:
       in:
         action: get
         app: test
+        baseUrl: https://argo.dev
         auth:
           ldap:
             username: user
@@ -186,7 +189,7 @@ specified, if not present.
 - `gitRepo`: optional SCM information to which the application will sync. Not required
 if `helmRepo` is specified.
     * `repoURL`: URL of the SCM Repository
-    * `targetRevision`: Branchname, tag, or commitSHA to sync to.
+    * `targetRevision`: Branchname, tag, or commit hash to sync to.
     * `path`: The path in the SCM repository which contains Helm charts, application 
     manifest, or k8s resource definitions.
 - `helmRepo`: optional Helm repo information to which the application will sync. Not 
@@ -198,7 +201,7 @@ required if `gitRepo` is specified.
     * `parameters`: optional map specifying parameters to the Helm chart.
     * `values`: values to be provided to the Helm chart, to override default values if any.
 - `project`: project in which the application is to be created. Project creates a logical
-grouping for several applications. If not specified, it will taken as `default`.
+grouping for several applications. `default` if not specified.
 - `annotations`: optional map describing the application.
 
 ```yaml
@@ -330,7 +333,7 @@ __Parameters__
 
 ### Update Application Spec
 
-Use the `updateSpec` action to updation the application resource object. 
+Use the `updateSpec` action to update the application resource object. 
 
 __Parameters__
 - `app`: name of the app which has to be updated.
