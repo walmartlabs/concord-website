@@ -145,6 +145,8 @@ nav:
     subfolderitems:
       - page: Akeyless
         context: /docs/plugins-v2/akeyless
+      - page: Argo CD
+        context: /docs/plugins-v2/argocd
       - page: Ansible
         context: /docs/plugins-v2/ansible
       - page: Concord
