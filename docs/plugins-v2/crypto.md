@@ -170,7 +170,7 @@ A value can also be encrypted within a Concord Process with the `encryptString`
 method of the `crypto` task:
 
 ```yaml
-- expr: ${crypto.encryptString('MyOrg', 'MyProject', 'my secret value')}
+- expr: ${crypto.encryptString('my secret value')}
   out: encryptedValue
 ```
 
