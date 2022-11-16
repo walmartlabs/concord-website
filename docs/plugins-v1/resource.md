@@ -18,6 +18,7 @@ external dependencies.
 - [Reading a Resource](#reading-a-resource)
 - [Writing a Resource](#writing-a-resource)
 - [Parse JSON String](#parse-json-string)
+- [Format](#format)
 - [Pretty Format](#pretty-format)
 
 ## Reading a Resource
@@ -92,6 +93,18 @@ flows:
     - expr: ${resource.fromJsonString(jsonString)}
       out: jsonObj
     - log: "Hello ${jsonObj.name}!"
+```
+
+## Format
+
+The `printJson` method of the `resource` task serializes a given object, or JSON
+string, to a condensed JSON-formatted string. This can be useful for generating
+JSON string for other tasks. This is more memory-efficient than the
+[`prettyPrintJson` method](#pretty-format).
+
+```yaml
+- set:
+    jsonString: ${resource.printJson('{"testKey":"testValue"}')}
 ```
 
 ## Pretty Format
