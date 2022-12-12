@@ -103,7 +103,7 @@ flows:
       action: searchByDn
       searchBase: "DC=subdomain,DC=domain,DC=com"
       dn: "CN=exampleCN1,CN=exampleCN2,DC=subdomain,DC=domain,DC=com"
-      out: searchByDnResult
+    out: searchByDnResult
 ```
 
 Additional parameters to use are:
@@ -126,7 +126,7 @@ flows:
       action: getUser
       searchBase: "DC=subdomain,DC=domain,DC=com"
       user: ${initiator.username}
-      out: getUserResult
+    out: getUserResult
 ```
 
 Additional parameters to use are:
@@ -151,7 +151,7 @@ flows:
       searchBase: "DC=subdomain,DC=domain,DC=com"
       group: "mySecurityGroupName"
       securityEnabled: true
-      out: getGroupResult
+    out: getGroupResult
 ```
 
 Additional parameters to use are:
@@ -179,7 +179,7 @@ flows:
       user: ${initiator.username}
       group: "mySecurityGroupName"
       securityEnabled: true
-      out: isMemberOfResult
+    out: isMemberOfResult
 ```
 
 - `user`: the user id, email address, or user principal name to search for
