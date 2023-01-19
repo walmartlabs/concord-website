@@ -78,3 +78,21 @@ operations,  batch reporting or processing and other repeating task that are
 automated via a Concord flow.
 
 **Note:** standard [limitations](./index.html#limitations) apply.
+
+## Running as a Specific User
+
+Cron-triggered processes run as a system `cron` user by default. This user may
+not have access to certain resources (e.g. Secrets, JSON Store). A user's API
+key can be referenced from a project-scoped single-value (string)
+[Secret](../console/secret.html) to run
+the process as the user.
+
+```yaml
+triggers:
+- cron:
+    spec: "* 12 * * *"
+    entryPoint: cronEvent
+    runAs:
+      # secret must be scoped to the project and contain the API token of the initiator
+      withSecret: "user-api-key-secret-name"
+```
