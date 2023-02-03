@@ -23,6 +23,8 @@ characteristics of processes and system entities.
 - [Default Process Configuration Rule](#default-process-configuration-rule)
 - [Task Rule](#task-rule)
 - [Workspace Rule](#workspace-rule)
+- [Runtime Rule](#runtime-rule)
+- [RawPayload Rule](#rawpayload-rule)
 
 ## Overview
 
@@ -791,5 +793,48 @@ Example:
     ],
     "maxSizeInBytes": 268435456
   }
+}
+```
+
+## Runtime Rule
+
+The runtime rule controls allowed runtime(s) for process execution.
+
+The syntax:
+
+```json
+{ 
+  "msg": "optional message", 
+  "runtimes": ["concord runtime(s)..."]
+}
+```
+
+The attributes:
+
+- `runtimes` - List of allowed concord runtime(s);
+
+Example:
+
+```json
+{
+  "runtime": {
+    "msg": "{0} runtime version is not allowed",
+    "runtimes": ["concord-v2"]
+  }
+}
+```
+
+## RawPayload Rule
+
+RawPayload rules allows you to limit the size of the raw payload archive sent to start the process.
+
+The syntax:
+
+```json
+{
+   "rawPayload": {
+      "msg": "Raw payload size too big: current {0} bytes, limit {1} bytes",
+      "maxSizeInBytes": 1024
+   }
 }
 ```
