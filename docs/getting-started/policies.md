@@ -25,6 +25,7 @@ characteristics of processes and system entities.
 - [Workspace Rule](#workspace-rule)
 - [Runtime Rule](#runtime-rule)
 - [RawPayload Rule](#rawpayload-rule)
+- [CronTrigger Rule](#crontrigger-rule)
 
 ## Overview
 
@@ -836,5 +837,29 @@ The syntax:
       "msg": "Raw payload size too big: current {0} bytes, limit {1} bytes",
       "maxSizeInBytes": 1024
    }
+}
+```
+
+## CronTrigger Rule
+
+Cron trigger rule allows you, administrators to set the minimum interval between the process triggered by cron.
+
+The syntax:
+
+```json
+{
+  "cronTrigger": {
+    "minInterval": "interval in seconds"
+  }
+}
+```
+
+For example:
+
+```json
+{
+  "cronTrigger": {
+    "minInterval": 61
+  }
 }
 ```
