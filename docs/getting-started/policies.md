@@ -842,7 +842,7 @@ The syntax:
 
 ## CronTrigger Rule
 
-Cron trigger rule allows to set the minimum interval between the process triggered by cron.
+Cron trigger rule allows you, administrators to set the minimum interval between the process triggered by cron.
 
 The syntax:
 
