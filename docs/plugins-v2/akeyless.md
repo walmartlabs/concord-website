@@ -49,21 +49,28 @@ flows:
 ```
 
 __Common Parameters__
-- `action`: Action to perform. One of:
-    - `auth` - Retrieves an API access token
-    - `createSecret` - Create a static secret
-    - `deleteItem` - Delete an item
-    - `getSecret` - Get value for one secret path
-    - `getSecrets` - Get value for multiple secret paths
-    - `updateSecret` - Update a secret's value
+- `action` - Action to perform. One of:
+  - `auth` - Retrieves an API access token
+  - `createSecret` - Create a static secret
+  - `deleteItem` - Delete an item
+  - `getSecret` - Get value for one secret path
+  - `getSecrets` - Get value for multiple secret paths
+  - `updateSecret` - Update a secret's value
 - `apiBasePath` - Akeyless API URL
-- `debug`: optional `boolean`, enabled extra debug log output for troubleshooting
+- `debug` - optional `boolean`, enabled extra debug log output for troubleshooting
 - `accessToken` - API access token. Supersedes `auth` parameter
+- `ignoreCache` - optional `boolean`, ignores cache when getting secret data
 - `auth` - API authentication info. Used to generate an authentication token when
-  `accessToken` is not provided. Supported authentication methods are:
-    - `apiKey` - Details for [API Key authentication method](https://docs.akeyless.io/docs/api-key)
-        - `accessId`
-        - `accessKey`
+  `accessToken` is not provided. Only one method may be specified. Supported
+  authentication methods are:
+  - `apiKey` - Details for [API Key authentication method](https://docs.akeyless.io/docs/api-key)
+    - `accessId` - Access ID for API key authentication
+    - `accessKey` - The API key
+  - `ldap` - Details for [LDAP authentication method](https://docs.akeyless.io/docs/ldap)
+    - `accessId` - Access ID for LDAP authentication
+    - `credentials` - the LDAP credentials
+      - `username` - LDAP username
+      - `password` - LDAP password
 
 ## Task Output
 
@@ -95,6 +102,47 @@ flows:
 The output of public method calls may different depending on the method called.
 See the documentation for the specific method for output details.
 
+## Authentication
+
+Multiple authentication methods are supported. Only one authentication method
+can be used per task call.
+
+### API Key
+
+Simple [API Key authentication](https://docs.akeyless.io/docs/api-key) uses a
+single-value secret for the key value:
+
+```yaml
+flows:
+  default:
+    task: akeyless
+    in:
+      auth:
+        apiKey:
+          # single-value (string) secrets
+          accessId: { org: "my-org", name: "dev-akeyless-id" }
+          accessKey: { org: "my-org", name: "dev-akeyless-key" }
+      # ...
+```
+
+### LDAP
+
+[LDAP authentication](https://docs.akeyless.io/docs/ldap) uses a username/password
+secret for the credentials:
+
+```yaml
+flows:
+  default:
+    task: akeyless
+    in:
+      auth:
+        ldap:
+          accessId: { org: "my-org", name: "dev-akeyless-id" }
+          # username/password secret
+          credentials: { org: "my-org", name: "dev-akeyless-creds" }
+      # ...
+```
+
 ## Setting Default Task Parameters
 
 Set a `akeylessParams` variable to provide a default set of parameters to the
@@ -107,9 +155,9 @@ configuration:
     akeylessParams:
       apiBasePath: "https://api.akeyless.io"
       auth:
-        apiKey:
-          accessId: { org: "Default", name: "dev-akeyless-id" }
-          accessKey: { org: "Default", name: "dev-akeyless-key" }
+        ldap:
+          accessId: { org: "my-org", name: "dev-akeyless-id" }
+          credentials: { org: "my-org", name: "dev-akeyless-creds" }
 
 flows:
   default:
