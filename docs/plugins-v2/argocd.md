@@ -17,6 +17,7 @@ and projects on the instance.
 - [Authentication](#authentication)
     - [Basic Authentication](#basic-authentication)
     - [LDAP Authentication](#ldap-authentication)
+    - [Azure Authentication](#azure-authentication)
 - [Application Operations](#application-operations)
     - [Get Application](#get-application)
     - [Create Application](#create-application)
@@ -147,6 +148,39 @@ flows:
             password: password
       out: result
 ```
+
+### Azure Authentication
+
+In this case, Argo CD instance authentication is done via [Azure AD](https://azure.microsoft.com/en-us/products/active-directory). 
+Azure AD App registration and configuration must be in place to work. More details can be found 
+[here](https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/microsoft/#azure-ad-app-registration-auth-using-oidc).
+
+#### Parameters
+  * `clientId` - ClientId of the argocd client app registered in Azure portal.
+  * `authority` - Identity of the party who issue token. For example - `https://login.microsoftonline.com/<tenantId>/v2.0`
+  * `scope` - Optional, Permissions needed to perform activity. Default - `user.read`
+  * `username` - Username used to authenticate in Azure AD
+  * `password` - Password for the supplied `username`
+
+```yaml
+flows:
+  default:
+    - task: argocd
+      in:
+        action: get
+        app: test
+        baseUrl: https://argo.dev
+        auth:
+          azure:
+            clientId: test-client-110
+            authority: https://login.microsoftonline.com/test-tenant-001/v2.0
+            scope:
+              - user.default
+            username: user
+            password: password
+      out: result
+```
+> _**Note:**_ _Allow public client flows_ should be enabled in **Authentication > Advanced settings** under Azure App registration.
 
 ## Application Operations
 
