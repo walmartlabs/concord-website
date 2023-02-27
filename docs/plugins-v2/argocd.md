@@ -152,7 +152,8 @@ flows:
 ### Azure Authentication
 
 In this case, Argo CD instance authentication is done via [Azure AD](https://azure.microsoft.com/en-us/products/active-directory). 
-Azure AD App registration and configuration must be in place to work. More details can be found [here](https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/microsoft/#azure-ad-app-registration-auth-using-oidc).
+Azure AD App registration and configuration must be in place to work. More details can be found 
+[here](https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/microsoft/#azure-ad-app-registration-auth-using-oidc).
 
 #### Parameters
   * `clientId` - ClientId of the argocd client app registered in Azure portal.
