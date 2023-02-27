@@ -46,7 +46,13 @@ operations:
 
 - `action`: determines the operation to be performed with the current
   invocation of the LDAP task
-- `ldapAdServer`: URL to the LDAP server, e.g `ldap://hostname.domain.com:3268`
+- `ldapAdServer`: URL to the LDAP server, e.g `ldap://hostname.domain.com:3268`\
+ _or_\
+  `dnsSrvRr`: DNS service record to identify LDAP server address.
+  Map containing params
+  - `name`: Name of the service record, e.g `_ldap._tcp.domain.com`
+  - `protocol`: protocol used to establish communication to LDAP server
+  - `port`: port number on which communication to be established.
 - `bindUserDn`: the identifier of the account which is used to bind to the LDAP
   server for the operation
 - `bindPassword`: the password of the `bindUserDn` identifier, typically
@@ -55,16 +61,51 @@ operations:
 - `out`: optional, the variable where the result is stored in. If not specified,
   `ldapResult` is used.
 
-The `ldapAdServer`, `bindUserDn`, and `bindPassword` variables configure the
-connection to the LDAP server. It is best configured globally as
-[default process configuration](../getting-started/configuration.html#default-process-variables):
-with an `ldapParams` argument:
+> *NOTE:* Either `ldapAdServer` or `dnsSrvRr` is mandatory. 
+> If both are supplied, preference will be given to `dnsSrvRr`
+
+The `ldapAdServer` or `dnsSrvRr` variables configure the
+connection to the LDAP server. It is best configured globally by a
+[default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+policy:
+
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "ldap": {
+        "ldapAdServer": "ldap://hostname.domain.com:3268"
+      }
+    }
+  }
+}
+```
+
+or
+
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "ldap": {
+        "dnsSrvRr": {
+          "name": "_ldap._tcp.domain.com",
+          "protocol": "ldaps",
+          "port": "3269"
+        }
+      }
+    }
+  }
+}
+```
+
+It is best to set `bindUserDn` and `bindPassword` with `ldapParams` argument to provide a default set of parameters to the
+task. This is helpful when the task is called multiple times in the flow.
 
 ```yaml
 configuration:
   arguments:
     ldapParams:
-      ldapAdServer: "ldap://hostname.domain.com:3268"
       bindUserDn: "CN=example,CN=Users,DC=subdomain,DC=domain,DC=com"
       bindPassword: "${crypto.exportAsString('bindPassword', 'myStorePassword')}"
 ```
@@ -83,6 +124,9 @@ flows:
       user: "userId"
       ...
 ```
+
+>*NOTE:* The variables set using [default process configuration](../getting-started/policies.html#default-process-configuration-rule)
+> and/or `ldapParams` can be overridden by the `in` parameters of the task
 
 <a name="searchByDn"/>
 
