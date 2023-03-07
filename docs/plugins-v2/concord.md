@@ -245,12 +245,15 @@ flows:
       action: fork
       entryPoint: sayHello
     out: jobOut
-        
+
+  - log: "Forked child process: ${jobOut.ids[0]}"
+
   sayHello:
   - log: "Hello from a subprocess!"
 ```
 
-The IDs of the started processes are stored as `${jobs}` array.
+The ID of the started process is stored in the `ids` array attribute of the
+returned result.
 
 **Note:** Due to the current limitations, files created after
 the start of a process cannot be copied to child processes.
@@ -284,7 +287,7 @@ flows:
 
 The `instances` parameter allows spawning of more than one copy of a process.
 
-The IDs of the started processes are stored as `ids` array in the result.
+The IDs of the started processes are stored in the `ids` array in the result.
 
 ```yaml
 - log: "Forked child processes: ${jobOut.ids}"
@@ -395,7 +398,7 @@ flows:
       payload: payload
     out: jobOut
 
-  - ${children.addAll(jobOut.ids)}
+  - ${children.add(jobOut.id)}
 
   - task: concord
     in:
@@ -403,7 +406,7 @@ flows:
       payload: payload
     out: jobOut
 
-  - ${children.addAll(jobOut.ids)}
+  - ${children.add(jobOut.id)}
 
   - ${concord.suspendForCompletion(children)}
 
@@ -419,7 +422,11 @@ To wait for a completion of a process:
 ```yaml
 flows:
   default:
-  - ${concord.waitForCompletion(jobOut.ids)}
+  # wait for one id
+  - ${concord.waitForCompletion(id)}
+
+  # or multiple
+  - ${concord.waitForCompletion(ids)}
 ```
 
 The `ids` value is a list (as in `java.util.List`) of process IDs.
@@ -579,7 +586,7 @@ flows:
       out: firstResult
 
     # save the first fork's ID
-    - ${children.addAll(firstResult.id)}
+    - ${children.add(firstResult.id)}
 
     # start the second fork and save the result as "secondResult"
     - task: concord
@@ -592,7 +599,7 @@ flows:
       out: secondResult
 
     # save the second fork's ID
-    - ${children.addAll(secondResult.id)}
+    - ${children.add(secondResult.id)}
 
     # grab out vars of the forks
     - expr: ${concord.getOutVars(children)} # accepts a list of process IDs
