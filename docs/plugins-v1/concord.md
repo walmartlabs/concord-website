@@ -222,6 +222,7 @@ flows:
 ```
 
 This is equivalent to the curl command:
+
 ```
 curl ... -F myFile.txt=@${workDir}/someDir/myFile.txt -F someFile.json=@anotherFile.json ...
 ```
@@ -241,7 +242,7 @@ flows:
     in:
       action: fork
       entryPoint: sayHello
-        
+
   sayHello:
   - log: "Hello from a subprocess!"
 ```
@@ -367,7 +368,7 @@ way as the [forms](../getting-started/forms.html).
 
 ## Suspending for Completion
 
-You can use the follow approach to suspend a process until the the completion of
+You can use the follow approach to suspend a process until the completion of the
 other process:
 
 ```yaml
