@@ -21,6 +21,7 @@ The REST API provides support for a number of operations:
 - [Update Access Rules](#update-access-rules)
 - [Bulk Update Access Rules](#bulk-update-access-rules)
 - [Move Project To Another Organization](#move-project-to-another-organization)
+- [List Project KV store entries](#list-project-kv-store-entries)
 
 <a name="create-project"/>
 
@@ -369,4 +370,30 @@ Moves the project to the specified Organization (through Organization name ID)
       "ok": true,
       "result": "UPDATED"
     }
+    ```
+
+## List Project KV store entries
+
+List project [KV store](../plugins-v2/key-value.html) entries
+
+* **URI** `/api/v1/org/{orgName}/project/{projectName}/kv`
+* **Headers** `Authorization`
+* **Query parameters**
+- `filter` - filters KV items by key (substring match, case-insensitive);
+- `limit` - number, maximum number of records to return;
+- `offset` - number, offset of the first record, used for paging. 
+* **Method** `GET`
+* **Body**
+  none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [ {
+      "key" : "myKey",
+      "value" : "myValue",
+      "lastUpdatedAt" : "2021-03-29T23:22:13.334+03"
+     } ]
     ```
