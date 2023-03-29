@@ -264,6 +264,16 @@ flows:
     - log: "'${orDefault('nullVar', 1)}'"
 ```
 
+- `throw` - accepts error message (as a string parameter) and throws exception with this message;
+
+```yaml
+flows:
+  default:
+    - expr: ${throw('Stop IT')}
+
+    - log: "Unreachable"
+```
+
 ### Conditional Execution
 
 Concord supports both `if-then-else` and `switch` steps:
