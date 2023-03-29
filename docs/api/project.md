@@ -374,7 +374,7 @@ Moves the project to the specified Organization (through Organization name ID)
 
 ## List Project KV store entries
 
-List project [KV store](../plugins-v2/key-value.html) entries
+List entries in a [Project KV store](../plugins-v2/key-value.html).
 
 * **URI** `/api/v1/org/{orgName}/project/{projectName}/kv`
 * **Headers** `Authorization`
