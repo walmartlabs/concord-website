@@ -276,7 +276,7 @@ The attributes:
 - `fromVersion` and `toVersion` - define the version range;
 - `value` - new dependency value.
 
-For example, updating groovy dependency version to 2.5.21:
+For example, updating groovy dependency version to `2.5.21`:
 
 ```json
 {
