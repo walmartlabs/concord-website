@@ -63,6 +63,9 @@ __Common Parameters__
     - `setParams` - Set an application's parameters.
     - `updateSpec` - Update the application manifest with the `spec` provided. 
     - `delete` - Delete an application on the specified Argo CD `baseUrl`.
+    - `getProject` - Get the details information about the specified `project`.
+    - `createProject` - Creates a project on the specified Argo CD `baseUrl`.
+    - `deleteProject` - Delete a project on the specified Argo CD `baseUrl`.
 - `baseUrl`: Argo CD instance's base URL
 - `debug`: optional `boolean`, enabled extra debug log output for troubleshooting
 - `auth`: API authentication info. Used to generate an authentication token.
@@ -408,6 +411,83 @@ application's resources. One of: foreground|background (default "foreground")
   in:
     app: test-app
     cascade: true
+    baseUrl: https://argo.dev
+    auth:
+      ldap:
+        username: user
+        password: password
+```
+
+## Project Operations
+
+### Get Project
+
+Use the `getProject` action to get the details of a project
+present on the Argo CD instance.
+
+__Parameters__
+
+- `getProject`: Name of the application to be retrieved.
+
+```yaml
+- task: argocd
+  in:
+    action: getProject
+    baseUrl: https://argo.dev
+    project: test
+    auth:
+      ldap:
+        username: user
+        password: password
+  out: result
+```
+
+### Create Project
+
+Use the `createProject` action to create a project with the provided details
+
+__Parameters__
+
+- `project`: Name of the project to be created.
+- `upsert`: boolean value (default to false)
+- `description`: optional project description
+- `annotations`: optional map describing the application
+- `sourceRepos`: optional sourceRepos contains list of repository 
+URLs which can be used for deployment. defaults to '*'
+- `destinations`: optional destinations contains list of destinations 
+available for deployment. defaults to '*'
+
+```yaml
+- task: argocd
+  in:
+    action: createProject
+    baseUrl: https://argo.dev
+    auth:
+      ldap:
+        username: user
+        password: password
+    project: test-project
+    sourceRepos:
+      - '*'
+    destinations:
+      - name: 'all'
+        namespace: '*'
+        server: '*'
+  out: result
+```
+
+
+### Delete Project
+
+Use the `deleteProject` action to delete a project on the Argo CD instance.
+
+__Parameters__
+- `project`: name of the project to be deleted.
+
+```yaml
+- task: argocd
+  in:
+    app: test-project
     baseUrl: https://argo.dev
     auth:
       ldap:
