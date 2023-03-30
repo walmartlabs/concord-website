@@ -73,7 +73,8 @@ The `repositoryInfo` entries have the following structure:
 - `projectId` - UUID, ID of a Concord project with the registered repository;
 - `repositoryId` - UUID, ID of the registered repository;
 - `repository` - string, name of the registered repository;
-- `branch` - string, the configured branch in the registered repository.
+- `branch` - string, the configured branch in the registered repository;
+- `enabled` - boolean, enabled or disabled state of the registered repository.
 
 The `exclusive` section in the trigger definition can be used to configure
 [exclusive execution](../processes-v1/configuration.html#exclusive-execution)
