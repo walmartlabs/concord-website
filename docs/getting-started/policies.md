@@ -15,6 +15,7 @@ characteristics of processes and system entities.
 - [Attachment Rule](#attachment-rule)
 - [Ansible Rule](#ansible-rule)
 - [Dependency Rule](#dependency-rule)
+- [Dependency Rewrite Rule](#dependency-rewrite-rule)
 - [Dependency Versions Rule](#dependency-versions-rule)
 - [Entity Rule](#entity-rule)
 - [File Rule](#file-rule)
@@ -249,6 +250,44 @@ dependencies:
       }
     ]
   }
+}
+```
+
+## Dependency Rewrite Rule
+
+Dependency rewrite rules provide a way to change dependency artifacts (e.g. dependency versions).
+
+The syntax:
+
+```json
+{
+  "msg": "optional message",
+  "groupId": "...groupId...",
+  "artifactId": "...artifactId...",
+  "fromVersion":"...optional lower bound (inclusive) of version...",
+  "toVersion":"..optional upper bound (inclusive) of version...",
+  "value":"mvn://new dependency artifact"  
+}
+```
+
+The attributes:
+
+- `groupId` and `artifactId` - parts of the dependency's Maven GAV;
+- `fromVersion` and `toVersion` - define the version range;
+- `value` - new dependency value.
+
+For example, updating groovy dependency version to 2.5.21:
+
+```json
+{
+  "dependencyRewrite": [
+      {
+        "groupId": "org.codehaus.groovy",
+        "artifactId": "groovy-all",
+        "toVersion": "2.5.20",
+        "value": "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
+      }
+  ]
 }
 ```
 

@@ -116,7 +116,7 @@ The path to the configuration file must be passed via `ollie.conf` JVM
 parameter like so:
 
 ```bash
-java ... -Dollie.conf=/opt/concord/conf/server.conf com.walmartlabs.concord.agent.Main
+java ... -Dollie.conf=/opt/concord/conf/agent.conf com.walmartlabs.concord.agent.Main
 ```
 
 When using Docker it can be passed as `CONCORD_CFG_FILE` environment variable.
