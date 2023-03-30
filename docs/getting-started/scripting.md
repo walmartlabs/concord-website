@@ -253,14 +253,14 @@ requires the addition of a dependency to
 [groovy-all](https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/) and
 the identifier `groovy`. For versions 2.4.* and lower jar packaging is used in
 projects, so the correct dependency is
-e.g. `mvn://org.codehaus.groovy:groovy-all:2.4.12`. Versions 2.5.0 and higher
+e.g. `mvn://org.codehaus.groovy:groovy-all:2.4.12`. Versions `2.5.0` and higher
 use pom packaging, which has to be added to the dependency declaration before
-the version `mvn://org.codehaus.groovy:groovy-all:pom:2.5.2`.
+the version. For example: `mvn://org.codehaus.groovy:groovy-all:pom:2.5.21`.
 
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
 flows:
   default:
   - script: groovy
@@ -289,7 +289,7 @@ Maps:
 ```yaml
 configuration:
   dependencies:
-    - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+    - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
 
 flows:
   default:
