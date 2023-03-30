@@ -128,6 +128,10 @@ Alternatively, the `crypto` task provides a method to export plain secrets as fi
 ```yaml
 - log: "${crypto.exportAsFile('MyOrg', 'mySecret', 'myPassword')}"
 ```
+or with custom export directory:
+```yaml
+- log: "${crypto.exportAsFile('MyDir', 'MyOrg', 'mySecret', 'myPassword')}"
+```
 
 The method returns a path to the temporary file containing the
 exported secret.
