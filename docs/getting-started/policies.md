@@ -273,7 +273,8 @@ The syntax:
 The attributes:
 
 - `groupId` and `artifactId` - parts of the dependency's Maven GAV;
-- `fromVersion` and `toVersion` - define the version range.
+- `fromVersion` and `toVersion` - define the version range;
+- `value` - new dependency value.
 
 For example, updating groovy dependency version to 2.5.21:
 
