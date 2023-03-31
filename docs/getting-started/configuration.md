@@ -19,6 +19,7 @@ The following configuration details are available:
 - [Server Configuration File](#server-cfg-file)
 - [Server Environment Variables](#server-environment-variables)
 - [Agent Configuration File](#agent-cfg-file)
+- [Agent Environment Variables](#agent-environment-variables)
 - [Common Environment Variables](#common-environment-variables)
 - [Default Process Variables](#default-process-variables)
 - [GitHub Integration](#github-integration)
@@ -125,6 +126,17 @@ The complete configuration file for the Agent can be found in
 [the source code repository]({{ site.concord_source}}tree/master/agent/src/main/resources/concord-agent.conf).
 
 The configuration file is optional for local development.
+
+## Agent Environment Variables
+
+All parameters are optional.
+
+### Logging
+
+| Variable                  | Description                              | Default value |
+|---------------------------|------------------------------------------|---------------|
+| DEFAULT_DEPS_CFG          | Path to the default process dependencies | _empty_       |
+| REDIRECT_RUNNER_TO_STDOUT | Redirect process logs to stdout          | _false_       | 
 
 ## Common Environment Variables
 
