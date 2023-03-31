@@ -133,10 +133,10 @@ All parameters are optional.
 
 ### Logging
 
-| Variable                  | Description                              | Default value |
-|---------------------------|------------------------------------------|---------------|
-| DEFAULT_DEPS_CFG          | Path to the default process dependencies | _empty_       |
-| REDIRECT_RUNNER_TO_STDOUT | Redirect process logs to stdout          | _false_       | 
+| Variable                  | Description                                                 | Default value |
+|---------------------------|-------------------------------------------------------------|---------------|
+| DEFAULT_DEPS_CFG          | Path to the default process dependencies configuration file | _empty_       |
+| REDIRECT_RUNNER_TO_STDOUT | Redirect process logs to stdout                             | _false_       | 
 
 ## Common Environment Variables
 
