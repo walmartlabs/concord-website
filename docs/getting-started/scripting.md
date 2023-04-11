@@ -359,7 +359,7 @@ located in the Central Repository or on another server and the identifier
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.jruby:jruby:9.1.13.0"
+  - "mvn://org.jruby:jruby:9.4.2.0"
 
 flows:
   default:
