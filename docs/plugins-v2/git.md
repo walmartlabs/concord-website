@@ -177,6 +177,8 @@ commit SHA identifier or the name of a tag, used to check out after the clone
 operation. If not provided, the default branch of the repository is used -
 typically called `master`.
 
+To perform a shallow clone (truncate commit history to 1) specify `shallow: true` and `useJGit: false` input parameters.
+
 ### Pull
 
 The `pull` action of the `git` task can be used to pull changes from another
