@@ -159,6 +159,8 @@ nav:
         context: /docs/plugins-v2/datetime
       - page: Docker
         context: /docs/plugins-v2/docker
+      - page: Files
+        context: /docs/plugins-v2/files
       - page: Git and GitHub
         context: /docs/plugins-v2/git
       - page: Gremlin
