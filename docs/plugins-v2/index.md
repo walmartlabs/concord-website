@@ -21,6 +21,7 @@ use in the workflow execution.
         <li><a href="./crypto.html">Crypto</a></li>
         <li><a href="./datetime.html">Datetime</a></li>
         <li><a href="./docker.html">Docker</a></li>
+        <li><a href="./files.html">Files</a></li>
         <li><a href="./git.html">Git and GitHub</a></li>
         <li><a href="./gremlin.html">Gremlin</a></li>
         <li><a href="./hashivault.html">HashiCorp Vault</a></li>
