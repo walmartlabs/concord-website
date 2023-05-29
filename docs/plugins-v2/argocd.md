@@ -26,6 +26,14 @@ and projects on the instance.
     - [Set Application Parameters](#set-application-parameters)
     - [Update Application Spec](#update-application-spec)
     - [Delete Application](#delete-application)
+- [Project Operations](#project-operations)
+    - [Get Project](#get-project)
+    - [Create Project](#create-project)
+    - [Delete Project](#delete-project)
+- [ApplicationSet Operations](#applicationset-operations)
+    - [Get ApplicationSet](#get-applicationset)
+    - [Create ApplicationSet](#create-applicationset)
+    - [Delete ApplicationSet](#delete-applicationset)
 
 ## Usage
 
@@ -255,7 +263,7 @@ grouping for several applications. `default` if not specified.
     cluster: in-cluster
     project: default
     gitRepo:
-      scmUrl: https://github.com/testOrg/testRepo.git
+      repoUrl: https://github.com/testOrg/testRepo.git
       path: test-app-helm
       targetRevision: HEAD
     helm:
@@ -427,7 +435,7 @@ present on the Argo CD instance.
 
 __Parameters__
 
-- `getProject`: Name of the application to be retrieved.
+- `getProject`: Name of the project to be retrieved.
 
 ```yaml
 - task: argocd
@@ -494,3 +502,108 @@ __Parameters__
         username: user
         password: password
 ```
+
+## ApplicationSet Operations
+
+### Get ApplicationSet
+
+Use the `getApplicationSet` action to get the details of a applicationSet
+present on the Argo CD instance.
+
+__Parameters__
+
+- `applicationSet`: Name of the applicationSet to be retrieved.
+
+```yaml
+- task: argocd
+  in:
+    action: getApplicationSet
+    baseUrl: https://argo.dev
+    applicationSet: test
+    auth:
+      ldap:
+        username: user
+        password: password
+  out: result
+```
+
+### Create ApplicationSet
+
+Use the `createApplicationSet` action to create a applicationSet with the provided details
+
+__Parameters__
+
+- `generators`: Array of objects defines how the applications should generate. More details can be found [here](https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators/)
+- `preserveResourcesOnDeletion`: PreserveResourcesOnDeletion will preserve resources on deletion. If PreserveResourcesOnDeletion is set to true, these Applications will not be deleted.
+- `strategy`: configures how generated Applications are updated in sequence. More details found [here](https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Progressive-Syncs/#strategies)
+- `applicationSet`: Name of the applicationset to be created
+- `app`: Name of the application to be created in the applicationset. 
+- `cluster`: Name of the Kubernetes cluster on which the application is to be created.
+- `namespace`: Namespace in which the application is to be created. 
+- `createNamespace`: optional `boolean` when set will force creation of the namespace
+specified, if not present. 
+- `gitRepo`: optional SCM information to which the application will sync. Not required
+if `helmRepo` is specified.
+    * `repoURL`: URL of the SCM Repository
+    * `targetRevision`: Branchname, tag, or commit hash to sync to.
+    * `path`: The path in the SCM repository which contains Helm charts, application 
+    manifest, or k8s resource definitions.
+- `helmRepo`: optional Helm repo information to which the application will sync. Not 
+required if `gitRepo` is specified. 
+    * `repoURL`: URL of the Helm Repository
+    * `chart`: Name of the Helm Chart
+    * `targetRevision`: Version of the Chart to be installed.
+- `helm`: optional map of Helm parameters and values
+    * `parameters`: optional map specifying parameters to the Helm chart.
+    * `values`: values to be provided to the Helm chart, to override default values if any.
+- `project`: project in which the application is to be created. Project creates a logical
+grouping for several applications. `default` if not specified.
+- `annotations`: optional map describing the application.
+
+```yaml
+  - task: argocd
+    in:
+      action: CREATEAPPLICATIONSET
+      auth:
+        ldap:
+          username: user
+          password: password
+      validateCerts: false
+      baseUrl:  https://argo.dev
+      applicationSet: test
+      generators: 
+      - list:
+          elements:
+          - cluster: cluster-1
+            name: 'app-1'
+          - cluster: cluster-2
+            name: 'app-2'
+      app: "test-{{name}}"
+      namespace: default
+      cluster: '{{cluster}}'
+      gitRepo:
+        repoUrl: https://github.com/testOrg/testRepo.git
+        targetRevision: master
+        path: testPath
+    out: result
+```
+
+
+### Delete ApplicationSet
+
+Use the `deleteApplicationSet` action to delete a ApplicationSet on the Argo CD instance.
+
+__Parameters__
+- `applicationSet`: name of the applicationSet to be deleted.
+
+```yaml
+- task: argocd
+  in:
+    applicationSet: test-applicationSet
+    baseUrl: https://argo.dev
+    auth:
+      ldap:
+        username: user
+        password: password
+```
+> _**Note:**_ Minimum Argocd version 2.5 is required for applicationset operations.
