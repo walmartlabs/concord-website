@@ -179,6 +179,8 @@ nav:
         context: /docs/plugins-v2/key-value
       - page: LDAP
         context: /docs/plugins-v2/ldap
+      - page: Lock
+        context: /docs/plugins-v2/lock
       - page: MS Teams
         context: /docs/plugins-v2/msteams
       - page: Node Roster
@@ -241,6 +243,8 @@ nav:
         context: /docs/plugins-v1/key-value
       - page: LDAP
         context: /docs/plugins-v1/ldap
+      - page: Lock
+        context: /docs/plugins-v1/lock
       - page: MS Teams
         context: /docs/plugins-v1/msteams
       - page: Node Roster
