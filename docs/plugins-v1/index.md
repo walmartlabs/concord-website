@@ -35,6 +35,7 @@ use in the workflow execution.
     <div class="col-md-4">
       <ul>
         <li><a href="./ldap.html">LDAP</a></li>
+        <li><a href="./lock.html">Lock</a></li>
         <li><a href="./msteams.html">MS Teams</a></li>
         <li><a href="./node-roster.html">Node Roster</a></li>
         <li><a href="./packer.html">Packer</a></li>
