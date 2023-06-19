@@ -13,8 +13,12 @@ side-navigation: wmt/docs-navigation.html
 You can configure generic triggers to respond to events that are configured to
 submit data to the Concord REST API.
 
-Currently Concord supports two different implementations of generic triggers:
+Currently, Concord supports two different implementations of generic triggers:
 `version: 1` and `version: 2`.
+
+**Note:** Generic triggers are more impactful to server performance than starting
+processes directly through the [Process API](../api/process.html). Consult with
+your system administrator before implementing generic triggers.
 
 <a name="generic-v2"/>
 
