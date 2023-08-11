@@ -38,6 +38,7 @@ task.
   - [Get Pull Request List](#get-pull-request-list)
   - [Get Latest Commit SHA](#getlatestsha)
   - [Add a Status](#add-a-status)
+  - [Get PR files](#get-pull-request-files)
 
 ## Usage
 
@@ -940,4 +941,43 @@ flows:
       state: "pending"
       targetUrl: "https://concord.example.com/#/process/${txId}"
       description: "my status description"
+```
+
+### Get Pull Request Files
+
+The `getPRfiles` action can be used to get a list of files that were modified, added, or deleted in a specific pull request.
+The output of the action is stored in a variable `prFiles`.
+
+**`getPRfiles` Parameters:**
+
+- `org`: name of GitHub organization.
+- `repo`: name of GitHub repository.
+- `prNumber`: pull request number to get.
+
+**`getPRfiles` Returned Fields:**
+
+- `prFiles` - list of changes in PR. See [https://docs.github.com/en/free-pro-team@latest/rest/pulls/pulls?apiVersion=2022-11-28#list-pull-requests-files)
+  for more details;
+- `prFilesModified` - list of modified files;
+- `prFilesAdded` - list of added files;
+- `prFilesRemoved` - list of removed files;
+- `prFilesAny` - list of modified, added and removed files;
+
+```yaml
+flows:
+  default:
+  - task: github
+    in:
+      action: "getPRfiles"
+      accessToken: "myGitHubToken"
+      org: "myGitHubOrg"
+      repo: "myGitHubRepo"
+      prNumber: 123
+    out: result
+
+  - log: "All files: ${result.prFiles}"
+  - log: "Modified file names: ${result.prFilesModified}"
+  - log: "Added file names: ${result.prFilesAdded}"
+  - log: "Removed file names: ${result.prFilesRemoved}"
+  - log: "Any file names: ${result.prFilesAny}"
 ```
