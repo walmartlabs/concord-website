@@ -946,7 +946,6 @@ flows:
 ### Get Pull Request Files
 
 The `getPRfiles` action can be used to get a list of files that were modified, added, or deleted in a specific pull request.
-The output of the action is stored in a variable `prFiles`.
 
 **`getPRfiles` Parameters:**
 
