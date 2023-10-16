@@ -258,18 +258,30 @@ to avoid clashes with the JSR 223 scripting context.
 ### Output Variables
 
 Concord has the ability to return process data when a process completes.
-The names or returned variables should be declared when a process starts
-using `multipart/form-data` parameters:
+The names of returned variables should be declared in the `configuration` section:
+
+```yaml
+configuration:
+  out:
+    - myVar1
+```
+
+Output variables may also be declared dynamically using `multipart/form-data`
+parameters if allowed in a Project's configuration. **CAUTION: this is a not
+secure if secret values are stored in process variables**
 
 ```bash
-$ curl ... -F out=myVar1 http://concord.example.com/api/v1/process
+$ curl ... -F out=myVar1 https://concord.example.com/api/v1/process
 {
   "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b"
 }
+```
 
-# wait for completion
+Retrieve the output variable value(s) after the process finishes:
 
-$ curl .. http://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b
+```bash
+# wait for completion...
+$ curl .. https://concord.example.com/api/v2/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b
 {
   "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b",
   "meta": {
@@ -280,18 +292,24 @@ $ curl .. http://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee
 }
 ```
 
-or declared in the `configuration` section:
+It is also possible to retrieve a nested value:
 
 ```yaml
 configuration:
   out:
-    - myVar1
+    - a.b.c
+
+flows:
+  default:
+    - set:
+        a:
+          b:
+            c: "my value"
+            d: "ignored"
 ```
 
-It is also possible to retrieve a nested value:
-
 ```bash
-$ curl ... -F out=a.b.c http://concord.example.com/api/v1/process
+$ curl ... -F out=a.b.c https://concord.example.com/api/v1/process
 ```
 
 In this example, Concord looks for variable `a`, its field `b` and
@@ -300,7 +318,7 @@ the nested field `c`.
 Additionally, the output variables can be retrieved as a JSON file:
 
 ```bash
-$ curl ... http://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
+$ curl ... https://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
 
 {"myVar1":"my value"}
 ```
