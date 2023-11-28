@@ -57,7 +57,8 @@ the current repository's GitHub organization name;
 - `githubRepo` - string or regex, optional, GitHub repository name. Default is
 the current repository's name;
 - `githubHost` - string or regex, optional, GitHub host;
-- `branch` - string or regex, optional, event branch name;
+- `branch` - string or regex, optional, event branch name. Default is the
+current repository's branch;
 - `sender` - string or regex, optional, event sender;
 - `status` - string or regex, optional. For `pull_request` notifications
 possible values are `opened` or `closed`. A complete list of values can be
