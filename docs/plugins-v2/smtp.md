@@ -9,6 +9,29 @@ description: Plugin for sending email
 
 To send email notifications as a step of a flow, use the `smtp` task.
 
+- [Usage](#usage)
+- [Attachments](#attachments)
+- [Optional Parameters](#optional-parameters)
+- [Message Template](#message-template)
+- [SMTP Server](#smtp-server)
+- [SMTP as Default Process Configuration](#smtp-as-default-process-configuration)
+- [Specific SMTP Server in Your Concord File](#specific-smtp-server-in-your-concord-file)
+
+__Parameters__
+- `smtpParams` - SMTP server settings including:
+  - `host` - `String`, server address
+  - `port` - `Number`, server port
+- `mail` - mail settings including:
+  - `from` - `String`, sender's email address
+  - `to` - `String` or `List`, Comma-separated email addresses or list of email addresses to receive the email
+  - `replyTo` - optional `String`, reply-to email address
+  - `cc` - optional `String` or `List`, Comma-separated email addresses or list of email addresses to carbon copy
+  - `bcc` - optional, `String` or `List`, Comma-separated email addresses or list of email addresses to blind carbon copy
+  - `subject` - `String`, email subject
+  - `message` - `String`, plaintext email body (optional if using `template`)
+  - `template` - optional `String`, template file path in working directory
+  - `attachments` - optional `List` of file [attachments](#attachments)
+
 ## Usage
 
 To make use of the `smtp` task, first declare the plugin in `dependencies` under
@@ -18,15 +41,20 @@ To make use of the `smtp` task, first declare the plugin in `dependencies` under
 configuration:
   dependencies:
   - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:{{ site.concord_core_version }}
+```
+
+This adds the task to the classpath and allows you to invoke the task in a flow:
+
+```yaml
 flows:
   default:
-  - task: smtp
-    in:
-      mail:
-        from: sender@example.com
-        to: recipient@example.com
-        subject: "Hello from Concord"
-        message: "My message"
+    - task: smtp
+      in:
+        mail:
+          from: sender@example.com
+          to: recipient@example.com
+          subject: "Hello from Concord"
+          message: "My message"
 ```
 
 The `debug` - boolean parameter, if true the plugin logs additional debug
@@ -48,10 +76,12 @@ flows:
     in:
       mail:
         from: sender@example.com
-        ...
+        # ...other params...
         attachments:
+        # simple file attachment
         - "myFile.txt"
 
+        # or get specific
         - path: "test/myOtherFile.txt"
           disposition: "attachment"
           description: "my attached file"
@@ -101,7 +131,10 @@ alternative to `message`, specify `template` and point to a file in your project
 that contains the message text:
 
 ```yaml
-        template: mail.mustache
+- task: smtp
+  in:
+    mail:
+      template: mail.mustache
 ```
 
 The template engine [Mustache](https://mustache.github.io/) is used to process
@@ -117,6 +150,18 @@ template file:
 The process for this project was started by &#123;&#123; initiator.displayName  &#125;&#125;.
 </code>
 </pre>
+
+When a template file name ends with `.html`, the email body is sent HTML-formatted.
+
+```yaml
+- task: smtp
+  in:
+    mail:
+      from: sender@example.com
+      to: recipient@example.com
+      subject: "Howdy!"
+      template: "mail.mustache.html"
+```
 
 ## SMTP Server
 
