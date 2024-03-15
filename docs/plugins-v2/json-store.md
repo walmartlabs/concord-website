@@ -43,7 +43,7 @@ Syntax:
 
 ```yaml
 - ${jsonStore.isExists(orgName, storeName, itemPath)}
-- ${jsonStore.isExists(storeName, itemPath))}
+- ${jsonStore.isExists(storeName, itemPath)}
 ```
 
 The task uses the current process' organization name if the `orgName` parameter
