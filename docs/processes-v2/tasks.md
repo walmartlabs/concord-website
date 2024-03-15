@@ -75,8 +75,7 @@ parameters. Use expressions for simple tasks that return data:
 
 ## Development
 
-We recommend running Concord using Java 8 or Java 11. If you're building
-a task using Java 11 Concord must use Java 11 as well.
+We recommend running Concord using Java 17.
 
 ### Complete Example
 
