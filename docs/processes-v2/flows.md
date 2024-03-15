@@ -281,21 +281,40 @@ Concord supports both `if-then-else` and `switch` steps:
 ```yaml
 configuration:
   arguments:
-    myVar: 123
+    myInt: 123
 
 flows:
   default:
-    - if: ${myVar > 0}
+    - if: ${myInt > 0}
       then:                           # (1)
         - log: it's clearly non-zero
       else:                           # (2)
         - log: zero or less
 
-    - log: "myVar: ${myVar}"          # (3)
+    - log: "myInt: ${myVar}"          # (3)
 ```
 
 In this example, after `then` (1) or `else` (2) block are completed,
 the execution continues with the next step in the flow (3).
+
+The `if` expressions must evaluate to a boolean value or to string values
+"true" or "false" (case-insensitive).
+
+For example, the following flow prints out "Yep!":
+
+```yaml
+configuration:
+  arguments:
+    myString: "tRuE"
+
+flows:
+  default:
+    - if: ${myString}
+      then:
+        - log: "Yep!"
+      else:
+        - log: "Nope!"
+```
 
 "And", "or" and "not" operations are supported as well:
 ```yaml
