@@ -163,7 +163,7 @@ Lists all existing projects.
 
 * **URI** `/api/v1/org/${orgName}/project`
 * **Query parameters**
-    - `sortBy`: `projectId`, `name`;
+    - `sortBy`: `projectId`, `filter`;
     - `asc`: direction of sorting, `true` - ascending, `false` - descending
 * **Method** `GET`
 * **Body**
