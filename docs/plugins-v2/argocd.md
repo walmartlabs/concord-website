@@ -2,7 +2,6 @@
 layout: wmt/docs
 title: Argo CD Task
 side-navigation: wmt/docs-navigation.html
-deprecated: true
 description: Plugin for interacting with Argo CD for application and project management
 ---
 

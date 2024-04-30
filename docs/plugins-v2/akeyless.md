@@ -2,7 +2,6 @@
 layout: wmt/docs
 title: Akeyless Task
 side-navigation: wmt/docs-navigation.html
-deprecated: true
 description: Plugin for handling Akeyless secret data
 ---
 
