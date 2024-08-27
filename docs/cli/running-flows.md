@@ -9,6 +9,7 @@ side-navigation: wmt/docs-navigation.html
 - [Overview](#overview)
 - [Secrets](#secrets)
 - [Dependencies](#dependencies)
+  - [Configuring Extra Repositories](#configuring-extra-repositories)
 - [Imports](#imports)
 
 ## Overview
@@ -179,6 +180,31 @@ By default, dependencies cached in `$HOME/.concord/depsCache/`.
 
 For Maven dependencies Concord CLI uses [Maven Central](https://repo.maven.apache.org/maven2/)
 repository by default.
+
+### Configuring Extra Repositories
+
+Create a maven repository configuration file for concord in `$HOME/.concord/mvn.json`.
+Set the contents to an object with a `repositories` attribute containing a list
+of maven repository definitions.
+
+```json
+{
+  "repositories": [
+    {
+      "id": "host",
+      "url": "file:///home/MY_USER_ID/.m2/repository"
+    },
+    {
+      "id": "internal",
+      "url": "https://my.nexus.repo/repository/custom_maven_repo"
+    },
+    {
+      "id": "central",
+      "url": "https://repo.maven.apache.org/maven2/"
+    }
+  ]
+}
+```
 
 ## Imports
 
