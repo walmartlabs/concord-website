@@ -53,12 +53,12 @@ within the working directory.
 
 ### Move a File
 
-The `move(src, dstDir)` method moves a file to a different directory. The returned
+The `moveFile(src, dstDir)` method moves a file to a different directory. The returned
 value is the new path.
 
 ```yaml
 - set:
-    myFile: "${files.move('myFile.txt', 'another/dir)}"
+    myFile: "${files.moveFile('myFile.txt', 'another/dir)}"
 
 # prints: "another/dir/myFile.txt"
 - log: "${myFile}"
