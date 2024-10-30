@@ -11,6 +11,7 @@ side-navigation: wmt/docs-navigation.html
 - [Development](#development)
   - [Complete Example](#complete-example)
   - [Creating Tasks](#creating-tasks)
+  - [Dry-run mode](dry-run-mode)
   - [Task Output](#task-output)
   - [Injectable Services](#injectable-services)
   - [Call Context](#call-context)
@@ -233,6 +234,52 @@ message.
 
 The `task` syntax is recommended for most use cases, especially when dealing
 with multiple input parameters.
+
+### Dry-run mode
+
+[Dry-run mode](../processes-v2/index.html#dry-run-mode) is useful for testing and validating the flow logic before running it in production.
+
+To mark a task as ready for execution in dry-run mode, you need to annotate the task with `com.walmartlabs.concord.runtime.v2.sdk.DryRunReady` annotation:
+```java
+@DryRunReady
+@Named("myTask")
+public class MyTask implements Task {
+
+    @Override
+    public TaskResult execute(Variables input) throws Exception {
+        String name = input.assertString("name");
+        return TaskResult.success()
+                    .value("msg", "Hello, " + name + "!");
+    }
+}
+```
+
+If you need to change the logic in the task depending on whether it is running in dry-run mode or not,
+you can use the `context.processConfiguration().dryRun()`. it indicate whether the process is running in dry-run mode:
+
+```java
+@DryRunReady
+@Named("myTask")
+public class MyTask implements Task {
+
+    private final boolean dryRunMode;
+    
+    @Inject
+    public MyTask(Context context) {
+        this.dyrRunMode = context.processConfiguration().dryRun();
+    }
+    
+    @Override
+    public TaskResult execute(Variables input) throws Exception {
+        if (dryRunMode) {
+            return TaskResult.success();        
+        }
+        
+        // here is the logic that can't be executed in dry-run mode
+        // ...
+    }
+}
+```
 
 ### Task Output
 
