@@ -241,6 +241,21 @@ flows:
     # prints out: {a={b=1, d=1, c=2}, y=boo}
     - log: ${evalAsMap(x)}
 ```
+- `hasFlow` - returns `true` if process has a specified flow
+```yaml
+flows:
+  default:
+    # prints out: 'true'
+    - log: "'${hasFlow('myFlow')}'"
+
+    # prints out: 'false'
+    - log: "'${hasFlow('someUndefinedFlow')}'"
+  myFlow:
+    - log: "In my flow"
+```
+- `isDebug` - returns `true` if process started with debug flag;
+- `isDryRun` - returns `true` if process stated in dry-run mode;
+
 - `orDefault` - accepts a variable name (as a string parameter), default value and 
   returns variable value or default value;
 
@@ -273,6 +288,7 @@ flows:
 
     - log: "Unreachable"
 ```
+- `uuid` - returns a randomly generated UUID as a string;
 
 ### Conditional Execution
 
