@@ -29,6 +29,7 @@ plugins (also known as "tasks"), performing data validation, creating
     - [Handling Cancellations, Failures and Timeouts](#handling-cancellations-failures-and-timeouts)
     - [Retry](#retry)
     - [Throwing Errors](#throwing-errors)
+- [Testing in Concord](#testing-in-concord)
 
 ## Structure
 
@@ -1081,3 +1082,135 @@ flows:
         - throw: ${lastError}
 ```
 
+### Testing in Concord
+
+Testing in Concord offers a comprehensive and flexible approach by leveraging powerful tools like [mocks](../plugins-v2/mocks.html), 
+the [verify task](../plugins-v2/mocks.html#how-ot-verify-task-calls), [asserts](../plugins-v2/asserts.html) and [dry-run mode](../processes-v2/index.html#dry-run-mode). These tools enable you to test process logic, simulate external dependencies, 
+and validate interactions without impacting real systems or data.
+
+With these features, you can:
+
+- **Isolate components** for targeted testing using mocks.
+- **Verify task interactions** to ensure correct behavior.
+- **Run entire flows safely** with dry-run mode to prevent side effects.
+
+This combination allows for thorough, controlled testing of complex processes, ensuring your flows are reliable and production-ready
+
+#### Example Concord Flow: Application Deployment and Testing
+This example demonstrates a complete Concord flow that simulates an application deployment process followed by application tests. 
+It utilizes mocks, the verify task, asserts task and dry-run mode to ensure the deployment and testing logic work correctly without real side effects.
+
+```yaml
+flows:
+  ##
+  # Simple blue-green deployment process.
+  # in:
+  #   environment: string, mandatory, environment to deploy app.
+  ##
+  blueGreenDeployment:
+    # Assert that we do not miss an input parameter
+    - expr: "${asserts.hasVariable('environment')}"
+
+    # Step 1: Check out code from Git
+    - name: "Checkout source from GH"
+      task: git
+      in:
+        action: "clone"
+        url: "git.example.com:example-org/git-project"
+        workingDir: "git-project"
+
+    # Step 2: Build the application
+    - name: "Building application"
+      task: buildApplication
+      in:
+        sourcePath: "git-project"
+
+    # Step 3: Deploy the application
+    - name: "Deploying application"
+      task: deployApplication
+      in:
+        environment: "${environment}"
+
+    # Step 4: Run tests on the deployed application
+    - call: runTests
+      in:
+        environment: "${environment}"
+      out: testResult
+
+    # Step 5: Conditional promotion or rollback
+    - if: "${testResult == 'All tests passed'}"
+      then:
+        - name: "Promoting '${environment}' environment to production."
+          task: promoteEnvironment
+          in:
+            environment: "${environment}"
+      else:
+        - name: "Tests failed. Rolling back deployment."
+          task: rollbackEnvironment
+          in:
+            environment: "${environment}"
+
+  ##
+  #  Simple test for blueGreenDeployment flow
+  ##
+  blueGreenDeploymentFlowTest:
+    # Assert that we running this flow in a dry-run mode, to prevent unintended changes to external systems
+    - expr: "${asserts.dryRunMode}"
+
+    - set:
+        mocks:
+          # Mock git task
+          - task: git
+            in:
+              action: "clone"
+
+          # Mock the build step
+          - task: "buildApplication"
+            in:
+              sourcePath: "git-project"
+
+          # Mock the deployment step
+          - task: "deployApplication"
+            in:
+              environment: "test-env"
+
+          # Mock the promote step
+          - task: "promoteEnvironment"
+
+    # call real deployment flow
+    - call: blueGreenDeployment
+      in:
+        environment: "test-env"
+
+    # verify git task called one time
+    - expr: "${verify.task('git', 1).execute({'action': 'clone'})}"
+    # verify buildApplication task called one time
+    - expr: "${verify.task('buildApplication', 1).execute(mock.any())}"
+    # verify deployApplication task called one time
+    - expr: "${verify.task('deployApplication', 1).execute({'environment': 'test-env'})}"
+    # verify promoteEnvironment task called one time
+    - expr: "${verify.task('promoteEnvironment', 1).execute({'environment': 'test-env'})}"
+
+profiles:
+  blueGreenDeploymentFlowTest:
+    flows:
+      # Mock runTests flow
+      runTests:
+        - expr: "${asserts.assertEquals('test-env', environment)}"
+
+        # emulate result from original flow
+        - set:
+            testResult: 'All tests passed'
+
+configuration:
+  runtime: concord-v2
+  dependencies:
+    - "mvn://com.walmartlabs.concord.plugins.basic:mock-tasks:{{ site.concord_core_version }}"
+    - "mvn://com.walmartlabs.concord.plugins.basic:asserts-tasks:{{ site.concord_core_version }}"
+```
+
+This flow can be safely tested in dry-run mode to validate logic without making real deployments:
+
+```bash
+curl ... -FdryRun=true -FactiveProfiles=blueGreenDeploymentFlowTest -FentryPoint=blueGreenDeploymentFlowTest https://concord.example.com/api/v1/process
+```
