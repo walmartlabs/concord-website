@@ -241,7 +241,8 @@ flows:
     # prints out: {a={b=1, d=1, c=2}, y=boo}
     - log: ${evalAsMap(x)}
 ```
-- `hasFlow` - returns `true` if process has a specified flow
+- `hasNonNullVariable` - returns `true` if the process has aspecified variable and its value is not `null`
+- `hasFlow` - returns `true` if the process has a specified flow
 ```yaml
 flows:
   default:
