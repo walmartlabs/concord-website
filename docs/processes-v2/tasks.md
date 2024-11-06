@@ -237,9 +237,12 @@ with multiple input parameters.
 
 ### Dry-run mode
 
-[Dry-run mode](../processes-v2/index.html#dry-run-mode) is useful for testing and validating the flow logic before running it in production.
+[Dry-run mode](../processes-v2/index.html#dry-run-mode) is useful for testing and validating
+the flow and task logic before running it in production.
 
-To mark a task as ready for execution in dry-run mode, you need to annotate the task with `com.walmartlabs.concord.runtime.v2.sdk.DryRunReady` annotation:
+To mark a task as ready for execution in dry-run mode, you need to annotate the task with
+`com.walmartlabs.concord.runtime.v2.sdk.DryRunReady` annotation:
+
 ```java
 @DryRunReady
 @Named("myTask")
@@ -255,7 +258,8 @@ public class MyTask implements Task {
 ```
 
 If you need to change the logic in the task depending on whether it is running in dry-run mode or not,
-you can use the `context.processConfiguration().dryRun()`. it indicate whether the process is running in dry-run mode:
+you can use the `context.processConfiguration().dryRun()`. it indicate whether the process is running
+in dry-run mode:
 
 ```java
 @DryRunReady

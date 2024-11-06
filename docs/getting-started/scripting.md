@@ -176,13 +176,15 @@ Using external script file:
 
 ## Dry-run mode
 
-[Dry-run mode](../processes-v2/index.html#dry-run-mode) is useful for testing and validating the flow logic before running it in production.
+[Dry-run mode](../processes-v2/index.html#dry-run-mode) is useful for testing and validating
+the flow logic before running it in production.
 
 By default, script steps do not support dry-run mode. To enable a script to run in this mode,
 you need to modify the script to support dry-run mode or mark script step as dry-run ready
 using `meta` field of the step if you are confident it is safe to run.
 
 An example of a script step marked as dry-run ready:
+
 ```yaml
 flows:
   myFlow:
@@ -193,19 +195,22 @@ flows:
         dryRunReady: true   # dry-run ready marker for this step
 ```
 
-> **Important**: Use the `meta.dryRunReady` only if you are certain that the script is safe to run in dry-run mode
+> **Important**: Use the `meta.dryRunReady` only if you are certain that the script is safe
+> to run in dry-run mode
 
-If you need to change the logic in the script depending on whether it is running in dry-run mode or not, 
-you can use the `isDryRun` variable. `isDryRun` variable is available to indicate whether the process is running in dry-run mode:
+If you need to change the logic in the script depending on whether it is running in dry-run mode
+or not, you can use the `isDryRun` variable. `isDryRun` variable is available to indicate whether
+the process is running in dry-run mode:
+
 ```yaml
 flows:
   default:
     - script: js
       body: |
         if (isDryRun) {
-          log.info('RUNNING in dry-run mode');
+          log.info('running in DRY-RUN mode');
         } else {
-          log.info('RUNNING in normal mode');
+          log.info('running in REGULAR mode');
         }
       meta:
         dryRunReady: true   # dry-run ready marker for this step is also needed in this case

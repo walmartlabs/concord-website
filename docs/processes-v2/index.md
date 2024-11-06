@@ -344,22 +344,26 @@ Any value type that can be represented as JSON is supported.
 
 ### Dry-run mode
 
-The dry-run mode allows you to execute a process without making any changes to external systems.
+The dry-run mode allows you to execute a process without making any dangerous side-effects.
 This is useful for testing and validating the flow logic before running it in production. 
 
-> Note that correctness of the flow execution in dry-run mode depend on how tasks and scripts handle dry-run mode in your flow.
-> Make sure all tasks and scripts involved are properly handled dry-run mode prevent unintended side effects
+> Note that correctness of the flow execution in dry-run mode depend on how tasks and scripts
+> handle dry-run mode in your flow. Make sure all tasks and scripts involved are properly handled
+> dry-run mode to prevent unintended side effects
 
 #### Running a Flow in Dry-Run Mode
 
-To run a flow in dry-run mode, use the following request:
+To enable dry-run mode, set the `dryRun` flag to `true` in the process request:
+
 ```bash
 curl ... -FdryRun=true -F out=myVar1 https://concord.example.com/api/v1/process
 ```
 
-When the process is launched in dry-run mode, the `system` log segment of the process will include the following line:
+When the process is launched in dry-run mode, the `system` log segment of the process will include
+the following line:
+
 ```
-Dry-run mode: true
+Dry-run mode: enabled
 ```
 
 ### Behavior of Tasks and Scripts in Dry-Run mode
@@ -367,14 +371,18 @@ Dry-run mode: true
 #### Tasks
 
 Standard Concord tasks support dry-run mode and will not make any changes outside the process.
+For example, the `http` task will not make any non-GET requests in dry-run mode, the `s3` task will
+not actually upload files in dry-run mode, etc.
 
 If a task does not support dry-run mode, the process will terminate with the following error:
+
 ```
 Dry-run mode is not supported for '<task-name>' task (yet)
 ```
 
-If a task does not support dry-run mode, but you are confident that it can be executed in dry-run mode, 
-you can mark the task step as ready for dry-run mode:
+If a task does not support dry-run mode, but you are confident that it can be executed in dry-run
+mode, you can mark the task step as ready for dry-run mode:
+
 ```yaml
 flows:
   myFlow:
@@ -383,16 +391,19 @@ flows:
         dryRunReady: true   # dry-run ready marker for this step
 ```
 
-> **Important**: Use the `meta.dryRunReady` only if you are certain that the task is safe to run in dry-run mode
-> and cannot be modified to support it explicitly.
+> **Important**: Use the `meta.dryRunReady` only if you are certain that the task is safe to run in
+> dry-run mode and cannot be modified to support it explicitly.
 
 To add dry-run mode support to a task, see the [task documentation](../processes-v2/tasks.html#dry-run-mode).
 
 #### Scripts
 
-By default, script steps do not support dry-run mode and the process will terminate with the following error:
+By default, script steps do not support dry-run mode and the process will terminate with
+the following error:
+
 ```
-Dry-run mode not supported for this 'script' step
+Dry-run mode is not supported for this 'script' step
 ```
 
-To add dry-run mode support to a script, see the [script documentation](../getting-started/scripting.html#dry-run-mode).
+To add dry-run mode support to a script, see
+the [scripting documentation](../getting-started/scripting.html#dry-run-mode).
