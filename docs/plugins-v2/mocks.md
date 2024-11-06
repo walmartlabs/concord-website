@@ -8,16 +8,19 @@ description: Safely and efficiently simulate behavior, verify interactions, and 
 # {{ page.title }}
 
 - [Usage](#usage)
-- [How to mock a task](#how-to-mock-a-task)
-- [How to Mock a task method](#how-to-mock-a-task-method)
-- [How to Verify task calls](#how-to-verify-task-calls)
+- [How to mock a Task](#how-to-mock-a-task)
+- [How to Mock a Task method](#how-to-mock-a-task-method)
+- [How to Verify Task Calls](#how-to-verify-task-calls)
 
 Mocks plugin allow you to:
 
-- **Mock tasks or task methods** – replace specific tasks or task methods with predefined results or behavior;
-- **Verify task calls** - verify how many times task was called, what parameters were used during the call.
+- **"Mock" tasks or task methods** – replace specific tasks or task methods with predefined results
+  or behavior;
+- **Verify task calls** - verify how many times task was called, what parameters were used during
+  the call.
 
-Mocks help isolate individual components during testing, making tests faster, safer, and more focused.
+Mocks help isolate individual components during testing, making tests faster, safer, and more
+focused.
 
 ## Usage
 
@@ -30,11 +33,12 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins.basic:mock-tasks:{{ site.concord_core_version }}
 ```
 
-## How to Mock a task
+## How to Mock a Task
 
 You can mock specific tasks to simulate their behavior. 
 
-- Example: Task Mock:
+- Example: Mocking a Task Call
+
 ```yaml
 flows:
   main:
@@ -43,7 +47,7 @@ flows:
         param1: "value"
       out: taskResult
     
-  myTestFlow:
+  mainTest:
     - set:
         mocks:
           # Mock the myTask task call 
@@ -56,11 +60,12 @@ flows:
 
     - log: "${taskResult}"   # prints out 'result=42'
 ```
-In `myTestFlow`, we set up a mock for the `myTask` task. 
-This mock intercepts calls to any `myTask` and overrides its output, 
-setting the result to 42 instead of running the actual task.
+
+In `mainTest`, we set up a "mock" for the `myTask` task. This mock intercepts calls to any `myTask`
+instance and overrides the output, setting the result to `42` instead of running the actual task.
 
 - Example: Mocking a Task with Specific Input Parameters
+
 ```yaml
 flows:
   main:
@@ -69,7 +74,7 @@ flows:
         param1: "value"
       out: taskResult
     
-  myTestFlow:
+  mainTest:
     - set:
         mocks:
           # Mock the myTask task call 
@@ -84,21 +89,23 @@ flows:
 
     - log: "${taskResult}"   # prints out 'result=42'
 ```
-In `myTestFlow`, we set up a mock to only intercept `myTask` calls where param1 matched with regular expression "value.*".
-When these parameter match, the mock replaces the task's output with `result: 42`
 
-## How to Mock a task method
+In `mainTest`, we set up a mock to only intercept `myTask` calls where param1 matched with regular
+expression "value.*". When these parameter match, the mock replaces the task's output with
+`result: 42`
 
-You can mock specific tasks method to simulate their behavior.
+## How to Mock a Task Method
 
-- Example: Task Method Mock
+In addition to mocking entire tasks, you can also mock specific methods of a task.
+
+- Example: Mocking a Task Method
 ```yaml
 flows:
   main:
     - expr: ${myTask.myMethod()}
       out: taskResult
     
-  myTestFlow:
+  mainTest:
     - set:
         mocks:
           # Mock the myTask task call 
@@ -112,17 +119,18 @@ flows:
     - log: "${taskResult}"   # prints out 'result=42'
 ```
 
-In `myTestFlow`, we set up a mock to only intercept `myTask.myMethod` calls.
+In `mainTest`, we set up a mock to only intercept `myTask.myMethod` calls.
 When these parameter match, the mock replaces the task's output with `result: 42`
 
-- Example: Task Method Mock with Input Arguments
+- Example: Mocking a Task Method with Input Arguments
+- 
 ```yaml
 flows:
   main:
     - expr: ${myTask.myMethod(1)}
       out: taskResult
     
-  myTestFlow:
+  mainTest:
     - set:
         mocks:
           # Mock the myTask task call 
@@ -138,17 +146,18 @@ flows:
     - log: "${taskResult}"   # prints out 'result=42'
 ```
 
-In `myTestFlow`, we set up a mock to only intercept `myTask.myMethod` calls with input argument `1`.
+In `mainTest`, we set up a mock to only intercept `myTask.myMethod` calls with input argument `1`.
 When these parameter match, the mock replaces the task's output with `result: 42`
 
-- Example of Task method Mock with input arguments:
+- Example: Mocking a Task Method with Multiple Arguments:
+
 ```yaml
 flows:
   main:
     - expr: ${myTask.myMethod(1, 'someComplexVariableHere')}
       out: taskResult
     
-  myTestFlow:
+  mainTest:
     - set:
         mocks:
           # Mock the myTask task call 
@@ -165,13 +174,14 @@ flows:
     - log: "${taskResult}"   # prints out 'result=42'
 ```
 
-In `myTestFlow`, we set up a mock to only intercept `myTask.myMethod` calls with input argument `1` and `any` second argument.
-When these parameter match, the mock replaces the task's output with `result: 42`
+In `mainTest`, we set up a mock to only intercept `myTask.myMethod` calls with input argument `1`
+and `any` second argument. When these parameter match, the mock replaces the task's output with
+`result: 42`
 
-## How to Verify task calls
+## How to Verify Task Calls
 
-The `verify` task allows you to check how many times a specific task (**not necessarily a mocked task**)
-with specified parameters was called.
+The `verify` task allows you to check how many times a specific task
+(**not necessarily a mocked task**) with specified parameters was called.
 
 - Example: Verifying a Task Call
 ```yaml
@@ -180,13 +190,13 @@ flows:
     - task: "myTask"
       out: taskResult
     
-  myTestFlow:
+  mainTest:
     - call: main
 
     - expr: "${verify.task('myTask', 1).execute()}"
 ```
 
-In `myTestFlow`, we verify that the `myTask` task was called exactly once without input parameters
+In `mainTest`, we verify that the `myTask` task was called exactly once without input parameters
 
 - Example: Verifying a Task Method Call
 ```yaml
@@ -195,10 +205,11 @@ flows:
     - expr: ${myTask.myMethod(1)}
       out: taskResult
     
-  myTestFlow:
+  mainTest:
     - call: main
 
     - expr: "${verify.task('myTask', 1).myMethod(1)}"
 ```
 
-In `myTestFlow`, we verify that the `myMethod` method of the `myTask` task was called exactly once with a parameter `1`
+In `mainTest`, we verify that the `myMethod` method of the `myTask` task was called exactly once
+with a parameter `1`.
