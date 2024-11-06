@@ -7,6 +7,8 @@ description: Safely and efficiently simulate behavior, verify interactions, and 
 
 # {{ page.title }}
 
+_Available since version 2.19.0_
+
 - [Usage](#usage)
 - [How to mock a Task](#how-to-mock-a-task)
 - [How to Mock a Task method](#how-to-mock-a-task-method)
