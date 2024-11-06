@@ -17,7 +17,6 @@ The REST API provides support for the following operations related to secrets:
   - [Example: Upload an Existing Key Pair](#example-upload-key-pair)
   - [Example: Creating a Username and Password Secret](#example-username-password-secret)
   - [Example: Storing a Single Value as Secret](#example-single-value-secret)
-- [Update a Secret (Deprecated)](#update-secret)
 - [Update a Secret](#update-secret-v2)
 - [Get Metadata of Secret](#meta-data)
 - [Get Public SSH Key of Secret](#get-key)
@@ -163,42 +162,6 @@ curl -u myusername \
 https://concord.example.com/api/v1/org/Default/secret
 ```
 
-<a name="update-secret"/>
-
-## Update a Secret(Deprecated)
-
-Updates parameters of an existing secret.
-
-* **URI** `/api/v1/org/${orgName}/secret/${secretName}`
-* **Method** `POST`
-* **Headers** `Authorization`, `Content-Type: application/json`
-* **Body**
-    ```json
-    {
-      "name": "New name",
-      "owner": {"id": "ownerId (UUID)"},
-      "visibility": "PRIVATE",
-      "projectId": "...",
-      "projectName": "Project Name"
-    }
-    ```
-    
-    Either `projectId` or `projectName` must be specified to change a secret's
-    `Visiblity`, `Owner`, `Name` or `Project`.
-
-    Omitted parameters are not updated.    
-* **Success response**
-    ```
-    Content-Type: application/json
-    ```
-
-    ```json
-    {
-      "ok": true,
-      "result": "UPDATED"
-    }
-    ```
-
 <a name="update-secret-v2"/>
 
 ## Update a Secret
@@ -211,7 +174,7 @@ Updates parameters of an existing secret.
 * **Body**
   Multipart binary data.
   
-  The values will be interpreted depeding on their name:
+  The values will be interpreted depending on their name:
    - `name` - New secret name to update;
    - `orgId` or `org` - New ID or name of the organization which
    "owns" the secret;
@@ -249,8 +212,17 @@ Updates parameters of an existing secret.
       "result": "UPDATED"
     }
     ```
-  
-  
+
+You can update a single value as a secret on Concord as follows:
+
+```
+curl -u myusername \
+-F org=Default \
+-F name=mySecret \
+-F data="$(echo -n "your-secret-value" | base64)" \
+http://concord.example.com/api/v1/org/Default/secret/myKey
+```
+
 <a name="meta-data"/>
 
 ## Get Metadata of Secret
