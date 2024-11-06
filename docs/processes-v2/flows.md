@@ -1090,9 +1090,12 @@ flows:
 
 ### Testing in Concord
 
-Testing in Concord offers a comprehensive and flexible approach by leveraging powerful tools like [mocks](../plugins-v2/mocks.html), 
-the [verify task](../plugins-v2/mocks.html#how-ot-verify-task-calls), [asserts](../plugins-v2/asserts.html) and [dry-run mode](../processes-v2/index.html#dry-run-mode). These tools enable you to test process logic, simulate external dependencies, 
-and validate interactions without impacting real systems or data.
+Testing in Concord offers a comprehensive and flexible approach by leveraging powerful tools like
+[mocks](../plugins-v2/mocks.html),
+the [verify task](../plugins-v2/mocks.html#how-ot-verify-task-calls),
+[asserts](../plugins-v2/asserts.html) and [dry-run mode](../processes-v2/index.html#dry-run-mode).
+These tools enable you to test process logic, simulate external dependencies, and validate
+interactions without impacting real systems or data.
 
 With these features, you can:
 
@@ -1100,11 +1103,14 @@ With these features, you can:
 - **Verify task interactions** to ensure correct behavior.
 - **Run entire flows safely** with dry-run mode to prevent side effects.
 
-This combination allows for thorough, controlled testing of complex processes, ensuring your flows are reliable and production-ready
+This combination allows for thorough, controlled testing of complex processes, ensuring your flows
+are reliable and production-ready
 
 #### Example Concord Flow: Application Deployment and Testing
-This example demonstrates a complete Concord flow that simulates an application deployment process followed by application tests. 
-It utilizes mocks, the verify task, asserts task and dry-run mode to ensure the deployment and testing logic work correctly without real side effects.
+
+This example demonstrates a complete Concord flow that simulates an application deployment process
+followed by application tests. It utilizes mocks, the verify task, asserts task and dry-run mode to
+ensure the deployment and testing logic work correctly without real side effects.
 
 ```yaml
 flows:
