@@ -119,7 +119,7 @@ flows:
 
 In addition to
 [common task result fields](../processes-v2/flows.html#task-result-data-structure),
-the `ansible` task returns:
+the `jenkins` task returns:
 
 - `status` - string, Final Jenkins job status (e.g. `SUCCESS`, `FAILED`, `CANCELLED`);
 - `buildNumber` - number, Jenkins build number;
