@@ -9,6 +9,7 @@ side-navigation: wmt/docs-navigation.html
 - [Overview](#overview)
 - [Secrets](#secrets)
 - [Dependencies](#dependencies)
+  - [Configuring Extra Repositories](#configuring-extra-repositories)
 - [Imports](#imports)
 
 ## Overview
@@ -46,7 +47,7 @@ Supported features:
 - all regular [flow](../processes-v2/flows.html) elements;
 - [dependencies](#dependencies);
 - [imports](#imports);
-- [secrets](../plugins/crypto.html). See [below](#secrets) for
+- [secrets](../plugins-v2/crypto.html). See [below](#secrets) for
 more details.
 
 Features that are currently *not* supported:
@@ -57,9 +58,21 @@ Features that are currently *not* supported:
 ## Secrets
 
 By default, Concord CLI uses a local file-based storage to access
-[secrets](../plugins/crypto.html) used in flows.
+[secrets](../plugins-v2/crypto.html) used in flows.
 
-For example, when running a flow like this:
+**Note:** currently, all secret values stored without encryption. Providing
+a password in the `crypto` task arguments makes no effect.
+
+### Secret Store Directory
+
+Concord CLI resolves Secret data in `$HOME/.concord/secrets` by default. This can
+be customized by providing the `--secret-dir` flag.
+
+```shell
+$ concord run --secret-dir="$HOME/.my_secrets" ...
+```
+
+### String Secrets
 
 ```yaml
 # concord.yml
@@ -71,19 +84,69 @@ flows:
 Concord CLI looks for a `$HOME/.concord/secrets/myOrg/mySecretString` file
 and returns its content.
 
-For key pair secrets Concord CLI looks for two files:
-- `$HOME/.concord/secrets/$ORG_NAME/$SECRET_NAME` (private key)
-- `$HOME/.concord/secrets/$ORG_NAME/$SECRET_NAME.pub` (public key)
+### Key Pair Secrets
 
-**Note:** currently, all secret values stored without encryption. Providing
-a password in the `crypto` task arguments makes no effect.
+```yaml
+# concord.yml
+flows:
+  default:
+    - set:
+        keyPair: "${crypto.exportKeyAsFile('myOrg', 'myKeyPair', null)}"
+```
 
-The CLI tool also supports the `crypto.decryptString` method, but instead of
+For key pair secrets, Concord CLI looks for two files:
+
+- `$HOME/.concord/secrets/myOrg/myKeyPair` (private key)
+- `$HOME/.concord/secrets/myOrg/myKeyPair.pub` (public key)
+
+### Username/Password Secrets
+
+Concord CLI looks for a single file matching the Secret name, in a
+directory name matching the Secret's organization within the
+[secret store directory](#secret-store-directory). Given the following crypto
+call:
+
+```yaml
+#concord.yml
+flows:
+  default:
+    - log: "${crypto.exportCredentials('myOrg', 'myCredentials', null)}"
+```
+
+When executed, Concord CLI loads the data from `$HOME/.concord/secrets/myOrg/myCredentials`.
+
+```json
+{
+  "username": "the_actual_username",
+  "password": "the_actual_password"
+}
+```
+
+### File Secrets
+
+Concord CLI copies a file matching the Secret name, in a directory name matching
+the Secret's organization within the [secret store directory](#secret-store-directory).
+Given the following crypto call:
+
+```yaml
+#concord.yml
+flows:
+  default:
+    - log: "${crypto.exportAsFile('myOrg', 'myFile', null)}"
+```
+
+When executed, Concord CLI copies the file from `$HOME/.concord/secrets/myOrg/myFile`
+to a random temporary file.
+
+### Project-Encrypted Strings
+
+Concord CLI also supports the `crypto.decryptString` method, but instead of
 decrypting the provided string, the string is used as a key to look up
 the actual value in a "vault" file.
 
 The default value file is stored in the `$HOME/.concord/vaults/default`
 directory and has very simple key-value format:
+
 ```
 key = value
 ```
@@ -117,6 +180,31 @@ By default, dependencies cached in `$HOME/.concord/depsCache/`.
 
 For Maven dependencies Concord CLI uses [Maven Central](https://repo.maven.apache.org/maven2/)
 repository by default.
+
+### Configuring Extra Repositories
+
+Create a maven repository configuration file for concord in `$HOME/.concord/mvn.json`.
+Set the contents to an object with a `repositories` attribute containing a list
+of maven repository definitions.
+
+```json
+{
+  "repositories": [
+    {
+      "id": "host",
+      "url": "file:///home/MY_USER_ID/.m2/repository"
+    },
+    {
+      "id": "internal",
+      "url": "https://my.nexus.repo/repository/custom_maven_repo"
+    },
+    {
+      "id": "central",
+      "url": "https://repo.maven.apache.org/maven2/"
+    }
+  ]
+}
+```
 
 ## Imports
 

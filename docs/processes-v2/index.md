@@ -12,6 +12,10 @@ side-navigation: wmt/docs-navigation.html
 - [Public Flows](#public-flows)
 - [Variables](#variables)
     - [Provided Variables](#provided-variables)
+    - [Output Variables](#output-variables)
+- [Dry-run mode](#dry-run-mode)
+    - [Running a Flow in Dry-Run Mode](#running-a-flow-in-dry-run-mode)
+    - [Behavior of Tasks and Scripts in Dry-Run mode](#behavior-of-tasks-and-scripts-in-dry-run-mode)
 
 **Note:** if you used Concord before, check [the migration guide](./migration.html).
 It describes key differences between Concord flows v1 and v2.
@@ -30,11 +34,16 @@ configuration, profiles and other declarations;
 - `forms` - directory with [custom forms](../getting-started/forms.html#custom).
 
 Anything else is copied as-is and available for the process.
-[Plugins](../plugins/index.html) can require other files to be present in
+[Plugins](../plugins-v2/index.html) can require other files to be present in
 the working directory.
 
 The same structure should be used when storing your project in a Git repository.
-Concord simply clones the repository into the process' working directory.
+Concord clones the repository and recursively copies the specified directory
+[path](../api/repository.html#create-a-repository) (`/` by default which includes
+all files in the repository) to the working directory for the process. If a
+subdirectory is specified in the Concord repository's configuration, any paths
+outside the configuration-specified path are ignored and not copied. The repository
+name it _not_ included in the final path.
 
 ## Additional Concord Files
 
@@ -252,7 +261,7 @@ execution in addition to the defined [variables](#variables):
   [session token](../getting-started/security.html#using-session-tokens) can be
   used to call Concord API from flows.
 
-LDAP attributes must be white-listed in [the configuration](./configuration.html#ldap).
+LDAP attributes must be allowed in [the configuration](./configuration.html#server-configuration-file).
 
 **Note:** only the processes started using [the browser link](../api/process.html#browser)
 provide the `requestInfo` variable. In other cases (e.g. processes
@@ -262,3 +271,139 @@ or empty.
 Availability of other variables and "beans" depends on the installed Concord
 plugins, the arguments passed in at the process invocation, and stored in the
 request data.
+
+### Output Variables
+
+Concord has the ability to return process data when a process completes.
+The names of returned variables should be declared in the `configuration` section:
+
+```yaml
+configuration:
+  out:
+    - myVar1
+```
+
+Output variables may also be declared dynamically using `multipart/form-data`
+parameters if allowed in a Project's configuration. **CAUTION: this is a not
+secure if secret values are stored in process variables**
+
+```bash
+$ curl ... -F out=myVar1 https://concord.example.com/api/v1/process
+{
+  "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b"
+}
+```
+
+Retrieve the output variable value(s) after the process finishes:
+
+```bash
+# wait for completion...
+$ curl .. https://concord.example.com/api/v2/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b
+{
+  "instanceId" : "5883b65c-7dc2-4d07-8b47-04ee059cc00b",
+  "meta": {
+    out" : {
+      "myVar1" : "my value"
+    },
+  }  
+}
+```
+
+It is also possible to retrieve a nested value:
+
+```yaml
+configuration:
+  out:
+    - a.b.c
+
+flows:
+  default:
+    - set:
+        a:
+          b:
+            c: "my value"
+            d: "ignored"
+```
+
+```bash
+$ curl ... -F out=a.b.c https://concord.example.com/api/v1/process
+```
+
+In this example, Concord looks for variable `a`, its field `b` and
+the nested field `c`.
+
+Additionally, the output variables can be retrieved as a JSON file:
+
+```bash
+$ curl ... https://concord.example.com/api/v1/process/5883b65c-7dc2-4d07-8b47-04ee059cc00b/attachment/out.json
+
+{"myVar1":"my value"}
+```
+
+Any value type that can be represented as JSON is supported.
+
+### Dry-run mode
+
+The dry-run mode allows you to execute a process without making any dangerous side-effects.
+This is useful for testing and validating the flow logic before running it in production. 
+
+> Note that correctness of the flow execution in dry-run mode depend on how tasks and scripts
+> handle dry-run mode in your flow. Make sure all tasks and scripts involved are properly handled
+> dry-run mode to prevent unintended side effects
+
+#### Running a Flow in Dry-Run Mode
+
+To enable dry-run mode, set the `dryRun` flag to `true` in the process request:
+
+```bash
+curl ... -FdryRun=true -F out=myVar1 https://concord.example.com/api/v1/process
+```
+
+When the process is launched in dry-run mode, the `system` log segment of the process will include
+the following line:
+
+```
+Dry-run mode: enabled
+```
+
+### Behavior of Tasks and Scripts in Dry-Run mode
+
+#### Tasks
+
+Standard Concord tasks support dry-run mode and will not make any changes outside the process.
+For example, the `http` task will not make any non-GET requests in dry-run mode, the `s3` task will
+not actually upload files in dry-run mode, etc.
+
+If a task does not support dry-run mode, the process will terminate with the following error:
+
+```
+Dry-run mode is not supported for '<task-name>' task (yet)
+```
+
+If a task does not support dry-run mode, but you are confident that it can be executed in dry-run
+mode, you can mark the task step as ready for dry-run mode:
+
+```yaml
+flows:
+  myFlow:
+    - task: "myTaskAndImSureWeCanExecuteItInDryRunMode"
+      meta:
+        dryRunReady: true   # dry-run ready marker for this step
+```
+
+> **Important**: Use the `meta.dryRunReady` only if you are certain that the task is safe to run in
+> dry-run mode and cannot be modified to support it explicitly.
+
+To add dry-run mode support to a task, see the [task documentation](../processes-v2/tasks.html#dry-run-mode).
+
+#### Scripts
+
+By default, script steps do not support dry-run mode and the process will terminate with
+the following error:
+
+```
+Dry-run mode is not supported for this 'script' step
+```
+
+To add dry-run mode support to a script, see
+the [scripting documentation](../getting-started/scripting.html#dry-run-mode).

@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Installation using Docker Compose
 side-navigation: wmt/docs-navigation.html
+description: Install Concord with Docker Compose
 ---
 
 # {{ page.title }}

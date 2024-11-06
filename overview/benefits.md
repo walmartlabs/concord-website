@@ -1,6 +1,7 @@
 ---
 layout: wmt/project
 title: Benefits
+description: Benefits of orchestration with Concord
 ---
 
 Concord is a fully open source workflow orchestration platform with a focus of

@@ -33,24 +33,6 @@ nav:
         context: /docs/getting-started/node-roster
       - page: Development
         context: /docs/getting-started/development
-  - title: Processes (v1)
-    id: processes-v1
-    collapse: /docs/processes-v1
-    subfolderitems:
-      - page: Overview
-        context: /docs/processes-v1/index
-      - page: Configuration
-        context: /docs/processes-v1/configuration
-      - page: Flows
-        context: /docs/processes-v1/flows
-      - page: Imports
-        context: /docs/processes-v1/imports
-      - page: Profiles
-        context: /docs/processes-v1/profiles
-      - page: Resources
-        context: /docs/processes-v1/resources
-      - page: Tasks
-        context: /docs/processes-v1/tasks
   - title: Processes (v2)
     id: processes-v2
     collapse: /docs/processes-v2
@@ -71,6 +53,24 @@ nav:
         context: /docs/processes-v2/resources
       - page: Tasks
         context: /docs/processes-v2/tasks
+  - title: Processes (v1) - DEPRECATED
+    id: processes-v1
+    collapse: /docs/processes-v1
+    subfolderitems:
+      - page: Overview
+        context: /docs/processes-v1/index
+      - page: Configuration
+        context: /docs/processes-v1/configuration
+      - page: Flows
+        context: /docs/processes-v1/flows
+      - page: Imports
+        context: /docs/processes-v1/imports
+      - page: Profiles
+        context: /docs/processes-v1/profiles
+      - page: Resources
+        context: /docs/processes-v1/resources
+      - page: Tasks
+        context: /docs/processes-v1/tasks
   - title: Triggers
     id: triggers
     collapse: /docs/triggers
@@ -139,68 +139,138 @@ nav:
         context: /docs/api/trigger
       - page: User
         context: /docs/api/user
-  - title: Plugins
-    id: plugins
-    collapse: /docs/plugins
+  - title: Plugins (v2)
+    id: plugins-v2
+    collapse: /docs/plugins-v2
     subfolderitems:
+      - page: Akeyless
+        context: /docs/plugins-v2/akeyless
+      - page: Argo CD
+        context: /docs/plugins-v2/argocd
       - page: Ansible
-        context: /docs/plugins/ansible
+        context: /docs/plugins-v2/ansible
       - page: Concord
-        context: /docs/plugins/concord
+        context: /docs/plugins-v2/concord
       - page: Confluence
-        context: /docs/plugins/confluence
+        context: /docs/plugins-v2/confluence
       - page: Crypto
-        context: /docs/plugins/crypto
+        context: /docs/plugins-v2/crypto
       - page: Datetime
-        context: /docs/plugins/datetime
+        context: /docs/plugins-v2/datetime
       - page: Docker
-        context: /docs/plugins/docker
+        context: /docs/plugins-v2/docker
+      - page: Files
+        context: /docs/plugins-v2/files
       - page: Git and GitHub
-        context: /docs/plugins/git
+        context: /docs/plugins-v2/git
       - page: Gremlin
-        context: /docs/plugins/gremlin
+        context: /docs/plugins-v2/gremlin
       - page: HashiCorp Vault
-        context: /docs/plugins/hashivault
+        context: /docs/plugins-v2/hashivault
       - page: HTTP
-        context: /docs/plugins/http
-      - page: Inventory
-        context: /docs/plugins/inventory
+        context: /docs/plugins-v2/http
       - page: Jenkins
-        context: /docs/plugins/jenkins
+        context: /docs/plugins-v2/jenkins
       - page: Jira
-        context: /docs/plugins/jira
+        context: /docs/plugins-v2/jira
       - page: JSON Store
-        context: /docs/plugins/json-store
+        context: /docs/plugins-v2/json-store
       - page: Key Value
-        context: /docs/plugins/key-value
+        context: /docs/plugins-v2/key-value
       - page: LDAP
-        context: /docs/plugins/ldap
+        context: /docs/plugins-v2/ldap
+      - page: Lock
+        context: /docs/plugins-v2/lock
       - page: MS Teams
-        context: /docs/plugins/msteams
+        context: /docs/plugins-v2/msteams
       - page: Node Roster
-        context: /docs/plugins/node-roster
-      - page: Packer
-        context: /docs/plugins/packer
+        context: /docs/plugins-v2/node-roster
       - page: Puppet
-        context: /docs/plugins/puppet
+        context: /docs/plugins-v2/puppet
       - page: Resource
-        context: /docs/plugins/resource
+        context: /docs/plugins-v2/resource
       - page: S3
-        context: /docs/plugins/s3
+        context: /docs/plugins-v2/s3
       - page: Slack
-        context: /docs/plugins/slack
+        context: /docs/plugins-v2/slack
       - page: Sleep
-        context: /docs/plugins/sleep
+        context: /docs/plugins-v2/sleep
       - page: SMTP
-        context: /docs/plugins/smtp
+        context: /docs/plugins-v2/smtp
       - page: Taurus
-        context: /docs/plugins/taurus
+        context: /docs/plugins-v2/taurus
       - page: Terraform
-        context: /docs/plugins/terraform
+        context: /docs/plugins-v2/terraform
       - page: XML
-        context: /docs/plugins/xml
+        context: /docs/plugins-v2/xml
       - page: Zoom
-        context: /docs/plugins/zoom
+        context: /docs/plugins-v2/zoom
+  - title: Plugins (v1) - DEPRECATED
+    id: plugins-v1
+    collapse: /docs/plugins-v1
+    subfolderitems:
+      - page: Akeyless
+        context: /docs/plugins-v1/akeyless
+      - page: Ansible
+        context: /docs/plugins-v1/ansible
+      - page: Concord
+        context: /docs/plugins-v1/concord
+      - page: Confluence
+        context: /docs/plugins-v1/confluence
+      - page: Crypto
+        context: /docs/plugins-v1/crypto
+      - page: Datetime
+        context: /docs/plugins-v1/datetime
+      - page: Docker
+        context: /docs/plugins-v1/docker
+      - page: Git and GitHub
+        context: /docs/plugins-v1/git
+      - page: Gremlin
+        context: /docs/plugins-v1/gremlin
+      - page: HashiCorp Vault
+        context: /docs/plugins-v1/hashivault
+      - page: HTTP
+        context: /docs/plugins-v1/http
+      - page: Inventory
+        context: /docs/plugins-v1/inventory
+      - page: Jenkins
+        context: /docs/plugins-v1/jenkins
+      - page: Jira
+        context: /docs/plugins-v1/jira
+      - page: JSON Store
+        context: /docs/plugins-v1/json-store
+      - page: Key Value
+        context: /docs/plugins-v1/key-value
+      - page: LDAP
+        context: /docs/plugins-v1/ldap
+      - page: Lock
+        context: /docs/plugins-v1/lock
+      - page: MS Teams
+        context: /docs/plugins-v1/msteams
+      - page: Node Roster
+        context: /docs/plugins-v1/node-roster
+      - page: Packer
+        context: /docs/plugins-v1/packer
+      - page: Puppet
+        context: /docs/plugins-v1/puppet
+      - page: Resource
+        context: /docs/plugins-v1/resource
+      - page: S3
+        context: /docs/plugins-v1/s3
+      - page: Slack
+        context: /docs/plugins-v1/slack
+      - page: Sleep
+        context: /docs/plugins-v1/sleep
+      - page: SMTP
+        context: /docs/plugins-v1/smtp
+      - page: Taurus
+        context: /docs/plugins-v1/taurus
+      - page: Terraform
+        context: /docs/plugins-v1/terraform
+      - page: XML
+        context: /docs/plugins-v1/xml
+      - page: Zoom
+        context: /docs/plugins-v1/zoom
   - title: Templates
     id: templates
     collapse: /docs/templates
@@ -217,3 +287,9 @@ nav:
         context: /docs/cli/linting
       - page: Running Flows
         context: /docs/cli/running-flows
+  - title: Community
+    id: community
+    collapse: /docs/community
+    subfolderitems:
+      - page: Code Of Conduct
+        context: /docs/community/individual-code-of-conduct

@@ -6,17 +6,18 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-- [Using Tasks](#using-task)
+- [Using Tasks](#using-tasks)
 - [Full Syntax vs Expressions](#full-syntax-vs-expressions)
 - [Development](#development)
   - [Complete Example](#complete-example)
   - [Creating Tasks](#creating-tasks)
+  - [Dry-run mode](dry-run-mode)
   - [Task Output](#task-output)
   - [Injectable Services](#injectable-services)
   - [Call Context](#call-context)
   - [Using External Artifacts](#using-external-artifacts)
   - [Environment Defaults](#environment-defaults)
-  - [Task Output and Error Handling](#task-output-and-error-handling)
+  - [Task Output and Error Handling](#task-output)
   - [Unit Tests](#unit-tests)
   - [Integration Tests](#integration-tests)
 
@@ -75,8 +76,7 @@ parameters. Use expressions for simple tasks that return data:
 
 ## Development
 
-We recommend running Concord using Java 8 or Java 11. If you're building
-a task using Java 11 Concord must use Java 11 as well.
+We recommend running Concord using Java 17.
 
 ### Complete Example
 
@@ -235,6 +235,56 @@ message.
 The `task` syntax is recommended for most use cases, especially when dealing
 with multiple input parameters.
 
+### Dry-run mode
+
+[Dry-run mode](../processes-v2/index.html#dry-run-mode) is useful for testing and validating
+the flow and task logic before running it in production.
+
+To mark a task as ready for execution in dry-run mode, you need to annotate the task with
+`com.walmartlabs.concord.runtime.v2.sdk.DryRunReady` annotation:
+
+```java
+@DryRunReady
+@Named("myTask")
+public class MyTask implements Task {
+
+    @Override
+    public TaskResult execute(Variables input) throws Exception {
+        String name = input.assertString("name");
+        return TaskResult.success()
+                    .value("msg", "Hello, " + name + "!");
+    }
+}
+```
+
+If you need to change the logic in the task depending on whether it is running in dry-run mode or not,
+you can use the `context.processConfiguration().dryRun()`. it indicate whether the process is running
+in dry-run mode:
+
+```java
+@DryRunReady
+@Named("myTask")
+public class MyTask implements Task {
+
+    private final boolean dryRunMode;
+    
+    @Inject
+    public MyTask(Context context) {
+        this.dyrRunMode = context.processConfiguration().dryRun();
+    }
+    
+    @Override
+    public TaskResult execute(Variables input) throws Exception {
+        if (dryRunMode) {
+            return TaskResult.success();        
+        }
+        
+        // here is the logic that can't be executed in dry-run mode
+        // ...
+    }
+}
+```
+
 ### Task Output
 
 The task must return a `TaskResult` instance. The `TaskResult` class
@@ -372,7 +422,7 @@ The tasks shouldn't expect the returning path to be writable (i.e. assume only
 read-only access).
 
 `DependencyManager` shouldn't be used as a way to download deployment
-artifacts. It's not a replacement for [Ansible](../plugins/ansible.html) or any
+artifacts. It's not a replacement for [Ansible](../plugins-v1/ansible.html) or any
 other deployment tool.
 
 ### Environment Defaults
@@ -401,12 +451,25 @@ public class MyTask implements Task {
 }
 ```
 
-The environment-specific defaults are provided using
-the [Default Process Variables](./configuration.html#default-process-variables)
-file.
+The environment-specific defaults are provided using a
+[Default Process Configuration Rule](../getting-started/policies.html#default-process-configuration-rule)
+policy. A `defaultTaskVariables` entry matching the plugin's `@Named` value is
+provided to the plugin at runtime via the `ctx.defaultVariables()` method.
 
-The task's default can also be injected using `@InjectVariable`
-annotation - check out the [GitHub task]({{ site.source_url }}tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/GitHubTask.java#L79)
+```json
+{
+  "defaultProcessCfg": {
+    "defaultTaskVariables": {
+      "github": {
+        "apiUrl": "https://github.example.com/api/v3"
+      }
+    }
+  }
+}
+```
+
+Check out the
+[GitHub task]({{ site.concord_plugins_source }}blob/master/tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/v2/GithubTaskV2.java#L43)
 as the example.
 
 ### Error Handling

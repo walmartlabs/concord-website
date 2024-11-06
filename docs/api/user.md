@@ -13,6 +13,7 @@ The REST API provides support for a number of operations:
 
 - [Create or Update a User](#create-user)
 - [Find a User](#find-user)
+- [Sync LDAP groups for a User](#sync-ldap-groups-user)
 
 
 <a name="create-user"/>
@@ -76,3 +77,32 @@ Find an existing user by name.
 
     The `created` paratemer indicates whether the user was created or updated.
 
+<a name="sync-ldap-groups-user"/>
+## Sync LDAP groups for a User
+
+Synchronize LDAP groups for a given user.
+
+* **URI** `/api/v1/userldapgroup/sync`
+* **Method** `POST`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    {
+      "username": "myUser",
+      "userDomain": "userDomain"
+    }
+    ```
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+        "result": "UPDATED",
+        "ok": true
+    }
+    ```
+
+    The `UPDATED` result indicates the ldap groups for a specified username got synced successfully.
+    <p><strong>Note</strong>: Only administrators(role: concordAdmin) can synchronize user LDAP groups</p>

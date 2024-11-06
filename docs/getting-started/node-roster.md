@@ -2,15 +2,16 @@
 layout: wmt/docs
 title:  Node Roster
 side-navigation: wmt/docs-navigation.html
+description: Getting started with Node Roster
 ---
 
 # {{ page.title }}
 
 Node Roster is an optional feature of Concord. It collects
-[Ansible](../plugins/ansible.html) deployment data which is exposed via the API
-and a flow [task](../plugins/node-roster.html).
+[Ansible](../plugins-v2/ansible.html) deployment data which is exposed via the API
+and a flow [task](../plugins-v2/node-roster.html).
 
-Node Roster requires a minimum [Ansible Plugin](../plugins/ansible.html)
+Node Roster requires a minimum [Ansible Plugin](../plugins-v2/ansible.html)
 version of 1.38.0. No further configuration is required for usage.
 
 ## Features
@@ -20,7 +21,7 @@ version of 1.38.0. No further configuration is required for usage.
     - deployed [artifacts](#supported-modules);
     - deployers (users)
 - provides a way to fetch the collected data using [API](../api/node-roster.html)
-    or the `nodeRoster` [task](../plugins/node-roster.html).
+    or the `nodeRoster` [task](../plugins-v2/node-roster.html).
 
 ## Supported Modules
 

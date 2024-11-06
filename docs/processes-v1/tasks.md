@@ -2,6 +2,7 @@
 layout: wmt/docs
 title: Tasks
 side-navigation: wmt/docs-navigation.html
+deprecated: true
 ---
 
 # {{ page.title }}
@@ -263,7 +264,7 @@ The tasks shouldn't expect the returning path to be writable (i.e. read-only
 access).
 
 `DependencyManager` shouldn't be used as a way to download deployment
-artifacts. It's not a replacement for [Ansible](../plugins/ansible.html) or any
+artifacts. It's not a replacement for [Ansible](../plugins-v1/ansible.html) or any
 other deployment tool.
 
 <a name="best-practices"/>
@@ -297,11 +298,11 @@ public class MyTask implements Task {
 ```
 
 The environment-specific defaults are provided using
-the [Default Process Variables](./configuration.html#default-process-variables)
+the [Default Process Variables](../getting-started/configuration.html#default-process-variables)
 file.
 
 The task's default can also be injected using `@InjectVariable`
-annotation - check out the [GitHub task]({{ site.source_url }}tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/GitHubTask.java#L79)
+annotation - check out the [GitHub task]({{ site.concord_plugins_source }}blob/master/tasks/git/src/main/java/com/walmartlabs/concord/plugins/git/v1/GitHubTaskV1.java#L37-L38)
 as the example.
 
 #### Full Syntax vs Expressions
@@ -382,7 +383,7 @@ Save the error in the `result` variable:
 ```
 
 Use the standard JRE classes in the task's results. Custom types can cause
-serialization issues when the process suspends, e.g. on a [form](./forms.html)
+serialization issues when the process suspends, e.g. on a [form](../getting-started/forms.html)
 call. If you need to return some complex data structure, consider converting it
 to regular Java collections. The runtime provides
 [Jackson](https://github.com/FasterXML/jackson) as the default JSON/YAML library

@@ -332,8 +332,8 @@ Downloads the log file of a process.
 Downloads a process' attachment.
 
 * **URI** `/api/v1/process/${instanceId}/attachment/${attachmentName}`
-* **Method** `POST`
-* **Headers** `Authorization`, `Content-Type: application/octet-stream`
+* **Method** `GET`
+* **Headers** `Authorization`
 * **Body**
     none
 * **Success response**

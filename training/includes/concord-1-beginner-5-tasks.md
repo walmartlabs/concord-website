@@ -338,7 +338,7 @@ And more are on the way.
 Note:
 - https://github.com/walmartlabs/concord/tree/master/plugins
 - https://github.com/walmartlabs/concord/tree/master/examples
-- Go to http://concord.walmartlabs.com/docs/plugins/jira.html and skim through docs
+- Go to http://concord.walmartlabs.com/docs/plugins-v2/jira.html and skim through docs
 
 <!--- vertical -->
 

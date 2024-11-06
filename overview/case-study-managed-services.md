@@ -1,6 +1,7 @@
 ---
 layout: wmt/project
 title: Case Study - Managed Services
+description: Managed Services case study
 ---
 
 Numerous teams as Walmart use Concord to provide user an easy automated

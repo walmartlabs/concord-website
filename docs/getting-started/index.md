@@ -2,11 +2,12 @@
 layout: wmt/docs
 title:  Concord Overview
 side-navigation: wmt/docs-navigation.html
+description: Getting started with Concord
 ---
 
 # {{ page.title }}
 
-<img src="../../assets/img/concord_top_level.png" class="img-responsive"/>
+<img src="../../assets/img/concord_top_level.png" alt="concord architecture overview" class="img-responsive"/>
 
 # Main Concepts
 
@@ -19,15 +20,15 @@ information about features and benefits of Concord.
 ## Processes
 
 Processes are the main concept of Concord. A process is an execution of
-[Concord Flows](../processes-v1/flows.html) in an isolated environment.
+[Concord Flows](../processes-v2/flows.html) in an isolated environment.
 
 A process can run in a [project](#projects), thus sharing configuration and
-resources (such as [the KV store](../plugins/key-value.html)) with other
+resources (such as [the KV store](../plugins-v2/key-value.html)) with other
 processes in the same project.
 
 Processes can be suspended (typically using a [form](./forms.html) and resumed.
 While suspended processes are not consuming any resources apart from the DB
-disk space. See the [Process Overview](../processes/index.html) section for
+disk space. See the [Process Overview](../processes-v2/index.html) section for
 more details about the lifecycle of Concord processes.
 
 ## Projects
@@ -37,7 +38,7 @@ configuration.
 
 ## Secrets
 
-Concord provides an API and [the plugin](../plugins/crypto.html) to work with
+Concord provides an API and [the plugin](../plugins-v2/crypto.html) to work with
 secrets such as:
 - SSH keys;
 - username/password pairs;
@@ -94,7 +95,7 @@ starts processes in separate JVMs and/or Docker containers.
 Depending on [the configuration](./configuration.html#agent-cfg-file) a single
 agent can execute one or many jobs simultaneously.
 
-<img src="../../assets/img/concord_agents.png" class="img-responsive"/>
+<img src="../../assets/img/concord_agents.png" alt="concord agent pool view" class="img-responsive"/>
 
 A single Concord installation can have hundreds of Agents. It is also possible
 to have Agents with different capabilities (e.g. running on different hardware)

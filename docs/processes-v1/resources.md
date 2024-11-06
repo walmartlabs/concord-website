@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Resources
 side-navigation: wmt/docs-navigation.html
+deprecated: true
 ---
 
 # {{ page.title }}

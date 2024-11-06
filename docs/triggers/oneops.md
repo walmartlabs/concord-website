@@ -11,7 +11,7 @@ side-navigation: wmt/docs-navigation.html
 - [Migration](#oneops-migration)
 
 Using `oneops` as an event source allows Concord to receive events from
-[OneOps](https://oneops.com). You can configure event properties in the OneOps
+[OneOps](https://oneops.github.io). You can configure event properties in the OneOps
 notification sink, specifically for use in Concord triggers.
 
 Currently Concord supports two different implementations of `oneops` triggers:
@@ -48,7 +48,7 @@ attribute--the original event's data "as is". You can set `useInitiator` to
 attribute of the event.
 
 The following example uses the IP address of the deployment component to build 
-an Ansible inventory for execution of an [Ansible task](../plugins/ansible.html):
+an Ansible inventory for execution of an [Ansible task](../plugins-v2/ansible.html):
 
 ```yaml
 flows:

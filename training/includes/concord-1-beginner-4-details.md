@@ -553,7 +553,7 @@ Dependency:
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
 ```
   
 Inline script:

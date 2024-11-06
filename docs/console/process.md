@@ -76,7 +76,7 @@ where `body.json` is
 
 The process list should look like this:
 
-<img src="../../assets/img/screenshots/project-process-list-meta-example.png" class="img-responsive"/>
+<img src="../../assets/img/screenshots/project-process-list-meta-example.png" alt="process list with custom column from metadata" class="img-responsive"/>
 
 The `processList` value is a list of column definitions. Each column definition
 has the following structure:
@@ -160,7 +160,7 @@ You can still add them as custom columns as shown in the [example below](#exampl
 
 The column's filter will look like this:
 
-<img src="../../assets/img/screenshots/process-list-meta-dropdown.gif" class="img-responsive"/>
+<img src="../../assets/img/screenshots/process-list-meta-dropdown.gif" alt="custom column filter example" class="img-responsive"/>
 
 <br />
 

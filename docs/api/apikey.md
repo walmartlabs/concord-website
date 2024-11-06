@@ -26,7 +26,8 @@ Creates a new API key for a user.
 * **Body**
   ```json
   {
-    "username": "myLdapUsername"
+    "username": "myLdapUsername",
+    "userDomain": "optional.domain.com"
   }
   ```
 * **Success response**
@@ -56,6 +57,15 @@ Creates a new API key for a user.
   -X POST
   -H "Content-Type: application/json" \
   -d '{ "username": "myLdapUser", "name": "myCustomApiKeyName" }' \
+  http://concord.example.com/api/v1/apikey
+  ```
+
+* **Example**: create a key when multiple users with the same username exist across domains
+  ```
+  curl -u myLdapUser@example.com \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{ "username": "myLdapUser", "userDomain": "example.com" }' \
   http://concord.example.com/api/v1/apikey
   ```
 

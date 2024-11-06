@@ -13,8 +13,11 @@ plugins (also known as "tasks"), performing data validation, creating
 - [Structure](#structure)
 - [Steps](#steps)
     - [Task Calls](#task-calls)
+      - [Task Result Data Structure](#task-result-data-structure) 
     - [Expressions](#expressions)
     - [Conditional Execution](#conditional-execution)
+    - [Return Command](#return-command)
+    - [Exit Command](#exit-command)
     - [Groups of Steps](#groups-of-steps)
     - [Calling Other Flows](#calling-other-flows)
     - [Setting Variables](#setting-variables)
@@ -84,13 +87,23 @@ flows:
         url: "https://google.com"
       out: result
 
-    - log: ${result}
+    - if: ${not result.ok}
+      then:
+        - log: "task failed: ${result.error}"
 ```
+
+#### Task Result Data Structure
+
+All returned result data from tasks compatible with runtime-v2 contain a common
+set of fields, in addition to any task-specific data:
+
+- `ok` - boolean, true when task executes without error;
+- `error` - string, an error message when `ok` is `false`;
 
 ### Expressions
 
 Expressions must be valid
-[Java Expresssion Language EL 3.0](https://github.com/javaee/el-spec) syntax
+[Java Expression Language EL 3.0](https://github.com/javaee/el-spec) syntax
 and can be simple evaluations or perform actions by invoking more complex code.
 
 Short form:
@@ -159,6 +172,130 @@ flows:
     - log: "Process running on ${System.getProperty('os.name')}"
 ```
 
+#### Builtin functions
+
+- `allVariables` - returns a Java Map object with all current variables;
+
+```yaml
+flows:
+  default:
+    # prints out: {projectInfo={orgId=0fac1b18-d179-11e7-b3e7-d7df4543ed4f, orgName=Default} ...}
+    - log: ${allVariables()}
+```
+
+- `hasVariable` - accepts a variable name or nested variable path (as a string parameter) 
+  and returns true if the variable exists;
+
+```yaml
+flows:
+  default:
+    # prints out: false
+    - log: ${hasVariable('myVar')}
+  
+    - set:
+        myVar2: "value"
+
+    # prints out: true
+    - log: ${hasVariable('myVar2')}
+  
+    - set:
+        nullVar: ${null}
+
+    # prints out: true
+    - log: ${hasVariable('nullVar')}
+  
+    - set:
+        a:
+          b: 1
+
+    # prints out: true
+    - log: ${hasVariable('a.b')}
+```
+
+- `currentFlowName` - returns current flow name as string;
+
+```yaml
+flows:
+  default:
+    # prints out: default
+    - log: ${currentFlowName()}
+
+    - call: myFlow  
+
+  myFlow:
+    # prints out: myFlow
+    - log: ${currentFlowName()}
+```
+
+- `evalAsMap` - evaluates the specified value as an expression, 
+  returns a Java Map object;
+
+```yaml
+flows:
+  default:
+    - script: js
+      body: |
+        var x = {'a.b': 1, 'a.c': 2, 'a.d': '${a.b}', 'y': 'boo'};
+        context.variables().set('x', x);
+
+    # prints out: {a={b=1, d=1, c=2}, y=boo}
+    - log: ${evalAsMap(x)}
+```
+
+- `hasNonNullVariable` - returns `true` if the process has the specified variable and its value
+  is not `null`;
+
+- `hasFlow` - returns `true` if the process has a specified flow
+
+```yaml
+flows:
+  default:
+    # prints out: 'true'
+    - log: "'${hasFlow('myFlow')}'"
+
+    # prints out: 'false'
+    - log: "'${hasFlow('someUndefinedFlow')}'"
+  myFlow:
+    - log: "In my flow"
+```
+
+- `isDebug` - returns `true` if process started with debug flag;
+- `isDryRun` - returns `true` if process stated in dry-run mode;
+
+- `orDefault` - accepts a variable name (as a string parameter), default value and 
+  returns variable value or default value;
+
+```yaml
+flows:
+  default:
+    # prints out: '1'
+    - log: "'${orDefault('myVar', 1)}'"
+
+    - set:
+        myVar2: "boo"
+
+    # prints out: 'boo'
+    - log: "'${orDefault('myVar2', 'xyz')}'"
+
+
+    - set:
+        nullVar: ${null}
+
+    # prints out: ''
+    - log: "'${orDefault('nullVar', 1)}'"
+```
+
+- `throw` - accepts error message (as a string parameter) and throws exception with this message;
+
+```yaml
+flows:
+  default:
+    - expr: ${throw('Stop IT')}
+
+    - log: "Unreachable"
+```
+- `uuid` - returns a randomly generated UUID as a string;
+
 ### Conditional Execution
 
 Concord supports both `if-then-else` and `switch` steps:
@@ -166,21 +303,40 @@ Concord supports both `if-then-else` and `switch` steps:
 ```yaml
 configuration:
   arguments:
-    myVar: 123
+    myInt: 123
 
 flows:
   default:
-    - if: ${myVar > 0}
+    - if: ${myInt > 0}
       then:                           # (1)
         - log: it's clearly non-zero
       else:                           # (2)
         - log: zero or less
 
-    - log: "myVar: ${myVar}"          # (3)
+    - log: "myInt: ${myVar}"          # (3)
 ```
 
 In this example, after `then` (1) or `else` (2) block are completed,
 the execution continues with the next step in the flow (3).
+
+The `if` expressions must evaluate to a boolean value or to string values
+"true" or "false" (case-insensitive).
+
+For example, the following flow prints out "Yep!":
+
+```yaml
+configuration:
+  arguments:
+    myString: "tRuE"
+
+flows:
+  default:
+    - if: ${myString}
+      then:
+        - log: "Yep!"
+      else:
+        - log: "Nope!"
+```
 
 "And", "or" and "not" operations are supported as well:
 ```yaml
@@ -241,6 +397,38 @@ flows:
         - log: "Nope"
 ```
 
+### Return Command
+
+The `return` command can be used to stop the execution of the current (sub) flow:
+
+```yaml
+flows:
+  default:
+    - if: ${myVar > 0}
+      then:
+        - log: moving along
+      else:
+        - return
+```
+
+The `return` command can be used to stop the current process if called from an
+entry point.
+
+### Exit Command
+
+The `exit` command can be used to stop the execution of the current process:
+
+```yaml
+flows:
+  default:
+    - if: ${myVar > 0}
+      then:
+        - exit
+    - log: "message"
+```
+
+The final status of a process after calling `exit` is `FINISHED`.
+
 ### Groups of Steps
 
 Several steps can be grouped into one block. This allows `try-catch`-like
@@ -282,7 +470,7 @@ flows:
 
 A `call` step can optionally contain additional declarations:
 - `in` - input parameters (arguments) of the call;
-- `withItems` - see the [Loops](#loops) section;
+- `loop` - see the [Loops](#loops) section;
 - `retry` - see [Retry](#retry) section.
 
 ### Setting Variables
@@ -492,30 +680,32 @@ still modify the original variable:
 - log: ${anObject.aList}
 ```
 
-While `parallel` executes _steps_ in parallel, `parallelWithItems` can be used
+While `parallel` executes _steps_ in parallel, `loop` with `parallel mode` can be used
 to perform same steps for each item in a collection. See the [Loops](#loops)
 section for more details.
 
 ## Loops
 
 Concord flows can iterate through a collection of items in a loop using
-the `withItems` syntax:
+the `loop` syntax:
 
 ```yaml
 - call: myFlow
-  withItems:
-    - "first element"   # string item
-    - "second element"
-    - 3                 # a number
-    - false             # a boolean value
+  loop:
+    items:
+      - "first element"   # string item
+      - "second element"
+      - 3                 # a number
+      - false             # a boolean value
 
-# withItems can also be used with tasks
+# loop can also be used with tasks
 - task: myTask
   in:
     myVar: ${item}
-  withItems:
-    - "first element"
-    - "second element"
+  loop:
+    items:
+      - "first element"
+      - "second element"
 ```
 
 The collection of items to iterate over can be provided by an expression:
@@ -531,7 +721,8 @@ configuration:
 flows:
   default:
   - call: myFlow
-    withItems: ${myItems}
+    loop: 
+      items: ${myItems}
 ```
 
 The items are referenced in the invoked flow with the `${item}` expression:
@@ -549,12 +740,13 @@ flows:
     - task: log
       in:
         msg: "${item.key} - ${item.value}"
-      withItems:
-        a: "Hello"
-        b: "world"
+      loop:
+        items:
+          a: "Hello"
+          b: "world"
 ```
 
-In the example above `withItems` iterates over the keys of the object. Each
+In the example above `loop` iterates over the keys of the object. Each
 `${item}` provides `key` and `value` attributes.
 
 Lists of nested objects can be used in loops as well:
@@ -563,18 +755,19 @@ Lists of nested objects can be used in loops as well:
 flows:
   default:
     - call: deployToClouds
-      withItems:
-        - name: cloud1
-          fqdn: cloud1.myapp.example.com
-        - name: cloud2
-          fqdn: cloud2.myapp.example.com
+      loop:
+        items:
+          - name: cloud1
+            fqdn: cloud1.myapp.example.com
+          - name: cloud2
+            fqdn: cloud2.myapp.example.com
 
   deployToClouds:
     - log: "Starting deployment to ${item.name}"
     - log: "Using FQDN ${item.fqdn}"
 ```
 
-The `parallelWithItems` syntax can be used to process items in parallel.
+The `loop` syntax can be used to process items in parallel.
 Consider the following example:
 
 ```yaml
@@ -590,12 +783,15 @@ flows:
         # imagine a slow API call here
         url: "https://jsonplaceholder.typicode.com/todos/${item}"
         response: json
-      out: results # withItems turns "results" into a list of results for each item
-      parallelWithItems:
-        - "1"
-        - "2"
-        - "3"
-
+      out: results # loop turns "results" into a list of results for each item
+      loop:
+        items:
+          - "1"
+          - "2"
+          - "3"
+        mode: parallel
+        parallelism: 2 # optional number of threads 
+        
     # grab titles from all todos
     - log: ${results.stream().map(o -> o.content.title).toList()}
 ```
@@ -603,7 +799,7 @@ flows:
 In the example above, each item is processed in parallel in a separate OS
 thread.
 
-The `parallelWithItems` syntax is supported for the same steps as `withItems`:
+The parallel `loop` syntax is supported for the same steps as `loop`:
 tasks, flow calls, groups of steps, etc.
 
 ## Error Handling
@@ -673,8 +869,13 @@ flows:
     - ${sleep.ms(60000)}
 
   onCancel:
-    - log: "Pack your bags, boys. Show's cancelled"
+    - log: "Pack your bags. Show's cancelled"
 ```
+
+**Note:** `onCancel` handler processes are dispatched immediately when the process
+cancel request is sent. Variables set at runtime may not have been saved to the
+process state in the database and therefore may be unavailable or stale in the
+handler process.
 
 Similarly, `onFailure` flow executes if a process crashes (moves into
 the `FAILED` state):
@@ -693,7 +894,7 @@ In both cases, the server starts a _child_ process with a copy of
 the original process state and uses `onCancel` or `onFailure` as an
 entry point.
 
-**Note:** `onCancel` and `onFailure` handlers receive the last known
+**Note:** `onCancel` and `onFailure` handlers receive the _last known_
 state of the parent process' variables. This means that changes in
 the process state are visible to the _child_ processes:
 
@@ -761,8 +962,9 @@ flows:
     - log: "I'm going to run when my parent process times out"
 ```
 
-If the process suspended longer that the specified [timeout](./configuration.html#process-suspend-timeout)
+If the process suspended longer that the specified [timeout](./configuration.html#suspend-timeout)
 Concord cancels it and executes the special `onTimeout` flow:
+
 ```yaml
 configuration:
   suspendTimeout: "PT1M" # 1 minute timeout

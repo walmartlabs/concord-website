@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Installation
 side-navigation: wmt/docs-navigation.html
+description: Concord installation options
 ---
 
 # {{ page.title }}

@@ -1,57 +1,45 @@
 ---
 layout: wmt/docs
-title:  Plugins
+title:  Plugin Docs Have Moved
 side-navigation: wmt/docs-navigation.html
+redirect_from:
+- /docs/plugins/ansible.html
+- /docs/plugins/concord.html
+- /docs/plugins/confluence.html
+- /docs/plugins/crypto.html
+- /docs/plugins/datetime.html
+- /docs/plugins/docker.html
+- /docs/plugins/git.html
+- /docs/plugins/gremlin.html
+- /docs/plugins/hashivault.html
+- /docs/plugins/http.html
+- /docs/plugins/inventory.html
+- /docs/plugins/jenkins.html
+- /docs/plugins/jira.html
+- /docs/plugins/json-store.html
+- /docs/plugins/key-value.html
+- /docs/plugins/ldap.html
+- /docs/plugins/msteams.html
+- /docs/plugins/node-roster.html
+- /docs/plugins/packer.html
+- /docs/plugins/puppet.html
+- /docs/plugins/resource.html
+- /docs/plugins/s3.html
+- /docs/plugins/slack.html
+- /docs/plugins/sleep.html
+- /docs/plugins/smtp.html
+- /docs/plugins/taurus.html
+- /docs/plugins/terraform.html
+- /docs/plugins/xml.html
+- /docs/plugins/zoom.html
 ---
 
-# Plugins
+# {{ page.title }}
 
-Concord supports the integration of plugins to provide additional functionality
-use in the workflow execution.
+Concord plugins are implemented for a
+[specific runtime](../getting-started/processes.html#runtime). Task parameters
+and results may differ between runtime versions. Refer to the corresponding
+documentation for the runtime used.
 
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <ul>
-        <li><a href="./ansible.html">Ansible</a></li>
-        <li><a href="./concord.html">Concord</a></li>
-        <li><a href="./confluence.html">Confluence</a></li>
-        <li><a href="./crypto.html">Crypto</a></li>
-        <li><a href="./datetime.html">Datetime</a></li>
-        <li><a href="./docker.html">Docker</a></li>
-        <li><a href="./git.html">Git and GitHub</a></li>
-        <li><a href="./gremlin.html">Gremlin</a></li>
-        <li><a href="./hashivault.html">HashiCorp Vault</a></li>
-        <li><a href="./http.html">HTTP</a></li>
-        <li><a href="./jenkins.html">Jenkins</a></li>
-        <li><a href="./jira.html">Jira</a></li>
-        <li><a href="./json-store.html">JSON Store</a></li>
-        <li><a href="./key-value.html">Key Value</a></li>
-      </ul>
-    </div>
-    <div class="col-md-4">
-      <ul>
-        <li><a href="./ldap.html">LDAP</a></li>
-        <li><a href="./msteams.html">MS Teams</a></li>
-        <li><a href="./node-roster.html">Node Roster</a></li>
-        <li><a href="./packer.html">Packer</a></li>
-        <li><a href="./puppet.html">Puppet</a></li>
-        <li><a href="./resource.html">Resource</a></li>
-        <li><a href="./s3.html">S3</a></li>
-        <li><a href="./slack.html">Slack</a></li>
-        <li><a href="./sleep.html">Sleep</a></li>
-        <li><a href="./smtp.html">SMTP</a></li>
-        <li><a href="./taurus.html">Taurus</a></li>
-        <li><a href="./terraform.html">Terraform</a></li>
-        <li><a href="./xml.html">XML</a></li>
-        <li><a href="./zoom.html">Zoom</a></li>
-      </ul>
-    </div>
-
-
-  </div>
-</div>
-
-You can find the binaries of the plugins and all available versions in
-the repository at `com/walmartlabs/concord/plugins`.
+* [**runtime-v2 Plugins**](../plugins-v2)
+* [**runtime-v1 Plugins**](../plugins-v1)

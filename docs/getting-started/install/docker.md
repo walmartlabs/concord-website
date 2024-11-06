@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Installation using Docker
 side-navigation: wmt/docs-navigation.html
+description: Install Concord with Docker
 ---
 
 # {{ page.title }}
@@ -47,7 +48,7 @@ There are four components to Concord: the Server, the
 Console, the Database and an agent. Follow these steps to start all four
 components and run a simple process to test your Concord instance.
 
-<a name="step-1">
+<a name="step-1"/>
 
 ### Step 1. Start the Database
 
@@ -78,7 +79,7 @@ postgres=# select 1;
 (1 row)
 ```
 
-<a name="step-2">
+<a name="step-2"/>
 
 ### Step 2. Create the Server's Configuration File
 

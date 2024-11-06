@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Scripting Support
 side-navigation: wmt/docs-navigation.html
+description: Execute scripts in a flow
 ---
 
 # {{ page.title }}
@@ -19,15 +20,16 @@ automatically identified based on the file extension used. They can be stored
 as external files and invoked from the Concord YAML file or they can be inline
 in the file.
 
-[Flow variables](#using-flow-variables), [Concord tasks](#tasks) and other Java
+[Flow variables](#using-flow-variables), [Concord tasks](#using-concord-tasks) and other Java
 methods can be accessed from the scripts due to the usage of the Java Scripting
 API. The script and your Concord processes essentially run within the same
 context on the JVM.
 
 - [Using Flow Variables](#using-flow-variables)
   - [Flow Variables in Runtime V2](#flow-variables-in-runtime-v2)
-- [Using Concord Tasks](#tasks)
+- [Using Concord Tasks](#using-concord-tasks)
 - [Error Handling](#error-handling)
+- [Dry-run mode](#dry-run-mode)
 - [Javascript](#javascript)
 - [Groovy](#groovy)
 - [Python](#python)
@@ -172,6 +174,48 @@ Using external script file:
     - log: "Caught an error: ${lastError.cause}"
 ```
 
+## Dry-run mode
+
+[Dry-run mode](../processes-v2/index.html#dry-run-mode) is useful for testing and validating
+the flow logic before running it in production.
+
+By default, script steps do not support dry-run mode. To enable a script to run in this mode,
+you need to modify the script to support dry-run mode or mark script step as dry-run ready
+using `meta` field of the step if you are confident it is safe to run.
+
+An example of a script step marked as dry-run ready:
+
+```yaml
+flows:
+  myFlow:
+    - script: js
+      body: |
+        log.info('I'm confident that this script can be executed in dry-run mode!');
+      meta:
+        dryRunReady: true   # dry-run ready marker for this step
+```
+
+> **Important**: Use the `meta.dryRunReady` only if you are certain that the script is safe
+> to run in dry-run mode
+
+If you need to change the logic in the script depending on whether it is running in dry-run mode
+or not, you can use the `isDryRun` variable. `isDryRun` variable is available to indicate whether
+the process is running in dry-run mode:
+
+```yaml
+flows:
+  default:
+    - script: js
+      body: |
+        if (isDryRun) {
+          log.info('running in DRY-RUN mode');
+        } else {
+          log.info('running in REGULAR mode');
+        }
+      meta:
+        dryRunReady: true   # dry-run ready marker for this step is also needed in this case
+```
+
 ## JavaScript
 
 JavaScript support is built-in and doesn't require any external
@@ -249,17 +293,17 @@ execution.setVariable('x', new ArrayList(arr));
 
 Groovy is another compatible engine that is fully-supported in Concord. It
 requires the addition of a dependency to
-[groovy-all](http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/) and
+[groovy-all](https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/) and
 the identifier `groovy`. For versions 2.4.* and lower jar packaging is used in
 projects, so the correct dependency is
-e.g. `mvn://org.codehaus.groovy:groovy-all:2.4.12`. Versions 2.5.0 and higher
+e.g. `mvn://org.codehaus.groovy:groovy-all:2.4.12`. Versions `2.5.0` and higher
 use pom packaging, which has to be added to the dependency declaration before
-the version `mvn://org.codehaus.groovy:groovy-all:pom:2.5.2`.
+the version. For example: `mvn://org.codehaus.groovy:groovy-all:pom:2.5.21`.
 
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
 flows:
   default:
   - script: groovy
@@ -288,7 +332,7 @@ Maps:
 ```yaml
 configuration:
   dependencies:
-    - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+    - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
 
 flows:
   default:
@@ -349,7 +393,7 @@ flows:
 
 ## Ruby
 
-Ruby scripts can be executed using the [JRuby](http://jruby.org/)
+Ruby scripts can be executed using the [JRuby](https://www.jruby.org)
 runtime. It requires the addition of a dependency to
 [jruby](https://repo1.maven.org/maven2/org/jruby/jruby)
 located in the Central Repository or on another server and the identifier
@@ -358,7 +402,7 @@ located in the Central Repository or on another server and the identifier
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.jruby:jruby:9.1.13.0"
+  - "mvn://org.jruby:jruby:9.4.2.0"
 
 flows:
   default:

@@ -1,6 +1,7 @@
 ---
 layout: wmt/project
 title:  Code & Contribute
+description: How to contribute to Concord
 ---
 
 Concord is open source and we welcome any feedback or contributions.

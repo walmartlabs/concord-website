@@ -188,17 +188,17 @@ The `mvn` syntax uses the short form for GAV coordinates
 Newer versions of groovy-all use `<packaging>pom</packaging>` and define
 dependencies. To use a project that applies this approach, called Bill of
 Material (BOM), as a dependency you need to specify the packaging in between
-the artifactId and version. For example, version 2.5.2 has to be specified as
-`org.codehaus.groovy:groovy-all:pom:2.5.2`:
+the artifactId and version. For example, version `2.5.21` has to be specified as
+`org.codehaus.groovy:groovy-all:pom:2.5.21`:
 
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.2"
+  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
 ```
 
 The same logic and syntax usage applies to all other dependencies including
-Concord [plugins](../plugins/index.html).
+Concord [plugins](../plugins-v2/index.html).
 
 ## Requirements
 
@@ -288,7 +288,7 @@ flows:
 ```
 
 The way Concord handles timeouts is described in more details in
-the [error handling](./flows.html#handling-cancellations-failures-and-timeout)
+the [error handling](./flows.html#handling-cancellations-failures-and-timeouts)
 section.
 
 #### Running Timeout
@@ -368,7 +368,7 @@ See also: [Exclusive Triggers](../triggers/index.html#exclusive-triggers).
 
 Flows can expose internal variables as process metadata. Such metadata can be
 retrieved using the [API](../api/process.html#status) or displayed in
-the process list in [Concord Console](../console/process.html#metadata).
+the process list in [Concord Console](../console/process.html#process-metadata).
 
 ```yaml
 configuration:

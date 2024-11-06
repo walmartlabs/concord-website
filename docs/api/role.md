@@ -12,8 +12,10 @@ The REST API provides support for working with roles:
 
 - [Create or Update a Role](#create-update)
 - [Get a Role](#get)
-- [Remove a Role](#remove)
+- [Remove a Role](#delete)
 - [List Roles](#list)
+- [Add/Remove LDAP groups to a role](#addremove-ldap-groups-to-a-role)
+- [List LDAP groups for a role](#list-ldap-groups-for-a-role)
 
 <a name="create-update"/>
 
@@ -119,5 +121,56 @@ List all existing roles.
         "name": "...",
         "permissions": [...set of permissions...] 
       }
+    ]
+    ```
+  
+<a name="addremove-ldap-groups-to-a-role"/>
+
+## Add/Remove LDAP groups to a Role
+
+Add or Remove LDAP groups to a Role. Requires administrator privileges.
+
+* **URI** `/api/v1/role/${roleName}/ldapGroups?replace=${replace}`
+* **Query parameters**
+    - `replace`: boolean, replace existing ldap groups mapped to a role, default is false;
+* **Method** `PUT`
+* **Headers** `Authorization`, `Content-Type: application/json`
+* **Body**
+    ```json
+    ["group1", "group2",...]
+    ```
+    
+* **Success response**
+
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+        "result": "UPDATED",
+        "ok": true
+    }
+    ```
+
+<a name="list-ldap-groups-for-a-role"/>
+
+## List LDAP groups for a role
+
+List LDAP groups for a role.
+
+* **URI** `/api/v1/role/${roleName}/ldapGroups`
+* **Method** `GET`
+* **Headers** `Authorization`
+* **Body**
+    none
+* **Success response**
+    ```
+    Content-Type: application/json
+    ```
+
+    ```json
+    [
+        "group1", "group2", ...
     ]
     ```

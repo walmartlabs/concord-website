@@ -7,13 +7,11 @@ side-navigation: wmt/docs-navigation.html
 # {{ page.title }}
 
 [Node Roster](../getting-started/node-roster.html) provides access to data
-gathered during [Ansible](../plugins/ansible.html) playbook executions.
+gathered during [Ansible](../plugins-v2/ansible.html) playbook executions.
 
 - [Hosts](#hosts)
-    - [Get All Known Hosts](#get-all-known-hosts)
     - [List Hosts With An Artifact](#list-hosts-with-an-artifact)
-    - [List Hosts by a Project](#list-hosts-by-a-project)
-    - [Last Deployer](#last-deployer)
+    - [Processes Which Deployed to a Host](#processes-which-deployed-to-a-host)
 - [Facts](#facts)
     - [Latest Host Facts](#latest-host-facts)
 - [Artifacts](#artifacts)
@@ -23,12 +21,12 @@ gathered during [Ansible](../plugins/ansible.html) playbook executions.
 
 ### List Hosts With An Artifact
 
-Returns a (paginated) list of all hosts that had the specified artifact
+Returns a paginated list of all hosts that had the specified artifact
 deployed on.
 
 * **URI** `/api/v1/noderoster/hosts?artifact=${artifactPattern}&offset=${offset}&limit=${limit}`
 * **Query parameters**
-    - `artifactPattern`: regex, the artifact's URL pattern;
+    - `artifact`: regex, the artifact's URL pattern;
     - `limit`: maximum number of records to return;
     - `offset`: starting index from which to return.
 * **Method** `GET`
@@ -52,13 +50,13 @@ deployed on.
       "name" : "hosta",
       "createdAt" : "2020-02-05T10:46:52.109Z",
       "artifactUrl" : "http://localhost:57675/test.txt"
-    }]
+    } ]
     ```
   
     The result is a list of hosts where are artifact URLs matching the supplied
     `artifactPattern`
 
-### Process that touched the host
+### Processes Which Deployed to a Host
 
 Returns a (paginated) list of processes that touched the specified host.
 
@@ -93,7 +91,8 @@ Returns a (paginated) list of processes that touched the specified host.
 
 ### Latest Host Facts
 
-Returns the latest registered [Ansible facts](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts)
+Returns the latest registered
+[Ansible facts](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts)
 for the specified host.
 
 * **URI** `/api/v1/noderoster/facts/last?hostName=${hostName}&hostId=${hostId}&offset=${offset}&limit=${limit}`

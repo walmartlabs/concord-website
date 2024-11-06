@@ -15,12 +15,12 @@ concord lint [-v] [target dir]
 
 The `lint` command parses and validates Concord YAML files located in the
 current directory or directory specified as an argument. It allows to quickly
-verify if the [DSL](../processes-v1/flows.html#dsl) syntax and the syntax of
+verify if the [DSL](../processes-v2/index.html#dsl) syntax and the syntax of
 expressions are correct.
 
 Currently, it is not possible to verify whether the tasks are correctly called
 and/or their parameter types are correct. It is also does not take dynamically
-[imported resources](../processes-v1/imports.html) into account.
+[imported resources](../processes-v2/imports.html) into account.
 
 For example, the following `concord.yml`is missing a closing bracket in the
 playbook expression.

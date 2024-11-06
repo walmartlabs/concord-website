@@ -2,11 +2,12 @@
 layout: wmt/docs
 title:  Configuration
 side-navigation: wmt/docs-navigation.html
+description: Concord server configuration
 ---
 
 # {{ page.title }}
 
-The Concord server can be configured via a configuration file. Typically this
+The Concord server can be configured via a configuration file. Typically, this
 is done by the administrator responsible for the Concord installation.
 
 A Concord user does not need to be concerned about these settings and instead
@@ -18,8 +19,8 @@ The following configuration details are available:
 - [Server Configuration File](#server-cfg-file)
 - [Server Environment Variables](#server-environment-variables)
 - [Agent Configuration File](#agent-cfg-file)
+- [Agent Environment Variables](#agent-environment-variables)
 - [Common Environment Variables](#common-environment-variables)
-- [Process Runtime Variables](#process-runtime-variables)
 - [Default Process Variables](#default-process-variables)
 - [GitHub Integration](#github-integration)
 
@@ -116,7 +117,7 @@ The path to the configuration file must be passed via `ollie.conf` JVM
 parameter like so:
 
 ```bash
-java ... -Dollie.conf=/opt/concord/conf/server.conf com.walmartlabs.concord.agent.Main
+java ... -Dollie.conf=/opt/concord/conf/agent.conf com.walmartlabs.concord.agent.Main
 ```
 
 When using Docker it can be passed as `CONCORD_CFG_FILE` environment variable.
@@ -125,6 +126,17 @@ The complete configuration file for the Agent can be found in
 [the source code repository]({{ site.concord_source}}tree/master/agent/src/main/resources/concord-agent.conf).
 
 The configuration file is optional for local development.
+
+## Agent Environment Variables
+
+All parameters are optional.
+
+### Logging
+
+| Variable                  | Description                                                 | Default value |
+|---------------------------|-------------------------------------------------------------|---------------|
+| DEFAULT_DEPS_CFG          | Path to the default process dependencies configuration file | _empty_       |
+| REDIRECT_RUNNER_TO_STDOUT | Redirect process logs to stdout                             | _false_       | 
 
 ## Common Environment Variables
 
@@ -204,7 +216,7 @@ As a Concord administrator, you can set default variable values that
 are automatically set in all process executions.
 
 This, for example, allows you to set global parameters such as the connection
-details for an SMTP server used by the [SMTP task](../plugins/smtp.html) in one
+details for an SMTP server used by the [SMTP task](../plugins-v2/smtp.html) in one
 central location separate from the individual projects.
 
 The values are configured in a YAML file. The path to the file and the name are
@@ -278,12 +290,12 @@ concord-server {
 
 Create a new webhook on the GitHub repository or organizations settings page:
 
-<img src="../../assets/img/screenshots/gh-webhook-page.png" class="img-responsive"/>
+<img src="../../assets/img/screenshots/gh-webhook-page.png" alt="github webhook configuration" class="img-responsive"/>
 
 Use `Content-Type: application/json` and a secret you specified in the
 `concord-server.conf` file.
 
-**Note:** the `useInitiator` [feature](../triggers/github.org#version-2) requires
+**Note:** the `useInitiator` [feature](../triggers/github.html) requires
 a Concord environment with an AD/LDAP server. If you wish to use Concord without
 an AD or LDAP server, or your GitHub users are not the same as your AD/LDAP users,
 use `useInitiator: false` or omit it (`false` is the default value). In this case

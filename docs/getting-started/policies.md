@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Policies
 side-navigation: wmt/docs-navigation.html
+description: Getting started with Policies
 ---
 
 # {{ page.title }}
@@ -14,6 +15,7 @@ characteristics of processes and system entities.
 - [Attachment Rule](#attachment-rule)
 - [Ansible Rule](#ansible-rule)
 - [Dependency Rule](#dependency-rule)
+- [Dependency Rewrite Rule](#dependency-rewrite-rule)
 - [Dependency Versions Rule](#dependency-versions-rule)
 - [Entity Rule](#entity-rule)
 - [File Rule](#file-rule)
@@ -22,6 +24,9 @@ characteristics of processes and system entities.
 - [Default Process Configuration Rule](#default-process-configuration-rule)
 - [Task Rule](#task-rule)
 - [Workspace Rule](#workspace-rule)
+- [Runtime Rule](#runtime-rule)
+- [RawPayload Rule](#rawpayload-rule)
+- [CronTrigger Rule](#crontrigger-rule)
 
 ## Overview
 
@@ -71,7 +76,7 @@ and free-form group of attributes:
 
 Here's the list of currently supported rules:
 - [ansible](#ansible-rule) - controls the execution of
-[Ansible](../plugins/ansible.html) plays;
+  [Ansible](../plugins-v2/ansible.html) plays;
 - [dependency](#dependency-rule) - applies rules to process dependencies;
 - [entity](#entity-rule) - controls creation or update of entities
   such as organizations, projects and secrets;
@@ -106,7 +111,7 @@ the execution of the process.
 ## Ansible Rule
 
 Ansible rules allow you to control the execution of
-[Ansible](../plugins/ansible.html) plays.
+[Ansible](../plugins-v2/ansible.html) plays.
 
 The syntax:
 
@@ -245,6 +250,44 @@ dependencies:
       }
     ]
   }
+}
+```
+
+## Dependency Rewrite Rule
+
+Dependency rewrite rules provide a way to change dependency artifacts (e.g. dependency versions).
+
+The syntax:
+
+```json
+{
+  "msg": "optional message",
+  "groupId": "...groupId...",
+  "artifactId": "...artifactId...",
+  "fromVersion":"...optional lower bound (inclusive) of version...",
+  "toVersion":"..optional upper bound (inclusive) of version...",
+  "value":"mvn://new dependency artifact"  
+}
+```
+
+The attributes:
+
+- `groupId` and `artifactId` - parts of the dependency's Maven GAV;
+- `fromVersion` and `toVersion` - define the version range;
+- `value` - new dependency value.
+
+For example, updating groovy dependency version to `2.5.21`:
+
+```json
+{
+  "dependencyRewrite": [
+      {
+        "groupId": "org.codehaus.groovy",
+        "artifactId": "groovy-all",
+        "toVersion": "2.5.20",
+        "value": "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
+      }
+  ]
 }
 ```
 
@@ -789,6 +832,73 @@ Example:
       ".*/\\.git/.*"
     ],
     "maxSizeInBytes": 268435456
+  }
+}
+```
+
+## Runtime Rule
+
+The runtime rule controls allowed runtime(s) for process execution.
+
+The syntax:
+
+```json
+{ 
+  "msg": "optional message", 
+  "runtimes": ["concord runtime(s)..."]
+}
+```
+
+The attributes:
+
+- `runtimes` - List of allowed concord runtime(s);
+
+Example:
+
+```json
+{
+  "runtime": {
+    "msg": "{0} runtime version is not allowed",
+    "runtimes": ["concord-v2"]
+  }
+}
+```
+
+## RawPayload Rule
+
+RawPayload rules allows you to limit the size of the raw payload archive sent to start the process.
+
+The syntax:
+
+```json
+{
+   "rawPayload": {
+      "msg": "Raw payload size too big: current {0} bytes, limit {1} bytes",
+      "maxSizeInBytes": 1024
+   }
+}
+```
+
+## CronTrigger Rule
+
+Cron trigger rule allows you, administrators to set the minimum interval between the process triggered by cron.
+
+The syntax:
+
+```json
+{
+  "cronTrigger": {
+    "minInterval": "interval in seconds"
+  }
+}
+```
+
+For example:
+
+```json
+{
+  "cronTrigger": {
+    "minInterval": 61
   }
 }
 ```

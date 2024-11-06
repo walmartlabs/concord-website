@@ -6,7 +6,7 @@ side-navigation: wmt/docs-navigation.html
 
 # {{ page.title }}
 
-[Triggers](../triggers/overview.html) start processes in reaction to external events.
+[Triggers](../triggers/index.html) start processes in reaction to external events.
 
 The REST API provides support for a number of operations:
 

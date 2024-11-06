@@ -2,6 +2,7 @@
 layout: wmt/docs
 title:  Security and Permissions
 side-navigation: wmt/docs-navigation.html
+description: Managing Concord security
 ---
 
 # {{ page.title }}
@@ -43,7 +44,7 @@ attempt. After that, it can be managed as usual, by using
 the [User](../api/user.html) API endpoint.
 
 Username/password authentication uses an LDAP/Active Directory realm. Check
-[Configuration](./configuration.html#ldap) document for details.
+[Configuration](./configuration.html#server-configuration-file) document for details.
 
 ### Using Session Tokens
 
@@ -96,5 +97,5 @@ flows:
 Concord encrypts and decrypts such values by using a project-specific
 encryption key. In order to use encrypted strings, the process must run in a project.
 
-The [crypto](../plugins/crypto.html) task can be used to work with secrets and
+The [crypto](../plugins-v2/crypto.html) task can be used to work with secrets and
 encrypted strings.
