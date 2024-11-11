@@ -16,6 +16,7 @@ use in the workflow execution.
       <ul>
         <li><a href="./akeyless.html">Akeyless</a></li>
         <li><a href="./ansible.html">Ansible</a></li>
+        <li><a href="./asserts.html">Asserts</a></li>
         <li><a href="./concord.html">Concord</a></li>
         <li><a href="./confluence.html">Confluence</a></li>
         <li><a href="./crypto.html">Crypto</a></li>
@@ -36,6 +37,7 @@ use in the workflow execution.
         <li><a href="./key-value.html">Key Value</a></li>
         <li><a href="./ldap.html">LDAP</a></li>
         <li><a href="./lock.html">Lock</a></li>
+        <li><a href="./mocks.html">Mocks</a></li>
         <li><a href="./msteams.html">MS Teams</a></li>
         <li><a href="./node-roster.html">Node Roster</a></li>
         <li><a href="./puppet.html">Puppet</a></li>
