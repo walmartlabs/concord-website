@@ -149,6 +149,8 @@ nav:
         context: /docs/plugins-v2/argocd
       - page: Ansible
         context: /docs/plugins-v2/ansible
+      - page: Asserts
+        context: /docs/plugins-v2/asserts
       - page: Concord
         context: /docs/plugins-v2/concord
       - page: Confluence
@@ -181,6 +183,8 @@ nav:
         context: /docs/plugins-v2/ldap
       - page: Lock
         context: /docs/plugins-v2/lock
+      - page: Mocks
+        context: /docs/plugins-v2/mocks
       - page: MS Teams
         context: /docs/plugins-v2/msteams
       - page: Node Roster
