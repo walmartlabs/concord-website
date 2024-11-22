@@ -1092,7 +1092,7 @@ flows:
 
 Testing in Concord offers a comprehensive and flexible approach by leveraging powerful tools like
 [mocks](../plugins-v2/mocks.html),
-the [verify task](../plugins-v2/mocks.html#how-ot-verify-task-calls),
+the [verify task](../plugins-v2/mocks.html#how-to-verify-task-calls),
 [asserts](../plugins-v2/asserts.html) and [dry-run mode](../processes-v2/index.html#dry-run-mode).
 These tools enable you to test process logic, simulate external dependencies, and validate
 interactions without impacting real systems or data.
