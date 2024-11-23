@@ -7,6 +7,7 @@ description: Safely and efficiently simulate behavior, verify interactions, and 
 
 # {{ page.title }}
 
+- [Mock Behavior](#mock-behavior)
 - [Usage](#usage)
 - [Mock definition](#mock-definition)
   - [Fields for Mocking a Task](#fields-for-mocking-a-task)
@@ -33,6 +34,15 @@ Mocks plugin allow you to:
 Mocks help isolate individual components during testing, making tests faster, safer, and more
 focused.
 
+## Mock Behavior
+
+- Mocked Tasks Emit Process [Events](../processes-v2/configuration.html#events). These events make the execution appear as if the original task was called;
+- It is not possible to mock a task that does not exist;
+- It is not possible to mock a method that does not exist in the original task;
+- When a task is mocked, the original task is not created. This ensures that:
+  - The task's constructor or initialization logic does not execute;
+  - Any side effects or resource usage associated with task creation are avoided.
+    
 ## Usage
 
 To be able to use the task in a Concord flow, it must be added as a
