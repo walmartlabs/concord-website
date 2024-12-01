@@ -151,6 +151,8 @@ nav:
         context: /docs/plugins-v2/ansible
       - page: Asserts
         context: /docs/plugins-v2/asserts
+      - page: Code Coverage
+        context: /docs/plugins-v2/codecoverage
       - page: Concord
         context: /docs/plugins-v2/concord
       - page: Confluence
