@@ -11,10 +11,12 @@ description: A plugin for generating code coverage information for Concord flows
 - [Generated Files](#generated-files)
 - [HTML Report Generation](#html-report-generation)
 - [Script for Generating HTML Report](#script-for-generating-html-report)
+- [Example using Concord CLI](#example-using-concord-cli)
 
-The Code Coverage plugin provides insights into how much of your Concord flow logic 
-is covered during process execution. It saves the coverage information in the widely-used LCOV format, 
-allowing you to analyze the coverage or generate a detailed HTML report.
+The Code Coverage plugin provides insights into how much of your Concord flow
+logic is covered during process execution. It saves the coverage information in
+the widely used LCOV format, allowing you to analyze the coverage or generate a
+detailed HTML report.
 
 ## Usage
 
@@ -27,7 +29,8 @@ configuration:
   - mvn://com.walmartlabs.concord.plugins:codecoverage:{{ site.concord_plugins_version }}
 ```
 
-Once added, the plugin will automatically generate coverage information during the execution of your Concord process
+Once added, the plugin will automatically generate coverage information during
+the execution of your Concord process
 
 ## Generated Files
 
@@ -36,25 +39,29 @@ At the end of the process execution, the plugin will produce the following files
 - `coverage.info`: The code coverage data in LCOV format;
 - `flows.zip`: A ZIP archive containing the flow files of the executed process.
 
-These files will be saved as part of the process attachments.
+These files will be saved as part of the process
+[attachments](../api/process.html#download-attachment).
 
 ## HTML Report Generation
 
-You can generate an HTML report from the coverage.info file using the genhtml utility from LCOV:
+You can generate an HTML report from the coverage.info file using the `genhtml`
+utility from the LCOV package:
 
 ```bash
 genhtml "coverage.info" --output-directory "html"
 ```
 
-> **Notes**: Ensure you have the lcov package installed on your system to use the genhtml command.
+> **Notes**: Ensure you have the lcov package installed on your system to use
+> the genhtml command.
 
 Below is an example of the report generated for the `hello_world` flow:
 
 <img src="../../assets/img/plugins/codecoverage/report.png" alt="code coverage report" class="img-responsive"/>
 
-### Script for generating HTML report
+### Script for Generating HTML Report
 
-You can use the following Bash script to automate downloading the coverage files, extracting the flows, and generating the HTML report:
+You can use the following Bash script to automate downloading the coverage
+files, extracting the flows, and generating the HTML report:
 
 ```bash
 #!/bin/bash
@@ -113,16 +120,52 @@ else
 fi
 ```
 
-### How the Script Works
+#### How the Script Works
 
-- Input Parameters:
-  - Accepts `BASE_URL`, `INSTANCE_ID`, and `TOKEN` as arguments.
-  - These parameters are used to authenticate and retrieve the files from the Concord server.
-- Download Files:
-  - Downloads `coverage.info` and `flows.zip` from the specified Concord process instance.
-- Extract Flows:
-  - Unzips `flows.zip`.
-- Generate HTML Report:
-  - Runs the `genhtml` command to generate the HTML report from `coverage.info` and flows.
-- Output:
-  - The HTML report is saved in the `code-coverage/html` directory
+Input Parameters:
+  - accepts `BASE_URL`, `INSTANCE_ID`, and `TOKEN` as arguments.
+  - these parameters are used to authenticate and retrieve the files from the Concord server.
+
+Steps:
+- download files:
+  - downloads `coverage.info` and `flows.zip` from the specified Concord process instance.
+- extract "source code":
+  - unzips `flows.zip`.
+- generate HTML report:
+  - runs the `genhtml` command to generate the HTML report from `coverage.info` and flows.
+
+Output:
+  - the HTML report is saved in the `code-coverage/html` directory
+
+### Example Using Concord CLI
+
+```yaml
+# concord.yml
+configuration:
+  runtime: "concord-v2"
+  dependencies:
+    - mvn://com.walmartlabs.concord.plugins:codecoverage:{{ site.concord_plugins_version }}
+
+flows:
+  default:
+    - call: sayHello
+
+  sayHello:
+    - log: "Hi!"
+
+  sayBye:
+    - log: "Bye!"⏎ 
+```
+
+```
+$ concord run
+Starting...
+14:24:47.541 [main] Hi!
+14:24:47.543 [main] Generating code coverage info...
+14:24:47.551 [main] Coverage info saved as attachment with name 'coverage.info'
+...done!
+```
+
+```
+$ genhtml target/_attachments/coverage.info --output-directory "html" 
+```
