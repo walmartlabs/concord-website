@@ -17,6 +17,7 @@ use in the workflow execution.
         <li><a href="./akeyless.html">Akeyless</a></li>
         <li><a href="./ansible.html">Ansible</a></li>
         <li><a href="./asserts.html">Asserts</a></li>
+        <li><a href="./codecoverage.html">Code Coverage</a></li>
         <li><a href="./concord.html">Concord</a></li>
         <li><a href="./confluence.html">Confluence</a></li>
         <li><a href="./crypto.html">Crypto</a></li>
