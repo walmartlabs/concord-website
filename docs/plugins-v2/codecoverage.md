@@ -139,6 +139,8 @@ Output:
 
 ### Example Using Concord CLI
 
+The code coverage plugin also works with [Concord CLI](../cli/index.html):
+
 ```yaml
 # concord.yml
 configuration:
