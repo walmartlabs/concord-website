@@ -517,7 +517,7 @@ Another example is a policy to prevent users from creating wide-sweeping,
     "entity": {
       "deny": [
          {
-            "msg": "Blanket Github triggers are disallowed",
+            "msg": "Blanket GitHub triggers are disallowed",
             "action": "create",
             "entity": "trigger",
             "conditions":{

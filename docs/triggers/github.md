@@ -25,13 +25,14 @@ flows:
   
 triggers:
 - github:
+    version: 2
     useInitiator: true
     entryPoint: onPush
     conditions:
       type: push
 ```
 
-Github trigger supports the following attributes
+GitHub trigger supports the following attributes
 
 - `entryPoint` - string, mandatory, the name of the flow that Concord starts
 when GitHub event matches trigger conditions;
@@ -84,6 +85,7 @@ of the process:
 ```yaml
 triggers:
   - github:
+      version: 2
       useInitiator: true
       entryPoint: onPush
       exclusive:
@@ -129,6 +131,7 @@ repository:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onPush"
     conditions:
       type: "push"
@@ -140,6 +143,7 @@ ignores pushes if the branch is deleted:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onPush"
     conditions:
       branch: "^dev-.*$"
@@ -153,6 +157,7 @@ ignores pushes by `jenkinspan` and `anothersvc`:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onPush"
     conditions:
       type: "push"
@@ -166,6 +171,7 @@ event are `added`, `modified`, `deleted`, or `any`.
 ```yaml
 # fire when concord.yml is modified
 - github:
+    version: 2
     entryPoint: "onConcordUpdate"
     conditions:
       type: "push"
@@ -176,6 +182,7 @@ event are `added`, `modified`, `deleted`, or `any`.
 
 # fire when any file within src/ is added, modified, or deleted
 - github:
+    version: 2
     entryPoint: "onSrcChanged"
     conditions:
       type: "push"
@@ -191,6 +198,7 @@ To receive a notification when a PR is opened:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onPr"
     conditions:
       type: "pull_request"
@@ -202,6 +210,7 @@ To trigger a process when a new PR is opened or commits are added to the existin
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onPr"
     conditions:
       type: "pull_request"
@@ -213,6 +222,7 @@ To trigger a process when a PR is merged:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onPr"
     conditions:
       type: "pull_request"
@@ -227,6 +237,7 @@ The next example trigger only fires on pull requests that have the label `bug`:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onBug"
     conditions:
       type: "pull_request"
@@ -243,6 +254,7 @@ organization:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onTeamChange"
     conditions:
       type: "membership"
@@ -253,6 +265,7 @@ To trigger a process when a team is added to the current repository:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: "onTeamAdd"
     conditions:
       type: "team_add"
@@ -267,6 +280,7 @@ registered repository:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: onPush
     conditions:
       repositoryInfo:
@@ -278,6 +292,7 @@ handled by the registered webhooks:
 
 ```yaml
 - github:
+    version: 2
     entryPoint: onEvent
     conditions:
       githubOrg: ".*"
