@@ -62,8 +62,7 @@ Syntax:
 - ${jsonStore.upsert(storeName, itemPath, data)}
 ```
 
-The `data` parameter must be a Java object. Only types that can be represented
-in JSON are supported: Java lists, maps, strings, numbers, boolean values, etc.
+The `data` parameter must be a Java Map object.
 
 If the `orgName` parameter is omitted the current organization is used.
 The task uses the current process' organization name if the `orgName` parameter
