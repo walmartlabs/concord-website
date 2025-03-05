@@ -48,16 +48,16 @@ Creates a new API key for a user.
   -X POST \
   -H "Content-Type: application/json" \
   -d '{ "username": "myLdapUser" }' \
-  http://concord.example.com/api/v1/apikey
+  https://concord.example.com/api/v1/apikey
   ```
 
 * **Example**: create a key, specify a key name
   ```
   curl -u myLdapUser \
-  -X POST
+  -X POST \
   -H "Content-Type: application/json" \
   -d '{ "username": "myLdapUser", "name": "myCustomApiKeyName" }' \
-  http://concord.example.com/api/v1/apikey
+  https://concord.example.com/api/v1/apikey
   ```
 
 * **Example**: create a key when multiple users with the same username exist across domains
@@ -66,7 +66,7 @@ Creates a new API key for a user.
   -X POST \
   -H "Content-Type: application/json" \
   -d '{ "username": "myLdapUser", "userDomain": "example.com" }' \
-  http://concord.example.com/api/v1/apikey
+  https://concord.example.com/api/v1/apikey
   ```
 
 <a name="list-keys"/>
@@ -101,7 +101,7 @@ Lists any existing API keys for the user. Only returns metadata, not actual keys
   ```
   curl -u myLdapUser \
   -H "Content-Type: application/json" \
-  http://concord.example.com/api/v1/apikey
+  https://concord.example.com/api/v1/apikey
   ```
 
 <a name="delete-key"/>
@@ -131,7 +131,7 @@ Removes an existing API key.
   curl -u myLdapUser \
   -X DELETE \
   -H "Content-Type: application/json" \
-  http://concord.example.com/api/v1/apikey/2505acba-314d-11e9-adf9-0242ac110002
+  https://concord.example.com/api/v1/apikey/2505acba-314d-11e9-adf9-0242ac110002
   ```
 
 <a name="apikey-authorization"/>
@@ -145,6 +145,5 @@ with user and password.
   curl \
   -H "Content-Type: application/json" \
   -H "Authorization: someGeneratedKeyValue" \
-  http://concord.example.com/api/v1/apikey
+  https://concord.example.com/api/v1/apikey
   ```
-
