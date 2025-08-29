@@ -1090,6 +1090,8 @@ flows:
 
 ### Testing in Concord
 
+_Available since version 2.19.0_
+
 Testing in Concord offers a comprehensive and flexible approach by leveraging powerful tools like
 [mocks](../plugins-v2/mocks.html),
 the [verify task](../plugins-v2/mocks.html#how-to-verify-task-calls),
