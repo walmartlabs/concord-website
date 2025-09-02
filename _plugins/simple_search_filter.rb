@@ -1,20 +1,7 @@
-module Jekyll
-  module CharFilter
-    def remove_chars(input)
-      input.gsub! '\\','&#92;'
-      input.gsub! /\t/, '    '
-      input.gsub! /\n+/, ' '
-      input.strip_control_and_extended_characters
-    end
-  end
-end
-
-Liquid::Template.register_filter(Jekyll::CharFilter)
-
-class String
-  def strip_control_and_extended_characters()
-    chars.each_with_object("") do |char, str|
-      str << char if char.ascii_only? and char.ord.between?(32,126)
-    end
-  end
-end
+# NOTE: Legacy plugin retained only for reference. Not used by current site build.
+# Safe to delete if desired. Original purpose: provide `remove_chars` Liquid
+# filter to sanitize content for search index generation.
+# ---------------------------------------------------------------------------
+# Disabled: original simple_search_filter.rb removed for GitHub Pages compatibility.
+# The custom Liquid filter `remove_chars` has been eliminated from templates.
+# This file intentionally left minimal.

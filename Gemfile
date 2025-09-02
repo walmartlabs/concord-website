@@ -2,19 +2,15 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
-gem "jekyll", "~>3.9.0"
-
-gem "minima", "~> 2.0"
-gem "json", "~>2.3.0"
-gem "kramdown", ">= 2.3.0"
-gem "kramdown-parser-gfm"
-gem "kramdown-syntax-coderay"
-gem "jekyll-redirect-from"
+# GitHub Pages meta gem controls Jekyll + approved plugin versions.
+# Do NOT pin jekyll/minima/kramdown/etc separately to avoid version conflicts.
+# Local-only gems (like webrick) can remain.
 
 group :jekyll_plugins do
-   gem "jekyll-feed", "~> 0.6"
+  gem "github-pages", require: false
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
+# Needed for Ruby >= 3 when serving locally.
 gem "webrick", "~> 1.9"
+
+gem 'tzinfo-data', platforms: [:jruby]

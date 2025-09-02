@@ -12,4 +12,3 @@ vendor
 .arcconfig
 .classpath
 .ruby-version
-Gemfile.lock

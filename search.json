@@ -1,22 +1,19 @@
 ---
 layout: null
 ---
-[{% for page in site.pages %}{% if page.title != nil and page.searchindex != false %} {
-  "title": "{{ page.title | escape_once }}{% if page.deprecated %} (DEPRECATED){% endif %}",
-  "url": "{{ site.baseurl }}{{ page.url }}",
-  "content": "{{ page.content | strip_html | remove_chars | escape }}",
-  "desc": "{{ page.description }}"
- },{% endif %}{% endfor %}
-{% for post in site.posts %}{
-  "title": "{{ post.title | escape_once }}",
-  "url": "{{ site.baseurl }}{{ post.url }}",
-  "date": "{{ post.date }}",
-  "content": "{{ post.content | strip_html | strip_newlines | remove_chars | escape }}"
- },{% endfor %}
- {
-  "title": "",
-  "url": "",
-  "date": "",
-  "content": ""
- }
+[
+{% assign pages = site.pages | where_exp: "p","p.title" %}
+{% for p in pages %}{% if p.searchindex != false %}{% assign t = p.title %}{% if p.deprecated %}{% assign t = t | append: " (DEPRECATED)" %}{% endif %}{
+  "title": {{ t | jsonify }},
+  "url": {{ p.url | relative_url | jsonify }},
+  "content": {{ p.content | strip_html | strip_newlines | jsonify }},
+  "desc": {{ p.description | default: "" | jsonify }}
+}{% unless forloop.last %},{% endunless %}{% endif %}
+{% endfor %}
+{% if site.posts and site.posts != empty %}{% if pages and pages != empty %},{% endif %}{% for post in site.posts %}{% assign pt = post.title %}{% if post.deprecated %}{% assign pt = pt | append: " (DEPRECATED)" %}{% endif %}{
+  "title": {{ pt | jsonify }},
+  "url": {{ post.url | relative_url | jsonify }},
+  "date": {{ post.date | date_to_xmlschema | jsonify }},
+  "content": {{ post.content | strip_html | strip_newlines | jsonify }}
+}{% unless forloop.last %},{% endunless %}{% endfor %}{% endif %}
 ]
