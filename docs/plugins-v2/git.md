@@ -395,7 +395,7 @@ The following input parameters are required for all `github` task calls.
 
 - `action`: Task action to perform
 - `apiUrl`: GitHub API URL (e.g. `https://github.example.com/api/v3`)
-- `auth`: API authentication. Must but **only one** of the following:
+- `auth`: API authentication. Must include **exactly one** of the following:
   - `accessToken`: String, Access token for GitHub API. Must have appropriate
     [scope](https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps)
   - `appInstallation`: Object/Map, GitHub App installation details

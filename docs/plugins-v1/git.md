@@ -396,11 +396,11 @@ Examples below take advantage of a globally configured `apiUrl`.
 ## Common Task Parameters
 
 The following input parameters are required for all `github` task calls.
-`action`-specific parameters are details in the action's docs.
+`action`-specific parameters are detailed in the action's docs.
 
 - `action`: Task action to perform
 - `apiUrl`: GitHub API URL (e.g. `https://github.example.com/api/v3`)
-- `auth`: API authentication. Must but **only one** of the following:
+- `auth`: API authentication. Must include **exactly one** of the following:
     - `accessToken`: String, Access token for GitHub API. Must have appropriate
       [scope](https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps)
     - `appInstallation`: Object/Map, GitHub App installation details
