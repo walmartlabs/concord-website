@@ -377,7 +377,6 @@ structure:
 ```json
 {
   "githubAppInstallation": {
-    "id": "my-unique-app-name",
     "apiUrl": "https://api.github.com",
     "clientId": "abc123",
     "privateKey": "-----BEGIN RSA PRIVATE KEY-----\nMIIEowI...",
