@@ -51,11 +51,14 @@ common for all operations:
   `https://confluence.example.com/rest/api/`
 - `action` - determines the operation to be performed with the current
   invocation of the `confluence` task
-- `userId` - identifier of the Confluence user account to use for the
-  interaction
-- `password` - password for the user account to use, typically this should be
-  provided via usage of the [Crypto task](./crypto.html) to access a password
-  stored in Concord or decrypt an encrypted password string.
+- `auth`: one of the following authentication types:
+  - `basic`:
+    - `username`: string value, identifier of the Confluence user account to use for the
+      interaction
+    - `password`: string value, password for the user account to use, typically
+      this should be provided via usage of the [Crypto task](./crypto.html) to
+      access a password stored in Concord or decrypt an encrypted password string.
+  - `accessToken`: string, access token to be used for authentication.
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
   execution are ignored and stored in the `result` variable. Defaults to
   `false`.
@@ -78,23 +81,32 @@ policy:
 ```
 
 A minimal configuration taking advantage of a globally configured API URL
-includes the `userId`, the `password`, the desired `action` to perform and any
+includes the `auth` parameter, the desired `action` to perform, and any
 additional parameters need for the action:
 
 ```yaml
 flows:
   default:
+  # basic authentication
   - task: confluence
     in:
       action: createPage
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        basic: ${crypto.exportCredentials('Default', 'mycredentials', null)}
+    out: result
+
+    # access token authentication
+  - task: confluence
+    in:
+      action: createPage
+      auth:
+        accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     out: result
 ```
 
 All operations are subject to the security configuration of your Confluence and
-the userId performing the actions. For example, if you attempt to delete a page
-without the correct rights to delete pages, the action of the task fails.
+the `auth` credentials performing the actions. For example, if you attempt to
+delete a page without the correct rights to delete pages, the action of the task fails.
 
 <a name="createPage"/>
 
@@ -107,8 +119,8 @@ specific `space`.
 - task: confluence
   in:
     action: createPage
-    userId: myUserId
-    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    auth:
+      accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     spaceKey: "MYSPACEKEY"
     pageTitle: "My Page Title"
     pageContent: "<p>This is <br/> my page content</p>"
@@ -149,8 +161,8 @@ template file. You can also pass additional variables as a part of
 - task: confluence
   in:
     action: createPage
-    userId: myUserId
-    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    auth:
+      accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     spaceKey: "MYSPACEKEY"
     pageTitle: "My Page Title"
     template: content.mustache
@@ -179,8 +191,8 @@ of an existing page. By default this action appends text to existing content.
 - task: confluence
   in:
     action: updatePage
-    userId: myUserId
-    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    auth:
+      accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     spaceKey: "MYSPACEKEY"
     pageTitle: "My Page Title"
     pageUpdate: "This is an update to an existing content"
@@ -211,8 +223,8 @@ The `addCommentsToPage` action can be used to add a comment to an existing page.
 - task: confluence
   in:
     action: addCommentsToPage
-    userId: myUserId
-    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    auth:
+      accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     pageId: 32432235
     pageComment: "<p>This is a comment to an existing page</p>"
   out: result
@@ -241,8 +253,8 @@ page.
 - task: confluence
   in:
     action: uploadAttachment
-    userId: myUserId
-    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    auth:
+      accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     pageId: 32432235
     attachmentComment: "My attachment comments"
     attachmentPath: path/to/the/attachment.txt
@@ -274,8 +286,8 @@ page.
 - task: confluence
   in:
     action: getPageContent
-    userId: myUserId
-    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    auth:
+      accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     pageId: 32432235
   out: result
 ```
@@ -301,8 +313,8 @@ a child of another page.
 - task: confluence
   in:
     action: createChildPage
-    userId: myUserId
-    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    auth:
+      accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     spaceKey: "MYSPACEKEY"
     parentPageId: 32432235
     childPageTitle: "My Child Page Title"
@@ -336,8 +348,8 @@ The `deletePage` action can be used to delete an existing page.
 - task: confluence
   in:
     action: deletePage
-    userId: myUserId
-    password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+    auth:
+      accessToken: ${crypto.exportCredentials('Default', 'my-token', null)}
     pageId: 32432235
   out: result
 ```

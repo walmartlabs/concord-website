@@ -54,10 +54,19 @@ operations:
 
 - `apiUrl` -  URL to the API endpoint of the Jira server, e.g `https://jira.example.com/rest/api/2/`
 - `action` - determines the operation to be performed with the current invocation of the Jira task
-- `userId` -  identifier of the user account to use for the interaction
-- `password` -  password for the user account to use, typically this should be
-provided via usage of the [Crypto task](./crypto.html)
-- `auth` - authentication used for jira.
+- `auth` - one of the following authentication types:
+  - `accessToken`: string, access token to be used for authentication.
+  - `basic`:
+    - `username`: string value, identifier of the Confluence user account to use for the
+      interaction
+    - `password`: string value, password for the user account to use, typically
+      this should be provided via usage of the [Crypto task](./crypto.html) to
+      access a password stored in Concord or decrypt an encrypted password string.
+  - `secret`:
+    - `org`: string, optional, name of the organization where the secret is
+      stored. If not provided, the current organization is used.
+    - `name`: string, name of the secret where the credentials are stored.
+    - `password`: string, optional, decryption password for the secret
 - `debug` - Optional, if true enables additional debug output. Default is set to `false`
 
 The `apiUrl` configures the URL to the Jira REST API endpoint. It is best
@@ -80,30 +89,24 @@ policy:
 <a name="authentication"/>
 
 ## Authentication
+
 A minimal configuration to get authenticated from a globally configured API URL
-includes the `userId`, the `password`.
-
-```yaml
-flows:
-  default:
-  - task: jira
-    in:
-      action: createIssue
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
-      ...
-```
-
-`username` and `password` can also be provided as:
+includes the `username`, the `password`.
 
 ```yaml
 - task: jira
   in:
     auth:
-      basic:
-        username: "..."
-        password: "..."
+      basic: "${crypto.exportCredentials('my-org', 'my-creds', null)}"
+```
 
+Personal Access Tokens can be used with the `accessToken` authentication type:
+
+```yaml
+- task: jira
+  in:
+    auth:
+      accessToken: "${crypto.exportAsString('my-org', 'my-token', null)}"
 ```
 
 `USERNAME_PASSWORD` type secrets can also be used to provide the credentials:
@@ -130,8 +133,8 @@ flows:
   - task: jira
     in:
       action: createIssue
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       projectKey: MYPROJECT
       summary: mySummary
       description: myDescription
@@ -209,8 +212,8 @@ flows:
   - task: jira
     in:
       action: updateIssue
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       issueKey: "MYISSUEKEY"
       fields:
         summary: "mySummary123"
@@ -239,8 +242,8 @@ flows:
   - task: jira
     in:
       action: addComment
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       issueKey: "MYISSUEKEY"
       comment: "This is my comment from concord"
 ```
@@ -283,8 +286,8 @@ flows:
   - task: jira
     in:
       action: transition
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       issueKey: "MYISSUEKEY"
       transitionId: 561
       transitionComment: "Marking as Done"
@@ -309,10 +312,10 @@ action and the identifier for the issue in `issueKey`.
 flows:
   default:
   - task: jira
-     in:
+    in:
       action: deleteIssue
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       issueKey: "MYISSUEKEY-123"
 ```
 
@@ -329,8 +332,8 @@ flows:
   - task: jira
     in:
       action: createComponent
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       projectKey: "MYPROJECTKEY"
       componentName: "MYCOMPONENT"
 ```
@@ -353,8 +356,8 @@ flows:
   - task: jira
     in:
       action: deleteComponent
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       componentId: 33818
 ```
 
@@ -371,8 +374,8 @@ flows:
   - task: jira
     in:
       action: currentStatus
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       issueKey: "MYISSUEKEY"
   - if: ${result.ok}
     then:
@@ -396,8 +399,8 @@ flows:
   - task: jira
     in:
       action: getIssues
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       projectKey: "MYPROJECTKEY"
       issueType: Bug
       issueStatus: Done
@@ -421,8 +424,8 @@ flows:
   - task: jira
     in:
       action: getIssues
-      userId: myUserId
-      password: ${crypto.exportCredentials('Default', 'mycredentials', null).password}
+      auth:
+        accessToken: "..."
       projectKey: "MYPROJECTKEY"
       issueType: "Support\\ Ticket"      # escape spaces
       issueStatus: "'Work in Progress'"  # or use extra quotes
