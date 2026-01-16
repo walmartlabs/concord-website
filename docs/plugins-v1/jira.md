@@ -106,7 +106,7 @@ Personal Access Tokens can be used with the `accessToken` authentication type:
 - task: jira
   in:
     auth:
-      accessToken: "..."
+      accessToken: "${crypto.exportAsString('my-org', 'my-token', null)}"
 ```
 
 `USERNAME_PASSWORD` type secrets can also be used to provide the credentials:

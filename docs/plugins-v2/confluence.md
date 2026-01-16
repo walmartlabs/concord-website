@@ -52,13 +52,13 @@ common for all operations:
 - `action` - determines the operation to be performed with the current
   invocation of the `confluence` task
 - `auth`: one of the following authentication types:
-    - `basic`:
-        - `username`: string value, identifier of the Confluence user account to use for the
-          interaction
-        - `password`: string value, password for the user account to use, typically
-          this should be provided via usage of the [Crypto task](./crypto.html) to
-          access a password stored in Concord or decrypt an encrypted password string.
-    - `accessToken`: string, access token to be used for authentication.
+  - `basic`:
+    - `username`: string value, identifier of the Confluence user account to use for the
+      interaction
+    - `password`: string value, password for the user account to use, typically
+      this should be provided via usage of the [Crypto task](./crypto.html) to
+      access a password stored in Concord or decrypt an encrypted password string.
+  - `accessToken`: string, access token to be used for authentication.
 - `ignoreErrors` - boolean value, if `true` any errors that occur during the
   execution are ignored and stored in the `result` variable. Defaults to
   `false`.
