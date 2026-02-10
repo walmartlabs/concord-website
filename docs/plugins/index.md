@@ -28,7 +28,6 @@ redirect_from:
 - /docs/plugins/slack.html
 - /docs/plugins/sleep.html
 - /docs/plugins/smtp.html
-- /docs/plugins/taurus.html
 - /docs/plugins/terraform.html
 - /docs/plugins/xml.html
 - /docs/plugins/zoom.html

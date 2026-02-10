@@ -30,11 +30,11 @@ use in the workflow execution.
         <li><a href="./http.html">HTTP</a></li>
         <li><a href="./jenkins.html">Jenkins</a></li>
         <li><a href="./jira.html">Jira</a></li>
-        <li><a href="./json-store.html">JSON Store</a></li>
       </ul>
     </div>
     <div class="col-md-4">
       <ul>
+        <li><a href="./json-store.html">JSON Store</a></li>
         <li><a href="./key-value.html">Key Value</a></li>
         <li><a href="./ldap.html">LDAP</a></li>
         <li><a href="./lock.html">Lock</a></li>
@@ -47,7 +47,6 @@ use in the workflow execution.
         <li><a href="./slack.html">Slack</a></li>
         <li><a href="./sleep.html">Sleep</a></li>
         <li><a href="./smtp.html">SMTP</a></li>
-        <li><a href="./taurus.html">Taurus</a></li>
         <li><a href="./terraform.html">Terraform</a></li>
         <li><a href="./xml.html">XML</a></li>
         <li><a href="./zoom.html">Zoom</a></li>

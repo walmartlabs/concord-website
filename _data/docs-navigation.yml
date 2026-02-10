@@ -203,8 +203,6 @@ nav:
         context: /docs/plugins-v2/sleep
       - page: SMTP
         context: /docs/plugins-v2/smtp
-      - page: Taurus
-        context: /docs/plugins-v2/taurus
       - page: Terraform
         context: /docs/plugins-v2/terraform
       - page: XML
@@ -269,8 +267,6 @@ nav:
         context: /docs/plugins-v1/sleep
       - page: SMTP
         context: /docs/plugins-v1/smtp
-      - page: Taurus
-        context: /docs/plugins-v1/taurus
       - page: Terraform
         context: /docs/plugins-v1/terraform
       - page: XML
