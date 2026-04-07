@@ -276,7 +276,7 @@ The attributes:
 - `fromVersion` and `toVersion` - define the version range;
 - `value` - new dependency value.
 
-For example, updating groovy dependency version to `2.5.21`:
+For example, updating groovy dependency version to `5.0.4`:
 
 ```json
 {
@@ -284,8 +284,8 @@ For example, updating groovy dependency version to `2.5.21`:
       {
         "groupId": "org.codehaus.groovy",
         "artifactId": "groovy-all",
-        "toVersion": "2.5.20",
-        "value": "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
+        "toVersion": "3.0.0",
+        "value": "mvn://org.apache.groovy:groovy-all:pom:5.0.4"
       }
   ]
 }
@@ -302,14 +302,14 @@ The syntax:
 ```json
 [ 
     { 
-     "artifact": "...groupId:artifactId...",
-     "version": "...version"
+       "artifact": "...groupId:artifactId...",
+       "version": "...version"
     },
 
     { 
-         "artifact": "...groupId:artifactId...",
-         "version": "...version"
-        },
+       "artifact": "...groupId:artifactId...",
+       "version": "...version"
+    },
     ...
 ]
 ```

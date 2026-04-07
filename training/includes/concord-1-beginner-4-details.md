@@ -71,8 +71,8 @@ Note:
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.codehaus.groovy:groovy-all:2.4.14"
-  - "mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:1.6.0"
+  - "mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:2.35.0"
+  - "mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:2.35.0"
 ```
 
 Note:
@@ -80,16 +80,16 @@ Note:
 - This element adds java files - jar archives - to the execution classpath.
 - Classpath means available in the runtime.
 - It's typical to add scripting language support or tasks available via plugins.
-- Open up concord console, to a log and show concord loads some by default
-- Copy the groovy dependency from the slide and add to the concord.yml file
+- Open up Concord console, to a log and show Concord loads some by default
+- Copy the ansible dependency from the slide and add to the concord.yml file
 - Note; this link isn't a jar... the way Maven works, this is a set of coordinates
-that identify groovy-all jar in v. 2.14.
+that identify ansible-tasks jar in v. {{ site.concord_core_version }}.
 - Syntax is `mvn://<org>:<name>:<version>`
 - Go to nexus repo instance -> repositories -> click on a 'public' link,
-then type '/org/codehaus/groovy' in the address bar, and dotwalk to the jar file,
+then type '/com/walmartlabs/concord/plugins/basic' in the address bar, and dotwalk to the jar file,
 drawing parallels to link in yml.
-- Go find the smtp jar (in basic/smtp-tasks/1.6.0/jar), and compare that link to the one in slide
-- Update the concord.yml to include the smtp dependency, git add, commit, push, and run in concord console.
+- Go find the smtp jar (in basic/smtp-tasks/{{ site.concord_core_version }}/jar), and compare that link to the one in slide
+- Update the concord.yml to include the smtp dependency, git add, commit, push, and run in Concord console.
 
 <!--- vertical -->
 
@@ -553,7 +553,7 @@ Dependency:
 ```yaml
 configuration:
   dependencies:
-  - "mvn://org.codehaus.groovy:groovy-all:pom:2.5.21"
+  - "mvn://org.apache.groovy:groovy-all:pom:5.0.4"
 ```
   
 Inline script:
