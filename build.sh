@@ -23,6 +23,7 @@ DOCS_REF="${CONCORD_DOCS_REF:-${GITHUB_HEAD_REF:-${GITHUB_REF_NAME:-master}}}"
 DOCS_FALLBACK_REF="${CONCORD_DOCS_FALLBACK_REF:-master}"
 DOCS_SRC="${CONCORD_DOCS_SRC:-}"
 DOCS_DIR="${CONCORD_DOCS_DIR:-}"
+DOCS_EDIT_BASE_URL="${CONCORD_DOCS_EDIT_BASE_URL:-https://github.com/walmartlabs/concord/tree/${DOCS_REF}/docs/src}"
 
 resolve_docs_src() {
     if [[ -n "$DOCS_SRC" ]]; then
@@ -77,6 +78,8 @@ copy_site_source() {
 
 DOCS_SRC="$(resolve_docs_src)"
 cd "$SCRIPT_DIR"
+DOCS_MOUNT_DIR="$(dirname "$DOCS_SRC")"
+DOCS_CONTAINER_SRC="/build/concord-docs/$(basename "$DOCS_SRC")"
 
 docker build -t "$IMG" .
 
@@ -84,11 +87,12 @@ copy_site_source
 
 docker run --rm \
     --user "$(id -u):$(id -g)" \
+    --env "CONCORD_DOCS_EDIT_BASE_URL=$DOCS_EDIT_BASE_URL" \
     --volume "$SITE_SOURCE_DIR:/build/site" \
-    --volume "$DOCS_SRC:/build/concord-docs-src:ro" \
+    --volume "$DOCS_MOUNT_DIR:/build/concord-docs:ro" \
     --entrypoint ruby \
     "$IMG" \
-    /build/site/tools/import-concord-docs.rb /build/concord-docs-src /build/site/docs
+    /build/site/tools/import-concord-docs.rb "$DOCS_CONTAINER_SRC" /build/site/docs
 
 rm -rf "$SCRIPT_DIR/_site"
 mkdir -p "$SCRIPT_DIR/_site"

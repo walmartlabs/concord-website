@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "fileutils"
+require "yaml"
 
 if ARGV.size != 2
   warn "Usage: #{$PROGRAM_NAME} CONCORD_DOCS_SRC WEBSITE_DOCS_DIR"
@@ -10,6 +11,11 @@ end
 
 source_root = File.expand_path(ARGV[0])
 target_root = File.expand_path(ARGV[1])
+front_matter_overrides_paths = [
+  File.join(source_root, "website.yml"),
+  File.expand_path("../website.yml", source_root)
+].uniq
+docs_edit_base_url = ENV.fetch("CONCORD_DOCS_EDIT_BASE_URL", "").sub(%r{/+\z}, "")
 
 unless Dir.exist?(source_root)
   warn "Concord docs source directory does not exist: #{source_root}"
@@ -63,14 +69,33 @@ def extract_title(markdown, fallback_path)
   File.basename(fallback_path, ".md").split("-").map(&:capitalize).join(" ")
 end
 
-def default_front_matter(title)
-  <<~YAML
-    ---
-    layout: wmt/docs
-    title:  #{title}
-    side-navigation: wmt/docs-navigation.html
-    ---
-  YAML
+def default_front_matter_fields(title)
+  {
+    "layout" => "wmt/docs",
+    "title" => title,
+    "side-navigation" => "wmt/docs-navigation.html"
+  }
+end
+
+def yaml_scalar(value)
+  return value.to_s if value == true || value == false || value.nil?
+
+  value.to_s.inspect
+end
+
+def render_front_matter(fields)
+  lines = ["---"]
+  fields.each do |key, value|
+    lines << "#{key}: #{yaml_scalar(value)}"
+  end
+  lines << "---"
+  lines.join("\n")
+end
+
+def parse_front_matter(front_matter)
+  return {} unless front_matter
+
+  YAML.load(front_matter.sub(/\A---\n/, "").sub(/\n---\n?\z/, "")) || {}
 end
 
 def collect_front_matter(target_root)
@@ -78,16 +103,21 @@ def collect_front_matter(target_root)
 
   Dir.glob(File.join(target_root, "**", "*.md")).each do |path|
     existing_front_matter, = split_front_matter(File.read(path))
-    front_matter[path] = existing_front_matter if existing_front_matter
+    next unless existing_front_matter
+
+    relative_path = path.delete_prefix("#{target_root}/")
+    front_matter[relative_path] = parse_front_matter(existing_front_matter)
   end
 
   front_matter
 end
 
-def target_front_matter(target_path, source_body, existing_front_matter)
-  return existing_front_matter[target_path] if existing_front_matter.key?(target_path)
+def collect_front_matter_overrides(paths)
+  paths.each_with_object({}) do |path, overrides|
+    next unless File.exist?(path)
 
-  default_front_matter(extract_title(source_body, target_path))
+    overrides.merge!(YAML.load_file(path) || {})
+  end
 end
 
 def strip_source_front_matter(content)
@@ -112,17 +142,27 @@ def raw_wrap_literal_liquid(body)
   end
 end
 
-def render_markdown(source_path, target_path, existing_front_matter)
-  body = strip_source_front_matter(File.read(source_path))
-  body = replace_first_heading(body)
+def target_front_matter(target_path, source_body, existing_front_matter, front_matter_overrides, target_root, source_relative_path, docs_edit_base_url)
+  target_relative_path = target_path.delete_prefix("#{target_root}/")
+  fields = default_front_matter_fields(extract_title(source_body, target_path))
+  fields.merge!(existing_front_matter.fetch(target_relative_path, {}))
+  fields.merge!(front_matter_overrides.fetch(target_relative_path, {}))
+  fields["edit_url"] = "#{docs_edit_base_url}/#{source_relative_path}" unless docs_edit_base_url.empty?
+  render_front_matter(fields)
+end
+
+def render_markdown(source_path, target_path, existing_front_matter, front_matter_overrides, target_root, source_relative_path, docs_edit_base_url)
+  source_body = strip_source_front_matter(File.read(source_path))
+  body = replace_first_heading(source_body)
   body = rewrite_markdown_links(body)
   body = raw_wrap_literal_liquid(body)
 
-  front_matter = target_front_matter(target_path, body, existing_front_matter)
+  front_matter = target_front_matter(target_path, source_body, existing_front_matter, front_matter_overrides, target_root, source_relative_path, docs_edit_base_url)
   "#{front_matter}\n#{body}"
 end
 
 existing_front_matter = collect_front_matter(target_root)
+front_matter_overrides = collect_front_matter_overrides(front_matter_overrides_paths)
 
 CLEAN_TARGETS.each do |relative_dir|
   target_dir = File.join(target_root, relative_dir)
@@ -143,7 +183,8 @@ IMPORTS.each do |source_dir, target_dir|
     FileUtils.mkdir_p(File.dirname(target_path))
 
     if File.extname(source_path) == ".md"
-      File.write(target_path, render_markdown(source_path, target_path, existing_front_matter))
+      source_relative_path = File.join(source_dir, relative_path)
+      File.write(target_path, render_markdown(source_path, target_path, existing_front_matter, front_matter_overrides, target_root, source_relative_path, docs_edit_base_url))
     else
       FileUtils.cp(source_path, target_path)
     end

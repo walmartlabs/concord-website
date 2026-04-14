@@ -100,4 +100,5 @@ exclude:
   - "README.md"
   - "publish.sh"
   - "sonar*"
+  - "tools"
   - "vendor"
