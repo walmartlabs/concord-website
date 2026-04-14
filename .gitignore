@@ -13,3 +13,6 @@ vendor
 .classpath
 .ruby-version
 Gemfile.lock
+_src
+_build
+docs/src

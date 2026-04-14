@@ -7,20 +7,22 @@ The site is available at
 
 ## Build Using Docker
 
-Build the Docker image:
+Build the site:
 
 ```shell
 cd concord-website
-docker build . -t concord-website-builder:latest
+./build.sh
 ```
 
-Run the script:
+The build imports docs from `walmartlabs/concord` before running Jekyll. By
+default it uses the current GitHub ref in CI and `master` locally. To test with a
+local Concord checkout, use:
 
 ```shell
-./docker-launch.sh
+CONCORD_DOCS_DIR=/path/to/concord ./build.sh
 ```
 
-The website should be available at http://localhost:4000
+The static website is written to `_site`.
 
 ## Build Locally
 

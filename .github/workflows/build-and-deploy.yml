@@ -25,17 +25,10 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Build Docker image
-        run: docker build -t concord-website-builder:latest .
-
-      - name: Run Jekyll build
-        run: |
-          docker run --rm \
-            --user "$(id -u):$(id -g)" \
-            --volume "$PWD:/build/repo" \
-            --entrypoint bundle \
-            concord-website-builder:latest \
-            exec jekyll build --source /build/repo --destination /build/repo/_site
+      - name: Build site
+        env:
+          CONCORD_DOCS_REF: ${{ github.head_ref || github.ref_name }}
+        run: ./build.sh
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
