@@ -19,9 +19,12 @@ The checkpoint API can be used to list and restore
 You can access a list of all checkpoints for a specific process, identified by
 the `id`, with the REST API.
 
-* **URI** `/api/v1/process/{id}/checkpoint`
+* **URI** `/api/v3/process/{id}/checkpoint`
 * **Method** `GET`
 * **Headers** `Authorization`, `Content-Type: application/json`
+* **Query parameters**
+    - `limit`: maximum number of records to return;
+    - `offset`: starting index from which to return;
 * **Body**
     none
 
