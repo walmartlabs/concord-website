@@ -16,12 +16,18 @@ The checkpoint API can be used to list and restore
 
 ## List Checkpoints
 
-You can access a list of all checkpoints for a specific process, identified by
-the `id`, with the REST API.
+You can access a paginated list of checkpoints for a specific process,
+identified by the `id`, with the REST API.
 
-* **URI** `/api/v1/process/{id}/checkpoint`
+> The `/api/v1/process/{id}/checkpoint` endpoint is deprecated since version
+> 2.44.0 in favor of the paginated `/api/v3` endpoint described below.
+
+* **URI** `/api/v3/process/{id}/checkpoint`
 * **Method** `GET`
 * **Headers** `Authorization`, `Content-Type: application/json`
+* **Query parameters**
+    * `offset` - number of checkpoints to skip; defaults to `0`
+    * `limit` - maximum number of checkpoints to return; defaults to `10`
 * **Body**
     none
 
