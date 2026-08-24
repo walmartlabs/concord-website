@@ -57,9 +57,9 @@ The task requires the process to run as a part of a Concord project.
   - `concord` - (default) use the backend provided by Concord
   - `none` - use the default file-based backend or the backend configuration
     provided by the user
-  - `remote` - run on on Terraform Cloud or Terraform Enterprise
+  - `remote` - run on Terraform Cloud or Terraform Enterprise
 - `debug` - boolean value, if `true` the plugin logs additional debug information
-- `dockerImage` - string value, optional [Docker image](#executing-inside-a-fdocker-container)
+- `dockerImage` - string value, optional [Docker image](#executing-inside-a-docker-container)
   to use for execution
 - `extraEnv` - key-value pairs, extra environment variables provided to
   the `terraform` process
@@ -116,13 +116,13 @@ Parameters:
 be relative to the process' `${workDir}`;
 - `destroy` - boolean value, if true destroy plan is generated. By default,
   apply plan is generated;
-- `gitSsh` - see [GIT modules](#git-modules).
+- `gitAuth` - see [GIT modules](#git-modules).
 
 The output is stored in a `result` variable that has the following structure:
 
 - `ok` - boolean value, `true` if the execution is successful;
 - `hasChanges` - boolean value, `true` if `terraform plan` detected any changes
-in the enviroment;
+in the environment;
 - `output` - string value, output of `terraform plan` (stdout);
 - `planPath` - string value, path to the created plan file. The plugin stored
 such files as process attachments so they \"survive\" suspending/resuming the
@@ -179,7 +179,7 @@ relative to the process' `${workDir}`;
 - `plan` - string value, path to a previosly created plan file. The path must
 be relative to the process' `${workDir}`. When using `plan`, the original `dir`
 must be specified as well;
-- `gitSsh` - see [GIT modules](#git-modules).
+- `gitAuth` - see [GIT modules](#git-modules).
 - `saveOutput` - boolean value, if `true` the `terraform output` command will
 be automatically executed after the `apply` is completed and the result will
 be saved in the `result` variable.
@@ -419,15 +419,22 @@ so concord and TFE use the same executable and bundled modules.
 
 Using [Generic GIT
 repositories](https://www.terraform.io/docs/modules/sources.html#generic-git-repository)
-as modules may require SSH key authentication. The plugin provides a couple ways
-to configure the keys.
+as modules may require authentication. The plugin provides a input parameters to
+accommodate both SSH key auth and HTTP(S) username/password auth.
+
+Multiple private key files and Concord Secrets can be used simultaneously.
+
+When running separate `plan` and `apply` actions, only the `plan` part requires
+the key configuration.
+
+### SSH Key Authentication
 
 Using private key files directly:
 
 ```yaml
 - task: terraform
   in:
-    gitSsh:
+    gitAuth:
       privateKeys:
         - "relative/path/to/a/private/key.file"
         - "another/private/key.file"
@@ -440,17 +447,26 @@ An alternative (and recommended) way is to use Concord [Secrets](../api/secret.h
 ```yaml
 - task: terraform
   in:
-    gitSsh:
+    gitAuth:
       secrets:
         - org: "myOrg" # optional
           secretName: "myKeyPairSecret"
           password: "myS3cr3t" # optional
 ```
 
-Multiple private key files and Concord Secrets can be used simultaneously.
+### HTTP(S) Username/Password Authentication
 
-When running separate `plan` and `apply` actions, only the `plan` part requires
-the key configuration.
+Use the `gitAuth.http` parameter to provide a username and password (or personal
+access token) for HTTP(S) authentication:
+
+```yaml
+- task: terraform
+  in:
+    gitAuth:
+      http:
+        username: "myUsername"              # optional, defaults to x-access-token
+        password: "${myGitPasswordOrToken}" # provide via secret
+```
 
 ## Terraform Version
 
@@ -480,7 +496,7 @@ tools required by some terraform modules.
 ```
 
 The specified image must be compatible with
-[Concord's Docker service](./docker.html#custom-images). 
+[Concord's Docker service](./docker.html#custom-images).
 
 ## Examples
 
