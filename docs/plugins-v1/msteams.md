@@ -69,7 +69,7 @@ then click on Manage Team.
 5. Type the team or channel name and click `Set up a bot`.
 
 > Private channels do not support bots. Make sure your channel is not marked as `private`.
-For more details check [here](https://docs.microsoft.com/en-us/microsoftteams/private-channels#what-you-need-to-know-about-private-channels).
+For more details check [here](https://learn.microsoft.com/en-us/microsoftteams/teams-channels-overview#channel-feature-comparison).
 
 <a name="commonParameters"/>
 

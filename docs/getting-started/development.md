@@ -18,7 +18,7 @@ will try to connect to `localhost:5432` using username `postgres`, password
 The easiest way to get the database up and running is to use an official
 Docker image:
 ```
-docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' library/postgres:10.4
+docker run -d -p 5432:5432 --name db -e 'POSTGRES_PASSWORD=q1' library/postgres:14.21-alpine
 ```
 
 ## Running from an IDE
@@ -79,6 +79,10 @@ This method is suitable only for local development.
 
 
 ## Building
+
+Building Concord requires JDK 25. See the
+[project's building instructions]({{ site.concord_source }}/blob/master/README.md#building)
+for the other prerequisites.
 
 To skip NPM-related tasks when building the project:
 ```

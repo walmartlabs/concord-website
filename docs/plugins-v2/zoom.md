@@ -69,7 +69,7 @@ policy:
 }
 ```
 
-For more details about each parameter refer to the [api docs](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages).
+For more details about each parameter refer to the [api docs](https://developers.zoom.us/docs/chat/chatbot/extend/send-a-message/#send-messages).
 
 <a name="send-message"/>
 

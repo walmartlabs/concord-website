@@ -908,7 +908,7 @@ containing the  `PullRequest` details. It can be used at a later point in the fl
 
 **`getPR` Returned Variables:**
 
-- `pr` - object, pull request details. See [Pulls docs](https://docs.github.com/en/rest/reference/pulls#get-a-pull-request--code-samples)
+- `pr` - object, pull request details. See [Pulls docs](https://docs.github.com/en/rest/pulls/pulls#get-a-pull-request)
   for more details.
 
 ```yaml
@@ -944,7 +944,7 @@ which is a list of `PullRequest` values. It can be used at a later point in the 
 **`getPRList` Returned Variables:**
 
 - `prList`: list of pull request objects. See
-  [Pulls docs](https://docs.github.com/en/rest/reference/pulls#list-pull-requests--code-samples)
+  [Pulls docs](https://docs.github.com/en/rest/pulls/pulls#list-pull-requests)
   for more details.
 
 ```yaml
@@ -1013,7 +1013,7 @@ The `addStatus` action can be used to add status messages to a commit.
 - `repo`: name of GitHub repository.
 - `commitSHA`: ID of the commit which should receive the status update.
 - `context`, `state`, `targetUrl` and `description`: attributes of the status
-  update. See [the GitHub API documentation](https://developer.github.com/v3/repos/statuses/#parameters)
+  update. See [the GitHub API documentation](https://docs.github.com/en/rest/commits/statuses#create-a-commit-status--parameters)
   for details.
 
 ```yaml

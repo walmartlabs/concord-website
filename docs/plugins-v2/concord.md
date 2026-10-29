@@ -13,7 +13,6 @@ running processes.
 The task is provided automatically for all flows, no external dependencies
 necessary.
 
-- [Examples](#examples)
 - [Parameters](#parameters)
 - [Starting a Process using a Payload Archive](#start-payload)
 - [Starting a Process using an Existing Project](#start-project)

@@ -86,8 +86,9 @@ now prepares the process' resume state;
 least, all process-level errors were handled in the process itself;
 - `FAILED` - the process failed with an unhandled error;
 - `CANCELLED` - the process was cancelled by a user;
-- `TIMED_OUT` - the process exceeded its
-[execution time limit](#process-timeout).
+- `TIMED_OUT` - the process exceeded its execution time limit. See the process
+timeout configuration for [concord-v1](../processes-v1/configuration.html#process-timeout)
+or [concord-v2](../processes-v2/configuration.html#process-timeout).
 
 ## Runtime
 

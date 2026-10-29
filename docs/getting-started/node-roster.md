@@ -66,7 +66,7 @@ The playbook:
 - hosts: myHosts
   tasks:
   - get_url:
-      url: "http://central.maven.org/maven2/com/walmartlabs/concord/concord-cli/{{ site.concord_core_version }}/concord-cli-{{ site.concord_core_version }}-executable.jar"
+      url: "https://repo.maven.apache.org/maven2/com/walmartlabs/concord/concord-cli/{{ site.concord_core_version }}/concord-cli-{{ site.concord_core_version }}-executable.jar"
       dest: "{% raw %}{{ artifactDest }}{% endraw %}"
 ```
 
@@ -87,7 +87,7 @@ $ curl -i -u CONCORD_USER https://concord.example.com/api/v1/noderoster/artifact
 HTTP/1.1 200 OK
 ...
 [ {
-  "url" : "http://central.maven.org/maven2/com/walmartlabs/concord/concord-cli/{{ site.concord_core_version }}/concord-cli-{{ site.concord_core_version }}-executable.jar"
+  "url" : "https://repo.maven.apache.org/maven2/com/walmartlabs/concord/concord-cli/{{ site.concord_core_version }}/concord-cli-{{ site.concord_core_version }}-executable.jar"
 } ]
 ```
 

@@ -424,7 +424,7 @@ so concord and TFE use the same executable and bundled modules.
 ## GIT Modules
 
 Using [Generic GIT
-repositories](https://www.terraform.io/docs/modules/sources.html#generic-git-repository)
+repositories](https://developer.hashicorp.com/terraform/language/block/module#git-repository)
 as modules may require SSH key authentication. The plugin provides a couple ways
 to configure the keys.
 

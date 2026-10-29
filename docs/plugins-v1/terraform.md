@@ -59,7 +59,7 @@ The task requires the process to run as a part of a Concord project.
     provided by the user
   - `remote` - run on on Terraform Cloud or Terraform Enterprise
 - `debug` - boolean value, if `true` the plugin logs additional debug information
-- `dockerImage` - string value, optional [Docker image](#executing-inside-a-fdocker-container)
+- `dockerImage` - string value, optional [Docker image](#executing-inside-a-docker-container)
   to use for execution
 - `extraEnv` - key-value pairs, extra environment variables provided to
   the `terraform` process
@@ -418,7 +418,7 @@ so concord and TFE use the same executable and bundled modules.
 ## GIT Modules
 
 Using [Generic GIT
-repositories](https://www.terraform.io/docs/modules/sources.html#generic-git-repository)
+repositories](https://developer.hashicorp.com/terraform/language/block/module#git-repository)
 as modules may require SSH key authentication. The plugin provides a couple ways
 to configure the keys.
 

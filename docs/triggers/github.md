@@ -62,8 +62,8 @@ the current repository's name;
 current repository's branch;
 - `sender` - string or regex, optional, event sender;
 - `status` - string or regex, optional. For `pull_request` notifications
-possible values are `opened` or `closed`. A complete list of values can be
-found [here](https://developer.github.com/v3/activity/events/types/#pullrequestevent);
+examples of values are `opened` and `closed`. A complete list of actions can be
+found [here](https://docs.github.com/en/webhooks/webhook-events-and-payloads#pull_request);
 - `repositoryInfo` - a list of objects, information about the matching Concord
 repositories (see below);
 - `payload` - key-value, optional, github event payload.

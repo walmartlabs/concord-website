@@ -11,7 +11,7 @@ side-navigation: wmt/docs-navigation.html
 - [Development](#development)
   - [Complete Example](#complete-example)
   - [Creating Tasks](#creating-tasks)
-  - [Dry-run mode](dry-run-mode)
+  - [Dry-run mode](#dry-run-mode)
   - [Task Output](#task-output)
   - [Injectable Services](#injectable-services)
   - [Call Context](#call-context)
@@ -76,7 +76,7 @@ parameters. Use expressions for simple tasks that return data:
 
 ## Development
 
-We recommend running Concord using Java 17.
+We recommend running Concord using Java 25.
 
 ### Complete Example
 
@@ -533,5 +533,5 @@ example. It uses Maven to collect all `compile` dependencies of the task
 and creates a payload archive with the dependencies and the task's JAR.
 
 **Note:** It is important to use `provided` scope for the dependencies that are
-already included in the runtime. See [Creating Tasks](#create-task) section for
+already included in the runtime. See [Creating Tasks](#creating-tasks) section for
 the list of provided dependencies.

@@ -13,7 +13,7 @@ implement the Java Scripting API as defined by JSR-223. Language examples with a
 compliant runtimes are [JavaScript](#javascript), [Groovy](#groovy),
 [Python](#python), [JRuby](#ruby) and many others.
 
-Script engines must support Java 8.
+Script engines must be compatible with the Java version used to run the process.
 
 Script languages have to be identified by setting the language explicitly or can be
 automatically identified based on the file extension used. They can be stored
@@ -219,13 +219,8 @@ flows:
 ## JavaScript
 
 JavaScript support is built-in and doesn't require any external
-dependencies. It is based on the
-[Nashorn](https://en.wikipedia.org/wiki/Nashorn_(JavaScript_engine))
-engine and requires the identifier `js`.
-[Nashorn](https://wiki.openjdk.java.net/display/Nashorn/Main) is based on
-ECMAScript, adds
-[numerous extensions](https://wiki.openjdk.java.net/display/Nashorn/Nashorn+extensions).
-including e.g. a `print` command.
+dependencies. It uses [GraalJS](https://www.graalvm.org/javascript/docs/)
+and requires the identifier `js`.
 
 Using an inline script:
 
@@ -347,7 +342,7 @@ Python scripts can be executed using the [Jython](http://www.jython.org/)
 runtime. It requires the addition of a dependency to
 [jython-standalone](https://repo1.maven.org/maven2/org/python/jython-standalone)
 located in the Central Repository or on another server and the identifier
-`python`. Any version that supports JSR-223 and Java 8 should work.
+`python`. The engine must support JSR-223 and the Java version used to run the process.
 
 ```yaml
 configuration:
