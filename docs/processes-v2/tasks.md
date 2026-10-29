@@ -76,7 +76,7 @@ parameters. Use expressions for simple tasks that return data:
 
 ## Development
 
-We recommend running Concord using Java 17.
+We recommend running Concord using Java 25.
 
 ### Complete Example
 

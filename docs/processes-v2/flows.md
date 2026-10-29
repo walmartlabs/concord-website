@@ -775,7 +775,7 @@ Consider the following example:
 configuration:
   runtime: concord-v2
   dependencies:
-    - "mvn://com.walmartlabs.concord.plugins.basic:http-tasks:1.73.0"
+    - "mvn://com.walmartlabs.concord.plugins.basic:http-tasks:{{ site.concord_core_version }}"
 
 flows:
   default:

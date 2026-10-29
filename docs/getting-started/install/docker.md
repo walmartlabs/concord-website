@@ -52,14 +52,15 @@ components and run a simple process to test your Concord instance.
 
 ### Step 1. Start the Database
 
-Concord uses [PostgreSQL](https://www.postgresql.org/) version 10.4 or higher:
+Concord uses [PostgreSQL](https://www.postgresql.org/) version 10.4 or higher.
+This example uses PostgreSQL 14.21, matching Concord's Docker Compose configuration:
 
 ```bash
 docker run -d \
 -e 'POSTGRES_PASSWORD=q1' \
 -p 5432:5432 \
 --name db \
-library/postgres:10.4
+library/postgres:14.21-alpine
 ```
 
 Verify that the Database is running and ready to accept connections:
@@ -67,7 +68,7 @@ Verify that the Database is running and ready to accept connections:
 ```bash
 $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
-c3b438edc980        postgres:10.4       "docker-entrypoint.s…"   3 seconds ago       Up 1 second         5432/tcp            db
+c3b438edc980        postgres:14.21-alpine "docker-entrypoint.s…"   3 seconds ago       Up 1 second         5432/tcp            db
 
 $ psql -U postgres -h localhost -p 5432 postgres
 Password for user postgres: (enter "q1")
