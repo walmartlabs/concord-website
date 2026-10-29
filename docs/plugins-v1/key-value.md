@@ -57,7 +57,7 @@ In scripts:
     println("I've got ${id}")
 ```
 
-The `execution` variable is an alias for [context](https://concord.walmartlabs.com/docs/getting-started/processes.html#provided-variables)
+The `execution` variable is an alias for [context](../processes-v1/index.html#context)
 and automatically provided by the runtime for all supported script engines.
 Check out [the source code]({{ site.concord_source }}/blob/master/plugins/tasks/kv/src/main/java/com/walmartlabs/concord/plugins/kv/KvTask.java)
 for all available public methods.

@@ -59,7 +59,7 @@ The task requires the process to run as a part of a Concord project.
     provided by the user
   - `remote` - run on on Terraform Cloud or Terraform Enterprise
 - `debug` - boolean value, if `true` the plugin logs additional debug information
-- `dockerImage` - string value, optional [Docker image](#executing-inside-a-fdocker-container)
+- `dockerImage` - string value, optional [Docker image](#executing-inside-a-docker-container)
   to use for execution
 - `extraEnv` - key-value pairs, extra environment variables provided to
   the `terraform` process

@@ -287,10 +287,6 @@ flows:
   - log: "I'm going to run when my parent process times out"
 ```
 
-The way Concord handles timeouts is described in more details in
-the [error handling](./flows.html#handling-cancellations-failures-and-timeouts)
-section.
-
 #### Running Timeout
 
 You can specify the maximum amount of time the process can spend in

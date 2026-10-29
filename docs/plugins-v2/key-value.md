@@ -41,7 +41,8 @@ Using the OUT syntax of expressions:
 Using the context:
 
 ```yaml
-- ${context.setVariable("myVar", kv.getString("myKey"))}
+- set:
+    myVar: ${kv.getString("myKey")}
 - log: "I've got ${myVar}"
 ```
 
@@ -56,8 +57,8 @@ In scripts:
     println("I've got ${id}")
 ```
 
-The `execution` variable is an alias for [context](https://concord.walmartlabs.com/docs/getting-started/processes.html#provided-variables)
-and automatically provided by the runtime for all supported script engines.
+The runtime provides the `execution` variable to scripts for access to the
+[current process variables](../processes-v2/index.html#variables).
 Check out [the source code]({{ site.concord_source }}/blob/master/plugins/tasks/kv/src/main/java/com/walmartlabs/concord/plugins/kv/KvTask.java)
 for all available public methods.
 

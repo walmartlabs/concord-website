@@ -79,10 +79,10 @@ name is `myField`, then the value of the field will be stored in
 
 Common options:
 - `label`: the field's label, usually human-readable;
-- `value`: default value [expression](#expressions), evaluated when
+- `value`: default value [expression](../processes-v1/flows.html#expressions), evaluated when
 the form is called;
 - `allow`: allowed value(s). Can be a YAML literal, array, object or an
-[expression](#expressions).
+[expression](../processes-v1/flows.html#expressions).
 
 Supported types of fields and their options:
 - `string`: a string value
